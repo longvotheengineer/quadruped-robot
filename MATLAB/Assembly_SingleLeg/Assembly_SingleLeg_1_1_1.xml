@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<SimscapeMultibodyImportXML version="2.0" xmlns="urn:mathworks:SimscapeMultibody:import" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Created by="" on="07/27/25||18:30:43" using="Simscape Multibody Link Version 7.4" from="SolidWorks 30.0.0"/>
+<ModelUnits mass="kilogram" length="millimeter"/>
+<DataUnits mass="kilogram" length="meter"/>
+<RootAssembly name="Assem1" uid="Assem1" version="222">
+<AssemblyFile name="Assem1.SLDASM" type="SolidWorks Assembly"/>
+<InstanceTree>
+<Instance name="Link 1-1" uid="Link 1-1" entityUid="Link 1*:*Default">
+<Transform>
+<Rotation>0.99926885946212984 0 -0.03823279363654071 0 -1 0 -0.03823279363654071 0 -0.99926885946212984</Rotation>
+<Translation>0.040312460993698868 0.058611326400242816 -0.016658354888419699</Translation>
+</Transform>
+</Instance>
+<Instance name="Link 3-1" uid="Link 3-1" entityUid="Link 3*:*Default">
+<Transform>
+<Rotation>0.031988603693186721 0.020939812392061049 -0.99926885946212962 -0.54769244934397132 0.83667973617842628 3.356147824928879e-16 0.83606800570609197 0.54729200919197074 0.038232793636542847</Rotation>
+<Translation>0.14070433487165251 0.040538003835782294 -0.00048184120835837645</Translation>
+</Transform>
+</Instance>
+<Instance name="Base-1" uid="Base-1" entityUid="Base*:*Default">
+<Transform>
+<Rotation>-1 0 0 0 0 1 0 1 0</Rotation>
+<Translation>0.062949666034286214 0.029761326400242823 -0.017327428777059412</Translation>
+</Transform>
+</Instance>
+<Instance name="SG90 - Micro Servo 9g - Tower Pro.1-2" uid="SG90 - Micro Servo 9g - Tower Pro.1-2" entityUid="SG90 - Micro Servo 9g - Tower Pro.1*:*Peça">
+<Transform>
+<Rotation>0.03823279363654121 0.99926885946212973 0 -1.6653345369000189e-16 0 0.99999999999999989 0.99926885946212973 -0.03823279363654121 1.6641169433110262e-16</Rotation>
+<Translation>0.095122357935197022 0.056611326400242828 -0.018755423619384128</Translation>
+</Transform>
+</Instance>
+<Instance name="SG90 - Micro Servo 9g - Tower Pro.3-1" uid="SG90 - Micro Servo 9g - Tower Pro.3-1" entityUid="SG90 - Micro Servo 9g - Tower Pro.3*:*Peça">
+<Transform>
+<Rotation>0.99926885946212984 0 0.03823279363654071 0 1 0 -0.03823279363654071 0 0.99926885946212984</Rotation>
+<Translation>0.057799666034286219 0.05461132640024282 -0.017327428777059416</Translation>
+</Transform>
+</Instance>
+<Instance name="SG90 - Micro Servo 9g - Tower Pro.1-1" uid="SG90 - Micro Servo 9g - Tower Pro.1-1" grounded="true" entityUid="SG90 - Micro Servo 9g - Tower Pro.1*:*Peça">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.062949666034286214 0.034611326400242823 -0.017327428777059409</Translation>
+</Transform>
+</Instance>
+<Instance name="Link 2-1" uid="Link 2-1" entityUid="Link 2*:*Default">
+<Transform>
+<Rotation>0.032216665889690063 0.020587203506219096 -0.99926885946212973 -0.53846976765365961 0.84264482987971512 0 0.84202873808556344 0.53807607057811024 0.03823279363654191</Rotation>
+<Translation>0.11734485116252802 0.066034547334181876 -0.03951651541575199</Translation>
+</Transform>
+</Instance>
+<Instance name="SG90 - Micro Servo 9g - Tower Pro.3-2" uid="SG90 - Micro Servo 9g - Tower Pro.3-2" entityUid="SG90 - Micro Servo 9g - Tower Pro.3*:*Peça">
+<Transform>
+<Rotation>0.032216665889690375 0.99926885946212973 0.02058720350621893 -0.53846976765365917 2.1553939189011826e-16 0.84264482987971512 0.84202873808556333 -0.038232793636542077 0.53807607057811002</Rotation>
+<Translation>0.1149108362372112 0.056611326400242822 -0.024666314118345009</Translation>
+</Transform>
+</Instance>
+<Instance name="SG90 - Micro Servo 9g - Tower Pro.1-3" uid="SG90 - Micro Servo 9g - Tower Pro.1-3" entityUid="SG90 - Micro Servo 9g - Tower Pro.1*:*Peça">
+<Transform>
+<Rotation>0.03221666588969007 0.99926885946212973 0.020587203506219672 -0.5384697676536595 -5.5764050817733632e-16 0.84264482987971501 0.84202873808556322 -0.038232793636542223 0.53807607057811035</Rotation>
+<Translation>0.11888633579281742 0.037764884532364741 0.0046957282527855717</Translation>
+</Transform>
+</Instance>
+<Instance name="SG90 - Micro Servo 9g - Tower Pro.3-3" uid="SG90 - Micro Servo 9g - Tower Pro.3-3" entityUid="SG90 - Micro Servo 9g - Tower Pro.3*:*Peça">
+<Transform>
+<Rotation>0.031988603693186131 0.99926885946212973 0.020939812392061476 -0.54769244934397576 -8.206483850200508e-16 0.83667973617842362 0.83606800570608897 -0.038232793636542604 0.54729200919197496</Rotation>
+<Translation>0.13870579715272824 0.040538003835782266 -0.00040537562108508638</Translation>
+</Transform>
+</Instance>
+</InstanceTree>
+<Constraints>
+<Concentric name="Concentric1">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-1</Uid>
+</InstancePath>
+<Position>0.013899999999999996 0.007650000000000004 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Base-1</Uid>
+</InstancePath>
+<Position>-0.013899999999999996 0 0.010000000000000002</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric2">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-1</Uid>
+</InstancePath>
+<Position>-0.013899999999999996 0.0051500000000000018 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Base-1</Uid>
+</InstancePath>
+<Position>0.013900000000000003 0 0.010000000000000002</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident2">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-1</Uid>
+</InstancePath>
+<Position>-0.015200000000000005 0.0051500000000000018 0.0052500000000000012</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Base-1</Uid>
+</InstancePath>
+<Position>0 0 0.010000000000000002</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident5">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-1</Uid>
+</InstancePath>
+<Position>-0.014450000000000005 0 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Link 1-1</Uid>
+</InstancePath>
+<Position>0.0030500000000000041 0.0040000000000000036 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident6">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-1</Uid>
+</InstancePath>
+<Position>0.014449999999999998 0 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Link 1-1</Uid>
+</InstancePath>
+<Position>0.031950000000000006 0.0040000000000000036 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident7">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Link 1-1</Uid>
+</InstancePath>
+<Position>0.060000000000000026 0.0059999999999999984 0.012500000000000002</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-2</Uid>
+</InstancePath>
+<Position>-0.015200000000000003 0.0051500000000000018 0.0052499999999999977</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric6">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-2</Uid>
+</InstancePath>
+<Position>-0.0051500000000000001 0.019299999999999998 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-2</Uid>
+</InstancePath>
+<Position>0 -0.00099999999999998701 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident8">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-2</Uid>
+</InstancePath>
+<Position>-0.0051500000000000001 0.016199999999999992 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-2</Uid>
+</InstancePath>
+<Position>0 -0.0038000000000000117 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric8">
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>Link 2-1</Uid>
+</InstancePath>
+<Position>0.0030500000000000041 0 9.4786259075455015e-05</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-2</Uid>
+</InstancePath>
+<Position>-0.014449999999999998 0 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric9">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Link 2-1</Uid>
+</InstancePath>
+<Position>0.031950000000000027 0 -0.0050009999999999916</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-2</Uid>
+</InstancePath>
+<Position>0.014449999999999991 0 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident12">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Link 2-1</Uid>
+</InstancePath>
+<Position>0.017500000000000016 0 0.0030000000000000027</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-2</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric10">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Link 2-1</Uid>
+</InstancePath>
+<Position>0.038600000000000023 0 -0.0050010000000000054</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-3</Uid>
+</InstancePath>
+<Position>-0.013899999999999999 0.0051499999999999879 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric11">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Link 2-1</Uid>
+</InstancePath>
+<Position>0.066400000000000042 0 -0.0050009999999999916</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-3</Uid>
+</InstancePath>
+<Position>0.013900000000000003 -0.010550000000000004 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident13">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Link 2-1</Uid>
+</InstancePath>
+<Position>0 0 -0.0050000000000000044</Position>
+<Axis>0 0 -1.0000000000000002</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-3</Uid>
+</InstancePath>
+<Position>-0.015200000000000002 0.0051500000000000157 0.0052500000000000116</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric12">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-3</Uid>
+</InstancePath>
+<Position>-0.0051500000000000018 0.019299999999999984 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-3</Uid>
+</InstancePath>
+<Position>0 -0.0037999999999999701 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric13">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Link 3-1</Uid>
+</InstancePath>
+<Position>-0.014450000000000005 0 -9.9999999994548894e-07</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-3</Uid>
+</InstancePath>
+<Position>-0.014450000000000005 0 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric14">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Link 3-1</Uid>
+</InstancePath>
+<Position>0.014449999999999999 0 -1.0000000000010001e-06</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-3</Uid>
+</InstancePath>
+<Position>0.014449999999999999 0 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident15">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Link 3-1</Uid>
+</InstancePath>
+<Position>0 0 0.001999999999999974</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-3</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric15">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Link 1-1</Uid>
+</InstancePath>
+<Position>-1.0000000000010001e-06 0.0020000000000000018 0.013900000000000004</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-2</Uid>
+</InstancePath>
+<Position>-0.013899999999999997 -0.01054999999999999 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric16">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Link 1-1</Uid>
+</InstancePath>
+<Position>-1.0000000000010001e-06 0.0020000000000000018 -0.013900000000000003</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-2</Uid>
+</InstancePath>
+<Position>0.013899999999999997 -0.01054999999999999 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident16">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-1</Uid>
+</InstancePath>
+<Position>-0.0051500000000000018 0.016199999999999999 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-1</Uid>
+</InstancePath>
+<Position>0 -0.0037999999999999978 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric17">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-1</Uid>
+</InstancePath>
+<Position>-0.0051500000000000018 0.019299999999999998 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident18">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Link 1-1</Uid>
+</InstancePath>
+<Position>0.017500000000000002 0.0040000000000000036 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident19">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.1-3</Uid>
+</InstancePath>
+<Position>-0.0051500000000000018 0.016199999999999992 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>SG90 - Micro Servo 9g - Tower Pro.3-3</Uid>
+</InstancePath>
+<Position>0 -0.0037999999999999701 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+</Constraints>
+</RootAssembly>
+<Assemblies>
+</Assemblies>
+<Parts>
+<Part name="Base" uid="Base*:*Default" version="146">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="Base.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.0052791709171642366</Mass>
+<CenterOfMass>0 0 -0.001812405801996567</CenterOfMass>
+<Inertia>3.147566798096876e-07 9.300435104746318e-07 8.509936599003766e-07 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="Base_Default_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Link 1" uid="Link 1*:*Default" version="346">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="Link 1.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.0084041510025968692</Mass>
+<CenterOfMass>0.032544169298898314 0.0011297138372333699 1.3277372070415998e-08</CenterOfMass>
+<Inertia>4.678507838547098e-07 2.3366225405217789e-06 2.1880566042632811e-06 -2.1404912838686321e-12 2.6001737717008103e-12 -1.0093291691667009e-07</Inertia>
+</MassProperties>
+<GeometryFile name="Link 1_Default_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Link 2" uid="Link 2*:*Default" version="213">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="Link 2.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.004031109023136489</Mass>
+<CenterOfMass>0.04404127537763855 2.384383995566752e-08 0.0017704870435984051</CenterOfMass>
+<Inertia>1.3987894517841189e-07 1.5014537589927039e-06 1.5507896640237191e-06 -3.7662703885330251e-13 2.8250045226389576e-08 1.9995358202169281e-12</Inertia>
+</MassProperties>
+<GeometryFile name="Link 2_Default_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Link 3" uid="Link 3*:*Default" version="128">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="Link 3.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.0020569762490011594</Mass>
+<CenterOfMass>0.014205394526079333 -0.00010475397528121221 0.0018568347098428476</CenterOfMass>
+<Inertia>2.1444240968954093e-08 6.2628210942602014e-07 6.4232540120348061e-07 3.0848746931782049e-11 -4.1833125628381488e-09 5.7749340476824377e-09</Inertia>
+</MassProperties>
+<GeometryFile name="Link 3_Default_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="SG90 - Micro Servo 9g - Tower Pro.1" uid="SG90 - Micro Servo 9g - Tower Pro.1*:*Peça" version="963">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="SG90 - Micro Servo 9g - Tower Pro.1.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.0091584736665449133</Mass>
+<CenterOfMass>-0.00038667472342104365 0.0020269706530009379 -1.768660188605567e-07</CenterOfMass>
+<Inertia>5.8762972824204564e-07 5.3718087278484144e-07 9.0101256417469957e-07 -2.0455189876139541e-11 -8.9871629704903672e-12 4.3281936569420224e-08</Inertia>
+</MassProperties>
+<GeometryFile name="SG90 - Micro Servo 9g - Tower Pro.1_Peça_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="1" g="1" b="1" a="1"/>
+<Diffuse r="1" g="1" b="1" a="1"/>
+<Specular r="0.30000001192092896" g="0.30000001192092896" b="0.30000001192092896" a="1"/>
+<Emissive r="0.29999999999999999" g="0.29999999999999999" b="0.29999999999999999" a="1"/>
+<Shininess>0.5</Shininess>
+</VisualProperties>
+</Part>
+<Part name="SG90 - Micro Servo 9g - Tower Pro.3" uid="SG90 - Micro Servo 9g - Tower Pro.3*:*Peça" version="415">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="SG90 - Micro Servo 9g - Tower Pro.3.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.00029309801201905951</Mass>
+<CenterOfMass>0 -0.0011149592120342563 0</CenterOfMass>
+<Inertia>1.0458573733715824e-09 1.842625392165165e-08 1.7846190784482344e-08 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="SG90 - Micro Servo 9g - Tower Pro.3_Peça_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="1" g="1" b="1" a="1"/>
+<Diffuse r="1" g="1" b="1" a="1"/>
+<Specular r="0.30000001192092896" g="0.30000001192092896" b="0.30000001192092896" a="1"/>
+<Emissive r="0.29999999999999999" g="0.29999999999999999" b="0.29999999999999999" a="1"/>
+<Shininess>0.5</Shininess>
+</VisualProperties>
+</Part>
+</Parts>
+</SimscapeMultibodyImportXML>
