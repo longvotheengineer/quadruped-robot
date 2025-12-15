@@ -1,0 +1,74 @@
+# ============================
+# MATLAB / Simulink
+# ============================
+
+# MATLAB backup and autosave files
+*.asv
+*.m~
+*.bak
+
+# Simulink autosave files
+*.slx~
+*.mdl~
+*.autosave
+
+# MATLAB crash logs
+matlab_crash_dump.*
+java_stacktrace.*
+
+# Simulink cache folders
+slprj/
+sccprj/
+work/
+codegen/
+cachedArtifacts/
+
+# MATLAB Compiler / Generated files
+deploy/
+distrib/
+*.ctf
+*.prj    # MATLAB project files often generated, optional
+
+# MAT-files (OPTIONAL: comment out if you need to track them)
+*.mat
+
+# Figures & temp data
+*.fig
+*.mex*
+
+# Logs
+*.log
+
+# Local settings
+*.user.matlab
+*.user.*
+
+# ============================
+# Operating System Files
+# ============================
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+# ============================
+# IDE / Editor Files
+# ============================
+
+# VS Code
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# ============================
+# Git / Misc
+# ============================
+*.swp
+*.lock
