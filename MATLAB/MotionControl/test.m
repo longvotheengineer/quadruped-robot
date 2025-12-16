@@ -17,10 +17,9 @@ robot_config = struct('leg_type', "",...
 robot_config.robot_length = robot_length;
 robot_motion.gait = "ZERO";
 control_gait(robot_config, robot_motion, sim, clientID);
-%% --- Initiate LIDAR / streaming ---
+
 [res, measuredData] = sim.simxGetStringSignal(clientID, 'measuredDataAtThisTime', sim.simx_opmode_streaming);
 sim.simxAddStatusbarMessage(clientID,'Begin Simulation',sim.simx_opmode_oneshot);
-
 
 signals = {'GPS1','GPS2','GPS3','Accel1','Accel2','Accel3','Velocity1','Velocity2','Velocity3'};
 for i = 1:length(signals)

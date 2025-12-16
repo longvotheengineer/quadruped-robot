@@ -64,8 +64,7 @@ function control_gait(robot_config, robot_motion, sim, clientID)
                         [ret_xgps, x_gps] = sim.simxGetFloatSignal(clientID,'GPS1',sim.simx_opmode_buffer);
                         [ret_ygps, y_gps] = sim.simxGetFloatSignal(clientID,'GPS2',sim.simx_opmode_buffer);
                         [ret_zgps, z_gps] = sim.simxGetFloatSignal(clientID,'GPS3',sim.simx_opmode_buffer);
-                        disp(x_gps);
-                        
+                        disp(x_gps);                        
                     end
                     pause(step_time);   
                 end  
