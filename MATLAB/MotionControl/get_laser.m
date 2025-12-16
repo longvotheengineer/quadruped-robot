@@ -1,20 +1,13 @@
-function [theta,rho,h_laser] = get_laser()
-%Function to get laser scanner readings
-%Returns theta and rho values of laser scan.
-%Unit in millimeters and radians.
-
-    global vrep; 
-    global clientID;
-    
+function [theta,rho,h_laser] = get_laser(clientID, sim)
     scan_reduction = 5;
     
-    [result,data] = vrep.simxGetStringSignal(clientID,'measuredDataAtThisTime',vrep.simx_opmode_buffer);
+    [result,data] = sim.simxGetStringSignal(clientID,'measuredDataAtThisTime',sim.simx_opmode_buffer);
   
-    if (result ~= vrep.simx_return_ok)
+    if (result ~= sim.simx_return_ok)
         disp('Error in reading laser scan');
     end
     
-        laserData = vrep.simxUnpackFloats(data);
+        laserData = sim.simxUnpackFloats(data);
         laserDataX = laserData(1:2:end-1);
         laserDataY = laserData(2:2:end);
         theta = atan2(laserDataY, laserDataX);

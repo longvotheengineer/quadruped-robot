@@ -42,11 +42,7 @@ if (clientID>-1)
         % control_gait(robot_config, robot_motion, sim, clientID);
         robot_motion.gait = "FORWARD";
         robot_motion.step = 10;
-<<<<<<< HEAD
-        control_gait(robot_config, robot_motion, sim, clientID); 
-=======
         control_gait(robot_config, robot_motion, sim, clientID, sensor_data);  
->>>>>>> f6635f5a0ed17a74c1ef45567f7296e422ef21f3
         robot_motion.gait = "TURN_RIGHT";
         robot_motion.step = 90;
         control_gait(robot_config, robot_motion, sim, clientID, sensor_data);  
