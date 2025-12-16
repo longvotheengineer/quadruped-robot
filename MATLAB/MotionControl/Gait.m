@@ -126,11 +126,11 @@ function theta_i = Gait(robot_motion, robot_config)
 
             switch robot_config.leg_type
                 case "left-front"
-                    neutral_pos = [0.25, 0.15]; 
+                    neutral_pos = [ 0.25,  0.15]; 
                 case "left-behind"
-                    neutral_pos = [-0.25, 0.15];
+                    neutral_pos = [-0.25,  0.15];
                 case "right-front"
-                    neutral_pos = [0.25, -0.15];
+                    neutral_pos = [ 0.25, -0.15];
                 case "right-behind"
                     neutral_pos = [-0.25, -0.15];
                 otherwise
@@ -261,11 +261,11 @@ function theta_i = Gait(robot_motion, robot_config)
         waypoint_DA1 = linspace(pos_D(1), pos_A(1), waypoint_n_ground);
         waypoint_DA2 = linspace(pos_D(2), pos_A(2), waypoint_n_ground);
         waypoint_DA3 = linspace(pos_D(3), pos_A(3), waypoint_n_ground);
-        waypoint_AB = [waypoint_AB1' waypoint_AB2' waypoint_AB3'];
-        waypoint_BC = [waypoint_BC1' waypoint_BC2' waypoint_BC3'];
-        waypoint_CD = [waypoint_CD1' waypoint_CD2' waypoint_CD3'];
-        waypoint_DA = [waypoint_DA1' waypoint_DA2' waypoint_DA3'];
-        waypoint = [waypoint_AB; waypoint_BC; waypoint_CD; waypoint_DA];
+        waypoint_AB  = [waypoint_AB1' waypoint_AB2' waypoint_AB3'];
+        waypoint_BC  = [waypoint_BC1' waypoint_BC2' waypoint_BC3'];
+        waypoint_CD  = [waypoint_CD1' waypoint_CD2' waypoint_CD3'];
+        waypoint_DA  = [waypoint_DA1' waypoint_DA2' waypoint_DA3'];
+        waypoint     = [waypoint_AB; waypoint_BC; waypoint_CD; waypoint_DA];
 
         theta_i = zeros(size(waypoint, 1), 3);
         for i = 1 : size(waypoint, 1)
@@ -280,11 +280,11 @@ function theta_i = Gait(robot_motion, robot_config)
             case "left-front"
                 shift = round(size(waypoint, 1) * 0.00);  
             case "right-behind"
-                shift = round(size(waypoint, 1) * 0.25); 
+                shift = round(size(waypoint, 1) * 0.00); 
             case "left-behind"
                 shift = round(size(waypoint, 1) * 0.50); 
             case "right-front"
-                shift = round(size(waypoint, 1) * 0.75); 
+                shift = round(size(waypoint, 1) * 0.50); 
         end
 
         theta_i = circshift(theta_i, shift, 1);
