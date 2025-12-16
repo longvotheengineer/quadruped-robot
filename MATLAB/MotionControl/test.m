@@ -21,9 +21,12 @@ if (clientID>-1)
     disp('Connected to remote API server');        
     while true
         pause(3);
-        robot_motion.gait = "WALK";
+        % robot_motion.gait = "WALK";
+        % robot_motion.step = 10;
+        % control_gait(robot_config, robot_motion, sim, clientID);
+        robot_motion.gait = "FORWARD";
         robot_motion.step = 10;
-        control_gait(robot_config, robot_motion, sim, clientID);  
+        control_gait(robot_config, robot_motion, sim, clientID); 
         robot_motion.gait = "TURN_RIGHT";
         robot_motion.step = 90;
         control_gait(robot_config, robot_motion, sim, clientID);  
@@ -37,7 +40,7 @@ if (clientID>-1)
         robot_motion.step = 10;
         control_gait(robot_config, robot_motion, sim, clientID);  
         pause(3);
-    end
+    end 
 else
     disp('Failed connecting to remote API server');
 end
