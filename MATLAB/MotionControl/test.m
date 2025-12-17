@@ -5,6 +5,15 @@ sim.simxFinish(-1); % just in case, close all opened connections
 clientID=sim.simxStart('127.0.0.1',19999,true,true,5000,5);
 sim.simxSynchronous(clientID, true);
 
+maxRange = 10; % m
+slamObj = lidarSLAM(20, maxRange); % 20 cells/m
+
+figMap = figure('Name','Bản đồ SLAM và Vị trí');
+axMap = axes(figMap);
+hold(axMap,'on');
+axis(axMap,'equal');
+grid(axMap,'on');
+xlabel(axMap,'x (m)'); ylabel(axMap,'y (m)');
 
 robot_length = struct('base_length', 0.5,...
                 'base_width', 0.2,...
@@ -16,13 +25,19 @@ robot_config = struct('leg_type', "",...
                       'joint_angle', "");
 robot_config.robot_length = robot_length;
 robot_motion.gait = "ZERO";
-control_gait(robot_config, robot_motion, sim, clientID);
+control_gait(robot_config, robot_motion, sim, clientID,slamObj, axMap);
 
 sensor_data = struct(...
     'gps_x', nan, 'gps_y', nan, 'gps_z', nan, ...
     'ax', nan, 'ay', nan, 'az', nan, ...
     'vx', nan, 'vy', nan, 'vz', nan, ...
     'theta_scan', [], 'rho', [] ...
+);
+
+state = struct(...
+    'first_pose', [], ...  
+    'path_x', [], ...      
+    'path_y', [] ...       
 );
 
 [res, measuredData] = sim.simxGetStringSignal(clientID, 'measuredDataAtThisTime', sim.simx_opmode_streaming);
@@ -33,25 +48,28 @@ for i = 1:length(signals)
     sim.simxGetFloatSignal(clientID, signals{i}, sim.simx_opmode_streaming);
 end
 
+
+
+
 if (clientID>-1)
     disp('Connected to remote API server');  
     while true
         pause(3);
         robot_motion.gait = "WALK";
-        robot_motion.step = 10;
-        control_gait(robot_config, robot_motion, sim, clientID, sensor_data);  
+        robot_motion.step = 20;
+        control_gait(robot_config, robot_motion, sim, clientID, sensor_data,slamObj, axMap, state);  
         robot_motion.gait = "TURN_RIGHT";
         robot_motion.step = 90;
-        control_gait(robot_config, robot_motion, sim, clientID, sensor_data);  
+        control_gait(robot_config, robot_motion, sim, clientID, sensor_data,slamObj, axMap, state);  
         robot_motion.gait = "FORWARD";
         robot_motion.step = 10;
-        control_gait(robot_config, robot_motion, sim, clientID, sensor_data);  
+        control_gait(robot_config, robot_motion, sim, clientID, sensor_data,slamObj, axMap, state);  
         robot_motion.gait = "TURN_RIGHT";
         robot_motion.step = 90;
-        control_gait(robot_config, robot_motion, sim, clientID, sensor_data);
+        control_gait(robot_config, robot_motion, sim, clientID, sensor_data,slamObj, axMap, state);
         robot_motion.gait = "FORWARD";
         robot_motion.step = 10;
-        control_gait(robot_config, robot_motion, sim, clientID, sensor_data);  
+        control_gait(robot_config, robot_motion, sim, clientID, sensor_data,slamObj, axMap, state);  
         pause(3);
     end
 else

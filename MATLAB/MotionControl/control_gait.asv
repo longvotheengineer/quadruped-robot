@@ -1,4 +1,4 @@
-function control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap,state)
+function control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap)
     step_time_zero = 0.001;
     step_time      = 0.01;
    
@@ -70,7 +70,7 @@ function control_gait(robot_config, robot_motion, sim, clientID, sensor_data, sl
 
                     end
                     update_cnt = update_cnt + 1;
-                    [state, sensor_data] = process_map(clientID, sim, sensor_data, slamObj, axMap, update_cnt, state);
+                    [state, sensor_data] = process_slam_viz(clientID, sim, sensor_data, slamObj, axMap, update_cnt, viz_state);
                     pause(step_time);   
                 end  
                 gait_step = gait_step + 1;
