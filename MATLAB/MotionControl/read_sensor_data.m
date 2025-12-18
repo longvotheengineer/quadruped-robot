@@ -10,5 +10,6 @@ function sensor_data= read_sensor_data(clientID, sim, sensor_data)
     [~, sensor_data.vx] = sim.simxGetFloatSignal(clientID,'Velocity1',sim.simx_opmode_buffer);
     [~, sensor_data.vy] = sim.simxGetFloatSignal(clientID,'Velocity2',sim.simx_opmode_buffer);
     [~, sensor_data.vz] = sim.simxGetFloatSignal(clientID,'Velocity3',sim.simx_opmode_buffer);
-    [sensor_data.theta_scan, sensor_data.rho, ~] = get_laser(clientID, sim); 
+
+    [sensor_data.theta_scan, sensor_data.rho] = get_laser(clientID, sim);     
 end

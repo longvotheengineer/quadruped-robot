@@ -1,7 +1,13 @@
-function control_gait(robot_config, robot_motion, sim, clientID, sensor_data)
+function control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state)
     step_time_zero = 0.001;
     step_time      = 0.01;
+   
+    persistent update_cnt
+    if isempty(update_cnt)
+        update_cnt = 0;
+    end
     
+
     % joint handle
     h_LF = [0, 0, 0];
     h_LB = [0, 0, 0];
@@ -57,6 +63,8 @@ function control_gait(robot_config, robot_motion, sim, clientID, sensor_data)
                         % sensor_data = read_sensor_data(clientID, sim, sensor_data);                        
                         % disp( sensor_data.ax);
                     end
+                    update_cnt = update_cnt + 1;
+                    [state, sensor_data] = process_map(clientID, sim, sensor_data, slamObj, axMap, update_cnt, state);
                     pause(step_time);   
                 end  
                 gait_step = gait_step + 1;
