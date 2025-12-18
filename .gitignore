@@ -1,0 +1,108 @@
+# ==========================
+# MATLAB & Simulink
+# ==========================
+# Autosave and backup files (Crucial for keeping history clean)
+*.asv
+*.autosave
+*.bak
+
+# Simulink project and cache directories
+slprj/
+*_slprj/
+sfprj/
+*.slxc
+*.sldi
+
+# MEX files (Compiled MATLAB binaries)
+*.mex*
+*.mexw64
+*.mexmaci64
+*.mexa64
+
+# MATLAB Profiler and memory files
+*.mat
+# NOTE: If you need to commit specific small .mat configuration files, 
+# you can force add them with: git add -f filename.mat
+
+# ==========================
+# CoppeliaSim (V-REP)
+# ==========================
+# Backup scenes and temp files
+*.ttt.backup
+*.ttt.tmp
+
+# ==========================
+# ROS & ROS 2
+# ==========================
+# Build and Install directories
+build/
+devel/
+install/
+log/
+iso/
+
+# Catkin / Colcon custom files
+.catkin_workspace
+.colcon_ignore
+COLCON_IGNORE
+
+# Bag files (Large recordings - usually shouldn't be on Git)
+*.bag
+*.mcap
+
+# ==========================
+# Python
+# ==========================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+env/
+.env
+
+# ==========================
+# C / C++
+# ==========================
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (dynamic libraries)
+# NOTE: If your CoppeliaSim Remote API requires specific DLLs/SOs 
+# in the repo, un-comment the lines below or force add them.
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# ==========================
+# Editor / IDE Directories
+# ==========================
+# VS Code
+.vscode/
+*.code-workspace
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
