@@ -1,13 +1,6 @@
-function control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state)
+function control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state,akfObj)
     step_time_zero = 0.001;
     step_time      = 0.01;
-   
-    persistent update_cnt
-    if isempty(update_cnt)
-        update_cnt = 0;
-    end
-    
-
     % joint handle
     h_LF = [0, 0, 0];
     h_LB = [0, 0, 0];
@@ -28,9 +21,9 @@ function control_gait(robot_config, robot_motion, sim, clientID, sensor_data, sl
     
     [theta_i_LF, theta_i_LB, theta_i_RF, theta_i_RB, theta_i] = change_gait(robot_config, robot_motion);
 
-    if ismember(robot_motion.gait, ["TURN_LEFT", "TURN_RIGHT"])
-        robot_motion.step = round(robot_motion.step / 25);
-    end
+    % if ismember(robot_motion.gait, ["TURN_LEFT", "TURN_RIGHT"])
+    %     robot_motion.step = round(robot_motion.step / 25);
+    % end
     switch robot_motion.gait
         case "ZERO"  
             for j = 1 : size(theta_i{1},1)
@@ -43,7 +36,7 @@ function control_gait(robot_config, robot_motion, sim, clientID, sensor_data, sl
                     sim.simxSetJointTargetPosition(clientID, h_RB(i), joint_pos_right_behind(i), sim.simx_opmode_streaming);       
                     sim.simxSetJointTargetPosition(clientID, h_LF(i), joint_pos_left_front  (i), sim.simx_opmode_streaming);
                     sim.simxSetJointTargetPosition(clientID, h_RF(i), joint_pos_right_front (i), sim.simx_opmode_streaming);          
-                    pause(step_time_zero);     
+                    pause(step_time_zero); 
                 end
             end  
         otherwise
@@ -59,16 +52,12 @@ function control_gait(robot_config, robot_motion, sim, clientID, sensor_data, sl
                         sim.simxSetJointTargetPosition(clientID, h_RB(i), joint_pos_right_behind(i), sim.simx_opmode_streaming);
                         sim.simxSetJointTargetPosition(clientID, h_LB(i), joint_pos_left_behind (i), sim.simx_opmode_streaming);
                         sim.simxSetJointTargetPosition(clientID, h_RF(i), joint_pos_right_front (i), sim.simx_opmode_streaming);
-
-                        % sensor_data = read_sensor_data(clientID, sim, sensor_data);                        
-                        % disp( sensor_data.ax);
                     end
-                    update_cnt = update_cnt + 1;
-                    [state, sensor_data] = process_map(clientID, sim, sensor_data, slamObj, axMap, update_cnt, state);
                     pause(step_time);   
-                end  
+                end
                 gait_step = gait_step + 1;
             end
+            
     end   
 end
 

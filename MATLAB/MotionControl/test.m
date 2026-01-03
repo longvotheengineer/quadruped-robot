@@ -13,16 +13,16 @@ robot_length = struct('base_length', 0.50, ...
 robot_config = struct('leg_type',    "", ...
                       'joint_angle', "");
 robot_config.robot_length = robot_length;
-
 sensor_data  = struct('gps_x', nan, 'gps_y', nan, 'gps_z', nan, ...
                       'ax',    nan, 'ay',    nan, 'az',    nan, ...
                       'vx',    nan, 'vy',    nan, 'vz',    nan, ...
                       'theta_scan', [], 'rho',    []);
 state        = struct('first_pose', [], ...  
-                      'gps_x',      [], 'gps_y',  [], ...       
+                      'gps_x',      [], 'gps_y',  [], ...
+                      'akf_x',      [0], 'akf_y',  [0], ...       
                       'slam_x',     [], 'slam_y', []);
 
-maxRange = 10; 
+maxRange = 8; 
 slamObj = lidarSLAM(20, maxRange);
 
 figMap = figure('Name','Bản đồ SLAM và Vị trí');
@@ -32,7 +32,6 @@ axis(axMap,'equal');
 grid(axMap,'on');
 xlabel(axMap,'x (m)'); ylabel(axMap,'y (m)');
 
-<<<<<<< HEAD
 robot_length = struct('base_length', 0.5,...
                 'base_width', 0.2,...
                 'L1', 0.05,...
@@ -59,8 +58,11 @@ state = struct(...
     'ekf_x', [], 'ekf_y', [] ...
 );
 
-=======
->>>>>>> develop
+initial_pose.x = 0; 
+initial_pose.y = 0;
+initial_pose.theta = 0;
+akfObj = AKF(initial_pose, 300); %N_max = 300
+
 [res, measuredData] = sim.simxGetStringSignal(clientID, 'measuredDataAtThisTime', sim.simx_opmode_streaming);
 sim.simxAddStatusbarMessage(clientID,'Begin Simulation',sim.simx_opmode_oneshot);
 
@@ -76,22 +78,39 @@ control_gait(robot_config, robot_motion, sim, clientID);
 if (clientID>-1)
     disp('Connected to remote API server');  
     while true
+        % pause(3);
+        % robot_motion.gait = "WALK";
+        % robot_motion.step = 10;
+        % control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state,akfObj);  
+        % robot_motion.gait = "FORWARD";
+        % robot_motion.step = 10;
+        % control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state,akfObj); 
+        % robot_motion.gait = "TURN_RIGHT";
+        % robot_motion.step = 90;
+        % control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state,akfObj);  
+        % robot_motion.gait = "FORWARD";
+        % robot_motion.step = 10;
+        % control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state,akfObj);  
+        % robot_motion.gait = "TURN_RIGHT";
+        % robot_motion.step = 90;
+        % control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state,akfObj);
+        % robot_motion.gait = "FORWARD";
+        % robot_motion.step = 10;
+        % control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state,akfObj);  
+        % pause(3);
         pause(3);
-        robot_motion.gait = "WALK";
-        robot_motion.step = 10;
-        control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state);  
-        robot_motion.gait = "TURN_RIGHT";
-        robot_motion.step = 90;
-        control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state);  
         robot_motion.gait = "FORWARD";
-        robot_motion.step = 10;
-        control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state);  
+        target_steps = 10; 
+        state = control(robot_config, robot_motion,sim, clientID, target_steps, sensor_data, slamObj, axMap, state, akfObj);
         robot_motion.gait = "TURN_RIGHT";
-        robot_motion.step = 90;
-        control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state);
+        target_steps = 2;
+        control(robot_config, robot_motion, sim, clientID, target_steps, sensor_data, slamObj, axMap, state, akfObj);
         robot_motion.gait = "FORWARD";
-        robot_motion.step = 10;
-        control_gait(robot_config, robot_motion, sim, clientID, sensor_data, slamObj, axMap, state);  
+        target_steps = 10;
+        state = control(robot_config, robot_motion, sim, clientID, target_steps, sensor_data, slamObj, axMap, state, akfObj);
+        robot_motion.gait = "TURN_RIGHT";
+        target_steps = 2;
+        control(robot_config, robot_motion, sim, clientID, target_steps, sensor_data, slamObj, axMap, state, akfObj);
         pause(3);
     end 
 else

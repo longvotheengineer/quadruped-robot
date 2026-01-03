@@ -156,12 +156,10 @@ while ishandle(fig) && vrep.simxGetConnectionId(clientID) > -1
         if ret_vz ~= 0, gz = NaN; end
 
         % --- Get LIDAR scan ---
-        [theta_scan, rho, ~] = get_laser(); % rho in mm
+        [theta_scan, rho] = get_laser(); % rho in mm
         if ~isempty(rho)
-            rho_m = rho / 1000;
-            scan = lidarScan(rho_m, theta_scan);
             try
-                addScan(slamObj, scan);
+                addScan(slamObj, lidarScan((rho / 1000), theta_scan));
             catch
                 % nếu addScan fail thì bỏ qua
             end

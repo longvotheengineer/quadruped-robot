@@ -1,4 +1,4 @@
-function [theta,rho,h_laser] = get_laser()
+function [theta,rho] = get_laser()
 %Function to get laser scanner readings
 %Returns theta and rho values of laser scan.
 %Unit in millimeters and radians.
@@ -27,7 +27,7 @@ function [theta,rho,h_laser] = get_laser()
         rho = rho(1:scan_reduction:end)*1000;
     
         [X,Y] = pol2cart(theta',rho');
-        h_laser = scatter(X,Y,10,'filled','blue'); 
+        %h_laser = scatter(X,Y,10,'filled','blue'); 
            
 end
 
