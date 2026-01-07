@@ -24,32 +24,11 @@ robot        = struct('config', robot_config,  ...
                       'motion', robot_motion);
 
 robot.motion.gait = "ZERO";
-control_gait(robot, simClient);
+controlGait(robot, simClient);
 if (clientID>-1)
     disp('Connected to remote API server');  
     while true
-        % pause(3);
-        % robot.motion.gait = "WALK";
-        % robot.motion.step = 10;
-        % control_gait(robot, simClient);  
-        robot.motion.gait = "FORWARD";
-        robot.motion.step = 10;
-        control_gait(robot, simClient); 
-        robot.motion.gait = "TURN_RIGHT";
-        robot.motion.step = 2;
-        control_gait(robot, simClient);  
-        robot.motion.gait = "FORWARD";
-        robot.motion.step = 10;
-        control_gait(robot, simClient);  
-        robot.motion.gait = "TURN_RIGHT";
-        robot.motion.step = 5;
-        control_gait(robot, simClient);
-        robot.motion.gait = "FORWARD";
-        robot.motion.step = 20;
-        control_gait(robot, simClient);  
-        robot.motion.gait = "TURN_LEFT";
-        robot.motion.step = 3;
-        control_gait(robot, simClient);
+        controlPath(robot, simClient);        
     end 
 else
     disp('Failed connecting to remote API server');

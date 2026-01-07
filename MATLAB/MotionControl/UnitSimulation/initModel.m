@@ -1,4 +1,4 @@
-function leg_model = InitModel(robot_config)
+function leg_model = initModel(robot_config)
     L  = robot_config.robot_length.base_length;
     W  = robot_config.robot_length.base_width;
     L1 = robot_config.robot_length.L1;
@@ -7,13 +7,13 @@ function leg_model = InitModel(robot_config)
     
     switch robot_config.leg_type
         case {"left-front", "left-behind"}
-            link1 = Link([0 0 0 0], 'modified');
-            link2 = Link([0 L1 0 pi/2], 'modified');
-            link3 = Link([0 0 L2 0], 'modified');
+            link1 = Link([0  0  0     0], 'modified');
+            link2 = Link([0 L1  0  pi/2], 'modified');
+            link3 = Link([0  0 L2     0], 'modified');
         case {"right-front", "right-behind"}
-            link1 = Link([0 0 0 0], 'modified');
-            link2 = Link([0 L1 0 -pi/2], 'modified');
-            link3 = Link([0 0 L2 0], 'modified');
+            link1 = Link([0  0  0     0], 'modified');
+            link2 = Link([0 L1  0 -pi/2], 'modified');
+            link3 = Link([0  0 L2     0], 'modified');
         otherwise
     end
         

@@ -1,4 +1,4 @@
-function control_gait(robot, simClient)
+function controlGait(robot, simClient)
     clientID = simClient.clientID;
     sim      = simClient.sim;
 
@@ -30,10 +30,11 @@ function control_gait(robot, simClient)
     switch robot.motion.gait
         case "ZERO"  
             for j = 1 : size(theta_i{1},1)
-                joint_pos_left_front   = [theta_i_LF(j,1), theta_i_LF(j,2), theta_i_LF(j,3)]; 
-                joint_pos_right_behind = [theta_i_RB(j,1), theta_i_RB(j,2), theta_i_RB(j,3)];
-                joint_pos_left_behind  = [theta_i_LB(j,1), theta_i_LB(j,2), theta_i_LB(j,3)];
-                joint_pos_right_front  = [theta_i_RF(j,1), theta_i_RF(j,2), theta_i_RF(j,3)]; 
+                % Wrap angles to [-pi, pi] for CoppeliaSim
+                joint_pos_left_front   = wrapToPi([theta_i_LF(j,1), theta_i_LF(j,2), theta_i_LF(j,3)]); 
+                joint_pos_right_behind = wrapToPi([theta_i_RB(j,1), theta_i_RB(j,2), theta_i_RB(j,3)]);
+                joint_pos_left_behind  = wrapToPi([theta_i_LB(j,1), theta_i_LB(j,2), theta_i_LB(j,3)]);
+                joint_pos_right_front  = wrapToPi([theta_i_RF(j,1), theta_i_RF(j,2), theta_i_RF(j,3)]); 
                 for i = 1 : 3    
                     sim.simxSetJointTargetPosition(clientID, h_LB(i), joint_pos_left_behind (i), sim.simx_opmode_streaming);
                     sim.simxSetJointTargetPosition(clientID, h_RB(i), joint_pos_right_behind(i), sim.simx_opmode_streaming);       
@@ -67,35 +68,35 @@ function [theta_i_LF, theta_i_LB, theta_i_RF, theta_i_RB, theta_i] = change_gait
     switch robot_motion.gait
         case "ZERO"           
             robot_config.leg_type = "left-front";
-            theta_i = Gait(robot_motion, robot_config);
+            theta_i = Gait(robot_config, robot_motion);
             theta_i_LF = theta_i{1};
             
             robot_config.leg_type = "left-behind";
-            theta_i = Gait(robot_motion, robot_config);
+            theta_i = Gait(robot_config, robot_motion);
             theta_i_LB = theta_i{2};
             
             robot_config.leg_type = "right-front";
-            theta_i = Gait(robot_motion, robot_config);
+            theta_i = Gait(robot_config, robot_motion);
             theta_i_RF = theta_i{3};
             
             robot_config.leg_type = "right-behind";
-            theta_i = Gait(robot_motion, robot_config);
+            theta_i = Gait(robot_config, robot_motion);
             theta_i_RB = theta_i{4};
         otherwise
             robot_config.leg_type = "left-front";
-            theta_i = Gait(robot_motion, robot_config);
+            theta_i = Gait(robot_config, robot_motion);
             theta_i_LF = theta_i;
             
             robot_config.leg_type = "left-behind";
-            theta_i = Gait(robot_motion, robot_config);
+            theta_i = Gait(robot_config, robot_motion);
             theta_i_LB = theta_i;
             
             robot_config.leg_type = "right-front";
-            theta_i = Gait(robot_motion, robot_config);
+            theta_i = Gait(robot_config, robot_motion);
             theta_i_RF = theta_i;
             
             robot_config.leg_type = "right-behind";
-            theta_i = Gait(robot_motion, robot_config);
+            theta_i = Gait(robot_config, robot_motion);
             theta_i_RB = theta_i;
     end
 end

@@ -1,5 +1,5 @@
-function theta_i = TrajectoryPlanning(robot_config)   
-    leg = InitModel(robot_config);
+function theta_i = testControlGait(robot_config)   
+    leg = initModel(robot_config);
     switch robot_config.leg_type
         case "left-front"
             % pos_A = [0.25, 0.15, -0.24];

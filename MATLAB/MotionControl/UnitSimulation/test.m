@@ -17,7 +17,7 @@ robot_config.leg_type = "left-front";
 
 % WorkSpace(robot_config);  // left-front leg workspace
 
-leg = InitModel(robot_config);
+leg = initModel(robot_config);
 leg.plot([0, 0, 0]);
 
-TrajectoryPlanning(robot_config);
+testControlGait(robot_config);
