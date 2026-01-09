@@ -2,7 +2,7 @@ function theta_i = Gait(robot_config, robot_motion)
     CONTROL_VELOCITY = true;
     waypoint_n       = struct('swing',  200, ...
                               'ground', 300, ...
-                              'zero',   500);
+                              'zero',   2000);
     
     switch robot_motion.gait
         case "ZERO"
@@ -10,40 +10,56 @@ function theta_i = Gait(robot_config, robot_motion)
             switch robot_config.leg_type
                 case "left-front"
                     pos_A = [x, y, z];
-                    pos_B = [0.25, 0.15, -0.24];
+                    pos_B = [ 0.25,  0.15, -0.24];
                 case "left-behind"
                     pos_A = [x, y, z];
-                    pos_B = [-0.25, 0.15, -0.24];
+                    pos_B = [-0.25,  0.15, -0.24];
                 case "right-front"
                     pos_A = [x, y, z];
-                    pos_B = [0.25, -0.15, -0.24];
+                    pos_B = [ 0.25, -0.15, -0.24];
                 case "right-behind"
                     pos_A = [x, y, z];
                     pos_B = [-0.25, -0.15, -0.24];
                 otherwise
-            end
+            end        
         case "FORWARD"
             switch robot_config.leg_type
                 case "left-front"
-                    pos_A = [0.25, 0.15, -0.19];
-                    pos_B = [0.25, 0.15, -0.15];
-                    pos_C = [0.29, 0.15, -0.15];
-                    pos_D = [0.29, 0.15, -0.19];
+                    % pos_A = [0.25, 0.15, -0.19];
+                    % pos_B = [0.25, 0.15, -0.15];
+                    % pos_C = [0.29, 0.15, -0.15];
+                    % pos_D = [0.29, 0.15, -0.19];
+                    pos_D = [0.29, 0.15, -0.24];
+                    pos_C = [0.29, 0.15, -0.20];
+                    pos_B = [0.25, 0.15, -0.20];
+                    pos_A = [0.25, 0.15, -0.24];
                 case "left-behind"
-                    pos_A = [-0.25, 0.15, -0.19];
-                    pos_B = [-0.25, 0.15, -0.15];
-                    pos_C = [-0.21, 0.15, -0.15];
-                    pos_D = [-0.21, 0.15, -0.19];
+                    % pos_A = [-0.25, 0.15, -0.19];
+                    % pos_B = [-0.25, 0.15, -0.15];
+                    % pos_C = [-0.21, 0.15, -0.15];
+                    % pos_D = [-0.21, 0.15, -0.19];
+                    pos_A = [-0.25, 0.15, -0.24];
+                    pos_B = [-0.25, 0.15, -0.20];
+                    pos_C = [-0.21, 0.15, -0.20];
+                    pos_D = [-0.21, 0.15, -0.24];
                 case "right-front"
-                    pos_A = [0.25, -0.15, -0.19];
-                    pos_B = [0.25, -0.15, -0.15];
-                    pos_C = [0.29, -0.15, -0.15];
-                    pos_D = [0.29, -0.15, -0.19];
+                    % pos_A = [0.25, -0.15, -0.19];
+                    % pos_B = [0.25, -0.15, -0.15];
+                    % pos_C = [0.29, -0.15, -0.15];
+                    % pos_D = [0.29, -0.15, -0.19];
+                    pos_A = [0.25, -0.15, -0.24];
+                    pos_B = [0.25, -0.15, -0.20];
+                    pos_C = [0.29, -0.15, -0.20];
+                    pos_D = [0.29, -0.15, -0.24];
                 case "right-behind"
-                    pos_A = [-0.25, -0.15, -0.19];
-                    pos_B = [-0.25, -0.15, -0.15];
-                    pos_C = [-0.21, -0.15, -0.15];
-                    pos_D = [-0.21, -0.15, -0.19];  
+                    % pos_A = [-0.25, -0.15, -0.19];
+                    % pos_B = [-0.25, -0.15, -0.15];
+                    % pos_C = [-0.21, -0.15, -0.15];
+                    % pos_D = [-0.21, -0.15, -0.19];  
+                    pos_A = [-0.25, -0.15, -0.24];
+                    pos_B = [-0.25, -0.15, -0.20];
+                    pos_C = [-0.21, -0.15, -0.20];
+                    pos_D = [-0.21, -0.15, -0.24];
                 otherwise
             end    
         case "BACKWARD"
@@ -170,10 +186,10 @@ function theta_i = Gait(robot_config, robot_motion)
         theta_iA{2} = [0, 0, 0];
         theta_iA{3} = [0, 0, 0];
         theta_iA{4} = [0, 0, 0];
-        theta_iB{1} = [0,  pi*1.2, -pi/3];
-        theta_iB{2} = [0,  pi*1.2, -pi/3];
-        theta_iB{3} = [0, -pi*1.2,  pi/3];
-        theta_iB{4} = [0, -pi*1.2,  pi/3];
+        theta_iB{1} = [0,  pi*1.1, -pi/3];
+        theta_iB{2} = [0, -pi*1.1,  pi/3];
+        theta_iB{3} = [0, -pi*1.1,  pi/3];
+        theta_iB{4} = [0,  pi*1.1, -pi/3];
         waypoint_jointspace_AB1{1} = linspace(theta_iA{1}(1), theta_iB{1}(1), waypoint_n.zero);
         waypoint_jointspace_AB1{2} = linspace(theta_iA{2}(1), theta_iB{2}(1), waypoint_n.zero);
         waypoint_jointspace_AB1{3} = linspace(theta_iA{3}(1), theta_iB{3}(1), waypoint_n.zero);

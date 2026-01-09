@@ -25,7 +25,7 @@ function [theta1, theta2, theta3] = InverseKinematics(x, y, z, robot_config)
             y       = W/2 - y_temp;
             z       = L/2 + x_temp;
             theta1  = atan2(-x, y) + atan2(-sqrt(x^2 + y^2 - L1^2), -L1);
-            sign_s3 = -1;
+            sign_s3 = 1;
             sign_b2 = 1;
         case "right-front"
             x       = z_temp;
@@ -39,7 +39,7 @@ function [theta1, theta2, theta3] = InverseKinematics(x, y, z, robot_config)
             y       = -W/2 - y_temp;
             z       = L/2 + x_temp;
             theta1  = atan2(-x, y) + atan2(-sqrt(x^2 + y^2 - L1^2), L1);
-            sign_s3 = 1;
+            sign_s3 = -1;
             sign_b2 = -1;
         otherwise
     end

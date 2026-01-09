@@ -16,6 +16,7 @@ function setup(action)
         'MotionControl'
         'RemoteAPI'
         'UnitSimulation'
+        'Navigation'
     };
     
     for i = 1:length(subfolders)
