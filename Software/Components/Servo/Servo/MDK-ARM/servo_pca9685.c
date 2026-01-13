@@ -1,5 +1,5 @@
 
-#include "temp.h"
+#include "servo_pca9685.h"
 
 #define PCA9685_ADDRESS       0x80 
 #define PCA9685_MODE1         0x0
@@ -70,7 +70,7 @@ static void PCA9685_SetServoAngle(ServoConfig_t *servo, float Angle)
 {
     if (Angle < 0) Angle = 0;
     if (Angle > 180) Angle = 180;
-    uint16_t value = (uint16_t)((Angle / 180.0 * ((*servo).value_180 - (*servo).value_0)) + servo->value_0);
+    uint16_t value = (uint16_t)((Angle / 180.0f * ((*servo).value_180 - (*servo).value_0)) + (*servo).value_0);
 
     PCA9685_SetPWM((*servo).channel, 0, value);
 }
@@ -84,6 +84,11 @@ void ServoPCA9685_Control(void)
         PCA9685_SetServoAngle(&servo[0], 0);  
         PCA9685_SetServoAngle(&servo[1], 0);  
         PCA9685_SetServoAngle(&servo[2], 0); 
+        osDelay(1000);
+			
+				PCA9685_SetServoAngle(&servo[0], 90);  
+        PCA9685_SetServoAngle(&servo[1], 90);  
+        PCA9685_SetServoAngle(&servo[2], 90); 
         osDelay(1000);
 			
 			  PCA9685_SetServoAngle(&servo[0], 180);  

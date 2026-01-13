@@ -1,4 +1,4 @@
-#include "tasks_manager.h"
+#include "servo_timer.h"
 static void Servo_SetAngle(uint8_t angle)
 {
     if(angle > 180) angle = 180;
@@ -7,7 +7,7 @@ static void Servo_SetAngle(uint8_t angle)
     __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, ccr);
 }
 
-void Servo_Control(void)
+void ServoTimer_Control(void)
 {
     HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
     for(;;)

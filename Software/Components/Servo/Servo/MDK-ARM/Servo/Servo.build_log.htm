@@ -22,22 +22,71 @@ Dialog DLL:      TCM.DLL V1.35.1.0
  
 <h2>Project:</h2>
 D:\Automation\Final\quadruped-robot\Software\Components\Servo\Servo\MDK-ARM\Servo.uvprojx
-Project File Date:  01/12/2026
+Project File Date:  01/13/2026
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Servo'
-assembling startup_stm32f407xx.s...
-compiling tasks_manager.c...
-tasks_manager.h(9): warning:  #1-D: last line of file ends without a newline
-  #endif /* INC_TASKS_MANAGER_H_ */
-tasks_manager.c(25): warning:  #1-D: last line of file ends without a newline
+compiling servo_timer.c...
+../MDK-ARM/servo_timer.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../MDK-ARM/servo_pca9685.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../MDK-ARM/components.h(8): warning:  #1-D: last line of file ends without a newline
+  #endif 
+servo_timer.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+servo_timer.c(27): warning:  #1-D: last line of file ends without a newline
   }
-tasks_manager.c: 2 warnings, 0 errors
+servo_timer.c: 5 warnings, 0 errors
+compiling freertos.c...
+../MDK-ARM/servo_timer.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../MDK-ARM/servo_pca9685.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../MDK-ARM/components.h(8): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../Core/Src/freertos.c: 3 warnings, 0 errors
+compiling stm32f4xx_hal_msp.c...
+../MDK-ARM/servo_timer.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../MDK-ARM/servo_pca9685.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../MDK-ARM/components.h(8): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../Core/Src/stm32f4xx_hal_msp.c: 3 warnings, 0 errors
+compiling servo_pca9685.c...
+../MDK-ARM/servo_timer.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../MDK-ARM/servo_pca9685.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../MDK-ARM/components.h(8): warning:  #1-D: last line of file ends without a newline
+  #endif 
+servo_pca9685.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+servo_pca9685.c(99): warning:  #1-D: last line of file ends without a newline
+  }
+servo_pca9685.c: 5 warnings, 0 errors
+compiling stm32f4xx_it.c...
+../MDK-ARM/servo_timer.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../MDK-ARM/servo_pca9685.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../MDK-ARM/components.h(8): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../Core/Src/stm32f4xx_it.c: 3 warnings, 0 errors
+compiling main.c...
+../MDK-ARM/servo_timer.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../MDK-ARM/servo_pca9685.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../MDK-ARM/components.h(8): warning:  #1-D: last line of file ends without a newline
+  #endif 
+../Core/Src/main.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=8304 RO-data=520 RW-data=128 ZI-data=17904  
+Program Size: Code=11000 RO-data=528 RW-data=148 ZI-data=17988  
 FromELF: creating hex file...
-"Servo\Servo.axf" - 0 Error(s), 2 Warning(s).
+"Servo\Servo.axf" - 0 Error(s), 22 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -60,7 +109,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.1.1
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:07
 </pre>
 </body>
 </html>

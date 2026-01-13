@@ -17,6 +17,8 @@
 "servo\stm32f4xx_hal_cortex.o"
 "servo\stm32f4xx_hal.o"
 "servo\stm32f4xx_hal_exti.o"
+"servo\stm32f4xx_hal_i2c.o"
+"servo\stm32f4xx_hal_i2c_ex.o"
 "servo\stm32f4xx_hal_tim.o"
 "servo\stm32f4xx_hal_tim_ex.o"
 "servo\system_stm32f4xx.o"
@@ -30,7 +32,8 @@
 "servo\cmsis_os.o"
 "servo\heap_4.o"
 "servo\port.o"
-"servo\tasks_manager.o"
+"servo\servo_timer.o"
+"servo\servo_pca9685.o"
 --strict --scatter "Servo\Servo.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

@@ -1406,19 +1406,29 @@
           <GroupName>Components</GroupName>
           <Files>
             <File>
-              <FileName>tasks_manager.h</FileName>
+              <FileName>components.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\tasks_manager.h</FilePath>
+              <FilePath>.\components.h</FilePath>
             </File>
             <File>
-              <FileName>tasks_manager.c</FileName>
+              <FileName>servo_timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\tasks_manager.c</FilePath>
+              <FilePath>.\servo_timer.c</FilePath>
             </File>
             <File>
-              <FileName>temp.c</FileName>
+              <FileName>servo_timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\servo_timer.h</FilePath>
+            </File>
+            <File>
+              <FileName>servo_pca9685.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\temp.c</FilePath>
+              <FilePath>.\servo_pca9685.c</FilePath>
+            </File>
+            <File>
+              <FileName>servo_pca9685.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\servo_pca9685.h</FilePath>
             </File>
           </Files>
         </Group>
