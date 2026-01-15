@@ -9,18 +9,12 @@
 #define PCA9685_MODE1_AI_BIT         5
 #define PCA9685_MODE1_RESTART_BIT    7
 
-typedef struct {
-    uint8_t channel;       
-    uint16_t value_0;     
-    uint16_t value_180;     
-} ServoConfig_t;
-
 ServoConfig_t servo[] = {
     {0, 102, 570}, 
     {1, 110, 580}, 
     {2, 95,  560}
 };
-    
+float angle[3] = {0, 0, 0}; 
 static void PCA9685_SetBit(uint8_t Register, uint8_t Bit, uint8_t Value)
 {
     uint8_t readValue;
@@ -66,7 +60,7 @@ static void PCA9685_SetPWM(uint8_t Channel, uint16_t OnTime, uint16_t OffTime)
     HAL_I2C_Mem_Write(&hi2c1, PCA9685_ADDRESS, registerAddress, 1, pwm, 4, 10);
 }
 
-static void PCA9685_SetServoAngle(ServoConfig_t *servo, float Angle)
+void PCA9685_SetServoAngle(ServoConfig_t *servo, float Angle)
 {
     if (Angle < 0) Angle = 0;
     if (Angle > 180) Angle = 180;
@@ -78,22 +72,13 @@ static void PCA9685_SetServoAngle(ServoConfig_t *servo, float Angle)
 void ServoPCA9685_Control(void)
 {
     PCA9685_Init(50); 
-    
-    for(;;)
+
+    for(;;) 
     {
-        PCA9685_SetServoAngle(&servo[0], 0);  
-        PCA9685_SetServoAngle(&servo[1], 0);  
-        PCA9685_SetServoAngle(&servo[2], 0); 
-        osDelay(1000);
-			
-				PCA9685_SetServoAngle(&servo[0], 90);  
-        PCA9685_SetServoAngle(&servo[1], 90);  
-        PCA9685_SetServoAngle(&servo[2], 90); 
-        osDelay(1000);
-			
-			  PCA9685_SetServoAngle(&servo[0], 180);  
-        PCA9685_SetServoAngle(&servo[1], 180);  
-        PCA9685_SetServoAngle(&servo[2], 180); 
-        osDelay(1000);
+        PCA9685_SetServoAngle(&servo[0], angle[0]);
+        PCA9685_SetServoAngle(&servo[1], angle[1]);
+        PCA9685_SetServoAngle(&servo[2], angle[2]);
+        
+        osDelay(20); 
     }
 }

@@ -21,6 +21,7 @@
 "servo\stm32f4xx_hal_i2c_ex.o"
 "servo\stm32f4xx_hal_tim.o"
 "servo\stm32f4xx_hal_tim_ex.o"
+"servo\stm32f4xx_hal_uart.o"
 "servo\system_stm32f4xx.o"
 "servo\croutine.o"
 "servo\event_groups.o"
@@ -34,6 +35,7 @@
 "servo\port.o"
 "servo\servo_timer.o"
 "servo\servo_pca9685.o"
+"servo\uart_dma.o"
 --strict --scatter "Servo\Servo.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
