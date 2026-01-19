@@ -16,20 +16,21 @@ public:
     SerialDriver() : Node("serial_driver_node")
     {
         // 1. Open Serial Port
-        serial_port_ = open("/dev/ttyUSB1", O_RDWR | O_NOCTTY | O_NDELAY);
+        serial_port_ = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);
         if (serial_port_ < 0) {
             RCLCPP_ERROR(this->get_logger(), "Error opening serial port: %s", strerror(errno));
         } else {
-            RCLCPP_INFO(this->get_logger(), "Successfully opened /dev/ttyUSB1");
+            RCLCPP_INFO(this->get_logger(), "Successfully opened /dev/ttyUSB0");
             configure_serial_port();
         }
 
         // 2. Subscriber: Listens for a STRING of Hex (e.g. "AA 55 FF")
         subscription_ = this->create_subscription<std_msgs::msg::String>(
-            "serial_write_hex", 10, std::bind(&SerialDriver::topic_callback, this, std::placeholders::_1));
+            "angle_servo", 10, std::bind(&SerialDriver::topic_callback, this, std::placeholders::_1)
+        );
     }
 
-    ~SerialDriver() { close(serial_port_); }
+    ~SerialDriver() {close(serial_port_);}
 
 private:
     int serial_port_;

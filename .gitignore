@@ -102,6 +102,13 @@ env/
 .vscode/
 *.code-workspace
 
+# ==========================
+# ROS2
+# ==========================
+Software/Middleware/robot_ros2/build/
+Software/Middleware/robot_ros2/install/
+Software/Middleware/robot_ros2/log/
+
 # OS Generated Files
 .DS_Store
 Thumbs.db

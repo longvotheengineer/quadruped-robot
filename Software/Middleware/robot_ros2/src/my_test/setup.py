@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'leg_controller'
+package_name = 'my_test'
 
 setup(
     name=package_name,
@@ -14,7 +14,7 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='lvdaengineer',
-    maintainer_email='lvdaengineer@todo.todo',
+    maintainer_email='longdaicangu0002@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     extras_require={
@@ -24,6 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'battery_node_test = my_test.battery_node:main',
         ],
     },
 )
