@@ -6,9 +6,9 @@ class SingleServoTestNode(Node):
     def __init__(self):
         super().__init__('single_servo_test_node')
         self.publisher_ = self.create_publisher(String, '/angle_servo', 10)
-        self.angle = ["A 5 0000 0000 0000 F", 
-                      "A 5 0900 0900 0900 F",
-                      "A 5 1705 1705 1705 F",]
+        self.angle = ["AA 55 00 00 00 00 00 00 FF", 
+                      "AA 55 03 84 03 84 03 84 FF",
+                      "AA 55 05 05 05 05 05 05 FF",]
         self.counter = 0
         
         self.timer = self.create_timer(2.0, self.timer_callback)
