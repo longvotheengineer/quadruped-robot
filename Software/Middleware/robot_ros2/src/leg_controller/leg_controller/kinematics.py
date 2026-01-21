@@ -24,7 +24,6 @@ class Kinematics:
         x = self.L / 2 + pz
         y = self.W / 2 - py
         z = px
-
         self.get_logger.info(f'[kinematics] FK Orientation: x={x}, y={y}, z={z}')
 
         return x, y, z
