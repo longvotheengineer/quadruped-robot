@@ -10,7 +10,7 @@ class Kinematics:
         self.l3 = l3
     
     def forward_kinematics(self, theta1, theta2, theta3):
-        # Convert angles from degrees to radians
+        # Convert angles from degree to radian
         theta1 = math.radians(theta1)
         theta2 = math.radians(theta2)
         theta3 = math.radians(theta3)
@@ -24,6 +24,40 @@ class Kinematics:
         x = self.L / 2 + pz
         y = self.W / 2 - py
         z = px
-        self.get_logger.info(f'[kinematics] FK Orientation: x={x}, y={y}, z={z}')
+        self.get_logger.info(
+            f'[kinematics] FK Orientation: '
+            f'x={x},'
+            f'y={y},'
+            f'z={z}')
 
         return x, y, z
+    
+    def inverse_kinematics(self, x, y, z):
+        px = x
+        py = y
+        pz = z
+
+        x       = pz
+        y       = self.W / 2 - py
+        z       = - self.L / 2 + px
+        theta1  = math.atan2(-x, y) + math.atan2(-math.sqrt(x**2 + y**2 - self.l1**2), -self.l1)
+        sign_s3 = -1
+        sign_p2 =  1
+
+        p1      = x * math.cos(theta1) + y * math.sin(theta1)
+        p2      = sign_p2 * z  
+        c3      = (p1**2 + p2**2 - self.l2**2 - self.l3**2) / (2 * self.l2 * self.l3)
+        s3      = sign_s3 * math.sqrt(1 - c3**2)
+        theta3  = math.atan2(s3, c3)
+        theta2  = math.atan2(p2, p1) - math.atan2(self.l3 * s3, self.l2 + self.l3 * c3)
+        
+        theta1  = round(math.degrees(theta1), 1)
+        theta2  = round(math.degrees(theta2), 1)
+        theta3  = round(math.degrees(theta3), 1)
+        self.get_logger.info(
+            f'[kinematics] IK Angles: '
+            f'theta1={theta1},' 
+            f'theta2={theta2},'
+            f'theta3={theta3}')                 
+
+        return theta1, theta2, theta3

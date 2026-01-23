@@ -17,19 +17,25 @@ class LegController(Node):
 
     def timer_callback(self):
         if self.cnt == 0:    
-            theta1, theta2, theta3 = 0, 0, 0
-            x, y, z = self.kinematics.forward_kinematics(theta1, theta2, theta3)
+            # theta1, theta2, theta3 = 0, 0, 0
+            # x, y, z = self.kinematics.forward_kinematics(theta1, theta2, theta3)
+            # self.serial_publish.theta1 = theta1
+            # self.serial_publish.theta2 = theta2
+            # self.serial_publish.theta3 = theta3    
+
+            x, y, z = 60, 45, -140         
+            theta1, theta2, theta3 = self.kinematics.inverse_kinematics(x, y, z)
             self.serial_publish.theta1 = theta1
             self.serial_publish.theta2 = theta2
             self.serial_publish.theta3 = theta3
             self.serial_publish.publish_message()
-        elif self.cnt == 1:
-            theta1, theta2, theta3 = 90, 90, 90
-            x, y, z = self.kinematics.forward_kinematics(theta1, theta2, theta3)
-            self.serial_publish.theta1 = theta1
-            self.serial_publish.theta2 = theta2
-            self.serial_publish.theta3 = theta3
-            self.serial_publish.publish_message()
+        # elif self.cnt == 1:
+        #     theta1, theta2, theta3 = 90, 90, 90
+        #     x, y, z = self.kinematics.forward_kinematics(theta1, theta2, theta3)
+        #     self.serial_publish.theta1 = theta1
+        #     self.serial_publish.theta2 = theta2
+        #     self.serial_publish.theta3 = theta3
+        #     self.serial_publish.publish_message()
         # elif self.cnt == 2:
         #     x, y, z = self.kinematics.forward_kinematics(123.4, 123.4, 123.4)
         
