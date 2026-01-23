@@ -16,8 +16,8 @@ function WorkSpace(robot_config)
     leg.base = trotz(-pi) * troty(-pi/2) * trotx(0);
     leg.base = transl(L/2, W/2, 0) * leg.base;
         
-    joint_limit_1 = linspace( pi/2, 3*pi/2, 30);
-    joint_limit_2 = linspace(-pi/2,   pi/2, 30);
+    joint_limit_1 = linspace(-pi/2,   pi/2, 30);
+    joint_limit_2 = linspace( pi/2, 3*pi/2, 30);
     joint_limit_3 = linspace(-pi/2,   pi/2, 30);
     
     points = [];    
