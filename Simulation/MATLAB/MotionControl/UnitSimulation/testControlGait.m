@@ -6,10 +6,16 @@ function theta_i = testControlGait(robot_config)
             % pos_B = [0.25, 0.15, -0.20];
             % pos_C = [0.29, 0.15, -0.20];
             % pos_D = [0.29, 0.15, -0.24];
-            pos_A = [0.25, 0.15, -0.24];
-            pos_B = [0.25, 0.15, -0.10];
-            pos_C = [0.29, 0.15, -0.10];
-            pos_D = [0.29, 0.15, -0.24];
+
+            % pos_A = [0.25, 0.15, -0.24];
+            % pos_B = [0.25, 0.15, -0.10];
+            % pos_C = [0.29, 0.15, -0.10];
+            % pos_D = [0.29, 0.15, -0.24];
+
+            pos_A = [0.40 0.60 -1.50];
+            pos_B = [0.40 0.60 -1.30];
+            pos_C = [0.70 0.60 -1.30];
+            pos_D = [0.70 0.60 -1.50];
         case "left-behind"
             % pos_A = [-0.25, 0.15, -0.24];
             % pos_B = [-0.25, 0.15, -0.20];
@@ -78,7 +84,7 @@ function theta_i = testControlGait(robot_config)
 
     hold on;
     while true
-        leg.plot(theta_i, 'workspace', [-0.1 0.6 -0.1 0.6 -0.25 0.25], ...
+        leg.plot(theta_i,  ...
                           'view',      [45,30],                        ...
                           'delay',      0.005);
     end
