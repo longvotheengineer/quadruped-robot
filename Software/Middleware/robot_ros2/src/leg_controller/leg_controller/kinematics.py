@@ -1,15 +1,15 @@
 import math
 
 class Kinematics:
-    def __init__(self, node, L, W, l1, l2, l3):
+    def __init__(self, node, robot_length):
         self.get_logger = node.get_logger()
-        self.L  = L
-        self.W  = W
-        self.l1 = l1
-        self.l2 = l2
-        self.l3 = l3
+        self.L  = robot_length.L
+        self.W  = robot_length.W
+        self.l1 = robot_length.l1
+        self.l2 = robot_length.l2
+        self.l3 = robot_length.l3
     
-    def forward_kinematics(self, theta1, theta2, theta3):
+    def forward(self, theta1, theta2, theta3):
         # Convert angles from degree to radian
         theta1 = math.radians(theta1)
         theta2 = math.radians(theta2)
@@ -32,7 +32,7 @@ class Kinematics:
 
         return x, y, z
     
-    def inverse_kinematics(self, x, y, z):
+    def inverse(self, x, y, z, leg_type):
         px = x
         py = y
         pz = z
@@ -51,11 +51,13 @@ class Kinematics:
         theta3  = math.atan2(s3, c3)
         theta2  = math.atan2(p2, p1) - math.atan2(self.l3 * s3, self.l2 + self.l3 * c3)
         
-        theta1  = round(math.degrees(theta1), 1)
+        theta1  = round(math.degrees(theta1), 1)        
         theta2  = round(math.degrees(theta2), 1)
+        theta2  = theta2 % 360
         theta3  = round(math.degrees(theta3), 1)
         self.get_logger.info(
             f'[kinematics] IK Angles: '
+            f'leg_type={leg_type}, '
             f'theta1={theta1},' 
             f'theta2={theta2},'
             f'theta3={theta3}')                 
