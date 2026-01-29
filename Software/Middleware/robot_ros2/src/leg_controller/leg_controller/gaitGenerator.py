@@ -48,8 +48,20 @@ class Gait:
                         pos_C = [70, 60, -130]
                         pos_D = [70, 60, -150]
                     # case "left-behind":
+                    #     pos_A = [-40, 60, -150]
+                    #     pos_B = [-40, 60, -130]
+                    #     pos_C = [-10, 60, -130]
+                    #     pos_D = [-10, 60, -150]
                     # case "right-front":
+                    #     pos_A = [40, -60, -150]
+                    #     pos_B = [40, -60, -130]
+                    #     pos_C = [70, -60, -130]
+                    #     pos_D = [70, -60, -150]
                     # case "right-behind":
+                    #     pos_A = [-40, -60, -150]
+                    #     pos_B = [-40, -60, -130]
+                    #     pos_C = [-10, -60, -130]
+                    #     pos_D = [-10, -60, -150]
                     case _:
                         return None
             # case "BACKWARD":
