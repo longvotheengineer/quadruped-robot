@@ -1,4 +1,5 @@
 import numpy as np
+import time
 from dataclasses import dataclass
 from leg_controller.kinematics import Kinematics
 from leg_controller.serialPublish import SerialPublish
@@ -149,7 +150,7 @@ class Gait:
                 gait_step = 0
 
                 while gait_step < self.gait_msg.step:
-                    for i in range(theta_i.shape[0]):
+                    for i in range(theta_i[0].shape[0]):
                         pos_LF = [theta_i[0][i, 0], theta_i[0][i, 1], theta_i[0][i, 2]]
                         # pos_LB = [theta_i[1][i, 0], theta_i[1][i, 1], theta_i[1][i, 2]]
                         # pos_RF = [theta_i[2][i, 0], theta_i[2][i, 1], theta_i[2][i, 2]]
@@ -157,6 +158,7 @@ class Gait:
                         # pos    = np.vstack([pos_LF, pos_LB, pos_RF, pos_RB])
                         
                         theta = Theta(pos_LF[0], pos_LF[1], pos_LF[2])
-                        self.serial_publish.publish_message(theta)                        
+                        self.serial_publish.publish_message(theta)  
+                        time.sleep(0.05)                      
                    
                     gait_step += 1
