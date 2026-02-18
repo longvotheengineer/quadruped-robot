@@ -10,6 +10,13 @@ def generate_launch_description():
     with open(urdf_file, 'r') as infp:
         robot_description_config = infp.read()
 
+    node_joint_state_publisher = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='joint_state_publisher_gui',
+        output='screen'
+    )
+
     node_robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -25,6 +32,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        # node_joint_state_publisher,
         node_robot_state_publisher,
         node_rviz
     ])

@@ -48,21 +48,21 @@ class Gait:
                         pos_B = [40, 60, -130]
                         pos_C = [70, 60, -130]
                         pos_D = [70, 60, -150]
-                    # case "left-behind":
-                    #     pos_A = [-40, 60, -150]
-                    #     pos_B = [-40, 60, -130]
-                    #     pos_C = [-10, 60, -130]
-                    #     pos_D = [-10, 60, -150]
-                    # case "right-front":
-                    #     pos_A = [40, -60, -150]
-                    #     pos_B = [40, -60, -130]
-                    #     pos_C = [70, -60, -130]
-                    #     pos_D = [70, -60, -150]
-                    # case "right-behind":
-                    #     pos_A = [-40, -60, -150]
-                    #     pos_B = [-40, -60, -130]
-                    #     pos_C = [-10, -60, -130]
-                    #     pos_D = [-10, -60, -150]
+                    case "left-behind":
+                        pos_A = [-40, 60, -150]
+                        pos_B = [-40, 60, -130]
+                        pos_C = [-10, 60, -130]
+                        pos_D = [-10, 60, -150]
+                    case "right-front":
+                        pos_A = [40, -60, -150]
+                        pos_B = [40, -60, -130]
+                        pos_C = [70, -60, -130]
+                        pos_D = [70, -60, -150]
+                    case "right-behind":
+                        pos_A = [-40, -60, -150]
+                        pos_B = [-40, -60, -130]
+                        pos_C = [-10, -60, -130]
+                        pos_D = [-10, -60, -150]
                     case _:
                         return None
             # case "BACKWARD":
@@ -71,9 +71,9 @@ class Gait:
             case _: 
                 return None
         
-        waypoint_AB = np.linspace(pos_A, pos_B, num=self.waypoint.swing, axis=0)
-        waypoint_BC = np.linspace(pos_B, pos_C, num=self.waypoint.swing, axis=0)
-        waypoint_CD = np.linspace(pos_C, pos_D, num=self.waypoint.swing, axis=0)
+        waypoint_AB = np.linspace(pos_A, pos_B, num=self.waypoint.swing,  axis=0)
+        waypoint_BC = np.linspace(pos_B, pos_C, num=self.waypoint.swing,  axis=0)
+        waypoint_CD = np.linspace(pos_C, pos_D, num=self.waypoint.swing,  axis=0)
         waypoint_DA = np.linspace(pos_D, pos_A, num=self.waypoint.stance, axis=0)
         waypoint    = np.vstack([waypoint_AB, waypoint_BC, waypoint_CD, waypoint_DA])
 
@@ -102,7 +102,7 @@ class Gait:
             case _:
                 return None
             
-        theta_i = np.roll(theta_i, shift, axis=1)       
+        theta_i = np.roll(theta_i, shift, axis=0)       
         return theta_i   
 
     def change(self):        
@@ -131,12 +131,12 @@ class Gait:
 
                 leg_type    = "left-front"
                 theta_i[0]  = self.generate(leg_type)
-                # leg_type    = "left-behind"
-                # theta_i[1]  = self.generate(leg_type)
-                # leg_type    = "right-front"
-                # theta_i[2]  = self.generate(leg_type)
-                # leg_type    = "right-behind"   
-                # theta_i[3]  = self.generate(leg_type)   
+                leg_type    = "left-behind"
+                theta_i[1]  = self.generate(leg_type)
+                leg_type    = "right-front"
+                theta_i[2]  = self.generate(leg_type)
+                leg_type    = "right-behind"   
+                theta_i[3]  = self.generate(leg_type)   
 
                 return theta_i   
     
@@ -152,13 +152,13 @@ class Gait:
                 while gait_step < self.gait_msg.step:
                     for i in range(theta_i[0].shape[0]):
                         pos_LF = [theta_i[0][i, 0], theta_i[0][i, 1], theta_i[0][i, 2]]
-                        # pos_LB = [theta_i[1][i, 0], theta_i[1][i, 1], theta_i[1][i, 2]]
-                        # pos_RF = [theta_i[2][i, 0], theta_i[2][i, 1], theta_i[2][i, 2]]
-                        # pos_RB = [theta_i[3][i, 0], theta_i[3][i, 1], theta_i[3][i, 2]]
-                        # pos    = np.vstack([pos_LF, pos_LB, pos_RF, pos_RB])
+                        pos_LB = [theta_i[1][i, 0], theta_i[1][i, 1], theta_i[1][i, 2]]
+                        pos_RF = [theta_i[2][i, 0], theta_i[2][i, 1], theta_i[2][i, 2]]
+                        pos_RB = [theta_i[3][i, 0], theta_i[3][i, 1], theta_i[3][i, 2]]
+                        pos    = np.vstack([pos_LF, pos_LB, pos_RF, pos_RB])
                         
-                        theta = Theta(pos_LF[0], pos_LF[1], pos_LF[2])
-                        self.serial_publish.publish_message(theta)  
+                        # theta = Theta(pos_LF[0], pos_LF[1], pos_LF[2])
+                        self.serial_publish.publish_message(pos)  
                         time.sleep(0.05)                      
                    
                     gait_step += 1
