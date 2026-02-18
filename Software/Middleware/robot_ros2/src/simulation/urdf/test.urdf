@@ -3,19 +3,37 @@
 
     <link name="world_link"/>
 
-    <joint name="joint1" type="revolute">        
+    <joint name="body_joint" type="fixed">        
         <parent link    ="world_link"/>
-        <child  link    ="link1"/>
-        <origin xyz     ="0  0     0.5 "
-                rpy     ="0 -1.57 -3.14"/> 
-        <axis   xyz     ="0  0     1   "/>     
+        <child  link    ="body_link"/>  
+        <origin xyz     ="0 0 0.5"/>
+    </joint>
+
+    <link name="body_link">
+        <visual>
+            <geometry>
+                <box size="0.3 0.18049 0.06"/> 
+            </geometry>
+            <material name="gray">
+                <color rgba="0.5 0.5 0.5 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- ================   LEFT-FRONT LEG   ================ -->  
+    <joint name="joint_lf_1" type="revolute">        
+        <parent link    ="body_link"/>
+        <child  link    ="link_lf_1"/>
+        <origin xyz     ="0.11014   0.07169   0.00026"
+                rpy     ="0        -1.57     -3.14   "/> 
+        <axis   xyz     ="0         0         1      "/>     
         <limit  lower   ="-1.57" 
                 upper   =" 1.57" 
                 effort  ="   10" 
                 velocity="    1"/>
     </joint>
 
-    <link name="link1">
+    <link name="link_lf_1">
         <visual>
             <origin xyz="0 -0.023 0"/>
             <geometry>
@@ -27,9 +45,9 @@
         </visual>
     </link>
 
-    <joint name="joint2" type="revolute">
-        <parent link    ="link1"/>
-        <child  link    ="link2"/>
+    <joint name="joint_lf_2" type="revolute">
+        <parent link    ="link_lf_1"/>
+        <child  link    ="link_lf_2"/>
         <origin xyz     ="0    -0.046    0"
                 rpy     ="1.57  3.14     0"/>
         <axis   xyz     ="0     0        1"/>
@@ -39,7 +57,7 @@
                 velocity="   1"/>
     </joint>
 
-    <link name="link2">
+    <link name="link_lf_2">
         <visual>
             <origin xyz="-0.05315 0 0"/>
             <geometry>
@@ -51,9 +69,9 @@
         </visual>
     </link>
 
-    <joint name="joint3" type="revolute">
-        <parent link    ="link2"/>
-        <child  link    ="link3"/>
+    <joint name="joint_lf_3" type="revolute">
+        <parent link    ="link_lf_2"/>
+        <child  link    ="link_lf_3"/>
         <origin xyz     ="-0.1063 0 0"
                 rpy     =" 0      0 0"/>
         <axis   xyz     =" 0      0 1"/>
@@ -63,7 +81,226 @@
                 velocity="   1"/>
     </joint>
 
-    <link name="link3">
+    <link name="link_lf_3">
+        <visual>
+            <origin xyz="0.052015 0 0"/>
+            <geometry>
+                <box size="0.10403 0.01 0.01"/>
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- ================   LEFT-BEHIND LEG   ================ -->    
+    <joint name="joint_lb_1" type="revolute">        
+        <parent link    ="body_link"/>
+        <child  link    ="link_lb_1"/>
+        <origin xyz     ="-0.11014   0.07169   0.00026"
+                rpy     =" 0        -1.57     -3.14   "/> 
+        <axis   xyz     =" 0         0         1      "/>     
+        <limit  lower   ="-1.57" 
+                upper   =" 1.57" 
+                effort  ="   10" 
+                velocity="    1"/>
+    </joint>
+
+    <link name="link_lb_1">
+        <visual>
+            <origin xyz="0 -0.023 0"/>
+            <geometry>
+                <box size="0.01 0.046 0.01"/> 
+            </geometry>
+            <material name="red">
+                <color rgba="1 0 0 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <joint name="joint_lb_2" type="revolute">
+        <parent link    ="link_lb_1"/>
+        <child  link    ="link_lb_2"/>
+        <origin xyz     ="0    -0.046    0"
+                rpy     ="1.57  3.14     0"/>
+        <axis   xyz     ="0     0        1"/>
+        <limit  lower   ="-6.28" 
+                upper   ="6.28" 
+                effort  ="  10" 
+                velocity="   1"/>
+    </joint>
+
+    <link name="link_lb_2">
+        <visual>
+            <origin xyz="-0.05315 0 0"/>
+            <geometry>
+                <box size="0.1063 0.01 0.01"/>
+            </geometry>
+            <material name="green">
+                <color rgba="0 1 0 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <joint name="joint_lb_3" type="revolute">
+        <parent link    ="link_lb_2"/>
+        <child  link    ="link_lb_3"/>
+        <origin xyz     ="-0.1063 0 0"
+                rpy     =" 0      0 0"/>
+        <axis   xyz     =" 0      0 1"/>
+        <limit  lower   ="-6.28" 
+                upper   ="6.28"
+                effort  ="  10" 
+                velocity="   1"/>
+    </joint>
+
+    <link name="link_lb_3">
+        <visual>
+            <origin xyz="0.052015 0 0"/>
+            <geometry>
+                <box size="0.10403 0.01 0.01"/>
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- ================   RIGHT-FRONT LEG   ================ -->  
+    <joint name="joint_rf_1" type="revolute">        
+        <parent link    ="body_link"/>
+        <child  link    ="link_rf_1"/>
+        <origin xyz     ="0.11014  -0.07169   0.00026"
+                rpy     ="0        -1.57      0   "/> 
+        <axis   xyz     ="0         0         1      "/>     
+        <limit  lower   ="-1.57" 
+                upper   =" 1.57" 
+                effort  ="   10" 
+                velocity="    1"/>
+    </joint>
+
+    <link name="link_rf_1">
+        <visual>
+            <origin xyz="0 -0.023 0"/>
+            <geometry>
+                <box size="0.01 0.046 0.01"/> 
+            </geometry>
+            <material name="red">
+                <color rgba="1 0 0 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <joint name="joint_rf_2" type="revolute">
+        <parent link    ="link_rf_1"/>
+        <child  link    ="link_rf_2"/>
+        <origin xyz     =" 0    -0.046 0   "
+                rpy     ="-1.57  0     3.14"/>
+        <axis   xyz     =" 0     0     1   "/>
+        <limit  lower   ="-6.28" 
+                upper   ="6.28" 
+                effort  ="  10" 
+                velocity="   1"/>
+    </joint>
+
+    <link name="link_rf_2">
+        <visual>
+            <origin xyz="-0.05315 0 0"/>
+            <geometry>
+                <box size="0.1063 0.01 0.01"/>
+            </geometry>
+            <material name="green">
+                <color rgba="0 1 0 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <joint name="joint_rf_3" type="revolute">
+        <parent link    ="link_rf_2"/>
+        <child  link    ="link_rf_3"/>
+        <origin xyz     ="-0.1063 0 0"
+                rpy     =" 0      0 0"/>
+        <axis   xyz     =" 0      0 1"/>
+        <limit  lower   ="-6.28" 
+                upper   ="6.28"
+                effort  ="  10" 
+                velocity="   1"/>
+    </joint>
+
+    <link name="link_rf_3">
+        <visual>
+            <origin xyz="0.052015 0 0"/>
+            <geometry>
+                <box size="0.10403 0.01 0.01"/>
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- ================   RIGHT-BEHIND LEG   ================ -->  
+    <joint name="joint_rb_1" type="revolute">        
+        <parent link    ="body_link"/>
+        <child  link    ="link_rb_1"/>
+        <origin xyz     ="-0.11014  -0.07169   0.00026"
+                rpy     =" 0        -1.57      0   "/> 
+        <axis   xyz     =" 0         0         1      "/>     
+        <limit  lower   ="-1.57" 
+                upper   =" 1.57" 
+                effort  ="   10" 
+                velocity="    1"/>
+    </joint>
+
+    <link name="link_rb_1">
+        <visual>
+            <origin xyz="0 -0.023 0"/>
+            <geometry>
+                <box size="0.01 0.046 0.01"/> 
+            </geometry>
+            <material name="red">
+                <color rgba="1 0 0 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <joint name="joint_rb_2" type="revolute">
+        <parent link    ="link_rb_1"/>
+        <child  link    ="link_rb_2"/>
+        <origin xyz     ="0    -0.046   0"
+                rpy     ="-1.57 0    3.14"/>
+        <axis   xyz     ="0     0       1"/>
+        <limit  lower   ="-6.28" 
+                upper   ="6.28" 
+                effort  ="  10" 
+                velocity="   1"/>
+    </joint>
+
+    <link name="link_rb_2">
+        <visual>
+            <origin xyz="-0.05315 0 0"/>
+            <geometry>
+                <box size="0.1063 0.01 0.01"/>
+            </geometry>
+            <material name="green">
+                <color rgba="0 1 0 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <joint name="joint_rb_3" type="revolute">
+        <parent link    ="link_rb_2"/>
+        <child  link    ="link_rb_3"/>
+        <origin xyz     ="-0.1063 0 0"
+                rpy     =" 0      0 0"/>
+        <axis   xyz     =" 0      0 1"/>
+        <limit  lower   ="-6.28" 
+                upper   ="6.28"
+                effort  ="  10" 
+                velocity="   1"/>
+    </joint>
+
+    <link name="link_rb_3">
         <visual>
             <origin xyz="0.052015 0 0"/>
             <geometry>
