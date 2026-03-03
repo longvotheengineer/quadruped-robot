@@ -38,6 +38,11 @@ class Gait:
 
         self.waypoint  = Waypoint(20, 30, 20)
 
+        # State machine variables for the Timer
+        self.trajectory_data = None
+        self.current_frame = 0
+        self.timer = None
+
     def generate(self, leg_type):
         match self.gait_msg.cmd:
             # case "ZERO":
@@ -160,5 +165,5 @@ class Gait:
                         # theta = Theta(pos_LF[0], pos_LF[1], pos_LF[2])
                         self.serial_publish.publish_message(pos)  
                         time.sleep(0.05)                      
-                   
+                    
                     gait_step += 1

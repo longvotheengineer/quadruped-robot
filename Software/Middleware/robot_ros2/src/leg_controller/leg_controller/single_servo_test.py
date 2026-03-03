@@ -2,6 +2,7 @@ import rclpy
 from std_msgs.msg import String
 from rclpy.node import Node
 from leg_controller.gaitGenerator import Gait
+import numpy as np
 
 class GaitMsg:
     def __init__(self, cmd, step):
@@ -20,7 +21,15 @@ class LegController(Node):
             '/gait_control',
             self.listener_callback,
             10)
+        
+        self.timer = self.create_timer(0.1, self.timer_callback)
+
         self.get_logger().info('The main Node has started.')
+
+    def timer_callback(self):
+        if self.gait_msg.cmd == "ZERO":
+            theta_zero = np.zeros((4,3))
+            self.gait.serial_publish.publish_simulation(theta_zero)
 
     def parse_command(self, msg):
         parts = msg.split()
