@@ -6,6 +6,7 @@ from launch_ros.actions import Node
 def generate_launch_description():
     package_name = 'simulation'
     urdf_file = os.path.join(get_package_share_directory(package_name), 'urdf', 'test.urdf')
+    rviz_config_file = os.path.join(get_package_share_directory(package_name), 'rviz', 'config.rviz')
 
     with open(urdf_file, 'r') as infp:
         robot_description_config = infp.read()
@@ -28,7 +29,8 @@ def generate_launch_description():
         package='rviz2',
         executable='rviz2',
         name='rviz2',
-        output='screen'
+        output='screen',
+        arguments=['-d', rviz_config_file]
     )
 
     return LaunchDescription([
