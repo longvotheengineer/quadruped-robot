@@ -10,6 +10,10 @@ def generate_launch_description():
 
     with open(urdf_file, 'r') as infp:
         robot_description_config = infp.read()
+    
+    # Replace $(find simulation) with the absolute path to the share directory
+    package_share = get_package_share_directory(package_name)
+    robot_description_config = robot_description_config.replace('$(find simulation)', package_share)
 
     node_joint_state_publisher = Node(
         package='joint_state_publisher_gui',

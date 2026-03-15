@@ -3,11 +3,13 @@ import math
 import rclpy
 from std_msgs.msg import String
 from sensor_msgs.msg import JointState
+from std_msgs.msg import Float64MultiArray
 
 class SerialPublish:
     def __init__(self, node):
         self.pub_serial = node.create_publisher(String, '/angle_servo', 10)
-        self.pub_simulation = node.create_publisher(JointState, '/joint_states', 10)
+        self.pub_sim_rviz = node.create_publisher(JointState, '/joint_states', 10)
+        self.pub_sim_gazebo = node.create_publisher(Float64MultiArray, '/leg_controller/commands', 10)
         self.get_logger = node.get_logger()
                 
     def convert_to_serial(self, theta):        
@@ -56,7 +58,17 @@ class SerialPublish:
         #                 math.radians(0), math.radians(90), math.radians(180+0),
         #                 math.radians(0), math.radians(90), math.radians(180+0),
         #                 math.radians(0), math.radians(90), math.radians(180+0)] # Zero pose testing
-        self.pub_simulation.publish(msg)
+        self.pub_sim_rviz.publish(msg)
+
+        # ADD THIS FOR GAZEBO:
+        msg_gazebo = Float64MultiArray()
+        # The data array must match the exact order of joints defined in ros2_gazebo_controller.yaml
+        msg_gazebo.data = [theta_lf_1, theta_lf_2, theta_lf_3 + math.radians(180), 
+                           theta_lb_1, theta_lb_2, theta_lb_3 + math.radians(180),
+                           theta_rf_1, theta_rf_2, theta_rf_3 + math.radians(180),
+                           theta_rb_1, theta_rb_2, theta_rb_3 + math.radians(180)] 
+        self.pub_sim_gazebo.publish(msg_gazebo)
+
         # self.get_logger.info(
         #     f'[serialPublish] Published to simulation: '
         #     f'joint_lf_1={theta_lf_1}, '
