@@ -15,4 +15,12 @@
   <export>
     <build_type>ament_cmake</build_type>
   </export>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gazebo_plugins</exec_depend>
+  <exec_depend>simulation</exec_depend>
+  
+  <exec_depend>controller_manager</exec_depend>
 </package>

@@ -37,13 +37,33 @@ def generate_launch_description():
     launch_entity = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
-        arguments=['-entity', 'quadruped_robot', '-topic', 'robot_description'],
+        arguments=['-entity', 'quadruped_robot', 
+                    '-topic', 'robot_description',
+                    '-x', '0.0',
+                    '-y', '0.0',
+                    '-z', '0.4'],
         output='screen'
+    )
+
+    # Launch the Encoder (Reads the joint angles of the virtual motors in Gazebo)
+    launch_encoder = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+    )
+
+    # Launch the Angle (Write the angles to the virtual motors in Gazebo)
+    launch_angle = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["leg_controller", "--controller-manager", "/controller_manager"],
     )
 
     return LaunchDescription([
         node_leg_controller,
         launch_simulation,
         launch_gazebo,
-        launch_entity
+        launch_entity,
+        launch_encoder,
+        launch_angle
     ])

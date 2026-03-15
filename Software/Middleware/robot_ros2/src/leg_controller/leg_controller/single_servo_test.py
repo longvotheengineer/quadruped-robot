@@ -22,14 +22,20 @@ class LegController(Node):
             self.listener_callback,
             10)
         
-        self.timer = self.create_timer(0.1, self.timer_callback)
+        self.timer = self.create_timer(0.003, self.timer_callback)
 
         self.get_logger().info('The main Node has started.')
 
     def timer_callback(self):
         if self.gait_msg.cmd == "ZERO":
-            theta_zero = np.zeros((4,3))
+            theta_zero = np.array([[0,  200, -60],   
+                                   [0, -200,  60],    
+                                   [0, -200,  60],   
+                                   [0,  200, -60]])  
             self.gait.serial_publish.publish_simulation(theta_zero)
+        else:
+            # Tick the trajectory for forward motion
+            self.gait.tick_trajectory()
 
     def parse_command(self, msg):
         parts = msg.split()
@@ -46,7 +52,7 @@ class LegController(Node):
     def listener_callback(self, msg):
         self.get_logger().info(f'[Sub]: {msg.data}')   
         self.gait_msg.cmd, self.gait_msg.step = self.parse_command(msg.data)
-        self.gait.control()
+        self.gait.init_trajectory()
 
 def main(args=None):
     rclpy.init(args=args)

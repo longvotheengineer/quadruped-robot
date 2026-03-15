@@ -36,7 +36,7 @@ class Gait:
 
         self.gait_msg  = gait_msg
 
-        self.waypoint  = Waypoint(20, 30, 20)
+        self.waypoint  = Waypoint(20, 300, 10)
 
         # State machine variables for the Timer
         self.trajectory_data = None
@@ -50,23 +50,23 @@ class Gait:
                 match leg_type:
                     case "left-front":
                         pos_A = [40, 60, -150]
-                        pos_B = [40, 60, -130]
-                        pos_C = [70, 60, -130]
+                        pos_B = [40, 60, -110]
+                        pos_C = [70, 60, -110]
                         pos_D = [70, 60, -150]
                     case "left-behind":
                         pos_A = [-40, 60, -150]
-                        pos_B = [-40, 60, -130]
-                        pos_C = [-10, 60, -130]
+                        pos_B = [-40, 60, -110]
+                        pos_C = [-10, 60, -110]
                         pos_D = [-10, 60, -150]
                     case "right-front":
                         pos_A = [40, -60, -150]
-                        pos_B = [40, -60, -130]
-                        pos_C = [70, -60, -130]
+                        pos_B = [40, -60, -110]
+                        pos_C = [70, -60, -110]
                         pos_D = [70, -60, -150]
                     case "right-behind":
                         pos_A = [-40, -60, -150]
-                        pos_B = [-40, -60, -130]
-                        pos_C = [-10, -60, -130]
+                        pos_B = [-40, -60, -110]
+                        pos_C = [-10, -60, -110]
                         pos_D = [-10, -60, -150]
                     case _:
                         return None
@@ -98,12 +98,12 @@ class Gait:
         match leg_type:
             case "left-front":
                 shift = round(waypoint_row * 0.00)
-            case "right-behind":
-                shift = round(waypoint_row * 0.00)
             case "left-behind":
                 shift = round(waypoint_row * 0.50)
             case "right-front":
                 shift = round(waypoint_row * 0.50)
+            case "right-behind":
+                shift = round(waypoint_row * 0.00)
             case _:
                 return None
             
@@ -145,25 +145,60 @@ class Gait:
 
                 return theta_i   
     
-    def control(self):
-        theta_i = self.change()
+    # def control(self):
+    #     theta_i = self.change()
 
-        match self.gait_msg.cmd:
-            case "ZERO":
-                return None
-            case _:
-                gait_step = 0
+    #     match self.gait_msg.cmd:
+    #         case "ZERO":
+    #             return None
+    #         case _:
+    #             gait_step = 0
 
-                while gait_step < self.gait_msg.step:
-                    for i in range(theta_i[0].shape[0]):
-                        pos_LF = [theta_i[0][i, 0], theta_i[0][i, 1], theta_i[0][i, 2]]
-                        pos_LB = [theta_i[1][i, 0], theta_i[1][i, 1], theta_i[1][i, 2]]
-                        pos_RF = [theta_i[2][i, 0], theta_i[2][i, 1], theta_i[2][i, 2]]
-                        pos_RB = [theta_i[3][i, 0], theta_i[3][i, 1], theta_i[3][i, 2]]
-                        pos    = np.vstack([pos_LF, pos_LB, pos_RF, pos_RB])
+    #             while gait_step < self.gait_msg.step:
+    #                 for i in range(theta_i[0].shape[0]):
+    #                     pos_LF = [theta_i[0][i, 0], theta_i[0][i, 1], theta_i[0][i, 2]]
+    #                     pos_LB = [theta_i[1][i, 0], theta_i[1][i, 1], theta_i[1][i, 2]]
+    #                     pos_RF = [theta_i[2][i, 0], theta_i[2][i, 1], theta_i[2][i, 2]]
+    #                     pos_RB = [theta_i[3][i, 0], theta_i[3][i, 1], theta_i[3][i, 2]]
+    #                     pos    = np.vstack([pos_LF, pos_LB, pos_RF, pos_RB])
                         
-                        # theta = Theta(pos_LF[0], pos_LF[1], pos_LF[2])
-                        self.serial_publish.publish_message(pos)  
-                        time.sleep(0.05)                      
+    #                     self.serial_publish.publish_message(pos)  
+    #                     time.sleep(0.006)                      
                     
-                    gait_step += 1
+    #                 gait_step += 1
+
+    #             self.gait_msg.cmd = "ZERO"
+
+    def init_trajectory(self):
+        """Initializes the trajectory data when a new command is received."""
+        self.trajectory_data = self.change()
+        self.current_frame = 0
+        self.completed_steps = 0
+
+    def tick_trajectory(self):
+        """Advances the trajectory by exactly one frame per timer tick."""
+        if self.gait_msg.cmd == "ZERO" or self.trajectory_data is None:
+            return False
+
+        if self.completed_steps < self.gait_msg.step:
+            theta_i = self.trajectory_data
+            
+            # Extract positions for the current frame
+            pos_LF = [theta_i[0][self.current_frame, 0], theta_i[0][self.current_frame, 1], theta_i[0][self.current_frame, 2]]
+            pos_LB = [theta_i[1][self.current_frame, 0], theta_i[1][self.current_frame, 1], theta_i[1][self.current_frame, 2]]
+            pos_RF = [theta_i[2][self.current_frame, 0], theta_i[2][self.current_frame, 1], theta_i[2][self.current_frame, 2]]
+            pos_RB = [theta_i[3][self.current_frame, 0], theta_i[3][self.current_frame, 1], theta_i[3][self.current_frame, 2]]
+            pos    = np.vstack([pos_LF, pos_LB, pos_RF, pos_RB])
+            
+            self.serial_publish.publish_message(pos)
+            
+            # Advance the FSM state
+            self.current_frame += 1
+            if self.current_frame >= theta_i[0].shape[0]:
+                self.current_frame = 0
+                self.completed_steps += 1
+                
+            return True
+        else:
+            self.gait_msg.cmd = "ZERO"
+            return False

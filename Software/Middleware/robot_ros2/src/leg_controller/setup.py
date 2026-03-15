@@ -11,7 +11,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
     ],
-    install_requires=['setuptools'],
+    install_requires=['setuptools', 'gazebo_ros', 'gazebo_plugins', 'simulation', 'controller_manager'],
     zip_safe=True,
     maintainer='lvdaengineer',
     maintainer_email='lvdaengineer@todo.todo',
