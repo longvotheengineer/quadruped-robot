@@ -45,42 +45,61 @@ class Gait:
 
     def generate(self, leg_type):
         match self.gait_msg.cmd:
-            # case "ZERO":
             case "FORWARD":
+                # Set Lateral (Y) offset and absolute Center (X) based on the leg
                 match leg_type:
                     case "left-front":
-                        pos_A = [40, 60, -150]
-                        pos_B = [40, 60, -110]
-                        pos_C = [70, 60, -110]
-                        pos_D = [70, 60, -150]
-                    case "left-behind":
-                        pos_A = [-40, 60, -150]
-                        pos_B = [-40, 60, -110]
-                        pos_C = [-10, 60, -110]
-                        pos_D = [-10, 60, -150]
+                        y_val = 60
+                        x_center = 60   # Front shoulder X position
                     case "right-front":
-                        pos_A = [40, -60, -150]
-                        pos_B = [40, -60, -110]
-                        pos_C = [70, -60, -110]
-                        pos_D = [70, -60, -150]
+                        y_val = -60
+                        x_center = 60   # Front shoulder X position
+                    case "left-behind":
+                        y_val = 60
+                        x_center = -60  # Hind shoulder X position
                     case "right-behind":
-                        pos_A = [-40, -60, -150]
-                        pos_B = [-40, -60, -110]
-                        pos_C = [-10, -60, -110]
-                        pos_D = [-10, -60, -150]
+                        y_val = -60
+                        x_center = -60  # Hind shoulder X position
                     case _:
                         return None
-            # case "BACKWARD":
-            # case "LEFT":
-            # case "RIGHT":
             case _: 
                 return None
         
-        waypoint_AB = np.linspace(pos_A, pos_B, num=self.waypoint.swing,  axis=0)
-        waypoint_BC = np.linspace(pos_B, pos_C, num=self.waypoint.swing,  axis=0)
-        waypoint_CD = np.linspace(pos_C, pos_D, num=self.waypoint.swing,  axis=0)
-        waypoint_DA = np.linspace(pos_D, pos_A, num=self.waypoint.stance, axis=0)
-        waypoint    = np.vstack([waypoint_AB, waypoint_BC, waypoint_CD, waypoint_DA])
+        # --- Define our Physical Limits ---
+        stride_length = 30  # Total swing distance (15mm forward, 15mm backward from shoulder)
+        
+        # Calculate Forward/Backward X limits relative to this specific leg's shoulder
+        x_forward = x_center + (stride_length / 2)  
+        x_backward = x_center - (stride_length / 2) 
+        
+        z_ground = -150   # Foot firmly on the floor (Extended)
+        z_air = -130      # Max lift height in the air (Retracted)
+
+        swing_steps = self.waypoint.swing * 3
+        stance_steps = self.waypoint.stance
+
+        # --- 1. Swing Phase (In the air, moving Backward -> Forward) ---
+        waypoint_swing = np.zeros((swing_steps, 3))
+        # Move forward (Index 0 is X axis)
+        waypoint_swing[:, 0] = np.linspace(x_backward, x_forward, num=swing_steps)
+        # Keep Y constant (Index 1 is Y axis)
+        waypoint_swing[:, 1] = y_val
+        # Vertical Sine Wave Lift (Index 2 is Z axis)
+        t = np.linspace(0, np.pi, num=swing_steps)
+        lift_height = z_air - z_ground  # (-130) - (-150) = 20
+        waypoint_swing[:, 2] = z_ground + (lift_height * np.sin(t))
+
+        # --- 2. Stance Phase (On the ground, pushing Forward -> Backward) ---
+        waypoint_stance = np.zeros((stance_steps, 3))
+        # Push backward (Index 0 is X axis)
+        waypoint_stance[:, 0] = np.linspace(x_forward, x_backward, num=stance_steps)
+        # Keep Y constant (Index 1 is Y axis)
+        waypoint_stance[:, 1] = y_val
+        # Stay firmly on the ground (Index 2 is Z axis)
+        waypoint_stance[:, 2] = z_ground
+
+        # --- Combine into the final continuous loop ---
+        waypoint = np.vstack([waypoint_swing, waypoint_stance])
 
         waypoint_row = waypoint.shape[0]
         waypoint_col = waypoint.shape[1]
@@ -89,26 +108,23 @@ class Gait:
             px = waypoint[i, 0]
             py = waypoint[i, 1]
             pz = waypoint[i, 2]
-            self.get_logger.info(
-                f'[gaitGenerator] px={px}, '
-                f'py={py}, '
-                f'pz={pz}')
+            # self.get_logger.info(f'[gaitGenerator] px={px}, py={py}, pz={pz}')
             theta_i[i, :] = self.kinematics.inverse(px, py, pz, leg_type)
         
         match leg_type:
             case "left-front":
                 shift = round(waypoint_row * 0.00)
+            case "right-behind":
+                shift = round(waypoint_row * 0.00)
             case "left-behind":
                 shift = round(waypoint_row * 0.50)
             case "right-front":
                 shift = round(waypoint_row * 0.50)
-            case "right-behind":
-                shift = round(waypoint_row * 0.00)
             case _:
                 return None
             
         theta_i = np.roll(theta_i, shift, axis=0)       
-        return theta_i   
+        return theta_i  
 
     def change(self):        
         match self.gait_msg.cmd:

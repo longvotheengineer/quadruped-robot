@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <robot name="3dof_leg">
-
     <!-- <link name="world_link"/> -->
-
+    
     <!-- ================        BODY        ================ --> 
     <!-- <joint name="body_joint" type="fixed">        
         <parent link    ="world_link"/>
@@ -69,8 +68,10 @@
 
         <inertial>
             <origin xyz="0 -0.023 0" rpy="0 0 0"/>
-            <mass value="0.08"/>
-            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+            <mass value="0.02"/>
+            <inertia ixx="0.001" ixy="0.0"   ixz="0.0" 
+                                 iyy="0.001" iyz="0.0" 
+                                             izz="0.001"/>
         </inertial>
     </link>
 
@@ -107,7 +108,9 @@
         <inertial>
             <origin xyz="-0.05315 0 0" rpy="0 0 0"/>
             <mass value="0.09"/>
-            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+            <inertia ixx="0.001" ixy="0.0"   ixz="0.0" 
+                                 iyy="0.001" iyz="0.0" 
+                                             izz="0.001"/>
         </inertial>
     </link>
 
@@ -134,18 +137,18 @@
             </material>
         </visual>
 
-        <!-- <collision>
+        <collision>
             <origin xyz="0.052015 0 0" rpy="0 0 0"/>
             <geometry>
                 <box size="0.10403 0.01 0.01"/>
             </geometry>
-        </collision> -->
-        <collision>
+        </collision>
+        <!-- <collision>
             <origin xyz="0.10403 0 0" rpy="0 0 0"/> 
             <geometry>
                 <sphere radius="0.01"/> 
             </geometry>
-        </collision>
+        </collision> -->
 
         <inertial>
             <origin xyz="0.052015 0 0" rpy="0 0 0"/>
@@ -189,7 +192,7 @@
 
         <inertial>
             <origin xyz="0 -0.023 0" rpy="0 0 0"/>
-            <mass value="0.08"/>
+            <mass value="0.02"/>
             <inertia ixx="0.001" ixy="0.0"   ixz="0.0" 
                                  iyy="0.001" iyz="0.0" 
                                              izz="0.001"/>
@@ -258,18 +261,18 @@
             </material>
         </visual>
 
-        <!-- <collision>
+        <collision>
             <origin xyz="0.052015 0 0"/>
             <geometry>
                 <box size="0.10403 0.01 0.01"/>
             </geometry>
-        </collision> -->
-        <collision>
+        </collision>
+        <!-- <collision>
             <origin xyz="0.10403 0 0" rpy="0 0 0"/> 
             <geometry>
                 <sphere radius="0.01"/> 
             </geometry>
-        </collision>
+        </collision> -->
 
         <inertial>
             <origin xyz="0.052015 0 0" rpy="0 0 0"/>
@@ -311,7 +314,7 @@
 
         <inertial>
             <origin xyz="0 -0.023 0" rpy="0 0 0"/>
-            <mass value="0.08"/>
+            <mass value="0.02"/>
             <inertia ixx="0.001" ixy="0.0"   ixz="0.0" 
                                  iyy="0.001" iyz="0.0" 
                                              izz="0.001"/>
@@ -380,18 +383,18 @@
             </material>
         </visual>
 
-        <!-- <collision>
+        <collision>
             <origin xyz="0.052015 0 0"/>
             <geometry>
                 <box size="0.10403 0.01 0.01"/>
             </geometry>
-        </collision> -->
-        <collision>
+        </collision>
+        <!-- <collision>
             <origin xyz="0.10403 0 0" rpy="0 0 0"/> 
             <geometry>
                 <sphere radius="0.01"/> 
             </geometry>
-        </collision>
+        </collision> -->
 
         <inertial>
             <origin xyz="0.052015 0 0" rpy="0 0 0"/>
@@ -435,7 +438,7 @@
 
         <inertial>
             <origin xyz="0 -0.023 0" rpy="0 0 0"/>
-            <mass value="0.08"/>
+            <mass value="0.02"/>
             <inertia ixx="0.001" ixy="0.0"   ixz="0.0" 
                                  iyy="0.001" iyz="0.0" 
                                              izz="0.001"/>
@@ -504,18 +507,18 @@
             </material>
         </visual>
 
-        <!-- <collision>
+        <collision>
             <origin xyz="0.052015 0 0"/>
             <geometry>
                 <box size="0.10403 0.01 0.01"/>
             </geometry>
-        </collision> -->
-        <collision>
+        </collision>
+        <!-- <collision>
             <origin xyz="0.10403 0 0" rpy="0 0 0"/> 
             <geometry>
                 <sphere radius="0.01"/> 
             </geometry>
-        </collision>
+        </collision> -->
 
         <inertial>
             <origin xyz="0.052015 0 0" rpy="0 0 0"/>
@@ -535,13 +538,13 @@
     <gazebo reference="link_lf_2"><material>Gazebo/Green</material></gazebo>
     <gazebo reference="link_lf_3">
         <material>Gazebo/Blue</material>
-        <mu1>2.0</mu1>
-        <mu2>2.0</mu2>
+        <mu1>200.0</mu1>
+        <mu2>200.0</mu2>
         <!-- <fdir1>1 0 0</fdir1> -->
         <kp>1000000.0</kp>
         <kd>1000.0</kd>
-        <slip1>0.0</slip1>
-        <slip2>0.0</slip2>
+        <slip1>100.0</slip1>
+        <slip2>100.0</slip2>
         <minDepth>0.003</minDepth>
         <maxVel>0.0</maxVel>
         <torsional>
@@ -550,8 +553,9 @@
                 <slip>0</slip>
             </ode>
             <coefficient>1.0</coefficient>
-            <surface_radius>0.01</surface_radius>
-            <use_patch_radius>false</use_patch_radius>
+            <surface_radius>0.01</surface_radius>   
+            <path_radius>100</path_radius>         
+            <use_patch_radius>true</use_patch_radius>
         </torsional>
     </gazebo>
 
@@ -559,13 +563,13 @@
     <gazebo reference="link_lb_2"><material>Gazebo/Green</material></gazebo>
     <gazebo reference="link_lb_3">
         <material>Gazebo/Blue</material>
-        <mu1>2.0</mu1>
-        <mu2>2.0</mu2>
+        <mu1>200.0</mu1>
+        <mu2>200.0</mu2>
         <!-- <fdir1>1 0 0</fdir1> -->
         <kp>1000000.0</kp>
         <kd>1000.0</kd>
-        <slip1>0.0</slip1>
-        <slip2>0.0</slip2>
+        <slip1>100.0</slip1>
+        <slip2>100.0</slip2>
         <minDepth>0.003</minDepth>
         <maxVel>0.0</maxVel>
         <torsional>
@@ -575,7 +579,8 @@
             </ode>
             <coefficient>1.0</coefficient>
             <surface_radius>0.01</surface_radius>
-            <use_patch_radius>false</use_patch_radius>
+            <path_radius>100</path_radius>
+            <use_patch_radius>true</use_patch_radius>
         </torsional>
     </gazebo>
 
@@ -583,13 +588,13 @@
     <gazebo reference="link_rf_2"><material>Gazebo/Green</material></gazebo>
     <gazebo reference="link_rf_3">
         <material>Gazebo/Blue</material>
-        <mu1>2.0</mu1>
-        <mu2>2.0</mu2>
+        <mu1>200.0</mu1>
+        <mu2>200.0</mu2>
         <!-- <fdir1>1 0 0</fdir1> -->
         <kp>1000000.0</kp>
         <kd>1000.0</kd>
-        <slip1>0.0</slip1>
-        <slip2>0.0</slip2>
+        <slip1>100.0</slip1>
+        <slip2>100.0</slip2>
         <minDepth>0.003</minDepth>
         <maxVel>0.0</maxVel>
         <torsional>
@@ -599,7 +604,8 @@
             </ode>
             <coefficient>1.0</coefficient>
             <surface_radius>0.01</surface_radius>
-            <use_patch_radius>false</use_patch_radius>
+            <path_radius>100</path_radius>
+            <use_patch_radius>true</use_patch_radius>
         </torsional>
     </gazebo>
 
@@ -607,13 +613,13 @@
     <gazebo reference="link_rb_2"><material>Gazebo/Green</material></gazebo>
     <gazebo reference="link_rb_3">
         <material>Gazebo/Blue</material>
-        <mu1>2.0</mu1>
-        <mu2>2.0</mu2>
+        <mu1>200.0</mu1>
+        <mu2>200.0</mu2>
         <!-- <fdir1>1 0 0</fdir1> -->
         <kp>1000000.0</kp>
         <kd>1000.0</kd>
-        <slip1>0.0</slip1>
-        <slip2>0.0</slip2>
+        <slip1>100.0</slip1>
+        <slip2>100.0</slip2>
         <minDepth>0.003</minDepth>
         <maxVel>0.0</maxVel>
         <torsional>
@@ -623,7 +629,8 @@
             </ode>
             <coefficient>1.0</coefficient>
             <surface_radius>0.01</surface_radius>
-            <use_patch_radius>false</use_patch_radius>
+            <path_radius>100</path_radius>         
+            <use_patch_radius>true</use_patch_radius>
         </torsional>
     </gazebo>
     

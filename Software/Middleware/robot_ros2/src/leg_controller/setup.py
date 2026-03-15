@@ -18,7 +18,7 @@ setup(
     description='TODO: Package description',
     license='TODO: License declaration',
     extras_require={
-        'test': [
+        'test': [   
             'pytest',
         ],
     },
