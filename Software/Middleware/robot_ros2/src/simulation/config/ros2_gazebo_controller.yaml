@@ -1,12 +1,12 @@
 controller_manager:
   ros__parameters:
-    update_rate: 1000  # Run the control loop at 10000 Hz
+    update_rate: 1000
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
     leg_controller:
-      type: position_controllers/JointGroupPositionController
+      type: effort_controllers/JointGroupEffortController
 
 leg_controller:
   ros__parameters:
@@ -23,19 +23,3 @@ leg_controller:
       - joint_rb_1
       - joint_rb_2
       - joint_rb_3
-
-gazebo_ros2_control:
-  ros__parameters:
-    pid_gains:
-      joint_lf_1: {p: 150.0, i: 0.0, d: 1.5}
-      joint_lf_2: {p: 150.0, i: 0.0, d: 1.5}
-      joint_lf_3: {p: 150.0, i: 0.0, d: 1.5}
-      joint_lb_1: {p: 150.0, i: 0.0, d: 1.5}
-      joint_lb_2: {p: 150.0, i: 0.0, d: 1.5}
-      joint_lb_3: {p: 150.0, i: 0.0, d: 1.5}
-      joint_rf_1: {p: 150.0, i: 0.0, d: 1.5}
-      joint_rf_2: {p: 150.0, i: 0.0, d: 1.5}
-      joint_rf_3: {p: 150.0, i: 0.0, d: 1.5}
-      joint_rb_1: {p: 150.0, i: 0.0, d: 1.5}
-      joint_rb_2: {p: 150.0, i: 0.0, d: 1.5}
-      joint_rb_3: {p: 150.0, i: 0.0, d: 1.5}

@@ -66,14 +66,14 @@ class Gait:
                 return None
         
         # --- Define our Physical Limits ---
-        stride_length = 30  # Total swing distance (15mm forward, 15mm backward from shoulder)
+        stride_length = 45  # Total swing distance
         
         # Calculate Forward/Backward X limits relative to this specific leg's shoulder
         x_forward = x_center + (stride_length / 2)  
         x_backward = x_center - (stride_length / 2) 
         
         z_ground = -150   # Foot firmly on the floor (Extended)
-        z_air = -130      # Max lift height in the air (Retracted)
+        z_air = -110      # Max lift height in the air (40mm clearance)
 
         swing_steps = self.waypoint.swing * 3
         stance_steps = self.waypoint.stance

@@ -23,17 +23,8 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(sim_launch_path)
     )
 
-    # Launch the Gazebo Physics Engine
-    gazebo_launch_path = os.path.join(
-        get_package_share_directory('gazebo_ros'), 
-        'launch', 
-        'gazebo.launch.py'
-    )
-    launch_gazebo = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(gazebo_launch_path)
-    )
-
     # Launch the robot into Gazebo
+    # NOTE: Gazebo is already launched by simulation/launch/launch.py (included above)
     launch_entity = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
@@ -62,7 +53,6 @@ def generate_launch_description():
     return LaunchDescription([
         node_leg_controller,
         launch_simulation,
-        launch_gazebo,
         launch_entity,
         launch_encoder,
         launch_angle
