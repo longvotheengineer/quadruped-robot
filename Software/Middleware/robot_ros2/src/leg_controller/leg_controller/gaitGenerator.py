@@ -45,11 +45,25 @@ class Gait:
         "right-behind":  {"x_center": -60, "y_val": -60},
     }
 
+    PARAMS_GAIT_BACKWARD = {
+        "left-front":    {"x_center":  60, "y_val":  60, "reverse": True},
+        "left-behind":   {"x_center": -60, "y_val":  60, "reverse": True},
+        "right-front":   {"x_center":  60, "y_val": -60, "reverse": True},
+        "right-behind":  {"x_center": -60, "y_val": -60, "reverse": True},
+    }
+
     PARAMS_GAIT_TURN_RIGHT = {
         "left-front":    {"x_center":  60, "y_val":  60, "reverse": False},
         "left-behind":   {"x_center": -60, "y_val":  60, "reverse": False},
         "right-front":   {"x_center":  60, "y_val": -60, "reverse": True},
         "right-behind":  {"x_center": -60, "y_val": -60, "reverse": True},
+    }
+
+    PARAMS_GAIT_TURN_LEFT = {
+        "left-front":    {"x_center":  60, "y_val":  60, "reverse": True},
+        "left-behind":   {"x_center": -60, "y_val":  60, "reverse": True},
+        "right-front":   {"x_center":  60, "y_val": -60, "reverse": False},
+        "right-behind":  {"x_center": -60, "y_val": -60, "reverse": False},
     }
 
     PARAMS_PHASESHIFT_TROT = {
@@ -106,8 +120,12 @@ class Gait:
         match self.gait_msg.cmd:
             case "FORWARD":
                 params = self.PARAMS_GAIT_TROT.get(leg_type)
+            case "BACKWARD":
+                params = self.PARAMS_GAIT_BACKWARD.get(leg_type)
             case "TURN_RIGHT":
                 params = self.PARAMS_GAIT_TURN_RIGHT.get(leg_type)
+            case "TURN_LEFT":
+                params = self.PARAMS_GAIT_TURN_LEFT.get(leg_type)
             case _:
                 return None
 
