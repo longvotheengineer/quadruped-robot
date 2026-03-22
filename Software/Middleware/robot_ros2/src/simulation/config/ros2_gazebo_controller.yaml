@@ -17,7 +17,7 @@ leg_controller:
       - joint_lb_1
       - joint_lb_2
       - joint_lb_3
-      - joint_rf_1
+      - joint_rf_1  
       - joint_rf_2
       - joint_rf_3
       - joint_rb_1

@@ -19,6 +19,7 @@ def generate_launch_description():
     # Replace $(find simulation) with the absolute path to the share directory    
     robot_description_config = robot_description_config.replace('$(find simulation)', package_share)
     
+    # Use to control the joint position manually in the GUI mode
     node_joint_state_publisher = Node(
         package='joint_state_publisher_gui',
         executable='joint_state_publisher_gui',
@@ -26,6 +27,7 @@ def generate_launch_description():
         output='screen'
     )
 
+    # Publishes the robot's state to tf2 by processing the URDF and joint state messages
     node_robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -33,10 +35,35 @@ def generate_launch_description():
         parameters=[{'robot_description': robot_description_config}]
     )
 
+    # Launch Gazebo
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]),
         launch_arguments={'world': world_file}.items()
+    )
+    # Launch the robot entity into Gazebo
+    launch_entity = Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=['-entity', 'quadruped_robot', 
+                    '-topic', 'robot_description',
+                    '-x', '0.0',
+                    '-y', '0.0',
+                    '-z', '0.1'],
+        output='screen'
+    )
+
+    # Launch the Encoder (Reads the joint angles of the virtual motors in Gazebo)
+    launch_encoder = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+    )
+    # Launch the Actuator (Write the angles to the virtual motors in Gazebo)
+    launch_actuator = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["leg_controller", "--controller-manager", "/controller_manager"],
     )
 
     node_rviz = Node(
@@ -51,5 +78,8 @@ def generate_launch_description():
         # node_joint_state_publisher,
         node_robot_state_publisher,
         gazebo,
+        launch_entity,
+        launch_encoder,
+        launch_actuator,
         node_rviz
     ])
