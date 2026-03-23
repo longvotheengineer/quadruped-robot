@@ -18,13 +18,13 @@ setup(
     description='TODO: Package description',
     license='TODO: License declaration',
     extras_require={
-        'test': [
+        'test': [   
             'pytest',
         ],
     },
     entry_points={
         'console_scripts': [
-            'single_servo_test = leg_controller.single_servo_test:main',
+            'node_leg_controller = leg_controller.nodeLegController:main',
         ],
     },
 )
