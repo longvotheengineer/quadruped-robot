@@ -46,6 +46,7 @@ class Kinematics:
                 z       = -self.robot_length.L / 2 + px
                 theta1  =  math.atan2(-x, y) \
                          + math.atan2(-math.sqrt(x**2 + y**2 - self.robot_length.l1**2), -self.robot_length.l1)
+                theta1  = -theta1  # negate for URDF left joint frame convention
                 sign_s3 = -1
                 sign_p2 =  1
             case "left-behind":
@@ -54,7 +55,8 @@ class Kinematics:
                 z       =  self.robot_length.L / 2 + px
                 theta1  =  math.atan2(-x, y) \
                          + math.atan2(-math.sqrt(x**2 + y**2 - self.robot_length.l1**2), -self.robot_length.l1)
-                sign_s3 =  1
+                theta1  = -theta1  # negate for URDF left joint frame convention
+                sign_s3 =  -1
                 sign_p2 =  1
             case "right-front":
                 x       =  pz
@@ -70,7 +72,7 @@ class Kinematics:
                 z       =  self.robot_length.L / 2 + px
                 theta1  =  math.atan2(-x, y) \
                          + math.atan2(-math.sqrt(x**2 + y**2 - self.robot_length.l1**2), self.robot_length.l1)
-                sign_s3 = -1
+                sign_s3 = 1
                 sign_p2 = -1
             case _:
                 return None

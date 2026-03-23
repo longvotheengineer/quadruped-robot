@@ -19,12 +19,19 @@ class LegController(Node):
             String, '/gait_control', self.listener_callback, 10)
         
         self.timer = self.create_timer(0.003, self.timer_callback)
-        self.state_gait = ""
+        self.state_gait = "AUTO_INIT"
 
-        self.get_logger().info('The main Node has started.')
+        self.get_logger().info('The main Node has started.')    
 
     def timer_callback(self):
-        if self.state_gait == "INIT":
+        if self.state_gait == "AUTO_INIT":
+            # Wait for encoder data, then hold at init pose
+            if self.gait.serial_publish.controller_sim.actual_positions:
+                self.state_gait = "IDLE"
+                self.get_logger().info('Init pose reached. Waiting for commands.')
+        elif self.state_gait == "IDLE":
+            self.gait.init_pose_tick()
+        elif self.state_gait == "INIT":
             self.gait.control_init()
             self.state_gait = "READY"
         elif self.state_gait == "READY":

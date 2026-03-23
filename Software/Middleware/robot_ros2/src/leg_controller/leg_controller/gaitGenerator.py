@@ -24,7 +24,7 @@ class Gait:
         self.node = node
         self.get_logger = node.get_logger()
 
-        robot_length = RobotLength(L = 120, W = 90, l1 = 20, l2 = 80, l3 = 80)
+        robot_length = RobotLength(L = 250, W = 193, l1 = 45, l2 = 107, l3 = 116)
         self.kinematics = Kinematics(self.node, robot_length)
         self.serial_publish = SerialPublish(self.node)
         self.gait_msg = gait_msg
@@ -38,32 +38,39 @@ class Gait:
 
     # ── Leg configuration ────────────────────────────────────────
 
-    PARAMS_GAIT_TROT = {
-        "left-front":    {"x_center":  60, "y_val":  60},
-        "left-behind":   {"x_center": -60, "y_val":  60},
-        "right-front":   {"x_center":  60, "y_val": -60},
-        "right-behind":  {"x_center": -60, "y_val": -60},
+    INIT_POSE = {
+        'joint_lf_1':  0.3, 'joint_lf_2':  3*np.pi/2, 'joint_lf_3':  0.5,
+        'joint_lb_1':  0.3, 'joint_lb_2': -3*np.pi/2, 'joint_lb_3': -0.5,
+        'joint_rf_1':  0.3, 'joint_rf_2': -3*np.pi/2, 'joint_rf_3': -0.5,
+        'joint_rb_1':  0.3, 'joint_rb_2':  3*np.pi/2, 'joint_rb_3':  0.5,
+    }
+
+    PARAMS_GAIT_FORWARD = {
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False},
+        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": False},
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False},
     }
 
     PARAMS_GAIT_BACKWARD = {
-        "left-front":    {"x_center":  60, "y_val":  60, "reverse": True},
-        "left-behind":   {"x_center": -60, "y_val":  60, "reverse": True},
-        "right-front":   {"x_center":  60, "y_val": -60, "reverse": True},
-        "right-behind":  {"x_center": -60, "y_val": -60, "reverse": True},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": True},
+        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": True},
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True},
     }
 
     PARAMS_GAIT_TURN_RIGHT = {
-        "left-front":    {"x_center":  60, "y_val":  60, "reverse": False},
-        "left-behind":   {"x_center": -60, "y_val":  60, "reverse": False},
-        "right-front":   {"x_center":  60, "y_val": -60, "reverse": True},
-        "right-behind":  {"x_center": -60, "y_val": -60, "reverse": True},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False},
+        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": True},
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True},
     }
 
     PARAMS_GAIT_TURN_LEFT = {
-        "left-front":    {"x_center":  60, "y_val":  60, "reverse": True},
-        "left-behind":   {"x_center": -60, "y_val":  60, "reverse": True},
-        "right-front":   {"x_center":  60, "y_val": -60, "reverse": False},
-        "right-behind":  {"x_center": -60, "y_val": -60, "reverse": False},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": True},
+        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": False},
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False},
     }
 
     PARAMS_PHASESHIFT_TROT = {
@@ -73,7 +80,25 @@ class Gait:
         "right-front":  0.50,
     }
 
+    PARAMS_PHASESHIFT_WALK = {
+        "left-front":   0.00,
+        "right-behind": 0.25,
+        "right-front":  0.50,
+        "left-behind":  0.75,
+    }
+
     CONTROL_VELOCITY = True
+
+    # ── Init pose (natural bent-leg position) ────────────────────
+
+    def init_pose_tick(self):
+        """Hold at INIT_POSE via PID."""
+        joint_names = self.serial_publish.controller_sim.joint_names
+        targets = [self.INIT_POSE[name] for name in joint_names]
+        torques = self.serial_publish.controller_sim.compute_torques(targets)
+        msg = Float64MultiArray()
+        msg.data = torques
+        self.serial_publish.pub_sim_gazebo.publish(msg)
 
     # ── Trajectory generation ───────────────────────────────────
 
@@ -83,8 +108,8 @@ class Gait:
         stride_length = 45
         x_forward  = x_center + stride_length / 2
         x_backward = x_center - stride_length / 2
-        z_stance = -150
-        z_swing  = -110
+        z_stance = -170
+        z_swing  = -130
         lift_height = z_swing - z_stance
 
         if reverse:
@@ -102,52 +127,87 @@ class Gait:
         else:
             # Swing: sine-wave lift from backward to forward
             swing = np.zeros((self.waypoint.swing, 3))
-            swing[:, 0] = np.linspace(x_backward, x_forward, self.waypoint.swing)
+            swing[:, 0] = np.linspace(pos_A[0], pos_D[0], self.waypoint.swing)
             swing[:, 1] = y_val
             swing[:, 2] = z_stance + lift_height * np.sin(np.linspace(0, np.pi, self.waypoint.swing))
 
             # Stance: slide on ground from forward to backward
             stance = np.zeros((self.waypoint.stance, 3))
-            stance[:, 0] = np.linspace(x_forward, x_backward, self.waypoint.stance)
+            stance[:, 0] = np.linspace(pos_D[0], pos_A[0], self.waypoint.stance)
             stance[:, 1] = y_val
             stance[:, 2] = z_stance
 
             return np.vstack([swing, stance])
 
+    def trajectory_pushup(self, x_center, y_val):
+        """Build push-up trajectory: feet stay planted, body oscillates up/down."""
+        z_low  = -170    # body down (legs bent)
+        z_high = -130    # body up (legs extended)
+        total  = 300     # frames per full cycle
+
+        waypoint = np.zeros((total, 3))
+        waypoint[:, 0] = x_center
+        waypoint[:, 1] = y_val
+        waypoint[:, 2] = z_low + (z_high - z_low) * (0.5 - 0.5 * np.cos(np.linspace(0, 2 * np.pi, total)))
+
+        return waypoint
+
     def generate_gait(self, leg_type):
         """Generate one leg's full gait cycle: foot path → IK → phase shift."""
-        # Select params based on command
+        # Select params and phase pattern based on command
         match self.gait_msg.cmd:
-            case "FORWARD":
-                params = self.PARAMS_GAIT_TROT.get(leg_type)
-            case "BACKWARD":
+            case "TROT_FORWARD":
+                params = self.PARAMS_GAIT_FORWARD.get(leg_type)
+                phase  = self.PARAMS_PHASESHIFT_TROT
+            case "TROT_BACKWARD":
                 params = self.PARAMS_GAIT_BACKWARD.get(leg_type)
+                phase  = self.PARAMS_PHASESHIFT_TROT
+            case "WALK_FORWARD":
+                params = self.PARAMS_GAIT_FORWARD.get(leg_type)
+                phase  = self.PARAMS_PHASESHIFT_WALK
+            case "WALK_BACKWARD":
+                params = self.PARAMS_GAIT_BACKWARD.get(leg_type)
+                phase  = self.PARAMS_PHASESHIFT_WALK
             case "TURN_RIGHT":
                 params = self.PARAMS_GAIT_TURN_RIGHT.get(leg_type)
+                phase  = self.PARAMS_PHASESHIFT_TROT
             case "TURN_LEFT":
                 params = self.PARAMS_GAIT_TURN_LEFT.get(leg_type)
+                phase  = self.PARAMS_PHASESHIFT_TROT
+            case "PUSHUP":
+                params = self.PARAMS_GAIT_FORWARD.get(leg_type)
+                phase  = {"left-front": 0, "left-behind": 0, "right-front": 0, "right-behind": 0}
+            case "BODY_SWAY":
+                params = self.PARAMS_GAIT_FORWARD.get(leg_type)
+                phase  = {"left-front": 0, "left-behind": 0, "right-front": 0.50, "right-behind": 0.50}
+            case "BODY_CIRCLE":
+                params = self.PARAMS_GAIT_FORWARD.get(leg_type)
+                phase  = {"left-front": 0, "right-front": 0.25, "right-behind": 0.50, "left-behind": 0.75}
             case _:
                 return None
 
         if not params:
             return None
 
-        # 1. Foot trajectory in Cartesian space
-        reverse = params.get("reverse", False)
-        waypoint = self.trajectory_foot(params["x_center"], params["y_val"], reverse)
+        # Build foot trajectory based on command
+        if self.gait_msg.cmd in ("PUSHUP", "BODY_SWAY", "BODY_CIRCLE"):
+            waypoint = self.trajectory_pushup(params["x_center"], params["y_val"])
+        else:
+            reverse = params.get("reverse", False)
+            waypoint = self.trajectory_foot(params["x_center"], params["y_val"], reverse)
 
-        # 2. Convert to joint angles via IK
+        # Convert to joint angles via IK
         theta_i = np.zeros_like(waypoint)
         for i in range(waypoint.shape[0]):
             theta_i[i] = self.kinematics.inverse(*waypoint[i], leg_type)
 
-        # 3. Apply phase shift (trot pattern)
-        shift = round(waypoint.shape[0] * self.PARAMS_PHASESHIFT_TROT.get(leg_type, 0))
+        # Apply phase shift
+        shift = round(waypoint.shape[0] * phase.get(leg_type, 0))
         return np.roll(theta_i, shift, axis=0)
 
     def generate_home(self):
-        """Precalculate homing trajectory: back legs first, then front legs."""
-        th1, th2, th3 = self.kinematics.inverse(60, 60, -150, "left-front")
+        """Precalculate homing trajectory: all 4 legs move simultaneously."""
+        th1, th2, th3 = self.kinematics.inverse(125, 135, -170, "left-front")
 
         if th2 > 180:
             th2 -= 360
@@ -166,37 +226,17 @@ class Gait:
             return None
 
         joint_names = self.serial_publish.controller_sim.joint_names
-        back_joints  = [n for n in joint_names if '_lb_' in n or '_rb_' in n]
-        front_joints = [n for n in joint_names if '_lf_' in n or '_rf_' in n]
+        total_steps = 3000
 
-        total_steps = 2000
-
-        # Build frame-by-frame targets: [total_frames x 12] array
-        # Phase 1: back legs move (0 to total_steps)
-        # Phase 2: front legs move (total_steps to 2*total_steps)
+        # Interpolate all joints simultaneously
         theta_i = []
-        for phase in range(2):
-            for step in range(total_steps):
-                alpha = step / total_steps
-                targets = []
-                for name in joint_names:
-                    start = positions[name]
-                    end = homing_targets[name]
-                    if phase == 0:  # Back legs move, front hold
-                        if name in back_joints:
-                            targets.append(start + alpha * (end - start))
-                        else:
-                            targets.append(start)
-                    else:  # Front legs move, back hold
-                        if name in front_joints:
-                            targets.append(start + alpha * (end - start))
-                        else:
-                            targets.append(end)
-                theta_i.append(targets)
+        for step in range(total_steps):
+            alpha = step / total_steps
+            frame = [positions[n] + alpha * (homing_targets[n] - positions[n]) for n in joint_names]
+            theta_i.append(frame)
 
-        # Store homing targets for READY state hold
         self.homing_targets = homing_targets
-        return np.array(theta_i)  # shape: [4000, 12]
+        return np.array(theta_i)  # shape: [3000, 12]
 
     def change(self):        
         match self.gait_msg.cmd:
