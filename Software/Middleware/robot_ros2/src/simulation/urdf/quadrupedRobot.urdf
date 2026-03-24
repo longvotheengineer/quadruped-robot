@@ -2,7 +2,8 @@
 <robot name="3dof_leg">
     <!-- <link name="world_link"/> -->
     
-    <!-- ================        BODY        ================ --> 
+    <!-- ── Body ─────────────────────────────────────────────── --> 
+
     <!-- <joint name="body_joint" type="fixed">        
         <parent link    ="world_link"/>
         <child  link    ="body_link"/>  
@@ -35,7 +36,8 @@
         </inertial>
     </link>
 
-    <!-- ================   LEFT-FRONT LEG   ================ -->  
+    <!-- ── Left-front leg ──────────────────────────────────── -->  
+
     <joint name="joint_lf_1" type="revolute">        
         <parent link    ="body_link"/>
         <child  link    ="link_lf_1"/>
@@ -162,7 +164,8 @@
         </inertial>
     </link>
 
-    <!-- ================   LEFT-BEHIND LEG   ================ -->    
+    <!-- ── Left-behind leg ─────────────────────────────────── -->    
+
     <joint name="joint_lb_1" type="revolute">        
         <parent link    ="body_link"/>
         <child  link    ="link_lb_1"/>
@@ -287,7 +290,8 @@
         </inertial>
     </link>
 
-    <!-- ================   RIGHT-FRONT LEG   ================ -->  
+    <!-- ── Right-front leg ─────────────────────────────────── -->  
+
     <joint name="joint_rf_1" type="revolute">        
         <parent link    ="body_link"/>
         <child  link    ="link_rf_1"/>
@@ -414,7 +418,8 @@
         </inertial>
     </link>
 
-    <!-- ================   RIGHT-BEHIND LEG   ================ -->  
+    <!-- ── Right-behind leg ────────────────────────────────── -->  
+
     <joint name="joint_rb_1" type="revolute">        
         <parent link    ="body_link"/>
         <child  link    ="link_rb_1"/>
@@ -541,7 +546,8 @@
         </inertial>
     </link>
 
-    <!-- ================ MAKE COLOR IN GAZEBO ================ --> 
+    <!-- ── Gazebo materials & contact ──────────────────────── --> 
+
     <gazebo reference="body_link">
         <material>Gazebo/DarkGrey</material>
     </gazebo>
@@ -646,7 +652,8 @@
         </torsional>
     </gazebo>
     
-    <!-- ================     VIRTUAL MOTOR      ================ --> 
+    <!-- ── Virtual motor (ros2_control) ────────────────────── --> 
+
     <ros2_control name="GazeboSystem" type="system">
         <hardware>
             <plugin>gazebo_ros2_control/GazeboSystem</plugin>
@@ -729,7 +736,8 @@
         </joint>
     </ros2_control>
 
-    <!-- ================ ROS2-GAZEBO CONTROLLER ================ --> 
+    <!-- ── ROS2-Gazebo controller plugin ───────────────────── --> 
+
     <gazebo>
         <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
             <parameters>$(find simulation)/config/ros2_gazebo_controller.yaml</parameters>

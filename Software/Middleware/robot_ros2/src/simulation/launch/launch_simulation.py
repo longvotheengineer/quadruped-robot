@@ -9,7 +9,7 @@ def generate_launch_description():
     package_name = 'simulation'
     package_share = get_package_share_directory(package_name)
 
-    urdf_file = os.path.join(get_package_share_directory(package_name), 'urdf', 'test.urdf')
+    urdf_file = os.path.join(get_package_share_directory(package_name), 'urdf', 'quadrupedRobot.urdf')
     rviz_config_file = os.path.join(get_package_share_directory(package_name), 'rviz', 'config.rviz')
     world_file = os.path.join(package_share, 'worlds', 'custom_physics.world')
 
