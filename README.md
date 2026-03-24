@@ -1,7 +1,7 @@
 # Quadruped Robot — Simulation and Control
 
 > **Author:** LvDaengineer  
-> **Repository:** [quadruped-robot](https://github.com/longvotheengineer/quadruped-robot)  
+> **Project:** [quadruped-robot](https://github.com/users/longvotheengineer/projects/3/views/4)  
 > **License:** MIT
 
 ---
