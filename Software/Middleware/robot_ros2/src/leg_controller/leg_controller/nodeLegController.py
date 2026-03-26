@@ -10,7 +10,7 @@ class GaitMsg:
 
 class LegController(Node):
     def __init__(self):
-        super().__init__('node_leg_controller')
+        super().__init__('nodeLegController')
 
         self.gait_msg = GaitMsg(None, 0)
         self.gait = Gait(self, self.gait_msg)

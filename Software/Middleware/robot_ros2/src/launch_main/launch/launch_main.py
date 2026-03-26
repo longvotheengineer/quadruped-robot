@@ -24,7 +24,16 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(sim_launch_path)
     )
 
+    # Launch the Posture Stabilizer node:
+    # Reads IMU data, runs PID, publishes correction angles
+    node_balance_controller = Node(
+        package='balance_controller',
+        executable='nodeBalanceController',
+        name='nodeBalanceController',
+        output='screen')
+
     return LaunchDescription([
         node_leg_controller,
+        node_balance_controller,
         launch_simulation
     ])

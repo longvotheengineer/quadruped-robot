@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'leg_controller'
+package_name = 'balance_controller'
 
 setup(
     name=package_name,
@@ -11,20 +11,20 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
     ],
-    install_requires=['setuptools', 'gazebo_ros', 'gazebo_plugins', 'simulation', 'controller_manager'],
+    install_requires=['setuptools'],
     zip_safe=True,
     maintainer='lvdaengineer',
     maintainer_email='longdaicangu0002@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     extras_require={
-        'test': [   
+        'test': [
             'pytest',
         ],
     },
     entry_points={
         'console_scripts': [
-            'node_leg_controller = leg_controller.nodeLegController:main',
+            'nodeBalanceController = balance_controller.nodeBalanceController:main',            
         ],
     },
 )
