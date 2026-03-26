@@ -1,9 +1,11 @@
+import math
 import numpy as np
 from dataclasses import dataclass
 from leg_controller.kinematics import Kinematics
 from leg_controller.serialPublish import SerialPublish
 from leg_controller.quinticPlanning import quintic_planning
 from std_msgs.msg import Float64MultiArray
+from geometry_msgs.msg import Vector3
 
 @dataclass(frozen=True)
 class Waypoint:
@@ -33,8 +35,16 @@ class Gait:
 
         # Trajectory state
         self.gait_angle_data = None
+        self.gait_foot_data  = None
         self.current_frame = 0
         self.complete_step = 0
+
+        # Posture correction from balance_controller
+        self.corr_roll  = 0.0
+        self.corr_pitch = 0.0
+        self.LEG_NAMES = ['left-front', 'left-behind', 'right-front', 'right-behind']
+        node.create_subscription(
+            Vector3, '/posture/correction', self._posture_callback, 10)
 
     # ── Leg configuration ────────────────────────────────────────
 
@@ -172,8 +182,26 @@ class Gait:
 
         return waypoint
 
+    def _posture_callback(self, msg: Vector3):
+        """Receive correction angles from balance_controller."""
+        self.corr_roll  = msg.x
+        self.corr_pitch = msg.y
+
+    def apply_rotation(self, foot_pos, corr_roll, corr_pitch):
+        """Apply paper formula: p_t = R_inv · (p_c - p_0) + p_0.
+        Simplifies to p_t = R_inv · p_c with p_0 at origin."""
+        r = -corr_roll
+        p = -corr_pitch
+        cr, sr = math.cos(r), math.sin(r)
+        cp, sp = math.cos(p), math.sin(p)
+        R = np.array([[cp,    sr*sp,  cr*sp],
+                      [0,     cr,    -sr   ],
+                      [-sp,   sr*cp,  cr*cp]])
+        return R @ foot_pos
+
     def generate_gait(self, leg_type):
-        """Generate one leg's full gait cycle: foot path → IK → phase shift."""
+        """Generate one leg's full gait cycle: foot path → IK → phase shift.
+        Returns (joint_angles, foot_positions) tuple."""
         # Select params and phase pattern based on command
         match self.gait_msg.cmd:
             case "TROT_FORWARD":
@@ -204,10 +232,10 @@ class Gait:
                 params = self.PARAMS_GAIT_FORWARD.get(leg_type)
                 phase  = self.PARAMS_PHASESHIFT_CIRCLE
             case _:
-                return None
+                return None, None
 
         if not params:
-            return None
+            return None, None
 
         # Build foot trajectory based on command
         if self.gait_msg.cmd in ("BODY_PUSHUP", "BODY_SWAY", "BODY_CIRCLE"):
@@ -221,9 +249,9 @@ class Gait:
         for i in range(waypoint.shape[0]):
             theta_i[i] = self.kinematics.inverse(*waypoint[i], leg_type)
 
-        # Apply phase shift
+        # Apply phase shift to BOTH angles and foot positions
         shift = round(waypoint.shape[0] * phase.get(leg_type, 0))
-        return np.roll(theta_i, shift, axis=0)
+        return np.roll(theta_i, shift, axis=0), np.roll(waypoint, shift, axis=0)
 
     def generate_home(self):
         """Precalculate homing trajectory: all 4 legs move simultaneously."""
@@ -260,13 +288,16 @@ class Gait:
     def change(self):        
         match self.gait_msg.cmd:
             case "ZERO":
+                self.gait_foot_data = None
                 return self.generate_home()
             case _:
-                theta_i     = np.empty(4, dtype=object) 
-                theta_i[0]  = self.generate_gait("left-front")
-                theta_i[1]  = self.generate_gait("left-behind")
-                theta_i[2]  = self.generate_gait("right-front")
-                theta_i[3]  = self.generate_gait("right-behind")
+                theta_i = np.empty(4, dtype=object)
+                foot_i  = np.empty(4, dtype=object)
+                for idx, leg in enumerate(self.LEG_NAMES):
+                    angles, feet = self.generate_gait(leg)
+                    theta_i[idx] = angles
+                    foot_i[idx]  = feet
+                self.gait_foot_data = foot_i
                 return theta_i   
 
     def control_init(self):
@@ -310,11 +341,11 @@ class Gait:
 
         # If finite steps completed, hold the last frame position
         if self.gait_msg.step > 0 and self.complete_step >= self.gait_msg.step:
-            pos = np.array([theta_i[i][self.current_frame] for i in range(4)])
+            pos = self._get_corrected_frame(theta_i, self.current_frame)
             self.serial_publish.publish_message(pos)
             return False
 
-        pos = np.array([theta_i[i][self.current_frame] for i in range(4)])        
+        pos = self._get_corrected_frame(theta_i, self.current_frame)
         self.serial_publish.publish_message(pos)
         
         # Advance frame
@@ -324,3 +355,17 @@ class Gait:
             self.complete_step += 1
             
         return True
+
+    def _get_corrected_frame(self, theta_i, frame):
+        """Get joint angles for one frame, with posture correction applied."""
+        # No correction or no foot data → use precalculated angles
+        if self.gait_foot_data is None or True:  # TEMP: force no correction
+            return np.array([theta_i[i][frame] for i in range(4)])
+
+        # Apply rotation correction and re-run IK
+        pos = np.zeros((4, 3))
+        for i, leg in enumerate(self.LEG_NAMES):
+            foot = self.gait_foot_data[i][frame].copy()
+            adjusted = self.apply_rotation(foot, self.corr_roll, self.corr_pitch)
+            pos[i] = self.kinematics.inverse(*adjusted, leg)
+        return pos
