@@ -21,12 +21,16 @@ class PostureStabilizer(Node):
     def __init__(self):
         super().__init__('nodeBalanceController')
 
-        # ── PID parameters ────────────────────────────────────────
-        self.Kp = 0.5
-        self.Ki = 0.0
-        self.Kd = 0.1
-        self.sat = 0.052      # ±3° output saturation (rad)
-        self.windup = 0.03    # anti-windup integral limit (rad)
+        # ── PID parameters (conservative to avoid oscillation) ────
+        self.Kp = 1.5
+        self.Ki = 1.5
+        self.Kd = 0.3
+        self.sat = 0.5        # ±29° output saturation (rad)
+        self.windup = 0.8     # integral can accumulate up to ±0.8 rad·s
+
+        # ── Low-pass filter coefficient ───────────────────────────
+        # α = 0 → no filtering (raw PID), α = 1 → frozen output
+        self.alpha = 0.85
 
         # ── PID state (roll) ──────────────────────────────────────
         self.roll_integral = 0.0
@@ -39,9 +43,9 @@ class PostureStabilizer(Node):
         # ── Timing ────────────────────────────────────────────────
         self.prev_time = None
 
-        # ── Current corrections (published to gait) ───────────────
-        self.corr_roll = 0.0
-        self.corr_pitch = 0.0
+        # ── Filtered output (published to gait) ───────────────────
+        self.filtered_roll = 0.0
+        self.filtered_pitch = 0.0
 
         # ── ROS 2 pub/sub ─────────────────────────────────────────
         self.sub_imu = self.create_subscription(
@@ -51,7 +55,8 @@ class PostureStabilizer(Node):
             Vector3, '/posture/correction', 10)
 
         self.get_logger().info(
-            f'Posture Stabilizer started (Kp={self.Kp}, Ki={self.Ki}, Kd={self.Kd})')
+            f'Posture Stabilizer started (Kp={self.Kp}, Ki={self.Ki}, '
+            f'Kd={self.Kd}, alpha={self.alpha})')
 
     # ── Quaternion → Euler ────────────────────────────────────────
     def quaternion_to_rp(self, x, y, z, w):
@@ -70,7 +75,7 @@ class PostureStabilizer(Node):
 
         # Integral with anti-windup
         integral += error * dt
-        integral = max(-self.windup, min(self.windup, integral))
+        integral = max(-self.windup, min(self.windup, integral)) # Saturation to prevent integral windup
         I = self.Ki * integral
 
         # Derivative
@@ -84,7 +89,7 @@ class PostureStabilizer(Node):
 
     # ── IMU callback (runs at 100 Hz) ─────────────────────────────
     def imu_callback(self, msg: Imu):
-        # 1. Get current time
+        # Get current time to calculate dt
         now = self.get_clock().now()
         if self.prev_time is None:
             self.prev_time = now
@@ -94,27 +99,32 @@ class PostureStabilizer(Node):
         if dt <= 0 or dt > 0.1:  # skip bad dt
             return
 
-        # 2. Convert quaternion → roll, pitch
+        # Convert quaternion → roll, pitch
         q = msg.orientation
         roll, pitch = self.quaternion_to_rp(q.x, q.y, q.z, q.w)
 
-        # 3. PID: setpoint = 0 (we want level body)
+        # PID: setpoint = 0
         roll_error = 0.0 - roll
         pitch_error = 0.0 - pitch
 
-        self.corr_roll, self.roll_integral, self.roll_prev_error = \
+        raw_roll, self.roll_integral, self.roll_prev_error = \
             self.pid_compute(roll_error, self.roll_integral,
                              self.roll_prev_error, dt)
 
-        self.corr_pitch, self.pitch_integral, self.pitch_prev_error = \
+        raw_pitch, self.pitch_integral, self.pitch_prev_error = \
             self.pid_compute(pitch_error, self.pitch_integral,
                              self.pitch_prev_error, dt)
 
-        # 4. Publish correction
+        # Low-pass filter: smooths output to prevent jitter
+        #    filtered = α * filtered_prev + (1-α) * raw_PID
+        self.filtered_roll  = self.alpha * self.filtered_roll  + (1 - self.alpha) * raw_roll
+        self.filtered_pitch = self.alpha * self.filtered_pitch + (1 - self.alpha) * raw_pitch
+
+        # Publish filtered correction
         correction = Vector3()
-        correction.x = self.corr_roll    # roll correction (rad)
-        correction.y = self.corr_pitch   # pitch correction (rad)
-        correction.z = 0.0               # yaw (unused)
+        correction.x = self.filtered_roll    # roll correction (rad)
+        correction.y = self.filtered_pitch   # pitch correction (rad)
+        correction.z = 0.0                   # yaw (unused)
         self.pub_correction.publish(correction)
 
 
