@@ -1,15 +1,18 @@
 """
-Main Simulation Runner
-======================
-Ties all blocks together into a time-stepping simulation loop.
+Posture Stabilization Simulation
+=================================
+Simulates the IMU-based PID posture stabilization controller for a
+quadruped robot, with parameters matched to the working Gazebo simulation.
 
-Runs multiple scenarios for comparison:
-1. No control (open-loop, disturbance only)
-2. P-only controller
-3. PD controller
-4. Full PID controller
+Control-theory pipeline:
+    r=0 → ⊕ → [PID] → [Saturation] → [LPF] → [Dead Zone] → [Gain] → Plant
+          ↑                                                              │
+          └──────────────────── [IMU Sensor] ←───────────────────────────┘
 
-Saves all signal data and calls the visualization module to produce plots.
+Scenarios:
+    1. No Control      — open-loop, ramp disturbance only
+    2. HOME Balance    — θ₃ offset correction (standing)
+    3. GAIT Balance    — rotation-formula correction (trotting)
 
 Usage:
     cd src/simulation/sim_imu_controller
@@ -18,10 +21,8 @@ Usage:
 
 import os
 import sys
-import copy
 import numpy as np
 
-# Ensure we can import from this directory
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from robot_params import RobotParams
@@ -33,197 +34,163 @@ from disturbance import Disturbance
 
 
 # ══════════════════════════════════════════════════════════════════
-#  Simulation Configuration
+#  Parameters (matched to Gazebo physics simulation)
 # ══════════════════════════════════════════════════════════════════
 
-# Simulation time
-T_TOTAL   = 10.0    # seconds
-DT        = 0.001   # time step (s), 1 kHz like Gazebo
+T_TOTAL = 30.0       # s — simulation duration (long enough for steady-state)
+DT      = 0.001      # s — time step (1 kHz, matches Gazebo)
 
-# PID gains (tuned for this robot)
-# These are typical gains for a small quadruped (~1.5 kg)
-ROLL_GAINS_PID  = PIDGains(Kp=8.0, Ki=2.0, Kd=0.3)
-PITCH_GAINS_PID = PIDGains(Kp=8.0, Ki=2.0, Kd=0.3)
+# PID gains — nodeBalanceController.py
+PID_GAINS = PIDGains(Kp=1.5, Ki=1.5, Kd=0.3)
 
-# PD gains (no integral)
-ROLL_GAINS_PD   = PIDGains(Kp=8.0, Ki=0.0, Kd=0.3)
-PITCH_GAINS_PD  = PIDGains(Kp=8.0, Ki=0.0, Kd=0.3)
+# Saturation — nodeBalanceController.py
+PID_SAT     = 0.5    # rad — symmetric output clamp
+PID_WINDUP  = 0.8    # rad·s — integral anti-windup
 
-# P-only gains
-ROLL_GAINS_P    = PIDGains(Kp=8.0, Ki=0.0, Kd=0.0)
-PITCH_GAINS_P   = PIDGains(Kp=8.0, Ki=0.0, Kd=0.0)
+# Low-pass filter — nodeBalanceController.py
+LPF_ALPHA = 0.85     # IIR coefficient (0=no filter, 1=frozen)
 
-# PID output limits (max correction angle in rad, ~15°)
-PID_OUTPUT_LIMIT   = 0.2618
-PID_INTEGRAL_LIMIT = 0.5
+# HOME mode — gaitGenerator.py
+HOME_DEAD_ZONE = 0.005   # rad — noise rejection threshold
+HOME_GAIN      = 1.8     # PID output × gain → θ₃ offset
+HOME_SAT       = 0.5     # rad — max θ₃ offset per joint
+HOME_STARTUP   = 3.0     # s — IMU settling delay
 
-# IMU noise
-IMU_NOISE_STD = 0.002  # rad (~0.1°)
+# GAIT mode — gaitGenerator.py
+GAIT_DEAD_ZONE = 0.08    # rad (~4.6°) — ignore trot bounce
+GAIT_GAIN      = 0.5     # attenuation: rotation formula is stronger
 
-# Disturbance: sinusoidal platform sway
-DIST_ROLL_AMP   = np.radians(5)    # 5° amplitude
-DIST_PITCH_AMP  = np.radians(3)    # 3° amplitude
-DIST_ROLL_FREQ  = 0.5              # Hz
-DIST_PITCH_FREQ = 0.3              # Hz
+# Ramp disturbance (step input at t=3s)
+RAMP_ROLL  = np.radians(5)
+RAMP_PITCH = np.radians(8)
 
 
 # ══════════════════════════════════════════════════════════════════
-#  Single Scenario Simulation
+#  Simulation Loop
 # ══════════════════════════════════════════════════════════════════
 
-def run_scenario(name: str, roll_gains: PIDGains, pitch_gains: PIDGains,
-                 enable_control: bool = True,
-                 dist_type: str = "sinusoidal") -> dict:
+def run_scenario(name, mode="home", enable_control=True):
     """
-    Run one simulation scenario.
+    Run one scenario through the full control pipeline.
 
     Args:
-        name:           scenario label (e.g., "PID", "No Control")
-        roll_gains:     PID gains for roll channel
-        pitch_gains:    PID gains for pitch channel
-        enable_control: if False, no correction is applied (open-loop)
-        dist_type:      disturbance type ("sinusoidal", "step", "combined")
-
-    Returns:
-        dict with all component histories
+        name:           scenario label
+        mode:           "home" or "gait"
+        enable_control: False for open-loop baseline
     """
-    print(f"\n{'='*60}")
-    print(f"  Running scenario: {name}")
-    print(f"  Duration: {T_TOTAL}s | dt: {DT}s | Steps: {int(T_TOTAL/DT)}")
-    if enable_control:
-        print(f"  Roll  PID: Kp={roll_gains.Kp}, Ki={roll_gains.Ki}, Kd={roll_gains.Kd}")
-        print(f"  Pitch PID: Kp={pitch_gains.Kp}, Ki={pitch_gains.Ki}, Kd={pitch_gains.Kd}")
-    else:
-        print(f"  Control: DISABLED (open-loop)")
-    print(f"{'='*60}")
+    print(f"\n{'─'*60}")
+    print(f"  {name}")
+    print(f"  T={T_TOTAL}s | dt={DT}s | mode={mode.upper()}")
+    print(f"{'─'*60}")
 
     params = RobotParams(dt=DT)
-
-    # Create components
-    pid_roll = PIDController(roll_gains, DT, PID_OUTPUT_LIMIT, PID_INTEGRAL_LIMIT, "Roll PID")
-    pid_pitch = PIDController(pitch_gains, DT, PID_OUTPUT_LIMIT, PID_INTEGRAL_LIMIT, "Pitch PID")
-    imu = IMUSimulator(noise_std_roll=IMU_NOISE_STD, noise_std_pitch=IMU_NOISE_STD, dt=DT)
-    posture = BodyPosture(params)
+    pid_r = PIDController(PID_GAINS, DT, PID_SAT, PID_WINDUP, "Roll")
+    pid_p = PIDController(PID_GAINS, DT, PID_SAT, PID_WINDUP, "Pitch")
+    imu   = IMUSimulator(noise_std_roll=0.002, noise_std_pitch=0.002, dt=DT)
     plant = PlantModel(params)
-    dist = Disturbance(dist_type=dist_type,
-                       roll_amplitude=DIST_ROLL_AMP,
-                       pitch_amplitude=DIST_PITCH_AMP,
-                       roll_frequency=DIST_ROLL_FREQ,
-                       pitch_frequency=DIST_PITCH_FREQ,
-                       step_time=3.0,
-                       step_roll=np.radians(3),
-                       step_pitch=np.radians(2))
+    posture = BodyPosture(params)
+    dist  = Disturbance(dist_type="step", step_time=3.0,
+                        step_roll=RAMP_ROLL, step_pitch=RAMP_PITCH)
 
-    # ── Time loop ─────────────────────────────────────────────────
+    # Low-pass filter state
+    filt_r, filt_p = 0.0, 0.0
+
+    # History
+    hist = {'time': [], 'raw_r': [], 'raw_p': [],
+            'filt_r': [], 'filt_p': [], 'corr_r': [], 'corr_p': []}
+
     n_steps = int(T_TOTAL / DT)
     for step in range(n_steps):
         t = step * DT
 
-        # 1. Get platform disturbance
-        dist_roll, dist_pitch = dist.get(t)
+        # 1. Disturbance
+        d_r, d_p = dist.get(t)
 
-        # 2. Read IMU (measures actual body orientation)
-        meas_roll, meas_pitch = imu.measure(plant.roll, plant.pitch, t)
+        # 2. IMU measurement
+        m_r, m_p = imu.measure(plant.roll, plant.pitch, t)
 
-        # 3. PID compute
-        if enable_control:
-            # Setpoint = 0 (we want the body level)
-            corr_roll  = pid_roll.compute(0.0, meas_roll, t)
-            corr_pitch = pid_pitch.compute(0.0, meas_pitch, t)
-        else:
-            corr_roll = 0.0
-            corr_pitch = 0.0
-            # Still record for consistent history
-            pid_roll.compute(0.0, meas_roll, t)
-            pid_pitch.compute(0.0, meas_pitch, t)
+        # 3. PID
+        raw_r = pid_r.compute(0.0, m_r, t) if enable_control else 0.0
+        raw_p = pid_p.compute(0.0, m_p, t) if enable_control else 0.0
+        if not enable_control:
+            pid_r.compute(0.0, m_r, t)
+            pid_p.compute(0.0, m_p, t)
 
-        # 4. Body posture adjustment (compute foot adjustments)
-        posture.compute_foot_adjustments(corr_roll, corr_pitch, t)
+        # 4. Low-pass filter
+        filt_r = LPF_ALPHA * filt_r + (1 - LPF_ALPHA) * raw_r
+        filt_p = LPF_ALPHA * filt_p + (1 - LPF_ALPHA) * raw_p
 
-        # 5. Plant dynamics step
-        plant.step(corr_roll, corr_pitch, dist_roll, dist_pitch, t)
+        # 5. Dead zone + gain + saturation (mode-dependent)
+        corr_r, corr_p = 0.0, 0.0
+        if enable_control and t > HOME_STARTUP:
+            if mode == "home":
+                if abs(filt_r) > HOME_DEAD_ZONE or abs(filt_p) > HOME_DEAD_ZONE:
+                    corr_r = np.clip(filt_r * HOME_GAIN, -HOME_SAT, HOME_SAT)
+                    corr_p = np.clip(filt_p * HOME_GAIN, -HOME_SAT, HOME_SAT)
+            elif mode == "gait":
+                if abs(filt_r) > GAIT_DEAD_ZONE or abs(filt_p) > GAIT_DEAD_ZONE:
+                    corr_r = filt_r * GAIT_GAIN
+                    corr_p = filt_p * GAIT_GAIN
 
-        # Progress reporting
-        if step % (n_steps // 10) == 0:
-            pct = 100 * step / n_steps
-            print(f"  [{pct:5.1f}%]  t={t:.2f}s  roll={np.degrees(plant.roll):+.3f}°  "
-                  f"pitch={np.degrees(plant.pitch):+.3f}°")
+        # 6. Apply to plant
+        posture.compute_foot_adjustments(corr_r, corr_p, t)
+        plant.step(corr_r, corr_p, d_r, d_p, t)
 
-    print(f"  [100.0%]  Simulation complete.")
+        # Record
+        hist['time'].append(t)
+        hist['raw_r'].append(raw_r)
+        hist['raw_p'].append(raw_p)
+        hist['filt_r'].append(filt_r)
+        hist['filt_p'].append(filt_p)
+        hist['corr_r'].append(corr_r)
+        hist['corr_p'].append(corr_p)
 
-    # ── Collect results ───────────────────────────────────────────
+        if step % (n_steps // 5) == 0:
+            print(f"  t={t:5.1f}s  roll={np.degrees(plant.roll):+6.2f}°  "
+                  f"pitch={np.degrees(plant.pitch):+6.2f}°")
+
+    print(f"  t={T_TOTAL:5.1f}s  DONE")
+
     return {
-        'name':       name,
-        'pid_roll':   pid_roll.get_history_arrays(),
-        'pid_pitch':  pid_pitch.get_history_arrays(),
-        'imu':        imu.get_history_arrays(),
-        'posture':    posture.get_history_arrays(),
-        'plant':      plant.get_history_arrays(),
+        'name': name, 'mode': mode,
+        'pid_roll': pid_r.get_history_arrays(),
+        'pid_pitch': pid_p.get_history_arrays(),
+        'imu': imu.get_history_arrays(),
+        'plant': plant.get_history_arrays(),
+        'posture': posture.get_history_arrays(),
         'disturbance': dist.get_history_arrays(),
-        'params':     params,
-        'gains_roll': roll_gains,
-        'gains_pitch': pitch_gains,
+        'filter': {k: np.array(v) for k, v in hist.items()},
     }
 
 
 # ══════════════════════════════════════════════════════════════════
-#  Main entry point
+#  Main
 # ══════════════════════════════════════════════════════════════════
 
 def main():
     print("╔══════════════════════════════════════════════════════════╗")
-    print("║   IMU PID Posture Stabilization Simulation              ║")
-    print("║   Based on: Li et al. (IEEE CASE 2022)                  ║")
-    print("║   Robot: Quadruped, 12 DOF, position-feedback servos    ║")
+    print("║   Posture Stabilization Simulation                      ║")
+    print("║   Parameters: Gazebo-matched | T=30s | 3 scenarios      ║")
     print("╚══════════════════════════════════════════════════════════╝")
 
     results = {}
+    results['no_control'] = run_scenario("No Control (Open-Loop)",
+                                          enable_control=False)
+    results['home']       = run_scenario("HOME Balance (θ₃ Offsets)",
+                                          mode="home")
+    results['gait']       = run_scenario("GAIT Balance (Rotation Formula)",
+                                          mode="gait")
 
-    # ── Scenario 1: No control ────────────────────────────────────
-    results['no_control'] = run_scenario(
-        "No Control (Open-Loop)",
-        PIDGains(0, 0, 0), PIDGains(0, 0, 0),
-        enable_control=False)
+    # Generate outputs
+    print("\nGenerating outputs...")
+    from visualize import generate_all
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
+    generate_all(results, out)
 
-    # ── Scenario 2: P-only ────────────────────────────────────────
-    results['p_only'] = run_scenario(
-        "P-Only Controller",
-        ROLL_GAINS_P, PITCH_GAINS_P)
-
-    # ── Scenario 3: PD controller ─────────────────────────────────
-    results['pd'] = run_scenario(
-        "PD Controller",
-        ROLL_GAINS_PD, PITCH_GAINS_PD)
-
-    # ── Scenario 4: Full PID ──────────────────────────────────────
-    results['pid'] = run_scenario(
-        "Full PID Controller",
-        ROLL_GAINS_PID, PITCH_GAINS_PID)
-
-    # ── Scenario 5: PID with step disturbance ─────────────────────
-    results['pid_step'] = run_scenario(
-        "PID – Step Disturbance",
-        ROLL_GAINS_PID, PITCH_GAINS_PID,
-        dist_type="step")
-
-    # ── Scenario 6: PID with combined disturbance ─────────────────
-    results['pid_combined'] = run_scenario(
-        "PID – Combined Disturbance",
-        ROLL_GAINS_PID, PITCH_GAINS_PID,
-        dist_type="combined")
-
-    # ── Generate visualizations ───────────────────────────────────
-    print("\n\nGenerating visualizations...")
-    from visualize import generate_all_plots
-    output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
-    generate_all_plots(results, output_dir)
-
-    print(f"\n✅  All done! Check the results in: {output_dir}/")
-    print("Generated files:")
-    for f in sorted(os.listdir(output_dir)):
-        fpath = os.path.join(output_dir, f)
-        size_kb = os.path.getsize(fpath) / 1024
-        print(f"  📊 {f}  ({size_kb:.1f} KB)")
+    print(f"\n✅  Done. Files in {out}/:")
+    for f in sorted(os.listdir(out)):
+        kb = os.path.getsize(os.path.join(out, f)) / 1024
+        print(f"  {'📊' if f.endswith('.png') else '🎬'} {f}  ({kb:.0f} KB)")
 
 
 if __name__ == "__main__":
