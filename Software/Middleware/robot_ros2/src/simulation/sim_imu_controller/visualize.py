@@ -1,768 +1,454 @@
 """
 Visualization Module
 ====================
-Generates all plots, block diagrams, and animations for the IMU PID
-posture stabilization simulation.
+Generates professional, publication-quality plots for the posture
+stabilization simulation.
 
-Output files (saved in results/ directory):
-1. block_diagram.png       – Control loop block diagram (Simulink-style)
-2. time_response.png       – Roll/pitch time response for PID scenario
-3. comparison.png          – No control vs P vs PD vs PID comparison
-4. pid_signals.png         – Detailed PID internal signals (P, I, D terms)
-5. imu_signals.png         – IMU true vs noisy vs filtered signals
-6. step_response.png       – Step disturbance response with metrics
-7. combined_response.png   – Combined (sin + step) disturbance response
-8. joint_angles.png        – Joint angle trajectories
-9. foot_adjustments.png    – Foot height adjustments (Δz) per leg
-10. body_animation.gif     – Animated body tilt over time
+Outputs (7 files):
+    1. block_diagram.png      — Simulink-style control block diagram
+    2. step_response.png      — 3-scenario body orientation comparison
+    3. pid_signals.png        — P/I/D terms breakdown for HOME scenario
+    4. filter_effect.png      — Raw PID vs low-pass filtered output
+    5. correction_output.png  — Final applied correction with deadzone visible
+    6. foot_adjustments.png   — Per-leg Δz corrections
+    7. signal_flow.gif        — Animated signal pipeline
 """
 
 import os
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')  # Non-interactive backend
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+import matplotlib.patches as patches
 import matplotlib.animation as animation
 
-from robot_params import RobotParams
-
-
-# ── Style ─────────────────────────────────────────────────────────
+# ── Plot style (dark, professional) ──────────────────────────────
 plt.rcParams.update({
-    'figure.facecolor': '#1a1a2e',
-    'axes.facecolor':   '#16213e',
-    'axes.edgecolor':   '#e94560',
-    'axes.labelcolor':  '#eaeaea',
-    'text.color':       '#eaeaea',
-    'xtick.color':      '#aaaaaa',
-    'ytick.color':      '#aaaaaa',
-    'grid.color':       '#2a2a4a',
-    'grid.alpha':       0.5,
-    'legend.facecolor': '#1a1a2e',
-    'legend.edgecolor': '#e94560',
+    'figure.facecolor': '#0f1923',
+    'axes.facecolor':   '#162231',
+    'axes.labelcolor':  '#c8d6e5',
+    'axes.edgecolor':   '#2c3e50',
+    'text.color':       '#c8d6e5',
+    'xtick.color':      '#8395a7',
+    'ytick.color':      '#8395a7',
+    'grid.color':       '#2c3e50',
+    'grid.alpha':       0.6,
+    'legend.facecolor': '#1e2d3d',
+    'legend.edgecolor': '#2c3e50',
+    'font.family':      'sans-serif',
     'font.size':        10,
-    'axes.titlesize':   13,
-    'axes.titleweight': 'bold',
-    'figure.titlesize': 16,
-    'figure.titleweight': 'bold',
 })
 
-COLORS = {
-    'no_control': '#ff6b6b',
-    'p_only':     '#ffa502',
-    'pd':         '#1dd1a1',
-    'pid':        '#54a0ff',
-    'roll':       '#e94560',
-    'pitch':      '#0f3460',
-    'disturbance':'#ffa502',
-    'setpoint':   '#ffffff',
-    'p_term':     '#ff6348',
-    'i_term':     '#2ed573',
-    'd_term':     '#1e90ff',
-    'output':     '#ffd700',
-    'accent1':    '#a29bfe',
-    'accent2':    '#fd79a8',
-    'accent3':    '#00cec9',
-    'accent4':    '#fdcb6e',
+C = {  # curated color palette
+    'cyan':    '#00d2ff',
+    'red':     '#ff6b6b',
+    'green':   '#6bcb77',
+    'orange':  '#ff9f43',
+    'yellow':  '#ffd93d',
+    'white':   '#ecf0f1',
+    'grey':    '#576574',
+    'pink':    '#ff6b9d',
 }
 
 
-def _save_fig(fig, output_dir, filename):
+def generate_all(results, output_dir):
+    """Generate all 7 output files."""
     os.makedirs(output_dir, exist_ok=True)
-    path = os.path.join(output_dir, filename)
-    fig.savefig(path, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
-    plt.close(fig)
-    print(f"  ✓ Saved: {filename}")
+
+    plot_block_diagram(output_dir)
+    plot_step_response(results, output_dir)
+    plot_pid_signals(results['home'], output_dir)
+    plot_filter_effect(results['home'], output_dir)
+    plot_correction_output(results, output_dir)
+    plot_foot_adjustments(results['home'], output_dir)
+    generate_signal_flow_gif(results['home'], output_dir)
 
 
 # ══════════════════════════════════════════════════════════════════
-#  1. Control Block Diagram (Simulink-style)
+#  1. BLOCK DIAGRAM (Simulink-style)
 # ══════════════════════════════════════════════════════════════════
 
-def plot_block_diagram(results, output_dir):
-    """Draw the control loop block diagram."""
-    fig, ax = plt.subplots(1, 1, figsize=(16, 7))
-    ax.set_xlim(0, 16)
-    ax.set_ylim(0, 7)
+def plot_block_diagram(output_dir):
+    """Draw a Simulink-style control block diagram."""
+    fig, ax = plt.subplots(figsize=(16, 5))
+    ax.set_xlim(-1, 17)
+    ax.set_ylim(-2.5, 3)
+    ax.set_aspect('equal')
     ax.axis('off')
-    fig.suptitle("IMU PID Posture Stabilization — Control Block Diagram",
-                 fontsize=16, fontweight='bold', color='#ffffff', y=0.96)
+    fig.patch.set_facecolor('#0f1923')
 
-    # Block style
-    def draw_block(x, y, w, h, label, sublabel="", color='#0f3460'):
-        box = FancyBboxPatch((x, y), w, h,
-                             boxstyle="round,pad=0.1",
-                             facecolor=color, edgecolor='#e94560',
-                             linewidth=2, alpha=0.9)
-        ax.add_patch(box)
-        ax.text(x + w/2, y + h/2 + 0.12, label,
-                ha='center', va='center', fontsize=10, fontweight='bold',
-                color='#ffffff')
-        if sublabel:
-            ax.text(x + w/2, y + h/2 - 0.2, sublabel,
-                    ha='center', va='center', fontsize=7, color='#aaaaaa',
-                    style='italic')
+    # ── Helper functions ──────────────────────────────────────────
+    def block(x, y, w, h, label, sub='', color='#1e88e5'):
+        rect = patches.FancyBboxPatch(
+            (x, y - h/2), w, h, boxstyle='round,pad=0.1',
+            facecolor=color, edgecolor='#ecf0f1', linewidth=1.5, alpha=0.9)
+        ax.add_patch(rect)
+        ax.text(x + w/2, y + 0.08, label, ha='center', va='center',
+                fontsize=9, fontweight='bold', color='white')
+        if sub:
+            ax.text(x + w/2, y - 0.28, sub, ha='center', va='center',
+                    fontsize=7, color='#b0bec5', style='italic')
 
-    def draw_arrow(x1, y1, x2, y2, label="", color='#54a0ff'):
-        ax.annotate("", xy=(x2, y2), xytext=(x1, y1),
-                    arrowprops=dict(arrowstyle='->', color=color, lw=2))
-        if label:
-            mx, my = (x1+x2)/2, (y1+y2)/2
-            ax.text(mx, my + 0.2, label, ha='center', va='bottom',
-                    fontsize=8, color=color)
-
-    def draw_summing(x, y, r=0.2):
-        circle = plt.Circle((x, y), r, fill=True, facecolor='#1a1a2e',
-                            edgecolor='#e94560', linewidth=2)
+    def summing(x, y, r=0.22):
+        circle = plt.Circle((x, y), r, facecolor='#162231',
+                             edgecolor='#ecf0f1', linewidth=1.5)
         ax.add_patch(circle)
-        ax.text(x, y, 'Σ', ha='center', va='center', fontsize=12,
-                fontweight='bold', color='#ffffff')
+        ax.text(x, y, '⊕', ha='center', va='center', fontsize=14,
+                color='white', fontweight='bold')
 
-    # ── Blocks ────────────────────────────────────────────────────
-    # Row 1 (top): Main control loop
-    y_main = 4.0
-    bh = 1.0
+    def arrow(x1, y1, x2, y2, label=''):
+        ax.annotate('', xy=(x2, y2), xytext=(x1, y1),
+                    arrowprops=dict(arrowstyle='->', color='#ecf0f1',
+                                   lw=1.5, connectionstyle='arc3,rad=0'))
+        if label:
+            mx, my = (x1 + x2) / 2, (y1 + y2) / 2 + 0.25
+            ax.text(mx, my, label, ha='center', va='center',
+                    fontsize=7, color='#8395a7')
 
-    # Setpoint
-    draw_block(0.3, y_main, 1.8, bh, "Setpoint", "roll=0°, pitch=0°", '#2d3436')
+    # ── Title ─────────────────────────────────────────────────────
+    ax.text(8, 2.6, 'Posture Stabilization — Control Block Diagram',
+            ha='center', va='center', fontsize=13, fontweight='bold',
+            color='#ecf0f1')
+
+    # ── Signal labels ─────────────────────────────────────────────
+    y = 0.5
+
+    # Reference input r=0
+    ax.text(-0.5, y, 'r = 0', ha='center', va='center', fontsize=10,
+            color=C['green'], fontweight='bold')
+    arrow(-0.1, y, 0.6, y)
 
     # Summing junction
-    draw_summing(2.8, y_main + bh/2)
+    summing(1.0, y)
+    ax.text(1.0, y + 0.45, 'e = r − y', ha='center', fontsize=7, color='#8395a7')
 
-    # PID Controller
-    draw_block(3.5, y_main, 2.2, bh, "PID Controller", "Kp·e + Ki·∫e + Kd·de/dt", '#e94560')
+    # PID block
+    arrow(1.22, y, 2.0, y, '')
+    block(2.0, y, 1.5, 0.8, 'PID', 'Kp=1.5  Ki=1.5  Kd=0.3', '#1e88e5')
 
-    # Body Posture Adj
-    draw_block(6.5, y_main, 2.0, bh, "Body Posture", "Rotation Matrix\n→ Foot Δz", '#0f3460')
+    # Saturation block
+    arrow(3.5, y, 4.2, y, 'u(t)')
+    block(4.2, y, 1.3, 0.8, 'Saturation', '±0.5 rad', '#e53935')
 
-    # IK
-    draw_block(9.3, y_main, 1.8, bh, "Inverse\nKinematics", "3-DOF per leg", '#6c5ce7')
+    # LPF block
+    arrow(5.5, y, 6.2, y, '')
+    block(6.2, y, 1.3, 0.8, 'LPF', 'α = 0.85', '#ff9800')
 
-    # Joint PD
-    draw_block(11.9, y_main, 1.8, bh, "Joint PD\nController", "Kp=20, Kd=0.5", '#00b894')
+    # Dead zone block
+    arrow(7.5, y, 8.3, y, '')
+    block(8.3, y, 1.5, 0.8, 'Dead Zone', 'HOME: 0.005 rad\nGAIT: 0.08 rad', '#7b1fa2')
 
-    # Plant (Robot)
-    draw_block(11.9, y_main - 2.2, 1.8, bh, "Robot Plant", "Rigid body\n+ Servo lag", '#d63031')
+    # Gain block
+    arrow(9.8, y, 10.5, y, '')
+    block(10.5, y, 1.3, 0.8, 'Gain (K)', 'HOME: 1.8\nGAIT: 0.5', '#00897b')
 
-    # IMU
-    draw_block(6.5, y_main - 2.2, 2.0, bh, "IMU Sensor", "Roll, Pitch\n+ Noise", '#e17055')
+    # Plant block
+    arrow(11.8, y, 12.5, y, 'u_corr')
+    block(12.5, y, 1.5, 0.8, 'Plant', 'Rigid Body\nI·α = Στ', '#455a64')
 
-    # Disturbance
-    draw_block(9.3, y_main - 4.0, 1.8, bh, "Platform\nDisturbance", "Sinusoidal sway", '#fdcb6e')
+    # Output
+    arrow(14.0, y, 14.8, y, '')
+    ax.text(15.2, y, 'y (φ, θ)', ha='center', va='center', fontsize=10,
+            color=C['cyan'], fontweight='bold')
 
-    # ── Arrows ────────────────────────────────────────────────────
-    draw_arrow(2.1, y_main + bh/2, 2.6, y_main + bh/2, "", '#54a0ff')
-    draw_arrow(3.0, y_main + bh/2, 3.5, y_main + bh/2, "error", '#ff6b6b')
-    draw_arrow(5.7, y_main + bh/2, 6.5, y_main + bh/2, "Δφ, Δθ", '#ffd700')
-    draw_arrow(8.5, y_main + bh/2, 9.3, y_main + bh/2, "Foot pos", '#1dd1a1')
-    draw_arrow(11.1, y_main + bh/2, 11.9, y_main + bh/2, "θ₁,θ₂,θ₃", COLORS['accent1'])
-    draw_arrow(12.8, y_main, 12.8, y_main - 1.0, "Torques", '#00cec9')
+    # ── Feedback path ─────────────────────────────────────────────
+    # From output down and back to summing junction
+    fb_y = -1.2
+    ax.plot([14.5, 14.5], [y, fb_y], color='#ecf0f1', lw=1.5)
+    ax.plot([14.5, 1.0], [fb_y, fb_y], color='#ecf0f1', lw=1.5)
 
-    # Feedback path: Plant → IMU → Summing
-    draw_arrow(11.9, y_main - 1.7, 8.5, y_main - 1.7, "Body state", '#fd79a8')
-    draw_arrow(6.5, y_main - 1.7, 2.8, y_main - 1.7, "", '#e17055')
-    draw_arrow(2.8, y_main - 1.7, 2.8, y_main + bh/2 - 0.2, "φ, θ measured", '#e17055')
+    # IMU sensor block on feedback path
+    block(7.0, fb_y, 1.5, 0.7, 'IMU Sensor', 'σ = 0.002 rad', '#6d4c41')
 
-    # Disturbance arrow
-    draw_arrow(10.2, y_main - 3.0, 12.8, y_main - 2.2, "Sway", '#fdcb6e')
+    # Negative sign at summing junction
+    ax.annotate('', xy=(1.0, y - 0.22), xytext=(1.0, fb_y + 0.35),
+                arrowprops=dict(arrowstyle='->', color='#ecf0f1', lw=1.5))
+    ax.text(0.7, fb_y + 0.7, '−', fontsize=14, color=C['red'], fontweight='bold')
 
-    # Plus/minus labels on summing junction
-    ax.text(2.55, y_main + bh/2 + 0.15, '+', color='#2ed573', fontsize=10, fontweight='bold')
-    ax.text(2.65, y_main + bh/2 - 0.35, '−', color='#ff6348', fontsize=10, fontweight='bold')
+    # ── Disturbance input ─────────────────────────────────────────
+    dist_x = 13.25
+    ax.text(dist_x, 2.0, 'd(t)', ha='center', va='center', fontsize=10,
+            color=C['yellow'], fontweight='bold')
+    ax.text(dist_x, 1.6, 'Ramp\n5°/8°', ha='center', va='center',
+            fontsize=7, color='#8395a7')
+    ax.annotate('', xy=(dist_x, y + 0.4), xytext=(dist_x, 1.3),
+                arrowprops=dict(arrowstyle='->', color=C['yellow'], lw=1.5))
 
-    # Legend box
-    legend_text = (
-        "Paper: Li et al., IEEE CASE 2022\n"
-        "\"Posture Stabilization Control for a\n"
-        " Quadruped Robot Walking on Swaying Platforms\"\n\n"
-        "Sensors: IMU only (no force/vision)\n"
-        "Motors: 12 × position-feedback servos"
-    )
-    props = dict(boxstyle='round,pad=0.5', facecolor='#2d3436',
-                 edgecolor='#e94560', alpha=0.9)
-    ax.text(1.0, 1.0, legend_text, fontsize=8, color='#aaaaaa',
-            bbox=props, verticalalignment='bottom')
-
-    _save_fig(fig, output_dir, 'block_diagram.png')
-
-
-# ══════════════════════════════════════════════════════════════════
-#  2. Time Response (PID scenario)
-# ══════════════════════════════════════════════════════════════════
-
-def plot_time_response(results, output_dir):
-    """Plot roll/pitch time response for the PID scenario."""
-    r = results['pid']
-    plant = r['plant']
-    dist = r['disturbance']
-    t = plant['time']
-
-    fig, axes = plt.subplots(2, 1, figsize=(14, 8), sharex=True)
-    fig.suptitle("Full PID Controller — Time Domain Response",
-                 color='#ffffff', fontsize=16)
-
-    # Roll
-    ax = axes[0]
-    ax.plot(t, np.degrees(dist['roll']), '--', color=COLORS['disturbance'],
-            alpha=0.6, label='Platform disturbance', linewidth=1)
-    ax.plot(t, np.degrees(plant['roll']), color=COLORS['roll'],
-            label='Body roll (actual)', linewidth=1.5)
-    ax.axhline(0, color=COLORS['setpoint'], linestyle=':', alpha=0.3, label='Setpoint (0°)')
-    ax.set_ylabel('Roll (degrees)')
-    ax.legend(loc='upper right', fontsize=9)
-    ax.set_title('Roll Channel')
-    ax.grid(True)
-
-    # Pitch
-    ax = axes[1]
-    ax.plot(t, np.degrees(dist['pitch']), '--', color=COLORS['disturbance'],
-            alpha=0.6, label='Platform disturbance', linewidth=1)
-    ax.plot(t, np.degrees(plant['pitch']), color=COLORS['pitch'],
-            label='Body pitch (actual)', linewidth=1.5)
-    ax.axhline(0, color=COLORS['setpoint'], linestyle=':', alpha=0.3, label='Setpoint (0°)')
-    ax.set_ylabel('Pitch (degrees)')
-    ax.set_xlabel('Time (s)')
-    ax.legend(loc='upper right', fontsize=9)
-    ax.set_title('Pitch Channel')
-    ax.grid(True)
-
-    fig.tight_layout(rect=[0, 0, 1, 0.94])
-    _save_fig(fig, output_dir, 'time_response.png')
+    fig.tight_layout()
+    path = os.path.join(output_dir, 'block_diagram.png')
+    fig.savefig(path, dpi=200, bbox_inches='tight')
+    plt.close(fig)
+    print(f"  ✓ {path}")
 
 
 # ══════════════════════════════════════════════════════════════════
-#  3. Comparison Plot
-# ══════════════════════════════════════════════════════════════════
-
-def plot_comparison(results, output_dir):
-    """Compare no-control, P, PD, PID for roll and pitch."""
-    fig, axes = plt.subplots(2, 1, figsize=(14, 9), sharex=True)
-    fig.suptitle("Controller Comparison — Posture Stabilization Performance",
-                 color='#ffffff', fontsize=16)
-
-    scenarios = [
-        ('no_control', 'No Control', COLORS['no_control'], 1.0),
-        ('p_only',     'P-Only',     COLORS['p_only'],     1.5),
-        ('pd',         'PD',         COLORS['pd'],         1.5),
-        ('pid',        'PID',        COLORS['pid'],        2.0),
-    ]
-
-    for channel_idx, (channel, label) in enumerate([('roll', 'Roll'), ('pitch', 'Pitch')]):
-        ax = axes[channel_idx]
-
-        # Disturbance (same for all)
-        t = results['pid']['disturbance']['time']
-        ax.plot(t, np.degrees(results['pid']['disturbance'][channel]),
-                '--', color=COLORS['disturbance'], alpha=0.4,
-                label='Platform disturbance', linewidth=1)
-
-        for key, name, color, lw in scenarios:
-            r = results[key]
-            t = r['plant']['time']
-            data = np.degrees(r['plant'][channel])
-            ax.plot(t, data, color=color, label=name, linewidth=lw, alpha=0.9)
-
-        ax.axhline(0, color=COLORS['setpoint'], linestyle=':', alpha=0.3)
-        ax.set_ylabel(f'{label} (degrees)')
-        ax.set_title(f'{label} Channel')
-        ax.legend(loc='upper right', fontsize=9, ncol=3)
-        ax.grid(True)
-
-    axes[1].set_xlabel('Time (s)')
-    fig.tight_layout(rect=[0, 0, 1, 0.94])
-    _save_fig(fig, output_dir, 'comparison.png')
-
-
-# ══════════════════════════════════════════════════════════════════
-#  4. PID Internal Signals
-# ══════════════════════════════════════════════════════════════════
-
-def plot_pid_signals(results, output_dir):
-    """Show P, I, D terms and total output for PID scenario."""
-    r = results['pid']
-
-    fig, axes = plt.subplots(4, 2, figsize=(16, 12), sharex=True)
-    fig.suptitle("PID Controller Internal Signals",
-                 color='#ffffff', fontsize=16)
-
-    for col, (channel, ch_data) in enumerate([
-            ('Roll', r['pid_roll']), ('Pitch', r['pid_pitch'])]):
-        t = ch_data['time']
-
-        # Error
-        axes[0, col].plot(t, np.degrees(ch_data['error']), color=COLORS['roll'] if col==0 else COLORS['pitch'])
-        axes[0, col].set_ylabel('Error (°)')
-        axes[0, col].set_title(f'{channel} — Error Signal')
-        axes[0, col].grid(True)
-
-        # P term
-        axes[1, col].plot(t, np.degrees(ch_data['p_term']), color=COLORS['p_term'], label='P')
-        axes[1, col].set_ylabel('P term (°)')
-        axes[1, col].set_title(f'{channel} — Proportional Term')
-        axes[1, col].grid(True)
-
-        # I term
-        axes[2, col].plot(t, np.degrees(ch_data['i_term']), color=COLORS['i_term'], label='I')
-        axes[2, col].set_ylabel('I term (°)')
-        axes[2, col].set_title(f'{channel} — Integral Term')
-        axes[2, col].grid(True)
-
-        # D term
-        axes[3, col].plot(t, np.degrees(ch_data['d_term']), color=COLORS['d_term'], label='D')
-        axes[3, col].set_ylabel('D term (°)')
-        axes[3, col].set_title(f'{channel} — Derivative Term')
-        axes[3, col].set_xlabel('Time (s)')
-        axes[3, col].grid(True)
-
-    fig.tight_layout(rect=[0, 0, 1, 0.94])
-    _save_fig(fig, output_dir, 'pid_signals.png')
-
-
-# ══════════════════════════════════════════════════════════════════
-#  5. IMU Signals
-# ══════════════════════════════════════════════════════════════════
-
-def plot_imu_signals(results, output_dir):
-    """Show true vs noisy vs filtered IMU readings."""
-    r = results['pid']
-    imu = r['imu']
-    t = imu['time']
-
-    fig, axes = plt.subplots(2, 1, figsize=(14, 8), sharex=True)
-    fig.suptitle("IMU Sensor Signals — True vs Noisy vs Filtered",
-                 color='#ffffff', fontsize=16)
-
-    for ax_idx, (ch, label) in enumerate([('roll', 'Roll'), ('pitch', 'Pitch')]):
-        ax = axes[ax_idx]
-        ax.plot(t, np.degrees(imu[f'true_{ch}']), color=COLORS['accent3'],
-                label='True', linewidth=1.5, alpha=0.9)
-        ax.plot(t, np.degrees(imu[f'noisy_{ch}']), color=COLORS['accent2'],
-                label='Noisy', linewidth=0.5, alpha=0.4)
-        ax.plot(t, np.degrees(imu[f'filtered_{ch}']), color=COLORS['accent1'],
-                label='Filtered', linewidth=1.0, alpha=0.8)
-        ax.set_ylabel(f'{label} (degrees)')
-        ax.set_title(f'{label} — IMU Measurement')
-        ax.legend(loc='upper right', fontsize=9)
-        ax.grid(True)
-
-    axes[1].set_xlabel('Time (s)')
-    fig.tight_layout(rect=[0, 0, 1, 0.94])
-    _save_fig(fig, output_dir, 'imu_signals.png')
-
-
-# ══════════════════════════════════════════════════════════════════
-#  6. Step Response
+#  2. STEP RESPONSE (3-scenario comparison)
 # ══════════════════════════════════════════════════════════════════
 
 def plot_step_response(results, output_dir):
-    """Step disturbance response with transient metrics."""
-    r = results['pid_step']
-    plant = r['plant']
-    dist = r['disturbance']
-    t = plant['time']
+    """Plot body orientation for all 3 scenarios on same axes."""
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 7), sharex=True)
+    fig.suptitle('Step Response — Ramp Disturbance at t = 3 s',
+                 fontsize=14, fontweight='bold')
 
-    fig, axes = plt.subplots(2, 1, figsize=(14, 8), sharex=True)
-    fig.suptitle("PID Step Response — Transient Analysis",
-                 color='#ffffff', fontsize=16)
+    styles = {
+        'no_control': (C['grey'],   '--', 'No Control'),
+        'home':       (C['cyan'],   '-',  'HOME (θ₃ Offsets, K=1.8)'),
+        'gait':       (C['green'],  '-',  'GAIT (Rotation, K=0.5)'),
+    }
 
-    for ax_idx, (ch, label, color) in enumerate([
-            ('roll', 'Roll', COLORS['roll']),
-            ('pitch', 'Pitch', COLORS['pitch'])]):
-        ax = axes[ax_idx]
-        ax.plot(t, np.degrees(dist[ch]), '--', color=COLORS['disturbance'],
-                alpha=0.6, label='Step disturbance', linewidth=1)
-        ax.plot(t, np.degrees(plant[ch]), color=color,
-                label=f'Body {ch} (PID)', linewidth=1.5)
-        ax.axhline(0, color=COLORS['setpoint'], linestyle=':', alpha=0.3)
+    for key, (color, ls, label) in styles.items():
+        p = results[key]['plant']
+        d = results[key]['disturbance']
+        ax1.plot(p['time'], np.degrees(p['roll']), color=color, ls=ls,
+                 label=label, linewidth=1.2)
+        ax2.plot(p['time'], np.degrees(p['pitch']), color=color, ls=ls,
+                 label=label, linewidth=1.2)
 
-        # Compute transient metrics
-        data_deg = np.degrees(plant[ch])
-        dist_deg = np.degrees(dist[ch])
-        step_idx = np.argmax(np.array(dist[ch]) > 0.001) if np.any(np.array(dist[ch]) > 0.001) else 0
+    # Disturbance reference (from any scenario — same for all)
+    d = results['no_control']['disturbance']
+    t = results['no_control']['plant']['time']
+    ax1.plot(t, np.degrees(d['roll']), ':', color=C['yellow'],
+             alpha=0.5, label='Disturbance', linewidth=1)
+    ax2.plot(t, np.degrees(d['pitch']), ':', color=C['yellow'],
+             alpha=0.5, label='Disturbance', linewidth=1)
 
-        if step_idx > 0:
-            response_after_step = data_deg[step_idx:]
-            peak = np.max(np.abs(response_after_step))
-            steady_state = np.mean(np.abs(response_after_step[-1000:])) if len(response_after_step) > 1000 else np.nan
-
-            # Find settling time (within 5% of steady state)
-            t_arr = np.array(t)
-            threshold = 0.05 * np.max(np.abs(dist_deg))
-            settle_mask = np.abs(data_deg[step_idx:]) < threshold
-            if np.any(settle_mask):
-                settle_idx = np.argmax(settle_mask) + step_idx
-                settle_time = t_arr[settle_idx] - t_arr[step_idx]
-            else:
-                settle_time = float('nan')
-
-            metrics_text = (f"Peak: {peak:.3f}°\n"
-                          f"Steady-state error: {steady_state:.3f}°\n"
-                          f"Settling time (5%): {settle_time:.3f}s")
-            props = dict(boxstyle='round,pad=0.3', facecolor='#2d3436',
-                        edgecolor=color, alpha=0.9)
-            ax.text(0.98, 0.95, metrics_text, transform=ax.transAxes,
-                    fontsize=9, verticalalignment='top', horizontalalignment='right',
-                    bbox=props, color='#eaeaea')
-
-        ax.set_ylabel(f'{label} (degrees)')
-        ax.set_title(f'{label} — Step Response')
-        ax.legend(loc='upper left', fontsize=9)
+    for ax, ylabel in [(ax1, 'Roll (°)'), (ax2, 'Pitch (°)')]:
+        ax.axhline(0, color=C['white'], ls=':', alpha=0.2)
+        ax.axvline(3.0, color=C['yellow'], ls=':', alpha=0.3, label='_')
+        ax.set_ylabel(ylabel)
+        ax.legend(loc='upper right', fontsize=8)
         ax.grid(True)
 
-    axes[1].set_xlabel('Time (s)')
-    fig.tight_layout(rect=[0, 0, 1, 0.94])
-    _save_fig(fig, output_dir, 'step_response.png')
-
-
-# ══════════════════════════════════════════════════════════════════
-#  7. Combined Disturbance Response
-# ══════════════════════════════════════════════════════════════════
-
-def plot_combined_response(results, output_dir):
-    """Combined sinusoidal + step disturbance response."""
-    r = results['pid_combined']
-    plant = r['plant']
-    dist = r['disturbance']
-    t = plant['time']
-
-    fig, axes = plt.subplots(2, 1, figsize=(14, 8), sharex=True)
-    fig.suptitle("PID Response — Combined (Sinusoidal + Step) Disturbance",
-                 color='#ffffff', fontsize=16)
-
-    for ax_idx, (ch, label, color) in enumerate([
-            ('roll', 'Roll', COLORS['roll']),
-            ('pitch', 'Pitch', COLORS['pitch'])]):
-        ax = axes[ax_idx]
-        ax.plot(t, np.degrees(dist[ch]), '--', color=COLORS['disturbance'],
-                alpha=0.6, label='Combined disturbance', linewidth=1)
-        ax.plot(t, np.degrees(plant[ch]), color=color,
-                label=f'Body {ch} (PID)', linewidth=1.5)
-        ax.axhline(0, color=COLORS['setpoint'], linestyle=':', alpha=0.3)
-        ax.set_ylabel(f'{label} (degrees)')
-        ax.set_title(f'{label} — Combined Disturbance Response')
-        ax.legend(loc='upper right', fontsize=9)
-        ax.grid(True)
-
-    axes[1].set_xlabel('Time (s)')
-    fig.tight_layout(rect=[0, 0, 1, 0.94])
-    _save_fig(fig, output_dir, 'combined_response.png')
-
-
-# ══════════════════════════════════════════════════════════════════
-#  8. Joint Angles
-# ══════════════════════════════════════════════════════════════════
-
-def plot_joint_angles(results, output_dir):
-    """Plot joint angle trajectories from the body posture adjustment."""
-    r = results['pid']
-    posture = r['posture']
-    t = posture['time']
-
-    legs = ["left-front", "left-behind", "right-front", "right-behind"]
-    leg_colors = [COLORS['roll'], COLORS['pitch'], COLORS['accent1'], COLORS['accent3']]
-
-    fig, axes = plt.subplots(3, 1, figsize=(14, 10), sharex=True)
-    fig.suptitle("Joint Angle Trajectories — Posture Correction",
-                 color='#ffffff', fontsize=16)
-
-    joint_labels = ['θ₁ (Hip)', 'θ₂ (Upper Leg)', 'θ₃ (Lower Leg)']
-
-    for j_idx, j_label in enumerate(joint_labels):
-        ax = axes[j_idx]
-        for i, (leg, color) in enumerate(zip(legs, leg_colors)):
-            key = f'{leg}_theta{j_idx+1}'
-            ax.plot(t, np.degrees(posture[key]), color=color,
-                    label=leg, linewidth=1, alpha=0.8)
-        ax.set_ylabel(f'{j_label} (degrees)')
-        ax.set_title(j_label)
-        ax.legend(loc='upper right', fontsize=8, ncol=2)
-        ax.grid(True)
-
-    axes[2].set_xlabel('Time (s)')
-    fig.tight_layout(rect=[0, 0, 1, 0.94])
-    _save_fig(fig, output_dir, 'joint_angles.png')
-
-
-# ══════════════════════════════════════════════════════════════════
-#  9. Foot Height Adjustments
-# ══════════════════════════════════════════════════════════════════
-
-def plot_foot_adjustments(results, output_dir):
-    """Plot foot height adjustments (Δz) for each leg."""
-    r = results['pid']
-    posture = r['posture']
-    t = posture['time']
-
-    legs = ["left-front", "left-behind", "right-front", "right-behind"]
-    leg_colors = [COLORS['roll'], COLORS['pitch'], COLORS['accent1'], COLORS['accent3']]
-
-    fig, ax = plt.subplots(1, 1, figsize=(14, 6))
-    fig.suptitle("Foot Height Adjustments (Δz) — Posture Compensation",
-                 color='#ffffff', fontsize=16)
-
-    for leg, color in zip(legs, leg_colors):
-        dz = posture[f'{leg}_dz'] * 1000  # convert to mm
-        ax.plot(t, dz, color=color, label=leg, linewidth=1.2, alpha=0.9)
-
-    ax.set_ylabel('Δz (mm)')
-    ax.set_xlabel('Time (s)')
-    ax.legend(loc='upper right', fontsize=9)
-    ax.grid(True)
-    ax.set_title('Each leg adjusts height to compensate body tilt')
-
-    fig.tight_layout(rect=[0, 0, 1, 0.94])
-    _save_fig(fig, output_dir, 'foot_adjustments.png')
-
-
-# ══════════════════════════════════════════════════════════════════
-#  10. Body Animation (GIF)
-# ══════════════════════════════════════════════════════════════════
-
-def plot_body_animation(results, output_dir):
-    """Create animated visualization of body tilt stabilization."""
-    r = results['pid']
-    plant = r['plant']
-    dist = r['disturbance']
-    t_all = plant['time']
-
-    # Downsample for animation (every 50th step = 20 FPS at 1kHz sim)
-    step = 50
-    t = t_all[::step]
-    roll_deg = np.degrees(plant['roll'][::step])
-    pitch_deg = np.degrees(plant['pitch'][::step])
-    dist_roll_deg = np.degrees(dist['roll'][::step])
-    dist_pitch_deg = np.degrees(dist['pitch'][::step])
-
-    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
-    fig.suptitle("Body Posture Stabilization Animation",
-                 color='#ffffff', fontsize=16)
-
-    # Axis 0: Front view (roll)
-    ax_front = axes[0]
-    ax_front.set_xlim(-0.2, 0.2)
-    ax_front.set_ylim(-0.05, 0.25)
-    ax_front.set_aspect('equal')
-    ax_front.set_title('Front View (Roll)', fontsize=12)
-    ax_front.set_xlabel('Y (m)')
-    ax_front.set_ylabel('Z (m)')
-    ax_front.grid(True)
-
-    # Axis 1: Side view (pitch)
-    ax_side = axes[1]
-    ax_side.set_xlim(-0.25, 0.25)
-    ax_side.set_ylim(-0.05, 0.25)
-    ax_side.set_aspect('equal')
-    ax_side.set_title('Side View (Pitch)', fontsize=12)
-    ax_side.set_xlabel('X (m)')
-    ax_side.set_ylabel('Z (m)')
-    ax_side.grid(True)
-
-    # Axis 2: Time trace
-    ax_trace = axes[2]
-    ax_trace.set_xlim(0, t[-1])
-    trace_max = max(np.max(np.abs(roll_deg)), np.max(np.abs(pitch_deg)),
-                    np.max(np.abs(dist_roll_deg)), np.max(np.abs(dist_pitch_deg)))
-    ax_trace.set_ylim(-trace_max * 1.3, trace_max * 1.3)
-    ax_trace.set_title('Orientation vs Time', fontsize=12)
-    ax_trace.set_xlabel('Time (s)')
-    ax_trace.set_ylabel('Angle (°)')
-    ax_trace.grid(True)
-
-    # Body dimensions
-    body_w = 0.222
-    body_h_vis = 0.081
-    body_l = 0.350
-    nom_h = 0.170
-
-    # Initialize artists
-    body_front, = ax_front.plot([], [], 's-', color=COLORS['pid'], linewidth=4,
-                                 markersize=8, solid_capstyle='round')
-    legs_front_l, = ax_front.plot([], [], '-', color=COLORS['accent3'], linewidth=2)
-    legs_front_r, = ax_front.plot([], [], '-', color=COLORS['accent3'], linewidth=2)
-    platform_front, = ax_front.plot([], [], '-', color=COLORS['disturbance'],
-                                     linewidth=3, alpha=0.5)
-
-    body_side, = ax_side.plot([], [], 's-', color=COLORS['pid'], linewidth=4,
-                               markersize=8, solid_capstyle='round')
-    legs_side_f, = ax_side.plot([], [], '-', color=COLORS['accent3'], linewidth=2)
-    legs_side_b, = ax_side.plot([], [], '-', color=COLORS['accent3'], linewidth=2)
-    platform_side, = ax_side.plot([], [], '-', color=COLORS['disturbance'],
-                                   linewidth=3, alpha=0.5)
-
-    trace_roll, = ax_trace.plot([], [], color=COLORS['roll'], label='Body Roll', linewidth=1.5)
-    trace_pitch, = ax_trace.plot([], [], color=COLORS['pitch'], label='Body Pitch', linewidth=1.5)
-    trace_dist_r, = ax_trace.plot([], [], '--', color=COLORS['disturbance'],
-                                   alpha=0.5, label='Dist Roll', linewidth=1)
-    trace_dist_p, = ax_trace.plot([], [], ':', color=COLORS['disturbance'],
-                                   alpha=0.5, label='Dist Pitch', linewidth=1)
-    time_marker = ax_trace.axvline(0, color='#ffffff', alpha=0.5, linewidth=1)
-    ax_trace.legend(loc='upper right', fontsize=8)
-
-    time_text = fig.text(0.5, 0.02, '', ha='center', fontsize=12, color='#ffd700')
-
-    def init():
-        return (body_front, legs_front_l, legs_front_r, platform_front,
-                body_side, legs_side_f, legs_side_b, platform_side,
-                trace_roll, trace_pitch, trace_dist_r, trace_dist_p,
-                time_marker, time_text)
-
-    def animate(frame):
-        roll_rad = np.radians(roll_deg[frame])
-        pitch_rad = np.radians(pitch_deg[frame])
-
-        # Front view: body tilted by roll
-        cos_r = np.cos(roll_rad)
-        sin_r = np.sin(roll_rad)
-        # Body endpoints
-        y_l = -body_w/2 * cos_r
-        z_l = nom_h - body_w/2 * sin_r
-        y_r = body_w/2 * cos_r
-        z_r = nom_h + body_w/2 * sin_r
-        body_front.set_data([y_l, y_r], [z_l, z_r])
-
-        # Legs (front view)
-        legs_front_l.set_data([y_l, y_l], [z_l, 0])
-        legs_front_r.set_data([y_r, y_r], [z_r, 0])
-
-        # Platform (ground line, tilted)
-        p_roll = np.radians(dist_roll_deg[frame])
-        py_l = -0.18 * np.cos(p_roll)
-        pz_l = -0.18 * np.sin(p_roll)
-        py_r = 0.18 * np.cos(p_roll)
-        pz_r = 0.18 * np.sin(p_roll)
-        platform_front.set_data([py_l, py_r], [pz_l, pz_r])
-
-        # Side view: body tilted by pitch
-        cos_p = np.cos(pitch_rad)
-        sin_p = np.sin(pitch_rad)
-        x_f = body_l/2 * cos_p
-        z_f = nom_h + body_l/2 * sin_p
-        x_b = -body_l/2 * cos_p
-        z_b = nom_h - body_l/2 * sin_p
-        body_side.set_data([x_b, x_f], [z_b, z_f])
-
-        # Legs (side view)
-        legs_side_f.set_data([x_f, x_f], [z_f, 0])
-        legs_side_b.set_data([x_b, x_b], [z_b, 0])
-
-        # Platform (side view)
-        p_pitch = np.radians(dist_pitch_deg[frame])
-        px_f = 0.22 * np.cos(p_pitch)
-        pz_f = 0.22 * np.sin(p_pitch)
-        px_b = -0.22 * np.cos(p_pitch)
-        pz_b = -0.22 * np.sin(p_pitch)
-        platform_side.set_data([px_b, px_f], [pz_b, pz_f])
-
-        # Time traces
-        trace_roll.set_data(t[:frame+1], roll_deg[:frame+1])
-        trace_pitch.set_data(t[:frame+1], pitch_deg[:frame+1])
-        trace_dist_r.set_data(t[:frame+1], dist_roll_deg[:frame+1])
-        trace_dist_p.set_data(t[:frame+1], dist_pitch_deg[:frame+1])
-        time_marker.set_xdata([t[frame]])
-
-        time_text.set_text(f't = {t[frame]:.2f}s  |  Roll: {roll_deg[frame]:+.2f}°  |  Pitch: {pitch_deg[frame]:+.2f}°')
-
-        return (body_front, legs_front_l, legs_front_r, platform_front,
-                body_side, legs_side_f, legs_side_b, platform_side,
-                trace_roll, trace_pitch, trace_dist_r, trace_dist_p,
-                time_marker, time_text)
-
-    n_frames = len(t)
-    anim = animation.FuncAnimation(fig, animate, init_func=init,
-                                    frames=n_frames, interval=50, blit=True)
-
-    fig.tight_layout(rect=[0, 0.05, 1, 0.94])
-
-    gif_path = os.path.join(output_dir, 'body_animation.gif')
-    os.makedirs(output_dir, exist_ok=True)
-    anim.save(gif_path, writer='pillow', fps=20,
-              savefig_kwargs={'facecolor': fig.get_facecolor()})
+    ax2.set_xlabel('Time (s)')
+    fig.tight_layout()
+    path = os.path.join(output_dir, 'step_response.png')
+    fig.savefig(path, dpi=200)
     plt.close(fig)
-    print(f"  ✓ Saved: body_animation.gif")
+    print(f"  ✓ {path}")
 
 
 # ══════════════════════════════════════════════════════════════════
-#  11. Performance Summary Table (as image)
+#  3. PID SIGNALS (P/I/D terms for HOME)
 # ══════════════════════════════════════════════════════════════════
 
-def plot_performance_summary(results, output_dir):
-    """Create a summary table image comparing all controllers."""
-    fig, ax = plt.subplots(1, 1, figsize=(14, 5))
-    ax.axis('off')
-    fig.suptitle("Performance Summary — Controller Comparison",
-                 color='#ffffff', fontsize=16)
+def plot_pid_signals(data, output_dir):
+    """Plot P, I, D terms and total output for both channels."""
+    fig, axes = plt.subplots(2, 2, figsize=(14, 8))
+    fig.suptitle(f'PID Signal Decomposition — {data["name"]}',
+                 fontsize=14, fontweight='bold')
 
-    scenarios = ['no_control', 'p_only', 'pd', 'pid']
-    names = ['No Control', 'P-Only', 'PD', 'Full PID']
-    headers = ['Controller', 'Roll RMS (°)', 'Roll Peak (°)',
-               'Pitch RMS (°)', 'Pitch Peak (°)', 'Status']
+    channels = [('Roll', data['pid_roll'], C['cyan']),
+                ('Pitch', data['pid_pitch'], C['red'])]
 
-    cell_data = []
-    for key, name in zip(scenarios, names):
-        r = results[key]
-        plant = r['plant']
-        roll_deg = np.degrees(plant['roll'])
-        pitch_deg = np.degrees(plant['pitch'])
+    for row, (ch, pid, color) in enumerate(channels):
+        t = pid['time']
 
-        # Skip first 0.5s for metrics (transient)
-        skip = int(0.5 / RobotParams().dt)
-        roll_ss = roll_deg[skip:]
-        pitch_ss = pitch_deg[skip:]
+        # P, I, D terms
+        ax = axes[row, 0]
+        ax.plot(t, pid['p_term'], color=C['cyan'],  lw=0.8, label='P')
+        ax.plot(t, pid['i_term'], color=C['red'],   lw=0.8, label='I')
+        ax.plot(t, pid['d_term'], color=C['green'],  lw=0.8, label='D')
+        ax.set_ylabel(f'{ch} — PID Terms')
+        ax.legend(fontsize=7, loc='upper right')
+        ax.grid(True)
+        ax.axvline(3.0, color=C['yellow'], ls=':', alpha=0.3)
 
-        roll_rms = np.sqrt(np.mean(roll_ss**2))
-        roll_peak = np.max(np.abs(roll_ss))
-        pitch_rms = np.sqrt(np.mean(pitch_ss**2))
-        pitch_peak = np.max(np.abs(pitch_ss))
+        # Total output
+        ax = axes[row, 1]
+        ax.plot(t, pid['output'], color=color, lw=1)
+        ax.axhline(0.5, ls='--', color=C['red'], alpha=0.4, lw=0.8)
+        ax.axhline(-0.5, ls='--', color=C['red'], alpha=0.4, lw=0.8)
+        ax.set_ylabel(f'{ch} — Output (rad)')
+        ax.grid(True)
+        ax.axvline(3.0, color=C['yellow'], ls=':', alpha=0.3)
+        ax.text(t[-1] * 0.95, 0.45, 'Saturation ±0.5', fontsize=7,
+                ha='right', color=C['red'], alpha=0.6)
 
-        status = '✅ < 1°' if roll_peak < 1 and pitch_peak < 1 else '⚠️ > 1°'
-
-        cell_data.append([name, f'{roll_rms:.3f}', f'{roll_peak:.3f}',
-                         f'{pitch_rms:.3f}', f'{pitch_peak:.3f}', status])
-
-    table = ax.table(cellText=cell_data, colLabels=headers,
-                     cellLoc='center', loc='center')
-
-    # Style the table
-    table.auto_set_font_size(False)
-    table.set_fontsize(11)
-    table.scale(1, 2.0)
-
-    for (row, col), cell in table.get_celld().items():
-        cell.set_edgecolor('#e94560')
-        if row == 0:
-            cell.set_facecolor('#e94560')
-            cell.set_text_props(color='#ffffff', fontweight='bold')
-        else:
-            cell.set_facecolor('#16213e')
-            cell.set_text_props(color='#eaeaea')
-
-    fig.tight_layout(rect=[0, 0, 1, 0.9])
-    _save_fig(fig, output_dir, 'performance_summary.png')
+    axes[1, 0].set_xlabel('Time (s)')
+    axes[1, 1].set_xlabel('Time (s)')
+    fig.tight_layout()
+    path = os.path.join(output_dir, 'pid_signals.png')
+    fig.savefig(path, dpi=200)
+    plt.close(fig)
+    print(f"  ✓ {path}")
 
 
 # ══════════════════════════════════════════════════════════════════
-#  Generate All Plots
+#  4. FILTER EFFECT (raw vs filtered)
 # ══════════════════════════════════════════════════════════════════
 
-def generate_all_plots(results, output_dir):
-    """Generate all visualization plots."""
-    print(f"\n  Output directory: {output_dir}")
-    os.makedirs(output_dir, exist_ok=True)
+def plot_filter_effect(data, output_dir):
+    """Show raw PID output vs low-pass filtered output."""
+    filt = data['filter']
+    t = filt['time']
 
-    plot_block_diagram(results, output_dir)
-    plot_time_response(results, output_dir)
-    plot_comparison(results, output_dir)
-    plot_pid_signals(results, output_dir)
-    plot_imu_signals(results, output_dir)
-    plot_step_response(results, output_dir)
-    plot_combined_response(results, output_dir)
-    plot_joint_angles(results, output_dir)
-    plot_foot_adjustments(results, output_dir)
-    plot_performance_summary(results, output_dir)
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 6), sharex=True)
+    fig.suptitle(f'Low-Pass Filter Effect (α = 0.85) — {data["name"]}',
+                 fontsize=14, fontweight='bold')
 
-    print("\n  Generating animation (this may take a moment)...")
-    plot_body_animation(results, output_dir)
+    for ax, raw, filtered, ch, color in [
+        (ax1, filt['raw_r'], filt['filt_r'], 'Roll', C['cyan']),
+        (ax2, filt['raw_p'], filt['filt_p'], 'Pitch', C['red']),
+    ]:
+        ax.plot(t, raw, color=color, alpha=0.3, lw=0.5, label='Raw PID')
+        ax.plot(t, filtered, color=C['orange'], lw=1.2, label='Filtered (α=0.85)')
+        ax.set_ylabel(f'{ch} (rad)')
+        ax.legend(fontsize=8, loc='upper right')
+        ax.grid(True)
+        ax.axvline(3.0, color=C['yellow'], ls=':', alpha=0.3)
 
-    print(f"\n  ✅ All {11} visualizations generated successfully!")
+    ax2.set_xlabel('Time (s)')
+    fig.tight_layout()
+    path = os.path.join(output_dir, 'filter_effect.png')
+    fig.savefig(path, dpi=200)
+    plt.close(fig)
+    print(f"  ✓ {path}")
+
+
+# ══════════════════════════════════════════════════════════════════
+#  5. CORRECTION OUTPUT (HOME vs GAIT with dead zones)
+# ══════════════════════════════════════════════════════════════════
+
+def plot_correction_output(results, output_dir):
+    """Show final applied correction for HOME and GAIT modes."""
+    fig, axes = plt.subplots(2, 2, figsize=(14, 8))
+    fig.suptitle('Applied Correction Output — HOME vs GAIT',
+                 fontsize=14, fontweight='bold')
+
+    for col, (key, title, color) in enumerate([
+        ('home', 'HOME (K=1.8, DZ=0.005)', C['cyan']),
+        ('gait', 'GAIT (K=0.5, DZ=0.08)', C['green']),
+    ]):
+        filt = results[key]['filter']
+        t = filt['time']
+
+        axes[0, col].plot(t, filt['corr_r'], color=color, lw=0.8)
+        axes[0, col].set_title(f'{title} — Roll', fontsize=10)
+        axes[0, col].set_ylabel('Correction (rad)')
+        axes[0, col].grid(True)
+        axes[0, col].axvline(3.0, color=C['yellow'], ls=':', alpha=0.3)
+
+        axes[1, col].plot(t, filt['corr_p'], color=color, lw=0.8)
+        axes[1, col].set_title(f'{title} — Pitch', fontsize=10)
+        axes[1, col].set_ylabel('Correction (rad)')
+        axes[1, col].set_xlabel('Time (s)')
+        axes[1, col].grid(True)
+        axes[1, col].axvline(3.0, color=C['yellow'], ls=':', alpha=0.3)
+
+    fig.tight_layout()
+    path = os.path.join(output_dir, 'correction_output.png')
+    fig.savefig(path, dpi=200)
+    plt.close(fig)
+    print(f"  ✓ {path}")
+
+
+# ══════════════════════════════════════════════════════════════════
+#  6. FOOT ADJUSTMENTS (Δz per leg)
+# ══════════════════════════════════════════════════════════════════
+
+def plot_foot_adjustments(data, output_dir):
+    """Show Δz height adjustment per leg for HOME scenario."""
+    posture = data['posture']
+    t = posture['time']
+
+    fig, axes = plt.subplots(2, 2, figsize=(14, 7))
+    fig.suptitle(f'Foot Height Adjustments (Δz) — {data["name"]}',
+                 fontsize=14, fontweight='bold')
+
+    legs = ['left-front', 'left-behind', 'right-front', 'right-behind']
+    colors = [C['cyan'], C['red'], C['green'], C['orange']]
+
+    for idx, (leg, color) in enumerate(zip(legs, colors)):
+        ax = axes[idx // 2, idx % 2]
+        key = f'{leg}_dz'
+        if key in posture:
+            dz_mm = np.array(posture[key]) * 1000
+            ax.plot(t, dz_mm, color=color, lw=0.8)
+        ax.set_title(leg.replace('-', ' ').title(), fontsize=10)
+        ax.set_ylabel('Δz (mm)')
+        ax.grid(True)
+        ax.axhline(0, color=C['white'], ls=':', alpha=0.2)
+        ax.axvline(3.0, color=C['yellow'], ls=':', alpha=0.3)
+
+    axes[1, 0].set_xlabel('Time (s)')
+    axes[1, 1].set_xlabel('Time (s)')
+    fig.tight_layout()
+    path = os.path.join(output_dir, 'foot_adjustments.png')
+    fig.savefig(path, dpi=200)
+    plt.close(fig)
+    print(f"  ✓ {path}")
+
+
+# ══════════════════════════════════════════════════════════════════
+#  7. SIGNAL FLOW ANIMATION
+# ══════════════════════════════════════════════════════════════════
+
+def generate_signal_flow_gif(data, output_dir, fps=25, duration=10.0):
+    """Animate the full signal pipeline over time."""
+    plant = data['plant']
+    dist  = data['disturbance']
+    imu_d = data['imu']
+    pid_r = data['pid_roll']
+    pid_p = data['pid_pitch']
+    filt  = data['filter']
+
+    t_all = plant['time']
+    n_frames = int(fps * duration)
+    step = max(1, len(t_all) // n_frames)
+    indices = list(range(0, len(t_all), step))[:n_frames]
+
+    fig, axes = plt.subplots(5, 1, figsize=(14, 11), sharex=True)
+    fig.suptitle(f'Signal Flow Pipeline — {data["name"]}',
+                 fontsize=13, fontweight='bold')
+
+    labels = ['Disturbance\nd(t)', 'IMU\nMeasurement', 'PID\nOutput u(t)',
+              'LPF\nFiltered', 'Body\nOrientation y(t)']
+
+    def update(frame_idx):
+        idx = indices[frame_idx]
+        sl = slice(0, idx + 1)
+
+        for i, ax in enumerate(axes):
+            ax.clear()
+            ax.grid(True)
+            ax.set_xlim(0, t_all[-1])
+            ax.set_ylabel(labels[i], fontsize=8, rotation=0,
+                          labelpad=60, va='center')
+
+        # 1. Disturbance
+        axes[0].plot(t_all[sl], np.degrees(dist['roll'][sl]), color=C['cyan'], lw=0.8)
+        axes[0].plot(t_all[sl], np.degrees(dist['pitch'][sl]), color=C['red'], lw=0.8)
+        axes[0].set_ylim(-12, 12)
+        axes[0].set_title(f't = {t_all[idx]:.1f} s', fontsize=10)
+
+        # 2. IMU
+        axes[1].plot(t_all[sl], np.degrees(imu_d['filtered_roll'][sl]), color=C['cyan'], lw=0.8)
+        axes[1].plot(t_all[sl], np.degrees(imu_d['filtered_pitch'][sl]), color=C['red'], lw=0.8)
+        axes[1].set_ylim(-12, 12)
+
+        # 3. PID output
+        axes[2].plot(t_all[sl], pid_r['output'][sl], color=C['cyan'], lw=0.8)
+        axes[2].plot(t_all[sl], pid_p['output'][sl], color=C['red'], lw=0.8)
+        axes[2].set_ylim(-0.6, 0.6)
+
+        # 4. Filtered
+        axes[3].plot(t_all[sl], filt['filt_r'][sl], color=C['cyan'], lw=0.8)
+        axes[3].plot(t_all[sl], filt['filt_p'][sl], color=C['red'], lw=0.8)
+        axes[3].set_ylim(-0.6, 0.6)
+
+        # 5. Body orientation
+        axes[4].plot(t_all[sl], np.degrees(plant['roll'][sl]), color=C['cyan'], lw=1)
+        axes[4].plot(t_all[sl], np.degrees(plant['pitch'][sl]), color=C['red'], lw=1)
+        axes[4].axhline(0, color=C['white'], ls=':', alpha=0.2)
+        axes[4].set_ylim(-12, 12)
+        axes[4].set_xlabel('Time (s)')
+
+        return []
+
+    anim = animation.FuncAnimation(fig, update, frames=len(indices),
+                                   interval=1000 // fps, blit=False)
+    path = os.path.join(output_dir, 'signal_flow.gif')
+    anim.save(path, writer='pillow', fps=fps, dpi=100)
+    plt.close(fig)
+    print(f"  ✓ {path}")
