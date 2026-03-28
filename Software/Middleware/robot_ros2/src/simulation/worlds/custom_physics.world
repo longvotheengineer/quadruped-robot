@@ -61,10 +61,10 @@
       </link>
     </model>
 
-    <!-- Tilted ramp for balance testing (10° pitch) -->
+    <!-- Tilted ramp for balance testing -->
     <model name="tilted_ramp">
       <static>true</static>
-      <pose>0 0 0 0 0 0</pose>  <!-- x=0.8m ahead, tilted 10° pitch -->
+      <pose>0 0 0 0 0 0</pose>
       <link name="ramp_link">
         <collision name="collision">
           <geometry>

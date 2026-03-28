@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <robot name="3dof_leg">
-    <link name="world_link"/>
+    <!-- <link name="world_link"/> -->
     
     <!-- ── Body ─────────────────────────────────────────────── --> 
 
-    <joint name="body_joint" type="fixed">        
+    <!-- <joint name="body_joint" type="fixed">        
         <parent link    ="world_link"/>
         <child  link    ="body_link"/>  
         <origin xyz     ="0 0 0.2"/>
-    </joint>
+    </joint> -->
 
     <link name="body_link">
         <visual>
