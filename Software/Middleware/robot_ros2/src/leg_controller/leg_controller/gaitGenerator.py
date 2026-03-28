@@ -1,4 +1,5 @@
 import math
+import time
 import numpy as np
 from dataclasses import dataclass
 from leg_controller.kinematics import Kinematics
@@ -36,17 +37,52 @@ class Gait:
         # Trajectory state
         self.gait_angle_data = None
         self.gait_foot_data  = None
-        self.current_frame = 0
-        self.complete_step = 0
+        self.step_current = 0
+        self.step_final = 0
 
         # Posture correction from balance_controller
-        self.corr_roll  = 0.0
-        self.corr_pitch = 0.0
-        self.LEG_NAMES = ['left-front', 'left-behind', 'right-front', 'right-behind']
+        self.imu_roll_corr  = 0.0
+        self.imu_pitch_corr = 0.0
+        self.imu_tim_current = None
         node.create_subscription(
-            Vector3, '/posture/correction', self._posture_callback, 10)
+            Vector3, '/posture/correction', self.imu_callback, 10)
 
-    # ── Leg configuration ────────────────────────────────────────
+    # ── IMU Constants ───────────────────────────────────────────────
+
+    # Joint indices for θ₃ in the 12-element target array
+    IMU_HOME_THETA3INDICES = {
+        'left-front':   2,
+        'left-behind':  5,
+        'right-front':  8,
+        'right-behind': 11,}
+
+    # Seconds to wait after startup before applying posture correction.
+    # Prevents IMU transient during spawn from triggering false corrections.
+    IMU_HOME_TIMSTART = 3.0
+
+    # Multiplier for PID correction → θ₃ offset (rad).
+    # At INIT_POSE: ∂body_height/∂θ₃ ≈ 97 mm/rad, while ∂body_height/∂θ₂ ≈ 5 mm/rad.
+    # θ₃ is chosen because it is 20× more effective at controlling body height.
+    IMU_HOME_GAIN = 1.8
+
+    # Maximum θ₃ offset (rad) per joint to prevent extreme poses.
+    IMU_HOME_SATURATION = 0.5
+
+    # Deadzone makes the robot not react to small tilt angles
+    IMU_GAIT_DEADZONE = 0.08 # 4.6 degrees
+
+    # Using the standing gain makes the robot acts explosively
+    # IMU_GAIT_GAIN helps to reduce the gain
+    IMU_GAIT_GAIN = 0.5
+
+    # ── Leg configuration ──────────────────────────────────────────
+
+    LEG_NAMES = [
+        'left-front', 
+        'left-behind', 
+        'right-front', 
+        'right-behind'
+    ]
 
     INIT_POSE = {
         'joint_lf_1':  0.3,  'joint_lf_2':  3*np.pi/2,  'joint_lf_3':  0.5,
@@ -120,10 +156,72 @@ class Gait:
 
     CONTROL_VELOCITY = True
 
-    # ── Init pose (natural bent-leg position) ────────────────────
+    # ── IMU controller ────────────────────────────────────────────
 
-    def init_pose_tick(self):
-        """Hold at INIT_POSE via PID."""
+    def imu_callback(self, msg: Vector3):
+        """Receive filtered PID correction angles from balance_controller"""
+        self.imu_roll_corr  = msg.x
+        self.imu_pitch_corr = msg.y
+
+    def imu_controllerOutput_home(self, targets):
+        """Apply θ₃ posture correction to a 12-element joint target array (in-place).
+
+        Guards:
+          - Waits IMU_HOME_TIMSTART seconds after first call (IMU settles)
+          - Ignores tilt below 0.005 rad dead zone (noise rejection)
+
+        Sign convention (from Jacobian analysis at INIT_POSE):
+          - Left  θ₃ increasing → body goes UP  (+97 mm/rad)
+          - Right θ₃ increasing → body goes DOWN (-97 mm/rad)
+          So both sides receive the SAME sign offset for roll,
+          and OPPOSITE signs for front vs back (pitch).
+        """
+        # Startup delay: skip correction until IMU has settled
+        now = time.time()
+        if self.imu_tim_current is None:
+            self.imu_tim_current = now
+        if (now - self.imu_tim_current) < self.IMU_HOME_TIMSTART:
+            return
+
+        # Dead zone: ignore negligible tilt
+        if abs(self.imu_roll_corr) < 0.005 and abs(self.imu_pitch_corr) < 0.005:
+            return
+
+        # Scale PID output → θ₃ offset
+        r = self.imu_roll_corr  * self.IMU_HOME_GAIN
+        p = self.imu_pitch_corr * self.IMU_HOME_GAIN
+        clamp = self.IMU_HOME_SATURATION
+
+        # Compute and clamp per-leg offsets
+        offsets = {
+            'left-front':   max(-clamp, min(clamp, r - p)),
+            'left-behind':  max(-clamp, min(clamp, r + p)),
+            'right-front':  max(-clamp, min(clamp, r + p)),
+            'right-behind': max(-clamp, min(clamp, r - p)),}
+
+        # Apply to θ₃ joints
+        for leg, offset in offsets.items():
+            targets[self.IMU_HOME_THETA3INDICES[leg]] += offset
+
+    def imu_controllerOutput_gait(self, pos_foot_raw, imu_roll_corr, imu_pitch_corr):
+        """ This method is only used for one leg at a time
+        Apply body-tilt compensation using rotation matrix R_y(pitch) x R_x(roll)
+    
+        From the paper: p_target = R_inverse · p_current.
+        The correction angles are negated because we rotate the foot positions
+        in the opposite direction of the body tilt.
+        """
+        cr, sr = math.cos(-imu_roll_corr), math.sin(-imu_roll_corr)
+        cp, sp = math.cos(-imu_pitch_corr), math.sin(-imu_pitch_corr)
+        R = np.array([[cp,    sr*sp,  cr*sp],
+                      [0,     cr,    -sr   ],
+                      [-sp,   sr*cp,  cr*cp]])
+        return R @ pos_foot_raw
+
+    # ── Temporary Init pose ───────────────────────────────────────
+
+    def init_pose(self):
+        """Hold at INIT_POSE (no balance correction)"""
         joint_names = self.serial_publish.controller_sim.joint_names
         targets = [self.INIT_POSE[name] for name in joint_names]
         torques = self.serial_publish.controller_sim.compute_torques(targets)
@@ -131,9 +229,9 @@ class Gait:
         msg.data = torques
         self.serial_publish.pub_sim_gazebo.publish(msg)
 
-    # ── Trajectory generation ────────────────────────────────────
+    # ── Trajectory generation ─────────────────────────────────────
 
-    def trajectory_foot(self, x_center, y_val, reverse=False):
+    def trajectory_moving(self, x_center, y_val, reverse=False):
         """Build D-shape foot path in Cartesian space (x, y, z).
         If reverse=True, swap swing direction (for turning)"""
         stride_length = 45
@@ -170,7 +268,7 @@ class Gait:
 
             return np.vstack([swing, stance])
 
-    def trajectory_oscillation(self, x_center, y_val):
+    def trajectory_resting(self, x_center, y_val):
         """The robot doesn't move, feet stay planted, body oscillates"""
         z_low  = -170    # body down (legs bent)
         z_high = -130    # body up (legs extended)
@@ -182,26 +280,43 @@ class Gait:
 
         return waypoint
 
-    def _posture_callback(self, msg: Vector3):
-        """Receive correction angles from balance_controller."""
-        self.corr_roll  = msg.x
-        self.corr_pitch = msg.y
+    # ── Gait generation ───────────────────────────────────────────
 
-    def apply_rotation(self, foot_pos, corr_roll, corr_pitch):
-        """Apply paper formula: p_t = R_inv · (p_c - p_0) + p_0.
-        Simplifies to p_t = R_inv · p_c with p_0 at origin."""
-        r = -corr_roll
-        p = -corr_pitch
-        cr, sr = math.cos(r), math.sin(r)
-        cp, sp = math.cos(p), math.sin(p)
-        R = np.array([[cp,    sr*sp,  cr*sp],
-                      [0,     cr,    -sr   ],
-                      [-sp,   sr*cp,  cr*cp]])
-        return R @ foot_pos
+    def generate_home(self):
+        """Precalculate homing trajectory: all 4 legs move simultaneously"""
+        th1, th2, th3 = self.kinematics.inverse(125, 135, -170, "left-front")
+
+        if th2 > 180:
+            th2 -= 360
+
+        # Sign pattern: LF(+,+)  LB(-,+)  RF(-,-)  RB(-,-)
+        homing_targets = {
+            'joint_lf_1': 0.0,  'joint_lf_2':  np.radians(th2) + 2 * np.pi,  'joint_lf_3':  np.radians(th3) + np.pi,
+            'joint_lb_1': 0.0,  'joint_lb_2':  np.radians(th2) + 2 * np.pi,  'joint_lb_3':  np.radians(th3) + np.pi,
+            'joint_rf_1': 0.0,  'joint_rf_2': -np.radians(th2) - 2 * np.pi,  'joint_rf_3': -np.radians(th3) - np.pi,
+            'joint_rb_1': 0.0,  'joint_rb_2': -np.radians(th2) - 2 * np.pi,  'joint_rb_3': -np.radians(th3) - np.pi,
+        }
+
+        # Read current encoder positions
+        positions = self.serial_publish.controller_sim.actual_positions
+        if not positions:
+            return None
+
+        joint_names = self.serial_publish.controller_sim.joint_names
+
+        # Interpolate all joints simultaneously
+        theta_i = []
+        for step in range(self.waypoint.zero):
+            alpha = step / self.waypoint.zero
+            frame = [positions[n] + alpha * (homing_targets[n] - positions[n]) for n in joint_names]
+            theta_i.append(frame)
+
+        self.homing_targets = homing_targets
+        return np.array(theta_i)
 
     def generate_gait(self, leg_type):
         """Generate one leg's full gait cycle: foot path → IK → phase shift.
-        Returns (joint_angles, foot_positions) tuple."""
+        Returns (joint_angles, pos_foot_positions) tuple."""
         # Select params and phase pattern based on command
         match self.gait_msg.cmd:
             case "TROT_FORWARD":
@@ -239,10 +354,10 @@ class Gait:
 
         # Build foot trajectory based on command
         if self.gait_msg.cmd in ("BODY_PUSHUP", "BODY_SWAY", "BODY_CIRCLE"):
-            waypoint = self.trajectory_oscillation(params["x_center"], params["y_val"])
+            waypoint = self.trajectory_resting(params["x_center"], params["y_val"])
         else:
             reverse = params.get("reverse", False)
-            waypoint = self.trajectory_foot(params["x_center"], params["y_val"], reverse)
+            waypoint = self.trajectory_moving(params["x_center"], params["y_val"], reverse)
 
         # Convert to joint angles via IK
         theta_i = np.zeros_like(waypoint)
@@ -253,39 +368,9 @@ class Gait:
         shift = round(waypoint.shape[0] * phase.get(leg_type, 0))
         return np.roll(theta_i, shift, axis=0), np.roll(waypoint, shift, axis=0)
 
-    def generate_home(self):
-        """Precalculate homing trajectory: all 4 legs move simultaneously."""
-        th1, th2, th3 = self.kinematics.inverse(125, 135, -170, "left-front")
+    # ── Command dispatch ──────────────────────────────────────────
 
-        if th2 > 180:
-            th2 -= 360
-
-        # Sign pattern: LF(+,+)  LB(-,+)  RF(-,-)  RB(-,-)
-        homing_targets = {
-            'joint_lf_1': 0.0,  'joint_lf_2':  np.radians(th2) + 2 * np.pi,  'joint_lf_3':  np.radians(th3) + np.pi,
-            'joint_lb_1': 0.0,  'joint_lb_2':  np.radians(th2) + 2 * np.pi,  'joint_lb_3':  np.radians(th3) + np.pi,
-            'joint_rf_1': 0.0,  'joint_rf_2': -np.radians(th2) - 2 * np.pi,  'joint_rf_3': -np.radians(th3) - np.pi,
-            'joint_rb_1': 0.0,  'joint_rb_2': -np.radians(th2) - 2 * np.pi,  'joint_rb_3': -np.radians(th3) - np.pi,
-        }
-
-        # Read current encoder positions
-        positions = self.serial_publish.controller_sim.actual_positions
-        if not positions:
-            return None
-
-        joint_names = self.serial_publish.controller_sim.joint_names
-
-        # Interpolate all joints simultaneously
-        theta_i = []
-        for step in range(self.waypoint.zero):
-            alpha = step / self.waypoint.zero
-            frame = [positions[n] + alpha * (homing_targets[n] - positions[n]) for n in joint_names]
-            theta_i.append(frame)
-
-        self.homing_targets = homing_targets
-        return np.array(theta_i)
-
-    def change(self):        
+    def gait_change(self):        
         match self.gait_msg.cmd:
             case "ZERO":
                 self.gait_foot_data = None
@@ -301,34 +386,38 @@ class Gait:
                 return theta_i   
 
     def control_init(self):
-        self.gait_angle_data = self.change()
-        self.current_frame = 0
-        self.complete_step = 0
+        self.gait_angle_data = self.gait_change()
+        self.step_current = 0
+        self.step_final = 0
 
     def control_tick(self):
         if self.gait_angle_data is None:
             return False
 
         if self.gait_msg.cmd == "ZERO":
-            return self._tick_homing()
+            return self._tick_home()
         else:
             return self._tick_gait()
 
-    def _tick_homing(self):
-        """Advance homing by one frame: publish joint targets via PID."""
+    # ── Tick functions ────────────────────────────────────────────
+
+    def _tick_home(self):
+        """Advance homing by one frame: publish joint targets via PD torque control"""
         total_frames = self.gait_angle_data.shape[0]
-        if self.current_frame < total_frames:
-            targets = self.gait_angle_data[self.current_frame].tolist()
+        if self.step_current < total_frames:
+            # Transitioning to zero pose — no correction during movement
+            targets = self.gait_angle_data[self.step_current].tolist()
             torques = self.serial_publish.controller_sim.compute_torques(targets)
             msg = Float64MultiArray()
             msg.data = torques
             self.serial_publish.pub_sim_gazebo.publish(msg)
-            self.current_frame += 1
+            self.step_current += 1
             return True
         else:
-            # Hold at homing targets
+            # Holding at zero pose — apply posture correction
             joint_names = self.serial_publish.controller_sim.joint_names
             targets = [self.homing_targets[name] for name in joint_names]
+            self.imu_controllerOutput_home(targets)
             torques = self.serial_publish.controller_sim.compute_torques(targets)
             msg = Float64MultiArray()
             msg.data = torques
@@ -336,36 +425,42 @@ class Gait:
             return False
 
     def _tick_gait(self):
-        """Advance gait by one frame. step=0 means run continuously."""
+        """Advance gait by one frame. step=0 means run continuously"""
         theta_i = self.gait_angle_data
+        frame = self.step_current
 
-        # If finite steps completed, hold the last frame position
-        if self.gait_msg.step > 0 and self.complete_step >= self.gait_msg.step:
-            pos = self._get_corrected_frame(theta_i, self.current_frame)
+        # Deadzone makes the robot not react to small tilt angles
+        activate_corr = (abs(self.imu_roll_corr) > self.IMU_GAIT_DEADZONE) or \
+                        (abs(self.imu_pitch_corr) > self.IMU_GAIT_DEADZONE)
+
+        # Pass the off-line planning into the PID controller
+        if self.gait_foot_data is not None and activate_corr:
+            pos = np.zeros((4, 3))
+            try:
+                for i, leg in enumerate(self.LEG_NAMES):
+                    pos_foot_raw = self.gait_foot_data[i][frame].copy()
+                    pos_foot_adjusted = self.imu_controllerOutput_gait(pos_foot_raw,
+                                                                        self.imu_roll_corr * self.IMU_GAIT_GAIN,
+                                                                        self.imu_pitch_corr * self.IMU_GAIT_GAIN)
+                    pos[i] = self.kinematics.inverse(*pos_foot_adjusted, leg)
+            except:
+                pos = np.array([theta_i[i][frame] for i in range(4)])
+        else:
+            pos = np.array([theta_i[i][frame] for i in range(4)])
+
+        # Keep publishing the last frame after gait completes to hold position.
+        # The effort controller requires continuous torque commands;
+        # if we stop publishing, effort = 0 and the robot collapses.
+        if self.gait_msg.step > 0 and self.step_final >= self.gait_msg.step:
             self.serial_publish.publish_message(pos)
             return False
 
-        pos = self._get_corrected_frame(theta_i, self.current_frame)
         self.serial_publish.publish_message(pos)
-        
+
         # Advance frame
-        self.current_frame += 1
-        if self.current_frame >= theta_i[0].shape[0]:
-            self.current_frame = 0
-            self.complete_step += 1
-            
+        self.step_current += 1
+        if self.step_current >= theta_i[0].shape[0]:
+            self.step_current = 0
+            self.step_final += 1
+
         return True
-
-    def _get_corrected_frame(self, theta_i, frame):
-        """Get joint angles for one frame, with posture correction applied."""
-        # No correction or no foot data → use precalculated angles
-        if self.gait_foot_data is None or True:  # TEMP: force no correction
-            return np.array([theta_i[i][frame] for i in range(4)])
-
-        # Apply rotation correction and re-run IK
-        pos = np.zeros((4, 3))
-        for i, leg in enumerate(self.LEG_NAMES):
-            foot = self.gait_foot_data[i][frame].copy()
-            adjusted = self.apply_rotation(foot, self.corr_roll, self.corr_pitch)
-            pos[i] = self.kinematics.inverse(*adjusted, leg)
-        return pos

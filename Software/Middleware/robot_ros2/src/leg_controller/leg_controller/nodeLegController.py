@@ -30,7 +30,7 @@ class LegController(Node):
                 self.state_gait = "IDLE"
                 self.get_logger().info('Init pose reached. Waiting for commands.')
         elif self.state_gait == "IDLE":
-            self.gait.init_pose_tick()
+            self.gait.init_pose()
         elif self.state_gait == "INIT":
             self.gait.control_init()
             self.state_gait = "READY"
