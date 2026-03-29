@@ -91,42 +91,41 @@ class Gait:
         'joint_rb_1':  0.3,  'joint_rb_2': -3*np.pi/2,  'joint_rb_3': -0.5,
     }
 
-    PARAMS_GAIT_FORWARD = {
+    PARAMS_GAIT_FORWARD      = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False},
         "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": False},
-        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False},
-    }
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False},}
 
-    PARAMS_GAIT_BACKWARD = {
+    PARAMS_GAIT_BACKWARD     = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": True},
         "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": True},
         "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True},
     }
 
-    PARAMS_GAIT_TURN_RIGHT = {
+    PARAMS_GAIT_TURN_RIGHT   = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False},
         "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": True},
         "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True},
     }
 
-    PARAMS_GAIT_TURN_LEFT = {
+    PARAMS_GAIT_TURN_LEFT    = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": True},
         "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": False},
         "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False},
     }
 
-    PARAMS_PHASESHIFT_TROT = {
+    PARAMS_PHASESHIFT_TROT   = {
         "left-front":   0.00,
         "right-behind": 0.00,
         "left-behind":  0.50,
         "right-front":  0.50,
     }
 
-    PARAMS_PHASESHIFT_WALK = {
+    PARAMS_PHASESHIFT_WALK   = {
         "left-front":   0.00,
         "right-behind": 0.25,
         "right-front":  0.50,

@@ -12,6 +12,8 @@ setup(
         ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'urdf'), glob('urdf/*.urdf')),
+        (os.path.join('share', package_name, 'urdf_new/quadrupedRobot2/urdf'), glob('urdf_new/quadrupedRobot2/urdf/*.urdf')),
+        (os.path.join('share', package_name, 'urdf_new/quadrupedRobot2/meshes'), glob('urdf_new/quadrupedRobot2/meshes/*.STL')),
         (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
         (os.path.join('share', package_name, 'rviz'), glob('rviz/*.rviz')),
         (os.path.join('share', package_name, 'config'), glob('config/*.yaml')),
