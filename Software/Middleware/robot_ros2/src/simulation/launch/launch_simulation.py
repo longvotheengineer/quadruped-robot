@@ -9,15 +9,20 @@ def generate_launch_description():
     package_name = 'simulation'
     package_share = get_package_share_directory(package_name)
 
-    urdf_file = os.path.join(get_package_share_directory(package_name), 'urdf', 'quadrupedRobot.urdf')
-    rviz_config_file = os.path.join(get_package_share_directory(package_name), 'rviz', 'config.rviz')
-    world_file = os.path.join(package_share, 'worlds', 'custom_physics.world')
+    urdf_file = os.path.join(get_package_share_directory(package_name), 
+        'urdf_new/quadrupedRobot2/urdf', 'quadrupedRobot2.urdf')
+    rviz_config_file = os.path.join(get_package_share_directory(package_name), 
+        'rviz', 'config.rviz')
+    world_file = os.path.join(package_share, 
+        'worlds', 'custom_physics.world')
 
     with open(urdf_file, 'r') as infp:
         robot_description_config = infp.read()
     
     # Replace $(find simulation) with the absolute path to the share directory    
     robot_description_config = robot_description_config.replace('$(find simulation)', package_share)
+    # Replace package://simulation/ with file:// absolute paths for Gazebo mesh loading
+    robot_description_config = robot_description_config.replace('package://simulation/', 'file://' + package_share + '/')
     
     # Use to control the joint position manually in the GUI mode
     node_joint_state_publisher = Node(

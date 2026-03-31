@@ -13,6 +13,7 @@ class Waypoint:
     zero   : int
     stance : int
     swing  : int
+    rest   : int
 
 @dataclass(frozen=True)
 class RobotLength:
@@ -32,7 +33,7 @@ class Gait:
         self.serial_publish = SerialPublish(self.node)
         self.gait_msg = gait_msg
 
-        self.waypoint = Waypoint(3000, 300, 30)
+        self.waypoint = Waypoint(3000, 150, 30, 600)
 
         # Trajectory state
         self.gait_angle_data = None
@@ -61,15 +62,15 @@ class Gait:
     IMU_HOME_TIMSTART = 3.0
 
     # Multiplier for PID correction → θ₃ offset (rad).
-    # At INIT_POSE: ∂body_height/∂θ₃ ≈ 97 mm/rad, while ∂body_height/∂θ₂ ≈ 5 mm/rad.
-    # θ₃ is chosen because it is 20× more effective at controlling body height.
-    IMU_HOME_GAIN = 1.8
+    # At homing pose: |∂body_height/∂θ₃| ≈ 71 mm/rad (new URDF), ∂body_height/∂θ₂ ≈ 0.
+    # θ₃ is chosen because it is the only effective axis for body height control.
+    IMU_HOME_GAIN = 1.0
 
     # Maximum θ₃ offset (rad) per joint to prevent extreme poses.
-    IMU_HOME_SATURATION = 0.5
+    IMU_HOME_SATURATION = 0.3
 
     # Deadzone makes the robot not react to small tilt angles
-    IMU_GAIT_DEADZONE = 0.08 # 4.6 degrees
+    IMU_GAIT_DEADZONE = 0.1 # 5.7 degrees
 
     # Using the standing gain makes the robot acts explosively
     # IMU_GAIT_GAIN helps to reduce the gain
@@ -91,42 +92,41 @@ class Gait:
         'joint_rb_1':  0.3,  'joint_rb_2': -3*np.pi/2,  'joint_rb_3': -0.5,
     }
 
-    PARAMS_GAIT_FORWARD = {
+    PARAMS_GAIT_FORWARD      = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False},
         "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": False},
-        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False},
-    }
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False},}
 
-    PARAMS_GAIT_BACKWARD = {
+    PARAMS_GAIT_BACKWARD     = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": True},
         "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": True},
         "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True},
     }
 
-    PARAMS_GAIT_TURN_RIGHT = {
+    PARAMS_GAIT_TURN_RIGHT   = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False},
         "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": True},
         "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True},
     }
 
-    PARAMS_GAIT_TURN_LEFT = {
+    PARAMS_GAIT_TURN_LEFT    = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": True},
         "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": False},
         "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False},
     }
 
-    PARAMS_PHASESHIFT_TROT = {
+    PARAMS_PHASESHIFT_TROT   = {
         "left-front":   0.00,
         "right-behind": 0.00,
         "left-behind":  0.50,
         "right-front":  0.50,
     }
 
-    PARAMS_PHASESHIFT_WALK = {
+    PARAMS_PHASESHIFT_WALK   = {
         "left-front":   0.00,
         "right-behind": 0.25,
         "right-front":  0.50,
@@ -194,10 +194,10 @@ class Gait:
 
         # Compute and clamp per-leg offsets
         offsets = {
-            'left-front':   max(-clamp, min(clamp, r - p)),
-            'left-behind':  max(-clamp, min(clamp, r + p)),
-            'right-front':  max(-clamp, min(clamp, r + p)),
-            'right-behind': max(-clamp, min(clamp, r - p)),}
+            'left-front':   max(-clamp, min(clamp, -(r - p))),
+            'left-behind':  max(-clamp, min(clamp, -(r + p))),
+            'right-front':  max(-clamp, min(clamp, -(r + p))),
+            'right-behind': max(-clamp, min(clamp, -(r - p))),}
 
         # Apply to θ₃ joints
         for leg, offset in offsets.items():
@@ -273,10 +273,10 @@ class Gait:
         z_low  = -170    # body down (legs bent)
         z_high = -130    # body up (legs extended)
 
-        waypoint = np.zeros((self.waypoint.stance, 3))
+        waypoint = np.zeros((self.waypoint.rest, 3))
         waypoint[:, 0] = x_center
         waypoint[:, 1] = y_val
-        waypoint[:, 2] = z_low + (z_high - z_low) * (0.5 - 0.5 * np.cos(np.linspace(0, 2 * np.pi, self.waypoint.stance)))
+        waypoint[:, 2] = z_low + (z_high - z_low) * (0.5 - 0.5 * np.cos(np.linspace(0, 2 * np.pi, self.waypoint.rest)))
 
         return waypoint
 
@@ -417,7 +417,7 @@ class Gait:
             # Holding at zero pose — apply posture correction
             joint_names = self.serial_publish.controller_sim.joint_names
             targets = [self.homing_targets[name] for name in joint_names]
-            self.imu_controllerOutput_home(targets)
+            # self.imu_controllerOutput_home(targets)
             torques = self.serial_publish.controller_sim.compute_torques(targets)
             msg = Float64MultiArray()
             msg.data = torques
@@ -434,19 +434,19 @@ class Gait:
                         (abs(self.imu_pitch_corr) > self.IMU_GAIT_DEADZONE)
 
         # Pass the off-line planning into the PID controller
-        if self.gait_foot_data is not None and activate_corr:
-            pos = np.zeros((4, 3))
-            try:
-                for i, leg in enumerate(self.LEG_NAMES):
-                    pos_foot_raw = self.gait_foot_data[i][frame].copy()
-                    pos_foot_adjusted = self.imu_controllerOutput_gait(pos_foot_raw,
-                                                                        self.imu_roll_corr * self.IMU_GAIT_GAIN,
-                                                                        self.imu_pitch_corr * self.IMU_GAIT_GAIN)
-                    pos[i] = self.kinematics.inverse(*pos_foot_adjusted, leg)
-            except:
-                pos = np.array([theta_i[i][frame] for i in range(4)])
-        else:
-            pos = np.array([theta_i[i][frame] for i in range(4)])
+        # if self.gait_foot_data is not None and activate_corr:
+            # pos = np.zeros((4, 3))
+            # try:
+            #     for i, leg in enumerate(self.LEG_NAMES):
+            #         pos_foot_raw = self.gait_foot_data[i][frame].copy()
+            #         pos_foot_adjusted = self.imu_controllerOutput_gait(pos_foot_raw,
+            #                                                             self.imu_roll_corr * self.IMU_GAIT_GAIN,
+            #                                                             self.imu_pitch_corr * self.IMU_GAIT_GAIN)
+            #         pos[i] = self.kinematics.inverse(*pos_foot_adjusted, leg)
+            # except:
+            #     pos = np.array([theta_i[i][frame] for i in range(4)])
+        # else:
+        pos = np.array([theta_i[i][frame] for i in range(4)])
 
         # Keep publishing the last frame after gait completes to hold position.
         # The effort controller requires continuous torque commands;

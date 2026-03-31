@@ -21,10 +21,10 @@ class PostureStabilizer(Node):
     def __init__(self):
         super().__init__('nodeBalanceController')
 
-        # ── PID parameters (conservative to avoid oscillation) ────
+        # ── PID parameters (proven stable with this URDF) ─────────
         self.Kp = 1.5
-        self.Ki = 1.5
-        self.Kd = 0.3
+        self.Ki = 1.0
+        self.Kd = 0.1
         self.sat = 0.5        # ±29° output saturation (rad)
         self.windup = 0.8     # integral can accumulate up to ±0.8 rad·s
 
