@@ -5,11 +5,11 @@ class ControllerSim():
         self.node = node
 
         # PID gains for effort control
-        self.Kp = 20.0   # Nm/rad
-        self.Kd = 0.5    # Nm·s/rad
+        self.Kp = 13.0   # Nm/rad
+        self.Kd = 0.01    # Nm·s/rad
 
         # Effort clamp limit (matches URDF effort limit)
-        self.effort_limit = 29.0
+        self.effort_limit = 30.0
 
         # Joint name order (must match controller config)
         self.joint_names = ['joint_lf_1', 'joint_lf_2', 'joint_lf_3',
