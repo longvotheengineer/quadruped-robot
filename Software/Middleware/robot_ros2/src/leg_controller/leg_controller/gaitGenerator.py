@@ -56,6 +56,14 @@ class Gait:
         self.pub_balance_enable = node.create_publisher(Bool, '/balance/enable', 10)
         self.balance_enabled = False
 
+        # ── Smoothed θ₃ offsets (EMA) — ramps corrections gradually ─
+        # Instead of applying new offsets instantly, blend toward them
+        # each tick for smooth physical leg movement during tilting.
+        self.smoothed_offsets = {
+            'left-front': 0.0, 'left-behind': 0.0,
+            'right-front': 0.0, 'right-behind': 0.0}
+        self.OFFSET_SMOOTH_ALPHA = 0.92  # higher → smoother (slower ramp)
+
     # ── IMU Constants ───────────────────────────────────────────────
 
     # Joint indices for θ₃ in the 12-element target array
@@ -72,14 +80,14 @@ class Gait:
     # Multiplier for PID correction → θ₃ offset (rad).
     # At homing pose: |∂body_height/∂θ₃| ≈ 71 mm/rad (new URDF), ∂body_height/∂θ₂ ≈ 0.
     # θ₃ is chosen because it is the only effective axis for body height control.
-    IMU_HOME_GAIN = 1.0
+    IMU_HOME_GAIN = 4.0
 
     # Maximum θ₃ offset (rad) per joint to prevent extreme poses.
-    IMU_HOME_SATURATION = 0.5
+    IMU_HOME_SATURATION = 0.8
 
-    # Deadzone makes the robot not react to small tilt angles
-    IMU_HOME_DEADZONE = 0.05 # 2.8 degrees
-    IMU_GAIT_DEADZONE = 0.15 # 8.5 degrees
+    # Deadzone — uses smooth ramp instead of hard on/off
+    IMU_HOME_DEADZONE = 0.02 # rad — matches balance controller smooth deadzone
+    IMU_GAIT_DEADZONE = 0.10 # rad — slightly reduced for gait
 
     # Using the standing gain makes the robot acts explosively
     # IMU_GAIT_GAIN helps to reduce the gain
@@ -182,13 +190,21 @@ class Gait:
         if (now - self.imu_tim_current) < self.IMU_HOME_TIMSTART:
             return
 
-        # Dead zone: ignore negligible tilt
-        in_deadzone = (abs(self.imu_roll_corr) < self.IMU_HOME_DEADZONE and
-                       abs(self.imu_pitch_corr) < self.IMU_HOME_DEADZONE)
+        # ── Smooth deadzone: linearly ramp correction outside threshold ─
+        # Eliminates chattering from hard on/off switching.
+        def _smooth_dz(val, dz):
+            if abs(val) <= dz:
+                return 0.0
+            sign = 1.0 if val > 0 else -1.0
+            return sign * (abs(val) - dz)
+
+        roll_corr  = _smooth_dz(self.imu_roll_corr,  self.IMU_HOME_DEADZONE)
+        pitch_corr = _smooth_dz(self.imu_pitch_corr, self.IMU_HOME_DEADZONE)
+        in_deadzone = (roll_corr == 0.0 and pitch_corr == 0.0)
 
         # Scale PID output → θ₃ offset
-        r = self.imu_roll_corr  * self.IMU_HOME_GAIN
-        p = self.imu_pitch_corr * self.IMU_HOME_GAIN
+        r = roll_corr  * self.IMU_HOME_GAIN
+        p = pitch_corr * self.IMU_HOME_GAIN
         clamp = self.IMU_HOME_SATURATION
 
         # Compute and clamp per-leg offsets
@@ -213,12 +229,22 @@ class Gait:
         ]
         self.pub_diag_imu_home.publish(diag)
 
-        # Skip application if inside deadzone
+        # Skip application if inside deadzone → ramp offsets toward zero
         if in_deadzone:
+            for leg in self.smoothed_offsets:
+                self.smoothed_offsets[leg] *= self.OFFSET_SMOOTH_ALPHA
             return
 
-        # Apply to θ₃ joints
-        for leg, offset in offsets.items():
+        # ── Smooth offset ramping (EMA) ───────────────────────────
+        # Blend current offsets toward new targets each tick.
+        # This makes leg movements gradual during ramp tilting.
+        a = self.OFFSET_SMOOTH_ALPHA
+        for leg in offsets:
+            self.smoothed_offsets[leg] = (a * self.smoothed_offsets[leg] +
+                                         (1 - a) * offsets[leg])
+
+        # Apply smoothed offsets to θ₃ joints
+        for leg, offset in self.smoothed_offsets.items():
             targets[self.IMU_HOME_THETA3INDICES[leg]] += offset
 
     def imu_controllerOutput_gait(self, pos_foot_raw, imu_roll_corr, imu_pitch_corr):
