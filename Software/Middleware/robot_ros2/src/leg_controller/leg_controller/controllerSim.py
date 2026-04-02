@@ -1,4 +1,6 @@
 from sensor_msgs.msg import JointState
+from std_msgs.msg import Float64MultiArray
+
 
 class ControllerSim():
     def __init__(self, node):
@@ -26,6 +28,10 @@ class ControllerSim():
             self.joint_states_callback,
             10)
 
+        # ── Diagnostic publisher (only clamped torque — the applied output) ─
+        self.pub_diag_clamped = node.create_publisher(
+            Float64MultiArray, '/diag/torque/clamped', 10)
+
     def joint_states_callback(self, msg):
         for i, name in enumerate(msg.name):
             if i < len(msg.position):
@@ -42,6 +48,7 @@ class ControllerSim():
             list of 12 clamped torque values
         """
         torques = []
+
         for i, name in enumerate(self.joint_names):
             target = targets[i]
             actual_pos = self.actual_positions.get(name, target)
@@ -49,11 +56,15 @@ class ControllerSim():
 
             # PD control: torque = Kp * position_error - Kd * velocity
             error = target - actual_pos
-            torque = self.Kp * error - self.Kd * actual_vel
+            raw_torque = self.Kp * error - self.Kd * actual_vel
 
             # Clamp to URDF effort limit
-            torque = max(-self.effort_limit, min(self.effort_limit, torque))
-
+            torque = max(-self.effort_limit, min(self.effort_limit, raw_torque))
             torques.append(torque)
+
+        # ── Publish clamped torques (the actual applied output) ───
+        msg_cl = Float64MultiArray()
+        msg_cl.data = torques
+        self.pub_diag_clamped.publish(msg_cl)
 
         return torques

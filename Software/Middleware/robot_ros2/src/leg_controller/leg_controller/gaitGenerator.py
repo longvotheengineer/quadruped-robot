@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from leg_controller.kinematics import Kinematics
 from leg_controller.serialPublish import SerialPublish
 from leg_controller.quinticPlanning import quintic_planning
-from std_msgs.msg import Float64MultiArray
+from std_msgs.msg import Float64MultiArray, Bool
 from geometry_msgs.msg import Vector3
 
 @dataclass(frozen=True)
@@ -48,6 +48,14 @@ class Gait:
         node.create_subscription(
             Vector3, '/posture/correction', self.imu_callback, 10)
 
+        # ── Diagnostic publisher for IMU home controller ──────────
+        self.pub_diag_imu_home = node.create_publisher(
+            Float64MultiArray, '/diag/imu_home/offsets', 10)
+
+        # ── Balance controller enable gate ────────────────────────
+        self.pub_balance_enable = node.create_publisher(Bool, '/balance/enable', 10)
+        self.balance_enabled = False
+
     # ── IMU Constants ───────────────────────────────────────────────
 
     # Joint indices for θ₃ in the 12-element target array
@@ -67,10 +75,11 @@ class Gait:
     IMU_HOME_GAIN = 1.0
 
     # Maximum θ₃ offset (rad) per joint to prevent extreme poses.
-    IMU_HOME_SATURATION = 0.3
+    IMU_HOME_SATURATION = 0.5
 
     # Deadzone makes the robot not react to small tilt angles
-    IMU_GAIT_DEADZONE = 0.1 # 5.7 degrees
+    IMU_HOME_DEADZONE = 0.05 # 2.8 degrees
+    IMU_GAIT_DEADZONE = 0.15 # 8.5 degrees
 
     # Using the standing gain makes the robot acts explosively
     # IMU_GAIT_GAIN helps to reduce the gain
@@ -82,15 +91,13 @@ class Gait:
         'left-front', 
         'left-behind', 
         'right-front', 
-        'right-behind'
-    ]
+        'right-behind']
 
     INIT_POSE = {
         'joint_lf_1':  0.3,  'joint_lf_2':  3*np.pi/2,  'joint_lf_3':  0.5,
         'joint_lb_1':  0.3,  'joint_lb_2':  3*np.pi/2,  'joint_lb_3':  0.5,
         'joint_rf_1':  0.3,  'joint_rf_2': -3*np.pi/2,  'joint_rf_3': -0.5,
-        'joint_rb_1':  0.3,  'joint_rb_2': -3*np.pi/2,  'joint_rb_3': -0.5,
-    }
+        'joint_rb_1':  0.3,  'joint_rb_2': -3*np.pi/2,  'joint_rb_3': -0.5,}
 
     PARAMS_GAIT_FORWARD      = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False},
@@ -102,57 +109,49 @@ class Gait:
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": True},
         "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": True},
-        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True},
-    }
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True},}
 
     PARAMS_GAIT_TURN_RIGHT   = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False},
         "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": True},
-        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True},
-    }
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True},}
 
     PARAMS_GAIT_TURN_LEFT    = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": True},
         "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": False},
-        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False},
-    }
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False},}
 
     PARAMS_PHASESHIFT_TROT   = {
         "left-front":   0.00,
         "right-behind": 0.00,
         "left-behind":  0.50,
-        "right-front":  0.50,
-    }
+        "right-front":  0.50,}
 
     PARAMS_PHASESHIFT_WALK   = {
         "left-front":   0.00,
         "right-behind": 0.25,
         "right-front":  0.50,
-        "left-behind":  0.75,
-    }
+        "left-behind":  0.75,}
 
     PARAMS_PHASESHIFT_PUSHUP = {
         "left-front":   0.00,
         "left-behind":  0.00,
         "right-front":  0.00,
-        "right-behind": 0.00,
-    }
+        "right-behind": 0.00,}
 
     PARAMS_PHASESHIFT_SWAY   = {
         "left-front":   0.00,
         "left-behind":  0.00,
         "right-front":  0.50,
-        "right-behind": 0.50,
-    }
+        "right-behind": 0.50,}
 
     PARAMS_PHASESHIFT_CIRCLE = {
         "left-front":   0.00,
         "right-front":  0.25,
         "right-behind": 0.50,
-        "left-behind":  0.75,
-    }
+        "left-behind":  0.75,}
 
     CONTROL_VELOCITY = True
 
@@ -184,8 +183,8 @@ class Gait:
             return
 
         # Dead zone: ignore negligible tilt
-        if abs(self.imu_roll_corr) < 0.005 and abs(self.imu_pitch_corr) < 0.005:
-            return
+        in_deadzone = (abs(self.imu_roll_corr) < self.IMU_HOME_DEADZONE and
+                       abs(self.imu_pitch_corr) < self.IMU_HOME_DEADZONE)
 
         # Scale PID output → θ₃ offset
         r = self.imu_roll_corr  * self.IMU_HOME_GAIN
@@ -198,6 +197,25 @@ class Gait:
             'left-behind':  max(-clamp, min(clamp, -(r + p))),
             'right-front':  max(-clamp, min(clamp, -(r + p))),
             'right-behind': max(-clamp, min(clamp, -(r - p))),}
+
+        # ── Publish diagnostics (always, even in deadzone) ────────
+        diag = Float64MultiArray()
+        diag.data = [
+            self.imu_roll_corr,         # [0] roll correction input
+            self.imu_pitch_corr,        # [1] pitch correction input
+            1.0 if in_deadzone else 0.0,# [2] deadzone active flag
+            r,                          # [3] r_scaled (roll × gain)
+            p,                          # [4] p_scaled (pitch × gain)
+            offsets['left-front'],      # [5] offset_lf
+            offsets['left-behind'],     # [6] offset_lb
+            offsets['right-front'],     # [7] offset_rf
+            offsets['right-behind'],    # [8] offset_rb
+        ]
+        self.pub_diag_imu_home.publish(diag)
+
+        # Skip application if inside deadzone
+        if in_deadzone:
+            return
 
         # Apply to θ₃ joints
         for leg, offset in offsets.items():
@@ -415,9 +433,13 @@ class Gait:
             return True
         else:
             # Holding at zero pose — apply posture correction
+            if not self.balance_enabled:
+                self.pub_balance_enable.publish(Bool(data=True))
+                self.balance_enabled = True
+                self.get_logger.info('Homing complete — enabling balance PID')
             joint_names = self.serial_publish.controller_sim.joint_names
             targets = [self.homing_targets[name] for name in joint_names]
-            # self.imu_controllerOutput_home(targets)
+            self.imu_controllerOutput_home(targets)
             torques = self.serial_publish.controller_sim.compute_torques(targets)
             msg = Float64MultiArray()
             msg.data = torques
