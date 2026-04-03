@@ -80,10 +80,10 @@ class Gait:
     # Multiplier for PID correction → θ₃ offset (rad).
     # At homing pose: |∂body_height/∂θ₃| ≈ 71 mm/rad (new URDF), ∂body_height/∂θ₂ ≈ 0.
     # θ₃ is chosen because it is the only effective axis for body height control.
-    IMU_HOME_GAIN = 4.0
+    IMU_HOME_GAIN = 2.0
 
     # Maximum θ₃ offset (rad) per joint to prevent extreme poses.
-    IMU_HOME_SATURATION = 0.8
+    IMU_HOME_SATURATION = 0.5
 
     # Deadzone — uses smooth ramp instead of hard on/off
     IMU_HOME_DEADZONE = 0.02 # rad — matches balance controller smooth deadzone
