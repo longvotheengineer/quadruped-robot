@@ -5,8 +5,21 @@ from dataclasses import dataclass
 from leg_controller.kinematics import Kinematics
 from leg_controller.serialPublish import SerialPublish
 from leg_controller.quinticPlanning import quintic_planning
-from std_msgs.msg import Float64MultiArray, Bool
+from std_msgs.msg import Float64MultiArray, Float64, Bool
 from geometry_msgs.msg import Vector3
+
+# Signal names for IMU home diagnostic topics
+_IMU_HOME_SIGNALS = [
+    'roll_corr_in',
+    'pitch_corr_in',
+    'deadzone_active',
+    'roll_scaled',
+    'pitch_scaled',
+    'offset_lf',
+    'offset_lb',
+    'offset_rf',
+    'offset_rb',
+]
 
 @dataclass(frozen=True)
 class Waypoint:
@@ -48,9 +61,11 @@ class Gait:
         node.create_subscription(
             Vector3, '/posture/correction', self.imu_callback, 10)
 
-        # ── Diagnostic publisher for IMU home controller ──────────
-        self.pub_diag_imu_home = node.create_publisher(
-            Float64MultiArray, '/diag/imu_home/offsets', 10)
+        # ── Diagnostic publishers for IMU home controller ─────────
+        self.pub_diag_imu_home = {}
+        for sig in _IMU_HOME_SIGNALS:
+            self.pub_diag_imu_home[sig] = node.create_publisher(
+                Float64, f'/diag/imu_home/{sig}', 10)
 
         # ── Balance controller enable gate ────────────────────────
         self.pub_balance_enable = node.create_publisher(Bool, '/balance/enable', 10)
@@ -62,7 +77,7 @@ class Gait:
         self.smoothed_offsets = {
             'left-front': 0.0, 'left-behind': 0.0,
             'right-front': 0.0, 'right-behind': 0.0}
-        self.OFFSET_SMOOTH_ALPHA = 0.92  # higher → smoother (slower ramp)
+        self.OFFSET_SMOOTH_ALPHA = 0.95  # higher → smoother (slower ramp)
 
     # ── IMU Constants ───────────────────────────────────────────────
 
@@ -80,7 +95,7 @@ class Gait:
     # Multiplier for PID correction → θ₃ offset (rad).
     # At homing pose: |∂body_height/∂θ₃| ≈ 71 mm/rad (new URDF), ∂body_height/∂θ₂ ≈ 0.
     # θ₃ is chosen because it is the only effective axis for body height control.
-    IMU_HOME_GAIN = 2.0
+    IMU_HOME_GAIN = 7.0
 
     # Maximum θ₃ offset (rad) per joint to prevent extreme poses.
     IMU_HOME_SATURATION = 0.5
@@ -215,19 +230,21 @@ class Gait:
             'right-behind': max(-clamp, min(clamp, -(r - p))),}
 
         # ── Publish diagnostics (always, even in deadzone) ────────
-        diag = Float64MultiArray()
-        diag.data = [
-            self.imu_roll_corr,         # [0] roll correction input
-            self.imu_pitch_corr,        # [1] pitch correction input
-            1.0 if in_deadzone else 0.0,# [2] deadzone active flag
-            r,                          # [3] r_scaled (roll × gain)
-            p,                          # [4] p_scaled (pitch × gain)
-            offsets['left-front'],      # [5] offset_lf
-            offsets['left-behind'],     # [6] offset_lb
-            offsets['right-front'],     # [7] offset_rf
-            offsets['right-behind'],    # [8] offset_rb
+        diag_values = [
+            self.imu_roll_corr,         # roll_corr_in
+            self.imu_pitch_corr,        # pitch_corr_in
+            1.0 if in_deadzone else 0.0,# deadzone_active
+            r,                          # roll_scaled
+            p,                          # pitch_scaled
+            offsets['left-front'],      # offset_lf
+            offsets['left-behind'],     # offset_lb
+            offsets['right-front'],     # offset_rf
+            offsets['right-behind'],    # offset_rb
         ]
-        self.pub_diag_imu_home.publish(diag)
+        msg = Float64()
+        for sig, val in zip(_IMU_HOME_SIGNALS, diag_values):
+            msg.data = val
+            self.pub_diag_imu_home[sig].publish(msg)
 
         # Skip application if inside deadzone → ramp offsets toward zero
         if in_deadzone:

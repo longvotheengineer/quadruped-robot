@@ -13,20 +13,20 @@ Runs advanced PID controllers with:
 Publishes corrections on /posture/correction (geometry_msgs/Vector3).
 
 Diagnostic topics (for real-time signal probing like MATLAB scopes):
-  /diag/balance/roll   — 10-element Float64MultiArray (roll PID internals)
-  /diag/balance/pitch  — 10-element Float64MultiArray (pitch PID internals)
+  /diag/balance/roll/<signal>   — individual Float64 per signal
+  /diag/balance/pitch/<signal>  — individual Float64 per signal
 
-  Index layout:
-    [0] measurement   — raw IMU angle (rad)
-    [1] setpoint      — always 0.0
-    [2] error         — setpoint − measurement (after smooth deadzone)
-    [3] P_term        — Kp × error (after gain scheduling)
-    [4] I_term        — Ki × integral (after windup clamp)
-    [5] D_term        — Kd × derivative (filtered)
-    [6] raw_pid       — P + I + D (after output saturation)
-    [7] filtered_out  — after low-pass filter (α)
-    [8] integral_state— accumulated integral value
-    [9] dt            — time step (sec)
+  Signals:
+    measurement    — filtered IMU angle (rad)
+    setpoint       — always 0.0
+    error          — setpoint − measurement (after smooth deadzone)
+    p_term         — Kp × error (after gain scheduling)
+    i_term         — Ki × integral (after windup clamp)
+    d_term         — Kd × derivative (filtered)
+    raw_pid        — P + I + D (after output saturation)
+    filtered_out   — after low-pass filter (α)
+    integral_state — accumulated integral value
+    dt             — time step (sec)
 """
 
 import math
@@ -34,7 +34,22 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Imu
 from geometry_msgs.msg import Vector3
-from std_msgs.msg import Float64MultiArray, Bool
+from std_msgs.msg import Float64, Bool
+
+
+# Signal names for diagnostic topics (order matches publish calls)
+_DIAG_SIGNALS = [
+    'measurement',
+    'setpoint',
+    'error',
+    'p_term',
+    'i_term',
+    'd_term',
+    'raw_pid',
+    'filtered_out',
+    'integral_state',
+    'dt',
+]
 
 
 class PostureStabilizer(Node):
@@ -56,8 +71,9 @@ class PostureStabilizer(Node):
         self.windup = 1.5
 
         # ── Integral leakage factor (per tick) ────────────────────
-        # 0.995 at 100 Hz → half-life ≈ 1.4 s, drains stale integral
-        self.integral_leak = 0.995
+        # 0.9995 at 100 Hz → half-life ≈ 13.9 s, allows ~20× error
+        # integral accumulation while still draining stale bias
+        self.integral_leak = 0.9995
 
         # ── Smooth deadzone threshold (rad) ───────────────────────
         # Instead of hard on/off, linearly ramps from 0 to full
@@ -116,11 +132,14 @@ class PostureStabilizer(Node):
         self.pub_correction = self.create_publisher(
             Vector3, '/posture/correction', 10)
 
-        # ── Diagnostic publishers (MATLAB-style probes) ───────────
-        self.pub_diag_roll = self.create_publisher(
-            Float64MultiArray, '/diag/balance/roll', 10)
-        self.pub_diag_pitch = self.create_publisher(
-            Float64MultiArray, '/diag/balance/pitch', 10)
+        # ── Diagnostic publishers (individual named topics) ───────
+        self.diag_roll_pubs = {}
+        self.diag_pitch_pubs = {}
+        for sig in _DIAG_SIGNALS:
+            self.diag_roll_pubs[sig] = self.create_publisher(
+                Float64, f'/diag/balance/roll/{sig}', 10)
+            self.diag_pitch_pubs[sig] = self.create_publisher(
+                Float64, f'/diag/balance/pitch/{sig}', 10)
 
         self.get_logger().info(
             f'Advanced Posture Stabilizer started '
@@ -221,6 +240,14 @@ class PostureStabilizer(Node):
 
         return output, integral, error, d_filtered, P, self.Ki * gs * integral, d_filtered
 
+    # ── Publish diagnostics helper ────────────────────────────────
+    def _publish_diag(self, pubs, values):
+        """Publish a dict of {signal_name: value} to individual topics."""
+        msg = Float64()
+        for sig, val in zip(_DIAG_SIGNALS, values):
+            msg.data = val
+            pubs[sig].publish(msg)
+
     # ── IMU callback (runs at 100 Hz) ─────────────────────────────
     def imu_callback(self, msg: Imu):
         # Skip processing until enabled by gait generator
@@ -286,38 +313,32 @@ class PostureStabilizer(Node):
         correction.z = 0.0                   # yaw (unused)
         self.pub_correction.publish(correction)
 
-        # ── Publish diagnostics ───────────────────────────────────
-        # Roll: [meas, setpoint, error, P, I, D, raw, filtered, integral, dt]
-        diag_roll = Float64MultiArray()
-        diag_roll.data = [
-            self.meas_roll,             # [0] measurement (filtered)
-            0.0,                        # [1] setpoint
-            roll_error,                 # [2] error (after deadzone)
-            roll_P,                     # [3] P_term
-            roll_I,                     # [4] I_term
-            roll_D,                     # [5] D_term
-            raw_roll_out,               # [6] raw_pid (saturated)
-            self.filtered_roll,         # [7] filtered_output
-            self.roll_integral,         # [8] integral_state
-            dt,                         # [9] dt
-        ]
-        self.pub_diag_roll.publish(diag_roll)
+        # ── Publish diagnostics (individual named topics) ─────────
+        self._publish_diag(self.diag_roll_pubs, [
+            self.meas_roll,        # measurement
+            0.0,                   # setpoint
+            roll_error,            # error
+            roll_P,                # p_term
+            roll_I,                # i_term
+            roll_D,                # d_term
+            raw_roll_out,          # raw_pid
+            self.filtered_roll,    # filtered_out
+            self.roll_integral,    # integral_state
+            dt,                    # dt
+        ])
 
-        # Pitch: same layout
-        diag_pitch = Float64MultiArray()
-        diag_pitch.data = [
-            self.meas_pitch,            # [0] measurement (filtered)
-            0.0,                        # [1] setpoint
-            pitch_error,                # [2] error (after deadzone)
-            pitch_P,                    # [3] P_term
-            pitch_I,                    # [4] I_term
-            pitch_D,                    # [5] D_term
-            raw_pitch_out,              # [6] raw_pid (saturated)
-            self.filtered_pitch,        # [7] filtered_output
-            self.pitch_integral,        # [8] integral_state
-            dt,                         # [9] dt
-        ]
-        self.pub_diag_pitch.publish(diag_pitch)
+        self._publish_diag(self.diag_pitch_pubs, [
+            self.meas_pitch,       # measurement
+            0.0,                   # setpoint
+            pitch_error,           # error
+            pitch_P,               # p_term
+            pitch_I,               # i_term
+            pitch_D,               # d_term
+            raw_pitch_out,         # raw_pid
+            self.filtered_pitch,   # filtered_out
+            self.pitch_integral,   # integral_state
+            dt,                    # dt
+        ])
 
 
 def main(args=None):
@@ -330,3 +351,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+

@@ -2,6 +2,11 @@
 Diagnostic Data Recorder
 =========================
 Subscribes to all /diag/* topics published by the balance controller pipeline.
+All diagnostic topics use individual Float64 signals:
+    /diag/balance/{roll,pitch}/{measurement,setpoint,error,p_term,...}
+    /diag/imu_home/{roll_corr_in,pitch_corr_in,deadzone_active,...}
+    /diag/torque/clamped/{joint_lf_1,joint_lf_2,...}
+
 Stays idle until a 'ZERO' command is received on /gait_control.
 On Ctrl+C (SIGINT), writes all buffered data to CSV files in:
     <workspace>/src/simulation/realtime_data/<timestamp>/
@@ -18,33 +23,35 @@ from datetime import datetime
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String, Float64MultiArray
+from std_msgs.msg import String, Float64
 
 
-# ── Column headers for each CSV ──────────────────────────────────────
-JOINT_NAMES = ['lf1', 'lf2', 'lf3',
-               'lb1', 'lb2', 'lb3',
-               'rf1', 'rf2', 'rf3',
-               'rb1', 'rb2', 'rb3']
+# ── Signal name lists (must match publishers) ────────────────────────
+_BALANCE_SIGNALS = [
+    'measurement', 'setpoint', 'error', 'p_term', 'i_term',
+    'd_term', 'raw_pid', 'filtered_out', 'integral_state', 'dt',
+]
 
-HEADERS = {
-    'balance_roll':     ['t', 'meas', 'setpoint', 'error', 'P', 'I', 'D',
-                         'raw_pid', 'filtered', 'integral', 'dt'],
-    'balance_pitch':    ['t', 'meas', 'setpoint', 'error', 'P', 'I', 'D',
-                         'raw_pid', 'filtered', 'integral', 'dt'],
-    'imu_home_offsets': ['t', 'roll_in', 'pitch_in', 'deadzone',
-                         'r_scaled', 'p_scaled',
-                         'off_lf', 'off_lb', 'off_rf', 'off_rb'],
-    'torque_clamped':   ['t'] + JOINT_NAMES,
-}
+_IMU_HOME_SIGNALS = [
+    'roll_corr_in', 'pitch_corr_in', 'deadzone_active',
+    'roll_scaled', 'pitch_scaled',
+    'offset_lf', 'offset_lb', 'offset_rf', 'offset_rb',
+]
 
-# Map topic name → buffer key
-TOPIC_MAP = {
-    '/diag/balance/roll':     'balance_roll',
-    '/diag/balance/pitch':    'balance_pitch',
-    '/diag/imu_home/offsets': 'imu_home_offsets',
-    '/diag/torque/clamped':   'torque_clamped',
-}
+_TORQUE_JOINTS = [
+    'joint_lf_1', 'joint_lf_2', 'joint_lf_3',
+    'joint_lb_1', 'joint_lb_2', 'joint_lb_3',
+    'joint_rf_1', 'joint_rf_2', 'joint_rf_3',
+    'joint_rb_1', 'joint_rb_2', 'joint_rb_3',
+]
+
+# ── CSV groups: (buffer_key, header_row, signal_list, topic_prefix) ──
+_DIAG_GROUPS = [
+    ('balance_roll',     _BALANCE_SIGNALS,   '/diag/balance/roll'),
+    ('balance_pitch',    _BALANCE_SIGNALS,   '/diag/balance/pitch'),
+    ('imu_home_offsets', _IMU_HOME_SIGNALS,  '/diag/imu_home'),
+    ('torque_clamped',   _TORQUE_JOINTS,     '/diag/torque/clamped'),
+]
 
 
 class DiagRecorder(Node):
@@ -53,12 +60,28 @@ class DiagRecorder(Node):
 
         # ── State ─────────────────────────────────────────────────
         self.recording = False
-        self.t0 = None                     # wall-clock reference
-        self.buffers = {k: [] for k in HEADERS}
+        self.t0 = None
+
+        # Build headers, buffers, and accumulators from group config
+        self.headers = {}
+        self.buffers = {}
+        self._accum = {}
+        self._signal_lists = {}
+
+        for buf_key, signals, prefix in _DIAG_GROUPS:
+            self.headers[buf_key] = ['t'] + list(signals)
+            self.buffers[buf_key] = []
+            self._accum[buf_key] = {}
+            self._signal_lists[buf_key] = signals
+
+            # Subscribe to each signal's individual topic
+            for sig in signals:
+                topic = f'{prefix}/{sig}'
+                self.create_subscription(
+                    Float64, topic,
+                    lambda msg, k=buf_key, s=sig: self._sig_cb(k, s, msg), 10)
 
         # ── Output directory (source tree) ────────────────────────
-        # COLCON_PREFIX_PATH is set by `source install/setup.bash`
-        # and points to the install/ dir.  Its parent is the workspace root.
         colcon_prefix = os.environ.get('COLCON_PREFIX_PATH', '')
         if colcon_prefix:
             ws_root = os.path.dirname(colcon_prefix.split(':')[0])
@@ -70,12 +93,6 @@ class DiagRecorder(Node):
         # ── Subscribe to gait command (trigger) ───────────────────
         self.create_subscription(
             String, '/gait_control', self._gait_cb, 10)
-
-        # ── Subscribe to all diagnostic topics ────────────────────
-        for topic, key in TOPIC_MAP.items():
-            self.create_subscription(
-                Float64MultiArray, topic,
-                lambda msg, k=key: self._diag_cb(k, msg), 10)
 
         self.get_logger().info(
             'DiagRecorder ready — waiting for ZERO command to start recording')
@@ -89,12 +106,20 @@ class DiagRecorder(Node):
             self.get_logger().info(
                 '▶ Recording started (triggered by ZERO command)')
 
-    # ── Generic diagnostic callback ──────────────────────────────
-    def _diag_cb(self, key: str, msg: Float64MultiArray):
+    # ── Individual signal callback ────────────────────────────────
+    def _sig_cb(self, buf_key: str, signal: str, msg: Float64):
         if not self.recording:
             return
-        t = (self.get_clock().now() - self.t0).nanoseconds * 1e-9
-        self.buffers[key].append([t] + list(msg.data))
+        accum = self._accum[buf_key]
+        accum[signal] = msg.data
+
+        # Once all signals for this group have arrived, flush a row
+        signals = self._signal_lists[buf_key]
+        if len(accum) == len(signals):
+            t = (self.get_clock().now() - self.t0).nanoseconds * 1e-9
+            row = [t] + [accum[s] for s in signals]
+            self.buffers[buf_key].append(row)
+            self._accum[buf_key] = {}
 
     # ── Save to CSV on shutdown ──────────────────────────────────
     def save_all(self):
@@ -102,7 +127,6 @@ class DiagRecorder(Node):
             self.get_logger().warn('No data recorded (ZERO was never sent)')
             return
 
-        # Create timestamped output folder
         stamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
         out_dir = os.path.join(self.output_root, stamp)
         os.makedirs(out_dir, exist_ok=True)
@@ -114,7 +138,7 @@ class DiagRecorder(Node):
             path = os.path.join(out_dir, f'{key}.csv')
             with open(path, 'w', newline='') as f:
                 writer = csv.writer(f)
-                writer.writerow(HEADERS[key])
+                writer.writerow(self.headers[key])
                 writer.writerows(rows)
             total_rows += len(rows)
 
@@ -137,3 +161,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+

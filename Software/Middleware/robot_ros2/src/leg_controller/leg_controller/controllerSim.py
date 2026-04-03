@@ -1,5 +1,5 @@
 from sensor_msgs.msg import JointState
-from std_msgs.msg import Float64MultiArray
+from std_msgs.msg import Float64MultiArray, Float64
 
 
 class ControllerSim():
@@ -28,9 +28,11 @@ class ControllerSim():
             self.joint_states_callback,
             10)
 
-        # ── Diagnostic publisher (only clamped torque — the applied output) ─
-        self.pub_diag_clamped = node.create_publisher(
-            Float64MultiArray, '/diag/torque/clamped', 10)
+        # ── Diagnostic publishers (one per joint, named by joint) ──
+        self.pub_diag_clamped = {}
+        for jname in self.joint_names:
+            self.pub_diag_clamped[jname] = node.create_publisher(
+                Float64, f'/diag/torque/clamped/{jname}', 10)
 
     def joint_states_callback(self, msg):
         for i, name in enumerate(msg.name):
@@ -62,9 +64,11 @@ class ControllerSim():
             torque = max(-self.effort_limit, min(self.effort_limit, raw_torque))
             torques.append(torque)
 
-        # ── Publish clamped torques (the actual applied output) ───
-        msg_cl = Float64MultiArray()
-        msg_cl.data = torques
-        self.pub_diag_clamped.publish(msg_cl)
+        # ── Publish clamped torques (individual named topics) ─────
+        msg = Float64()
+        for jname, torque in zip(self.joint_names, torques):
+            msg.data = torque
+            self.pub_diag_clamped[jname].publish(msg)
 
         return torques
+
