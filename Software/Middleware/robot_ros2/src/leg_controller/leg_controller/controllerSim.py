@@ -8,7 +8,7 @@ class ControllerSim():
 
         # PID gains for effort control
         self.Kp = 13.0   # Nm/rad — stiffer tracking for stronger balance response
-        self.Kd = 0.1     # Nm·s/rad — balanced damping (0.8 caused spawn explosion)
+        self.Kd = 0.3   # Nm·s/rad — balanced damping (0.8 caused spawn explosion)
 
         # Effort clamp limit (matches URDF effort limit)
         self.effort_limit = 30.0

@@ -132,6 +132,10 @@ class PostureStabilizer(Node):
         self.pub_correction = self.create_publisher(
             Vector3, '/posture/correction', 10)
 
+        # Publish raw filtered measurement for gait rotation matrix
+        self.pub_measurement = self.create_publisher(
+            Vector3, '/posture/measurement', 10)
+
         # ── Diagnostic publishers (individual named topics) ───────
         self.diag_roll_pubs = {}
         self.diag_pitch_pubs = {}
@@ -279,6 +283,13 @@ class PostureStabilizer(Node):
                               (1 - self.alpha_meas) * raw_roll)
             self.meas_pitch = (self.alpha_meas * self.meas_pitch +
                                (1 - self.alpha_meas) * raw_pitch)
+
+        # ── Publish raw filtered measurement (for gait rotation matrix) ──
+        meas_msg = Vector3()
+        meas_msg.x = self.meas_roll
+        meas_msg.y = self.meas_pitch
+        meas_msg.z = 0.0
+        self.pub_measurement.publish(meas_msg)
 
         # ── Smooth deadzone on measurement ────────────────────────
         # Instead of hard on/off, smoothly ramp from 0 to full

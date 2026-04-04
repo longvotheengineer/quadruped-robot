@@ -5,6 +5,7 @@ Subscribes to all /diag/* topics published by the balance controller pipeline.
 All diagnostic topics use individual Float64 signals:
     /diag/balance/{roll,pitch}/{measurement,setpoint,error,p_term,...}
     /diag/imu_home/{roll_corr_in,pitch_corr_in,deadzone_active,...}
+    /diag/imu_gait/{roll_corr_in,pitch_corr_in,deadzone_active,...}
     /diag/torque/clamped/{joint_lf_1,joint_lf_2,...}
 
 Stays idle until a 'ZERO' command is received on /gait_control.
@@ -38,6 +39,12 @@ _IMU_HOME_SIGNALS = [
     'offset_lf', 'offset_lb', 'offset_rf', 'offset_rb',
 ]
 
+_IMU_GAIT_SIGNALS = [
+    'roll_meas_in', 'pitch_meas_in', 'deadzone_active',
+    'roll_applied', 'pitch_applied',
+    'roll_smoothed', 'pitch_smoothed',
+]
+
 _TORQUE_JOINTS = [
     'joint_lf_1', 'joint_lf_2', 'joint_lf_3',
     'joint_lb_1', 'joint_lb_2', 'joint_lb_3',
@@ -50,6 +57,7 @@ _DIAG_GROUPS = [
     ('balance_roll',     _BALANCE_SIGNALS,   '/diag/balance/roll'),
     ('balance_pitch',    _BALANCE_SIGNALS,   '/diag/balance/pitch'),
     ('imu_home_offsets', _IMU_HOME_SIGNALS,  '/diag/imu_home'),
+    ('imu_gait_offsets', _IMU_GAIT_SIGNALS,  '/diag/imu_gait'),
     ('torque_clamped',   _TORQUE_JOINTS,     '/diag/torque/clamped'),
 ]
 

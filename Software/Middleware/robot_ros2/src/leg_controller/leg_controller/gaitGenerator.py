@@ -7,6 +7,7 @@ from leg_controller.serialPublish import SerialPublish
 from leg_controller.quinticPlanning import quintic_planning
 from std_msgs.msg import Float64MultiArray, Float64, Bool
 from geometry_msgs.msg import Vector3
+from collections import deque
 
 # Signal names for IMU home diagnostic topics
 _IMU_HOME_SIGNALS = [
@@ -19,6 +20,17 @@ _IMU_HOME_SIGNALS = [
     'offset_lb',
     'offset_rf',
     'offset_rb',
+]
+
+# Signal names for IMU gait diagnostic topics
+_IMU_GAIT_SIGNALS = [
+    'roll_meas_in',
+    'pitch_meas_in',
+    'deadzone_active',
+    'roll_applied',
+    'pitch_applied',
+    'roll_smoothed',
+    'pitch_smoothed',
 ]
 
 @dataclass(frozen=True)
@@ -46,7 +58,7 @@ class Gait:
         self.serial_publish = SerialPublish(self.node)
         self.gait_msg = gait_msg
 
-        self.waypoint = Waypoint(3000, 150, 30, 600)
+        self.waypoint = Waypoint(3000, 200, 70, 600)
 
         # Trajectory state
         self.gait_angle_data = None
@@ -54,18 +66,30 @@ class Gait:
         self.step_current = 0
         self.step_final = 0
 
-        # Posture correction from balance_controller
+        # Posture correction from balance_controller (PID output — used by home path)
         self.imu_roll_corr  = 0.0
         self.imu_pitch_corr = 0.0
         self.imu_tim_current = None
         node.create_subscription(
             Vector3, '/posture/correction', self.imu_callback, 10)
 
+        # Raw filtered measurement from balance_controller (used by gait path)
+        self.imu_meas_roll  = 0.0
+        self.imu_meas_pitch = 0.0
+        node.create_subscription(
+            Vector3, '/posture/measurement', self.imu_meas_callback, 10)
+
         # ── Diagnostic publishers for IMU home controller ─────────
         self.pub_diag_imu_home = {}
         for sig in _IMU_HOME_SIGNALS:
             self.pub_diag_imu_home[sig] = node.create_publisher(
                 Float64, f'/diag/imu_home/{sig}', 10)
+
+        # ── Diagnostic publishers for IMU gait controller ─────────
+        self.pub_diag_imu_gait = {}
+        for sig in _IMU_GAIT_SIGNALS:
+            self.pub_diag_imu_gait[sig] = node.create_publisher(
+                Float64, f'/diag/imu_gait/{sig}', 10)
 
         # ── Balance controller enable gate ────────────────────────
         self.pub_balance_enable = node.create_publisher(Bool, '/balance/enable', 10)
@@ -79,7 +103,19 @@ class Gait:
             'right-front': 0.0, 'right-behind': 0.0}
         self.OFFSET_SMOOTH_ALPHA = 0.95  # higher → smoother (slower ramp)
 
-    # ── IMU Constants ───────────────────────────────────────────────
+        self.smoothed_gait_roll = 0.0
+        self.smoothed_gait_pitch = 0.0
+        self.GAIT_SMOOTH_ALPHA = 0.95  # EMA on correction output
+
+        # ── Gait-cycle moving average (cancels periodic gait oscillation) ─
+        # Buffer size = one full gait cycle. Periodic body sway from
+        # walking sums to zero over one cycle, leaving only the steady-
+        # state tilt (ramp, slope) that actually needs correction.
+        self._gait_cycle_len = self.waypoint.stance + self.waypoint.swing
+        self._meas_buf_roll  = deque(maxlen=self._gait_cycle_len)
+        self._meas_buf_pitch = deque(maxlen=self._gait_cycle_len)
+        
+        # ── IMU Constants ───────────────────────────────────────────────
 
     # Joint indices for θ₃ in the 12-element target array
     IMU_HOME_THETA3INDICES = {
@@ -100,13 +136,16 @@ class Gait:
     # Maximum θ₃ offset (rad) per joint to prevent extreme poses.
     IMU_HOME_SATURATION = 0.5
 
+    # Max rotation angle for gait foot correction (rad).
+    # At z=-170mm, 0.35 rad → ~58mm foot displacement.
+    IMU_GAIT_SATURATION = 0.30
+
     # Deadzone — uses smooth ramp instead of hard on/off
     IMU_HOME_DEADZONE = 0.02 # rad — matches balance controller smooth deadzone
-    IMU_GAIT_DEADZONE = 0.10 # rad — slightly reduced for gait
+    IMU_GAIT_DEADZONE = 0.03 # rad — small dead band for minimal residual error
 
-    # Using the standing gain makes the robot acts explosively
-    # IMU_GAIT_GAIN helps to reduce the gain
-    IMU_GAIT_GAIN = 0.5
+    # Scale factor on raw tilt measurement → rotation angle.
+    IMU_GAIT_GAIN = 3.0
 
     # ── Leg configuration ──────────────────────────────────────────
 
@@ -184,6 +223,12 @@ class Gait:
         """Receive filtered PID correction angles from balance_controller"""
         self.imu_roll_corr  = msg.x
         self.imu_pitch_corr = msg.y
+
+    def imu_meas_callback(self, msg: Vector3):
+        """Receive raw filtered IMU measurement from balance_controller.
+        Used by gait path for rotation matrix (needs actual tilt, not PID output)."""
+        self.imu_meas_roll  = msg.x
+        self.imu_meas_pitch = msg.y
 
     def imu_controllerOutput_home(self, targets):
         """Apply θ₃ posture correction to a 12-element joint target array (in-place).
@@ -264,20 +309,29 @@ class Gait:
         for leg, offset in self.smoothed_offsets.items():
             targets[self.IMU_HOME_THETA3INDICES[leg]] += offset
 
-    def imu_controllerOutput_gait(self, pos_foot_raw, imu_roll_corr, imu_pitch_corr):
-        """ This method is only used for one leg at a time
-        Apply body-tilt compensation using rotation matrix R_y(pitch) x R_x(roll)
-    
-        From the paper: p_target = R_inverse · p_current.
-        The correction angles are negated because we rotate the foot positions
-        in the opposite direction of the body tilt.
+    def imu_controllerOutput_gait(self, pos_foot_raw, roll_angle, pitch_angle):
+        """Apply body-tilt compensation using rotation matrix R_y(pitch) × R_x(roll).
+
+        From the paper: p_target = R_inverse(body_tilt) · p_planned.
+        The angles passed in are the SMOOTHED CORRECTION ANGLES (already negated
+        from the raw measurement), so they are applied directly.
+
+        Args:
+            pos_foot_raw: [x, y, z] planned foot position in body frame (mm)
+            roll_angle:   correction rotation about x-axis (rad)
+            pitch_angle:  correction rotation about y-axis (rad)
         """
-        cr, sr = math.cos(-imu_roll_corr), math.sin(-imu_roll_corr)
-        cp, sp = math.cos(-imu_pitch_corr), math.sin(-imu_pitch_corr)
+        cr, sr = math.cos(roll_angle), math.sin(roll_angle)
+        cp, sp = math.cos(pitch_angle), math.sin(pitch_angle)
         R = np.array([[cp,    sr*sp,  cr*sp],
                       [0,     cr,    -sr   ],
                       [-sp,   sr*cp,  cr*cp]])
-        return R @ pos_foot_raw
+        pos_corrected = R @ pos_foot_raw
+        # Only apply the height (z) correction — keep x, y from original
+        # trajectory to preserve gait stride direction
+        pos_corrected[0] = pos_foot_raw[0]  # keep original x (forward/back)
+        pos_corrected[1] = pos_foot_raw[1]  # keep original y (lateral)
+        return pos_corrected
 
     # ── Temporary Init pose ───────────────────────────────────────
 
@@ -450,6 +504,11 @@ class Gait:
         self.gait_angle_data = self.gait_change()
         self.step_current = 0
         self.step_final = 0
+        # Reset gait-IMU smoothing state to prevent stale corrections
+        self.smoothed_gait_roll = 0.0
+        self.smoothed_gait_pitch = 0.0
+        self._meas_buf_roll.clear()
+        self._meas_buf_pitch.clear()
 
     def control_tick(self):
         if self.gait_angle_data is None:
@@ -494,24 +553,73 @@ class Gait:
         theta_i = self.gait_angle_data
         frame = self.step_current
 
-        # Deadzone makes the robot not react to small tilt angles
-        activate_corr = (abs(self.imu_roll_corr) > self.IMU_GAIT_DEADZONE) or \
-                        (abs(self.imu_pitch_corr) > self.IMU_GAIT_DEADZONE)
+        # ── Gait-cycle moving average ─────────────────────────
+        # Average over one full gait cycle cancels periodic body sway
+        # from walking, leaving only steady-state tilt (ramp/slope).
+        self._meas_buf_roll.append(self.imu_meas_roll)
+        self._meas_buf_pitch.append(self.imu_meas_pitch)
+        avg_roll  = sum(self._meas_buf_roll)  / len(self._meas_buf_roll)
+        avg_pitch = sum(self._meas_buf_pitch) / len(self._meas_buf_pitch)
 
-        # Pass the off-line planning into the PID controller
-        # if self.gait_foot_data is not None and activate_corr:
-            # pos = np.zeros((4, 3))
-            # try:
-            #     for i, leg in enumerate(self.LEG_NAMES):
-            #         pos_foot_raw = self.gait_foot_data[i][frame].copy()
-            #         pos_foot_adjusted = self.imu_controllerOutput_gait(pos_foot_raw,
-            #                                                             self.imu_roll_corr * self.IMU_GAIT_GAIN,
-            #                                                             self.imu_pitch_corr * self.IMU_GAIT_GAIN)
-            #         pos[i] = self.kinematics.inverse(*pos_foot_adjusted, leg)
-            # except:
-            #     pos = np.array([theta_i[i][frame] for i in range(4)])
-        # else:
-        pos = np.array([theta_i[i][frame] for i in range(4)])
+        # ── Smooth deadzone on averaged measurement ───────────────
+        # Linear ramp: zero inside threshold, linearly scales outside.
+        def _smooth_dz(val, dz):
+            if abs(val) <= dz:
+                return 0.0
+            sign = 1.0 if val > 0 else -1.0
+            return sign * (abs(val) - dz)
+
+        roll_dz  = _smooth_dz(avg_roll,  self.IMU_GAIT_DEADZONE)
+        pitch_dz = _smooth_dz(avg_pitch, self.IMU_GAIT_DEADZONE)
+        in_deadzone = (roll_dz == 0.0 and pitch_dz == 0.0)
+
+        # ── Compute correction: negate measurement to counter body tilt ─
+        # Body tilted by (roll, pitch) → rotate feet by (-roll, -pitch)
+        roll_applied  = -roll_dz  * self.IMU_GAIT_GAIN
+        pitch_applied = -pitch_dz * self.IMU_GAIT_GAIN
+
+        # ── Saturate to safe rotation range ───────────────────────
+        roll_applied  = max(-self.IMU_GAIT_SATURATION, min(self.IMU_GAIT_SATURATION, roll_applied))
+        pitch_applied = max(-self.IMU_GAIT_SATURATION, min(self.IMU_GAIT_SATURATION, pitch_applied))
+
+        # ── EMA smoothing (ramp corrections gradually) ────────────
+        a = self.GAIT_SMOOTH_ALPHA
+        self.smoothed_gait_roll  = a * self.smoothed_gait_roll  + (1 - a) * roll_applied
+        self.smoothed_gait_pitch = a * self.smoothed_gait_pitch + (1 - a) * pitch_applied
+
+        # ── Apply rotation matrix to foot positions ───────────────
+        # Always apply — when inside deadzone, smoothed values drift
+        # toward zero so the rotation matrix approaches identity.
+        # No binary gate = no discontinuous switching.
+        if self.gait_foot_data is not None:
+            pos = np.zeros((4, 3))
+            for i, leg in enumerate(self.LEG_NAMES):
+                pos_foot_raw = self.gait_foot_data[i][frame].copy()
+                pos_foot_adjusted = self.imu_controllerOutput_gait(
+                    pos_foot_raw,
+                    self.smoothed_gait_roll,
+                    self.smoothed_gait_pitch)
+                try:
+                    pos[i] = self.kinematics.inverse(*pos_foot_adjusted, leg)
+                except (ValueError, ZeroDivisionError):
+                    pos[i] = theta_i[i][frame]
+        else:
+            pos = np.array([theta_i[i][frame] for i in range(4)])
+
+        # ── Publish gait-IMU diagnostics (every tick) ─────────────
+        diag_values = [
+            self.imu_meas_roll,                     # roll_meas_in
+            self.imu_meas_pitch,                    # pitch_meas_in
+            1.0 if in_deadzone else 0.0,            # deadzone_active
+            roll_applied,                           # roll_applied
+            pitch_applied,                          # pitch_applied
+            self.smoothed_gait_roll,                # roll_smoothed
+            self.smoothed_gait_pitch,               # pitch_smoothed
+        ]
+        msg = Float64()
+        for sig, val in zip(_IMU_GAIT_SIGNALS, diag_values):
+            msg.data = val
+            self.pub_diag_imu_gait[sig].publish(msg)
 
         # Keep publishing the last frame after gait completes to hold position.
         # The effort controller requires continuous torque commands;
