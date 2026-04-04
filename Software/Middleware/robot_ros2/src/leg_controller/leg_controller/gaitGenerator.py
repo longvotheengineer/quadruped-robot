@@ -114,6 +114,10 @@ class Gait:
         self._gait_cycle_len = self.waypoint.stance + self.waypoint.swing
         self._meas_buf_roll  = deque(maxlen=self._gait_cycle_len)
         self._meas_buf_pitch = deque(maxlen=self._gait_cycle_len)
+
+        # ── Derivative damping (resists rapid tilt changes) ────────
+        self._prev_avg_roll  = 0.0
+        self._prev_avg_pitch = 0.0
         
         # ── IMU Constants ───────────────────────────────────────────────
 
@@ -146,6 +150,15 @@ class Gait:
 
     # Scale factor on raw tilt measurement → rotation angle.
     IMU_GAIT_GAIN = 3.0
+
+    # Derivative damping gain — resists rapid tilt changes.
+    # Acts on d(avg_measurement)/dt to damp oscillations around setpoint.
+    IMU_GAIT_D_GAIN = 1.5
+
+    # Stance detection threshold (mm) — foot z within this distance
+    # of z_stance is considered "on the ground".
+    STANCE_Z_THRESHOLD = 5.0
+    STANCE_Z = -170.0  # z_stance from trajectory_moving
 
     # ── Leg configuration ──────────────────────────────────────────
 
@@ -509,6 +522,8 @@ class Gait:
         self.smoothed_gait_pitch = 0.0
         self._meas_buf_roll.clear()
         self._meas_buf_pitch.clear()
+        self._prev_avg_roll = 0.0
+        self._prev_avg_pitch = 0.0
 
     def control_tick(self):
         if self.gait_angle_data is None:
@@ -561,6 +576,12 @@ class Gait:
         avg_roll  = sum(self._meas_buf_roll)  / len(self._meas_buf_roll)
         avg_pitch = sum(self._meas_buf_pitch) / len(self._meas_buf_pitch)
 
+        # ── Derivative of averaged measurement (for damping) ─────
+        d_roll  = avg_roll  - self._prev_avg_roll
+        d_pitch = avg_pitch - self._prev_avg_pitch
+        self._prev_avg_roll  = avg_roll
+        self._prev_avg_pitch = avg_pitch
+
         # ── Smooth deadzone on averaged measurement ───────────────
         # Linear ramp: zero inside threshold, linearly scales outside.
         def _smooth_dz(val, dz):
@@ -573,10 +594,11 @@ class Gait:
         pitch_dz = _smooth_dz(avg_pitch, self.IMU_GAIT_DEADZONE)
         in_deadzone = (roll_dz == 0.0 and pitch_dz == 0.0)
 
-        # ── Compute correction: negate measurement to counter body tilt ─
-        # Body tilted by (roll, pitch) → rotate feet by (-roll, -pitch)
-        roll_applied  = -roll_dz  * self.IMU_GAIT_GAIN
-        pitch_applied = -pitch_dz * self.IMU_GAIT_GAIN
+        # ── PD correction: proportional + derivative damping ──────
+        # P-term: counters steady-state tilt
+        # D-term: damps oscillation by resisting rapid tilt changes
+        roll_applied  = -(roll_dz  * self.IMU_GAIT_GAIN + d_roll  * self.IMU_GAIT_D_GAIN)
+        pitch_applied = -(pitch_dz * self.IMU_GAIT_GAIN + d_pitch * self.IMU_GAIT_D_GAIN)
 
         # ── Saturate to safe rotation range ───────────────────────
         roll_applied  = max(-self.IMU_GAIT_SATURATION, min(self.IMU_GAIT_SATURATION, roll_applied))
@@ -587,21 +609,29 @@ class Gait:
         self.smoothed_gait_roll  = a * self.smoothed_gait_roll  + (1 - a) * roll_applied
         self.smoothed_gait_pitch = a * self.smoothed_gait_pitch + (1 - a) * pitch_applied
 
-        # ── Apply rotation matrix to foot positions ───────────────
-        # Always apply — when inside deadzone, smoothed values drift
-        # toward zero so the rotation matrix approaches identity.
-        # No binary gate = no discontinuous switching.
+        # ── Phase-aware stance-only correction ───────────────────
+        # Only apply rotation to legs in stance (foot on ground).
+        # Swing legs follow the original trajectory — correcting them
+        # would corrupt the swing path without helping balance.
         if self.gait_foot_data is not None:
             pos = np.zeros((4, 3))
             for i, leg in enumerate(self.LEG_NAMES):
                 pos_foot_raw = self.gait_foot_data[i][frame].copy()
-                pos_foot_adjusted = self.imu_controllerOutput_gait(
-                    pos_foot_raw,
-                    self.smoothed_gait_roll,
-                    self.smoothed_gait_pitch)
-                try:
-                    pos[i] = self.kinematics.inverse(*pos_foot_adjusted, leg)
-                except (ValueError, ZeroDivisionError):
+                foot_z = pos_foot_raw[2]
+                is_stance = abs(foot_z - self.STANCE_Z) < self.STANCE_Z_THRESHOLD
+
+                if is_stance:
+                    # Stance leg: apply rotation matrix correction
+                    pos_foot_adjusted = self.imu_controllerOutput_gait(
+                        pos_foot_raw,
+                        self.smoothed_gait_roll,
+                        self.smoothed_gait_pitch)
+                    try:
+                        pos[i] = self.kinematics.inverse(*pos_foot_adjusted, leg)
+                    except (ValueError, ZeroDivisionError):
+                        pos[i] = theta_i[i][frame]
+                else:
+                    # Swing leg: follow original trajectory unmodified
                     pos[i] = theta_i[i][frame]
         else:
             pos = np.array([theta_i[i][frame] for i in range(4)])
