@@ -109,7 +109,7 @@ class Gait:
 
         self.smoothed_gait_roll = 0.0
         self.smoothed_gait_pitch = 0.0
-        self.GAIT_SMOOTH_ALPHA = 0.95  # EMA on correction output
+        self.GAIT_SMOOTH_ALPHA = 0.97  # EMA on correction output
 
         # ── Gait-cycle moving average (fallback during learning) ───
         self._gait_cycle_len = self.waypoint.stance + self.waypoint.swing
@@ -166,7 +166,7 @@ class Gait:
     IMU_GAIT_GAIN = 3.0
 
     # Derivative damping gain — resists rapid tilt changes.
-    IMU_GAIT_D_GAIN = 1.5
+    IMU_GAIT_D_GAIN = 1.2
 
     # Integral gain — eliminates steady-state error slowly.
     IMU_GAIT_I_GAIN = 0.005
