@@ -26,11 +26,15 @@ _IMU_HOME_SIGNALS = [
 _IMU_GAIT_SIGNALS = [
     'roll_meas_in',
     'pitch_meas_in',
-    'deadzone_active',
+    'roll_compensated',
+    'pitch_compensated',
     'roll_applied',
     'pitch_applied',
     'roll_smoothed',
     'pitch_smoothed',
+    'roll_integral',
+    'pitch_integral',
+    'ff_learned',
 ]
 
 @dataclass(frozen=True)
@@ -107,17 +111,27 @@ class Gait:
         self.smoothed_gait_pitch = 0.0
         self.GAIT_SMOOTH_ALPHA = 0.95  # EMA on correction output
 
-        # ── Gait-cycle moving average (cancels periodic gait oscillation) ─
-        # Buffer size = one full gait cycle. Periodic body sway from
-        # walking sums to zero over one cycle, leaving only the steady-
-        # state tilt (ramp, slope) that actually needs correction.
+        # ── Gait-cycle moving average (fallback during learning) ───
         self._gait_cycle_len = self.waypoint.stance + self.waypoint.swing
         self._meas_buf_roll  = deque(maxlen=self._gait_cycle_len)
         self._meas_buf_pitch = deque(maxlen=self._gait_cycle_len)
 
-        # ── Derivative damping (resists rapid tilt changes) ────────
-        self._prev_avg_roll  = 0.0
-        self._prev_avg_pitch = 0.0
+        # ── Feed-forward gait-phase baseline learning ────────────
+        # Records expected body tilt at each gait frame. After learning,
+        # subtracts it from measurement → only external disturbances remain.
+        self._baseline_roll  = np.zeros(self._gait_cycle_len)
+        self._baseline_pitch = np.zeros(self._gait_cycle_len)
+        self._baseline_count = np.zeros(self._gait_cycle_len)
+        self._ff_learn_cycles = 0  # completed gait cycles during learning
+        self._ff_learned = False   # True after baseline is ready
+
+        # ── Integral accumulator (anti-windup clamped) ───────────
+        self._integral_roll  = 0.0
+        self._integral_pitch = 0.0
+
+        # ── Derivative state ───────────────────────────────
+        self._prev_comp_roll  = 0.0
+        self._prev_comp_pitch = 0.0
         
         # ── IMU Constants ───────────────────────────────────────────────
 
@@ -148,12 +162,23 @@ class Gait:
     IMU_HOME_DEADZONE = 0.02 # rad — matches balance controller smooth deadzone
     IMU_GAIT_DEADZONE = 0.03 # rad — small dead band for minimal residual error
 
-    # Scale factor on raw tilt measurement → rotation angle.
+    # Scale factor on raw tilt measurement → rotation angle (base P-gain).
     IMU_GAIT_GAIN = 3.0
 
     # Derivative damping gain — resists rapid tilt changes.
-    # Acts on d(avg_measurement)/dt to damp oscillations around setpoint.
     IMU_GAIT_D_GAIN = 1.5
+
+    # Integral gain — eliminates steady-state error slowly.
+    IMU_GAIT_I_GAIN = 0.005
+    IMU_GAIT_I_MAX  = 0.3  # anti-windup clamp (rad)
+
+    # Adaptive gain: tilt_ref for gain doubling (rad).
+    # Set very high to effectively disable (scale ≈ 1.0 always).
+    GAIN_ADAPT_REF = 10.0
+
+    # Feed-forward learning constants
+    FEED_FORWARD_LEARN_CYCLES = 2   # gait cycles to build baseline
+    FEED_FORWARD_ADAPT_RATE   = 0.05  # faster adaptation to surface changes
 
     # Stance detection threshold (mm) — foot z within this distance
     # of z_stance is considered "on the ground".
@@ -517,13 +542,20 @@ class Gait:
         self.gait_angle_data = self.gait_change()
         self.step_current = 0
         self.step_final = 0
-        # Reset gait-IMU smoothing state to prevent stale corrections
+        # Reset all gait-IMU state
         self.smoothed_gait_roll = 0.0
         self.smoothed_gait_pitch = 0.0
         self._meas_buf_roll.clear()
         self._meas_buf_pitch.clear()
-        self._prev_avg_roll = 0.0
-        self._prev_avg_pitch = 0.0
+        self._baseline_roll[:]  = 0.0
+        self._baseline_pitch[:] = 0.0
+        self._baseline_count[:] = 0.0
+        self._ff_learn_cycles = 0
+        self._ff_learned = False
+        self._integral_roll  = 0.0
+        self._integral_pitch = 0.0
+        self._prev_comp_roll  = 0.0
+        self._prev_comp_pitch = 0.0
 
     def control_tick(self):
         if self.gait_angle_data is None:
@@ -568,51 +600,99 @@ class Gait:
         theta_i = self.gait_angle_data
         frame = self.step_current
 
-        # ── Gait-cycle moving average ─────────────────────────
-        # Average over one full gait cycle cancels periodic body sway
-        # from walking, leaving only steady-state tilt (ramp/slope).
-        self._meas_buf_roll.append(self.imu_meas_roll)
-        self._meas_buf_pitch.append(self.imu_meas_pitch)
+        # ================================================================
+        # STAGE 1: Moving average + feed-forward baseline (diagnostic)
+        # ================================================================
+        raw_roll  = self.imu_meas_roll
+        raw_pitch = self.imu_meas_pitch
+
+        # Moving average: always the primary correction signal
+        self._meas_buf_roll.append(raw_roll)
+        self._meas_buf_pitch.append(raw_pitch)
         avg_roll  = sum(self._meas_buf_roll)  / len(self._meas_buf_roll)
         avg_pitch = sum(self._meas_buf_pitch) / len(self._meas_buf_pitch)
 
-        # ── Derivative of averaged measurement (for damping) ─────
-        d_roll  = avg_roll  - self._prev_avg_roll
-        d_pitch = avg_pitch - self._prev_avg_pitch
-        self._prev_avg_roll  = avg_roll
-        self._prev_avg_pitch = avg_pitch
+        # Feed-forward baseline: always update (used for diagnostics)
+        if not self._ff_learned:
+            n = self._baseline_count[frame]
+            self._baseline_roll[frame]  = (self._baseline_roll[frame]  * n + raw_roll)  / (n + 1)
+            self._baseline_pitch[frame] = (self._baseline_pitch[frame] * n + raw_pitch) / (n + 1)
+            self._baseline_count[frame] += 1
+        else:
+            ar = self.FEED_FORWARD_ADAPT_RATE
+            self._baseline_roll[frame]  += ar * (raw_roll  - self._baseline_roll[frame])
+            self._baseline_pitch[frame] += ar * (raw_pitch - self._baseline_pitch[frame])
 
-        # ── Smooth deadzone on averaged measurement ───────────────
-        # Linear ramp: zero inside threshold, linearly scales outside.
+        # Primary signal: moving average (smooth, handles any surface)
+        comp_roll  = avg_roll
+        comp_pitch = avg_pitch
+
+        # ================================================================
+        # STAGE 2: Smooth deadzone on compensated signal
+        # ================================================================
         def _smooth_dz(val, dz):
             if abs(val) <= dz:
                 return 0.0
             sign = 1.0 if val > 0 else -1.0
             return sign * (abs(val) - dz)
 
-        roll_dz  = _smooth_dz(avg_roll,  self.IMU_GAIT_DEADZONE)
-        pitch_dz = _smooth_dz(avg_pitch, self.IMU_GAIT_DEADZONE)
+        roll_dz  = _smooth_dz(comp_roll,  self.IMU_GAIT_DEADZONE)
+        pitch_dz = _smooth_dz(comp_pitch, self.IMU_GAIT_DEADZONE)
         in_deadzone = (roll_dz == 0.0 and pitch_dz == 0.0)
 
-        # ── PD correction: proportional + derivative damping ──────
-        # P-term: counters steady-state tilt
-        # D-term: damps oscillation by resisting rapid tilt changes
-        roll_applied  = -(roll_dz  * self.IMU_GAIT_GAIN + d_roll  * self.IMU_GAIT_D_GAIN)
-        pitch_applied = -(pitch_dz * self.IMU_GAIT_GAIN + d_pitch * self.IMU_GAIT_D_GAIN)
+        # ================================================================
+        # STAGE 3: Derivative of compensated signal
+        # ================================================================
+        d_roll  = comp_roll  - self._prev_comp_roll
+        d_pitch = comp_pitch - self._prev_comp_pitch
+        self._prev_comp_roll  = comp_roll
+        self._prev_comp_pitch = comp_pitch
 
-        # ── Saturate to safe rotation range ───────────────────────
+        # ================================================================
+        # STAGE 4: Integral with anti-windup + zero-crossing reset
+        # ================================================================
+        self._integral_roll  += roll_dz
+        self._integral_pitch += pitch_dz
+
+        # Anti-windup clamp
+        imax = self.IMU_GAIT_I_MAX
+        self._integral_roll  = max(-imax, min(imax, self._integral_roll))
+        self._integral_pitch = max(-imax, min(imax, self._integral_pitch))
+
+        # Zero-crossing reset: if error sign flips, reset integral
+        if roll_dz * self._integral_roll < 0:
+            self._integral_roll = 0.0
+        if pitch_dz * self._integral_pitch < 0:
+            self._integral_pitch = 0.0
+
+        # ================================================================
+        # STAGE 5: Adaptive PID correction
+        # ================================================================
+        # Adaptive gain: scales linearly from 1× to 2× based on tilt
+        tilt_mag = max(abs(roll_dz), abs(pitch_dz))
+        gain_scale = 1.0 + min(1.0, tilt_mag / self.GAIN_ADAPT_REF)
+        eff_gain = self.IMU_GAIT_GAIN * gain_scale
+
+        roll_applied  = -(roll_dz  * eff_gain
+                        + self._integral_roll  * self.IMU_GAIT_I_GAIN
+                        + d_roll  * self.IMU_GAIT_D_GAIN)
+        pitch_applied = -(pitch_dz * eff_gain
+                        + self._integral_pitch * self.IMU_GAIT_I_GAIN
+                        + d_pitch * self.IMU_GAIT_D_GAIN)
+
+        # ================================================================
+        # STAGE 6: Saturate + EMA smooth
+        # ================================================================
         roll_applied  = max(-self.IMU_GAIT_SATURATION, min(self.IMU_GAIT_SATURATION, roll_applied))
         pitch_applied = max(-self.IMU_GAIT_SATURATION, min(self.IMU_GAIT_SATURATION, pitch_applied))
 
-        # ── EMA smoothing (ramp corrections gradually) ────────────
         a = self.GAIT_SMOOTH_ALPHA
         self.smoothed_gait_roll  = a * self.smoothed_gait_roll  + (1 - a) * roll_applied
         self.smoothed_gait_pitch = a * self.smoothed_gait_pitch + (1 - a) * pitch_applied
 
-        # ── Phase-aware stance-only correction ───────────────────
-        # Only apply rotation to legs in stance (foot on ground).
-        # Swing legs follow the original trajectory — correcting them
-        # would corrupt the swing path without helping balance.
+        # ================================================================
+        # STAGE 7: Phase-aware stance-only correction
+        # ================================================================
         if self.gait_foot_data is not None:
             pos = np.zeros((4, 3))
             for i, leg in enumerate(self.LEG_NAMES):
@@ -621,7 +701,6 @@ class Gait:
                 is_stance = abs(foot_z - self.STANCE_Z) < self.STANCE_Z_THRESHOLD
 
                 if is_stance:
-                    # Stance leg: apply rotation matrix correction
                     pos_foot_adjusted = self.imu_controllerOutput_gait(
                         pos_foot_raw,
                         self.smoothed_gait_roll,
@@ -631,20 +710,25 @@ class Gait:
                     except (ValueError, ZeroDivisionError):
                         pos[i] = theta_i[i][frame]
                 else:
-                    # Swing leg: follow original trajectory unmodified
                     pos[i] = theta_i[i][frame]
         else:
             pos = np.array([theta_i[i][frame] for i in range(4)])
 
-        # ── Publish gait-IMU diagnostics (every tick) ─────────────
+        # ================================================================
+        # Diagnostics
+        # ================================================================
         diag_values = [
-            self.imu_meas_roll,                     # roll_meas_in
-            self.imu_meas_pitch,                    # pitch_meas_in
-            1.0 if in_deadzone else 0.0,            # deadzone_active
+            raw_roll,                               # roll_meas_in
+            raw_pitch,                              # pitch_meas_in
+            comp_roll,                              # roll_compensated
+            comp_pitch,                             # pitch_compensated
             roll_applied,                           # roll_applied
             pitch_applied,                          # pitch_applied
             self.smoothed_gait_roll,                # roll_smoothed
             self.smoothed_gait_pitch,               # pitch_smoothed
+            self._integral_roll,                    # roll_integral
+            self._integral_pitch,                   # pitch_integral
+            1.0 if self._ff_learned else 0.0,       # ff_learned
         ]
         msg = Float64()
         for sig, val in zip(_IMU_GAIT_SIGNALS, diag_values):
@@ -665,5 +749,10 @@ class Gait:
         if self.step_current >= theta_i[0].shape[0]:
             self.step_current = 0
             self.step_final += 1
+            # Check if feed-forward learning is complete
+            if not self._ff_learned:
+                self._ff_learn_cycles += 1
+                if self._ff_learn_cycles >= self.FEED_FORWARD_LEARN_CYCLES:
+                    self._ff_learned = True
 
         return True

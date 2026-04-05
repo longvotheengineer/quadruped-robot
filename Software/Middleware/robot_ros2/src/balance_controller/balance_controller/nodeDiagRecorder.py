@@ -40,9 +40,12 @@ _IMU_HOME_SIGNALS = [
 ]
 
 _IMU_GAIT_SIGNALS = [
-    'roll_meas_in', 'pitch_meas_in', 'deadzone_active',
+    'roll_meas_in', 'pitch_meas_in',
+    'roll_compensated', 'pitch_compensated',
     'roll_applied', 'pitch_applied',
     'roll_smoothed', 'pitch_smoothed',
+    'roll_integral', 'pitch_integral',
+    'ff_learned',
 ]
 
 _TORQUE_JOINTS = [
