@@ -1,32 +1,18 @@
 """
-Advanced Posture Stabilizer Node
-=================================
-Subscribes to /imu/data (sensor_msgs/Imu) from Gazebo IMU plugin.
-Converts quaternion → roll, pitch.
-Runs advanced PID controllers with:
-  - Measurement pre-filter (EMA on IMU input)
-  - Smooth deadzone (no chattering)
-  - Gain scheduling (adapts strength to error magnitude)
-  - Integral leakage (prevents long-term bias)
-  - Derivative low-pass filter (prevents noise spikes)
-  - Back-calculation anti-windup
-Publishes corrections on /posture/correction (geometry_msgs/Vector3).
+Posture Stabilizer Node.
 
-Diagnostic topics (for real-time signal probing like MATLAB scopes):
-  /diag/balance/roll/<signal>   — individual Float64 per signal
-  /diag/balance/pitch/<signal>  — individual Float64 per signal
+PID-based balance controller for quadruped robot.
 
-  Signals:
-    measurement    — filtered IMU angle (rad)
-    setpoint       — always 0.0
-    error          — setpoint − measurement (after smooth deadzone)
-    p_term         — Kp × error (after gain scheduling)
-    i_term         — Ki × integral (after windup clamp)
-    d_term         — Kd × derivative (filtered)
-    raw_pid        — P + I + D (after output saturation)
-    filtered_out   — after low-pass filter (α)
-    integral_state — accumulated integral value
-    dt             — time step (sec)
+Supports two operating modes:
+  HOME — Continuous PID on filtered IMU, publishes /posture/home_correction
+  GAIT — Gait-cycle-aware PID with baseline learning, publishes
+         /posture/gait_correction
+
+Subscribes:  /imu/data, /balance/enable, /balance/mode, /balance/gait_frame
+Publishes:   /posture/home_correction, /posture/measurement,
+             /posture/gait_correction
+Diagnostics: /diag/home/pid/{roll,pitch}/01_meas .. 09_dt
+             /diag/gait/pid/{roll,pitch}/01_meas .. 09_ff_ready
 """
 
 import math
@@ -34,327 +20,518 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Imu
 from geometry_msgs.msg import Vector3
-from std_msgs.msg import Float64, Bool
+from std_msgs.msg import Float64, Bool, String, Int32
+from collections import deque
 
+# Home PID diagnostic signals — per axis under /diag/home/pid/{roll,pitch}/
+# Pipeline: raw IMU → EMA → deadzone → error → P,I,D → sum → sat → LPF
+_HOME_PID_SIGNALS = [
+    's01_meas',      # EMA-filtered IMU measurement
+    's02_sp',        # setpoint (target = 0.0)
+    's03_err',       # error = sp − deadzone(meas)
+    's04_p',         # proportional term
+    's05_i',         # integral state (accumulator)
+    's06_d',         # derivative term (LPF'd)
+    's07_pid_sat',   # P+I+D sum, saturated
+    's08_pid_lpf',   # after final low-pass filter → published
+    's09_dt',        # timestep (seconds)
+]
 
-# Signal names for diagnostic topics (order matches publish calls)
-_DIAG_SIGNALS = [
-    'measurement',
-    'setpoint',
-    'error',
-    'p_term',
-    'i_term',
-    'd_term',
-    'raw_pid',
-    'filtered_out',
-    'integral_state',
-    'dt',
+# Gait PID diagnostic signals — per axis under /diag/gait/pid/{roll,pitch}/
+# Pipeline: meas → moving avg → deadzone → error → P,I,D → sum → sat → LPF
+_GAIT_PID_SIGNALS = [
+    's01_meas',      # EMA-filtered IMU measurement
+    's02_avg',       # moving average over gait cycle
+    's03_err',       # error after deadzone on avg
+    's04_p',         # proportional term (adaptive gain)
+    's05_i',         # integral state (with zero-crossing reset)
+    's06_d',         # derivative term (of undeadzoned avg)
+    's07_pid_sat',   # P+I+D sum, saturated
+    's08_pid_lpf',   # after final low-pass filter → published
+    's09_ff_ready',  # baseline learning complete (1.0/0.0)
 ]
 
 
-class PostureStabilizer(Node):
+def quaternion_to_rp(x, y, z, w):
+    roll  = math.atan2(2.0 * (w * x + y * z), 1.0 - 2.0 * (x * x + y * y))
+    sinp  = 2.0 * (w * y - z * x)
+    pitch = math.asin(max(-1.0, min(1.0, sinp)))
+    return roll, pitch
+
+
+def deadzone_linear(value, deadzone):
+    if abs(value) <= deadzone:
+        return 0.0
+    sign = 1.0 if value > 0 else -1.0
+    return sign * (abs(value) - deadzone)
+
+
+# ── Axis / IMU State (Home PID) ──────────────────────────────────────
+
+
+class AxisState:
+    def __init__(self):
+        self.prop       = 0.0
+        self.integ      = 0.0
+        self.deriv      = 0.0
+        self.error_prev = 0.0
+        self.meas       = 0.0
+        self.corr_lpf   = 0.0
+        self.corr_sat   = 0.0
+
+
+class ImuState:
+    def __init__(self):
+        self.roll  = AxisState()
+        self.pitch = AxisState()
+        self.meas_initialized = False
+
+
+# ── Home PID Configuration ───────────────────────────────────────────
+
+
+class PidConfig:
+    KP = 2.0
+    KI = 0.30
+    KD = 0.15
+    SAT_CORR           = 1.5
+    SAT_INTEG          = 1.5
+    SAT_GAIN_SCALE_PID = 0.5
+    DECAY_INTEG        = 0.9995
+    DEADZONE_MEAS      = 0.02
+    GAIN_SCALE_PID     = 0.08
+    RAMP_DERIV         = 0.005
+
+
+class FilterConfig:
+    LPF_RAW   = 0.4
+    LPF_DERIV = 0.7
+    LPF_CORR  = 0.15
+
+
+# ── Gait PID Configuration (moved from gaitGenerator) ────────────────
+
+
+class GaitPidConfig:
+    # PID gains
+    KP = 3.0
+    KI = 0.005
+    KD = 1.2
+    GAIN_PROP = 10.0
+
+    # Thresholds & limits
+    DEADZONE_AVG = 0.03
+    SAT_CORR = 0.30
+    SAT_INTEG = 0.3
+
+    # Filtering
+    LPF_CORR = 0.97
+
+    # Baseline learning
+    BASELINE_LEARN_CYCLES = 2
+    BASELINE_ADAPT_RATE = 0.05
+
+
+# ── Gait PID State (moved from gaitGenerator) ────────────────────────
+
+
+class GaitPidState:
+    def __init__(self, cycle_len):
+        # Moving-average buffers
+        self.roll_buf = deque(maxlen=cycle_len)
+        self.pitch_buf = deque(maxlen=cycle_len)
+
+        # Per-frame baseline
+        self.roll_baseline = [0.0] * cycle_len
+        self.pitch_baseline = [0.0] * cycle_len
+        self.count_baseline = [0.0] * cycle_len
+        self.baseline_cycles = 0
+        self.baseline_ready = False
+
+        # PID state
+        self.roll_avg_prev = 0.0
+        self.pitch_avg_prev = 0.0
+        self.roll_integ = 0.0
+        self.pitch_integ = 0.0
+
+        # Output (smoothed correction)
+        self.roll_corr_lpf = 0.0
+        self.pitch_corr_lpf = 0.0
+
+        # Cycle length
+        self.cycle_len = cycle_len
+
+
+# ── Main Node ─────────────────────────────────────────────────────────
+
+
+class BalanceController(Node):
     def __init__(self):
         super().__init__('nodeBalanceController')
 
-        # ── PID base gains ────────────────────────────────────────
-        # Reduced from original to prevent limit cycles; joint Kd=0.5
-        # now provides the damping that was previously absent.
-        # Total loop gain: 0.8 × 2.0(home_gain) × 13(joint_Kp) = 20.8
-        self.Kp = 2.0
-        self.Ki = 0.30
-        self.Kd = 0.15
+        self._imu = ImuState()
+        self._prev_time = None
+        self._enabled = False
 
-        # ── Output saturation ────────────────────────────────────
-        self.sat = 1.5
+        # Mode: "HOME" or "GAIT"
+        self._mode = "HOME"
 
-        # ── Integral anti-windup clamp ────────────────────────────
-        self.windup = 1.5
+        # Gait PID state (initialized with a default cycle length;
+        # will be reset when mode switches to GAIT)
+        self._default_cycle_len = 270  # stance(200) + swing(70)
+        self._gait = GaitPidState(self._default_cycle_len)
+        self._gait_frame = 0
 
-        # ── Integral leakage factor (per tick) ────────────────────
-        # 0.9995 at 100 Hz → half-life ≈ 13.9 s, allows ~20× error
-        # integral accumulation while still draining stale bias
-        self.integral_leak = 0.9995
+        # ── ROS 2 Subscriptions ──────────────────────────────────
+        self._sub_imu = self.create_subscription(
+            Imu, '/imu/data', self._imu_callback, 10)
+        self._sub_enable = self.create_subscription(
+            Bool, '/balance/enable', self._enable_callback, 10)
+        self._sub_mode = self.create_subscription(
+            String, '/balance/mode', self._mode_callback, 10)
+        self._sub_gait_frame = self.create_subscription(
+            Int32, '/balance/gait_frame', self._frame_callback, 10)
 
-        # ── Smooth deadzone threshold (rad) ───────────────────────
-        # Instead of hard on/off, linearly ramps from 0 to full
-        # correction over [0, deadzone]. Eliminates chattering.
-        self.deadzone = 0.02
-
-        # ── Gain scheduling ───────────────────────────────────────
-        # At small errors, reduce gain to prevent micro-oscillation.
-        # At large errors, full gain for strong correction.
-        # gain_factor = clamp(|error| / gs_threshold, gs_min, 1.0)
-        self.gs_threshold = 0.08   # error (rad) at which full gain kicks in
-        self.gs_min = 0.5          # minimum gain factor (50% at tiny errors)
-
-        # ── Measurement pre-filter (EMA on raw IMU) ──────────────
-        # Smooths IMU noise before it enters the PID. Prevents the
-        # controller from chasing sensor noise.
-        # filtered = α_meas * prev + (1 - α_meas) * raw
-        self.alpha_meas = 0.4
-        self.meas_roll = 0.0
-        self.meas_pitch = 0.0
-        self.meas_initialized = False
-
-        # ── Derivative low-pass filter ────────────────────────────
-        self.alpha_d = 0.7
-        self.roll_d_filtered = 0.0
-        self.pitch_d_filtered = 0.0
-
-        # ── Output low-pass filter ────────────────────────────────
-        # Reduced from 0.4 to 0.2 — less phase lag, faster response
-        self.alpha = 0.15
-
-        # ── PID state (roll) ──────────────────────────────────────
-        self.roll_integral = 0.0
-        self.roll_prev_error = 0.0
-
-        # ── PID state (pitch) ─────────────────────────────────────
-        self.pitch_integral = 0.0
-        self.pitch_prev_error = 0.0
-
-        # ── Timing ────────────────────────────────────────────────
-        self.prev_time = None
-
-        # ── Filtered output (published to gait) ───────────────────
-        self.filtered_roll = 0.0
-        self.filtered_pitch = 0.0
-
-        # ── Enable gate (prevents integral pre-wind during homing) ─
-        self.enabled = False
-
-        # ── ROS 2 pub/sub ─────────────────────────────────────────
-        self.sub_imu = self.create_subscription(
-            Imu, '/imu/data', self.imu_callback, 10)
-        self.sub_enable = self.create_subscription(
-            Bool, '/balance/enable', self._enable_cb, 10)
-
-        self.pub_correction = self.create_publisher(
-            Vector3, '/posture/correction', 10)
-
-        # Publish raw filtered measurement for gait rotation matrix
-        self.pub_measurement = self.create_publisher(
+        # ── ROS 2 Publishers ─────────────────────────────────────
+        self._pub_corr = self.create_publisher(
+            Vector3, '/posture/home_correction', 10)
+        self._pub_meas = self.create_publisher(
             Vector3, '/posture/measurement', 10)
+        self._pub_gait_corr = self.create_publisher(
+            Vector3, '/posture/gait_correction', 10)
 
-        # ── Diagnostic publishers (individual named topics) ───────
-        self.diag_roll_pubs = {}
-        self.diag_pitch_pubs = {}
-        for sig in _DIAG_SIGNALS:
-            self.diag_roll_pubs[sig] = self.create_publisher(
-                Float64, f'/diag/balance/roll/{sig}', 10)
-            self.diag_pitch_pubs[sig] = self.create_publisher(
-                Float64, f'/diag/balance/pitch/{sig}', 10)
+        # ── Diagnostic publishers (home PID) ─────────────────────
+        self._diag_home_pubs = {}
+        for axis in ('roll', 'pitch'):
+            self._diag_home_pubs[axis] = {}
+            for sig in _HOME_PID_SIGNALS:
+                self._diag_home_pubs[axis][sig] = self.create_publisher(
+                    Float64, f'/diag/home/pid/{axis}/{sig}', 10)
+
+        # ── Diagnostic publishers (gait PID) ─────────────────────
+        self._diag_gait_pubs = {}
+        for axis in ('roll', 'pitch'):
+            self._diag_gait_pubs[axis] = {}
+            for sig in _GAIT_PID_SIGNALS:
+                self._diag_gait_pubs[axis][sig] = self.create_publisher(
+                    Float64, f'/diag/gait/pid/{axis}/{sig}', 10)
 
         self.get_logger().info(
-            f'Advanced Posture Stabilizer started '
-            f'(Kp={self.Kp}, Ki={self.Ki}, Kd={self.Kd}, '
-            f'deadzone={self.deadzone}, gs_thresh={self.gs_threshold})')
+            f'Posture Stabilizer started '
+            f'(Kp={PidConfig.KP}, Ki={PidConfig.KI}, Kd={PidConfig.KD}, '
+            f'deadzone={PidConfig.DEADZONE_MEAS}, '
+            f'gs_thresh={PidConfig.GAIN_SCALE_PID})')
 
-    # ── Enable callback ───────────────────────────────────────────
-    def _enable_cb(self, msg: Bool):
+    # ── Mode / Enable Callbacks ──────────────────────────────────
+
+    def _enable_callback(self, msg: Bool):
         """Enable/disable PID. On rising edge, reset all state."""
-        if msg.data and not self.enabled:
-            self.roll_integral = 0.0
-            self.pitch_integral = 0.0
-            self.roll_prev_error = 0.0
-            self.pitch_prev_error = 0.0
-            self.roll_d_filtered = 0.0
-            self.pitch_d_filtered = 0.0
-            self.filtered_roll = 0.0
-            self.filtered_pitch = 0.0
-            self.meas_roll = 0.0
-            self.meas_pitch = 0.0
-            self.meas_initialized = False
-            self.prev_time = None
+        if msg.data and not self._enabled:
+            self._imu = ImuState()
+            self._prev_time = None
+            self._gait = GaitPidState(self._default_cycle_len)
             self.get_logger().info('Balance PID ENABLED — all state reset')
-        elif not msg.data and self.enabled:
+        elif not msg.data and self._enabled:
             self.get_logger().info('Balance PID DISABLED')
-        self.enabled = msg.data
+        self._enabled = msg.data
 
-    # ── Quaternion → Euler ────────────────────────────────────────
-    def quaternion_to_rp(self, x, y, z, w):
-        """Convert quaternion to roll and pitch (radians)."""
-        roll = math.atan2(2.0 * (w * x + y * z),
-                          1.0 - 2.0 * (x * x + y * y))
-        sinp = 2.0 * (w * y - z * x)
-        pitch = math.asin(max(-1.0, min(1.0, sinp)))
-        return roll, pitch
+    def _mode_callback(self, msg: String):
+        """Switch between HOME and GAIT PID modes."""
+        new_mode = msg.data.strip().upper()
+        if new_mode not in ("HOME", "GAIT"):
+            return
+        if new_mode != self._mode:
+            self._mode = new_mode
+            if new_mode == "GAIT":
+                self._gait = GaitPidState(self._default_cycle_len)
+            self.get_logger().info(f'Balance mode → {self._mode}')
 
-    # ── Smooth deadzone ───────────────────────────────────────────
-    @staticmethod
-    def smooth_deadzone(value, deadzone):
-        """Apply smooth deadzone: zero inside, linearly ramp outside.
-        Eliminates the discontinuous jump that causes chattering.
-        Output = sign(v) * max(0, |v| - deadzone)
+    def _frame_callback(self, msg: Int32):
+        """Receive current gait frame index from gait generator."""
+        self._gait_frame = msg.data
+
+    # ── Main IMU Callback ────────────────────────────────────────
+
+    def _imu_callback(self, msg: Imu):
+        """Process IMU data: pre-filter, deadzone, PID, LPF, publish."""
+        if not self._enabled:
+            return
+
+        dt = self._compute_dt()
+        if dt is None:
+            return
+
+        q = msg.orientation
+        roll_raw, pitch_raw = quaternion_to_rp(q.x, q.y, q.z, q.w)
+
+        self._filter_meas(roll_raw, pitch_raw)
+
+        # Always publish filtered measurement
+        msg_meas   = Vector3()
+        msg_meas.x = self._imu.roll.meas
+        msg_meas.y = self._imu.pitch.meas
+        msg_meas.z = 0.0
+        self._pub_meas.publish(msg_meas)
+
+        if self._mode == "GAIT":
+            self._run_gait_pid()
+        else:
+            self._run_home_pid(dt)
+
+    # ── Home PID Pipeline ────────────────────────────────────────
+
+    def _run_home_pid(self, dt):
+        """Run the home-mode PID and publish correction."""
+        # PID compute + LPF for both axes
+        errors = [
+            0.0 - deadzone_linear(self._imu.roll.meas,  PidConfig.DEADZONE_MEAS),
+            0.0 - deadzone_linear(self._imu.pitch.meas, PidConfig.DEADZONE_MEAS),]
+        for axis, error in zip([self._imu.roll, self._imu.pitch], errors):
+            self._compute_pid(error, axis, dt)
+            axis.corr_lpf = (FilterConfig.LPF_CORR * axis.corr_lpf
+                          + (1 - FilterConfig.LPF_CORR) * axis.corr_sat)
+
+        msg_corr   = Vector3()
+        msg_corr.x = self._imu.roll.corr_lpf
+        msg_corr.y = self._imu.pitch.corr_lpf
+        msg_corr.z = 0.0
+        self._pub_corr.publish(msg_corr)
+
+        self._publish_diag(dt)
+
+    # ── Gait PID Pipeline (moved from gaitGenerator) ─────────────
+
+    def _run_gait_pid(self):
+        """Run the gait-mode PID and publish gait correction."""
+        g = self._gait
+        roll_meas = self._imu.roll.meas
+        pitch_meas = self._imu.pitch.meas
+        frame = self._gait_frame
+
+        roll_avg, pitch_avg = self._update_moving_average(
+            roll_meas, pitch_meas)
+        self._update_gait_baseline(frame, roll_meas, pitch_meas)
+
+        pid_out = self._compute_gait_pid_correction(
+            roll_avg, pitch_avg)
+
+        # Publish gait correction
+        msg_corr = Vector3()
+        msg_corr.x = g.roll_corr_lpf
+        msg_corr.y = g.pitch_corr_lpf
+        msg_corr.z = 0.0
+        self._pub_gait_corr.publish(msg_corr)
+
+        self._publish_gait_diag(roll_meas, pitch_meas, pid_out)
+
+    def _update_moving_average(self, roll_meas, pitch_meas):
+        """Append IMU measurement to gait-cycle deque, return averages."""
+        g = self._gait
+        g.roll_buf.append(roll_meas)
+        g.pitch_buf.append(pitch_meas)
+        roll_avg = sum(g.roll_buf) / len(g.roll_buf)
+        pitch_avg = sum(g.pitch_buf) / len(g.pitch_buf)
+        return roll_avg, pitch_avg
+
+    def _update_gait_baseline(self, frame, roll_meas, pitch_meas):
+        """Update per-frame feed-forward baseline."""
+        g = self._gait
+        if frame < 0 or frame >= g.cycle_len:
+            return
+        if not g.baseline_ready:
+            n = g.count_baseline[frame]
+            g.roll_baseline[frame] = (g.roll_baseline[frame] * n
+                                + roll_meas) / (n + 1)
+            g.pitch_baseline[frame] = (g.pitch_baseline[frame] * n
+                                 + pitch_meas) / (n + 1)
+            g.count_baseline[frame] += 1
+        else:
+            adapt_rate = GaitPidConfig.BASELINE_ADAPT_RATE
+            g.roll_baseline[frame]  += adapt_rate * (roll_meas  - g.roll_baseline[frame])
+            g.pitch_baseline[frame] += adapt_rate * (pitch_meas - g.pitch_baseline[frame])
+
+    def _compute_gait_pid_correction(self, roll_avg, pitch_avg):
+        """Compute adaptive PID correction from compensated tilt.
+
+        Pipeline:  avg → deadzone → error → P/I/D → sum → saturate → LPF
+        Returns dict with per-axis intermediate values for diagnostics.
         """
-        if abs(value) <= deadzone:
-            return 0.0
-        sign = 1.0 if value > 0 else -1.0
-        return sign * (abs(value) - deadzone)
+        g = self._gait
 
-    # ── Gain scheduling ───────────────────────────────────────────
-    def gain_schedule(self, error):
-        """Compute gain multiplier based on error magnitude.
-        Small errors → reduced gain (prevents micro-oscillation).
-        Large errors → full gain (strong correction).
-        """
-        ratio = abs(error) / self.gs_threshold if self.gs_threshold > 0 else 1.0
-        return max(self.gs_min, min(1.0, ratio))
+        # ── Error (with deadzone) ─────────────────────────────────
+        roll_error  = deadzone_linear(roll_avg,  GaitPidConfig.DEADZONE_AVG)
+        pitch_error = deadzone_linear(pitch_avg, GaitPidConfig.DEADZONE_AVG)
 
-    # ── PID compute ───────────────────────────────────────────────
-    def pid_compute(self, error, integral, prev_error, d_filtered, dt):
-        """Advanced PID step with:
-        - Gain scheduling (adapts Kp/Ki to error magnitude)
-        - Integral leakage (exponential decay)
-        - Derivative low-pass filter
-        - Back-calculation anti-windup
-        Returns (output, new_integral, new_prev_error, new_d_filtered, P, I_term, D_filtered).
-        """
-        # Gain scheduling multiplier
-        gs = self.gain_schedule(error)
+        # ── P term (adaptive proportional gain) ───────────────────
+        tilt_mag   = max(abs(roll_error), abs(pitch_error))
+        gain_scale = 1.0 + min(1.0, tilt_mag / GaitPidConfig.GAIN_PROP)
+        kp_eff     = GaitPidConfig.KP * gain_scale
 
-        # Proportional (gain-scheduled)
-        P = self.Kp * gs * error
+        roll_p  = roll_error  * kp_eff
+        pitch_p = pitch_error * kp_eff
 
-        # Integral with leakage and gain scheduling
-        integral *= self.integral_leak  # exponential decay
-        integral += error * dt
-        integral = max(-self.windup, min(self.windup, integral))
-        I = self.Ki * gs * integral
+        # ── I term (integral with anti-windup + zero-crossing reset)
+        g.roll_integ  += roll_error
+        g.pitch_integ += pitch_error
+
+        sat_integ = GaitPidConfig.SAT_INTEG
+        g.roll_integ  = max(-sat_integ, min(sat_integ, g.roll_integ))
+        g.pitch_integ = max(-sat_integ, min(sat_integ, g.pitch_integ))
+
+        if roll_error * g.roll_integ < 0:
+            g.roll_integ = 0.0
+        if pitch_error * g.pitch_integ < 0:
+            g.pitch_integ = 0.0
+
+        roll_i  = g.roll_integ  * GaitPidConfig.KI
+        pitch_i = g.pitch_integ * GaitPidConfig.KI
+
+        # ── D term (derivative of undeadzoned signal) ─────────────
+        roll_d  = (roll_avg  - g.roll_avg_prev)  * GaitPidConfig.KD
+        pitch_d = (pitch_avg - g.pitch_avg_prev) * GaitPidConfig.KD
+        g.roll_avg_prev  = roll_avg
+        g.pitch_avg_prev = pitch_avg
+
+        # ── PID sum (negative = oppose the tilt) ─────────────────
+        roll_corr  = -(roll_p  + roll_i  + roll_d)
+        pitch_corr = -(pitch_p + pitch_i + pitch_d)
+
+        # ── Saturate output ──────────────────────────────────────
+        sat = GaitPidConfig.SAT_CORR
+        roll_corr  = max(-sat, min(sat, roll_corr))
+        pitch_corr = max(-sat, min(sat, pitch_corr))
+
+        # ── Low-pass filter ──────────────────────────────────────
+        alpha = GaitPidConfig.LPF_CORR
+        g.roll_corr_lpf  = alpha * g.roll_corr_lpf  + (1 - alpha) * roll_corr
+        g.pitch_corr_lpf = alpha * g.pitch_corr_lpf + (1 - alpha) * pitch_corr
+
+        return {
+            'roll':  (roll_error, roll_p,  g.roll_integ,  roll_d,
+                      roll_corr,  g.roll_corr_lpf),
+            'pitch': (pitch_error, pitch_p, g.pitch_integ, pitch_d,
+                      pitch_corr, g.pitch_corr_lpf),
+        }
+
+    def _publish_gait_diag(self, roll_meas, pitch_meas, pid_out):
+        """Publish per-axis gait PID diagnostic signals."""
+        g = self._gait
+        ff_ready = 1.0 if g.baseline_ready else 0.0
+        meas = {'roll': roll_meas, 'pitch': pitch_meas}
+        avg  = {'roll': sum(g.roll_buf) / max(1, len(g.roll_buf)),
+                'pitch': sum(g.pitch_buf) / max(1, len(g.pitch_buf))}
+
+        msg = Float64()
+        for axis in ('roll', 'pitch'):
+            err, p, i, d, pid_sat, pid_lpf = pid_out[axis]
+            values = [
+                meas[axis],   # 01_meas
+                avg[axis],    # 02_avg
+                err,          # 03_err
+                p,            # 04_p
+                i,            # 05_i
+                d,            # 06_d
+                pid_sat,      # 07_pid_sat
+                pid_lpf,      # 08_pid_lpf
+                ff_ready,     # 09_ff_ready
+            ]
+            for sig, val in zip(_GAIT_PID_SIGNALS, values):
+                msg.data = val
+                self._diag_gait_pubs[axis][sig].publish(msg)
+
+    # ── Home PID Helpers ─────────────────────────────────────────
+
+    def _compute_dt(self):
+        """Return dt in seconds, or None on first call / invalid dt."""
+        now = self.get_clock().now()
+        if self._prev_time is None:
+            self._prev_time = now
+            return None
+        dt = (now - self._prev_time).nanoseconds * 1e-9
+        self._prev_time = now
+        if dt <= 0 or dt > 0.1:
+            return None
+        return dt
+
+    def _filter_meas(self, roll_raw, pitch_raw):
+        """EMA pre-filter on raw IMU measurement."""
+        roll  = self._imu.roll
+        pitch = self._imu.pitch
+        if not self._imu.meas_initialized:
+            roll.meas  = roll_raw
+            pitch.meas = pitch_raw
+            self._imu.meas_initialized = True
+        else:
+            a = FilterConfig.LPF_RAW
+            roll.meas  = a * roll.meas  + (1 - a) * roll_raw
+            pitch.meas = a * pitch.meas + (1 - a) * pitch_raw
+
+    def _compute_gain_scale(self, error):
+        """Gain multiplier in [SAT_GAIN_SCALE_PID, 1.0]."""
+        ratio = abs(error) / PidConfig.GAIN_SCALE_PID
+        return max(PidConfig.SAT_GAIN_SCALE_PID, min(1.0, ratio))
+
+    def _compute_pid(self, error_curr, axis, dt):
+        """Run one PID step in-place on axis state."""
+        gs = self._compute_gain_scale(error_curr)
+
+        # Proportional
+        axis.prop = PidConfig.KP * gs * error_curr
+    
+        # Integral with leakage
+        axis.integ *= PidConfig.DECAY_INTEG
+        axis.integ += error_curr * dt
+        axis.integ  = max(-PidConfig.SAT_INTEG,
+                      min( PidConfig.SAT_INTEG, axis.integ))
 
         # Derivative with low-pass filter
-        d_raw = self.Kd * (error - prev_error) / dt if dt > 0 else 0.0
-        d_filtered = self.alpha_d * d_filtered + (1 - self.alpha_d) * d_raw
+        deriv_raw = (PidConfig.KD * (error_curr - axis.error_prev) / dt
+                     if dt > 0 else 0.0)
+        axis.deriv = (FilterConfig.LPF_DERIV * axis.deriv
+                   + (1 - FilterConfig.LPF_DERIV) * deriv_raw)
+        if abs(error_curr) < PidConfig.RAMP_DERIV:
+            axis.deriv = 0.0
 
-        # Reset derivative filter when error is negligible (prevents IIR drift)
-        if abs(error) < 0.005:
-            d_filtered = 0.0
-
-        # Total output (before saturation)
-        output_raw = P + I + d_filtered
-
-        # Saturate output
-        output = max(-self.sat, min(self.sat, output_raw))
+        Prop  = axis.prop
+        Integ = PidConfig.KI * gs * axis.integ
+        Deriv = axis.deriv
+        corr_sat_raw  = Prop + Integ + Deriv
+        axis.corr_sat = max(-PidConfig.SAT_CORR,
+                        min( PidConfig.SAT_CORR, corr_sat_raw))
 
         # Back-calculation anti-windup
-        if abs(output_raw) > self.sat and self.Ki > 0:
-            excess = output_raw - output
-            integral -= excess / self.Ki * 0.5
-            integral = max(-self.windup, min(self.windup, integral))
+        if abs(corr_sat_raw) > PidConfig.SAT_CORR and PidConfig.KI > 0:
+            excess = corr_sat_raw - axis.corr_sat
+            axis.integ -= excess / PidConfig.KI * 0.5
+            axis.integ  = max(-PidConfig.SAT_INTEG,
+                          min( PidConfig.SAT_INTEG, axis.integ))
 
-        return output, integral, error, d_filtered, P, self.Ki * gs * integral, d_filtered
+        axis.error_prev = error_curr
 
-    # ── Publish diagnostics helper ────────────────────────────────
-    def _publish_diag(self, pubs, values):
-        """Publish a dict of {signal_name: value} to individual topics."""
+    def _publish_diag(self, dt):
+        """Publish per-axis home PID diagnostic signals."""
         msg = Float64()
-        for sig, val in zip(_DIAG_SIGNALS, values):
-            msg.data = val
-            pubs[sig].publish(msg)
-
-    # ── IMU callback (runs at 100 Hz) ─────────────────────────────
-    def imu_callback(self, msg: Imu):
-        # Skip processing until enabled by gait generator
-        if not self.enabled:
-            return
-
-        # Get current time to calculate dt
-        now = self.get_clock().now()
-        if self.prev_time is None:
-            self.prev_time = now
-            return
-        dt = (now - self.prev_time).nanoseconds * 1e-9
-        self.prev_time = now
-        if dt <= 0 or dt > 0.1:  # skip bad dt
-            return
-
-        # Convert quaternion → roll, pitch (raw)
-        q = msg.orientation
-        raw_roll, raw_pitch = self.quaternion_to_rp(q.x, q.y, q.z, q.w)
-
-        # ── Measurement pre-filter (EMA) ─────────────────────────
-        # Smooths IMU noise before the PID processes it
-        if not self.meas_initialized:
-            self.meas_roll = raw_roll
-            self.meas_pitch = raw_pitch
-            self.meas_initialized = True
-        else:
-            self.meas_roll = (self.alpha_meas * self.meas_roll +
-                              (1 - self.alpha_meas) * raw_roll)
-            self.meas_pitch = (self.alpha_meas * self.meas_pitch +
-                               (1 - self.alpha_meas) * raw_pitch)
-
-        # ── Publish raw filtered measurement (for gait rotation matrix) ──
-        meas_msg = Vector3()
-        meas_msg.x = self.meas_roll
-        meas_msg.y = self.meas_pitch
-        meas_msg.z = 0.0
-        self.pub_measurement.publish(meas_msg)
-
-        # ── Smooth deadzone on measurement ────────────────────────
-        # Instead of hard on/off, smoothly ramp from 0 to full
-        roll_for_pid = self.smooth_deadzone(self.meas_roll, self.deadzone)
-        pitch_for_pid = self.smooth_deadzone(self.meas_pitch, self.deadzone)
-
-        # PID: setpoint = 0
-        roll_error = 0.0 - roll_for_pid
-        pitch_error = 0.0 - pitch_for_pid
-
-        raw_roll_out, self.roll_integral, self.roll_prev_error, \
-            self.roll_d_filtered, roll_P, roll_I, roll_D = \
-            self.pid_compute(roll_error, self.roll_integral,
-                             self.roll_prev_error, self.roll_d_filtered, dt)
-
-        raw_pitch_out, self.pitch_integral, self.pitch_prev_error, \
-            self.pitch_d_filtered, pitch_P, pitch_I, pitch_D = \
-            self.pid_compute(pitch_error, self.pitch_integral,
-                             self.pitch_prev_error, self.pitch_d_filtered, dt)
-
-        # ── Output low-pass filter ────────────────────────────────
-        # Smooths PID output transitions (α=0.2, minimal phase lag)
-        self.filtered_roll = (self.alpha * self.filtered_roll +
-                              (1 - self.alpha) * raw_roll_out)
-        self.filtered_pitch = (self.alpha * self.filtered_pitch +
-                               (1 - self.alpha) * raw_pitch_out)
-
-        # Publish filtered correction
-        correction = Vector3()
-        correction.x = self.filtered_roll    # roll correction (rad)
-        correction.y = self.filtered_pitch   # pitch correction (rad)
-        correction.z = 0.0                   # yaw (unused)
-        self.pub_correction.publish(correction)
-
-        # ── Publish diagnostics (individual named topics) ─────────
-        self._publish_diag(self.diag_roll_pubs, [
-            self.meas_roll,        # measurement
-            0.0,                   # setpoint
-            roll_error,            # error
-            roll_P,                # p_term
-            roll_I,                # i_term
-            roll_D,                # d_term
-            raw_roll_out,          # raw_pid
-            self.filtered_roll,    # filtered_out
-            self.roll_integral,    # integral_state
-            dt,                    # dt
-        ])
-
-        self._publish_diag(self.diag_pitch_pubs, [
-            self.meas_pitch,       # measurement
-            0.0,                   # setpoint
-            pitch_error,           # error
-            pitch_P,               # p_term
-            pitch_I,               # i_term
-            pitch_D,               # d_term
-            raw_pitch_out,         # raw_pid
-            self.filtered_pitch,   # filtered_out
-            self.pitch_integral,   # integral_state
-            dt,                    # dt
-        ])
+        for axis_name, axis in [('roll', self._imu.roll),
+                                ('pitch', self._imu.pitch)]:
+            values = [
+                axis.meas,       # 01_meas
+                0.0,             # 02_sp
+                axis.error_prev, # 03_err
+                axis.prop,       # 04_p
+                axis.integ,      # 05_i
+                axis.deriv,      # 06_d
+                axis.corr_sat,   # 07_pid_sat
+                axis.corr_lpf,   # 08_pid_lpf
+                dt,              # 09_dt
+            ]
+            for sig, val in zip(_HOME_PID_SIGNALS, values):
+                msg.data = val
+                self._diag_home_pubs[axis_name][sig].publish(msg)
 
 
 def main(args=None):
     rclpy.init(args=args)
-    node = PostureStabilizer()
+    node = BalanceController()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
@@ -362,4 +539,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-

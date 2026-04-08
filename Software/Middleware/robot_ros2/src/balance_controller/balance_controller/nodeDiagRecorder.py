@@ -3,9 +3,9 @@ Diagnostic Data Recorder
 =========================
 Subscribes to all /diag/* topics published by the balance controller pipeline.
 All diagnostic topics use individual Float64 signals:
-    /diag/balance/{roll,pitch}/{measurement,setpoint,error,p_term,...}
-    /diag/imu_home/{roll_corr_in,pitch_corr_in,deadzone_active,...}
-    /diag/imu_gait/{roll_corr_in,pitch_corr_in,deadzone_active,...}
+    /diag/home/pid/{roll,pitch}/01_meas .. 09_dt
+    /diag/home/apply/01_roll_in .. 09_off_rb
+    /diag/gait/pid/{roll,pitch}/01_meas .. 09_ff_ready
     /diag/torque/clamped/{joint_lf_1,joint_lf_2,...}
 
 Stays idle until a 'ZERO' command is received on /gait_control.
@@ -28,24 +28,20 @@ from std_msgs.msg import String, Float64
 
 
 # ── Signal name lists (must match publishers) ────────────────────────
-_BALANCE_SIGNALS = [
-    'measurement', 'setpoint', 'error', 'p_term', 'i_term',
-    'd_term', 'raw_pid', 'filtered_out', 'integral_state', 'dt',
+_HOME_PID_SIGNALS = [
+    '01_meas', '02_sp', '03_err', '04_p', '05_i',
+    '06_d', '07_pid_sat', '08_pid_lpf', '09_dt',
 ]
 
-_IMU_HOME_SIGNALS = [
-    'roll_corr_in', 'pitch_corr_in', 'deadzone_active',
-    'roll_scaled', 'pitch_scaled',
-    'offset_lf', 'offset_lb', 'offset_rf', 'offset_rb',
+_HOME_APPLY_SIGNALS = [
+    '01_roll_in', '02_pitch_in', '03_dz_flag',
+    '04_roll_scl', '05_pitch_scl',
+    '06_off_lf', '07_off_lb', '08_off_rf', '09_off_rb',
 ]
 
-_IMU_GAIT_SIGNALS = [
-    'roll_meas_in', 'pitch_meas_in',
-    'roll_compensated', 'pitch_compensated',
-    'roll_applied', 'pitch_applied',
-    'roll_smoothed', 'pitch_smoothed',
-    'roll_integral', 'pitch_integral',
-    'ff_learned',
+_GAIT_PID_SIGNALS = [
+    '01_meas', '02_avg', '03_err', '04_p', '05_i',
+    '06_d', '07_pid_sat', '08_pid_lpf', '09_ff_ready',
 ]
 
 _TORQUE_JOINTS = [
@@ -55,13 +51,14 @@ _TORQUE_JOINTS = [
     'joint_rb_1', 'joint_rb_2', 'joint_rb_3',
 ]
 
-# ── CSV groups: (buffer_key, header_row, signal_list, topic_prefix) ──
+# ── CSV groups: (buffer_key, signal_list, topic_prefix) ──────────────
 _DIAG_GROUPS = [
-    ('balance_roll',     _BALANCE_SIGNALS,   '/diag/balance/roll'),
-    ('balance_pitch',    _BALANCE_SIGNALS,   '/diag/balance/pitch'),
-    ('imu_home_offsets', _IMU_HOME_SIGNALS,  '/diag/imu_home'),
-    ('imu_gait_offsets', _IMU_GAIT_SIGNALS,  '/diag/imu_gait'),
-    ('torque_clamped',   _TORQUE_JOINTS,     '/diag/torque/clamped'),
+    ('home_pid_roll',   _HOME_PID_SIGNALS,    '/diag/home/pid/roll'),
+    ('home_pid_pitch',  _HOME_PID_SIGNALS,    '/diag/home/pid/pitch'),
+    ('home_apply',      _HOME_APPLY_SIGNALS,  '/diag/home/apply'),
+    ('gait_pid_roll',   _GAIT_PID_SIGNALS,    '/diag/gait/pid/roll'),
+    ('gait_pid_pitch',  _GAIT_PID_SIGNALS,    '/diag/gait/pid/pitch'),
+    ('torque_clamped',  _TORQUE_JOINTS,        '/diag/torque/clamped'),
 ]
 
 
