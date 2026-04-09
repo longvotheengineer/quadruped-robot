@@ -32,8 +32,19 @@ def generate_launch_description():
         name='nodeBalanceController',
         output='screen')
 
+    # Launch the Diagnostic Data Recorder node:
+    # Idles until ZERO command, then records all /diag/* signals.
+    # On Ctrl+C, saves CSV files to simulation/realtime_data/
+    # >>> TEMPORARILY DISABLED — uncomment to re-enable recording <<<
+    # node_diag_recorder = Node(
+    #     package='balance_controller',
+    #     executable='nodeDiagRecorder',
+    #     name='nodeDiagRecorder',
+    #     output='screen')
+
     return LaunchDescription([
         node_leg_controller,
         node_balance_controller,
+        # node_diag_recorder,  # TEMPORARILY DISABLED
         launch_simulation
     ])
