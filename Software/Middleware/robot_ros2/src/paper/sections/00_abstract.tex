@@ -1,24 +1,27 @@
 \begin{abstract}
 
-This paper presents a robust, computationally efficient motion
-control framework engineered for articulated quadruped robots.
-Operating without exteroceptive vision systems, the framework
-achieves stable blind ambulation by leveraging proprioceptive
-feedback derived exclusively from an Inertial Measurement Unit (IMU).
-A strictly decoupled, dual-pipeline software architecture isolates
-the rhythmic pacing of a central pattern generator from the
-reactionary calculus of a proportional-integral-derivative (PID)
-stabilization node. By defining absolute spatial limits via inverse
-kinematics and shaping trajectories through piecewise quintic
-polynomials, the framework guarantees a solid morphological baseline.
-Crucially, dynamic disturbances are aggressively attenuated by
-applying phase-aware rotational compensations---$R_y(\theta)$
-and $R_x(\phi)$---exclusively to the stance limbs.
-This highly selective logic forces the quadruped to counter-exert
-against gravitational and terrain-based anomalies, actively
-sustaining the Zero Moment Point (ZMP) within its support polygon.
-Preliminary tests conducted within the Gazebo simulation environment
-explicitly validate the system's efficacy in rejecting intense
-lateral disturbances while maintaining reliable home postures.
+This paper presents a lightweight, computationally efficient
+motion control framework for articulated quadruped robots that
+achieves stable blind locomotion using exclusively proprioceptive
+inertial feedback. A strictly decoupled dual pipeline control
+architecture isolates rhythmic gait generation from reactive
+postural stabilization, enabling independent tuning and
+fault tolerant operation. Foot trajectories are shaped using
+quintic polynomial interpolation functions
+$s(\tau)=10\tau^3-15\tau^4+6\tau^5$ that enforce zero velocity
+and zero acceleration at boundary conditions, eliminating
+mechanical impact transients. A multistage signal conditioning
+pipeline incorporating exponential moving average (EMA)
+prefiltering, configurable deadband suppression, gain scheduled
+PID with back calculation antiwindup, and cascaded lowpass
+filtering produces smooth corrective outputs free of
+high frequency jitter. During dynamic locomotion, phase aware
+rotational compensation matrices $R_y(\theta)R_x(\phi)$ are
+selectively applied to stance phase limbs via real time foot
+altitude thresholding, while swing phase limbs maintain
+unmodified trajectories to preserve stride clearance.
+Simulation based validation confirms the system's capacity to
+reject aggressive lateral disturbances while maintaining the
+Zero Moment Point (ZMP) within the support polygon.
 
 \end{abstract}

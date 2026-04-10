@@ -22,13 +22,41 @@
 \BIBdecl
 
 \bibitem{gehring2013control}
-C.~Gehring, S.~Coros, M.~Hutter, C.~D. Bellicoso, H.~Heppler, R.~Dietz, R.~Y.
-  Siegwart \emph{et~al.}, ``Control of dynamic gaits for a quadrupedal robot,''
-  \emph{In IEEE International Conference on Robotics and Automation (ICRA)},
-  pp. 3287--3292, 2013.
+C.~Gehring, S.~Coros, M.~Hutter, C.~D. Bellicoso, and R.~Siegwart, ``Control of
+  dynamic gaits for a quadrupedal robot,'' in \emph{Proc. IEEE International
+  Conference on Robotics and Automation (ICRA)}, 2013, pp. 3287--3292.
 
-\bibitem{faro2022bionic}
-J.~Faro and et~al., ``A bionic perspective on quadrupedal robotics,''
-  \emph{Journal of Advanced Robotics}, vol.~14, no.~2, pp. 112--125, 2022.
+\bibitem{dicarlo2018dynamic}
+J.~Di~Carlo, P.~M. Wensing, B.~Katz, G.~Bledt, and S.~Kim, ``Dynamic locomotion
+  in the {MIT Cheetah 3} through convex model-predictive control,'' in
+  \emph{Proc. IEEE/RSJ International Conference on Intelligent Robots and
+  Systems (IROS)}, 2018, pp. 1--9.
+
+\bibitem{madgwick2011estimation}
+S.~O.~H. Madgwick, A.~J.~L. Harrison, and R.~Vaidyanathan, ``Estimation of
+  {IMU} and {MARG} orientation using a gradient descent algorithm,''
+  \emph{Proc. IEEE International Conference on Rehabilitation Robotics}, pp.
+  1--7, 2011.
+
+\bibitem{li2022posture}
+J.~Li, L.~Ye, Z.~Jin, H.~Liu, and B.~Liang, ``Posture stabilization control for
+  a quadruped robot walking on swaying platforms,'' in \emph{Proc. IEEE 18th
+  International Conference on Automation Science and Engineering (CASE)}, 2022,
+  pp. 1--8.
+
+\bibitem{astrom2006advanced}
+K.~J. {\AA}str{\"o}m and T.~H{\"a}gglund, \emph{Advanced {PID} Control}.\hskip
+  1em plus 0.5em minus 0.4em\relax ISA --- The Instrumentation, Systems and
+  Automation Society, 2006.
+
+\bibitem{craig2005introduction}
+J.~J. Craig, \emph{Introduction to Robotics: Mechanics and Control},
+  3rd~ed.\hskip 1em plus 0.5em minus 0.4em\relax Pearson Prentice Hall, 2005.
+
+\bibitem{kajita2003biped}
+S.~Kajita, F.~Kanehiro, K.~Kaneko, K.~Fujiwara, K.~Harada, K.~Yokoi, and
+  H.~Hirukawa, ``Biped walking pattern generation by using preview control of
+  zero-moment point,'' in \emph{Proc. IEEE International Conference on Robotics
+  and Automation (ICRA)}, vol.~2, 2003, pp. 1620--1626.
 
 \end{thebibliography}

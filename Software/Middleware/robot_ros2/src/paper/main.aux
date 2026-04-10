@@ -16,34 +16,66 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
-\citation{gehring2013control,faro2022bionic}
+\citation{gehring2013control,dicarlo2018dynamic}
+\citation{madgwick2011estimation}
+\citation{li2022posture}
+\citation{astrom2006advanced}
 \providecommand \oddpage@label [2]{}
-\@writefile{toc}{\contentsline {section}{\numberline {I}INTRODUCTION}{1}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {II}System Architecture}{1}{section.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Proposed System Architecture graph displaying the strict separation between the Gait Generation pipeline and the isolated PID stabilization loop within the ROS 2 environment.}}{1}{figure.1}\protected@file@percent }
-\newlabel{fig:architecture_node}{{1}{1}{Proposed System Architecture graph displaying the strict separation between the Gait Generation pipeline and the isolated PID stabilization loop within the ROS 2 environment}{figure.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}State Representation}{1}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}Node Topology}{1}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}State Representation}{1}{subsection.2.2}\protected@file@percent }
+\citation{craig2005introduction}
+\citation{kajita2003biped}
 \@writefile{toc}{\contentsline {section}{\numberline {III}Kinematics and Gait Planning}{2}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Forward and Inverse Kinematics}{2}{subsection.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The Denavit-Hartenberg (DH) geometric reference frame assigned to the three-degree-of-freedom quadruped limb.}}{2}{figure.2}\protected@file@percent }
-\newlabel{fig:kinematic_model}{{2}{2}{The Denavit-Hartenberg (DH) geometric reference frame assigned to the three-degree-of-freedom quadruped limb}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Inverse Kinematics}{2}{subsection.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Simulation model with reference frames visualized at each joint. Each joint origin displays RGB axis indicators (red=$x$, green=$y$, blue=$z$) used for geometric IK resolution across the three DOF limb topology.\relax }}{2}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:kinematic_model}{{1}{2}{Simulation model with reference frames visualized at each joint. Each joint origin displays RGB axis indicators (red=$x$, green=$y$, blue=$z$) used for geometric IK resolution across the three DOF limb topology.\relax }{figure.caption.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Quintic Trajectory Formulation}{2}{subsection.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {IV}IMU-Based Postural Stabilization}{2}{section.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Control flow diagram visualizing the transformation pipeline processing raw IMU telemetry into discrete $100$ Hz corrective polynomials.}}{2}{figure.3}\protected@file@percent }
-\newlabel{fig:pid_diagram}{{3}{2}{Control flow diagram visualizing the transformation pipeline processing raw IMU telemetry into discrete $100$ Hz corrective polynomials}{figure.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Static Home Posture Correction}{2}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Phase-Aware Dynamic Gait Correction}{2}{subsection.4.2}\protected@file@percent }
+\newlabel{eq:quintic_s}{{1}{2}{Quintic Trajectory Formulation}{equation.3.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces 3D foot trajectory for the left front limb. The swing phase (blue) traces a quintic parabolic arc from liftoff $\mathbf  {A}$ to touchdown $\mathbf  {D}$, while the stance phase (red dashed) retraces along the ground plane at $z=-170$ mm. Stride length $L_{stride}=45$ mm, lift height $h_{lift}=40$ mm.\relax }}{2}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:gait_3d}{{2}{2}{3D foot trajectory for the left front limb. The swing phase (blue) traces a quintic parabolic arc from liftoff $\mathbf {A}$ to touchdown $\mathbf {D}$, while the stance phase (red dashed) retraces along the ground plane at $z=-170$ mm. Stride length $L_{stride}=45$ mm, lift height $h_{lift}=40$ mm.\relax }{figure.caption.2}{}}
+\citation{madgwick2011estimation}
+\citation{astrom2006advanced}
+\newlabel{fig:quintic_pva}{{3a}{3}{Quintic polynomial PVA profiles.\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:quintic_pva}{{a}{3}{Quintic polynomial PVA profiles.\relax }{figure.caption.3}{}}
+\newlabel{fig:joint_angles}{{3b}{3}{Resolved joint angles for the left front limb.\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:joint_angles}{{b}{3}{Resolved joint angles for the left front limb.\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Trajectory generation and inverse kinematic mapping. (a) The normalized quintic position, velocity, and acceleration functions dictating foot motion. (b) The resulting joint angle solution $\theta _i$ over one full gait cycle, with swing (blue, 0--26\%) and stance (red, 26--100\%) phases highlighted.\relax }}{3}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:trajectory_combined}{{3}{3}{Trajectory generation and inverse kinematic mapping. (a) The normalized quintic position, velocity, and acceleration functions dictating foot motion. (b) The resulting joint angle solution $\theta _i$ over one full gait cycle, with swing (blue, 0--26\%) and stance (red, 26--100\%) phases highlighted.\relax }{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}IMU Based Postural Stabilization}{3}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Static Home Posture Correction}{3}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Phase Aware Dynamic Gait Correction}{3}{subsection.4.2}\protected@file@percent }
+\citation{dicarlo2018dynamic}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Results and Diagnostic Data}{4}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Home Posture Stabilization}{4}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Dynamic Trotting Gait Stabilization}{4}{subsection.5.2}\protected@file@percent }
+\newlabel{fig:home_error}{{4a}{4}{Pitch and error.\relax }{figure.caption.4}{}}
+\newlabel{sub@fig:home_error}{{a}{4}{Pitch and error.\relax }{figure.caption.4}{}}
+\newlabel{fig:home_corr}{{4b}{4}{PID and LPF output.\relax }{figure.caption.4}{}}
+\newlabel{sub@fig:home_corr}{{b}{4}{PID and LPF output.\relax }{figure.caption.4}{}}
+\newlabel{fig:home_joint}{{4c}{4}{Left front joint torques.\relax }{figure.caption.4}{}}
+\newlabel{sub@fig:home_joint}{{c}{4}{Left front joint torques.\relax }{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Home posture stabilization diagnostics. (a)\nobreakspace  {}Pitch measurement and deadband filtered error. (b)\nobreakspace  {}Saturated PID and lowpass filtered correction output. (c)\nobreakspace  {}Resulting joint torque commands for the left front limb.\relax }}{4}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:home_results}{{4}{4}{Home posture stabilization diagnostics. (a)~Pitch measurement and deadband filtered error. (b)~Saturated PID and lowpass filtered correction output. (c)~Resulting joint torque commands for the left front limb.\relax }{figure.caption.4}{}}
+\newlabel{fig:trot_error}{{5a}{4}{Pitch and error.\relax }{figure.caption.5}{}}
+\newlabel{sub@fig:trot_error}{{a}{4}{Pitch and error.\relax }{figure.caption.5}{}}
+\newlabel{fig:trot_corr}{{5b}{4}{PID and LPF output.\relax }{figure.caption.5}{}}
+\newlabel{sub@fig:trot_corr}{{b}{4}{PID and LPF output.\relax }{figure.caption.5}{}}
+\newlabel{fig:trot_joint}{{5c}{4}{Left front joint torques.\relax }{figure.caption.5}{}}
+\newlabel{sub@fig:trot_joint}{{c}{4}{Left front joint torques.\relax }{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Dynamic trotting gait stabilization diagnostics. (a)\nobreakspace  {}Pitch measurement and moving average error. (b)\nobreakspace  {}Adaptive PID and lowpass filtered correction output. (c)\nobreakspace  {}Resulting joint torque commands for the left front limb.\relax }}{4}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:trot_results}{{5}{4}{Dynamic trotting gait stabilization diagnostics. (a)~Pitch measurement and moving average error. (b)~Adaptive PID and lowpass filtered correction output. (c)~Resulting joint torque commands for the left front limb.\relax }{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Conclusion and Future Work}{4}{section.6}\protected@file@percent }
 \bibstyle{IEEEtran}
 \bibdata{references}
 \bibcite{gehring2013control}{1}
-\bibcite{faro2022bionic}{2}
-\@writefile{toc}{\contentsline {section}{\numberline {V}Results and Diagnostic Data}{3}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Locomotion Viability in Simulation}{3}{subsection.5.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Visual capture within Gazebo displaying the quadruped actively recovering its stable Zero Moment position following an unscheduled lateral disturbance.}}{3}{figure.4}\protected@file@percent }
-\newlabel{fig:gazebo_sim}{{4}{3}{Visual capture within Gazebo displaying the quadruped actively recovering its stable Zero Moment position following an unscheduled lateral disturbance}{figure.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Internal Control Graph Observability}{3}{subsection.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {VI}Conclusion and Future Work}{3}{section.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Empirical data plotted natively via ROS 2 PlotJuggler, mapping the mathematical reduction in high-frequency micro-oscillations derived from the LPF parameter tuning.}}{3}{figure.5}\protected@file@percent }
-\newlabel{fig:plotjuggler_diagnostic}{{5}{3}{Empirical data plotted natively via ROS 2 PlotJuggler, mapping the mathematical reduction in high-frequency micro-oscillations derived from the LPF parameter tuning}{figure.5}{}}
-\@writefile{toc}{\contentsline {section}{References}{3}{section*.1}\protected@file@percent }
-\gdef \@abspage@last{3}
+\bibcite{dicarlo2018dynamic}{2}
+\bibcite{madgwick2011estimation}{3}
+\bibcite{li2022posture}{4}
+\bibcite{astrom2006advanced}{5}
+\bibcite{craig2005introduction}{6}
+\bibcite{kajita2003biped}{7}
+\@writefile{toc}{\contentsline {section}{References}{5}{section*.6}\protected@file@percent }
+\gdef \@abspage@last{5}
