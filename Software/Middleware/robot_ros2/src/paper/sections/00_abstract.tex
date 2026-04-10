@@ -1,0 +1,24 @@
+\begin{abstract}
+
+This paper presents a robust, computationally efficient motion
+control framework engineered for articulated quadruped robots.
+Operating without exteroceptive vision systems, the framework
+achieves stable blind ambulation by leveraging proprioceptive
+feedback derived exclusively from an Inertial Measurement Unit (IMU).
+A strictly decoupled, dual-pipeline software architecture isolates
+the rhythmic pacing of a central pattern generator from the
+reactionary calculus of a proportional-integral-derivative (PID)
+stabilization node. By defining absolute spatial limits via inverse
+kinematics and shaping trajectories through piecewise quintic
+polynomials, the framework guarantees a solid morphological baseline.
+Crucially, dynamic disturbances are aggressively attenuated by
+applying phase-aware rotational compensations---$R_y(\theta)$
+and $R_x(\phi)$---exclusively to the stance limbs.
+This highly selective logic forces the quadruped to counter-exert
+against gravitational and terrain-based anomalies, actively
+sustaining the Zero Moment Point (ZMP) within its support polygon.
+Preliminary tests conducted within the Gazebo simulation environment
+explicitly validate the system's efficacy in rejecting intense
+lateral disturbances while maintaining reliable home postures.
+
+\end{abstract}

@@ -1,0 +1,34 @@
+\section{INTRODUCTION}
+
+Legged robots possess the innate structural capacity to navigate
+discontinuous terrain and extreme topographies that inherently
+challenge conventional wheeled platforms. However, developing
+resilient locomotion policies capable of stabilizing a heavily
+articulated, multi-degree-of-freedom system against unmodeled
+disturbances remains a rigorous control challenge.
+
+Contemporary solutions rely heavily on computationally intensive
+algorithms, such as Model Predictive Control (MPC) and Reinforcement
+Learning (RL), to estimate optimal zero-moment dynamics
+\cite{gehring2013control, faro2022bionic}. While highly performant,
+these stochastic solvers predominantly dictate the use of specialized
+hardware accelerators or high-frequency processors. This computational
+overhead severely precludes deployment upon the low-power embedded
+edge devices ubiquitous in modern mechatronics.
+
+Conversely, heuristic-driven Central Pattern Generators (CPGs)
+paired with reactive reflex feedback loops can successfully
+approximate biological stability at a fraction of the computational
+cost. When high-fidelity sensory telemetry---such as instantaneous
+base orientation measured by an Inertial Measurement Unit (IMU)---is
+directly integrated into real-time kinematic calculations,
+robust blind ambulation becomes trivialized.
+
+This work proposes a refined, lightweight software architecture
+explicitly tailored for constrained robotic processing environments.
+By prioritizing a strict programmatic decoupling between rhythmic
+Cartesian trajectory generation and rapid-response inertial base
+stabilization, systemic cohesion is optimized. The framework
+deliberately isolates all PID formulations within a discrete
+mathematical node, proving that minimalist reactive control loops
+can effectively synthesize stable, multi-link continuous gaits.

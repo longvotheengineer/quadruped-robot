@@ -1,0 +1,49 @@
+\section{System Architecture}
+
+The framework operates as an inherently distributed processing
+cluster managed entirely by Robot Operating System 2 (ROS 2).
+The core locomotion logic is brokered across two distinct process
+endpoints: a primary \textit{Node Leg Controller} and an
+asynchronous \textit{Node Balance Controller}. Communication between
+these modules is strictly limited to high-frequency diagnostic and
+corrective topics. This segregation guarantees hardware-level
+isolation, ensuring that rhythmic trajectory generation anomalies
+cannot preempt or block critical sensory compensations.
+
+\begin{figure}[htbp]
+    \centering
+    % TODO: CREATE AND ADD A BLOCK DIAGRAM OF THE ROS2 NODES
+    % 1. Create a flowchart (e.g. using draw.io) showing
+    %    'nodeLegController' publishing to 'gazebo' and
+    %    'nodeBalanceController' subscribing to IMU data.
+    % 2. Place the image in 'src/paper/figures/ros2_architecture.png'
+    % 3. Uncomment the \includegraphics line below and
+    %    delete the \rule placeholder!
+    % \includegraphics[width=0.48\textwidth]{figures/ros2_architecture.png}
+    \rule{0.48\textwidth}{4cm} % Grey placeholder box
+    \caption{Proposed System Architecture graph displaying the strict
+    separation between the Gait Generation pipeline and the
+    isolated PID stabilization loop within the ROS 2 environment.}
+    \label{fig:architecture_node}
+\end{figure}
+
+\subsection{State Representation}
+
+Global governance overlying the primary ROS 2 architecture is
+dictated by boolean gating, handling two discrete operating states:
+
+\begin{itemize}
+    \item \textbf{HOME:} Defined exclusively as a static configuration
+    lacking cyclic translation vectors. The controller computes
+    uniform joint-space adjustments rigidly mapped to the resting
+    stance. Base angular deviations translate proportionally into
+    antagonistic torque compensations explicitly aimed at continuous
+    postural rectification.
+
+    \item \textbf{GAIT:} The dynamic state active during commanded
+    planar translations. The platform executes cyclic polynomial
+    trajectories, selectively applying spatial Cartesian corrections
+    derived from the IMU exclusively to distal limbs classified
+    within the \textit{stance} phase. Swing legs inherently maintain
+    zero-compensation matrices to ensure uninhibited stride clearance.
+\end{itemize}

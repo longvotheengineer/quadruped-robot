@@ -1,0 +1,76 @@
+\section{IMU-Based Postural Stabilization}
+
+Inertial corrections are computed asynchronously within the
+strictly isolated \textit{Node Balance Controller}. The native
+hardware orientation vectors, specifically the localized
+Earth-referenced Pitch ($ \theta $) and Roll ($ \phi $), are
+ingested at high frequency.
+
+\begin{figure}[htbp]
+    \centering
+    % TODO: CREATE AND ADD A CONTROL FLOW DIAGRAM
+    % 1. Add a control flow block diagram showing
+    %    IMU -> Deadzone -> PID -> Scaling
+    % 2. Place it in 'src/paper/figures/pid_diagram.png'
+    % 3. Uncomment the \includegraphics line below and
+    %    delete the \rule placeholder!
+    % \includegraphics[width=0.48\textwidth]{figures/pid_diagram.png}
+    \rule{0.48\textwidth}{4cm} % Grey placeholder box
+    \caption{Control flow diagram visualizing the transformation
+    pipeline processing raw IMU telemetry into discrete $100$ Hz
+    corrective polynomials.}
+    \label{fig:pid_diagram}
+\end{figure}
+
+\subsection{Static Home Posture Correction}
+
+During the static phase, all limbs maintain sustained ground
+contact. High-frequency electrical noise from the IMU inherently
+poses a severe risk of jitter-induced mechanical resonance.
+To mitigate micro-oscillations, raw angular error telemetry cascades
+through an aggressive mathematical deadzone limits block:
+
+\begin{equation}
+    e_{dz} =
+    \begin{cases}
+      e - dz & e > dz \\
+      0 & |e| \leq dz \\
+      e + dz & e < -dz
+    \end{cases}
+\end{equation}
+
+The verified deviations are subsequently amplified by proportional
+tuning constants $K_P$. Because immediate, unscaled application
+could induce destructive torque spikes or singularity collapse
+across the Inverse Kinematics frame, the vectors are saturated
+algorithmically by absolute maximum positional caps. Finally, they
+are recursively smoothed via a first-order Low-Pass Filter (LPF),
+defined by a tunable filtering constant $\alpha$:
+
+\begin{equation}
+    H_{k} = \alpha H_{k-1} + (1 - \alpha) e_{scaled}
+\end{equation}
+
+\subsection{Phase-Aware Dynamic Gait Correction}
+
+While the robot is actively ambulating, naive rigid correction
+logic violently opposes intended forward locomotive kinematics.
+Consequently, sensory correction must be applied non-uniformly,
+in direct relation to the instantaneous stance status provided
+by the trajectory node.
+
+The positional vector adjustment dictates a tri-dimensional
+rotational matrix $R=R_y(\theta)R_x(\phi)$. This equation is
+permitted to resolve exclusively when the limb altitude physically
+traverses below a predefined threshold boundary $Z_{thresh}$.
+
+\begin{equation}
+    P_{adj} = R \cdot P_{raw}
+\end{equation}
+
+Thus, if $|Z_{raw} - Z_{stance}| \leq Z_{thresh}$, the
+computational architecture conclusively confirms the mechanical
+foot is bearing gravitational load. The inverse kinematics engine
+immediately recalculates and actuates the adjusted internal angles,
+physically pushing against the anomalous terrain slope to right
+the base parallel to gravity.

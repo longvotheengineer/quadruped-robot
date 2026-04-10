@@ -1,0 +1,57 @@
+\section{Kinematics and Gait Planning}
+
+\subsection{Forward and Inverse Kinematics}
+
+To accurately mandate the position of a limb's endpoint
+$(x, y, z)$ relative to the geometric origin of the base frame,
+a non-linear inverse kinematics (IK) model derives the
+necessary articular angles $( \theta_1, \theta_2, \theta_3 )$
+for the hip, thigh, and calf joints.
+The physical topology structuring the Cartesian workspace includes
+the platform length $L$, platform width $W$, and individual
+linkage spans $l_1, l_2, $ and $l_3$.
+
+The generalized mathematical solution avoids geometric singularities
+by enforcing strictly restricted bounding limits calculated
+dynamically during system boot initialization.
+
+\begin{figure}[htbp]
+    \centering
+    % TODO: CREATE AND ADD A DIAGRAM OF THE LEG KINEMATICS
+    % 1. Add a schematic drawing of the leg showing
+    %    L1, L2, L3 and Theta angles.
+    % 2. Place it in 'src/paper/figures/kinematic_model.png'
+    % 3. Uncomment the \includegraphics line below and
+    %    delete the \rule placeholder!
+    % \includegraphics[width=0.48\textwidth]{figures/kinematic_model.png}
+    \rule{0.48\textwidth}{5cm} % Grey placeholder box
+    \caption{The Denavit-Hartenberg (DH) geometric reference
+    frame assigned to the three-degree-of-freedom quadruped limb.}
+    \label{fig:kinematic_model}
+\end{figure}
+
+\subsection{Quintic Trajectory Formulation}
+
+It is mathematically imperative that physical ground impact
+velocities approach zero; violent mechanical shocks corrupt
+internal IMU localization loops and induce structural fatigue.
+Therefore, smooth, jerk-minimized foot trajectories are formulated
+by employing overlapping piecewise quintic polynomials rather
+than generic linear extrapolations.
+
+For a specific foot transition evolving from resting coordinate
+$A$ (lift-off) and traversing to coordinate $D$ (touch-down)
+across constrained spanning time $T_{swing}$, an independent
+trajectory locus $p(t)$ enforces continuous physical boundaries
+in positional space, derivative velocity, and second-derivative
+acceleration.
+
+\begin{equation}
+    p(t) = a_0 + a_1 t + a_2 t^2 + a_3 t^3 + a_4 t^4 + a_5 t^5
+\end{equation}
+
+By perfectly aligning adjacent spline limits exactly at
+$t=0$ and $t=T_{swing}$, the iterative loops entirely preclude
+unmodeled physical resonance. Overlapping standard trotting patterns
+are generated efficiently via phase-shifting scalar arrays
+(e.g., $0.50$ shifting applied to diagonal limb pairs).

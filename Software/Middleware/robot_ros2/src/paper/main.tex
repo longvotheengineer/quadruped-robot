@@ -1,0 +1,71 @@
+\documentclass[letterpaper, 10 pt, conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+% Modern Professional Typography Packages
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{booktabs}
+
+% Font and Typesetting
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+
+% Modern Clickable Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    filecolor=magenta,      
+    urlcolor=blue!70!black,
+    citecolor=blue!70!black,
+}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\title{\LARGE \bf
+Adaptive Gait Generation and Postural Stabilization Framework for Quadruped Robots via IMU Feedback Integration
+}
+
+\author{\IEEEauthorblockN{LvDaengineer, Dung Nguyen Le, Lam Phan Huynh, and An Truong Tuan}
+\IEEEauthorblockA{\textit{Department of Electrical and Electronics Engineering} \\
+\textit{Ho Chi Minh City University of Technology (HCMUT)}\\
+Ho Chi Minh City, Vietnam}
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{sections/00_abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{sections/01_introduction}
+
+\input{sections/02_architecture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{sections/03_kinematics}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{sections/04_control}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{sections/05_results}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{sections/06_conclusion}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
