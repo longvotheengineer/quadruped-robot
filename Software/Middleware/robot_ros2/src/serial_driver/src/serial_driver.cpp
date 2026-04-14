@@ -1,97 +1,369 @@
+/**
+ * @file serial_driver.cpp
+ * @brief ROS2 driver node for Waveshare ST3215 serial bus servos.
+ *
+ * Wraps the official Feetech SCServo_Linux (SMS_STS) library to provide:
+ *   - SyncWrite position commands to 12 servos via /servo_commands topic
+ *   - Single-servo position write via /servo_single_command topic
+ *   - Periodic position feedback published on /joint_states_real
+ *   - Startup servo ping & torque enable
+ *
+ * Architecture:
+ *   This node is Layer 3 (ROS Interface) in the serial_driver package.
+ *   Layer 2 (SCS Protocol) and Layer 1 (Serial Transport) are provided
+ *   by the official SCServo_Linux library.
+ *
+ * @author lvdaengineer
+ * @date   2026-04-14
+ */
+
 #include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/string.hpp> // Listening for Text now
+#include <std_msgs/msg/float64_multi_array.hpp>
+#include <sensor_msgs/msg/joint_state.hpp>
 
-#include <fcntl.h>
-#include <errno.h>
-#include <termios.h>
-#include <unistd.h>
-#include <cstring>
+#include "SCServo.h"
+
 #include <vector>
-#include <sstream>
-#include <iomanip>
+#include <string>
+#include <array>
+#include <cstdint>
+#include <algorithm>
 
-class SerialDriver : public rclcpp::Node
+
+// ─── Constants ──────────────────────────────────────────────────────────────
+
+static constexpr int    NUM_SERVOS          = 12;
+static constexpr int    DEFAULT_BAUD_RATE   = 1000000;
+static constexpr double TICKS_PER_DEGREE    = 4096.0 / 360.0;   // ≈ 11.378
+static constexpr double DEGREES_PER_TICK    = 360.0 / 4096.0;   // ≈ 0.0879°
+static constexpr int    FEEDBACK_PERIOD_MS  = 10;                // 100 Hz
+
+
+// ─── Per-Joint Calibration ──────────────────────────────────────────────────
+
+struct JointCalibration
+{
+    uint8_t  servo_id;       ///< SCS bus ID (1–12)
+    int16_t  tick_offset;    ///< Tick value when joint is at 0° (URDF zero)
+    int8_t   direction;      ///< +1 or -1 (maps IK sign to servo direction)
+    uint16_t tick_min;       ///< Software lower limit (protection)
+    uint16_t tick_max;       ///< Software upper limit (protection)
+};
+
+
+// ─── SerialDriverNode ───────────────────────────────────────────────────────
+
+class SerialDriverNode : public rclcpp::Node
 {
 public:
-    SerialDriver() : Node("serial_driver_node")
+    SerialDriverNode()
+        : Node("serial_driver_node")
     {
-        // 1. Open Serial Port
-        serial_port_ = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);
-        if (serial_port_ < 0) {
-            RCLCPP_ERROR(this->get_logger(), "Error opening serial port: %s", strerror(errno));
-        } else {
-            RCLCPP_INFO(this->get_logger(), "Successfully opened /dev/ttyUSB0");
-            configure_serial_port();
+        // ── Declare ROS parameters ──────────────────────────────────────
+        this->declare_parameter<std::string>("port",      "/dev/ttyACM0");
+        this->declare_parameter<int>("baud_rate",          DEFAULT_BAUD_RATE);
+        this->declare_parameter<int>("num_servos",         NUM_SERVOS);
+        this->declare_parameter<int>("default_speed",      1500);
+        this->declare_parameter<int>("default_acc",        50);
+        this->declare_parameter<bool>("enable_feedback",   true);
+        this->declare_parameter<int>("feedback_period_ms", FEEDBACK_PERIOD_MS);
+
+        // Servo ID list (default: 1..12)
+        std::vector<int64_t> default_ids = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+        this->declare_parameter<std::vector<int64_t>>("servo_ids", default_ids);
+
+        // Joint names for /joint_states_real (matches URDF joint names)
+        std::vector<std::string> default_joint_names = {
+            "joint_lf_1", "joint_lf_2", "joint_lf_3",
+            "joint_lb_1", "joint_lb_2", "joint_lb_3",
+            "joint_rf_1", "joint_rf_2", "joint_rf_3",
+            "joint_rb_1", "joint_rb_2", "joint_rb_3"
+        };
+        this->declare_parameter<std::vector<std::string>>("joint_names", default_joint_names);
+
+        // Per-joint calibration: offsets (default midpoint), directions (default +1)
+        std::vector<int64_t> default_offsets(NUM_SERVOS, 2048);
+        std::vector<int64_t> default_dirs(NUM_SERVOS, 1);
+        std::vector<int64_t> default_tick_min(NUM_SERVOS, 0);
+        std::vector<int64_t> default_tick_max(NUM_SERVOS, 4095);
+        this->declare_parameter<std::vector<int64_t>>("tick_offsets",  default_offsets);
+        this->declare_parameter<std::vector<int64_t>>("directions",    default_dirs);
+        this->declare_parameter<std::vector<int64_t>>("tick_min",      default_tick_min);
+        this->declare_parameter<std::vector<int64_t>>("tick_max",      default_tick_max);
+
+        // ── Read parameters ─────────────────────────────────────────────
+        port_name_      = this->get_parameter("port").as_string();
+        baud_rate_      = this->get_parameter("baud_rate").as_int();
+        num_servos_     = this->get_parameter("num_servos").as_int();
+        default_speed_  = static_cast<uint16_t>(this->get_parameter("default_speed").as_int());
+        default_acc_    = static_cast<uint8_t>(this->get_parameter("default_acc").as_int());
+        enable_feedback_= this->get_parameter("enable_feedback").as_bool();
+        feedback_ms_    = this->get_parameter("feedback_period_ms").as_int();
+        joint_names_    = this->get_parameter("joint_names").as_string_array();
+
+        auto servo_ids   = this->get_parameter("servo_ids").as_integer_array();
+        auto offsets     = this->get_parameter("tick_offsets").as_integer_array();
+        auto dirs        = this->get_parameter("directions").as_integer_array();
+        auto tick_mins   = this->get_parameter("tick_min").as_integer_array();
+        auto tick_maxs   = this->get_parameter("tick_max").as_integer_array();
+
+        // Build calibration table
+        calibration_.resize(num_servos_);
+        for (int i = 0; i < num_servos_; ++i) {
+            calibration_[i].servo_id   = static_cast<uint8_t>(servo_ids[i]);
+            calibration_[i].tick_offset= static_cast<int16_t>(offsets[i]);
+            calibration_[i].direction  = static_cast<int8_t>(dirs[i]);
+            calibration_[i].tick_min   = static_cast<uint16_t>(tick_mins[i]);
+            calibration_[i].tick_max   = static_cast<uint16_t>(tick_maxs[i]);
         }
 
-        // 2. Subscriber: Listens for a STRING of Hex (e.g. "AA 55 FF")
-        subscription_ = this->create_subscription<std_msgs::msg::String>(
-            "angle_servo", 10, std::bind(&SerialDriver::topic_callback, this, std::placeholders::_1)
-        );
+        // ── Open serial port ────────────────────────────────────────────
+        if (!servo_bus_.begin(baud_rate_, port_name_.c_str())) {
+            RCLCPP_FATAL(this->get_logger(),
+                "Failed to open serial port '%s' at %d baud",
+                port_name_.c_str(), baud_rate_);
+            throw std::runtime_error("Serial port open failed");
+        }
+        RCLCPP_INFO(this->get_logger(),
+            "Serial port '%s' opened at %d baud", port_name_.c_str(), baud_rate_);
+
+        // ── Ping all servos ─────────────────────────────────────────────
+        int alive_count = 0;
+        for (int i = 0; i < num_servos_; ++i) {
+            int response = servo_bus_.Ping(calibration_[i].servo_id);
+            if (response != -1) {
+                RCLCPP_INFO(this->get_logger(),
+                    "Servo ID %d is ONLINE", calibration_[i].servo_id);
+                ++alive_count;
+            } else {
+                RCLCPP_WARN(this->get_logger(),
+                    "Servo ID %d did NOT respond", calibration_[i].servo_id);
+            }
+        }
+        RCLCPP_INFO(this->get_logger(),
+            "Ping complete: %d / %d servos online", alive_count, num_servos_);
+
+        // ── Enable torque on all responding servos ──────────────────────
+        for (int i = 0; i < num_servos_; ++i) {
+            servo_bus_.EnableTorque(calibration_[i].servo_id, 1);
+        }
+        RCLCPP_INFO(this->get_logger(), "Torque enabled on all servos");
+
+        // ── Subscribers ─────────────────────────────────────────────────
+        // Main control topic: receives 12 position values in DEGREES
+        sub_commands_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
+            "/servo_commands", 10,
+            std::bind(&SerialDriverNode::commandCallback, this, std::placeholders::_1));
+
+        // Single-servo test topic: [servo_index, position_degrees]
+        sub_single_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
+            "/servo_single_command", 10,
+            std::bind(&SerialDriverNode::singleCommandCallback, this, std::placeholders::_1));
+
+        // ── Publisher ───────────────────────────────────────────────────
+        pub_joint_states_ = this->create_publisher<sensor_msgs::msg::JointState>(
+            "/joint_states_real", 10);
+
+        // ── Feedback timer ──────────────────────────────────────────────
+        if (enable_feedback_) {
+            feedback_timer_ = this->create_wall_timer(
+                std::chrono::milliseconds(feedback_ms_),
+                std::bind(&SerialDriverNode::feedbackCallback, this));
+            RCLCPP_INFO(this->get_logger(),
+                "Feedback timer started (%d ms period)", feedback_ms_);
+        }
+
+        RCLCPP_INFO(this->get_logger(),
+            "═══ serial_driver_node ready ═══");
     }
 
-    ~SerialDriver() {close(serial_port_);}
+    ~SerialDriverNode()
+    {
+        // Disable torque on all servos before shutdown
+        for (int i = 0; i < num_servos_; ++i) {
+            servo_bus_.EnableTorque(calibration_[i].servo_id, 0);
+        }
+        RCLCPP_INFO(this->get_logger(), "Torque disabled. Shutting down.");
+        servo_bus_.end();
+    }
 
 private:
-    int serial_port_;
-    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
+    // ── Members ─────────────────────────────────────────────────────────
+    SMS_STS                     servo_bus_;
+    std::string                 port_name_;
+    int                         baud_rate_;
+    int                         num_servos_;
+    uint16_t                    default_speed_;
+    uint8_t                     default_acc_;
+    bool                        enable_feedback_;
+    int                         feedback_ms_;
+    std::vector<std::string>    joint_names_;
+    std::vector<JointCalibration> calibration_;
 
-    void configure_serial_port()
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr sub_commands_;
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr sub_single_;
+    rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr        pub_joint_states_;
+    rclcpp::TimerBase::SharedPtr feedback_timer_;
+
+
+    // ── Angle ↔ Tick Conversion ─────────────────────────────────────────
+
+    /**
+     * @brief Convert a joint angle in degrees to a servo tick value.
+     * @param degrees    Joint angle from IK (degrees)
+     * @param cal        Calibration data for this joint
+     * @return Clamped servo tick value (0–4095)
+     */
+    int16_t degreesToTicks(double degrees, const JointCalibration& cal) const
     {
-        struct termios tty;
-        tcgetattr(serial_port_, &tty);
-        cfsetispeed(&tty, B115200);
-        cfsetospeed(&tty, B115200);
-        
-        tty.c_cflag &= ~PARENB; 
-        tty.c_cflag &= ~CSTOPB; 
-        tty.c_cflag &= ~CSIZE;
-        tty.c_cflag |= CS8;     
-        
-        tty.c_iflag &= ~(IXON | IXOFF | IXANY); 
-        tty.c_lflag &= ~ICANON; 
-        tty.c_lflag &= ~ECHO;
-        tty.c_lflag &= ~ISIG;
+        int32_t raw_tick = static_cast<int32_t>(
+            cal.direction * degrees * TICKS_PER_DEGREE) + cal.tick_offset;
 
-        tcsetattr(serial_port_, TCSANOW, &tty);
+        // Clamp to software limits
+        raw_tick = std::clamp(raw_tick,
+            static_cast<int32_t>(cal.tick_min),
+            static_cast<int32_t>(cal.tick_max));
+
+        return static_cast<int16_t>(raw_tick);
     }
 
-    void topic_callback(const std_msgs::msg::String::SharedPtr msg)
+    /**
+     * @brief Convert a servo tick value to joint angle in degrees.
+     * @param tick    Servo position tick (0–4095)
+     * @param cal     Calibration data for this joint
+     * @return Joint angle in degrees
+     */
+    double ticksToDegrees(int16_t tick, const JointCalibration& cal) const
     {
-        std::vector<uint8_t> bytes_to_send;
-        std::stringstream ss(msg->data);
-        std::string segment;
+        return cal.direction * (tick - cal.tick_offset) * DEGREES_PER_TICK;
+    }
 
-        // 3. Parser: Split string by spaces and convert Hex to Byte
-        while (std::getline(ss, segment, ' ')) {
-            if (segment.empty()) continue;
-            
-            // strtoul converts string to unsigned long. 16 means Base-16 (Hex)
-            try {
-                uint8_t byte = (uint8_t)std::strtoul(segment.c_str(), nullptr, 16);
-                bytes_to_send.push_back(byte);
-            } catch (...) {
-                RCLCPP_ERROR(this->get_logger(), "Invalid Hex: %s", segment.c_str());
-                return;
-            }
+
+    // ── Command Callbacks ───────────────────────────────────────────────
+
+    /**
+     * @brief SYNC_WRITE callback — receives 12 joint angles in degrees.
+     *
+     * This is the main control path. The leg_controller publishes 12 values
+     * (θ1,θ2,θ3 for LF, LB, RF, RB) in degrees. This callback converts
+     * each to servo ticks using the calibration table and issues a single
+     * SyncWritePosEx command to all servos simultaneously.
+     */
+    void commandCallback(const std_msgs::msg::Float64MultiArray::SharedPtr msg)
+    {
+        if (static_cast<int>(msg->data.size()) != num_servos_) {
+            RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
+                "Expected %d values, got %zu", num_servos_, msg->data.size());
+            return;
         }
 
-        // 4. Send Raw Bytes
-        if (!bytes_to_send.empty()) {
-            ssize_t written = write(serial_port_, bytes_to_send.data(), bytes_to_send.size());
-            if (written > 0) {
-                RCLCPP_INFO(this->get_logger(), "Sent %ld bytes: %s", written, msg->data.c_str());
+        // Prepare arrays for SyncWritePosEx
+        std::vector<uint8_t>  ids(num_servos_);
+        std::vector<int16_t>  positions(num_servos_);
+        std::vector<uint16_t> speeds(num_servos_, default_speed_);
+        std::vector<uint8_t>  accs(num_servos_, default_acc_);
+
+        for (int i = 0; i < num_servos_; ++i) {
+            ids[i]       = calibration_[i].servo_id;
+            positions[i] = degreesToTicks(msg->data[i], calibration_[i]);
+        }
+
+        // Single SYNC_WRITE packet for all servos
+        servo_bus_.SyncWritePosEx(
+            ids.data(),
+            static_cast<uint8_t>(num_servos_),
+            positions.data(),
+            speeds.data(),
+            accs.data());
+    }
+
+    /**
+     * @brief Single-servo test callback — [servo_index, degrees].
+     *
+     * Useful for testing individual joints without the full pipeline.
+     * servo_index is 0-based (index into the calibration table).
+     */
+    void singleCommandCallback(const std_msgs::msg::Float64MultiArray::SharedPtr msg)
+    {
+        if (msg->data.size() < 2) {
+            RCLCPP_WARN(this->get_logger(),
+                "Single command needs [servo_index, degrees], got %zu values",
+                msg->data.size());
+            return;
+        }
+
+        int servo_idx = static_cast<int>(msg->data[0]);
+        double degrees = msg->data[1];
+
+        if (servo_idx < 0 || servo_idx >= num_servos_) {
+            RCLCPP_WARN(this->get_logger(),
+                "Servo index %d out of range [0, %d)", servo_idx, num_servos_);
+            return;
+        }
+
+        const auto& cal = calibration_[servo_idx];
+        int16_t tick = degreesToTicks(degrees, cal);
+
+        servo_bus_.WritePosEx(cal.servo_id, tick, default_speed_, default_acc_);
+
+        RCLCPP_DEBUG(this->get_logger(),
+            "Single write: index=%d, ID=%d, %.1f° → tick %d",
+            servo_idx, cal.servo_id, degrees, tick);
+    }
+
+
+    // ── Feedback ────────────────────────────────────────────────────────
+
+    /**
+     * @brief Periodic position readback — publishes /joint_states_real.
+     *
+     * Reads the current position of all servos and publishes as a
+     * sensor_msgs::JointState message. The position values are converted
+     * back to degrees using the calibration table.
+     */
+    void feedbackCallback()
+    {
+        auto js_msg = sensor_msgs::msg::JointState();
+        js_msg.header.stamp = this->now();
+        js_msg.name     = joint_names_;
+        js_msg.position.resize(num_servos_);
+        js_msg.velocity.resize(num_servos_);
+        js_msg.effort.resize(num_servos_);
+
+        for (int i = 0; i < num_servos_; ++i) {
+            int pos  = servo_bus_.ReadPos(calibration_[i].servo_id);
+            int load = servo_bus_.ReadLoad(calibration_[i].servo_id);
+
+            if (pos != -1) {
+                js_msg.position[i] = ticksToDegrees(
+                    static_cast<int16_t>(pos), calibration_[i]);
             } else {
-                RCLCPP_ERROR(this->get_logger(), "Write failed");
+                js_msg.position[i] = 0.0;
             }
+
+            js_msg.velocity[i] = 0.0;  // Not read every cycle for speed
+            js_msg.effort[i]   = static_cast<double>(load);
         }
+
+        pub_joint_states_->publish(js_msg);
     }
 };
 
-int main(int argc, char * argv[])
+
+// ─── Main ───────────────────────────────────────────────────────────────────
+
+int main(int argc, char* argv[])
 {
     rclcpp::init(argc, argv);
-    rclcpp::spin(std::make_shared<SerialDriver>());
+
+    try {
+        auto node = std::make_shared<SerialDriverNode>();
+        rclcpp::spin(node);
+    } catch (const std::exception& e) {
+        RCLCPP_FATAL(rclcpp::get_logger("serial_driver"),
+            "Node terminated: %s", e.what());
+    }
+
     rclcpp::shutdown();
     return 0;
 }
