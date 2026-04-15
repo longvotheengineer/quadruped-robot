@@ -40,10 +40,17 @@ ament_target_dependencies(serial_driver_node
   sensor_msgs
 )
 
+# ── calibrate_limits tool ─────────────────────────────────────────────────
+
+add_executable(calibrate_limits src/calibrate_limits.cpp)
+target_include_directories(calibrate_limits PRIVATE ${SCSERVO_DIR})
+target_link_libraries(calibrate_limits scservo_lib)
+
 # ── Install ───────────────────────────────────────────────────────────────
 
 install(TARGETS
   serial_driver_node
+  calibrate_limits
   DESTINATION lib/${PROJECT_NAME}
 )
 

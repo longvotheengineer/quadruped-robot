@@ -412,13 +412,26 @@ class Gait:
     # ── Init pose ─────────────────────────────────────────────────
 
     def init_pose(self):
-        """Hold at INIT_POSE (no balance correction)."""
-        joint_names = self.serial_publish.controller_sim.joint_names
-        targets = [GaitConfig.INIT_POSE[name] for name in joint_names]
-        torques = self.serial_publish.controller_sim.compute_torques(targets)
-        msg = Float64MultiArray()
-        msg.data = torques
-        self.serial_publish.pub_sim_gazebo.publish(msg)
+        """Hold at init pose.
+
+        Sim mode:  PD control to INIT_POSE targets (radians).
+        Real mode: Hold servos at calibration zero (servo 0 degrees).
+        """
+        if self.serial_publish.use_real:
+            # Real hardware: send servo zeros directly (no IK conversion).
+            # Calibration zero = the physical rest position you set
+            # during the calibration procedure.
+            msg = Float64MultiArray()
+            msg.data = [0.0] * 12  # 12 servo angles, all at 0 degrees
+            self.serial_publish.pub_servo_commands.publish(msg)
+        else:
+            # Simulation: PD control to Gazebo INIT_POSE
+            joint_names = self.serial_publish.controller_sim.joint_names
+            targets = [GaitConfig.INIT_POSE[name] for name in joint_names]
+            torques = self.serial_publish.controller_sim.compute_torques(targets)
+            msg = Float64MultiArray()
+            msg.data = torques
+            self.serial_publish.pub_sim_gazebo.publish(msg)
 
     # ── Trajectory generation ─────────────────────────────────────
 

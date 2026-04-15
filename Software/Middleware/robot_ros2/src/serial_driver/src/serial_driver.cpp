@@ -60,16 +60,16 @@ public:
         : Node("serial_driver_node")
     {
         // ── Declare ROS parameters ──────────────────────────────────────
-        this->declare_parameter<std::string>("port",      "/dev/ttyACM0");
+        this->declare_parameter<std::string>("port",      "/dev/ttyACM1");
         this->declare_parameter<int>("baud_rate",          DEFAULT_BAUD_RATE);
         this->declare_parameter<int>("num_servos",         NUM_SERVOS);
         this->declare_parameter<int>("default_speed",      1500);
         this->declare_parameter<int>("default_acc",        50);
-        this->declare_parameter<bool>("enable_feedback",   true);
+        this->declare_parameter<bool>("enable_feedback",   false);
         this->declare_parameter<int>("feedback_period_ms", FEEDBACK_PERIOD_MS);
 
         // Servo ID list (default: 1..12)
-        std::vector<int64_t> default_ids = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+        std::vector<int64_t> default_ids = {7, 8, 9, 4, 5, 6, 1, 2, 3, 10, 11, 12};
         this->declare_parameter<std::vector<int64_t>>("servo_ids", default_ids);
 
         // Joint names for /joint_states_real (matches URDF joint names)
@@ -91,6 +91,10 @@ public:
         this->declare_parameter<std::vector<int64_t>>("tick_min",      default_tick_min);
         this->declare_parameter<std::vector<int64_t>>("tick_max",      default_tick_max);
 
+        // Array offset: which index in the 12-element command array to start from
+        // LF=0, LB=3, RF=6, RB=9  (for single-leg testing)
+        this->declare_parameter<int>("array_offset", 0);
+
         // ── Read parameters ─────────────────────────────────────────────
         port_name_      = this->get_parameter("port").as_string();
         baud_rate_      = this->get_parameter("baud_rate").as_int();
@@ -100,6 +104,7 @@ public:
         enable_feedback_= this->get_parameter("enable_feedback").as_bool();
         feedback_ms_    = this->get_parameter("feedback_period_ms").as_int();
         joint_names_    = this->get_parameter("joint_names").as_string_array();
+        array_offset_   = this->get_parameter("array_offset").as_int();
 
         auto servo_ids   = this->get_parameter("servo_ids").as_integer_array();
         auto offsets     = this->get_parameter("tick_offsets").as_integer_array();
@@ -142,6 +147,18 @@ public:
         }
         RCLCPP_INFO(this->get_logger(),
             "Ping complete: %d / %d servos online", alive_count, num_servos_);
+        
+        // ── Read EEPROM angle limits ───────────────────────────────────
+        for (int i = 0; i < num_servos_; ++i) {
+            int id = calibration_[i].servo_id;
+            int min_limit = servo_bus_.readWord(id, 9);   // SMS_STS_MIN_ANGLE_LIMIT_L
+            int max_limit = servo_bus_.readWord(id, 11);  // SMS_STS_MAX_ANGLE_LIMIT_L
+            if (min_limit != -1 && max_limit != -1) {
+                RCLCPP_INFO(this->get_logger(),
+                    "Servo ID %d EEPROM limits: min=%d, max=%d (ticks)", id, min_limit, max_limit);
+            }
+        }    
+
 
         // ── Enable torque on all responding servos ──────────────────────
         for (int i = 0; i < num_servos_; ++i) {
@@ -197,6 +214,7 @@ private:
     uint8_t                     default_acc_;
     bool                        enable_feedback_;
     int                         feedback_ms_;
+    int                         array_offset_;
     std::vector<std::string>    joint_names_;
     std::vector<JointCalibration> calibration_;
 
@@ -251,9 +269,11 @@ private:
      */
     void commandCallback(const std_msgs::msg::Float64MultiArray::SharedPtr msg)
     {
-        if (static_cast<int>(msg->data.size()) != num_servos_) {
+        if (static_cast<int>(msg->data.size()) < array_offset_ + num_servos_) {
             RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
-                "Expected %d values, got %zu", num_servos_, msg->data.size());
+                "Expected at least %d values (offset=%d, servos=%d), got %zu",
+                array_offset_ + num_servos_, array_offset_, num_servos_,
+                msg->data.size());
             return;
         }
 
@@ -265,7 +285,7 @@ private:
 
         for (int i = 0; i < num_servos_; ++i) {
             ids[i]       = calibration_[i].servo_id;
-            positions[i] = degreesToTicks(msg->data[i], calibration_[i]);
+            positions[i] = degreesToTicks(msg->data[array_offset_ + i], calibration_[i]);
         }
 
         // Single SYNC_WRITE packet for all servos
