@@ -2,7 +2,7 @@ import math
 from std_msgs.msg import Float64MultiArray
 from rclpy.node import Node
 from leg_controller.controllerSim import ControllerSim
-
+from sensor_msgs.msg import JointState
 
 class SerialPublish():
     def __init__(self, node):
@@ -23,10 +23,20 @@ class SerialPublish():
         # PID controller for torque computation (Gazebo only)
         self.controller_sim = ControllerSim(node)
 
+        self.real_positions = {}
+        if self.use_real:
+            node.create_subscription(
+                JointState, '/joint_states_real', self._real_joint_cb, 10)
+
         if self.use_real:
             self.get_logger.info('SerialPublish: REAL HARDWARE mode enabled')
         else:
             self.get_logger.info('SerialPublish: SIMULATION mode (Gazebo)')
+
+    def _real_joint_cb(self, msg):
+        for i, name in enumerate(msg.name):
+            if i < len(msg.position):
+                self.real_positions[name] = msg.position[i]
 
     # ── IK-to-Servo conversion (empirically verified) ─────────────────
 

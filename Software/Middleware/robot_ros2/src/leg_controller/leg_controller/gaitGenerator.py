@@ -268,6 +268,9 @@ class Gait:
 
     def _tick_home(self):
         """Advance homing by one frame."""
+        if self.serial_publish.use_real:
+            return self._tick_home_real()
+
         total_frames = self._angle_data.shape[0]
         if self._step_current < total_frames:
             targets = self._angle_data[self._step_current].tolist()
@@ -296,16 +299,41 @@ class Gait:
             self.serial_publish.pub_sim_gazebo.publish(msg)
             return False
 
+    def _tick_home_real(self):
+        """Advance real-hardware homing by one frame."""
+        total_frames = self._angle_data.shape[0]
+
+        if self._step_current < total_frames:
+            # Publish one interpolated frame (servo degrees)
+            frame = self._angle_data[self._step_current].tolist()
+            msg = Float64MultiArray()
+            msg.data = frame
+            self.serial_publish.pub_servo_commands.publish(msg)
+            self._step_current += 1
+            return True
+        else:
+            # Homing complete — hold at target
+            msg = Float64MultiArray()
+            msg.data = self._homing_targets_real
+            self.serial_publish.pub_servo_commands.publish(msg)
+            return False
+
     def _tick_gait(self):
         """Advance gait by one frame with IMU balance compensation."""
         angle_data = self._angle_data
         frame = self._step_current
 
-        # Publish frame index so balance controller can track baseline
-        self._pub_gait_frame.publish(Int32(data=frame))
+        if self.serial_publish.use_real:
+            # Real hardware: no IMU, skip all balance corrections
+            pos = np.array([angle_data[i][frame] for i in range(4)])
+        else:
+            # Simulation: apply stance correction with IMU
 
-        # Apply stance correction using received gait PID output
-        pos = self._apply_stance_correction(frame, angle_data)
+            # Publish frame index so balance controller can track baseline
+            self._pub_gait_frame.publish(Int32(data=frame))
+
+            # Apply stance correction using received gait PID output
+            pos = self._apply_stance_correction(frame, angle_data)
 
         if (self._gait_msg.step > 0
                 and self._step_final >= self._gait_msg.step):
@@ -415,15 +443,10 @@ class Gait:
         """Hold at init pose.
 
         Sim mode:  PD control to INIT_POSE targets (radians).
-        Real mode: Hold servos at calibration zero (servo 0 degrees).
+        Real mode: Do nothing - random pose (hold at current pose).
         """
         if self.serial_publish.use_real:
-            # Real hardware: send servo zeros directly (no IK conversion).
-            # Calibration zero = the physical rest position you set
-            # during the calibration procedure.
-            msg = Float64MultiArray()
-            msg.data = [0.0] * 12  # 12 servo angles, all at 0 degrees
-            self.serial_publish.pub_servo_commands.publish(msg)
+            pass
         else:
             # Simulation: PD control to Gazebo INIT_POSE
             joint_names = self.serial_publish.controller_sim.joint_names
@@ -528,6 +551,55 @@ class Gait:
         self._homing_targets = homing_targets
         return np.array(theta_i)
 
+    def _generate_home_real(self):
+        """Generate homing trajectory for real hardware (in servo degrees)."""
+        # 1. Compute IK standing targets for all 4 legs
+        lf = self._kinematics.inverse(125, 135, -170, "left-front")
+        lb = self._kinematics.inverse(-125, 135, -170, "left-behind")
+        rf = self._kinematics.inverse(125, -135, -170, "right-front")
+        rb = self._kinematics.inverse(-125, -135, -170, "right-behind")
+
+        # 2. Convert IK degrees → servo degrees
+        lf_servo = self.serial_publish._ik_to_servo_left(*lf)
+        lb_servo = self.serial_publish._ik_to_servo_left(*lb)
+        rf_servo = self.serial_publish._ik_to_servo_right(*rf)
+        rb_servo = self.serial_publish._ik_to_servo_right(*rb)
+
+        # Target: 12 servo angles in degrees
+        target = list(lf_servo) + list(lb_servo) + list(rf_servo) + list(rb_servo)
+
+        # 3. Read current servo positions (degrees from /joint_states_real)
+        positions = self.serial_publish.real_positions
+        if not positions:
+            self._logger.warn('No real servo positions yet — waiting for feedback...')
+            return None
+
+        joint_names = [
+            'joint_lf_1', 'joint_lf_2', 'joint_lf_3',
+            'joint_lb_1', 'joint_lb_2', 'joint_lb_3',
+            'joint_rf_1', 'joint_rf_2', 'joint_rf_3',
+            'joint_rb_1', 'joint_rb_2', 'joint_rb_3',
+        ]
+        current = [positions.get(name, 0.0) for name in joint_names]
+
+        # Disable feedback to free the serial bus for smooth commands
+        from std_msgs.msg import Bool
+        pub = self._node.create_publisher(Bool, '/feedback_enable', 10)
+        pub.publish(Bool(data=False))
+        self._logger.info('Feedback disabled — serial bus free for commands')
+
+        # 4. Interpolate current → target over waypoint.zero frames
+        num_frames = 10000
+        trajectory = np.zeros((num_frames, 12))
+        for step in range(num_frames):
+            alpha = step / num_frames
+            for j in range(12):
+                trajectory[step, j] = current[j] + alpha * (target[j] - current[j])
+
+        # Store targets for holding after homing completes
+        self._homing_targets_real = target
+        return trajectory
+
     def _generate_gait(self, leg_type):
         """Generate one leg's full gait cycle."""
         match self._gait_msg.cmd:
@@ -588,9 +660,11 @@ class Gait:
         match self._gait_msg.cmd:
             case "ZERO":
                 self._foot_data = None
-                # Tell balance controller to use HOME mode
                 self._pub_balance_mode.publish(String(data='HOME'))
-                return self._generate_home()
+                if self.serial_publish.use_real:
+                    return self._generate_home_real()
+                else:
+                    return self._generate_home()
             case _:
                 theta_i = np.empty(4, dtype=object)
                 foot_i = np.empty(4, dtype=object)

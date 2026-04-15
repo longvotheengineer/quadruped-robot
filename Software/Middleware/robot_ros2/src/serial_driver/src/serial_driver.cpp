@@ -20,6 +20,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
+#include <std_msgs/msg/bool.hpp>
 
 #include "SCServo.h"
 
@@ -177,6 +178,17 @@ public:
             "/servo_single_command", 10,
             std::bind(&SerialDriverNode::singleCommandCallback, this, std::placeholders::_1));
 
+        // Feedback control topic
+        sub_feedback_ctrl_ = this->create_subscription<std_msgs::msg::Bool>(
+            "/feedback_enable", 10,
+            [this](const std_msgs::msg::Bool::SharedPtr msg) {
+                if (!msg->data && feedback_timer_) {
+                    feedback_timer_->cancel();
+                    feedback_timer_.reset();
+                    RCLCPP_INFO(this->get_logger(), "Feedback DISABLED via topic");
+                }
+            });
+
         // ── Publisher ───────────────────────────────────────────────────
         pub_joint_states_ = this->create_publisher<sensor_msgs::msg::JointState>(
             "/joint_states_real", 10);
@@ -220,6 +232,7 @@ private:
 
     rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr sub_commands_;
     rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr sub_single_;
+    rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr sub_feedback_ctrl_;
     rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr        pub_joint_states_;
     rclcpp::TimerBase::SharedPtr feedback_timer_;
 
