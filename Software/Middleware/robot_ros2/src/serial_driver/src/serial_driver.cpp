@@ -82,13 +82,14 @@ public:
         };
         this->declare_parameter<std::vector<std::string>>("joint_names", default_joint_names);
 
+        // Indices:  LF1 LF2 LF3  LB1 LB2 LB3  RF1 RF2 RF3  RB1  RB2  RB3
+        std::vector<int64_t> default_dir = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
         // Per-joint calibration: offsets (default midpoint), directions (default +1)
         std::vector<int64_t> default_offsets(NUM_SERVOS, 2048);
-        std::vector<int64_t> default_dirs(NUM_SERVOS, 1);
         std::vector<int64_t> default_tick_min(NUM_SERVOS, 0);
         std::vector<int64_t> default_tick_max(NUM_SERVOS, 4095);
         this->declare_parameter<std::vector<int64_t>>("tick_offsets",  default_offsets);
-        this->declare_parameter<std::vector<int64_t>>("directions",    default_dirs);
+        this->declare_parameter<std::vector<int64_t>>("directions",    default_dir);
         this->declare_parameter<std::vector<int64_t>>("tick_min",      default_tick_min);
         this->declare_parameter<std::vector<int64_t>>("tick_max",      default_tick_max);
 

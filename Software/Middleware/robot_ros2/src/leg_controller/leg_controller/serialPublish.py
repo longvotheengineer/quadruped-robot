@@ -5,6 +5,9 @@ from leg_controller.controllerSim import ControllerSim
 from sensor_msgs.msg import JointState
 
 class SerialPublish():
+    # Standing IK servo_2 value for left legs (computed from inverse(125, 135, -170, 'left-front'))
+    # Used to reflect motion direction — see _ik_to_servo_left.
+    _LEFT_SERVO2_STANDING = -138.2
     def __init__(self, node):
         self.node = node
         self.get_logger = node.get_logger()
@@ -40,13 +43,15 @@ class SerialPublish():
 
     # ── IK-to-Servo conversion (empirically verified) ─────────────────
 
-    @staticmethod
-    def _ik_to_servo_left(theta1_deg, theta2_deg, theta3_deg):
+    @classmethod
+    def _ik_to_servo_left(cls, theta1_deg, theta2_deg, theta3_deg):
         """Convert raw IK degrees to servo degrees for a LEFT leg.
 
         Mapping (verified on left-front leg):
           Joint 1 (hip):      direct — same zero, same direction
-          Joint 2 (shoulder): +90° offset — servo 0° = IK -90°
+          Joint 2 (shoulder): reflected — left motor is physically mirrored,
+                              so the motion delta must be negated while keeping
+                              the standing position unchanged.
           Joint 3 (knee):     flip + offset — bar linkage reverses direction
 
         Args:
@@ -62,7 +67,10 @@ class SerialPublish():
             theta2_deg -= 360.0
 
         servo_1 = theta1_deg                # hip: direct
-        servo_2 = theta2_deg + 90.0         # shoulder: offset
+        # Reflect θ2 around standing angle to reverse motion direction:
+        # At standing: servo_2 = standing (unchanged)
+        # For any delta: servo_2 = standing - delta (reversed)
+        servo_2 = 2.0 * cls._LEFT_SERVO2_STANDING - theta2_deg
         servo_3 = -theta3_deg - 90.0        # knee: flip + offset (bar linkage)
 
         return servo_1, servo_2, servo_3

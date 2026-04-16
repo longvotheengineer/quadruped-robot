@@ -46,11 +46,18 @@ add_executable(calibrate_limits src/calibrate_limits.cpp)
 target_include_directories(calibrate_limits PRIVATE ${SCSERVO_DIR})
 target_link_libraries(calibrate_limits scservo_lib)
 
+# ── servo_calibrator tool ─────────────────────────────────────────────────
+
+add_executable(servo_calibrator src/servo_calibrator.cpp)
+target_include_directories(servo_calibrator PRIVATE ${SCSERVO_DIR})
+target_link_libraries(servo_calibrator scservo_lib)
+
 # ── Install ───────────────────────────────────────────────────────────────
 
 install(TARGETS
   serial_driver_node
   calibrate_limits
+  servo_calibrator
   DESTINATION lib/${PROJECT_NAME}
 )
 

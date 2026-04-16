@@ -589,7 +589,7 @@ class Gait:
         self._logger.info('Feedback disabled — serial bus free for commands')
 
         # 4. Interpolate current → target over waypoint.zero frames
-        num_frames = 10000
+        num_frames = 5000
         trajectory = np.zeros((num_frames, 12))
         for step in range(num_frames):
             alpha = step / num_frames
