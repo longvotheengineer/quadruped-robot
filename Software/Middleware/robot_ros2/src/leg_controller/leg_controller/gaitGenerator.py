@@ -560,8 +560,8 @@ class Gait:
         rb = self._kinematics.inverse(-125, -135, -170, "right-behind")
 
         # 2. Convert IK degrees → servo degrees
-        lf_servo = self.serial_publish._ik_to_servo_left(*lf)
-        lb_servo = self.serial_publish._ik_to_servo_left(*lb)
+        lf_servo = self.serial_publish._ik_to_servo_lf(*lf)
+        lb_servo = self.serial_publish._ik_to_servo_lb(*lb)
         rf_servo = self.serial_publish._ik_to_servo_right(*rf)
         rb_servo = self.serial_publish._ik_to_servo_right(*rb)
 

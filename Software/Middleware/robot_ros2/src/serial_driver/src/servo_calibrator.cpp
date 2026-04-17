@@ -9,6 +9,7 @@
  *   4. Calibrate center (set current position as center=2048)
  *   5. Set min/max angle limits with live position display
  *   6. Live position monitor
+ *   7. Calibrate direction (determine +1/-1 multiplier for serial_driver)
  *
  * Usage:
  *   ./servo_calibrator /dev/ttyACM1
@@ -294,6 +295,135 @@ static void live_monitor(SMS_STS& servo, int id) {
     }
 }
 
+static void calibrate_direction(SMS_STS& servo, int id) {
+    static constexpr int TEST_DELTA  = 200;   // ticks to move for the test
+    static constexpr int TEST_SPEED  = 500;   // slow speed for safety
+    static constexpr int TEST_ACC    = 20;
+
+    std::cout << "\n  ═══ Direction Calibration (ID " << id << ") ═══" << std::endl;
+    std::cout << "  This determines the software direction multiplier (+1 / -1)" << std::endl;
+    std::cout << "  for the serial_driver 'directions' parameter.\n" << std::endl;
+    std::cout << "  The servo will move a small amount in the +tick direction." << std::endl;
+    std::cout << "  After observing the motion, you decide if that matches" << std::endl;
+    std::cout << "  the POSITIVE joint direction on your robot.\n" << std::endl;
+
+    // Read current position
+    int start_pos = servo.ReadPos(id);
+    if (start_pos == -1) {
+        std::cout << "  ✗ Could not read position!" << std::endl;
+        return;
+    }
+    double start_deg = start_pos * TICKS_TO_DEG;
+    std::cout << "  Current position: " << start_pos << " ticks ("
+              << std::fixed << std::setprecision(1) << start_deg << "°)" << std::endl;
+
+    // Check if we have room to move
+    int min_lim = servo.readWord(id, 9);
+    int max_lim = servo.readWord(id, 11);
+    std::cout << "  EEPROM limits: min=" << min_lim << "  max=" << max_lim << std::endl;
+
+    int target = start_pos + TEST_DELTA;
+    bool moved_positive = true;
+
+    // If moving +delta would exceed the max limit, move -delta instead
+    if (max_lim > 0 && target > max_lim) {
+        target = start_pos - TEST_DELTA;
+        moved_positive = false;
+        if (min_lim >= 0 && target < min_lim) {
+            std::cout << "  ✗ Not enough range to test! Widen the limits first." << std::endl;
+            return;
+        }
+    }
+
+    std::cout << "\n  Will move: " << start_pos << " → " << target
+              << " (" << (moved_positive ? "+" : "-") << TEST_DELTA << " ticks)" << std::endl;
+    std::cout << "  Press ENTER to move, Ctrl+C to abort..." << std::endl;
+    wait_enter();
+
+    // Move the servo
+    servo.WritePosEx(id, target, TEST_SPEED, TEST_ACC);
+    sleep_ms(1500);  // wait for motion to complete
+
+    int actual_pos = servo.ReadPos(id);
+    double actual_deg = actual_pos * TICKS_TO_DEG;
+    std::cout << "  Moved to: " << actual_pos << " ticks ("
+              << std::fixed << std::setprecision(1) << actual_deg << "°)" << std::endl;
+
+    // Ask user about the direction
+    std::cout << "\n  ┌─────────────────────────────────────────────────┐" << std::endl;
+    std::cout << "  │  Did the joint move in the POSITIVE direction   │" << std::endl;
+    std::cout << "  │  for your robot? (the direction you want when   │" << std::endl;
+    std::cout << "  │  the IK sends a positive angle change)          │" << std::endl;
+    std::cout << "  └─────────────────────────────────────────────────┘" << std::endl;
+    std::cout << "  (y/n): ";
+
+    char answer;
+    std::cin >> answer;
+    std::cin.ignore();
+
+    int direction;
+    if (moved_positive) {
+        direction = (answer == 'y' || answer == 'Y') ? 1 : -1;
+    } else {
+        // We actually moved in -tick direction, so invert the logic
+        direction = (answer == 'y' || answer == 'Y') ? -1 : 1;
+    }
+
+    // Move back to start
+    std::cout << "\n  Returning to start position..." << std::endl;
+    servo.WritePosEx(id, start_pos, TEST_SPEED, TEST_ACC);
+    sleep_ms(1500);
+
+    int returned_pos = servo.ReadPos(id);
+    std::cout << "  Returned to: " << returned_pos << " ticks" << std::endl;
+
+    // Display result
+    std::cout << "\n  ╔══════════════════════════════════════════════════╗" << std::endl;
+    std::cout << "  ║  DIRECTION RESULT for servo ID " << std::setw(3) << id << "               ║" << std::endl;
+    std::cout << "  ╠══════════════════════════════════════════════════╣" << std::endl;
+    std::cout << "  ║                                                  ║" << std::endl;
+    std::cout << "  ║   direction = " << std::setw(2) << direction
+              << "                                 ║" << std::endl;
+    std::cout << "  ║                                                  ║" << std::endl;
+    std::cout << "  ║  Use this value in serial_driver's 'directions'  ║" << std::endl;
+    std::cout << "  ║  parameter array for this servo's joint index.   ║" << std::endl;
+    std::cout << "  ╚══════════════════════════════════════════════════╝" << std::endl;
+
+    // Offer to test the other direction
+    std::cout << "\n  Test with reversed direction? (y/n): ";
+    std::cin >> answer;
+    std::cin.ignore();
+
+    if (answer == 'y' || answer == 'Y') {
+        int rev_target = start_pos - (target - start_pos);  // opposite direction
+
+        // Check limits
+        if ((rev_target < min_lim && min_lim >= 0) || (rev_target > max_lim && max_lim > 0)) {
+            std::cout << "  ✗ Reverse target (" << rev_target << ") exceeds limits!" << std::endl;
+            return;
+        }
+
+        std::cout << "  Moving: " << start_pos << " → " << rev_target
+                  << " (reverse direction)" << std::endl;
+        servo.WritePosEx(id, rev_target, TEST_SPEED, TEST_ACC);
+        sleep_ms(1500);
+
+        int rev_pos = servo.ReadPos(id);
+        std::cout << "  Moved to: " << rev_pos << " ticks ("
+                  << std::fixed << std::setprecision(1) << (rev_pos * TICKS_TO_DEG) << "°)" << std::endl;
+
+        std::cout << "  Press ENTER to return to start..." << std::endl;
+        wait_enter();
+
+        servo.WritePosEx(id, start_pos, TEST_SPEED, TEST_ACC);
+        sleep_ms(1500);
+        std::cout << "  ✓ Returned to start." << std::endl;
+    }
+
+    std::cout << "\n  ✓ Direction calibration complete. direction = "
+              << direction << " for ID " << id << std::endl;
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
 //  MAIN MENU
 // ═══════════════════════════════════════════════════════════════════════════
@@ -329,6 +459,7 @@ int main(int argc, char** argv) {
         std::cout << "  ║  5. Calibrate center                 ║" << std::endl;
         std::cout << "  ║  6. Set angle limits                 ║" << std::endl;
         std::cout << "  ║  7. Live position monitor            ║" << std::endl;
+        std::cout << "  ║  8. Calibrate direction              ║" << std::endl;
         std::cout << "  ║  0. Exit                             ║" << std::endl;
         std::cout << "  ╚══════════════════════════════════════╝" << std::endl;
         std::cout << "  Choice: ";
@@ -385,6 +516,11 @@ int main(int argc, char** argv) {
             case 7:
                 if (selected_id < 0) { std::cout << "  Select a servo first (option 2)." << std::endl; break; }
                 live_monitor(servo, selected_id);
+                break;
+
+            case 8:
+                if (selected_id < 0) { std::cout << "  Select a servo first (option 2)." << std::endl; break; }
+                calibrate_direction(servo, selected_id);
                 break;
 
             default:
