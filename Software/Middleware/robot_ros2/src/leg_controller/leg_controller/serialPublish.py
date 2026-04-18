@@ -16,20 +16,28 @@ class SerialPublish():
         self.pub_sim_gazebo = node.create_publisher(
             Float64MultiArray, '/leg_controller/commands', 10)
 
-        # Publisher for real servo commands (degrees → serial_driver_node)
-        self.pub_servo_commands = node.create_publisher(
-            Float64MultiArray, '/servo_commands', 10)
+        # Publishers for real servo commands (degrees → serial_driver_node)
+        # Two drivers: A handles LF+RB, B handles LB+RF
+        self.pub_servo_commands_a = node.create_publisher(
+            Float64MultiArray, '/servo_commands_a', 10)
+        self.pub_servo_commands_b = node.create_publisher(
+            Float64MultiArray, '/servo_commands_b', 10)
 
         # PID controller for torque computation (Gazebo only)
         self.controller_sim = ControllerSim(node)
 
         self.real_positions = {}
         if self.use_real:
+            # Subscribe to feedback from both drivers
             node.create_subscription(
-                JointState, '/joint_states_real', self._real_joint_cb, 10)
+                JointState, '/joint_states_real_a', self._real_joint_cb, 10)
+            node.create_subscription(
+                JointState, '/joint_states_real_b', self._real_joint_cb, 10)
 
         if self.use_real:
             self.get_logger.info('SerialPublish: REAL HARDWARE mode enabled')
+            self.get_logger.info('  Driver A topic: /servo_commands_a (LF+RB)')
+            self.get_logger.info('  Driver B topic: /servo_commands_b (LB+RF)')
         else:
             self.get_logger.info('SerialPublish: SIMULATION mode (Gazebo)')
 
@@ -149,11 +157,14 @@ class SerialPublish():
         self.pub_sim_gazebo.publish(msg_gazebo)
 
     def publish_real(self, theta):
-        """Publish to real servos via /servo_commands.
+        """Publish to real servos via dual /servo_commands_a and _b topics.
 
         Converts IK angles (degrees) to servo angles using the
-        empirically verified mapping, then publishes as a
-        Float64MultiArray of 12 servo angles in degrees.
+        empirically verified mapping, then publishes as two
+        Float64MultiArray messages — one per driver.
+
+        Driver A (port A): LF + RB servos (6 values)
+        Driver B (port B): LB + RF servos (6 values)
 
         Args:
             theta: 4×3 numpy array of IK joint angles in degrees.
@@ -172,14 +183,43 @@ class SerialPublish():
         rb1, rb2, rb3 = self._ik_to_servo_right(
             theta[3, 0], theta[3, 1], theta[3, 2])
 
-        servo_angles = [lf1, lf2, lf3,
-                        lb1, lb2, lb3,
-                        rf1, rf2, rf3,
-                        rb1, rb2, rb3]
+        # Driver A: LF + RB (servo IDs 7,8,9 + 10,11,12)
+        msg_a = Float64MultiArray()
+        msg_a.data = [lf1, lf2, lf3, rb1, rb2, rb3]
+        self.pub_servo_commands_a.publish(msg_a)
 
-        msg = Float64MultiArray()
-        msg.data = servo_angles
-        self.pub_servo_commands.publish(msg)
+        # Driver B: LB + RF (servo IDs 4,5,6 + 1,2,3)
+        msg_b = Float64MultiArray()
+        msg_b.data = [lb1, lb2, lb3, rf1, rf2, rf3]
+        self.pub_servo_commands_b.publish(msg_b)
+
+    def publish_real_12(self, servo_angles_12):
+        """Publish a flat 12-element servo-degree list to both drivers.
+
+        This is used by gaitGenerator's _tick_home_real() which builds
+        a full 12-element array [LF1..3, LB1..3, RF1..3, RB1..3].
+
+        Splits into:
+          Driver A: indices [0:3] (LF) + [9:12] (RB)
+          Driver B: indices [3:6] (LB) + [6:9]  (RF)
+        """
+        msg_a = Float64MultiArray()
+        msg_a.data = list(servo_angles_12[0:3]) + list(servo_angles_12[9:12])
+
+        msg_b = Float64MultiArray()
+        msg_b.data = list(servo_angles_12[3:6]) + list(servo_angles_12[6:9])
+
+        self.pub_servo_commands_a.publish(msg_a)
+        self.pub_servo_commands_b.publish(msg_b)
+
+    def disable_feedback(self):
+        """Disable feedback on both drivers to free serial bus for commands."""
+        from std_msgs.msg import Bool
+        pub_a = self.node.create_publisher(Bool, '/feedback_enable_a', 10)
+        pub_b = self.node.create_publisher(Bool, '/feedback_enable_b', 10)
+        pub_a.publish(Bool(data=False))
+        pub_b.publish(Bool(data=False))
+        self.get_logger.info('Feedback disabled on both drivers')
 
     def publish_message(self, theta):
         """Route to sim or real based on the use_real_hardware parameter."""

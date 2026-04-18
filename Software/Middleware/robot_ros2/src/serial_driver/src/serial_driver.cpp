@@ -101,6 +101,12 @@ private:
     uint8_t     default_acc_    = 0;
     int         array_offset_   = 0;
 
+    // Topic names (parameterized for multi-driver support)
+    std::string command_topic_;
+    std::string single_command_topic_;
+    std::string feedback_enable_topic_;
+    std::string feedback_topic_;
+
     // Calibration
     std::vector<JointCalibration> calibration_;
     std::vector<std::string>      joint_names_;
@@ -142,15 +148,11 @@ private:
         };
         this->declare_parameter<std::vector<std::string>>("joint_names", default_joint_names);
 
-        // Per-joint calibration defaults
-        //   Indices: LF1 LF2 LF3  LB1 LB2 LB3  RF1 RF2 RF3  RB1 RB2 RB3
-        //   LB joint2 (index 4): direction=-1, offset=3144
-        //     — servo physically rotates same as right legs (opposite to LF)
-        //     — driver inverts + shifts offset to stay within EEPROM [2046,3763]
-        std::vector<int64_t> default_directions =
-            {1, 1, 1,  1, -1, 1,  1, 1, 1,  1, 1, 1};
-        std::vector<int64_t> default_offsets =
-            {2048, 2048, 2048,  2048, 3144, 2048,  2048, 2048, 2048,  2048, 2048, 2048};
+        // Per-joint calibration defaults (all neutral — override via params)
+        //   Per-leg calibration (e.g. LB joint2 direction=-1, offset=3144)
+        //   must be set in the launch file or CLI for each driver instance.
+        std::vector<int64_t> default_directions(kNumServos, 1);
+        std::vector<int64_t> default_offsets(kNumServos, 2048);
         std::vector<int64_t> default_tick_min(kNumServos, 0);
         std::vector<int64_t> default_tick_max(kNumServos, 4095);
         this->declare_parameter<std::vector<int64_t>>("tick_offsets", default_offsets);
@@ -161,6 +163,12 @@ private:
         // Array offset: starting index in the 12-element command array
         //   LF=0, LB=3, RF=6, RB=9 (for single-leg testing)
         this->declare_parameter<int>("array_offset", 0);
+
+        // Topic names (override to run multiple driver instances)
+        this->declare_parameter<std::string>("command_topic",         "/servo_commands");
+        this->declare_parameter<std::string>("single_command_topic",  "/servo_single_command");
+        this->declare_parameter<std::string>("feedback_enable_topic", "/feedback_enable");
+        this->declare_parameter<std::string>("feedback_topic",        "/joint_states_real");
     }
 
     /** @brief Load all ROS parameters into member variables. */
@@ -174,6 +182,11 @@ private:
         feedback_ms_     = this->get_parameter("feedback_period_ms").as_int();
         joint_names_     = this->get_parameter("joint_names").as_string_array();
         array_offset_    = this->get_parameter("array_offset").as_int();
+
+        command_topic_         = this->get_parameter("command_topic").as_string();
+        single_command_topic_  = this->get_parameter("single_command_topic").as_string();
+        feedback_enable_topic_ = this->get_parameter("feedback_enable_topic").as_string();
+        feedback_topic_        = this->get_parameter("feedback_topic").as_string();
     }
 
     /** @brief Build the per-joint calibration table from ROS parameters. */
@@ -248,19 +261,19 @@ private:
 
     /** @brief Create all ROS topic subscribers. */
     void createSubscribers() {
-        // Main control topic: receives 12 position values in degrees
+        // Main control topic: receives position values in degrees
         sub_commands_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
-            "/servo_commands", 10,
+            command_topic_, 10,
             std::bind(&SerialDriverNode::onServoCommandsReceived, this, std::placeholders::_1));
 
         // Single-servo test topic: [servo_index, position_degrees]
         sub_single_command_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
-            "/servo_single_command", 10,
+            single_command_topic_, 10,
             std::bind(&SerialDriverNode::onSingleServoCommandReceived, this, std::placeholders::_1));
 
         // Feedback on/off toggle topic
         sub_feedback_toggle_ = this->create_subscription<std_msgs::msg::Bool>(
-            "/feedback_enable", 10,
+            feedback_enable_topic_, 10,
             [this](const std_msgs::msg::Bool::SharedPtr msg) {
                 if (!msg->data && feedback_timer_) {
                     feedback_timer_->cancel();
@@ -273,7 +286,7 @@ private:
     /** @brief Create the joint-state feedback publisher. */
     void createPublisher() {
         pub_joint_states_ = this->create_publisher<sensor_msgs::msg::JointState>(
-            "/joint_states_real", 10);
+            feedback_topic_, 10);
     }
 
     /** @brief Start the periodic feedback timer if enabled via parameter. */

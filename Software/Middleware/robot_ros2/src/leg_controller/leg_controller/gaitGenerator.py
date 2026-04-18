@@ -304,18 +304,14 @@ class Gait:
         total_frames = self._angle_data.shape[0]
 
         if self._step_current < total_frames:
-            # Publish one interpolated frame (servo degrees)
+            # Publish one interpolated frame (servo degrees) to both drivers
             frame = self._angle_data[self._step_current].tolist()
-            msg = Float64MultiArray()
-            msg.data = frame
-            self.serial_publish.pub_servo_commands.publish(msg)
+            self.serial_publish.publish_real_12(frame)
             self._step_current += 1
             return True
         else:
             # Homing complete — hold at target
-            msg = Float64MultiArray()
-            msg.data = self._homing_targets_real
-            self.serial_publish.pub_servo_commands.publish(msg)
+            self.serial_publish.publish_real_12(self._homing_targets_real)
             return False
 
     def _tick_gait(self):
@@ -464,7 +460,7 @@ class Gait:
         x_forward = x_center + stride_length / 2
         x_backward = x_center - stride_length / 2
         z_stance = -170
-        z_swing = -130
+        z_swing = -90
         lift_height = z_swing - z_stance
 
         if reverse:
@@ -582,11 +578,8 @@ class Gait:
         ]
         current = [positions.get(name, 0.0) for name in joint_names]
 
-        # Disable feedback to free the serial bus for smooth commands
-        from std_msgs.msg import Bool
-        pub = self._node.create_publisher(Bool, '/feedback_enable', 10)
-        pub.publish(Bool(data=False))
-        self._logger.info('Feedback disabled — serial bus free for commands')
+        # Disable feedback on both drivers to free the serial bus
+        self.serial_publish.disable_feedback()
 
         # 4. Interpolate current → target over waypoint.zero frames
         num_frames = 5000
