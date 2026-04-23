@@ -61,11 +61,13 @@ class SerialPublish():
             tuple of (servo1_deg, servo2_deg, servo3_deg)
         """
         # Undo normalization (kinematics.py adds +360 if < 0 for LF)
-        if theta2_deg > 180.0:
-            theta2_deg -= 360.0
+        # if theta2_deg > 180.0:
+        #     theta2_deg -= 360.0
 
         servo_1 = theta1_deg                # hip: direct
-        servo_2 = theta2_deg                # shoulder: direct
+        # theta2_deg = 180
+        servo_2 = -(theta2_deg - 90)               # shoulder: direct
+        # theta3_deg = -90
         servo_3 = theta3_deg + 90.0         # knee: bar linkage offset
 
         return servo_1, servo_2, servo_3
@@ -78,6 +80,10 @@ class SerialPublish():
         The negation here keeps ticks within the EEPROM range [2046, 3763];
         the serial driver compensates with direction=-1 and tick_offset=3144.
 
+        LB IK θ2 sign depends on foot placement relative to the hip:
+          x_center < −L/2 → θ2 negative (no wrap)
+          x_center > −L/2 → θ2 wraps past +180° (needs normalization)
+
         Args:
             theta1_deg: IK hip angle in degrees
             theta2_deg: IK shoulder angle in degrees
@@ -86,35 +92,65 @@ class SerialPublish():
         Returns:
             tuple of (servo1_deg, servo2_deg, servo3_deg)
         """
-        # Undo normalization (kinematics.py subtracts 360 if > 0 for LB)
-        if theta2_deg < -180.0:
-            theta2_deg += 360.0
+        # Normalize θ2 into (−180, +180] range.
+        if theta2_deg > 180.0:
+            theta2_deg -= 360.0
 
         servo_1 = theta1_deg                # hip: direct
-        servo_2 = -theta2_deg - 90          # shoulder: negated (driver inverts)
+        servo_2 = theta2_deg + 180          # shoulder: negated (driver inverts)
         servo_3 = theta3_deg + 90.0         # knee: bar linkage offset
 
         return servo_1, servo_2, servo_3
 
     @staticmethod
-    def _ik_to_servo_right(theta1_deg, theta2_deg, theta3_deg):
-        """Convert raw IK degrees to servo degrees for a RIGHT leg.
+    def _ik_to_servo_rf(theta1_deg, theta2_deg, theta3_deg):
+        """Convert raw IK degrees to servo degrees for the RIGHT-FRONT leg.
 
-        The right-side IK produces MIRRORED angles vs left-side:
-          LF standing: θ2 ≈ -90°, θ3 ≈ -90° (negative)
-          RF standing: θ2 ≈ +90°, θ3 ≈ +90° (positive)
+        RF IK returns θ2 ≈ −218.7° at standing (wraps past −180°).
+        Normalization brings it to ~141.3° so the formula maps into
+        the EEPROM range [2048, 3754].
 
-        Same physical servo behavior (verified empirically on RF leg):
-          servo 0° = calibration zero = standing position
-          servo + = backward (joint 2) / bends more (joint 3)
+        Args:
+            theta1_deg: IK hip angle in degrees
+            theta2_deg: IK shoulder angle in degrees
+            theta3_deg: IK knee angle in degrees
+
+        Returns:
+            tuple of (servo1_deg, servo2_deg, servo3_deg)
         """
-        # Undo Gazebo normalization on θ2 (kinematics.py subtracts 360 if > 0)
+        # Normalize θ2 into (−180, +180] range.
         if theta2_deg < -180.0:
             theta2_deg += 360.0
 
         servo_1 = theta1_deg                # hip: direct
-        servo_2 = theta2_deg         # shoulder: -90 (mirrored from LF's +90)
-        servo_3 = theta3_deg - 90.0         # knee: -90, no flip (mirrored from LF)
+        servo_2 = -theta2_deg + 270         # shoulder
+        servo_3 = theta3_deg - 90.0         # knee: bar linkage offset
+
+        return servo_1, servo_2, servo_3
+
+    @staticmethod
+    def _ik_to_servo_rb(theta1_deg, theta2_deg, theta3_deg):
+        """Convert raw IK degrees to servo degrees for the RIGHT-BEHIND leg.
+
+        RB IK θ2 sign depends on foot placement relative to the hip:
+          x_center < −L/2 → θ2 positive (no wrap)
+          x_center > −L/2 → θ2 wraps past −180° (needs normalization)
+
+        Args:
+            theta1_deg: IK hip angle in degrees
+            theta2_deg: IK shoulder angle in degrees
+            theta3_deg: IK knee angle in degrees
+
+        Returns:
+            tuple of (servo1_deg, servo2_deg, servo3_deg)
+        """
+        # Normalize θ2 into (−180, +180] range.
+        if theta2_deg < -180.0:
+            theta2_deg += 360.0
+
+        servo_1 = theta1_deg                # hip: direct
+        servo_2 = -theta2_deg + 270         # shoulder
+        servo_3 = theta3_deg - 90.0         # knee: bar linkage offset
 
         return servo_1, servo_2, servo_3
 
@@ -178,19 +214,21 @@ class SerialPublish():
             theta[1, 0], theta[1, 1], theta[1, 2])
 
         # Right legs
-        rf1, rf2, rf3 = self._ik_to_servo_right(
+        rf1, rf2, rf3 = self._ik_to_servo_rf(
             theta[2, 0], theta[2, 1], theta[2, 2])
-        rb1, rb2, rb3 = self._ik_to_servo_right(
+        rb1, rb2, rb3 = self._ik_to_servo_rb(
             theta[3, 0], theta[3, 1], theta[3, 2])
 
         # Driver A: LF + RB (servo IDs 7,8,9 + 10,11,12)
         msg_a = Float64MultiArray()
-        msg_a.data = [lf1, lf2, lf3, rb1, rb2, rb3]
+        msg_a.data = [float(lf1), float(lf2), float(lf3),
+                      float(rb1), float(rb2), float(rb3)]
         self.pub_servo_commands_a.publish(msg_a)
 
         # Driver B: LB + RF (servo IDs 4,5,6 + 1,2,3)
         msg_b = Float64MultiArray()
-        msg_b.data = [lb1, lb2, lb3, rf1, rf2, rf3]
+        msg_b.data = [float(lb1), float(lb2), float(lb3),
+                      float(rf1), float(rf2), float(rf3)]
         self.pub_servo_commands_b.publish(msg_b)
 
     def publish_real_12(self, servo_angles_12):
@@ -204,10 +242,10 @@ class SerialPublish():
           Driver B: indices [3:6] (LB) + [6:9]  (RF)
         """
         msg_a = Float64MultiArray()
-        msg_a.data = list(servo_angles_12[0:3]) + list(servo_angles_12[9:12])
+        msg_a.data = [float(v) for v in servo_angles_12[0:3]] + [float(v) for v in servo_angles_12[9:12]]
 
         msg_b = Float64MultiArray()
-        msg_b.data = list(servo_angles_12[3:6]) + list(servo_angles_12[6:9])
+        msg_b.data = [float(v) for v in servo_angles_12[3:6]] + [float(v) for v in servo_angles_12[6:9]]
 
         self.pub_servo_commands_a.publish(msg_a)
         self.pub_servo_commands_b.publish(msg_b)
