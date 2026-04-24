@@ -93,8 +93,10 @@ class GaitConfig:
     }
 
     # ── ROBOTOFF safe-off angles (servo degrees, NO IK) ────────────
-    # Two-phase shutdown: Phase 1 = bend knee → body drops to ground,
-    #                     Phase 2 = fold shoulder → leg tucks against body.
+    # Three-phase shutdown:
+    #   Phase 1 = bend knee   → body drops to ground
+    #   Phase 2 = fold shoulder → leg tucks against body
+    #   Phase 3 = splay hip   → legs collapse outward
     #
     # Sign conventions differ per leg (mirrored mounting):
     #   Joint3 collapse (knee fold):
@@ -105,6 +107,9 @@ class GaitConfig:
     #     LB: toward EEPROM HIGH end (more positive)
     #     RF: toward EEPROM HIGH end (more positive)
     #     RB: toward EEPROM HIGH end (more positive)
+    #   Joint1 splay (hip outward):
+    #     Left  legs: POSITIVE = splay outward
+    #     Right legs: NEGATIVE = splay outward
     #
     # Values have ~3° margin from EEPROM hard limits.
     SAFE_OFF_ANGLES = {
@@ -115,14 +120,20 @@ class GaitConfig:
             'right-behind':  47.0,   # EEPROM limit ≈ +50.1°
         },
         'joint2': {
-            'left-front':  -147.0,   # EEPROM limit ≈ -149.9° (low end)
-            'left-behind':   75.0,   # EEPROM limit ≈  +96.5° (margin: ~245 ticks)
-            'right-front':  147.0,   # EEPROM limit ≈ +150.0° (high end)
-            'right-behind': 147.0,   # EEPROM limit ≈ +150.8° (high end)
+            'left-front':  -160.0,   # EEPROM limit ≈ -149.9° (low end)
+            'left-behind':   70.0,   # EEPROM limit ≈  +96.5° (margin: ~245 ticks)
+            'right-front':  160.0,   # EEPROM limit ≈ +150.0° (high end)
+            'right-behind': 160.0,   # EEPROM limit ≈ +150.8° (high end)
+        },
+        'joint1': {
+            'left-front':   -30.0,   # EEPROM limit ≈ +30.5°
+            'left-behind':   30.0,   # EEPROM limit ≈ +30.0°
+            'right-front':   30.0,   # EEPROM limit ≈ -30.0°
+            'right-behind': -30.0,   # EEPROM limit ≈ -30.0°
         },
     }
 
-    # Frames per phase (two phases total).  At 7 ms/tick → ~1.4 s each.
+    # Frames per phase (three phases total).  At 7 ms/tick → ~2.1 s each.
     ROBOTOFF_FRAMES_PER_PHASE = 300
 
     PARAMS_GAIT_FORWARD = {
@@ -150,16 +161,16 @@ class GaitConfig:
 
     PARAMS_GAIT_TURN_RIGHT = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False},
-        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False},
+        "left-behind":   {"x_center": -84, "y_val":  135, "reverse": False},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": True},
-        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True},
+        "right-behind":  {"x_center": -84, "y_val": -135, "reverse": True},
     }
 
     PARAMS_GAIT_TURN_LEFT = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": True},
-        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True},
+        "left-behind":   {"x_center": -84, "y_val":  135, "reverse": True},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": False},
-        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False},
+        "right-behind":  {"x_center": -84, "y_val": -135, "reverse": False},
     }
 
     PARAMS_PHASESHIFT_TROT = {
@@ -240,7 +251,7 @@ class Gait:
         robot_length = RobotLength(L=209, W=191, l1=26, l2=106, l3=125)
         self._kinematics = Kinematics(self._node, robot_length)
         self.serial_publish = SerialPublish(self._node)
-        self._waypoint = Waypoint(200, 150, 50, 170)
+        self._waypoint = Waypoint(200, 150, 60, 300)
 
         # Trajectory state
         self._angle_data = None
@@ -501,13 +512,13 @@ class Gait:
 
     def _trajectory_moving(self, x_center, y_val, reverse=False):
         """Build D-shape foot path in Cartesian space (x, y, z)."""
-        stride_length = 10
+        stride_length = 17
         x_forward = x_center + stride_length / 2
         x_backward = x_center - stride_length / 2
         z_stance = -170
         z_swing = -130
         lift_height = z_swing - z_stance
-        lift_height = 25
+        lift_height = 30
 
         if reverse:
             pos_A = [x_forward, y_val, z_stance]
@@ -584,14 +595,15 @@ class Gait:
             return False
 
     def _generate_robotoff_real(self):
-        """Generate two-phase safe-off trajectory in servo-degree space.
+        """Generate three-phase safe-off trajectory in servo-degree space.
 
         Phase 1: linspace joint3 from current → collapse target
                  (knee folds → body drops to ground)
         Phase 2: linspace joint2 from current → fold target
                  (shoulder tucks → leg folds against body)
+        Phase 3: linspace joint1 from current → splay target
+                 (hip splays → legs collapse outward)
 
-        Joint1 stays at its current position throughout.
         No IK is used — targets are hardcoded SAFE_OFF_ANGLES.
         """
         # 1. Get current servo position (servo degrees)
@@ -624,9 +636,11 @@ class Gait:
         #   RF: j1=6 j2=7 j3=8   RB: j1=9 j2=10 j3=11
         j3_idx = [2, 5, 8, 11]
         j2_idx = [1, 4, 7, 10]
+        j1_idx = [0, 3, 6, 9]
 
         j3_targets = [safe['joint3'][leg] for leg in legs]
         j2_targets = [safe['joint2'][leg] for leg in legs]
+        j1_targets = [safe['joint1'][leg] for leg in legs]
 
         # ── Phase 1: collapse joint3 (joint1 & joint2 stay at current) ──
         phase1 = np.tile(current, (N, 1))          # start from current
@@ -635,28 +649,39 @@ class Gait:
                 current[idx], j3_targets[k], N)
 
         # Snapshot after phase 1: j3 at target, j1/j2 still at current
-        mid = current.copy()
+        mid1 = current.copy()
         for k, idx in enumerate(j3_idx):
-            mid[idx] = j3_targets[k]
+            mid1[idx] = j3_targets[k]
 
         # ── Phase 2: fold joint2 (joint1 stays, joint3 stays at target) ──
-        phase2 = np.tile(mid, (N, 1))
+        phase2 = np.tile(mid1, (N, 1))
         for k, idx in enumerate(j2_idx):
             phase2[:, idx] = np.linspace(
-                mid[idx], j2_targets[k], N)
+                mid1[idx], j2_targets[k], N)
 
-        # Combine both phases
-        trajectory = np.vstack([phase1, phase2])
+        # Snapshot after phase 2: j3+j2 at target, j1 still at current
+        mid2 = mid1.copy()
+        for k, idx in enumerate(j2_idx):
+            mid2[idx] = j2_targets[k]
+
+        # ── Phase 3: splay joint1 (joint2+j3 stay at target) ──
+        phase3 = np.tile(mid2, (N, 1))
+        for k, idx in enumerate(j1_idx):
+            phase3[:, idx] = np.linspace(
+                mid2[idx], j1_targets[k], N)
+
+        # Combine all three phases
+        trajectory = np.vstack([phase1, phase2, phase3])
 
         # Final hold position (for after trajectory completes)
-        final = mid.copy()
-        for k, idx in enumerate(j2_idx):
-            final[idx] = j2_targets[k]
+        final = mid2.copy()
+        for k, idx in enumerate(j1_idx):
+            final[idx] = j1_targets[k]
         self._robotoff_targets_real = final.tolist()
 
         self._logger.info(
-            f'ROBOTOFF trajectory: 2 phases × {N} frames = '
-            f'{2 * N} total ({2 * N * 7 / 1000:.1f} s)')
+            f'ROBOTOFF trajectory: 3 phases × {N} frames = '
+            f'{3 * N} total ({3 * N * 7 / 1000:.1f} s)')
         self._logger.info(
             f'  Phase 1 — joint3 collapse: '
             f'LF→{j3_targets[0]}° LB→{j3_targets[1]}° '
@@ -665,6 +690,10 @@ class Gait:
             f'  Phase 2 — joint2 fold:     '
             f'LF→{j2_targets[0]}° LB→{j2_targets[1]}° '
             f'RF→{j2_targets[2]}° RB→{j2_targets[3]}°')
+        self._logger.info(
+            f'  Phase 3 — joint1 splay:    '
+            f'LF→{j1_targets[0]}° LB→{j1_targets[1]}° '
+            f'RF→{j1_targets[2]}° RB→{j1_targets[3]}°')
         return trajectory
 
     # ── Gait generation ───────────────────────────────────────────

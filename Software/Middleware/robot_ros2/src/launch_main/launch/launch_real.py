@@ -12,7 +12,7 @@ def generate_launch_description():
         name='serial_driver_a',
         output='screen',
         parameters=[{
-            'port':            '/dev/ttyACM4',
+            'port':            '/dev/ttyACM7',
             'num_servos':      6,
             'servo_ids':       [7, 8, 9, 10, 11, 12],
             'joint_names':     ['joint_lf_1', 'joint_lf_2', 'joint_lf_3',
@@ -30,8 +30,8 @@ def generate_launch_description():
             'feedback_enable_topic': '/feedback_enable_a',
             'feedback_topic':        '/joint_states_real_a',
 
-            'default_speed':   1500,
-            'default_acc':     50,
+            'default_speed':   0,
+            'default_acc':     0,
             'enable_feedback': True,
         }],
     )
@@ -43,7 +43,7 @@ def generate_launch_description():
         name='serial_driver_b',
         output='screen',
         parameters=[{
-            'port':            '/dev/ttyACM5',
+            'port':            '/dev/ttyACM6',
             'num_servos':      6,
             'servo_ids':       [4, 5, 6, 1, 2, 3],
             'joint_names':     ['joint_lb_1', 'joint_lb_2', 'joint_lb_3',
@@ -62,8 +62,8 @@ def generate_launch_description():
             'feedback_enable_topic': '/feedback_enable_b',
             'feedback_topic':        '/joint_states_real_b',
 
-            'default_speed':   1500,
-            'default_acc':     50,
+            'default_speed':   0,
+            'default_acc':     0,
             'enable_feedback': True,
         }],
     )

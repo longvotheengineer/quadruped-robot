@@ -96,8 +96,8 @@ class SerialPublish():
         if theta2_deg > 180.0:
             theta2_deg -= 360.0
 
-        servo_1 = theta1_deg                # hip: direct
-        servo_2 = theta2_deg + 180          # shoulder: negated (driver inverts)
+        servo_1 = theta1_deg - 5              # hip: direct
+        servo_2 = theta2_deg + 180 - 7         # shoulder: negated (driver inverts)
         servo_3 = theta3_deg + 90.0         # knee: bar linkage offset
 
         return servo_1, servo_2, servo_3
@@ -122,9 +122,9 @@ class SerialPublish():
         if theta2_deg < -180.0:
             theta2_deg += 360.0
 
-        servo_1 = theta1_deg                # hip: direct
+        servo_1 = theta1_deg               # hip: direct
         servo_2 = -theta2_deg + 270         # shoulder
-        servo_3 = theta3_deg - 90.0         # knee: bar linkage offset
+        servo_3 = theta3_deg - 90.0 - 5        # knee: bar linkage offset
 
         return servo_1, servo_2, servo_3
 
@@ -148,8 +148,8 @@ class SerialPublish():
         if theta2_deg < -180.0:
             theta2_deg += 360.0
 
-        servo_1 = theta1_deg                # hip: direct
-        servo_2 = -theta2_deg + 270         # shoulder
+        servo_1 = theta1_deg + 1               # hip: direct
+        servo_2 = -theta2_deg + 270 - 20        # shoulder
         servo_3 = theta3_deg - 90.0         # knee: bar linkage offset
 
         return servo_1, servo_2, servo_3
