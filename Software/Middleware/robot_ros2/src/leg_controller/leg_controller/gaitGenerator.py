@@ -147,9 +147,9 @@ class GaitConfig:
     # under the body so the rear height matches the front.
     PARAMS_GAIT_BODY = {
         "left-front":    {"x_center":  125, "y_val":  135},
-        "left-behind":   {"x_center":  -60, "y_val":  135},
+        "left-behind":   {"x_center": -125, "y_val":  135},
         "right-front":   {"x_center":  125, "y_val": -135},
-        "right-behind":  {"x_center":  -60, "y_val": -135},
+        "right-behind":  {"x_center": -125, "y_val": -135},
     }
 
     PARAMS_GAIT_BACKWARD = {
@@ -251,7 +251,7 @@ class Gait:
         robot_length = RobotLength(L=209, W=191, l1=26, l2=106, l3=125)
         self._kinematics = Kinematics(self._node, robot_length)
         self.serial_publish = SerialPublish(self._node)
-        self._waypoint = Waypoint(200, 150, 60, 300)
+        self._waypoint = Waypoint(200, 170, 40, 270)
 
         # Trajectory state
         self._angle_data = None
@@ -512,13 +512,13 @@ class Gait:
 
     def _trajectory_moving(self, x_center, y_val, reverse=False):
         """Build D-shape foot path in Cartesian space (x, y, z)."""
-        stride_length = 17
+        stride_length = 10
         x_forward = x_center + stride_length / 2
         x_backward = x_center - stride_length / 2
         z_stance = -170
         z_swing = -130
         lift_height = z_swing - z_stance
-        lift_height = 30
+        lift_height = 55
 
         if reverse:
             pos_A = [x_forward, y_val, z_stance]
@@ -552,8 +552,8 @@ class Gait:
 
     def _trajectory_resting(self, x_center, y_val):
         """Resting trajectory: feet planted, body oscillates."""
-        z_low = -170
-        z_high = -130
+        z_low = -180
+        z_high = -110
 
         waypoint = np.zeros((self._waypoint.rest, 3))
         waypoint[:, 0] = x_center
