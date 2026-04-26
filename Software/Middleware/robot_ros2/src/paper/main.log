@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  10 APR 2026 22:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  26 APR 2026 23:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -973,7 +973,7 @@ Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/ntxtlf/m/sc/10'.
 (microtype)             Ignoring protrusion settings for this character.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 10.0pt on input line 34.
+(Font)              scaled to size 10.0pt on input line 32.
 ) (./sections/02_architecture.tex [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdf
 tex.map}
 
@@ -984,90 +984,62 @@ File: figures/model_referenceframe.png Graphic file (type png)
 <use figures/model_referenceframe.png>
 Package pdftex.def Info: figures/model_referenceframe.png  used on input line 2
 3.
-(pdftex.def)             Requested size: 196.08252pt x 158.83275pt.
-LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 8.0pt on input line 27.
-LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 6.2pt on input line 27.
+(pdftex.def)             Requested size: 151.20154pt x 122.478pt.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 10.0pt on input line 69.
+(Font)              scaled to size 10.0pt on input line 66.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 7.3pt on input line 69.
+(Font)              scaled to size 7.3pt on input line 66.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 5.5pt on input line 69.
+(Font)              scaled to size 5.5pt on input line 66.
 <figures/gait_trajectory_3d.png, id=100, 267.399pt x 291.2481pt>
 File: figures/gait_trajectory_3d.png Graphic file (type png)
 <use figures/gait_trajectory_3d.png>
-Package pdftex.def Info: figures/gait_trajectory_3d.png  used on input line 86.
+Package pdftex.def Info: figures/gait_trajectory_3d.png  used on input line 83.
 
-(pdftex.def)             Requested size: 163.79846pt x 178.41212pt.
-LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 8.0pt on input line 92.
-LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 6.2pt on input line 92.
+(pdftex.def)             Requested size: 201.60077pt x 219.58655pt.
 
 [2 <./figures/model_referenceframe.png> <./figures/gait_trajectory_3d.png>]
-<figures/quintic_pva.png, id=121, 350.5095pt x 249.3315pt>
-File: figures/quintic_pva.png Graphic file (type png)
-<use figures/quintic_pva.png>
-Package pdftex.def Info: figures/quintic_pva.png  used on input line 116.
-(pdftex.def)             Requested size: 214.20154pt x 152.3735pt.
-<figures/joint_angles_gait.png, id=122, 455.301pt x 310.761pt>
-File: figures/joint_angles_gait.png Graphic file (type png)
-<use figures/joint_angles_gait.png>
-Package pdftex.def Info: figures/joint_angles_gait.png  used on input line 124.
-
-(pdftex.def)             Requested size: 214.20154pt x 146.19994pt.
+<figures/offline_traj_pos_left.png, id=120, 722.7pt x 433.62pt>
+File: figures/offline_traj_pos_left.png Graphic file (type png)
+<use figures/offline_traj_pos_left.png>
+Package pdftex.def Info: figures/offline_traj_pos_left.png  used on input line 
+108.
+(pdftex.def)             Requested size: 252.0pt x 151.20026pt.
+<figures/offline_traj_vel_acc_left.png, id=121, 722.7pt x 433.62pt>
+File: figures/offline_traj_vel_acc_left.png Graphic file (type png)
+<use figures/offline_traj_vel_acc_left.png>
+Package pdftex.def Info: figures/offline_traj_vel_acc_left.png  used on input l
+ine 116.
+(pdftex.def)             Requested size: 252.0pt x 151.20026pt.
+<figures/offline_traj_angle_left.png, id=122, 722.7pt x 433.62pt>
+File: figures/offline_traj_angle_left.png Graphic file (type png)
+<use figures/offline_traj_angle_left.png>
+Package pdftex.def Info: figures/offline_traj_angle_left.png  used on input lin
+e 124.
+(pdftex.def)             Requested size: 252.0pt x 151.20026pt.
 )
 (./sections/04_control.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 7.3pt on input line 65.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 5.5pt on input line 65.
- [3 <./figures/quintic_pva.png> <./figures/joint_angles_gait.png>]) (./sections
-/05_results.tex
-<figures/imu_balance_homing_error.png, id=143, 1445.4pt x 903.375pt>
-File: figures/imu_balance_homing_error.png Graphic file (type png)
-<use figures/imu_balance_homing_error.png>
-Package pdftex.def Info: figures/imu_balance_homing_error.png  used on input li
-ne 39.
-(pdftex.def)             Requested size: 110.88062pt x 69.29405pt.
-<figures/imu_balance_homing_corr.png, id=144, 1445.4pt x 903.375pt>
-File: figures/imu_balance_homing_corr.png Graphic file (type png)
-<use figures/imu_balance_homing_corr.png>
-Package pdftex.def Info: figures/imu_balance_homing_corr.png  used on input lin
-e 46.
-(pdftex.def)             Requested size: 110.88062pt x 69.29405pt.
-<figures/imu_balance_homing_jointlf.png, id=145, 1445.4pt x 903.375pt>
-File: figures/imu_balance_homing_jointlf.png Graphic file (type png)
-<use figures/imu_balance_homing_jointlf.png>
-Package pdftex.def Info: figures/imu_balance_homing_jointlf.png  used on input 
-line 54.
-(pdftex.def)             Requested size: 110.88062pt x 69.29405pt.
-<figures/imu_balance_trotting_error.png, id=150, 1445.4pt x 903.375pt>
-File: figures/imu_balance_trotting_error.png Graphic file (type png)
-<use figures/imu_balance_trotting_error.png>
-Package pdftex.def Info: figures/imu_balance_trotting_error.png  used on input 
-line 93.
-(pdftex.def)             Requested size: 110.88062pt x 69.29405pt.
-<figures/imu_balance_trotting_corr.png, id=151, 1445.4pt x 903.375pt>
-File: figures/imu_balance_trotting_corr.png Graphic file (type png)
-<use figures/imu_balance_trotting_corr.png>
-Package pdftex.def Info: figures/imu_balance_trotting_corr.png  used on input l
-ine 100.
-(pdftex.def)             Requested size: 110.88062pt x 69.29405pt.
-<figures/imu_balance_trotting_jointlf.png, id=152, 1445.4pt x 903.375pt>
-File: figures/imu_balance_trotting_jointlf.png Graphic file (type png)
-<use figures/imu_balance_trotting_jointlf.png>
-Package pdftex.def Info: figures/imu_balance_trotting_jointlf.png  used on inpu
-t line 108.
-(pdftex.def)             Requested size: 110.88062pt x 69.29405pt.
-) (./sections/06_conclusion.tex
-[4 <./figures/imu_balance_homing_error.png (PNG copy)> <./figures/imu_balance_h
-oming_corr.png (PNG copy)> <./figures/imu_balance_homing_jointlf.png (PNG copy)
-> <./figures/imu_balance_trotting_error.png (PNG copy)> <./figures/imu_balance_
-trotting_corr.png (PNG copy)> <./figures/imu_balance_trotting_jointlf.png (PNG 
-copy)>]) (./main.bbl)
+ [3 <./figures/offline_traj_pos_left.png> <./figures/offline_traj_vel_acc_left.
+png> <./figures/offline_traj_angle_left.png>]) (./sections/05_results.tex
+<figures/pid_error_home.png, id=140, 722.7pt x 433.62pt>
+File: figures/pid_error_home.png Graphic file (type png)
+<use figures/pid_error_home.png>
+Package pdftex.def Info: figures/pid_error_home.png  used on input line 23.
+(pdftex.def)             Requested size: 252.0pt x 151.20026pt.
+<figures/pid_error_gait.png, id=142, 722.7pt x 433.62pt>
+File: figures/pid_error_gait.png Graphic file (type png)
+<use figures/pid_error_gait.png>
+Package pdftex.def Info: figures/pid_error_gait.png  used on input line 43.
+(pdftex.def)             Requested size: 252.0pt x 151.20026pt.
+)
+(./sections/06_conclusion.tex [4 <./figures/pid_error_home.png> <./figures/pid_
+error_gait.png>]) (./main.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1083,32 +1055,31 @@ Before submitting the final camera ready copy, remember to:
 
 ] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: B3A6A0432B8644DB170B51EBAA2FEA6E;2659.
+(rerunfilecheck)             Checksum: 8C58EB051D7ADD70AD9C9194F2C081C4;2697.
  ) 
 Here is how much of TeX's memory you used:
- 19309 strings out of 478287
- 309299 string characters out of 5849290
- 626629 words of memory out of 5000000
- 36766 multiletter control sequences out of 15000+600000
- 671457 words of font info for 387 fonts, out of 8000000 for 9000
+ 19163 strings out of 478287
+ 306131 string characters out of 5849290
+ 625122 words of memory out of 5000000
+ 36694 multiletter control sequences out of 15000+600000
+ 654151 words of font info for 322 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,9n,77p,1001b,647s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,9n,77p,1001b,641s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc}{/usr/sh
 are/texlive/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf-pc.enc}{/usr/share/texl
 ive/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc}</usr/share/texlive/texmf-d
 ist/fonts/type1/public/newtx/NewTXMI.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/newtx/NewTXMI5.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/newtx/NewTXMI7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/tx
-exs.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/newtx/txsys.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/newtx/ztmb.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/newtx/ztmbi.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/newtx/ztmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/zt
-mri.pfb>
-Output written on main.pdf (5 pages, 1424011 bytes).
+ype1/public/newtx/NewTXMI7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/newtx/txexs.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txmia
+X.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txsys.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/newtx/ztmb.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/newtx/ztmbi.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/newtx/ztmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/newtx/ztmri.pfb>
+Output written on main.pdf (5 pages, 3516361 bytes).
 PDF statistics:
- 236 PDF objects out of 1000 (max. 8388607)
- 190 compressed objects within 2 object streams
+ 224 PDF objects out of 1000 (max. 8388607)
+ 180 compressed objects within 2 object streams
  55 named destinations out of 1000 (max. 500000)
- 88235 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 71836 words of extra memory for PDF output out of 74296 (max. 10000000)
 

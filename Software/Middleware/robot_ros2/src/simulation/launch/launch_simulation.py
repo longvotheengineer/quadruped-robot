@@ -79,6 +79,26 @@ def generate_launch_description():
         arguments=['-d', rviz_config_file]
     )
 
+    # Tilts the ramp simultaneously on roll (side-to-side) AND pitch
+    # (front-to-back) with independent sine waves.  Tune as needed:
+    #   roll_amplitude_deg  / pitch_amplitude_deg  : peak angle (set 0 to disable)
+    #   roll_period_sec     / pitch_period_sec      : oscillation period
+    #   pitch_phase_deg     : phase offset pitch vs roll (90 = quarter cycle lag)
+    node_ramp_mover = Node(
+        package='simulation',
+        executable='node_ramp_mover',
+        name='node_ramp_mover',
+        output='screen',
+        parameters=[{
+            'roll_amplitude_deg':  10.0,
+            'roll_period_sec':     50.0,
+            'pitch_amplitude_deg': 10.0,
+            'pitch_period_sec':    50.0,
+            'pitch_phase_deg':     90.0,   # pitch lags roll by T/4
+            'update_rate_hz':      50.0,
+        }]
+    )
+
     return LaunchDescription([
         # node_joint_state_publisher,
         node_robot_state_publisher,
@@ -86,5 +106,6 @@ def generate_launch_description():
         launch_entity,
         launch_encoder,
         launch_actuator,
-        node_rviz
+        node_rviz,
+        node_ramp_mover,
     ])

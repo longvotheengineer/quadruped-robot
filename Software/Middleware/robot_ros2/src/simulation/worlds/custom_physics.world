@@ -2,6 +2,15 @@
 <sdf version="1.6">
   <world name="legged_world">
 
+    <!-- gazebo_ros_state: exposes /gazebo/set_entity_state and
+         /gazebo/get_entity_state services used by node_ramp_mover -->
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+      <ros>
+        <namespace>/gazebo</namespace>
+      </ros>
+      <update_rate>50.0</update_rate>
+    </plugin>
+
     <!-- Explicit gravity -->
     <gravity>0 0 -9.81</gravity>
 

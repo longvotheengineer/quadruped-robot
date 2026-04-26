@@ -1,36 +1,10 @@
 \section{Conclusion and Future Work}
 
-This paper presented a decoupled dual pipeline control framework
-for quadruped locomotion that achieves robust postural stability
-through a novel multistage signal conditioning approach. The
-key contributions, namely quintic trajectory planning with
-enforced boundary conditions, gain scheduled PID with back
-calculation antiwindup, phase aware rotational stance compensation,
-and strict architectural isolation at the node level, collectively
-enable stable blind locomotion on embedded hardware without
-requiring computationally expensive MPC \cite{dicarlo2018dynamic}
-or RL solvers.
+This paper presented a robust posture stabilization and motion generation framework for a custom quadruped robot. By decoupling the trajectory planning from the balance control logic, the proposed system achieves high responsiveness and stability. The implementation of quintic foot trajectories ensures smooth kinematic transitions and minimizes structural impact. Furthermore, integrating a multistage IMU processing pipeline—featuring dynamic deadband suppression and adaptive PID regulation—reliably counters external disturbances during both static standing and dynamic locomotion. The experimental validation confirmed that the framework efficiently handles orientation corrections continuously in a real-time ROS~2 environment without relying on monolithic or computationally expensive optimizers.
 
-The proposed multistage pipeline (EMA $\rightarrow$ deadband
-$\rightarrow$ gain scheduled PID $\rightarrow$ saturation
-$\rightarrow$ LPF) demonstrates that systematic cascading of
-conventional signal processing elements can produce corrective
-outputs of sufficient quality to stabilize complex mechanical
-systems with multiple articulated links, representing a practical
-alternative to monolithic optimal controllers.
-
-Future work will pursue three principal directions:
+Future work will focus on the following core areas:
 \begin{enumerate}
-    \item Incorporation of Ground Reaction Force (GRF) estimation
-    via motor current sensing, enabling terrain classification
-    without dedicated sensors for force and torque measurement.
-
-    \item Extension of the gait library to incorporate adaptive
-    stride modulation, dynamically adjusting $L_{stride}$ and
-    $h_{lift}$ based on estimated terrain roughness.
-
-    \item Migration of the gain scheduled PID to an adaptive
-    controller that is model free and automatically tunes $K_P$,
-    $K_I$, $K_D$ based on performance metrics from the closed
-    loop.
+    \item Advancing state estimation by dynamically fusing localized joint encoder readings with IMU kinematics to track global deformations and deviations.
+    \item Expanding the trajectory generation module to support variable walking speeds and continuous adaptive stride length modulation for uneven terrain.
+    \item Replacing the current deterministic gain scheduling strategy with optimal control methods, such as Model Predictive Control (MPC), to anticipate and compensate for larger rotational disturbances proactively.
 \end{enumerate}

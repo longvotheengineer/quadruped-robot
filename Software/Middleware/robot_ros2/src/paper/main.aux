@@ -29,44 +29,33 @@
 \citation{kajita2003biped}
 \@writefile{toc}{\contentsline {section}{\numberline {III}Kinematics and Gait Planning}{2}{section.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Inverse Kinematics}{2}{subsection.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Simulation model with reference frames visualized at each joint. Each joint origin displays RGB axis indicators (red=$x$, green=$y$, blue=$z$) used for geometric IK resolution across the three DOF limb topology.\relax }}{2}{figure.caption.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Simulation model with reference frames at each joint\relax }}{2}{figure.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:kinematic_model}{{1}{2}{Simulation model with reference frames visualized at each joint. Each joint origin displays RGB axis indicators (red=$x$, green=$y$, blue=$z$) used for geometric IK resolution across the three DOF limb topology.\relax }{figure.caption.1}{}}
+\newlabel{fig:kinematic_model}{{1}{2}{Simulation model with reference frames at each joint\relax }{figure.caption.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Quintic Trajectory Formulation}{2}{subsection.3.2}\protected@file@percent }
 \newlabel{eq:quintic_s}{{1}{2}{Quintic Trajectory Formulation}{equation.3.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces 3D foot trajectory for the left front limb. The swing phase (blue) traces a quintic parabolic arc from liftoff $\mathbf  {A}$ to touchdown $\mathbf  {D}$, while the stance phase (red dashed) retraces along the ground plane at $z=-170$ mm. Stride length $L_{stride}=45$ mm, lift height $h_{lift}=40$ mm.\relax }}{2}{figure.caption.2}\protected@file@percent }
-\newlabel{fig:gait_3d}{{2}{2}{3D foot trajectory for the left front limb. The swing phase (blue) traces a quintic parabolic arc from liftoff $\mathbf {A}$ to touchdown $\mathbf {D}$, while the stance phase (red dashed) retraces along the ground plane at $z=-170$ mm. Stride length $L_{stride}=45$ mm, lift height $h_{lift}=40$ mm.\relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces 3D foot trajectory for the left front limb\relax }}{2}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:gait_3d}{{2}{2}{3D foot trajectory for the left front limb\relax }{figure.caption.2}{}}
 \citation{madgwick2011estimation}
 \citation{astrom2006advanced}
-\newlabel{fig:quintic_pva}{{3a}{3}{Quintic polynomial PVA profiles.\relax }{figure.caption.3}{}}
-\newlabel{sub@fig:quintic_pva}{{a}{3}{Quintic polynomial PVA profiles.\relax }{figure.caption.3}{}}
-\newlabel{fig:joint_angles}{{3b}{3}{Resolved joint angles for the left front limb.\relax }{figure.caption.3}{}}
-\newlabel{sub@fig:joint_angles}{{b}{3}{Resolved joint angles for the left front limb.\relax }{figure.caption.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Trajectory generation and inverse kinematic mapping. (a) The normalized quintic position, velocity, and acceleration functions dictating foot motion. (b) The resulting joint angle solution $\theta _i$ over one full gait cycle, with swing (blue, 0--26\%) and stance (red, 26--100\%) phases highlighted.\relax }}{3}{figure.caption.3}\protected@file@percent }
-\newlabel{fig:trajectory_combined}{{3}{3}{Trajectory generation and inverse kinematic mapping. (a) The normalized quintic position, velocity, and acceleration functions dictating foot motion. (b) The resulting joint angle solution $\theta _i$ over one full gait cycle, with swing (blue, 0--26\%) and stance (red, 26--100\%) phases highlighted.\relax }{figure.caption.3}{}}
+\newlabel{fig:traj_pos}{{3a}{3}{Cartesian trajectories\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:traj_pos}{{a}{3}{Cartesian trajectories\relax }{figure.caption.3}{}}
+\newlabel{fig:traj_vel_acc}{{3b}{3}{Velocities and accelerations\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:traj_vel_acc}{{b}{3}{Velocities and accelerations\relax }{figure.caption.3}{}}
+\newlabel{fig:joint_angles}{{3c}{3}{Resolved joint angles\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:joint_angles}{{c}{3}{Resolved joint angles\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Simulation mapping for the left front limb tracking one complete gait cycle\relax }}{3}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:trajectory_combined}{{3}{3}{Simulation mapping for the left front limb tracking one complete gait cycle\relax }{figure.caption.3}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {IV}IMU Based Postural Stabilization}{3}{section.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Static Home Posture Correction}{3}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Phase Aware Dynamic Gait Correction}{3}{subsection.4.2}\protected@file@percent }
-\citation{dicarlo2018dynamic}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Phase Aware Dynamic Gait Correction}{4}{subsection.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {V}Results and Diagnostic Data}{4}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Home Posture Stabilization}{4}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Static Home Posture Stabilization}{4}{subsection.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Controller error response during static home posture\relax }}{4}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:home_results}{{4}{4}{Controller error response during static home posture\relax }{figure.caption.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Dynamic Trotting Gait Stabilization}{4}{subsection.5.2}\protected@file@percent }
-\newlabel{fig:home_error}{{4a}{4}{Pitch and error.\relax }{figure.caption.4}{}}
-\newlabel{sub@fig:home_error}{{a}{4}{Pitch and error.\relax }{figure.caption.4}{}}
-\newlabel{fig:home_corr}{{4b}{4}{PID and LPF output.\relax }{figure.caption.4}{}}
-\newlabel{sub@fig:home_corr}{{b}{4}{PID and LPF output.\relax }{figure.caption.4}{}}
-\newlabel{fig:home_joint}{{4c}{4}{Left front joint torques.\relax }{figure.caption.4}{}}
-\newlabel{sub@fig:home_joint}{{c}{4}{Left front joint torques.\relax }{figure.caption.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Home posture stabilization diagnostics. (a)\nobreakspace  {}Pitch measurement and deadband filtered error. (b)\nobreakspace  {}Saturated PID and lowpass filtered correction output. (c)\nobreakspace  {}Resulting joint torque commands for the left front limb.\relax }}{4}{figure.caption.4}\protected@file@percent }
-\newlabel{fig:home_results}{{4}{4}{Home posture stabilization diagnostics. (a)~Pitch measurement and deadband filtered error. (b)~Saturated PID and lowpass filtered correction output. (c)~Resulting joint torque commands for the left front limb.\relax }{figure.caption.4}{}}
-\newlabel{fig:trot_error}{{5a}{4}{Pitch and error.\relax }{figure.caption.5}{}}
-\newlabel{sub@fig:trot_error}{{a}{4}{Pitch and error.\relax }{figure.caption.5}{}}
-\newlabel{fig:trot_corr}{{5b}{4}{PID and LPF output.\relax }{figure.caption.5}{}}
-\newlabel{sub@fig:trot_corr}{{b}{4}{PID and LPF output.\relax }{figure.caption.5}{}}
-\newlabel{fig:trot_joint}{{5c}{4}{Left front joint torques.\relax }{figure.caption.5}{}}
-\newlabel{sub@fig:trot_joint}{{c}{4}{Left front joint torques.\relax }{figure.caption.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Dynamic trotting gait stabilization diagnostics. (a)\nobreakspace  {}Pitch measurement and moving average error. (b)\nobreakspace  {}Adaptive PID and lowpass filtered correction output. (c)\nobreakspace  {}Resulting joint torque commands for the left front limb.\relax }}{4}{figure.caption.5}\protected@file@percent }
-\newlabel{fig:trot_results}{{5}{4}{Dynamic trotting gait stabilization diagnostics. (a)~Pitch measurement and moving average error. (b)~Adaptive PID and lowpass filtered correction output. (c)~Resulting joint torque commands for the left front limb.\relax }{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Controller error response during dynamic trotting gait\relax }}{4}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:trot_results}{{5}{4}{Controller error response during dynamic trotting gait\relax }{figure.caption.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {VI}Conclusion and Future Work}{4}{section.6}\protected@file@percent }
 \bibstyle{IEEEtran}
 \bibdata{references}

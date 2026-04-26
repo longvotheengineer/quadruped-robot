@@ -20,8 +20,11 @@ used for forward and inverse kinematic resolution.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.6\columnwidth]{figures/model_referenceframe.png}
-    \caption{Simulation model with reference frames at each joint}
+    \includegraphics[width=0.38\textwidth]{figures/model_referenceframe.png}
+    \caption{Simulation model with reference frames visualized at
+    each joint. Each joint origin displays RGB axis indicators
+    (red=$x$, green=$y$, blue=$z$) used for geometric IK
+    resolution across the three DOF limb topology.}
     \label{fig:kinematic_model}
 \end{figure}
 
@@ -80,8 +83,13 @@ retrace phases with annotated liftoff and touchdown boundaries.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\columnwidth]{figures/gait_trajectory_3d.png}
-    \caption{3D foot trajectory for the left front limb}
+    \includegraphics[width=0.65\columnwidth]{figures/gait_trajectory_3d.png}
+    \caption{3D foot trajectory for the left front limb. The swing
+    phase (blue) traces a quintic parabolic arc from liftoff
+    $\mathbf{A}$ to touchdown $\mathbf{D}$, while the stance
+    phase (red dashed) retraces along the ground plane at
+    $z=-170$ mm. Stride length $L_{stride}=45$ mm,
+    lift height $h_{lift}=40$ mm.}
     \label{fig:gait_3d}
 \end{figure}
 
@@ -103,30 +111,26 @@ one complete gait cycle, with swing and stance phases explicitly shaded.
 
 \begin{figure}[htbp]
     \centering
-    \begin{subfigure}[b]{\columnwidth}
+    \begin{subfigure}[b]{0.85\columnwidth}
         \centering
-        \includegraphics[width=\textwidth]{figures/offline_traj_pos_left.png}
-        \caption{Cartesian trajectories}
-        \label{fig:traj_pos}
+        \includegraphics[width=\textwidth]{figures/quintic_pva.png}
+        \caption{Quintic polynomial PVA profiles.}
+        \label{fig:quintic_pva}
     \end{subfigure}
     
-    \vspace{0.15cm}
-    \begin{subfigure}[b]{\columnwidth}
+    \vspace{0.3cm}
+    \begin{subfigure}[b]{0.85\columnwidth}
         \centering
-        \includegraphics[width=\textwidth]{figures/offline_traj_vel_acc_left.png}
-        \caption{Velocities and accelerations}
-        \label{fig:traj_vel_acc}
-    \end{subfigure}
-
-    \vspace{0.15cm}
-    \begin{subfigure}[b]{\columnwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/offline_traj_angle_left.png}
-        \caption{Resolved joint angles}
+        \includegraphics[width=\textwidth]{figures/joint_angles_gait.png}
+        \caption{Resolved joint angles for the left front limb.}
         \label{fig:joint_angles}
     \end{subfigure}
     
-    \vspace{0.2cm}
-    \caption{Simulation mapping for the left front limb tracking one complete gait cycle}
+    \vspace{0.3cm}
+    \caption{Trajectory generation and inverse kinematic mapping.
+    (a) The normalized quintic position, velocity, and acceleration
+    functions dictating foot motion. (b) The resulting joint angle
+    solution $\theta_i$ over one full gait cycle, with swing
+    (blue, 0--26\%) and stance (red, 26--100\%) phases highlighted.}
     \label{fig:trajectory_combined}
 \end{figure}

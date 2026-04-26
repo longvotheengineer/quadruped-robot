@@ -11,6 +11,8 @@ Supports two operating modes:
 Subscribes:  /imu/data, /balance/enable, /balance/mode, /balance/gait_frame
 Publishes:   /posture/home_correction, /posture/measurement,
              /posture/gait_correction
+PlotJuggler: /diag/home/{roll,pitch}_error
+             /diag/trotting/{roll,pitch}_error
 Diagnostics: /diag/home/pid/{roll,pitch}/01_meas .. 09_dt
              /diag/gait/pid/{roll,pitch}/01_meas .. 09_ff_ready
 """
@@ -216,6 +218,16 @@ class BalanceController(Node):
                 self._diag_gait_pubs[axis][sig] = self.create_publisher(
                     Float64, f'/diag/gait/pid/{axis}/{sig}', 10)
 
+        # ── PlotJuggler error publishers (clean names) ─────────────
+        self._pub_home_error = {
+            'roll':  self.create_publisher(Float64, '/diag/home/roll_error',  10),
+            'pitch': self.create_publisher(Float64, '/diag/home/pitch_error', 10),
+        }
+        self._pub_trot_error = {
+            'roll':  self.create_publisher(Float64, '/diag/trotting/roll_error',  10),
+            'pitch': self.create_publisher(Float64, '/diag/trotting/pitch_error', 10),
+        }
+
         self.get_logger().info(
             f'Posture Stabilizer started '
             f'(Kp={PidConfig.KP}, Ki={PidConfig.KI}, Kd={PidConfig.KD}, '
@@ -299,6 +311,14 @@ class BalanceController(Node):
 
         self._publish_diag(dt)
 
+        # PlotJuggler: publish PID error (after deadzone) for home
+        msg_err = Float64()
+        msg_err.data = self._imu.roll.error_prev
+        self._pub_home_error['roll'].publish(msg_err)
+        msg_err = Float64()
+        msg_err.data = self._imu.pitch.error_prev
+        self._pub_home_error['pitch'].publish(msg_err)
+
     # ── Gait PID Pipeline (moved from gaitGenerator) ─────────────
 
     def _run_gait_pid(self):
@@ -323,6 +343,14 @@ class BalanceController(Node):
         self._pub_gait_corr.publish(msg_corr)
 
         self._publish_gait_diag(roll_meas, pitch_meas, pid_out)
+
+        # PlotJuggler: publish PID error (after deadzone) for trotting
+        msg_err = Float64()
+        msg_err.data = pid_out['roll'][0]
+        self._pub_trot_error['roll'].publish(msg_err)
+        msg_err = Float64()
+        msg_err.data = pid_out['pitch'][0]
+        self._pub_trot_error['pitch'].publish(msg_err)
 
     def _update_moving_average(self, roll_meas, pitch_meas):
         """Append IMU measurement to gait-cycle deque, return averages."""

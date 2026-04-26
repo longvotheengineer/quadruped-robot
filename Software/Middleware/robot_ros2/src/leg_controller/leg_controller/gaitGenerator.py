@@ -8,6 +8,14 @@ from leg_controller.quinticPlanning import quintic_planning
 from std_msgs.msg import Float64MultiArray, Float64, Bool, String, Int32
 from geometry_msgs.msg import Vector3
 
+# Leg short names for PlotJuggler topics
+_LEG_SHORT = {
+    'left-front':   'lf',
+    'left-behind':  'lb',
+    'right-front':  'rf',
+    'right-behind': 'rb',
+}
+
 # Home correction application diagnostic signals — /diag/home/apply/
 # Pipeline: received correction → deadzone → scale → per-leg offset → LPF
 _HOME_APPLY_SIGNALS = [
@@ -233,6 +241,20 @@ class Gait:
             Int32, '/balance/gait_frame', 10)
         self._balance_enabled = False
 
+        # ── PlotJuggler: foot P-V-A publishers (12 topics) ────────
+        self._pub_foot = {}
+        for leg_long, leg_short in _LEG_SHORT.items():
+            self._pub_foot[leg_long] = {
+                'pos': node.create_publisher(
+                    Float64, f'/diag/foot/{leg_short}/pos_z', 10),
+                'vel': node.create_publisher(
+                    Float64, f'/diag/foot/{leg_short}/vel_z', 10),
+                'acc': node.create_publisher(
+                    Float64, f'/diag/foot/{leg_short}/acc_z', 10),
+            }
+        self._foot_z_prev = {leg: 0.0 for leg in GaitConfig.LEG_NAMES}
+        self._foot_vz_prev = {leg: 0.0 for leg in GaitConfig.LEG_NAMES}
+
     # ── Callbacks ─────────────────────────────────────────────────
 
     def _home_corr_callback(self, msg: Vector3):
@@ -319,7 +341,29 @@ class Gait:
             self._step_current = 0
             self._step_final += 1
 
+        # Publish foot P-V-A for PlotJuggler
+        self._publish_foot_pva(frame)
+
         return True
+
+    def _publish_foot_pva(self, frame):
+        """Publish foot Z position, velocity, acceleration per leg."""
+        if self._foot_data is None:
+            return
+        msg = Float64()
+        for i, leg in enumerate(GaitConfig.LEG_NAMES):
+            z = float(self._foot_data[i][frame][2])  # Z position (mm)
+
+            vz = z - self._foot_z_prev[leg]          # ΔZ per tick
+            az = vz - self._foot_vz_prev[leg]        # ΔV per tick
+
+            self._foot_z_prev[leg] = z
+            self._foot_vz_prev[leg] = vz
+
+            pubs = self._pub_foot[leg]
+            msg.data = z;  pubs['pos'].publish(msg)
+            msg.data = vz; pubs['vel'].publish(msg)
+            msg.data = az; pubs['acc'].publish(msg)
 
     # ── Home-IMU helpers ──────────────────────────────────────────
 
