@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  27 APR 2026 14:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  27 APR 2026 15:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -709,13 +709,13 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 30.
 LaTeX Font Info:    Trying to load font information for T1+ntxtlf on input line
- 45.
+ 50.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/t1ntxtlf.fd
 File: t1ntxtlf.fd 2021/05/24 v1.1 font definition file for T1/ntx/tlf
 )
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 10.0pt on input line 45.
+(Font)              scaled to size 10.0pt on input line 50.
 
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
@@ -725,129 +725,129 @@ File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 45.
+LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 50.
 LaTeX Font Info:    Trying to load font information for OML+ntxmi on input line
- 45.
+ 50.
  (/usr/share/texlive/texmf-dist/tex/latex/newtx/omlntxmi.fd
 File: omlntxmi.fd 2015/08/25 Fontinst v1.933 font definitions for OML/ntxmi.
 )
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 50.
 LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 
-45.
+50.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 50.
 LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line
- 45.
+ 50.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 50.
 LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input lin
-e 45.
+e 50.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 5.0pt on input line 45.
+(Font)              scaled to size 5.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 5.0pt on input line 45.
+(Font)              scaled to size 5.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 5.0pt on input line 45.
+(Font)              scaled to size 5.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/it' will be
-(Font)              scaled to size 5.0pt on input line 45.
+(Font)              scaled to size 5.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 7.0pt on input line 45.
+(Font)              scaled to size 7.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 7.0pt on input line 45.
+(Font)              scaled to size 7.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 7.0pt on input line 45.
+(Font)              scaled to size 7.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/it' will be
-(Font)              scaled to size 7.0pt on input line 45.
+(Font)              scaled to size 7.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 8.0pt on input line 45.
+(Font)              scaled to size 8.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 8.0pt on input line 45.
+(Font)              scaled to size 8.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 8.0pt on input line 45.
+(Font)              scaled to size 8.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/it' will be
-(Font)              scaled to size 8.0pt on input line 45.
+(Font)              scaled to size 8.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 9.0pt on input line 45.
+(Font)              scaled to size 9.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 9.0pt on input line 45.
+(Font)              scaled to size 9.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 9.0pt on input line 45.
+(Font)              scaled to size 9.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/it' will be
-(Font)              scaled to size 9.0pt on input line 45.
+(Font)              scaled to size 9.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 10.0pt on input line 45.
+(Font)              scaled to size 10.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 10.0pt on input line 45.
+(Font)              scaled to size 10.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/it' will be
-(Font)              scaled to size 10.0pt on input line 45.
+(Font)              scaled to size 10.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 11.0pt on input line 45.
+(Font)              scaled to size 11.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 11.0pt on input line 45.
+(Font)              scaled to size 11.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 11.0pt on input line 45.
+(Font)              scaled to size 11.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/it' will be
-(Font)              scaled to size 11.0pt on input line 45.
+(Font)              scaled to size 11.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 12.0pt on input line 45.
+(Font)              scaled to size 12.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 12.0pt on input line 45.
+(Font)              scaled to size 12.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 12.0pt on input line 45.
+(Font)              scaled to size 12.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/it' will be
-(Font)              scaled to size 12.0pt on input line 45.
+(Font)              scaled to size 12.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 17.0pt on input line 45.
+(Font)              scaled to size 17.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 17.0pt on input line 45.
+(Font)              scaled to size 17.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 17.0pt on input line 45.
+(Font)              scaled to size 17.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/it' will be
-(Font)              scaled to size 17.0pt on input line 45.
+(Font)              scaled to size 17.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 20.0pt on input line 45.
+(Font)              scaled to size 20.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 20.0pt on input line 45.
+(Font)              scaled to size 20.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 20.0pt on input line 45.
+(Font)              scaled to size 20.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/it' will be
-(Font)              scaled to size 20.0pt on input line 45.
+(Font)              scaled to size 20.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 24.0pt on input line 45.
+(Font)              scaled to size 24.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 24.0pt on input line 45.
+(Font)              scaled to size 24.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 24.0pt on input line 45.
+(Font)              scaled to size 24.0pt on input line 50.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/it' will be
-(Font)              scaled to size 24.0pt on input line 45.
+(Font)              scaled to size 24.0pt on input line 50.
 
 -- Lines per column: 56 (exact).
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -877,18 +877,18 @@ Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@mv@tabular=\count324
 \c@mv@boldtabular=\count325
-LaTeX Info: Redefining \microtypecontext on input line 45.
-Package microtype Info: Applying patch `item' on input line 45.
-Package microtype Info: Applying patch `toc' on input line 45.
-Package microtype Info: Applying patch `eqnum' on input line 45.
-Package microtype Info: Applying patch `footnote' on input line 45.
+LaTeX Info: Redefining \microtypecontext on input line 50.
+Package microtype Info: Applying patch `item' on input line 50.
+Package microtype Info: Applying patch `toc' on input line 50.
+Package microtype Info: Applying patch `eqnum' on input line 50.
+Package microtype Info: Applying patch `footnote' on input line 50.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 45.
+LaTeX Info: Redefining \showhyphens on input line 50.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -896,7 +896,7 @@ Package microtype Info: No adjustment of character kerning.
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-ptm.cfg
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
-Package hyperref Info: Link coloring ON on input line 45.
+Package hyperref Info: Link coloring ON on input line 50.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -909,9 +909,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count326
 )
-LaTeX Info: Redefining \ref on input line 45.
-LaTeX Info: Redefining \pageref on input line 45.
-LaTeX Info: Redefining \nameref on input line 45.
+LaTeX Info: Redefining \ref on input line 50.
+LaTeX Info: Redefining \pageref on input line 50.
+LaTeX Info: Redefining \nameref on input line 50.
 
 (./main.out) (./main.out)
 \@outlinefile=\write3
@@ -979,72 +979,80 @@ tex.map}
 
 
 ]) (./sections/03_kinematics.tex
-<figures/model_referenceframe.png, id=95, 898.35625pt x 727.71875pt>
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
+(Font)              scaled to size 8.0pt on input line 32.
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
+(Font)              scaled to size 6.2pt on input line 32.
+LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
+(Font)              scaled to size 8.0pt on input line 34.
+LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
+(Font)              scaled to size 6.2pt on input line 34.
+LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
+(Font)              scaled to size 5.5pt on input line 34.
+<figures/model_referenceframe.png, id=97, 898.35625pt x 727.71875pt>
 File: figures/model_referenceframe.png Graphic file (type png)
 <use figures/model_referenceframe.png>
-Package pdftex.def Info: figures/model_referenceframe.png  used on input line 2
-3.
+Package pdftex.def Info: figures/model_referenceframe.png  used on input line 7
+1.
 (pdftex.def)             Requested size: 151.20154pt x 122.478pt.
+
+[2 <./figures/model_referenceframe.png>]
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 10.0pt on input line 66.
+(Font)              scaled to size 10.0pt on input line 110.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 7.3pt on input line 66.
-LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 5.5pt on input line 66.
-<figures/gait_trajectory_3d.png, id=100, 267.399pt x 291.2481pt>
+(Font)              scaled to size 7.3pt on input line 110.
+<figures/gait_trajectory_3d.png, id=119, 267.399pt x 291.2481pt>
 File: figures/gait_trajectory_3d.png Graphic file (type png)
 <use figures/gait_trajectory_3d.png>
-Package pdftex.def Info: figures/gait_trajectory_3d.png  used on input line 83.
-
+Package pdftex.def Info: figures/gait_trajectory_3d.png  used on input line 126
+.
 (pdftex.def)             Requested size: 201.60077pt x 219.58655pt.
-
-[2 <./figures/model_referenceframe.png> <./figures/gait_trajectory_3d.png>]
-<figures/offline_traj_pos_left.png, id=120, 681.2652pt x 408.0846pt>
+<figures/offline_traj_pos_left.png, id=121, 681.2652pt x 408.0846pt>
 File: figures/offline_traj_pos_left.png Graphic file (type png)
 <use figures/offline_traj_pos_left.png>
 Package pdftex.def Info: figures/offline_traj_pos_left.png  used on input line 
-108.
+153.
 (pdftex.def)             Requested size: 252.0pt x 150.95157pt.
-<figures/offline_traj_vel_acc_left.png, id=121, 675.0018pt x 415.7934pt>
+<figures/offline_traj_vel_acc_left.png, id=122, 675.0018pt x 415.7934pt>
 File: figures/offline_traj_vel_acc_left.png Graphic file (type png)
 <use figures/offline_traj_vel_acc_left.png>
 Package pdftex.def Info: figures/offline_traj_vel_acc_left.png  used on input l
-ine 116.
+ine 161.
 (pdftex.def)             Requested size: 252.0pt x 155.22424pt.
-<figures/offline_traj_angle_left.png, id=122, 658.3797pt x 408.0846pt>
+<figures/offline_traj_angle_left.png, id=123, 658.3797pt x 408.0846pt>
 File: figures/offline_traj_angle_left.png Graphic file (type png)
 <use figures/offline_traj_angle_left.png>
 Package pdftex.def Info: figures/offline_traj_angle_left.png  used on input lin
-e 124.
+e 169.
 (pdftex.def)             Requested size: 252.0pt x 156.19458pt.
-)
-(./sections/04_control.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+) (./sections/04_control.tex [3 <./figures/gait_trajectory_3d.png> <./figures/o
+ffline_traj_pos_left.png> <./figures/offline_traj_vel_acc_left.png> <./figures/
+offline_traj_angle_left.png>]
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 7.3pt on input line 65.
+(Font)              scaled to size 7.3pt on input line 62.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 5.5pt on input line 65.
-<figures/balance_pid_diagram.pdf, id=125, 1802.29636pt x 1182.50082pt>
+(Font)              scaled to size 5.5pt on input line 62.
+<figures/balance_pid_diagram.pdf, id=140, 1802.29636pt x 1182.50082pt>
 File: figures/balance_pid_diagram.pdf Graphic file (type pdf)
 <use figures/balance_pid_diagram.pdf>
 Package pdftex.def Info: figures/balance_pid_diagram.pdf  used on input line 11
-7.
+2.
 (pdftex.def)             Requested size: 464.39685pt x 304.68231pt.
- [3 <./figures/offline_traj_pos_left.png> <./figures/offline_traj_vel_acc_left.
-png> <./figures/offline_traj_angle_left.png>]) (./sections/05_results.tex
-<figures/pid_error_home.png, id=141, 700.2963pt x 408.0846pt>
+)
+(./sections/05_results.tex
+<figures/pid_error_home.png, id=142, 700.2963pt x 408.0846pt>
 File: figures/pid_error_home.png Graphic file (type png)
 <use figures/pid_error_home.png>
-Package pdftex.def Info: figures/pid_error_home.png  used on input line 23.
+Package pdftex.def Info: figures/pid_error_home.png  used on input line 19.
 (pdftex.def)             Requested size: 252.0pt x 146.84807pt.
- [4 <./figures/balance_pid_diagram.pdf>]
-<figures/pid_error_gait.png, id=202, 700.2963pt x 408.0846pt>
+ [4]
+<figures/pid_error_gait.png, id=159, 700.2963pt x 408.0846pt>
 File: figures/pid_error_gait.png Graphic file (type png)
 <use figures/pid_error_gait.png>
-Package pdftex.def Info: figures/pid_error_gait.png  used on input line 43.
+Package pdftex.def Info: figures/pid_error_gait.png  used on input line 35.
 (pdftex.def)             Requested size: 252.0pt x 146.84807pt.
-) (./sections/06_conclusion.tex) (./main.bbl)
+) (./sections/06_conclusion.tex [5 <./figures/balance_pid_diagram.pdf> <./figur
+es/pid_error_home.png> <./figures/pid_error_gait.png>]) (./main.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1056,40 +1064,45 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5 <./figures/pid_error_home.png> <./figures/pid_error_gait.png>] (./main.aux)
+[6
+
+] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 23900BA657FDE539C6274A1EC9F627C6;2697.
+(rerunfilecheck)             Checksum: 3990C4AFC461690D119DD945997BB9CF;2697.
  ) 
 Here is how much of TeX's memory you used:
- 19169 strings out of 478287
- 306375 string characters out of 5849290
- 625170 words of memory out of 5000000
- 36702 multiletter control sequences out of 15000+600000
- 653943 words of font info for 320 fonts, out of 8000000 for 9000
+ 19347 strings out of 478287
+ 309503 string characters out of 5849290
+ 626245 words of memory out of 5000000
+ 36791 multiletter control sequences out of 15000+600000
+ 683016 words of font info for 414 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,9n,77p,1001b,641s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,14n,77p,1044b,659s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc}{/usr/sh
 are/texlive/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf-pc.enc}{/usr/share/texl
 ive/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc}</usr/share/texlive/texmf-d
-ist/fonts/type1/public/newtx/NewTXMI.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/newtx/NewTXMI7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/newtx/txmiaX.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/newtx/txsys.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/zt
-mb.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/ztmbi.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/newtx/ztmr.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/newtx/ztmri.pfb>
-Output written on main.pdf (5 pages, 4841625 bytes).
+ist/fonts/type1/public/newtx/NewTXBMI5.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/newtx/NewTXBMI7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/newtx/NewTXMI.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/
+NewTXMI7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
+12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/newtx/txbsys.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+newtx/txexs.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txmiaX.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txsys.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/newtx/ztmb.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/newtx/ztmbi.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/newtx/ztmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+newtx/ztmri.pfb>
+Output written on main.pdf (6 pages, 4863815 bytes).
 PDF statistics:
- 284 PDF objects out of 1000 (max. 8388607)
- 222 compressed objects within 3 object streams
- 56 named destinations out of 1000 (max. 500000)
- 71841 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 307 PDF objects out of 1000 (max. 8388607)
+ 238 compressed objects within 3 object streams
+ 59 named destinations out of 1000 (max. 500000)
+ 92321 words of extra memory for PDF output out of 106986 (max. 10000000)
 
