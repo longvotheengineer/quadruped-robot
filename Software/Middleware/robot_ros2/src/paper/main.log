@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  26 APR 2026 23:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  27 APR 2026 10:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -999,24 +999,24 @@ Package pdftex.def Info: figures/gait_trajectory_3d.png  used on input line 83.
 (pdftex.def)             Requested size: 201.60077pt x 219.58655pt.
 
 [2 <./figures/model_referenceframe.png> <./figures/gait_trajectory_3d.png>]
-<figures/offline_traj_pos_left.png, id=120, 722.7pt x 433.62pt>
+<figures/offline_traj_pos_left.png, id=120, 681.2652pt x 408.0846pt>
 File: figures/offline_traj_pos_left.png Graphic file (type png)
 <use figures/offline_traj_pos_left.png>
 Package pdftex.def Info: figures/offline_traj_pos_left.png  used on input line 
 108.
-(pdftex.def)             Requested size: 252.0pt x 151.20026pt.
-<figures/offline_traj_vel_acc_left.png, id=121, 722.7pt x 433.62pt>
+(pdftex.def)             Requested size: 252.0pt x 150.95157pt.
+<figures/offline_traj_vel_acc_left.png, id=121, 675.0018pt x 415.7934pt>
 File: figures/offline_traj_vel_acc_left.png Graphic file (type png)
 <use figures/offline_traj_vel_acc_left.png>
 Package pdftex.def Info: figures/offline_traj_vel_acc_left.png  used on input l
 ine 116.
-(pdftex.def)             Requested size: 252.0pt x 151.20026pt.
-<figures/offline_traj_angle_left.png, id=122, 722.7pt x 433.62pt>
+(pdftex.def)             Requested size: 252.0pt x 155.22424pt.
+<figures/offline_traj_angle_left.png, id=122, 658.3797pt x 408.0846pt>
 File: figures/offline_traj_angle_left.png Graphic file (type png)
 <use figures/offline_traj_angle_left.png>
 Package pdftex.def Info: figures/offline_traj_angle_left.png  used on input lin
 e 124.
-(pdftex.def)             Requested size: 252.0pt x 151.20026pt.
+(pdftex.def)             Requested size: 252.0pt x 156.19458pt.
 )
 (./sections/04_control.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1027,16 +1027,16 @@ LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 5.5pt on input line 65.
  [3 <./figures/offline_traj_pos_left.png> <./figures/offline_traj_vel_acc_left.
 png> <./figures/offline_traj_angle_left.png>]) (./sections/05_results.tex
-<figures/pid_error_home.png, id=140, 722.7pt x 433.62pt>
+<figures/pid_error_home.png, id=140, 700.2963pt x 408.0846pt>
 File: figures/pid_error_home.png Graphic file (type png)
 <use figures/pid_error_home.png>
 Package pdftex.def Info: figures/pid_error_home.png  used on input line 23.
-(pdftex.def)             Requested size: 252.0pt x 151.20026pt.
-<figures/pid_error_gait.png, id=142, 722.7pt x 433.62pt>
+(pdftex.def)             Requested size: 252.0pt x 146.84807pt.
+<figures/pid_error_gait.png, id=142, 700.2963pt x 408.0846pt>
 File: figures/pid_error_gait.png Graphic file (type png)
 <use figures/pid_error_gait.png>
 Package pdftex.def Info: figures/pid_error_gait.png  used on input line 43.
-(pdftex.def)             Requested size: 252.0pt x 151.20026pt.
+(pdftex.def)             Requested size: 252.0pt x 146.84807pt.
 )
 (./sections/06_conclusion.tex [4 <./figures/pid_error_home.png> <./figures/pid_
 error_gait.png>]) (./main.bbl)
@@ -1076,7 +1076,7 @@ hare/texlive/texmf-dist/fonts/type1/public/newtx/ztmb.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/newtx/ztmbi.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/public/newtx/ztmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
 c/newtx/ztmri.pfb>
-Output written on main.pdf (5 pages, 3516361 bytes).
+Output written on main.pdf (5 pages, 4739535 bytes).
 PDF statistics:
  224 PDF objects out of 1000 (max. 8388607)
  180 compressed objects within 2 object streams
