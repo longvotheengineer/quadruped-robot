@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  27 APR 2026 10:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  27 APR 2026 14:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1025,21 +1025,26 @@ LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 7.3pt on input line 65.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 5.5pt on input line 65.
+<figures/balance_pid_diagram.pdf, id=125, 1802.29636pt x 1182.50082pt>
+File: figures/balance_pid_diagram.pdf Graphic file (type pdf)
+<use figures/balance_pid_diagram.pdf>
+Package pdftex.def Info: figures/balance_pid_diagram.pdf  used on input line 11
+7.
+(pdftex.def)             Requested size: 464.39685pt x 304.68231pt.
  [3 <./figures/offline_traj_pos_left.png> <./figures/offline_traj_vel_acc_left.
 png> <./figures/offline_traj_angle_left.png>]) (./sections/05_results.tex
-<figures/pid_error_home.png, id=140, 700.2963pt x 408.0846pt>
+<figures/pid_error_home.png, id=141, 700.2963pt x 408.0846pt>
 File: figures/pid_error_home.png Graphic file (type png)
 <use figures/pid_error_home.png>
 Package pdftex.def Info: figures/pid_error_home.png  used on input line 23.
 (pdftex.def)             Requested size: 252.0pt x 146.84807pt.
-<figures/pid_error_gait.png, id=142, 700.2963pt x 408.0846pt>
+ [4 <./figures/balance_pid_diagram.pdf>]
+<figures/pid_error_gait.png, id=202, 700.2963pt x 408.0846pt>
 File: figures/pid_error_gait.png Graphic file (type png)
 <use figures/pid_error_gait.png>
 Package pdftex.def Info: figures/pid_error_gait.png  used on input line 43.
 (pdftex.def)             Requested size: 252.0pt x 146.84807pt.
-)
-(./sections/06_conclusion.tex [4 <./figures/pid_error_home.png> <./figures/pid_
-error_gait.png>]) (./main.bbl)
+) (./sections/06_conclusion.tex) (./main.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1051,18 +1056,16 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5
-
-] (./main.aux)
+[5 <./figures/pid_error_home.png> <./figures/pid_error_gait.png>] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 8C58EB051D7ADD70AD9C9194F2C081C4;2697.
+(rerunfilecheck)             Checksum: 23900BA657FDE539C6274A1EC9F627C6;2697.
  ) 
 Here is how much of TeX's memory you used:
- 19163 strings out of 478287
- 306131 string characters out of 5849290
- 625122 words of memory out of 5000000
- 36694 multiletter control sequences out of 15000+600000
- 654151 words of font info for 322 fonts, out of 8000000 for 9000
+ 19169 strings out of 478287
+ 306375 string characters out of 5849290
+ 625170 words of memory out of 5000000
+ 36702 multiletter control sequences out of 15000+600000
+ 653943 words of font info for 320 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  67i,9n,77p,1001b,641s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc}{/usr/sh
@@ -1070,16 +1073,23 @@ are/texlive/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf-pc.enc}{/usr/share/texl
 ive/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc}</usr/share/texlive/texmf-d
 ist/fonts/type1/public/newtx/NewTXMI.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/newtx/NewTXMI7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/newtx/txexs.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txmia
-X.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txsys.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/newtx/ztmb.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/newtx/ztmbi.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/newtx/ztmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/newtx/ztmri.pfb>
-Output written on main.pdf (5 pages, 4739535 bytes).
+c/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/newtx/txmiaX.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/newtx/txsys.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/zt
+mb.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/ztmbi.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/newtx/ztmr.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/newtx/ztmri.pfb>
+Output written on main.pdf (5 pages, 4841625 bytes).
 PDF statistics:
- 224 PDF objects out of 1000 (max. 8388607)
- 180 compressed objects within 2 object streams
- 55 named destinations out of 1000 (max. 500000)
- 71836 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 284 PDF objects out of 1000 (max. 8388607)
+ 222 compressed objects within 3 object streams
+ 56 named destinations out of 1000 (max. 500000)
+ 71841 words of extra memory for PDF output out of 74296 (max. 10000000)
 

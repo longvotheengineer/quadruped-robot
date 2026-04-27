@@ -112,6 +112,14 @@ output to eliminate residual step discontinuities:
 
 \subsection{Phase Aware Dynamic Gait Correction}
 
+\begin{figure*}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/balance_pid_diagram.pdf}
+    \caption{Adaptive Attitude Adjustment PID Control Architecture}
+    \label{fig:pid_diagram}
+\end{figure*}
+
+
 While the robot is actively ambulating, the correction pipeline
 switches to an adaptive PID controller specific to the gait cycle
 that incorporates three additional mechanisms:
