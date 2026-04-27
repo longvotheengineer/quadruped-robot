@@ -1,0 +1,125 @@
+\documentclass[tikz, border=10pt]{standalone}
+\usepackage{amsmath}
+\usepackage{anyfontsize}
+\usetikzlibrary{shapes,arrows,positioning,calc,fit,backgrounds}
+
+\newcommand{\SuperHuge}{\fontsize{32}{40}\selectfont}
+\newcommand{\MegaHuge}{\fontsize{40}{48}\selectfont}
+
+\begin{document}
+
+% TOP BLOCKS 
+\tikzstyle{top_block} = [draw, fill=blue!5, rectangle, minimum height=2.5cm, minimum width=5.5cm, align=center, font=\LARGE, line width=3.0pt, rounded corners=12pt]
+
+% BOTTOM BLOCKS
+\tikzstyle{bot_block} = [draw, fill=blue!5, rectangle, minimum height=3.5cm, minimum width=8.5cm, align=center, font=\SuperHuge, line width=3.0pt, rounded corners=12pt]
+\tikzstyle{bot_gain} = [draw, fill=blue!5, regular polygon, regular polygon sides=3, shape border rotate=-90, minimum height=4.5cm, align=center, line width=3.0pt, font=\MegaHuge, rounded corners=8pt]
+
+\tikzstyle{sum} = [draw, fill=blue!5, circle, minimum size=1.5cm, inner sep=4pt, align=center, font=\MegaHuge, line width=3.0pt]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{line} = [draw, -latex', line width=4.0pt]
+
+\begin{tikzpicture}[>=latex']
+
+    % 1. TOP LEFT BLOCK (Signal Pre-Conditioning)
+    \coordinate (TL_topleft) at (0, 15.5);
+    \coordinate (TL_botright) at (31.5, 5.5);
+    \begin{scope}[on background layer]
+        \node [draw, dashed, line width=4pt, rounded corners=25pt, inner sep=0pt, fill=gray!5, fit=(TL_topleft) (TL_botright)] (sensor_box) {};
+        \node [below=20pt, font=\fontsize{35}{40}\selectfont\bfseries] at (15.75, 15.5) {Signal Pre-Conditioning};
+    \end{scope}
+
+    \node [input, name=plant_out] at (-2, 12) {};
+    \node [top_block] (imu) at (8.75, 12) {IMU Sensor\\ \textit{sensor\_msgs}};
+    \node [top_block] (quat) at (22.75, 12) {quaternion\_to\_rp\\ \textit{Euler Conversion}};
+    \node [top_block] (ema) at (8.75, 8) {EMA Filter\\ $\alpha=0.4$};
+    \node [top_block] (ma) at (22.75, 8) {Moving Avg Buffer\\ \textit{len=270 frames}};
+
+
+    % 2. TOP RIGHT BLOCK (Kinematics & Execution) 
+    % Increased width to 55 to cleanly separate blocks and fit large multiline text
+    \coordinate (TR_topleft) at (32.5, 15.5);
+    \coordinate (TR_botright) at (60.5, 5.5);
+    \begin{scope}[on background layer]
+        \node [draw, dashed, line width=4pt, rounded corners=25pt, inner sep=0pt, fill=red!5, fit=(TR_topleft) (TR_botright)] (plant_box) {};
+        \node [below=20pt, font=\fontsize{35}{40}\selectfont\bfseries] at (46.5, 15.5) {Kinematics \& Execution};
+    \end{scope}
+
+    \node [top_block] (gait) at (36.5, 12) {Offline Gait Plan\\ \textit{Target Feet (x,y,z)}};
+    \node [top_block] (rot) at (36.5, 8) {Rotation Matrix\\ $R_y(p)\times R_x(r)$};
+    \node [top_block] (ik) at (46.5, 8) {Inverse\\ Kinematics};
+    \node [top_block] (robot) at (56.5, 8) {Quadruped\\ Robot Plant};
+
+
+    % 3. BOTTOM BLOCK (Adaptive Attitude PID Controller)
+    \coordinate (BOT_topleft) at (0, 3);
+    \coordinate (BOT_botright) at (60.5, -22);
+    \begin{scope}[on background layer]
+        \node [draw, dashed, line width=4pt, rounded corners=25pt, inner sep=0pt, fill=blue!5, fit=(BOT_topleft) (BOT_botright)] (pid_box) {};
+        \node [below=20pt, font=\fontsize{35}{40}\selectfont\bfseries] at (30.25, 3) {Adaptive Attitude PID Controller};
+    \end{scope}
+
+    \node [bot_block] (deadzone) at (6, -12) {Deadzone\\ $\pm 0.03 \text{ rad}$};
+    
+    \node [bot_block] (adaptive) at (20.0, -7) {Adaptive\\ Gain Scale};
+    \node [bot_block] (integ) at (20.0, -12) {$\displaystyle\int dt$\\ \textit{Sat $\pm 0.3$}};
+    \node [bot_block] (deriv) at (20.0, -18.5) {$\displaystyle\frac{d}{dt}$};
+
+    \node [bot_gain] (p) at (29.5, -2) {$K_p$};
+    \node [bot_gain] (i) at (29.5, -12) {$K_i$};
+    \node [bot_gain] (d) at (29.5, -18.5) {$K_d$};
+
+    \node [sum] (pid_sum) at (37.5, -12) {$\times$};
+    \node [bot_block] (sat) at (45.5, -12) {Saturation\\ $\pm 0.3$};
+    \node [bot_block] (lpf) at (55.5, -12) {Low Pass\\ Filter $\alpha=0.97$};
+
+
+    % ----- ROUTING PATHS -----
+    
+    % Sensor (Left to Right)
+    \draw [line] (imu.east) -- node [above, font=\LARGE] {$(w,x,y,z)$} (quat.west);
+    \draw [line] (quat.south) -- (22.75, 10) -- node [above, font=\LARGE] {$r, p_{raw}$} (8.75, 10) -- (ema.north);
+    \draw [line] (ema.east) -- node [above, font=\LARGE] {$r, p$} (ma.west);
+
+    % Signal Pre-Cond to PID 
+    \draw [line width=4.0pt] (ma.east) -- (32, 8) -- (32, 3.75) -- node [above, font=\Large, pos=0.8] {Avg Baseline} (-2, 3.75) -- (-2, -18.5) coordinate (deriv_split);
+    \draw [line] (-2, -12) -- (deadzone.west);
+
+    % Deriv branch
+    \draw [line] (deriv_split) -- node [above, font=\SuperHuge] {Avg} (deriv.west);
+
+    % Error output 
+    \draw [line width=4.0pt] (deadzone.east) -- (11.1, -12) coordinate (err_out) -- (11.9, -12) coordinate (err_out_scale);
+    
+    \draw [line] (err_out_scale) -- (integ.west);
+    \draw [line] (err_out) |- (p.west); 
+    
+    \draw [line, dashed] (err_out_scale) |- (adaptive.west); 
+    \draw [line, dashed] (adaptive.east) -| node [pos=0.15, above, font=\SuperHuge] {Scale} (p.south); 
+
+    % Integration / Deriv to Gains
+    \draw [line] (integ.east) -- (i.west);
+    \draw [line] (deriv.east) -- (d.west);
+
+    % Summing Lines
+    \draw [line] (p.east) -| node [pos=0.9, left, font=\SuperHuge] {$+$} (pid_sum.north);
+    \draw [line] (i.east) -- node [pos=0.8, above, font=\SuperHuge] {$+$} (pid_sum.west);
+    \draw [line] (d.east) -| node [pos=0.9, left, font=\SuperHuge] {$+$} (pid_sum.south);
+
+    \draw [line] (pid_sum.east) -- (sat.west);
+    \draw [line] (sat.east) -- (lpf.west);
+
+    % PID to Kinematics
+    \draw [line] (lpf.north) -- (55.5, 3.75) -- (36.5, 3.75) -- node [right, font=\SuperHuge, pos=0.3] {Correction} (rot.south);
+    
+    % Kinematics Path (Multiline text explicitly to eliminate block overlaps)
+    \draw [line] (gait.south) -- node [left, font=\LARGE] {XYZ} (rot.north);
+    \draw [line] (rot.east) -- node [above, align=center, font=\Large] {Adjusted\\XYZ} (ik.west);
+    \draw [line] (ik.east) -- node [above, align=center, font=\Large] {Joint Angles\\$(\Theta_{1-12})$} (robot.west);
+
+    % Feedback loop
+    \draw [line] (robot.north) -- (56.5, 17.5) -- node [above, font=\Huge, pos=0.5] {IMU Physics / Pose Update} (-2, 17.5) |- (imu.west);
+
+\end{tikzpicture}
+\end{document}

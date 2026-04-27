@@ -32,6 +32,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'node_ramp_mover = simulation.node_ramp_mover:main',
         ],
     },
 )

@@ -24,10 +24,8 @@ biological stability at a fraction of the computational cost. When inertial tele
 specifically instantaneous roll and pitch orientation
 \cite{madgwick2011estimation}, is directly integrated into kinematic
 calculations operating in real time, robust blind ambulation
-becomes tractable \cite{li2022posture}.
-
-This work proposes four key contributions that distinguish it from
-conventional CPG based quadruped controllers:
+becomes tractable. For instance, recent studies have demonstrated the use of posture stabilization algorithms to maintain a level torso when mapping static gaits onto swaying and oscillating platforms without visual sensors \cite{li2022posture}. Inspired by these stability principles, this work proposes four key contributions that distinguish it from
+conventional CPG-based quadruped controllers:
 \begin{enumerate}
     \item A \textbf{quintic polynomial trajectory planner}
     utilizing the normalized interpolation function
@@ -43,16 +41,18 @@ conventional CPG based quadruped controllers:
     (d) cascaded lowpass filtering, producing smooth
     corrective outputs free of servo jitter.
 
-    \item A \textbf{phase aware stance correction} mechanism that
+    \item A \textbf{phase-aware stance correction} mechanism that
     applies rotational compensation matrices
     $R_y(\theta)R_x(\phi)$ exclusively to limbs classified as
     load bearing via foot altitude thresholding in real time
     ($|Z - Z_{stance}| \leq Z_{thresh}$), while swing phase limbs
     maintain unmodified trajectories.
 
-    \item A \textbf{strictly decoupled dual node architecture} that
+    \item A \textbf{strictly decoupled dual-node architecture} that
     isolates rhythmic gait generation from reactive postural
     stabilization, enabling independent tuning, independent
     failure modes, and asynchronous execution at differing
     control frequencies.
 \end{enumerate}
+
+The remainder of this paper is organized as follows: Section~II details the distributed hardware and software architecture. Section~III formulates the inverse kinematics and polynomial trajectory framework. Section~IV outlines the adaptive PID balancing logic. Section~V validates the framework with quantitative diagnostic results, and Section~VI presents conclusions and pathways for future research.

@@ -30,9 +30,12 @@ class ControllerSim():
 
         # ── Diagnostic publishers (one per joint, named by joint) ──
         self.pub_diag_clamped = {}
+        self.pub_diag_angle = {}
         for jname in self.joint_names:
             self.pub_diag_clamped[jname] = node.create_publisher(
                 Float64, f'/diag/torque/clamped/{jname}', 10)
+            self.pub_diag_angle[jname] = node.create_publisher(
+                Float64, f'/diag/joint_angle/{jname}', 10)
 
     def joint_states_callback(self, msg):
         for i, name in enumerate(msg.name):
@@ -64,11 +67,13 @@ class ControllerSim():
             torque = max(-self.effort_limit, min(self.effort_limit, raw_torque))
             torques.append(torque)
 
-        # ── Publish clamped torques (individual named topics) ─────
+        # ── Publish clamped torques + target angles (individual named topics)
         msg = Float64()
-        for jname, torque in zip(self.joint_names, torques):
+        for jname, torque, target in zip(self.joint_names, torques, targets):
             msg.data = torque
             self.pub_diag_clamped[jname].publish(msg)
+            msg.data = float(target)
+            self.pub_diag_angle[jname].publish(msg)
 
         return torques
 

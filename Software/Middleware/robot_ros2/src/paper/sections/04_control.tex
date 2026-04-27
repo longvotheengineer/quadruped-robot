@@ -21,7 +21,6 @@ sensor noise at high frequencies:
     + (1 - \alpha_{raw}) m_k \nonumber\\
     \alpha_{raw} &= 0.4
 \end{align}
-
 \textbf{Stage 2: Deadband Suppression.}
 A configurable deadband of $\pm 0.02$ rad eliminates trivial
 oscillations that would otherwise generate unnecessary servo
@@ -48,7 +47,6 @@ activity:
 %     represents the unity response without deadband.}
 %     \label{fig:deadband}
 % \end{figure}
-
 \textbf{Stage 3: Gain Scheduled PID with Antiwindup.}
 A full PID controller \cite{astrom2006advanced} with
 three novel enhancements processes the deadband filtered error:
@@ -57,7 +55,6 @@ three novel enhancements processes the deadband filtered error:
     &+ K_I \cdot g_s \cdot \mathcal{I}
     + K_D \cdot \dot{e}_{lpf}
 \end{align}
-
 \noindent where the gain schedule factor $g_s \in [0.5, 1.0]$
 scales proportionally to the error magnitude, preventing
 corrections that are overly aggressive near zero:
@@ -66,7 +63,6 @@ corrections that are overly aggressive near zero:
     \frac{|e|}{e_{thresh}},\, 0.5,\, 1.0
     \right)
 \end{equation}
-
 \noindent where $e_{thresh} = 0.08$ rad.
 % Fig.~\ref{fig:gain_schedule} visualizes this piecewise linear
 % relationship.
@@ -91,7 +87,6 @@ accumulator when the PID output exceeds saturation bounds:
     \frac{u_{raw} - u_{sat}}{2 K_I}
     \quad \text{if} \quad |u_{raw}| > u_{max}
 \end{equation}
-
 The derivative term is presmoothed with a dedicated LPF
 ($\alpha_d = 0.7$) and includes a derivative ramp threshold
 ($e_{ramp} = 0.005$) that zeroes the derivative when the error
@@ -112,6 +107,14 @@ output to eliminate residual step discontinuities:
 
 \subsection{Phase Aware Dynamic Gait Correction}
 
+\begin{figure*}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/balance_pid_diagram.pdf}
+    \caption{Adaptive Attitude Adjustment PID Control Architecture}
+    \label{fig:pid_diagram}
+\end{figure*}
+
+
 While the robot is actively ambulating, the correction pipeline
 switches to an adaptive PID controller specific to the gait cycle
 that incorporates three additional mechanisms:
@@ -131,7 +134,6 @@ large disturbances:
     \frac{\max(|\phi|, |\theta|)}{K_{prop}}
     \right)\right)
 \end{equation}
-
 \textbf{Zero Crossing Integral Reset.}
 The integral accumulator is immediately reset to zero whenever
 the error signal crosses zero, preventing oscillatory overshoot
@@ -147,7 +149,6 @@ body frame $R = R_y(\theta) R_x(\phi)$:
     -s_\theta & s_\phi c_\theta & c_\phi c_\theta
     \end{bmatrix}
 \end{equation}
-
 This matrix is applied exclusively to limbs satisfying the
 stance condition $|Z_{foot} - Z_{stance}| \leq Z_{thresh}$,
 where $Z_{stance} = -170$ mm and $Z_{thresh} = 5$ mm. Only
