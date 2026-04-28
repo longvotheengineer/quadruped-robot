@@ -147,7 +147,7 @@ class SerialPublish():
         servo_1 = theta1_deg + 5             
         servo_2 = -theta2_deg + 270 - 13 + 4 - 2     
         # servo_2 = -(theta2_deg + 270)
-        servo_3 = theta3_deg - 90.0        
+        servo_3 = theta3_deg - 90.0 + 3       
         # servo_3 = theta3_deg + 90.0
 
         return servo_1, servo_2, servo_3

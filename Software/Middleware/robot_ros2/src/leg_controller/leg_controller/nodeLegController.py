@@ -21,7 +21,7 @@ class LegController(Node):
         self.subscription_ = self.create_subscription(
             String, '/gait_control', self.listener_callback, 10)
         
-        self.timer = self.create_timer(0.007, self.timer_callback)
+        self.timer = self.create_timer(0.003, self.timer_callback)
 
         if self.use_real:
             # Real hardware: skip Gazebo wait, go straight to IDLE

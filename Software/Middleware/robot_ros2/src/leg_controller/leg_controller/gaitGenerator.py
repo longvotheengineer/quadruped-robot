@@ -136,41 +136,48 @@ class GaitConfig:
     # Frames per phase (three phases total).  At 7 ms/tick → ~2.1 s each.
     ROBOTOFF_FRAMES_PER_PHASE = 300
 
+    # Per-leg z_offset: compensate mechanical height differences (mm).
+    # Negative = foot reaches lower (use when a leg is physically higher).
+    LF_Z_OFFSET = 0
+    LB_Z_OFFSET = -5
+    RF_Z_OFFSET = 0
+    RB_Z_OFFSET = -5
+
     PARAMS_GAIT_FORWARD = {
-        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False},
-        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False},
-        "right-front":   {"x_center":  125, "y_val": -135, "reverse": False},
-        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET},
+        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False, "z_offset": LB_Z_OFFSET},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": False, "z_offset": RF_Z_OFFSET},
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET},
     }
 
     # Body motions (PUSHUP / SWAY / CIRCLE): back feet tucked closer
     # under the body so the rear height matches the front.
     PARAMS_GAIT_BODY = {
-        "left-front":    {"x_center":  125, "y_val":  135},
-        "left-behind":   {"x_center": -125, "y_val":  135},
-        "right-front":   {"x_center":  125, "y_val": -135},
-        "right-behind":  {"x_center": -125, "y_val": -135},
+        "left-front":    {"x_center":  125, "y_val":  135, "z_offset": LF_Z_OFFSET},
+        "left-behind":   {"x_center": -125, "y_val":  135, "z_offset": LB_Z_OFFSET},
+        "right-front":   {"x_center":  125, "y_val": -135, "z_offset": RF_Z_OFFSET},
+        "right-behind":  {"x_center": -125, "y_val": -135, "z_offset": RB_Z_OFFSET},
     }
 
     PARAMS_GAIT_BACKWARD = {
-        "left-front":    {"x_center":  125, "y_val":  135, "reverse": True},
-        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True},
-        "right-front":   {"x_center":  125, "y_val": -135, "reverse": True},
-        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": True, "z_offset": LF_Z_OFFSET},
+        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True, "z_offset": LB_Z_OFFSET},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": True, "z_offset": RF_Z_OFFSET},
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True, "z_offset": RB_Z_OFFSET},
     }
 
     PARAMS_GAIT_TURN_RIGHT = {
-        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False},
-        "left-behind":   {"x_center": -84, "y_val":  135, "reverse": False},
-        "right-front":   {"x_center":  125, "y_val": -135, "reverse": True},
-        "right-behind":  {"x_center": -84, "y_val": -135, "reverse": True},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET},
+        "left-behind":   {"x_center": -84, "y_val":  135, "reverse": False, "z_offset": LB_Z_OFFSET},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": True, "z_offset": RF_Z_OFFSET},
+        "right-behind":  {"x_center": -84, "y_val": -135, "reverse": True, "z_offset": RB_Z_OFFSET},
     }
 
     PARAMS_GAIT_TURN_LEFT = {
-        "left-front":    {"x_center":  125, "y_val":  135, "reverse": True},
-        "left-behind":   {"x_center": -84, "y_val":  135, "reverse": True},
-        "right-front":   {"x_center":  125, "y_val": -135, "reverse": False},
-        "right-behind":  {"x_center": -84, "y_val": -135, "reverse": False},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": True, "z_offset": LF_Z_OFFSET},
+        "left-behind":   {"x_center": -84, "y_val":  135, "reverse": True, "z_offset": LB_Z_OFFSET},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": False, "z_offset": RF_Z_OFFSET},
+        "right-behind":  {"x_center": -84, "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET},
     }
 
     PARAMS_PHASESHIFT_TROT = {
@@ -251,7 +258,7 @@ class Gait:
         robot_length = RobotLength(L=209, W=191, l1=26, l2=106, l3=125)
         self._kinematics = Kinematics(self._node, robot_length)
         self.serial_publish = SerialPublish(self._node)
-        self._waypoint = Waypoint(200, 150, 35, 270)
+        self._waypoint = Waypoint(200, 200, 40, 270)
 
         # Trajectory state
         self._angle_data = None
@@ -510,15 +517,15 @@ class Gait:
 
     # ── Trajectory generation ─────────────────────────────────────
 
-    def _trajectory_moving(self, x_center, y_val, reverse=False):
+    def _trajectory_moving(self, x_center, y_val, reverse=False, z_offset=0):
         """Build D-shape foot path in Cartesian space (x, y, z)."""
         stride_length = 10
         x_forward = x_center + stride_length / 2
         x_backward = x_center - stride_length / 2
-        z_stance = -170
+        z_stance = -170 + z_offset
         z_swing = -130
         lift_height = z_swing - z_stance
-        lift_height = 35
+        lift_height = 55
 
         if reverse:
             pos_A = [x_forward, y_val, z_stance]
@@ -740,10 +747,10 @@ class Gait:
     def _generate_home_real(self):
         """Generate homing trajectory for real hardware (in servo degrees)."""
         # 1. Compute IK standing targets for all 4 legs
-        lf = self._kinematics.inverse(125, 135, -170, "left-front")
-        lb = self._kinematics.inverse(-125, 135, -170, "left-behind")
-        rf = self._kinematics.inverse(125, -135, -170, "right-front")
-        rb = self._kinematics.inverse(-125, -135, -170, "right-behind")
+        lf = self._kinematics.inverse(125, 135, -170 + GaitConfig.LF_Z_OFFSET, "left-front")
+        lb = self._kinematics.inverse(-125, 135, -170 + GaitConfig.LB_Z_OFFSET, "left-behind")
+        rf = self._kinematics.inverse(125, -135, -170 + GaitConfig.RF_Z_OFFSET, "right-front")
+        rb = self._kinematics.inverse(-125, -135, -170 + GaitConfig.RB_Z_OFFSET, "right-behind")
 
         # 2. Convert IK degrees → servo degrees
         lf_servo = self.serial_publish._ik_to_servo_lf(*lf)
@@ -825,8 +832,9 @@ class Gait:
                 params["x_center"], params["y_val"])
         else:
             reverse = params.get("reverse", False)
+            z_offset = params.get("z_offset", 0)
             waypoint = self._trajectory_moving(
-                params["x_center"], params["y_val"], reverse)
+                params["x_center"], params["y_val"], reverse, z_offset)
 
         theta_i = np.zeros_like(waypoint)
         for i in range(waypoint.shape[0]):
