@@ -140,7 +140,7 @@ class GaitConfig:
     # Negative = foot reaches lower (use when a leg is physically higher).
     LF_Z_OFFSET = 0
     LB_Z_OFFSET = -5
-    RF_Z_OFFSET = 0
+    RF_Z_OFFSET = -1
     RB_Z_OFFSET = -5
 
     PARAMS_GAIT_FORWARD = {
@@ -258,7 +258,7 @@ class Gait:
         robot_length = RobotLength(L=209, W=191, l1=26, l2=106, l3=125)
         self._kinematics = Kinematics(self._node, robot_length)
         self.serial_publish = SerialPublish(self._node)
-        self._waypoint = Waypoint(200, 200, 40, 270)
+        self._waypoint = Waypoint(200, 200, 45, 1000)
 
         # Trajectory state
         self._angle_data = None
@@ -525,7 +525,7 @@ class Gait:
         z_stance = -170 + z_offset
         z_swing = -130
         lift_height = z_swing - z_stance
-        lift_height = 55
+        lift_height = 100
 
         if reverse:
             pos_A = [x_forward, y_val, z_stance]
