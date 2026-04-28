@@ -54,7 +54,7 @@ class Kinematics:
                 z       =  self.robot_length.L / 2 + px
                 theta1  =  math.atan2(-x, y) \
                          + math.atan2(-math.sqrt(x**2 + y**2 - self.robot_length.l1**2), -self.robot_length.l1)
-                sign_s3 =  1
+                sign_s3 =  -1
                 sign_p2 =  1
             case "right-front":
                 x       =  pz
@@ -70,7 +70,7 @@ class Kinematics:
                 z       =  self.robot_length.L / 2 + px
                 theta1  =  math.atan2(-x, y) \
                          + math.atan2(-math.sqrt(x**2 + y**2 - self.robot_length.l1**2), self.robot_length.l1)
-                sign_s3 = -1
+                sign_s3 = 1
                 sign_p2 = -1
             case _:
                 return None
@@ -85,13 +85,6 @@ class Kinematics:
         
         theta1  = round(math.degrees(theta1), 1)        
         theta2  = round(math.degrees(theta2), 1)
-        # Normalize theta2 based on each leg's physical rotation direction
-        # if leg_type in ("right-behind"):
-        #     if theta2 < 0:
-        #         theta2 += 360       # e.g. -152° → 208°
-        # elif leg_type in ("right-front"):
-        #     if theta2 > 0:
-        #         theta2 -= 360       # e.g. 152° → -208°
         theta3  = round(math.degrees(theta3), 1)                
 
         return theta1, theta2, theta3

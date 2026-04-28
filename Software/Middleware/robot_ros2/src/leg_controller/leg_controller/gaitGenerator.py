@@ -251,7 +251,7 @@ class Gait:
         robot_length = RobotLength(L=209, W=191, l1=26, l2=106, l3=125)
         self._kinematics = Kinematics(self._node, robot_length)
         self.serial_publish = SerialPublish(self._node)
-        self._waypoint = Waypoint(200, 170, 40, 270)
+        self._waypoint = Waypoint(200, 150, 40, 270)
 
         # Trajectory state
         self._angle_data = None
@@ -512,13 +512,13 @@ class Gait:
 
     def _trajectory_moving(self, x_center, y_val, reverse=False):
         """Build D-shape foot path in Cartesian space (x, y, z)."""
-        stride_length = 10
+        stride_length = 20
         x_forward = x_center + stride_length / 2
         x_backward = x_center - stride_length / 2
         z_stance = -170
         z_swing = -130
         lift_height = z_swing - z_stance
-        lift_height = 55
+        lift_height = 40
 
         if reverse:
             pos_A = [x_forward, y_val, z_stance]

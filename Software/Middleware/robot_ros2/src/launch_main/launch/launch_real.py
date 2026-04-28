@@ -12,7 +12,7 @@ def generate_launch_description():
         name='serial_driver_a',
         output='screen',
         parameters=[{
-            'port':            '/dev/ttyACM5',
+            'port':            '/dev/ttyACM1',
             'num_servos':      6,
             'servo_ids':       [7, 8, 9, 10, 11, 12],
             'joint_names':     ['joint_lf_1', 'joint_lf_2', 'joint_lf_3',
@@ -43,7 +43,7 @@ def generate_launch_description():
         name='serial_driver_b',
         output='screen',
         parameters=[{
-            'port':            '/dev/ttyACM4',
+            'port':            '/dev/ttyACM0',
             'num_servos':      6,
             'servo_ids':       [4, 5, 6, 1, 2, 3],
             'joint_names':     ['joint_lb_1', 'joint_lb_2', 'joint_lb_3',
