@@ -12,6 +12,9 @@ class LegController(Node):
     def __init__(self):
         super().__init__('nodeLegController')
 
+        self.declare_parameter('use_real_hardware', False)
+        self.use_real = self.get_parameter('use_real_hardware').value
+
         self.gait_msg = GaitMsg(None, 0)
         self.gait = Gait(self, self.gait_msg)
         
@@ -19,7 +22,14 @@ class LegController(Node):
             String, '/gait_control', self.listener_callback, 10)
         
         self.timer = self.create_timer(0.003, self.timer_callback)
-        self.state_gait = "AUTO_INIT"
+
+        if self.use_real:
+            # Real hardware: skip Gazebo wait, go straight to IDLE
+            self.state_gait = "IDLE"
+            self.get_logger().info('REAL HARDWARE mode — ready for commands.')
+        else:
+            # Simulation: wait for Gazebo encoder data first
+            self.state_gait = "AUTO_INIT"
 
         self.get_logger().info('The main Node has started.')    
 
