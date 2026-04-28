@@ -104,7 +104,7 @@ class GaitConfig:
     #     Right legs: POSITIVE = more knee bend
     #   Joint2 fold (shoulder tuck):
     #     LF: toward EEPROM LOW  end (more negative)
-    #     LB: toward EEPROM HIGH end (more positive)
+    #     LB: toward EEPROM LOW  end (matching LF after direction fix)
     #     RF: toward EEPROM HIGH end (more positive)
     #     RB: toward EEPROM HIGH end (more positive)
     #   Joint1 splay (hip outward):
@@ -121,15 +121,15 @@ class GaitConfig:
         },
         'joint2': {
             'left-front':  -160.0,   # EEPROM limit ≈ -149.9° (low end)
-            'left-behind':   70.0,   # EEPROM limit ≈  +96.5° (margin: ~245 ticks)
+            'left-behind':  250.0,   # EEPROM limit ≈ +246.1° (low end)
             'right-front':  160.0,   # EEPROM limit ≈ +150.0° (high end)
             'right-behind': 160.0,   # EEPROM limit ≈ +150.8° (high end)
         },
         'joint1': {
-            'left-front':   -30.0,   # EEPROM limit ≈ +30.5°
-            'left-behind':   30.0,   # EEPROM limit ≈ +30.0°
-            'right-front':   30.0,   # EEPROM limit ≈ -30.0°
-            'right-behind': -30.0,   # EEPROM limit ≈ -30.0°
+            'left-front':   -50.0,   # EEPROM limit ≈ +30.5°
+            'left-behind':   50.0,   # EEPROM limit ≈ +30.0°
+            'right-front':   50.0,   # EEPROM limit ≈ -30.0°
+            'right-behind': -50.0,   # EEPROM limit ≈ -30.0°
         },
     }
 
@@ -251,7 +251,7 @@ class Gait:
         robot_length = RobotLength(L=209, W=191, l1=26, l2=106, l3=125)
         self._kinematics = Kinematics(self._node, robot_length)
         self.serial_publish = SerialPublish(self._node)
-        self._waypoint = Waypoint(200, 150, 40, 270)
+        self._waypoint = Waypoint(200, 150, 35, 270)
 
         # Trajectory state
         self._angle_data = None
@@ -512,13 +512,13 @@ class Gait:
 
     def _trajectory_moving(self, x_center, y_val, reverse=False):
         """Build D-shape foot path in Cartesian space (x, y, z)."""
-        stride_length = 20
+        stride_length = 10
         x_forward = x_center + stride_length / 2
         x_backward = x_center - stride_length / 2
         z_stance = -170
         z_swing = -130
         lift_height = z_swing - z_stance
-        lift_height = 40
+        lift_height = 35
 
         if reverse:
             pos_A = [x_forward, y_val, z_stance]

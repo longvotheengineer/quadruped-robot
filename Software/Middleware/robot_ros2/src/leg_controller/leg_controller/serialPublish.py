@@ -64,9 +64,9 @@ class SerialPublish():
         # if theta2_deg > 180.0:
         #     theta2_deg -= 360.0
 
-        servo_1 = theta1_deg                # hip: direct
+        servo_1 = theta1_deg - 7               # hip: direct
         # theta2_deg = 180
-        servo_2 = -(theta2_deg - 90)               # shoulder: direct
+        servo_2 = -(theta2_deg - 90) - 4             # shoulder: direct
         # theta3_deg = -90
         servo_3 = theta3_deg + 90.0         # knee: bar linkage offset
 
@@ -92,15 +92,9 @@ class SerialPublish():
         Returns:
             tuple of (servo1_deg, servo2_deg, servo3_deg)
         """
-        # Normalize θ2 into (−180, +180] range.
-        if theta2_deg > 180.0:
-            theta2_deg -= 360.0
-
-        servo_1 = theta1_deg - 5              # hip: direct
-        servo_2 = theta2_deg + 180 - 7        # shoulder: negated (driver inverts)
-        # servo_2 = -(theta2_deg - 270)# - 7 
-        servo_3 = theta3_deg + 90.0         # knee: bar linkage offset
-        # servo_3 = theta3_deg - 270 
+        servo_1 = theta1_deg + 5
+        servo_2 = theta2_deg + 360 - 4      # +360 wraps LB's negative θ2 to positive
+        servo_3 = theta3_deg + 90.0
 
         return servo_1, servo_2, servo_3
 
@@ -124,9 +118,9 @@ class SerialPublish():
         if theta2_deg < -180.0:
             theta2_deg += 360.0
 
-        servo_1 = theta1_deg + 10              # hip: direct
-        servo_2 = -theta2_deg + 270         # shoulder
-        servo_3 = theta3_deg - 90.0 - 5        # knee: bar linkage offset
+        servo_1 = theta1_deg + 7
+        servo_2 = -theta2_deg + 270
+        servo_3 = theta3_deg - 90.0 - 5
 
         return servo_1, servo_2, servo_3
 
@@ -151,7 +145,7 @@ class SerialPublish():
             theta2_deg += 360.0
 
         servo_1 = theta1_deg + 5             
-        servo_2 = -theta2_deg + 270       
+        servo_2 = -theta2_deg + 270 - 13 + 4 - 2     
         # servo_2 = -(theta2_deg + 270)
         servo_3 = theta3_deg - 90.0        
         # servo_3 = theta3_deg + 90.0
