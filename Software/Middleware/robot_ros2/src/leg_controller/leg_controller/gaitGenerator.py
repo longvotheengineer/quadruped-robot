@@ -149,7 +149,7 @@ class GaitConfig:
     LF_Z_OFFSET = 0
     LB_Z_OFFSET = -5
     RF_Z_OFFSET = 0
-    RB_Z_OFFSET = -9
+    RB_Z_OFFSET = -10
 
     PARAMS_GAIT_FORWARD = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET},
@@ -176,16 +176,16 @@ class GaitConfig:
 
     PARAMS_GAIT_TURN_RIGHT = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET},
-        "left-behind":   {"x_center": -100, "y_val":  135, "reverse": False, "z_offset": LB_Z_OFFSET},
+        "left-behind":   {"x_center": -60, "y_val":  135, "reverse": False, "z_offset": LB_Z_OFFSET},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": True, "z_offset": RF_Z_OFFSET},
-        "right-behind":  {"x_center": -100, "y_val": -135, "reverse": True, "z_offset": RB_Z_OFFSET},
+        "right-behind":  {"x_center": -60, "y_val": -135, "reverse": True, "z_offset": RB_Z_OFFSET},
     }
 
     PARAMS_GAIT_TURN_LEFT = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": True, "z_offset": LF_Z_OFFSET},
-        "left-behind":   {"x_center": -100, "y_val":  135, "reverse": True, "z_offset": LB_Z_OFFSET},
+        "left-behind":   {"x_center": -110, "y_val":  135, "reverse": True, "z_offset": LB_Z_OFFSET},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": False, "z_offset": RF_Z_OFFSET},
-        "right-behind":  {"x_center": -100, "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET},
+        "right-behind":  {"x_center": -110, "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET},
     }
 
     PARAMS_PHASESHIFT_TROT = {
