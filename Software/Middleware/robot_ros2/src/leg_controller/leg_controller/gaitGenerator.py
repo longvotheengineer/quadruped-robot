@@ -149,7 +149,7 @@ class GaitConfig:
     LF_Z_OFFSET = 0
     LB_Z_OFFSET = -5
     RF_Z_OFFSET = -1
-    RB_Z_OFFSET = -7
+    RB_Z_OFFSET = -8
 
     PARAMS_GAIT_FORWARD = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET},
@@ -183,9 +183,9 @@ class GaitConfig:
 
     PARAMS_GAIT_TURN_LEFT = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": True, "z_offset": LF_Z_OFFSET},
-        "left-behind":   {"x_center": -84, "y_val":  135, "reverse": True, "z_offset": LB_Z_OFFSET},
+        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True, "z_offset": LB_Z_OFFSET},
         "right-front":   {"x_center":  125, "y_val": -135, "reverse": False, "z_offset": RF_Z_OFFSET},
-        "right-behind":  {"x_center": -84, "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET},
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET},
     }
 
     PARAMS_PHASESHIFT_TROT = {
