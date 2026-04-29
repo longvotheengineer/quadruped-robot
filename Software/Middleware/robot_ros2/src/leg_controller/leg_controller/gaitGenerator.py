@@ -148,7 +148,7 @@ class GaitConfig:
     # Negative = foot reaches lower (use when a leg is physically higher).
     LF_Z_OFFSET = -2
     LB_Z_OFFSET = -3
-    RF_Z_OFFSET = -3
+    RF_Z_OFFSET = -4
     RB_Z_OFFSET = -5
 
     PARAMS_GAIT_FORWARD = {
@@ -266,7 +266,7 @@ class Gait:
         robot_length = RobotLength(L=209, W=191, l1=26, l2=106, l3=125)
         self._kinematics = Kinematics(self._node, robot_length, use_real=node.use_real)
         self.serial_publish = SerialPublish(self._node)
-        self._waypoint = Waypoint(200, 200, 40, 1000)
+        self._waypoint = Waypoint(200, 200, 35, 1000)
 
         # Trajectory state
         self._angle_data = None
@@ -563,7 +563,7 @@ class Gait:
 
     def _trajectory_moving(self, x_center, y_val, reverse=False, z_offset=0):
         """Build D-shape foot path in Cartesian space (x, y, z)."""
-        stride_length = 20
+        stride_length = 10
         x_forward = x_center + stride_length / 2
         x_backward = x_center - stride_length / 2
         z_stance = -170 + z_offset
