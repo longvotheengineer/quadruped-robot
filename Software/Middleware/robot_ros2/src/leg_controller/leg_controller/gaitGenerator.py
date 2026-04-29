@@ -264,7 +264,7 @@ class Gait:
         self._gait_msg = gait_msg
 
         robot_length = RobotLength(L=209, W=191, l1=26, l2=106, l3=125)
-        self._kinematics = Kinematics(self._node, robot_length)
+        self._kinematics = Kinematics(self._node, robot_length, use_real=node.use_real)
         self.serial_publish = SerialPublish(self._node)
         self._waypoint = Waypoint(200, 200, 45, 1000)
 
@@ -603,8 +603,12 @@ class Gait:
 
     def _trajectory_resting(self, x_center, y_val):
         """Resting trajectory: feet planted, body oscillates."""
-        z_low = -180
-        z_high = -110
+        if self.serial_publish.use_real:
+            z_low = -180
+            z_high = -110
+        else:
+            z_low = -170
+            z_high = -130
 
         waypoint = np.zeros((self._waypoint.rest, 3))
         waypoint[:, 0] = x_center
@@ -856,13 +860,22 @@ class Gait:
                 params = GaitConfig.PARAMS_GAIT_TURN_LEFT.get(leg_type)
                 phase = GaitConfig.PARAMS_PHASESHIFT_TROT
             case "BODY_PUSHUP":
-                params = GaitConfig.PARAMS_GAIT_BODY.get(leg_type)
+                if self.serial_publish.use_real:
+                    params = GaitConfig.PARAMS_GAIT_BODY.get(leg_type)
+                else:
+                    params = GaitConfig.PARAMS_GAIT_FORWARD.get(leg_type)
                 phase = GaitConfig.PARAMS_PHASESHIFT_PUSHUP
             case "BODY_SWAY":
-                params = GaitConfig.PARAMS_GAIT_BODY.get(leg_type)
+                if self.serial_publish.use_real:
+                    params = GaitConfig.PARAMS_GAIT_BODY.get(leg_type)
+                else:
+                    params = GaitConfig.PARAMS_GAIT_FORWARD.get(leg_type)
                 phase = GaitConfig.PARAMS_PHASESHIFT_SWAY
             case "BODY_CIRCLE":
-                params = GaitConfig.PARAMS_GAIT_BODY.get(leg_type)
+                if self.serial_publish.use_real:
+                    params = GaitConfig.PARAMS_GAIT_BODY.get(leg_type)
+                else:
+                    params = GaitConfig.PARAMS_GAIT_FORWARD.get(leg_type)
                 phase = GaitConfig.PARAMS_PHASESHIFT_CIRCLE
             case _:
                 return None, None
@@ -876,7 +889,7 @@ class Gait:
                 params["x_center"], params["y_val"])
         else:
             reverse = params.get("reverse", False)
-            z_offset = params.get("z_offset", 0)
+            z_offset = params.get("z_offset", 0) if self.serial_publish.use_real else 0
             waypoint = self._trajectory_moving(
                 params["x_center"], params["y_val"], reverse, z_offset)
 

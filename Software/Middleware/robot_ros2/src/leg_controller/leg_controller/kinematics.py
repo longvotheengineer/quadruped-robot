@@ -1,9 +1,10 @@
 import math
 
 class Kinematics:
-    def __init__(self, node, robot_length):
+    def __init__(self, node, robot_length, use_real=False):
         self.get_logger = node.get_logger()
         self.robot_length = robot_length
+        self.use_real = use_real
     
     def forward(self, theta1, theta2, theta3):
         # Convert angles from degree to radian
@@ -46,6 +47,8 @@ class Kinematics:
                 z       = -self.robot_length.L / 2 + px
                 theta1  =  math.atan2(-x, y) \
                          + math.atan2(-math.sqrt(x**2 + y**2 - self.robot_length.l1**2), -self.robot_length.l1)
+                if not self.use_real:
+                    theta1  = -theta1  # negate for URDF left joint frame convention
                 sign_s3 = -1
                 sign_p2 =  1
             case "left-behind":
@@ -54,6 +57,8 @@ class Kinematics:
                 z       =  self.robot_length.L / 2 + px
                 theta1  =  math.atan2(-x, y) \
                          + math.atan2(-math.sqrt(x**2 + y**2 - self.robot_length.l1**2), -self.robot_length.l1)
+                if not self.use_real:
+                    theta1  = -theta1  # negate for URDF left joint frame convention
                 sign_s3 =  -1
                 sign_p2 =  1
             case "right-front":
@@ -85,6 +90,14 @@ class Kinematics:
         
         theta1  = round(math.degrees(theta1), 1)        
         theta2  = round(math.degrees(theta2), 1)
+        # Normalize theta2 based on each leg's physical rotation direction (simulation only)
+        if not self.use_real:
+            if leg_type in ("left-front", "right-behind"):
+                if theta2 < 0:
+                    theta2 += 360       # e.g. -152° → 208°
+            elif leg_type in ("left-behind", "right-front"):
+                if theta2 > 0:
+                    theta2 -= 360       # e.g. 152° → -208°
         theta3  = round(math.degrees(theta3), 1)                
 
         return theta1, theta2, theta3
