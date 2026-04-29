@@ -149,7 +149,7 @@ class GaitConfig:
     LF_Z_OFFSET = 0
     LB_Z_OFFSET = -5
     RF_Z_OFFSET = -1
-    RB_Z_OFFSET = -5
+    RB_Z_OFFSET = -7
 
     PARAMS_GAIT_FORWARD = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET},
