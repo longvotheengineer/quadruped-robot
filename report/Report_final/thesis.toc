@@ -1,0 +1,146 @@
+\babel@toc {vietnamese}{}\relax 
+\contentsline {chapter}{\numberline {1}Tổng quan}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Đặt vấn đề và lý do chọn đề tài}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Mục tiêu nghiên cứu}{1}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Đối tượng và phạm vi nghiên cứu}{2}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Đối tượng nghiên cứu}{2}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Phạm vi nghiên cứu}{2}{subsection.1.3.2}%
+\contentsline {section}{\numberline {1.4}Phương pháp nghiên cứu}{2}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Ý nghĩa khoa học và thực tiễn}{2}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Ý nghĩa khoa học}{2}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Ý nghĩa thực tiễn}{3}{subsection.1.5.2}%
+\contentsline {section}{\numberline {1.6}Bố cục đồ án}{3}{section.1.6}%
+\contentsline {chapter}{\numberline {2}Cơ sở lý thuyết}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Tổng quan về Robot bốn chân}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Phân loại cấu trúc chân robot}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Cấu trúc liên kết động học của robot bốn chân}{6}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Cơ cấu chân 3 bậc tự do}{6}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Không gian làm việc }{7}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Lý thuyết quy hoạch quỹ đạo cho robot có chân}{8}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Các yêu cầu của quỹ đạo bàn chân}{8}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Các phương pháp nội suy phổ biến}{8}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Cấu trúc quỹ đạo hình chữ D}{8}{subsection.2.6.3}%
+\contentsline {section}{\numberline {2.7}Các phương thức di chuyển}{9}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Lý thuyết ổn định cho robot có chân}{10}{section.2.8}%
+\contentsline {subsection}{\numberline {2.8.1}Ổn định tĩnh}{10}{subsection.2.8.1}%
+\contentsline {subsection}{\numberline {2.8.2}Ổn định động}{10}{subsection.2.8.2}%
+\contentsline {section}{\numberline {2.9}Các công trình nghiên cứu liên quan}{11}{section.2.9}%
+\contentsline {section}{\numberline {2.10}Lý thuyết bộ điều khiển PID}{11}{section.2.10}%
+\contentsline {subsection}{\numberline {2.10.1}Luật điều khiển PID chuẩn}{11}{subsection.2.10.1}%
+\contentsline {subsection}{\numberline {2.10.2}Dạng rời rạc và triển khai số}{11}{subsection.2.10.2}%
+\contentsline {subsection}{\numberline {2.10.3}Các cải tiến PID trong hệ thống thực}{12}{subsection.2.10.3}%
+\contentsline {section}{\numberline {2.11}Cảm biến quán tính IMU và biểu diễn hướng}{12}{section.2.11}%
+\contentsline {subsection}{\numberline {2.11.1}Nguyên lý hoạt động}{12}{subsection.2.11.1}%
+\contentsline {subsection}{\numberline {2.11.2}Biểu diễn hướng: Quaternion và góc Euler}{13}{subsection.2.11.2}%
+\contentsline {subsection}{\numberline {2.11.3}Bộ lọc cảm biến}{13}{subsection.2.11.3}%
+\contentsline {section}{\numberline {2.12}Tổng quan về nền tảng ROS~2 và Gazebo}{13}{section.2.12}%
+\contentsline {subsection}{\numberline {2.12.1}Hệ điều hành Robot ROS~2}{13}{subsection.2.12.1}%
+\contentsline {subsection}{\numberline {2.12.2}Trình mô phỏng Gazebo}{14}{subsection.2.12.2}%
+\contentsline {chapter}{\numberline {3}Phân tích kết cấu và lựa chọn cơ cấu chấp hành}{15}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Phân tích kết cấu robot}{15}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Thiết kế thân}{15}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Thiết kế khớp hông}{16}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Thiết kế chân}{17}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}Phân tích vật liệu và công nghệ chế tạo}{18}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Lựa chọn vật liệu in 3D}{18}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Tham số in 3D}{18}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Phân tích tải trọng bằng SolidWorks Simulation}{19}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Lựa chọn cơ cấu chấp hành}{19}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Phân tích mô-men khớp vai (Hip Roll)}{21}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Phân tích mô-men khớp hông (Hip Pitch)}{22}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Thiết kế tổng thể}{22}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Phân tích ngân sách khối lượng}{23}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Quy trình lắp ráp}{23}{subsection.3.3.5}%
+\contentsline {chapter}{\numberline {4}Mô hình động học và điều khiển}{25}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Động học thuận }{25}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Thiết lập hệ tọa độ DH}{25}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Giải động học thuận}{26}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Động học nghịch }{28}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Phương pháp giải tích}{28}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Xử lý đối xứng giữa các chân}{28}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Biến đổi tọa độ từ hệ thân sang hệ chân}{28}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Giải hệ phương trình IK}{29}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}Quy hoạch dáng đi và phân tích chuyển động }{29}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Các mẫu dáng đi phổ biến cho Robot bốn chân }{29}{subsection.4.3.1}%
+\contentsline {section}{\numberline {4.4}Quy hoạch quỹ đạo cho robot bốn chân}{30}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Nội suy đa thức bậc ba}{30}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Nội suy đa thức bậc năm}{31}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Triển khai quỹ đạo chân dạng chữ D}{32}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Tham số quỹ đạo trong hệ thống thực tế}{33}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Lập lịch pha dáng đi}{33}{subsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.4.6}Quy trình tắt an toàn ba pha (ROBOTOFF)}{34}{subsection.4.4.6}%
+\contentsline {subsection}{\numberline {4.4.7}Mô hình động lực học}{34}{subsection.4.4.7}%
+\contentsline {section}{\numberline {4.5}Thiết kế bộ điều khiển}{36}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Kiến trúc điều khiển tổng thể}{36}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Cơ chế áp dụng tín hiệu điều chỉnh tư thế}{36}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Bộ điều khiển cân bằng IMU -- Chế độ tĩnh (HOME)}{37}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}Bộ điều khiển cân bằng thích nghi -- Chế độ động (GAIT)}{38}{subsection.4.5.4}%
+\contentsline {subsection}{\numberline {4.5.5}Tổng hợp pipeline điều khiển}{39}{subsection.4.5.5}%
+\contentsline {subsection}{\numberline {4.5.6}So sánh hai chế độ điều khiển}{39}{subsection.4.5.6}%
+\contentsline {chapter}{\numberline {5}Thiết kế và xây dựng hệ thống}{40}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Tổng quan về kiến trúc hệ thống }{40}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Khối xử lý trung tâm }{40}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2} Hệ thống Cung cấp Nguồn điện}{41}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Bus Servo Adapter (A)}{43}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Bộ đo lường quán tính }{44}{subsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.1.5}Mạch Giảm Áp }{45}{subsection.5.1.5}%
+\contentsline {subsection}{\numberline {5.1.6}Cơ cấu chấp hành: Động cơ Bus Servo ST3215}{46}{subsection.5.1.6}%
+\contentsline {subsection}{\numberline {5.1.7}Hệ thống Phân phối Năng lượng và Lựa chọn Dây dẫn}{47}{subsection.5.1.7}%
+\contentsline {section}{\numberline {5.2}Các Giao thức Truyền thông của Hệ thống}{48}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Phân tích thời gian truyền thông UART}{50}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Ánh xạ ID servo và phân bổ driver}{50}{subsection.5.2.2}%
+\contentsline {section}{\numberline {5.3}Kiến trúc phần mềm ROS 2}{51}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Tổng quan kiến trúc node}{51}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Giao tiếp giữa các node}{51}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Các trạng thái vận hành}{51}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Cấu trúc các ROS 2 packages}{51}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}Chi tiết các module phần mềm}{51}{subsection.5.3.5}%
+\contentsline {subsection}{\numberline {5.3.6}Bảng giao tiếp topic ROS~2}{52}{subsection.5.3.6}%
+\contentsline {subsection}{\numberline {5.3.7}Cơ chế chẩn đoán thời gian thực}{52}{subsection.5.3.7}%
+\contentsline {section}{\numberline {5.4}Chi phí hệ thống}{52}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Quy trình Homing và Calibrate}{53}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Calibrate servo}{53}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Quy trình Homing}{53}{subsection.5.5.2}%
+\contentsline {chapter}{\numberline {6}Mô phỏng, thực nghiệm và kết quả}{54}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Giới thiệu}{54}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Cấu hình môi trường mô phỏng Gazebo}{54}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Mô hình robot URDF}{54}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Plugin điều khiển Gazebo}{55}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Cấu hình vật lý và môi trường}{55}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Phân tích quỹ đạo bàn chân}{55}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Quỹ đạo trong mặt phẳng 2D}{55}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Quỹ đạo trong không gian 3D}{56}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Biên dạng vận tốc và gia tốc}{57}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}Phân tích góc khớp và mô-men xoắn}{57}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Biến thiên góc khớp}{57}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Ước lượng mô-men xoắn bộ điều khiển PD}{58}{subsection.6.4.2}%
+\contentsline {section}{\numberline {6.5}Phân tích dáng đi và ổn định}{59}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Giản đồ thời gian dáng đi Trot}{59}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Đa giác đỡ và ổn định tĩnh}{59}{subsection.6.5.2}%
+\contentsline {section}{\numberline {6.6}Không gian làm việc}{60}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Tổng hợp tham số hệ thống}{60}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Nhận xét và đánh giá}{60}{section.6.8}%
+\contentsline {section}{\numberline {6.9}Đánh giá hiệu năng bộ điều khiển PID nâng cao trên mô phỏng}{61}{section.6.9}%
+\contentsline {subsection}{\numberline {6.9.1}Kết quả quy hoạch quỹ đạo offline}{62}{subsection.6.9.1}%
+\contentsline {subsection}{\numberline {6.9.2}Quỹ đạo 3D bàn chân trong môi trường mô phỏng}{63}{subsection.6.9.2}%
+\contentsline {subsection}{\numberline {6.9.3}Ổn định tư thế tĩnh (chế độ HOME)}{63}{subsection.6.9.3}%
+\contentsline {subsection}{\numberline {6.9.4}Ổn định động trong dáng đi Trot (chế độ GAIT)}{64}{subsection.6.9.4}%
+\contentsline {section}{\numberline {6.10}Thực nghiệm trên phần cứng thực}{65}{section.6.10}%
+\contentsline {subsection}{\numberline {6.10.1}Giới thiệu}{65}{subsection.6.10.1}%
+\contentsline {subsection}{\numberline {6.10.2}Mô hình robot thực tế}{65}{subsection.6.10.2}%
+\contentsline {subsection}{\numberline {6.10.3}Kiến trúc khởi động hệ thống phần cứng}{65}{subsection.6.10.3}%
+\contentsline {subsection}{\numberline {6.10.4}Chuyển đổi góc IK sang góc servo}{65}{subsection.6.10.4}%
+\contentsline {subsection}{\numberline {6.10.5}Thử nghiệm Homing (chế độ ZERO)}{66}{subsection.6.10.5}%
+\contentsline {subsection}{\numberline {6.10.6}Thử nghiệm dáng đi Trot (chế độ TROT\_FORWARD)}{66}{subsection.6.10.6}%
+\contentsline {subsection}{\numberline {6.10.7}Cơ chế tắt an toàn (ROBOTOFF)}{67}{subsection.6.10.7}%
+\contentsline {subsection}{\numberline {6.10.8}Các vấn đề thực tế và giải pháp}{67}{subsection.6.10.8}%
+\contentsline {subsection}{\numberline {6.10.9}Nhận xét và đánh giá thực nghiệm}{67}{subsection.6.10.9}%
+\contentsline {section}{\numberline {6.11}Phân tích sự khác biệt giữa mô phỏng và thực nghiệm}{68}{section.6.11}%
+\contentsline {subsection}{\numberline {6.11.1}Khác biệt về kích thước mô hình}{68}{subsection.6.11.1}%
+\contentsline {subsection}{\numberline {6.11.2}Khác biệt về tham số dáng đi}{68}{subsection.6.11.2}%
+\contentsline {subsection}{\numberline {6.11.3}Các yếu tố phi lý tưởng trên phần cứng thực}{69}{subsection.6.11.3}%
+\contentsline {chapter}{\numberline {7}Kết luận và hướng phát triển}{70}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Kết luận}{70}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Đóng góp của đề tài}{71}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Hạn chế}{71}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Hướng phát triển}{71}{section.7.4}%

@@ -1,0 +1,64 @@
+\babel@toc {vietnamese}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Ví dụ robot bốn chân\relax }}{4}{figure.caption.4}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Cơ cấu chân dạng nối tiếp\relax }}{5}{figure.caption.5}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Mô hình cơ khí và hệ tọa độ nhánh của chân song song\relax }}{5}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Cơ cấu chân lai nối tiếp – song song\relax }}{6}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Cấu trúc liên kết động học của robot bốn chân 12 bậc tự do\relax }}{6}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Ba bậc tự do của cơ cấu một chân\relax }}{7}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Giản đồ pha chuyển động của dáng đi Trot\relax }}{9}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Giản đồ pha chuyển động của dáng đi Walk\relax }}{9}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Giản đồ pha chuyển động của dáng đi Pace\relax }}{9}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Giản đồ pha chuyển động của dáng đi Bound\relax }}{10}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Giản đồ pha chuyển động của dáng đi Gallop\relax }}{10}{figure.caption.14}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Thiết kế thân liền khối nhằm đạt độ bền cao và khối lượng nhẹ.\relax }}{15}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Nắp thân.\relax }}{16}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Thiết kế thân.\relax }}{16}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Cụm khớp hông cho chuyển động vung ngang và vung dọc.\relax }}{17}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Cụm lắp ráp một chân đơn.\relax }}{17}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Cơ cấu chấp hành servo ST3215 dùng cho robot bốn chân.\relax }}{20}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Phân tích mô-men xoắn của cơ cấu chấp hành servo tại cẳng chân.\relax }}{21}{figure.caption.24}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Mô hình một chân của robot bốn chân.\relax }}{22}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces 3D thiết kế robot Dog\relax }}{23}{figure.caption.26}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Mô hình động học và các khớp liên kết của Robot Dog.\relax }}{25}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Mô hình một chân của robot bốn chân được xây dựng bằng phương pháp D–H.\relax }}{26}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Sơ đồ thời gian của dáng đi trot với $\beta = 0.5$, trong đó $\beta = \frac {T_{st}}{T}$ và $T_{st}$ là thời gian của pha chống đỡ.\relax }}{30}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Phân tích quỹ đạo của một chân\relax }}{30}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Các đường cong quỹ đạo bậc ba\relax }}{31}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Các đường cong quỹ đạo bậc năm\relax }}{31}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Quỹ đạo và góc khớp của 4 chân\relax }}{32}{figure.caption.38}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Phân tích lực tác dụng lên một khâu tổng quát $i$ (lưu ý: lực tiếp xúc với mặt đất chỉ tồn tại khi khâu $i$ là một trong các khâu chân dưới).\relax }}{35}{figure.caption.41}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Tổng quan kiến trúc điều khiển của hệ thống\relax }}{36}{figure.caption.42}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Điều chỉnh tư thế thân robot với phương mặt đất\relax }}{37}{figure.caption.45}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Kiến trúc bộ điều khiển PID thích nghi cho ổn định tư thế\relax }}{37}{figure.caption.46}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Sơ đồ kết nối phần cứng mô hình thực nghiệm. \relax }}{40}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Thông số kỹ thuật Jetson Nano B01\relax }}{41}{figure.caption.50}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Bộ nguồn xung tổ ong 12V 40A 480W\relax }}{42}{figure.caption.51}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Bus Servo Adapter (A)\relax }}{44}{figure.caption.53}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Cảm biến thông minh 9 bậc tự do DFRobot Fermion BNO055\relax }}{44}{figure.caption.55}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Mạch giảm áp XL4015 5A 75W\relax }}{46}{figure.caption.57}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Sơ đồ phân phối điện áp và tín hiệu tổng thể của robot\relax }}{48}{figure.caption.61}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Các giao thức truyền thông khác nhau\relax }}{49}{figure.caption.62}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Giao thức truyền thông I2C\relax }}{49}{figure.caption.63}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Giao thức truyền thông UART\relax }}{50}{figure.caption.64}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Chuỗi hình ảnh mô phỏng dáng đi Trot của robot chó trong 5 giây\relax }}{55}{figure.caption.70}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Quỹ đạo bàn chân trong không gian 2D\relax }}{55}{figure.caption.71}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Quỹ đạo bàn chân trong không gian 3D\relax }}{56}{figure.caption.72}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Biên dạng vận tốc và gia tốc\relax }}{57}{figure.caption.73}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Biến thiên góc khớp\relax }}{57}{figure.caption.74}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Mô-men xoắn bộ điều khiển PD\relax }}{58}{figure.caption.75}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Gait timing\relax }}{59}{figure.caption.76}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Đa giác đỡ và ổn định tĩnh\relax }}{59}{figure.caption.77}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Không gian làm việc\relax }}{60}{figure.caption.78}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Quỹ đạo Cartesian $(x, y, z)$ của chân trước bên trái trong một chu kỳ dáng đi\relax }}{62}{figure.caption.82}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Biên dạng vận tốc và gia tốc của chân trước bên trái\relax }}{62}{figure.caption.83}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Góc khớp $(\theta _1, \theta _2, \theta _3)$ giải qua IK cho chân trước bên trái\relax }}{63}{figure.caption.84}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng\relax }}{63}{figure.caption.85}%
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME\relax }}{64}{figure.caption.86}%
+\contentsline {figure}{\numberline {6.15}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)\relax }}{64}{figure.caption.87}%
+\addvspace {10\p@ }

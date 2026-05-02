@@ -1,0 +1,564 @@
+% This is a copy version from https://github.com/thanhhungqb/thesis-template
+% Please do not modified this project, when you want to start writing, make a clone of it for your own (Please read README.md)
+
+\documentclass[13pt,a4paper,oneside]{book}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+\usepackage{lmodern}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+%\usepackage{tipa}  % Tạm tắt — thiếu font Uipa trên hệ thống
+%\usepackage{sty/ipa}
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage{fancyhdr}
+\usepackage{multirow}
+\usepackage{algorithm2e}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{makecell}
+
+\usepackage{sty/bkthesis}
+
+\graphicspath{ {image/} }
+\setcounter{secnumdepth}{3}
+
+\usepackage{longtable}
+\usepackage{comment}
+
+% Khai báo Khoa và Bộ môn (Xuống dòng bằng \\)
+\csdeptname{KHOA ĐIỆN -- ĐIỆN TỬ \\ BỘ MÔN ĐIỀU KHIỂN TỰ ĐỘNG}
+
+% Khai báo tên đồ án (Gộp cả tiếng Việt và tiếng Anh)
+\ctname{
+    THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG \\ HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI \\ VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN \\ SỬ DỤNG PHẢN HỒI IMU \\[0.5cm]
+    {\fontsize{12pt}{14pt}\selectfont Design, Simulation, and Implementation of an Adaptive \\ Gait Generation and Postural Stabilization Framework \\ for Quadruped Robots using IMU Feedback}
+}
+
+% Khai báo Sinh viên (Chỉ dùng 1 lệnh \cstuname, nối nhau bằng \\)
+\cstuname{TRƯƠNG TUẤN AN - 2210041 \\ VÕ QUẾ LONG - 2211910}
+
+\crname{ĐỒ ÁN TỐT NGHIỆP}
+\csSupervise{TS. NGUYỄN LÊ DŨNG}
+\cttime{2026}
+
+\thesislayout
+
+\begin{document}
+%-	Bìa cứng - màu xanh dương, chữ mạ vàng (xem mẫu đính kèm)
+%-	Trang tên (tờ lót): chất liệu giấy, nội dung giống như bìa LV
+%-	Ở gáy LV: in nhan đề LV (có thể in tóm tắt nếu nhan đề quá dài), size 15 – 17
+%-	Phiếu Nhiệm vụ LV, chấm điểm Hướng dẫn & Phản biện (đã ký): nhận từ GVHD & GVPB sau khi bảo vệ (theo lịch hẹn).
+%-	Lời cam đoan
+%-	Lời cảm ơn/ Lời ngỏ
+%-	Tóm tắt LV
+%-	Mục lục
+%-	Danh mục, bảng biểu, hình ảnh, ... (nếu có)
+%-	Nội dung LV
+%-	Danh mục TL tham khảo
+%-	Phụ lục (nếu có)
+
+\coverpage
+% ========================================================
+% 1. TRANG XÁC NHẬN CÔNG TRÌNH (HỘI ĐỒNG)
+% ========================================================
+\newpage
+\thispagestyle{empty} % Tắt đánh số trang
+
+\begin{center}
+    {\fontsize{14pt}{1.5}\selectfont CÔNG TRÌNH ĐƯỢC HOÀN THÀNH TẠI \\ TRƯỜNG ĐẠI HỌC BÁCH KHOA -- ĐHQG TP.HCM}
+\end{center}
+\vspace{1.5cm}
+
+\noindent Cán bộ hướng dẫn Đồ án tốt nghiệp: \dotfill \\
+\hspace*{3cm} (Ghi rõ họ, tên, học hàm, học vị và chữ ký) \\[1cm]
+Cán bộ chấm nhận xét 1: \dotfill \\
+\hspace*{3cm} (Ghi rõ họ, tên, học hàm, học vị và chữ ký) \\[1cm]
+Cán bộ chấm nhận xét 2: \dotfill \\
+\hspace*{3cm} (Ghi rõ họ, tên, học hàm, học vị và chữ ký) \\[1.5cm]
+
+\noindent Đồ án tốt nghiệp được bảo vệ tại Trường Đại học Bách Khoa -- ĐHQG TP.HCM ngày \dots\dots tháng \dots\dots năm \dots\dots \\[0.5cm]
+Thành phần Hội đồng đánh giá đồ án tốt nghiệp gồm: \\
+(Ghi rõ họ, tên, học hàm, học vị của Hội đồng chấm bảo vệ đồ án tốt nghiệp)
+\begin{enumerate}
+    \item \dotfill
+    \item \dotfill
+    \item \dotfill
+    \item \dotfill
+    \item \dotfill
+\end{enumerate}
+\vspace{0.5cm}
+
+\noindent Xác nhận của Chủ tịch Hội đồng đánh giá đồ án tốt nghiệp và Chủ nhiệm Bộ môn sau khi Đồ án đã được sửa chữa (nếu có). \\[1.5cm]
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+    \centering
+    \textbf{CHỦ TỊCH HỘI ĐỒNG}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+    \centering
+    \textbf{CHỦ NHIỆM BỘ MÔN \dots\dots}
+\end{minipage}
+\clearpage
+
+
+% ========================================================
+% 2. TRANG NHẬN XÉT CỦA CÁN BỘ HƯỚNG DẪN
+% ========================================================
+\newpage
+\thispagestyle{empty}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+    \centering
+    TRƯỜNG ĐẠI HỌC BÁCH KHOA TP. HCM \\
+    \textbf{KHOA ĐIỆN -- ĐIỆN TỬ} \\
+    \textbf{BỘ MÔN: ĐIỀU KHIỂN TỰ ĐỘNG} \\
+    \rule{3cm}{0.5pt}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+    \centering
+    CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM \\
+    Độc lập -- Tự do -- Hạnh phúc \\
+    \rule{3cm}{0.5pt} \\[0.2cm]
+    \textit{TP. HCM, ngày \dots tháng \dots năm \dots}
+\end{minipage}
+
+\vspace{1.5cm}
+\begin{center}
+    {\fontsize{14pt}{1.5}\selectfont \textbf{NHẬN XÉT ĐỒ ÁN TỐT NGHIỆP \\ CỦA CÁN BỘ HƯỚNG DẪN}}
+\end{center}
+\vspace{0.5cm}
+
+\noindent\textbf{\underline{Tên Đồ án:}} \\[0.2cm]
+\begin{center}
+    {\fontsize{13pt}{1.5}\selectfont \textbf{THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN SỬ DỤNG PHẢN HỒI IMU}} \\[0.2cm]
+    {\fontsize{11pt}{1.5}\selectfont DESIGN, SIMULATION, AND IMPLEMENTATION OF AN ADAPTIVE GAIT GENERATION AND POSTURAL STABILIZATION FRAMEWORK FOR QUADRUPED ROBOTS USING IMU FEEDBACK}
+\end{center}
+\vspace{0.5cm}
+
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+    \textbf{\underline{Nhóm Sinh viên thực hiện:}} \\[0.2cm]
+    Trương Tuấn An (MSSV: 2210041) \\
+    Võ Quế Long (MSSV: 2211910)
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+    \textbf{\underline{Cán bộ hướng dẫn:}} \\[0.2cm]
+    TS. Nguyễn Lê Dũng
+\end{minipage}
+
+\vspace{1cm}
+\noindent\textbf{\underline{Đánh giá Luận văn}}
+\begin{enumerate}
+    \item Về cuốn báo cáo: \\
+    Số trang \dots\dots\dots \hfill Số chương \dots\dots\dots \hfill \null \\
+    Số bảng số liệu \dots \hfill Số hình vẽ \dots\dots\dots \hfill \null \\
+    Số tài liệu tham khảo \dots \hfill Sản phẩm \dots\dots\dots \hfill \null \\[0.2cm]
+    Một số nhận xét về hình thức cuốn báo cáo: \dotfill \\ \dotfill
+    \item Về nội dung luận văn: \dotfill \\ \dotfill \\ \dotfill
+    \item Về tính ứng dụng: \dotfill \\ \dotfill \\ \dotfill
+    \item Về thái độ làm việc của sinh viên: \dotfill \\ \dotfill \\ \dotfill
+\end{enumerate}
+
+\vspace{0.5cm}
+\noindent\textbf{\underline{Đánh giá chung:}} \dotfill \\ \dotfill
+
+\vspace{0.5cm}
+\noindent\textbf{\underline{Điểm từng sinh viên:}} \\[0.2cm]
+TRƯƠNG TUẤN AN: \dots\dots\dots/10 \hspace{1cm} VÕ QUẾ LONG: \dots\dots\dots/10
+
+\vspace{0.5cm}
+\hfill
+\begin{minipage}[t]{0.4\textwidth}
+    \centering
+    \textbf{Cán bộ hướng dẫn} \\[0.2cm]
+    (Ký tên và ghi rõ họ tên)
+\end{minipage}
+\clearpage
+
+
+% ========================================================
+% 3. TRANG NHẬN XÉT CỦA CÁN BỘ PHẢN BIỆN
+% ========================================================
+\newpage
+\thispagestyle{empty}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+    \centering
+    TRƯỜNG ĐẠI HỌC BÁCH KHOA TP. HCM \\
+    \textbf{KHOA ĐIỆN -- ĐIỆN TỬ} \\
+    \textbf{BỘ MÔN: ĐIỀU KHIỂN TỰ ĐỘNG} \\
+    \rule{3cm}{0.5pt}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+    \centering
+    CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM \\
+    Độc lập -- Tự do -- Hạnh phúc \\
+    \rule{3cm}{0.5pt} \\[0.2cm]
+    \textit{TP. HCM, ngày \dots tháng \dots năm \dots}
+\end{minipage}
+
+\vspace{1.5cm}
+\begin{center}
+    {\fontsize{14pt}{1.5}\selectfont \textbf{NHẬN XÉT ĐỒ ÁN TỐT NGHIỆP \\ CỦA CÁN BỘ PHẢN BIỆN}}
+\end{center}
+\vspace{0.5cm}
+
+\noindent\textbf{\underline{Tên Đồ án:}} \\[0.2cm]
+\begin{center}
+    {\fontsize{13pt}{1.5}\selectfont \textbf{THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN SỬ DỤNG PHẢN HỒI IMU}} \\[0.2cm]
+    {\fontsize{11pt}{1.5}\selectfont DESIGN, SIMULATION, AND IMPLEMENTATION OF AN ADAPTIVE GAIT GENERATION AND POSTURAL STABILIZATION FRAMEWORK FOR QUADRUPED ROBOTS USING IMU FEEDBACK}
+\end{center}
+\vspace{0.5cm}
+
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+    \textbf{\underline{Nhóm Sinh viên thực hiện:}} \\[0.2cm]
+    Trương Tuấn An (MSSV: 2210041) \\
+    Võ Quế Long (MSSV: 2211910)
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+    \textbf{\underline{Cán bộ phản biện:}} \\[0.2cm]
+    \dots\dots\dots\dots\dots\dots\dots\dots\dots
+\end{minipage}
+
+\vspace{1cm}
+\noindent\textbf{\underline{Đánh giá Luận văn}}
+\begin{enumerate}
+    \item Về cuốn báo cáo: \\
+    Số trang \dots\dots\dots \hfill Số chương \dots\dots\dots \hfill \null \\
+    Số bảng số liệu \dots \hfill Số hình vẽ \dots\dots\dots \hfill \null \\
+    Số tài liệu tham khảo \dots \hfill Sản phẩm \dots\dots\dots \hfill \null \\[0.2cm]
+    Một số nhận xét về hình thức cuốn báo cáo: \dotfill \\ \dotfill
+    \item Về nội dung luận văn: \dotfill \\ \dotfill \\ \dotfill
+    \item Về tính ứng dụng: \dotfill \\ \dotfill \\ \dotfill
+    \item Về thái độ làm việc của sinh viên: \dotfill \\ \dotfill \\ \dotfill
+\end{enumerate}
+
+\vspace{0.5cm}
+\noindent\textbf{\underline{Đánh giá chung:}} \dotfill \\ \dotfill
+
+\vspace{0.5cm}
+\noindent\textbf{\underline{Điểm từng sinh viên:}} \\[0.2cm]
+TRƯƠNG TUẤN AN: \dots\dots\dots/10 \hspace{1cm} VÕ QUẾ LONG: \dots\dots\dots/10
+
+\vspace{0.5cm}
+\hfill
+\begin{minipage}[t]{0.4\textwidth}
+    \centering
+    \textbf{Người nhận xét} \\[0.2cm]
+    (Ký tên và ghi rõ họ tên)
+\end{minipage}
+\clearpage
+% ========================================================
+% 4. ĐỀ CƯƠNG CHI TIẾT
+% ========================================================
+\newpage
+\thispagestyle{empty}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+    \centering
+    TRƯỜNG ĐẠI HỌC BÁCH KHOA TP. HCM \\
+    \textbf{KHOA ĐIỆN -- ĐIỆN TỬ} \\
+    \textbf{BỘ MÔN: ĐIỀU KHIỂN TỰ ĐỘNG} \\
+    \rule{3cm}{0.5pt}
+\end{minipage}%
+\begin{minipage}[t]{0.5\textwidth}
+    \centering
+    CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM \\
+    Độc lập -- Tự do -- Hạnh phúc \\
+    \rule{3cm}{0.5pt} \\[0.2cm]
+    \textit{TP. HCM, ngày \dots tháng \dots năm \dots}
+\end{minipage}
+
+\vspace{1.5cm}
+\begin{center}
+    {\fontsize{14pt}{1.5}\selectfont \textbf{ĐỀ CƯƠNG CHI TIẾT}}
+\end{center}
+\vspace{0.5cm}
+
+\begin{longtable}{|p{0.95\textwidth}|}
+\hline
+\textbf{TÊN ĐỒ ÁN:} THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN SỬ DỤNG PHẢN HỒI IMU \\[0.2cm]
+\hline
+\textbf{Cán bộ hướng dẫn:} TS. Nguyễn Lê Dũng \\[0.2cm]
+\hline
+\textbf{Thời gian thực hiện:} Từ ngày \dots\dots\dots đến ngày \dots\dots\dots \\[0.2cm]
+\hline
+\textbf{Sinh viên thực hiện:} \\[0.2cm]
+Trương Tuấn An - 2210041 \\
+Võ Quế Long - 2211910 \\[0.2cm]
+\hline
+\textbf{Nội dung đề tài:} \\[0.2cm]
+\underline{\textit{Mục tiêu:}} \\[0.2cm]
+Mục tiêu tổng quát của đề tài là thiết kế hệ thống điều khiển và phản hồi cho một hệ thống robot bốn chân mô hình cỡ nhỏ có khả năng duy trì chuyển động đi lại, thông qua sự hỗ trợ của các module cảm biến. \\[0.2cm]
+Các mục tiêu cụ thể cần đạt được bao gồm:
+\begin{itemize}
+    \item \textbf{Xây dựng Mô hình Động học:} 
+    \item \textbf{Phát triển Thuật toán Điều khiển:} 
+    \item \textbf{Xây dựng Hệ thống Giao tiếp:} 
+    \item \textbf{Thử nghiệm và Đánh giá:} 
+\end{itemize}
+
+\underline{\textit{Đối tượng:}} \\[0.2cm]
+- Lý thuyết: Mô hình toán học Động học (IK) của robot bốn chân; Các thuật toán điều khiển bước đi. \\
+- Công nghệ: Motor Servo công suất cao; Vi điều khiển (STM32) và lập trình nhúng; Giao tiếp không dây Bluetooth. \\[0.2cm]
+
+\underline{\textit{Phương pháp thực hiện:}} \\[0.2cm]
+Nghiên cứu Cơ sở Lý thuyết: Phân tích các tài liệu về Cơ học Robot, sử dụng phương pháp giải tích toán học và ma trận chuyển đổi để xây dựng mô hình Động học Ngược và xác định các thông số quỹ đạo chân. \\[0.1cm]
+Lựa chọn Thiết bị: Lựa chọn các loại motor servo có momen xoắn phù hợp và vi điều khiển có khả năng xử lý tốc độ cao cho điều khiển 12 bậc tự do. \\[0.1cm]
+Lập trình Hệ thống Nhúng:
+\begin{itemize}
+    \item Lập trình giải thuật IK để điều khiển vị trí của từng khớp motor.
+    \item Phát triển Gait Generator để tạo ra các tín hiệu điều khiển đồng bộ cho các chân, thực hiện các kiểu đi Trot, Walk một cách nhịp nhàng và ổn định.
+    \item Lập trình giao tiếp và xử lý lệnh nhận được qua module Bluetooth.
+\end{itemize}
+
+\underline{\textit{Kết quả mong đợi:}} \\[0.2cm]
+
+\textbf{Kế hoạch thực hiện:} \\[0.2cm]
+\textbf{Kế hoạch thực hiện được chia thành 5 giai đoạn chính như sau:}
+\begin{itemize}
+    \item \textbf{Giai đoạn 1:} 
+    \item \textbf{Giai đoạn 2:} 
+    \item \textbf{Giai đoạn 3:} 
+    \item \textbf{Giai đoạn 4:} 
+    \item \textbf{Giai đoạn 5:} 
+\end{itemize} \\
+\hline
+% Dòng ký tên ở cuối bảng
+\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
+\begin{center}
+\textbf{Xác nhận của Cán bộ hướng dẫn} \\[0.3cm]
+(Ký tên và ghi rõ họ tên)
+\end{center}
+&
+\begin{center}
+TP. HCM, ngày \dots tháng \dots năm \dots \\[0.3cm]
+\textbf{Sinh viên} \\[0.3cm]
+(Ký tên và ghi rõ họ tên)
+\end{center}
+\\[5cm]
+\end{tabular}
+\\ \hline 
+\end{longtable}
+\clearpage
+
+
+% ========================================================
+% 5. DANH SÁCH HỘI ĐỒNG BẢO VỆ ĐỒ ÁN
+% ========================================================
+\newpage
+\thispagestyle{empty}
+
+\vspace*{2cm}
+\begin{center}
+    {\fontsize{14pt}{1.5}\selectfont \textbf{DANH SÁCH HỘI ĐỒNG BẢO VỆ ĐỒ ÁN}}
+\end{center}
+\vspace{0.5cm}
+
+\noindent Hội đồng chấm luận văn tốt nghiệp, thành lập theo Quyết định số \dotfill ngày \dotfill của Hiệu trưởng Trường Đại học Bách Khoa TP.HCM. \\[1cm]
+
+\noindent\hspace*{2cm} 1. \dotfill -- Chủ tịch. \\[0.6cm]
+\hspace*{2cm} 2. \dotfill -- Thư ký. \\[0.6cm]
+\hspace*{2cm} 3. \dotfill -- Ủy viên. \\[0.6cm]
+\hspace*{2cm} 4. \dotfill -- Ủy viên. \\[0.6cm]
+\hspace*{2cm} 5. \dotfill -- Ủy viên. \\[1cm]
+
+\clearpage
+
+\frontmatter
+
+
+\begin{declaration}
+    Chúng em xin cam đoan đây là công trình nghiên cứu của riêng chúng em, được thực hiện dưới sự hướng dẫn khoa học của TS. Nguyễn Lê Dũng. Nội dung nghiên cứu và các kết quả trình bày trong đồ án này là trung thực và chưa từng được công bố trong bất kỳ công trình nào khác.
+
+    Các số liệu, kết quả phân tích và nhận xét được chính chúng em thu thập, tính toán và tổng hợp từ quá trình thiết kế, mô phỏng và thực nghiệm. Các tài liệu tham khảo đã được trích dẫn đầy đủ và ghi rõ nguồn gốc.
+
+    Ngoài ra, chúng em cũng có sử dụng một số nhận xét, đánh giá và số liệu của các tác giả khác. Tất cả đều có trích dẫn và chú thích nguồn gốc rõ ràng.
+
+    Nếu phát hiện có bất kỳ sự gian lận nào, chúng em xin hoàn toàn chịu trách nhiệm về nội dung đồ án của mình. Trường Đại học Bách Khoa -- ĐHQG TP.HCM không liên quan đến những vi phạm tác quyền, bản quyền do chúng em gây ra trong quá trình thực hiện.
+
+\end{declaration}
+
+\begin{acknowledgments}
+
+	Để có thể hoàn thành đồ án tốt nghiệp, chúng em đã nhận được rất nhiều sự giúp đỡ từ mọi người xung quanh, do đó chúng em xin được gửi lời cảm ơn chân thành đến tất cả những người đã hỗ trợ và giúp đỡ nhóm trong suốt thời gian vừa qua.
+    
+    Đầu tiên, chúng em xin gửi lời cảm ơn chân thành đến TS. Nguyễn Lê Dũng đã hết lòng chỉ dạy cho chúng em những kiến thức bổ ích cần tiếp thu, những kỹ năng cần học và cả những bài học trong cuộc sống. Cảm ơn thầy đã luôn lắng nghe và tận tình giải đáp những thắc mắc của chúng em, động viên chúng em trong những khoảng thời gian khó khăn và trắc trở, chúng em thực sự vô cùng trân trọng. Ngoài những lời chỉ bảo trong công việc, những lời khuyên với các vấn đề về cuộc sống từ thầy đã giúp chúng em trưởng thành và có những cách ứng xử tốt hơn. Nhờ đó, chúng em đã tích lũy được rất nhiều kinh nghiệm cũng như học được cách hiểu và giải quyết vấn đề một cách tốt nhất.
+    
+    Bên cạnh đó, chúng em xin gửi lời cảm ơn đến trường Đại học Bách khoa - ĐHQG-HCM nơi đã tạo cho chúng em môi trường học tập, nghiên cứu tốt; và toàn thể cán bộ giảng viên bộ môn Điều khiển và Tự Động Hóa trường Đại học Bách Khoa đã cung cấp và trang bị cho chúng em những kiến thức cơ bản làm nền tảng vững chắc để chúng em hoàn thành đồ án. Xin gửi lời cảm ơn đến bộ môn Điều khiển và Tự Động Hóa đã hỗ trợ chúng em phương tiện vật chất và tạo những điều kiện thuận lợi nhất.
+
+    Và hơn hết, chúng em xin gửi lời cảm ơn và tri ân sâu sắc đến gia đình vì đã luôn bên cạnh và động viên trong suốt thời gian vừa qua. Xin gửi lời cảm ơn đến các anh chị, bạn bè trong và ngoài nhóm đã đồng hành cùng chúng em trong suốt thời gian qua những người luôn luôn hỗ trợ chúng em hết mình, giúp đỡ, lắng nghe và chia sẻ khó khăn cùng nhau. 
+    
+   \vspace{1.5cm} % Tạo khoảng trống 1.5cm trước khi ký tên
+    \begin{flushright}
+        \textbf{Nhóm sinh viên thực hiện đề tài} \\[0.2cm] % In đậm và cách dòng nhỏ
+        \textit{Trương Tuấn An \& Võ Quế Long} % In nghiêng tên hai bạn (có thể xóa nếu không thích)
+    \end{flushright}
+
+	
+\end{acknowledgments}
+	
+\begin{abstract}
+
+Đồ án này trình bày quá trình thiết kế, mô phỏng và chế tạo một hệ thống robot bốn chân (quadruped robot) 12 bậc tự do với khả năng di chuyển tự chủ trên mặt phẳng nằm ngang. Robot sử dụng cấu trúc chân nối tiếp (serial leg) ba bậc tự do, được dẫn động bởi 12 động cơ bus servo ST3215 và điều khiển bởi máy tính nhúng NVIDIA Jetson Nano.
+
+Về mặt lý thuyết, mô hình động học thuận và động học nghịch được xây dựng bằng phương pháp Denavit--Hartenberg. Quỹ đạo bàn chân được quy hoạch bằng phương pháp nội suy đa thức bậc năm, đảm bảo tính liên tục bậc hai ($C^2$) của vận tốc và gia tốc tại các điểm chuyển pha. Dáng đi trot chéo được lựa chọn làm dáng đi chính nhờ hiệu suất năng lượng cao và khả năng duy trì ổn định.
+
+Hệ thống được mô phỏng trên nền tảng ROS~2 Humble kết hợp Gazebo Classic, sử dụng bộ điều khiển PD ($K_p = 20{,}0$ Nm/rad, $K_d = 0{,}5$ Nm$\cdot$s/rad). Kết quả mô phỏng cho thấy mô-men xoắn tại các khớp đều nằm trong giới hạn cho phép của cơ cấu chấp hành, và robot duy trì ổn định tĩnh trong suốt chu kỳ dáng đi.
+
+Về phần cứng, hệ thống tích hợp cảm biến IMU BNO055 cho phản hồi thăng bằng, giao tiếp I2C và UART với máy tính nhúng. Thiết kế cơ khí được thực hiện trên SolidWorks với tổng khối lượng robot khoảng 2,3~kg.
+
+\vspace{0.5cm}
+\noindent\textbf{Từ khóa:} Robot bốn chân, động học nghịch, quy hoạch quỹ đạo, dáng đi trot, đa thức bậc năm, ROS~2, Gazebo, bộ điều khiển PD.
+
+\end{abstract}
+
+\tableofcontents
+\listoftables
+\listoffigures
+
+
+\mainmatter
+
+\fancyhead{}  % Clears all page headers and footers
+%\rhead{\thepage}  % Sets the right side header to show the page number
+%\lhead{}  % Clears the left side page header
+%\fancyfoot[positions]{footer}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\pagestyle{fancy}  % Finally, use the "fancy" page style to implement the FancyHdr headers
+%
+\input{chapter/chapter1-gioithieu.tex}
+\input{chapter/chapter2-tongquan.tex}
+\input{chapter/chapter3-phantichcocau}
+\input{chapter/chapter4-donghoc}
+\input{chapter/chapter5-thietkevaxaydunghethong}
+\input{chapter/chapter6-mophong}
+\input{chapter/chapter7-ketluan}
+
+\begin{thebibliography}{99}
+
+\bibitem{raibert1986}
+M.~H. Raibert,
+\textit{Legged Robots That Balance}.
+MIT Press, Cambridge, MA, 1986.
+
+\bibitem{siciliano2009}
+B.~Siciliano, L.~Sciavicco, L.~Villani, and G.~Oriolo,
+\textit{Robotics: Modelling, Planning and Control}.
+Springer-Verlag, London, 2009.
+
+\bibitem{craig2005}
+J.~J. Craig,
+\textit{Introduction to Robotics: Mechanics and Control}, 3rd~ed.
+Pearson Prentice Hall, 2005.
+
+\bibitem{gonzalez2018}
+M.~Gonzalez de Santos, E.~Garcia, and J.~Estremera,
+\textit{Quadrupedal Locomotion: An Introduction to the Control of Four-Legged Robots}.
+Springer-Verlag, London, 2006.
+
+\bibitem{hyun2014}
+D.~J. Hyun, S.~Seok, J.~Lee, and S.~Kim,
+``High speed trot-running: Implementation of a hierarchical controller using proprioceptive impedance control on the MIT Cheetah,''
+\textit{The International Journal of Robotics Research}, vol.~33, no.~11, pp.~1417--1445, 2014.
+
+\bibitem{bledt2018}
+G.~Bledt, M.~J.~Powell, B.~Katz, J.~Di Carlo, P.~M.~Wensing, and S.~Kim,
+``MIT Cheetah 3: Design and control of a robust, dynamic quadruped robot,''
+in \textit{2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, pp.~2245--2252, 2018.
+
+\bibitem{unitree2021}
+Unitree Robotics,
+``Go1 -- The future of quadruped robots,''
+\url{https://www.unitree.com/go1}, 2021.
+
+\bibitem{gehring2013}
+C.~Gehring, S.~Coros, M.~Hutter, M.~Bloesch, M.~A.~Hoepflinger, and R.~Siegwart,
+``Control of dynamic gaits for a quadrupedal robot,''
+in \textit{2013 IEEE International Conference on Robotics and Automation (ICRA)}, pp.~3287--3292, 2013.
+
+\bibitem{spong2020}
+M.~W. Spong, S.~Hutchinson, and M.~Vidyasagar,
+\textit{Robot Modeling and Control}, 2nd~ed.
+John Wiley \& Sons, 2020.
+
+\bibitem{sandeep2021}
+S.~Sandeep, P.~K.~Jain, and S.~C.~Jain,
+``Design and development of a quadruped robot,''
+\textit{IOP Conf. Ser.: Mater. Sci. Eng.}, vol.~1012, p.~012016, 2021.
+
+\bibitem{ros2docs}
+Open Robotics,
+``ROS 2 Humble Hawksbill Documentation,''
+\url{https://docs.ros.org/en/humble/}, 2022.
+
+\bibitem{gazebo}
+Open Robotics,
+``Gazebo Classic Simulation,''
+\url{http://gazebosim.org/}, 2023.
+
+\bibitem{denavit1955}
+J.~Denavit and R.~S. Hartenberg,
+``A kinematic notation for lower-pair mechanisms based on matrices,''
+\textit{Journal of Applied Mechanics}, vol.~22, no.~2, pp.~215--221, 1955.
+
+\bibitem{marhefka1999}
+D.~W. Marhefka and D.~E. Orin,
+``Gait planning for energy efficiency in walking machines,''
+in \textit{1999 IEEE International Conference on Robotics and Automation (ICRA)}, vol.~1, pp.~474--480, 1999.
+
+\bibitem{hutter2016}
+M.~Hutter \textit{et al.},
+``ANYmal -- a highly mobile and dynamic quadrupedal robot,''
+in \textit{2016 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, pp.~38--44, 2016.
+
+\bibitem{jetson_nano}
+NVIDIA Corporation,
+``Jetson Nano Developer Kit -- Technical Specifications,''
+\url{https://developer.nvidia.com/embedded/jetson-nano-developer-kit}, 2019.
+
+\bibitem{bno055}
+Bosch Sensortec,
+``BNO055 Intelligent 9-axis Absolute Orientation Sensor -- Data Sheet,''
+Rev.~1.8, 2021.
+
+\bibitem{waveshare_st3215}
+Waveshare Electronics,
+``ST3215 Serial Bus Servo -- Datasheet,''
+\url{https://www.waveshare.com/st3215-servo.htm}, 2023.
+
+\bibitem{madgwick2011}
+S.~O.~H. Madgwick, A.~J.~L. Harrison, and R.~Vaidyanathan,
+``Estimation of IMU and MARG orientation using a gradient descent algorithm,''
+in \textit{Proc. IEEE International Conference on Rehabilitation Robotics}, pp.~1--7, 2011.
+
+\bibitem{astrom2006}
+K.~J. \AA{}str\"{o}m and T.~H\"{a}gglund,
+\textit{Advanced PID Control}.
+ISA --- The Instrumentation, Systems and Automation Society, 2006.
+
+\bibitem{kajita2003}
+S.~Kajita \textit{et al.},
+``Biped walking pattern generation by using preview control of zero-moment point,''
+in \textit{Proc. IEEE International Conference on Robotics and Automation (ICRA)}, vol.~2, pp.~1620--1626, 2003.
+
+\bibitem{li2022}
+J.~Li, L.~Ye, Z.~Jin, H.~Liu, and B.~Liang,
+``Posture stabilization control for a quadruped robot walking on swaying platforms,''
+in \textit{Proc. IEEE 18th International Conference on Automation Science and Engineering (CASE)}, pp.~1--8, 2022.
+
+\end{thebibliography}
+
+\end{document}
