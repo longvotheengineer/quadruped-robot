@@ -2,13 +2,22 @@
 
 \section{Tổng quan về kiến trúc hệ thống }
 
-Kiến trúc phần cứng của hệ thống robot bốn chân được xây dựng nhằm mục tiêu cung cấp nguồn năng lượng ổn định, đảm bảo khả năng xử lý thuật toán phức tạp theo thời gian thực và điều khiển đồng bộ nhiều cơ cấu chấp hành. Sơ đồ kết nối phần cứng tổng thể của mô hình thực nghiệm được thể hiện chi tiết trong Hình 6.1.
+Kiến trúc phần cứng của hệ thống robot bốn chân được xây dựng nhằm mục tiêu cung cấp nguồn năng lượng ổn định, đảm bảo khả năng xử lý thuật toán phức tạp theo thời gian thực và điều khiển đồng bộ nhiều cơ cấu chấp hành. Sơ đồ kết nối phần cứng tổng thể của mô hình thực nghiệm được thể hiện chi tiết trong Hình~\ref{fig30}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{img/fig30-Sơ đồ kết nối phần cứng mô hình thực nghiệm .png }
-    \caption{Sơ đồ kết nối phần cứng mô hình thực nghiệm. }
+    \includegraphics[width=\textwidth]{img/fig_system_overview_new.png}
+    \caption{Sơ đồ kiến trúc tổng thể của hệ thống robot bốn chân.}
     \label{fig30}
+\end{figure}
+
+Hình~\ref{fig:real_robot} trình bày mô hình robot bốn chân thực tế đã được chế tạo và lắp ráp hoàn chỉnh. Robot sử dụng khung thân và các chi tiết chân được gia công bằng công nghệ in 3D FDM với vật liệu PLA, tích hợp 12 động cơ bus servo ST3215 tại các khớp, cảm biến IMU BNO055 gắn trên thân và máy tính nhúng Jetson Nano làm bộ xử lý trung tâm.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{img/fig_real_robot.png}
+    \caption{Mô hình robot bốn chân thực tế đã được chế tạo và lắp ráp hoàn chỉnh.}
+    \label{fig:real_robot}
 \end{figure}
 
 \subsection{Khối xử lý trung tâm }
@@ -123,36 +132,44 @@ Thông qua các giao thức truyền thông và tập lệnh được định ng
 
 \subsection{Bộ đo lường quán tính }
 
-Module IMU (Inertial Measurement Unit) đóng vai trò cốt lõi trong hệ thống phản hồi thăng bằng của robot. Thay vì sử dụng các cảm biến quán tính thô, đồ án này ứng dụng module DFRobot Fermion: BNO055 Intelligent 9-axis Sensor \cite{bno055}. Đây là một hệ thống trong gói tiên tiến, tích hợp sẵn gia tốc kế 3 trục, con quay hồi chuyển 3 trục, từ kế 3 trục và đặc biệt là một vi điều khiển Cortex-M0+ chạy thuật toán kết hợp cảm biến độc quyền của Bosch.
+Module IMU (Inertial Measurement Unit) đóng vai trò cốt lõi trong hệ thống phản hồi thăng bằng của robot. Thay vì sử dụng các cảm biến quán tính thô, đồ án này ứng dụng module GY-BNO055 \cite{bno055} --- một board mạch breakout nhỏ gọn được thiết kế trên nền tảng chip cảm biến BNO055 của Bosch Sensortec. Module tích hợp sẵn gia tốc kế 3 trục, con quay hồi chuyển 3 trục, từ kế 3 trục và đặc biệt là một vi xử lý ARM Cortex-M0+ 32-bit chạy thuật toán kết hợp cảm biến (Sensor Fusion) độc quyền của Bosch, cho phép xuất trực tiếp dữ liệu định hướng tuyệt đối mà không cần bộ lọc ngoại vi.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\textwidth]{img/fig37-IMU-BNO055.png}
-\caption{Cảm biến thông minh 9 bậc tự do DFRobot Fermion BNO055}
+\includegraphics[width=0.55\textwidth]{img/fig37-IMU-BNO055.png}
+\caption{Module cảm biến 9 trục thông minh GY-BNO055 (mặt trước và mặt sau)}
 \label{fig37}
 \vspace{0.2cm}
 \end{figure}
 
-Về mặt kiến trúc phần cứng, nhóm đã tối ưu hóa hệ thống bằng cách loại bỏ hoàn toàn vi điều khiển trung gian như cấu trúc dùng STM32. Nền tảng phát triển giờ đây được triển khai trực tiếp trên môi trường hệ điều hành Linux của Jetson Nano. Cảm biến BNO055 được kết nối và giao tiếp thẳng với Jetson Nano thông qua bus I2C. Việc lập trình thu thập dữ liệu được thực hiện bằng ngôn ngữ Python. Sự thay đổi này không chỉ giúp giảm thiểu đáng kể độ trễ truyền dữ liệu mà còn tối giản hóa độ phức tạp của việc đi dây phần cứng.
+Module GY-BNO055 sở hữu kích thước cực kỳ nhỏ gọn (20,9~mm $\times$ 11,9~mm), rất phù hợp để gắn trực tiếp lên khung thân robot mà không chiếm nhiều không gian. Board mạch được bố trí 8 chân tín hiệu gồm: VIN (nguồn cấp), GND (mass), SCL/Rx (xung nhịp I2C hoặc nhận UART), SDA/Tx (dữ liệu I2C hoặc phát UART), ADD (chọn địa chỉ I2C), INT (ngắt ngoài), BOOT (chế độ nạp firmware) và RESET (khởi động lại phần cứng). Mạch tích hợp sẵn bộ ổn áp nội cho phép cấp nguồn linh hoạt từ 3,3V đến 5V qua chân VIN.
 
-Khác với các cảm biến truyền thống (như MPU6050) dễ bị nhiễu từ môi trường và đòi hỏi người lập trình phải tự xây dựng các bộ lọc toán học phức tạp (như Complementary Filter hay Kalman Filter) trên máy tính chủ, BNO055 xử lý toàn bộ khối lượng công việc này ở cấp độ phần cứng nội bộ. Tính năng Sensor Fusion của BNO055 tự động tính toán và xuất trực tiếp dữ liệu định hướng dưới dạng các góc Euler (Roll, Pitch, Yaw) hoặc Quaternion với độ chính xác cao và tần số cập nhật nhanh. Do đó, bài toán của nhóm được chuyển từ việc "viết bộ lọc nhiễu" sang việc quản lý quy trình tự hiệu chuẩn của cảm biến.
+Về mặt kiến trúc phần cứng, nhóm đã tối ưu hóa hệ thống bằng cách loại bỏ hoàn toàn vi điều khiển trung gian như cấu trúc dùng STM32. Nền tảng phát triển giờ đây được triển khai trực tiếp trên môi trường hệ điều hành Linux của Jetson Nano. Cảm biến BNO055 được kết nối và giao tiếp thẳng với Jetson Nano thông qua bus I2C (sử dụng hai chân SCL và SDA). Việc lập trình thu thập dữ liệu được thực hiện bằng ngôn ngữ Python. Sự thay đổi này không chỉ giúp giảm thiểu đáng kể độ trễ truyền dữ liệu mà còn tối giản hóa độ phức tạp của việc đi dây phần cứng.
+
+Khác với các cảm biến truyền thống (như MPU6050) dễ bị nhiễu từ môi trường và đòi hỏi người lập trình phải tự xây dựng các bộ lọc toán học phức tạp (như Complementary Filter hay Kalman Filter) trên máy tính chủ, BNO055 xử lý toàn bộ khối lượng công việc này ở cấp độ phần cứng nội bộ. Tính năng Sensor Fusion của BNO055 tự động tính toán và xuất trực tiếp dữ liệu định hướng dưới dạng các góc Euler (Roll, Pitch, Yaw) hoặc Quaternion với độ chính xác cao và tần số cập nhật nhanh. Do đó, bài toán của nhóm được chuyển từ việc ``viết bộ lọc nhiễu'' sang việc quản lý quy trình tự hiệu chuẩn của cảm biến.
 \begin{table}[H]
 \centering
-\caption{Thông số kỹ thuật cảm biến IMU BNO055}
+\caption{Thông số kỹ thuật module cảm biến GY-BNO055}
 \label{tab:bno055_specs}
 \renewcommand{\arraystretch}{1.3}
 \begin{tabular}{ll}
 \toprule
 \textbf{Thông số} & \textbf{Giá trị} \\
 \midrule
-Điện áp hoạt động & 3.3V - 5.5V \\
-Chuẩn giao tiếp & I2C (hỗ trợ 5V) / SPI (chỉ 3.3V) \\
-Địa chỉ I2C mặc định & 0x28 \\
+Chip cảm biến & Bosch BNO055 (SiP -- System in Package) \\
+Số trục đo & 9 trục (Accelerometer + Gyroscope + Magnetometer) \\
+Điện áp hoạt động & 3.3V -- 5V (qua chân VIN, tích hợp bộ ổn áp nội) \\
+Chuẩn giao tiếp & I2C / UART (chọn qua chân BOOT) \\
+Địa chỉ I2C mặc định & 0x28 (chân ADD = LOW); 0x29 (chân ADD = HIGH) \\
 Gia tốc kế (Accelerometer) & $\pm$2g / $\pm$4g / $\pm$8g / $\pm$16g \\
 Con quay hồi chuyển (Gyroscope) & $\pm$125$^\circ$/s đến $\pm$2000$^\circ$/s \\
-Từ kế (Geomagnetic) & $\pm$1300$\mu$T (trục x,y); $\pm$2500$\mu$T (trục z) \\
-Kích thước mạch & 19 $\times$ 21 mm \\
-Lỗ bắt vít & Khoảng cách 16mm (Đường kính trong 2mm) \\
+Từ kế (Magnetometer) & $\pm$1300$\mu$T (trục x,y); $\pm$2500$\mu$T (trục z) \\
+Bộ xử lý tích hợp & ARM Cortex-M0+ (chạy thuật toán Sensor Fusion) \\
+Dữ liệu đầu ra & Quaternion, góc Euler, vector trọng lực, gia tốc tuyến tính \\
+Tần số cập nhật Fusion & Lên đến 100 Hz \\
+Kích thước mạch & 20,9 $\times$ 11,9 mm \\
+Số chân tín hiệu & 8 (VIN, GND, SCL/Rx, SDA/Tx, ADD, INT, BOOT, RESET) \\
+Nhiệt độ hoạt động & $-40^\circ$C đến $+85^\circ$C \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -239,13 +256,21 @@ Ba đại diện tiêu biểu được đưa ra so sánh bao gồm: Hiwonder LX-
 \end{tabular}
 \end{table}
 
+Dựa trên các thông số phân tích từ Bảng \ref{tab:bus_servo_comparison}, Waveshare ST3215 được lựa chọn là giải pháp tối ưu nhất cho hệ thống cơ cấu chấp hành của đồ án vì những lý do sau:
+
+\begin{itemize}
+    \item \textbf{Khắc phục nhược điểm của LX-16A:} Mặc dù Hiwonder LX-16A có lợi thế về giá thành thấp, nhưng lực xoắn tối đa chỉ đạt 17 kg.cm, không đủ để đáp ứng tải trọng động khi robot di chuyển hoặc thực hiện các tư thế phức tạp. Hơn nữa, việc sử dụng biến trở (Potentiometer) làm cảm biến vị trí khiến độ phân giải góc thấp ($0.24^{\circ}$) và dễ bị hao mòn cơ học theo thời gian. Bộ điều khiển của LX-16A chỉ dừng ở mức cơ bản (P), dẫn đến sai số tĩnh lớn và khả năng bám quỹ đạo kém.
+    \item \textbf{Cân bằng hiệu năng và chi phí so với Dynamixel:} Dòng Dynamixel XL430-W250-T sở hữu bộ điều khiển PID hoàn chỉnh cùng nhiều tính năng cao cấp. Tuy nhiên, mức giá cực kỳ đắt đỏ (gấp khoảng 3 lần ST3215). Với yêu cầu 12 bậc tự do, việc sử dụng Dynamixel sẽ làm chi phí phần cứng vượt quá ngân sách cho phép. Thêm vào đó, lực xoắn của XL430-W250-T ($\sim$15.3 kg.cm) lại thấp hơn ST3215, đòi hỏi phải sử dụng cơ cấu truyền động phức tạp để khuyếch đại lực.
+    \item \textbf{Ưu điểm vượt trội của ST3215:} Waveshare ST3215 mang lại điểm cân bằng hoàn hảo giữa hiệu năng cơ học và chi phí. Lực xoắn cao (lên đến 30 kg.cm ở 12V) cung cấp dư dả công suất để robot duy trì thăng bằng và thực hiện dáng đi. Cảm biến vị trí từ tính (Magnetic Encoder $360^{\circ}$) với độ phân giải rất cao ($0.088^{\circ}$) cung cấp phản hồi góc chính xác tuyệt đối mà không lo bị hao mòn. Tốc độ truyền tải 1 Mbps hoàn toàn đáp ứng được yêu cầu của vòng lặp điều khiển thời gian thực. Đặc biệt, bộ điều khiển PI tích hợp sẵn giúp động cơ khử sai số tĩnh, đảm bảo robot bám sát quỹ đạo dáng đi một cách mượt mà và ổn định.
+\end{itemize}
+
 \subsection{Hệ thống Phân phối Năng lượng và Lựa chọn Dây dẫn}
 
 Để đảm bảo hệ thống 12 động cơ hoạt động ổn định ở dòng tải cao mà không bị sụt áp, việc thiết kế sơ đồ đi dây và lựa chọn tiết diện dây dẫn đóng vai trò cực kỳ quan trọng. Dựa trên phân tích dòng điện tổng ($I_{total} \approx 32.4A$) từ nguồn tổ ong, hệ thống dây dẫn được chia thành 3 cấp độ với các tiêu chuẩn AWG (American Wire Gauge) khác nhau, được phân phối qua các khối đầu nối nguồn (Terminal Block).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{img/fig44-sododiday-hethong.pdf} 
+    \includegraphics[width=1.0\textwidth]{img/fig44-sododiday-hethong.jpg} 
     \caption{Sơ đồ phân phối điện áp và tín hiệu tổng thể của robot}
     \label{fig44}
     \vspace{0.2cm}
@@ -341,10 +366,10 @@ Bảng~\ref{tab:servo_mapping} trình bày cấu hình ánh xạ ID servo và ph
 \begin{tabular}{|l|c|c|c|c|}
 \hline
 \textbf{Chân} & \textbf{Driver} & \textbf{Hip Roll} & \textbf{Hip Pitch} & \textbf{Knee} \\ \hline
-Left-Front (LF) & A & ID 1 & ID 2 & ID 3 \\ \hline
-Right-Behind (RB) & A & ID 7 & ID 8 & ID 9 \\ \hline
-Right-Front (RF) & B & ID 4 & ID 5 & ID 6 \\ \hline
-Left-Behind (LB) & B & ID 10 & ID 11 & ID 12 \\ \hline
+Left-Front (LF) & A & ID 7 & ID 8 & ID 9 \\ \hline
+Right-Behind (RB) & A & ID 10 & ID 11 & ID 12 \\ \hline
+Right-Front (RF) & B & ID 1 & ID 2 & ID 3 \\ \hline
+Left-Behind (LB) & B & ID 4 & ID 5 & ID 6 \\ \hline
 \end{tabular}
 \end{table}
 
@@ -365,6 +390,15 @@ Hệ thống phần mềm được triển khai trên nền tảng ROS~2 Humble 
 \subsection{Giao tiếp giữa các node}
 
 Giao tiếp liên tiến trình giữa hai node sử dụng cơ chế publish-subscribe qua DDS (Data Distribution Service) của ROS~2. Balance Controller node phát các thông điệp vector hiệu chỉnh nhẹ trên các topic bất đồng bộ chuyên dụng. Kiến trúc tách rời này đảm bảo rằng các nút thắt xử lý tại Gait Generator không thể chiếm quyền hoặc chặn các bù trừ cảm biến quan trọng, cho phép vận hành xác định, chịu lỗi ngay cả dưới tải CPU cao.
+
+Sơ đồ tổng thể kiến trúc ROS~2 bao gồm các node, topic và luồng dữ liệu giữa các thành phần được thể hiện trong Hình~\ref{fig:ros2_arch}. Sơ đồ phân biệt rõ các thành phần theo loại: ROS~2 node (Python), driver (C++), topic truyền thông, cảm biến phần cứng, và giao diện mô phỏng Gazebo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{img/fig_ros2_architecture.pdf}
+    \caption{Sơ đồ kiến trúc ROS~2 của hệ thống: các node, topic và luồng dữ liệu}
+    \label{fig:ros2_arch}
+\end{figure}
 
 \subsection{Các trạng thái vận hành}
 
@@ -451,47 +485,16 @@ Hệ thống tích hợp cơ chế chẩn đoán (diagnostics) cho phép giám s
 
 Tổng cộng, hệ thống xuất bản 22 topic chẩn đoán cho chế độ HOME (9 tín hiệu $\times$ 2 trục + 4 tín hiệu áp dụng) và 18 topic cho chế độ GAIT (9 tín hiệu $\times$ 2 trục), cung cấp khả năng quan sát toàn diện đường ống điều khiển.
 
-\section{Chi phí hệ thống}
-
-Bảng~\ref{tab:cost_budget} trình bày ngân sách chi phí cho toàn bộ hệ thống robot, bao gồm linh kiện điện tử, vật liệu cơ khí và phụ kiện.
-
-\begin{table}[H]
-\centering
-\caption{Ngân sách chi phí hệ thống robot bốn chân}
-\label{tab:cost_budget}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|l|c|c|c|}
-\hline
-\textbf{Linh kiện} & \textbf{SL} & \textbf{Đơn giá (VNĐ)} & \textbf{Thành tiền (VNĐ)} \\ \hline
-Servo ST3215 & 12 & 350.000 & 4.200.000 \\ \hline
-NVIDIA Jetson Nano B01 & 1 & 2.500.000 & 2.500.000 \\ \hline
-Nguồn xung 12V-40A & 1 & 250.000 & 250.000 \\ \hline
-IMU BNO055 & 1 & 350.000 & 350.000 \\ \hline
-Bus Servo Adapter & 2 & 85.000 & 170.000 \\ \hline
-Mạch giảm áp XL4015 & 1 & 25.000 & 25.000 \\ \hline
-Nhựa PLA (1 kg) & 2 & 200.000 & 400.000 \\ \hline
-Ổ bi 626zz & 8 & 15.000 & 120.000 \\ \hline
-Ốc vít M3 các loại & -- & -- & 80.000 \\ \hline
-Cáp, cos, dây AWG & -- & -- & 150.000 \\ \hline
-Thanh liên kết ball-head & 8 & 10.000 & 80.000 \\ \hline
-Thẻ nhớ MicroSD 64GB & 1 & 120.000 & 120.000 \\ \hline
-\midrule
-\textbf{Tổng cộng} & & & \textbf{$\sim$8.445.000} \\ \hline
-\end{tabular}
-\end{table}
-
-Tổng chi phí hệ thống khoảng 8,5 triệu VNĐ ($\sim$340 USD), thấp hơn đáng kể so với các robot thương mại như Unitree Go1 ($\sim$2.700 USD) hay Boston Dynamics Spot ($\sim$74.500 USD). Phần lớn chi phí nằm ở 12 servo ST3215 ($\sim$50\%) và Jetson Nano ($\sim$30\%). Mức giá này phù hợp cho mục đích nghiên cứu và giáo dục tại Việt Nam.
-
 \section{Quy trình Homing và Calibrate}
 
 \subsection{Calibrate servo}
 
-Trước khi vận hành, mỗi servo cần được calibrate để đảm bảo góc 0° cơ học trùng với góc 0° trong phần mềm. Quy trình calibrate bao gồm:
+Trước khi vận hành, mỗi servo cần được calibrate để đảm bảo góc $0^\circ$ cơ học trùng với góc $0^\circ$ trong phần mềm. Quy trình calibrate bao gồm:
 
 \begin{enumerate}
     \item Đặt tất cả chân robot ở tư thế tham chiếu (chân duỗi thẳng, vuông góc với thân).
     \item Đọc vị trí feedback của từng servo qua thư viện SCServo SDK.
-    \item Ghi giá trị offset ($\Delta_{calib}$) --- sai lệch giữa vị trí thực tế và vị trí lý thuyết tại góc 0°.
+    \item Ghi giá trị offset ($\Delta_{calib}$) --- sai lệch giữa vị trí thực tế và vị trí lý thuyết tại góc $0^\circ$.
     \item Lưu offset vào mảng cấu hình trong \texttt{serialPublish.py}, áp dụng tự động trong các lần khởi chạy tiếp theo.
 \end{enumerate}
 
@@ -501,7 +504,7 @@ Quy trình homing (đưa robot về tư thế đứng chuẩn) được thực h
 
 \begin{enumerate}
     \item \textbf{Đọc vị trí hiện tại:} Lấy giá trị góc feedback từ tất cả 12 servo ($\theta_{current,i}$).
-    \item \textbf{Tính tư thế đích:} Giải IK cho tư thế đứng chuẩn, tạo ra bộ góc đích $\theta_{target,i}$ = (0°, 0°, 90°) cho mỗi chân.
+    \item \textbf{Tính tư thế đích:} Giải IK cho tư thế đứng chuẩn, tạo ra bộ góc đích $\theta_{target,i} = (0^\circ, 0^\circ, 90^\circ)$ cho mỗi chân.
     \item \textbf{Nội suy tuyến tính:} Trong $N_{homing} = 200$ frame, mỗi góc được nội suy tuyến tính:
     \begin{equation}
         \theta_i(k) = \theta_{current,i} + \frac{k}{N_{homing}} (\theta_{target,i} - \theta_{current,i}), \quad k = 0, 1, \ldots, N_{homing}

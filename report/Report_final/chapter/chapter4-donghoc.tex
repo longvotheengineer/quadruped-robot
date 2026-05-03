@@ -6,8 +6,8 @@ Mục tiêu của bài toán động học thuận của robot là xác định 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{img/fig20-Schematic diagram of the robot's leg segments and joint configuration..png }
-    \caption{Mô hình động học và các khớp liên kết của Robot Dog.}
+    \includegraphics[width=0.7\textwidth]{img/fig_model_referenceframe.png}
+    \caption{Mô hình mô phỏng với các hệ tọa độ tham chiếu được gắn tại từng khớp của robot.}
     \label{fig20}
 \end{figure}
 Nhóm xây dựng một mô hình đơn giản của robot bốn chân được mô phỏng theo robot chó Billy, như được thể hiện trong Hình \ref{fig20}. Mô hình bao gồm thân chính, các khớp, các đoạn chân lớn và nhỏ, cùng các thành phần khác. Dựa theo hướng tiến về phía trước, chân trước bên trái, chân trước bên phải, chân sau bên trái và chân sau bên phải lần lượt được đánh số là 1, 2, 3 và 4. Hệ tọa độ thân $\{O_B\}$ được thiết lập tại tâm hình học của thân, và hệ tọa độ gốc của chân $\{O_{i,0}\}$ được thiết lập tại khớp nối giữa khớp hông và thân, trong đó $i = 1,2,3,4$.
@@ -351,8 +351,8 @@ Thay vào các phương trình (\ref{eq:ik_theta1})-(\ref{eq:ik_theta2}) với $
 
 Quy hoạch dáng đi đóng vai trò then chốt đối với sự di chuyển ổn định của robot bốn chân. Trong tự nhiên, các loài động vật có vú bốn chân lựa chọn các dáng đi khác nhau tùy thuộc vào vận tốc di chuyển mong muốn và độ gồ ghề của bề mặt địa hình nhằm giảm thiểu năng lượng tiêu thụ mà vẫn đạt được mục tiêu di chuyển. Trên cơ sở đó, các mẫu dáng đi phổ biến của động vật đã được trích xuất để làm nền tảng cho việc quy hoạch dáng đi trên robot bốn chân.
 
-\subsection{Các mẫu dáng đi phổ biến cho Robot bốn chân }
-Hiện nay, năm loại dáng đi được sử dụng phổ biến nhất là: walk (đi bộ), trot (chạy lon ton/đi chéo chi), pace (đi cùng bên), bound (nhảy cóc) và gallop (phi nước đại). Trong đó, dáng đi \textbf{trot} là phổ biến nhất \cite{marhefka1999}. Đây là kiểu dáng đi ``hai nhịp'' điển hình, trong đó hai chân chéo nhau có đặc tính chuyển động giống hệt nhau, với chân trước bên trái (FL) và chân sau bên phải (RR) hoạt động đồng nhất, còn chân trước bên phải (FR) và chân sau bên lại (RL) hoạt động đồng nhất, như được thể hiện trong Hình~\ref{fig22}.
+\subsection{Lựa chọn dáng đi Trot}
+Dựa trên các phân tích lý thuyết về các phương thức di chuyển đã trình bày ở Chương 2, đồ án lựa chọn dáng đi \textbf{trot} làm trọng tâm nghiên cứu \cite{marhefka1999}. Đây là kiểu dáng đi ``hai nhịp'' điển hình, trong đó hai chân chéo nhau có đặc tính chuyển động giống hệt nhau, với chân trước bên trái (LF) và chân sau bên phải (RB) hoạt động đồng nhất, còn chân trước bên phải (RF) và chân sau bên trái (LB) hoạt động đồng nhất, như được thể hiện trong Hình~\ref{fig22}.
 
 Về mặt lý thuyết, hệ số chu kỳ nhiệm vụ (duty cycle coefficient) trong dáng đi này không chịu bất kỳ hạn chế nào, và thỏa mãn điều kiện:
 \begin{equation}
@@ -431,7 +431,7 @@ trong quá trình chuyển động.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{img/fig25-cubic profiling curves.png }
+    \includegraphics[width=0.8\textwidth]{img/fig_cubic_pva.pdf}
     \caption{Các đường cong quỹ đạo bậc ba}
     \label{fig25}
 \end{figure}
@@ -459,8 +459,8 @@ từ đó giúp chuyển động của robot trở nên ổn định và mượt
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{img/fig26- Fifth degree profiling curve.png}
-    \caption{Các đường cong quỹ đạo bậc năm}
+    \includegraphics[width=0.8\textwidth]{img/fig_quintic_pva.pdf}
+    \caption{Biên dạng vị trí, vận tốc và gia tốc của hàm bước mượt bậc năm}
     \label{fig26}
 \end{figure}
 
@@ -485,12 +485,24 @@ Nhờ đó, quỹ đạo giữa hai điểm bất kỳ có thể được viết
 
 trong đó $\mathbf{p}_0$ và $\mathbf{p}_f$ lần lượt là vị trí đầu và vị trí cuối.
 
+\subsection{So sánh nội suy bậc ba và bậc năm}
+
+Để làm rõ lý do lựa chọn phương pháp đa thức bậc năm thay vì bậc ba, ta xét biểu đồ so sánh biên dạng vị trí, vận tốc và gia tốc của cả hai phương pháp trên cùng một khoảng thời gian chuẩn hóa $\tau \in [0,\,1]$ (Hình~\ref{fig:cubic_vs_quintic}).
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{img/fig24-Quỹ đạo và góc khớp của 4 chân.png }
-    \caption{Quỹ đạo và góc khớp của 4 chân}
-    \label{fig24}
+    \includegraphics[width=0.8\textwidth]{img/fig_cubic_vs_quintic.pdf}
+    \caption{So sánh biên dạng động học giữa nội suy bậc 3 và bậc 5.}
+    \label{fig:cubic_vs_quintic}
 \end{figure}
+
+Từ Hình~\ref{fig:cubic_vs_quintic}, có thể thấy rõ sự khác biệt ở biên dạng gia tốc:
+\begin{itemize}
+    \item \textbf{Đa thức bậc 3:} Gia tốc tại các thời điểm chuyển pha ($\tau=0$ và $\tau=1$) có giá trị khác không ($\pm 6$). Sự thay đổi đột ngột gia tốc từ 0 lên giá trị này gây ra lực giật (jerk), dẫn đến rung lắc cơ khí và lực va đập tại các khớp của robot.
+    \item \textbf{Đa thức bậc 5:} Gia tốc tại $\tau=0$ và $\tau=1$ hoàn toàn bằng không, tạo sự chuyển tiếp mượt mà về mặt động lực học. Quỹ đạo đạt độ trơn bậc hai ($C^2$), phù hợp với yêu cầu chuyển động ổn định của robot bốn chân trong thực tế.
+\end{itemize}
+
+Do đó, đồ án sử dụng hoàn toàn nội suy đa thức bậc năm cho việc tạo quỹ đạo bước chân nhằm tăng cường sự ổn định và kéo dài tuổi thọ của hệ thống truyền động.
 
 \subsection{Triển khai quỹ đạo chân dạng chữ D}
 
@@ -525,6 +537,13 @@ z_i &= z_{stance}
 \end{align}
 
 Tổng số điểm quỹ đạo cho một chu kỳ dáng đi đầy đủ là $N_{total} = N_{sw} + N_{st}$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/fig46_gait_generator.png}
+    \caption{Quỹ đạo chân 3D dạng chữ D (Pha vung Parabol và Pha chống đỡ đường thẳng)}
+    \label{fig:gait_trajectory_3d}
+\end{figure}
 
 \subsection{Tham số quỹ đạo trong hệ thống thực tế}
 
@@ -632,8 +651,8 @@ Tốc độ di chuyển lý thuyết với chiều dài bước $L_{stride} = 10
 Cơ chế tắt an toàn là yêu cầu thiết yếu trong hệ thống robot bốn chân để tránh hư hại cơ khí khi ngừng hoạt động. Đồ án thiết kế quy trình ba pha tuần tự:
 
 \begin{enumerate}
-    \item \textbf{Pha 1 -- Gập gối:} Tất cả 4 khớp gối ($\theta_3$) từ từ co lại từ $90°$ đến $130°$ trong 300 frame ($\sim$2,1 s), hạ thấp trọng tâm robot xuống gần mặt đất.
-    \item \textbf{Pha 2 -- Thu vai:} Các khớp hip pitch ($\theta_2$) được đưa từ vị trí dáng đi về $0°$ trong 300 frame ($\sim$2,1 s), thu các chân về tư thế gọn.
+    \item \textbf{Pha 1 -- Gập gối:} Tất cả 4 khớp gối ($\theta_3$) từ từ co lại từ $90^\circ$ đến $130^\circ$ trong 300 frame ($\sim$2,1 s), hạ thấp trọng tâm robot xuống gần mặt đất.
+    \item \textbf{Pha 2 -- Thu vai:} Các khớp hip pitch ($\theta_2$) được đưa từ vị trí dáng đi về $0^\circ$ trong 300 frame ($\sim$2,1 s), thu các chân về tư thế gọn.
     \item \textbf{Pha 3 -- Xoè hông:} Các khớp hip roll ($\theta_1$) xoè ra từ từ, cho phép robot nằm xuống đất nhẹ nhàng trong 300 frame ($\sim$2,1 s).
 \end{enumerate}
 
@@ -667,20 +686,7 @@ Trong đó:
 \item $J^T(q)$ là ma trận Jacobian chuyển vị của các chân dưới.
 \end{itemize}
 
-Ở đây, $F_C$ là vector lực tiếp xúc với mặt đất và được tính theo mô hình Ristow:
-
-\begin{equation}
-F_{CN} = K\delta^{1.5} + \chi m_{eff}\dot{\delta}
-\end{equation}
-
-Trong đó:
-
-\begin{itemize}
-\item $K$ là hệ số độ cứng.
-\item $\delta$ là độ lún tại điểm tiếp xúc.
-\item $m_{eff}$ là khối lượng tương đương của hai vật thể tại điểm tiếp xúc.
-\item $\chi$ là hệ số hiệu chỉnh dựa trên kết quả thực nghiệm.
-\end{itemize}
+Ở đây, $F_C$ là vector lực tiếp xúc với mặt đất. Trong đồ án này, lực tiếp xúc không được mô hình hóa tường minh mà được xử lý bởi engine vật lý ODE (Open Dynamics Engine) tích hợp trong trình mô phỏng Gazebo, với hệ số ma sát Coulomb $\mu = 0{,}8$ và bước thời gian $\Delta t = 1$ ms.
 
 \begin{figure}[H]
     \centering
@@ -689,33 +695,29 @@ Trong đó:
     \label{fig27}
 \end{figure}
 
-Trong bài toán thiết kế và lựa chọn động cơ cho robot bốn chân, mục tiêu chính là xác định mô-men lớn nhất có thể xuất hiện tại các khớp của chân robot. Đối với các hệ robot chân, mô-men cực
-đại thường xảy ra khi chân robot phải đỡ trọng lượng của thân robot trong các pha đứng hoặc chuyển tiếp giữa các bước đi.
+\textbf{Đơn giản hóa cho bài toán lựa chọn động cơ.} Trong bài toán thiết kế và lựa chọn động cơ cho robot bốn chân, mục tiêu chính là xác định mô-men lớn nhất có thể xuất hiện tại các khớp của chân robot. Đối với các hệ robot chân, mô-men cực đại thường xảy ra khi chân robot phải đỡ trọng lượng của thân robot trong các pha đứng hoặc chuyển tiếp giữa các bước đi.
 
-Do đó, trong giai đoạn thiết kế sơ bộ và lựa chọn động cơ, nhóm giải quyết bài toán mô hình tĩnh học nhằm xác định mô-men do trọng lực và lực phản lực từ mặt đất tác dụng lên các khâu của chân robot. Khi robot được giả thiết ở trạng thái tĩnh hoặc chuyển động rất chậm, vận tốc và gia tốc khớp
-có thể được xem xấp xỉ bằng không:
+Do đó, trong giai đoạn thiết kế sơ bộ và lựa chọn động cơ (Chương~3), nhóm giải quyết bài toán mô hình tĩnh học nhằm xác định mô-men do trọng lực và lực phản lực từ mặt đất tác dụng lên các khâu của chân robot. Khi robot được giả thiết ở trạng thái tĩnh hoặc chuyển động rất chậm, vận tốc và gia tốc khớp có thể được xem xấp xỉ bằng không:
 
 \[
 \dot{q} = 0, \qquad \ddot{q} = 0
 \]
 
-Khi đó các thành phần quán tính và Coriolis trong phương trình
-động lực học tổng quát của robot:
-
-\[
-M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) = F_S - J^T(q)F_C
-\]
-
-có thể được bỏ qua. Phương trình được rút gọn thành dạng cân bằng tĩnh:
+Khi đó các thành phần quán tính và Coriolis trong phương trình động lực học tổng quát có thể được bỏ qua. Phương trình được rút gọn thành dạng cân bằng tĩnh:
 
 \[
 F_S = G(q) + J^T(q)F_C
 \]
 
-Trong đó $F_S$ là mô-men do các động cơ tại khớp tạo ra,
-$G(q)$ là mô-men do trọng lực và $J^T(q)F_C$ là mô-men do lực tiếp xúc với mặt đất gây ra.
+Trong đó $F_S$ là mô-men do các động cơ tại khớp tạo ra, $G(q)$ là mô-men do trọng lực và $J^T(q)F_C$ là mô-men do lực phản lực từ mặt đất gây ra. Phương trình cân bằng tĩnh này là cơ sở cho các tính toán mô-men tại khớp gối, khớp vai và khớp hông đã được trình bày chi tiết trong Mục~3.2.
 
-Để đảm bảo hệ thống hoạt động an toàn, trường hợp tải lớn nhất được giả thiết là khi một chân robot phải chịu toàn bộ trọng lượng của thân robot. Trong điều kiện này, mô-men tại các khớp được tính toán dựa trên lực phản lực từ mặt đất và cánh tay đòn của các khâu tương ứng.
+\textbf{Điều khiển mô-men trong mô phỏng.} Trong môi trường mô phỏng Gazebo (Chương~6), thay vì giải mô hình động lực học đầy đủ, hệ thống sử dụng bộ điều khiển PD cấp thấp để chuyển đổi sai lệch vị trí thành mô-men điều khiển tại mỗi khớp:
+
+\begin{equation}
+\tau_i = K_p (\theta_{target,i} - \theta_{actual,i}) - K_d \cdot \omega_{actual,i}
+\end{equation}
+
+trong đó $\theta_{target,i}$ là góc mong muốn từ bộ giải IK, $\theta_{actual,i}$ và $\omega_{actual,i}$ là vị trí và vận tốc góc thực tế đọc từ Gazebo. Giá trị mô-men được giới hạn (clamp) trong phạm vi giới hạn effort của URDF nhằm mô phỏng sát thực tế khả năng của servo. Trên phần cứng thực, bộ điều khiển PI nội bộ của servo ST3215 đảm nhận vai trò này, nhận trực tiếp lệnh góc đích thông qua giao tiếp UART.
 
 \section{Thiết kế bộ điều khiển}
 
@@ -730,8 +732,8 @@ Hệ thống điều khiển tổng thể của robot được thiết kế theo
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{img/fig28- Overall control architecture .png}
-    \caption{Tổng quan kiến trúc điều khiển của hệ thống}
+    \includegraphics[width=\textwidth]{img/fig45-Locomotion_Planner_Balance_Controller.png}
+    \caption{Tổng quan kiến trúc điều khiển của hệ thống (Locomotion Planner \& Balance Controller)}
     \label{fig28}
 \end{figure}
 
@@ -773,8 +775,8 @@ Sau đó, tọa độ Đề-các mới $[x_{adj}, y_{adj}, z_{adj}]$ được đ
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{img/fig29- Attitude adjustment .png }
-    \caption{Điều chỉnh tư thế thân robot với phương mặt đất}
+    \includegraphics[width=0.8\textwidth]{img/fig_attitude_adjustment.pdf}
+    \caption{Điều chỉnh tư thế thân robot với phương mặt đất (Giữ nguyên vị trí X, Y cục bộ)}
     \label{fig29}
 \end{figure}
 
@@ -909,7 +911,10 @@ Bảng~\ref{tab:home_vs_gait} tổng hợp sự khác biệt cốt lõi giữa h
 \textbf{Tiêu chí} & \textbf{HOME (tĩnh)} & \textbf{GAIT (động)} \\ \hline
 Không gian áp dụng & Không gian khớp & Không gian làm việc \\ \hline
 Biến hiệu chỉnh & $\theta_3$ (góc gối) & $z$ (tọa độ đứng) \\ \hline
-Hệ số $K_P$ & 2,0 & 3,0 (thích nghi) \\ \hline
+Hệ số $K_P$ & 2,0 (gain-scheduled) & 3,0 (thích nghi, $K_{P,eff}$ tới 6,0) \\ \hline
+Hệ số $K_I$ & 0,30 & 0,005 \\ \hline
+Hệ số $K_D$ & 0,15 & 1,2 \\ \hline
+$K_{prop}$ (thích nghi) & $e_{thresh} = 0{,}08$ rad & $K_{prop} = 10{,}0$ \\ \hline
 Bão hòa $u_{max}$ & 1,5 rad (PID) / 0,5 rad (offset) & 0,30 rad \\ \hline
 Lọc đầu ra $\alpha_c$ & 0,15 (nhẹ) & 0,97 (mạnh) \\ \hline
 Phạm vi áp dụng & Tất cả 4 chân & Chỉ chân pha chống \\ \hline

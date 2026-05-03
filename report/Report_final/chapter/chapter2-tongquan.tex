@@ -100,42 +100,7 @@ trong khi tầm với tối thiểu xảy ra khi các khâu gập hoàn toàn:
 
 Không gian làm việc có ý nghĩa quan trọng trong thiết kế: nó xác định phạm vi chiều cao đứng, chiều dài bước và biên độ chuyển động của robot. Vùng đạt được rộng nhất nằm trong mặt phẳng sagittal ($Y$-$Z$), trong khi chiều sâu theo phương $X$ bị giới hạn bởi biên độ khớp hip ($\theta_1$).
 
-\section{Lý thuyết quy hoạch quỹ đạo cho robot có chân}
 
-Quy hoạch quỹ đạo (trajectory planning) là bài toán xác định đường đi liên tục của đầu bàn chân trong không gian và thời gian, sao cho thỏa mãn các ràng buộc về vị trí, vận tốc, gia tốc tại các điểm biên, đồng thời đảm bảo chuyển động mượt mà không gây rung lắc cơ khí.
-
-\subsection{Các yêu cầu của quỹ đạo bàn chân}
-
-Quỹ đạo bàn chân robot cần thỏa mãn các tiêu chí sau \cite{siciliano2009}:
-
-\begin{enumerate}
-    \item \textbf{Tính liên tục vị trí ($C^0$):} Quỹ đạo phải liên tục, không có bước nhảy đột ngột trong vị trí bàn chân.
-    \item \textbf{Tính liên tục vận tốc ($C^1$):} Vận tốc bàn chân phải liên tục tại các điểm chuyển pha (swing $\leftrightarrow$ stance), tránh lực va đập tại khớp.
-    \item \textbf{Tính liên tục gia tốc ($C^2$):} Gia tốc liên tục đảm bảo lực quán tính tại các khớp thay đổi mượt mà, giảm mài mòn cơ cấu chấp hành.
-    \item \textbf{Khoảng trống sải bước:} Trong pha swing, bàn chân phải được nâng đủ cao để tránh va chạm với mặt đất.
-    \item \textbf{Điều kiện biên:} Vận tốc và gia tốc bằng không tại điểm bắt đầu và kết thúc pha swing ($\dot{s}(0) = \dot{s}(1) = 0$, $\ddot{s}(0) = \ddot{s}(1) = 0$).
-\end{enumerate}
-
-\subsection{Các phương pháp nội suy phổ biến}
-
-Trong lĩnh vực robotics, ba phương pháp nội suy quỹ đạo được sử dụng phổ biến:
-
-\textbf{Hàm lượng giác (Sine/Cosine).} Sử dụng hàm sin hoặc cos để tạo biên dạng nâng chân. Ưu điểm là đơn giản, tuy nhiên chỉ đạt tính liên tục $C^0$ hoặc $C^1$ tại các điểm chuyển pha. Bước nhảy gia tốc tại ranh giới swing-stance gây ra lực va đập không mong muốn.
-
-\textbf{Đa thức bậc ba (Cubic).} Sử dụng 4 điều kiện biên (vị trí và vận tốc tại hai đầu) để xác định 4 hệ số. Đạt tính liên tục $C^1$ nhưng chưa kiểm soát được gia tốc tại các điểm biên.
-
-\textbf{Đa thức bậc năm (Quintic).} Sử dụng 6 điều kiện biên (vị trí, vận tốc, gia tốc tại hai đầu) để xác định 6 hệ số. Đạt tính liên tục $C^2$, là phương pháp tối ưu nhất về mặt mượt mà động học. Đây là phương pháp được lựa chọn trong đồ án này.
-
-\subsection{Cấu trúc quỹ đạo hình chữ D}
-
-Quỹ đạo bàn chân robot di chuyển thường có dạng hình chữ D (D-shaped trajectory) khi quan sát trong mặt phẳng sagittal ($X$-$Z$). Quỹ đạo này gồm hai phần:
-
-\begin{itemize}
-    \item \textbf{Cung trên (Swing arc):} Chân được nâng lên và di chuyển từ phía sau ra phía trước. Biên dạng nâng có thể là dạng sin, parabol hoặc đa thức.
-    \item \textbf{Đường dưới (Stance line):} Chân chạm đất và trượt ngược về phía sau, tạo lực đẩy cho robot tiến về phía trước. Lý tưởng thì đường này nằm trên mặt phẳng ngang ($z = z_{stance}$).
-\end{itemize}
-
-Tỷ lệ thời gian giữa hai pha được quyết định bởi hệ số chu kỳ nhiệm vụ $\beta = T_{stance} / T_{total}$. Giá trị $\beta > 0{,}5$ đảm bảo luôn có ít nhất hai chân chạm đất trong dáng đi trot, duy trì ổn định tĩnh.
 
 \section{Các phương thức di chuyển}
 Robot bốn chân có rất nhiều phương thức di chuyển khác nhau tùy thuộc vào tốc độ và đặc điểm địa hình. Dưới đây là 5 dáng đi (\textit{gait}) phổ biến nhất được áp dụng trong kỹ thuật điều khiển robot:
@@ -205,6 +170,13 @@ trong đó $\mathbf{p}_{CoM}$ là hình chiếu CoM lên mặt đất, $\overlin
 
 \textbf{Ứng dụng cho dáng đi Trot.} Trong dáng đi trot, tại mỗi thời điểm có hai chân chéo nhau chạm đất. Đa giác đỡ suy biến thành một đoạn thẳng nối hai bàn chân. Về mặt lý thuyết, điều này có nghĩa là robot đang ở trạng thái biên của ổn định tĩnh (SSM $\approx 0$ khi CoM nằm đúng trên đoạn thẳng). Trong thực tế, diện tích tiếp xúc hữu hạn của bàn chân và quán tính của thân robot tạo ra một vùng ổn định hẹp nhưng đủ để duy trì chuyển động.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/fig_static_stability.pdf}
+    \caption{Minh họa Đa giác đỡ và Biên ổn định tĩnh (SSM) của robot bốn chân}
+    \label{fig:static_stability}
+\end{figure}
+
 \subsection{Ổn định động}
 
 Khi robot di chuyển ở tốc độ trung bình đến cao, phân tích ổn định tĩnh không còn đủ vì các hiệu ứng quán tính trở nên đáng kể. Ổn định động sử dụng khái niệm \textbf{Zero Moment Point} (ZMP) --- điểm trên mặt đất mà tổng mô-men do trọng lực và lực quán tính bằng không:
@@ -214,6 +186,13 @@ Khi robot di chuyển ở tốc độ trung bình đến cao, phân tích ổn �
 \end{equation}
 
 trong đó $m_i$, $\mathbf{r}_i$, $z_i$ lần lượt là khối lượng, vị trí ngang và độ cao của khâu thứ $i$, và $g$ là gia tốc trọng trường. Robot ổn định động khi ZMP nằm bên trong đa giác đỡ.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/fig_zmp_stability.pdf}
+    \caption{Minh họa lực tác dụng và Điểm Moment Không (ZMP) trong phân tích ổn định động}
+    \label{fig:zmp_stability}
+\end{figure}
 
 Trong đồ án này, robot hoạt động ở tốc độ thấp nên phân tích ổn định tĩnh là đủ cho mục đích thiết kế. Bộ điều khiển PID cân bằng IMU đóng vai trò bổ sung, giảm thiểu sai lệch hướng của thân robot khi di chuyển, đưa CoM về gần đường nối hai bàn chân đang chạm đất.
 
@@ -330,7 +309,7 @@ Hướng của một vật rắn trong không gian ba chiều có thể được
     R = R_z(\psi) \cdot R_y(\theta) \cdot R_x(\phi)
 \end{equation}
 
-trong đó $\phi$ là góc lăn (roll), $\theta$ là góc nghiêng (pitch), và $\psi$ là góc hướng (yaw). Nhược điểm chính của biểu diễn Euler là hiện tượng khóa gimbal (gimbal lock), xảy ra khi $\theta = \pm 90°$, khiến hai trục quay trùng nhau và mất một bậc tự do.
+trong đó $\phi$ là góc lăn (roll), $\theta$ là góc nghiêng (pitch), và $\psi$ là góc hướng (yaw). Nhược điểm chính của biểu diễn Euler là hiện tượng khóa gimbal (gimbal lock), xảy ra khi $\theta = \pm 90^\circ$, khiến hai trục quay trùng nhau và mất một bậc tự do.
 
 \textbf{Quaternion} $\mathbf{q} = (w, x, y, z)$ với $|\mathbf{q}| = 1$ biểu diễn phép quay một góc $\alpha$ quanh trục đơn vị $\hat{n} = (n_x, n_y, n_z)$:
 

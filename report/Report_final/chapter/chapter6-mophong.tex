@@ -10,7 +10,7 @@ Nội dung chương được tổ chức như sau: Mục~6.2 trình bày cấu h
 
 \subsection{Mô hình robot URDF}
 
-Robot bốn chân được mô tả bằng file URDF (Unified Robot Description Format), định nghĩa đầy đủ cấu trúc cơ khí bao gồm 13 link (1 thân + 12 khâu chân) và 12 khớp quay (revolute joint). Mỗi link được gán các thuộc tính quán tính (khối lượng $m$, ma trận quán tính $I$), hình dạng va chạm (collision geometry) và hình dạng hiển thị (visual geometry) sử dụng file mesh STL từ bản thiết kế SolidWorks.
+Robot bốn chân được mô tả bằng file URDF (Unified Robot Description Format), định nghĩa đầy đủ cấu trúc cơ khí bao gồm 13 link (1 thân + 12 khâu chân) và 12 khớp quay (revolute joint). Mỗi link được gán các thuộc tính quán tính (khối lượng $m$, ma trận quán tính $I$), hình dạng va chạm (collision geometry) và hình dạng hiển thị (visual geometry) sử dụng file mesh STL.
 
 Các tham số hình học chính của mô hình URDF được trình bày trong Bảng~\ref{tab:urdf_params}.
 
@@ -166,6 +166,16 @@ Hình \ref{Simulation/fig3} so sánh biên dạng vận tốc và gia tốc củ
 Subplot (a) và (b) thể hiện vận tốc theo trục X ($dx/dt$) và trục Z ($dz/dt$). Kết quả cho thấy phương pháp đa thức bậc 5 có vận tốc bằng 0 tại cả hai đầu pha swing, trong khi phương pháp sóng sin có bước nhảy vận tốc tại ranh giới chuyển pha swing-stance.
 
 Subplot (c) và (d) thể hiện gia tốc theo trục X ($d^2x/dt^2$) và trục Z ($d^2z/dt^2$). Sự khác biệt rõ rệt nhất ở biên dạng gia tốc: phương pháp sóng sin tạo các đỉnh gia tốc đột ngột (gián đoạn), trong khi đa thức bậc 5 cho biên dạng gia tốc liên tục. Kết quả này chứng minh rằng phương pháp đa thức bậc 5 ưu việt hơn về mặt mượt mà động học, giảm thiểu rung lắc và lực va đập tại các khớp.
+
+\subsection{Phân tích biến thiên quỹ đạo theo các trục tọa độ}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{img/fig26- Fifth degree profiling curve.png}
+    \caption{Sự biến thiên vị trí, vận tốc và gia tốc của 3 trục X, Y, Z trong chu kỳ bước đầy đủ}
+    \label{fig:xyz_trajectory_full}
+\end{figure}
+
+Hình \ref{fig:xyz_trajectory_full} minh họa chi tiết sự biến thiên của ba trục tọa độ không gian (X, Y, Z) đối với vị trí, vận tốc và gia tốc trong một chu kỳ bước hoàn chỉnh của robot. Dựa trên đồ thị, có thể thấy rõ các pha của chuyển động: pha vung chân (swing phase) diễn ra từ $\tau = 0$ đến $\tau = 0.4$, trong đó trục Z nhấc lên thành hình vòm cong; pha chống chân (stance phase) kéo dài từ $\tau = 0.4$ đến $\tau = 1.0$, trong đó trục Z duy trì hằng số và trục X trượt ngược lại tạo lực đẩy tiến về phía trước. Đặc biệt, nhờ việc ứng dụng hàm nội suy chuẩn hóa bậc 5 (được phân tích ở Chương 4) làm hệ số nội suy cho cả 3 trục, biên dạng vận tốc và gia tốc của X, Y, Z đều hoàn toàn mượt mà, không xuất hiện điểm gãy khúc hay nhảy vọt gia tốc. Điều này một lần nữa khẳng định hiệu quả của việc đưa lý thuyết hàm cơ sở vào triển khai quỹ đạo thực tế.
 
 \section{Phân tích góc khớp và mô-men xoắn}
 

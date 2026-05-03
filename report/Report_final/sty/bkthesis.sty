@@ -19,9 +19,10 @@
 \def\thesislayout{	% A4: 210 × 297
 	\geometry{
 		a4paper,
-		total={160mm,247mm},  % fix over page
 		left=30mm,
+		right=20mm,
 		top=20mm,
+		bottom=20mm,
 	}
 }
 
@@ -55,25 +56,29 @@
 \pagestyle{empty}
 
 \begin{center}
-    {\fontsize{14pt}{1}\selectfont \textbf{ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH}} \\[0.2cm]
-    {\fontsize{14pt}{1}\selectfont \textbf{TRƯỜNG ĐẠI HỌC BÁCH KHOA}} \\[0.2cm]
-    {\fontsize{14pt}{1}\selectfont \textbf{\@sdeptname}} \\[1cm]
+    {\fontsize{14pt}{1}\selectfont \textbf{ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH}} \\[0.1cm]
+    {\fontsize{14pt}{1}\selectfont \textbf{TRƯỜNG ĐẠI HỌC BÁCH KHOA}} \\[0.1cm]
+    {\fontsize{14pt}{1}\selectfont \textbf{\@sdeptname}} \\[1.2cm]
 
     \includegraphics[scale=0.35]{img/LogoBK.png}\\[1.5cm]
 
-    % --- TÊN SINH VIÊN ---
-    {\fontsize{13pt}{1.5}\selectfont \textbf{\@stuname}} \\[1.5cm]
-
     % --- LOẠI ĐỒ ÁN ---
-    {\fontsize{16pt}{1}\selectfont \textbf{\@rname}} \\[0.5cm] 
+    {\fontsize{16pt}{1}\selectfont \textbf{\@rname}} \\[0.3cm] 
+    {\fontsize{14pt}{1}\selectfont \textbf{CỬ NHÂN NGÀNH KỸ THUẬT ĐIỀU KHIỂN \& TỰ ĐỘNG HÓA}} \\[1.5cm]
 
     % --- TÊN ĐỀ TÀI ---
     {\fontsize{18pt}{1.5}\selectfont \textbf{\@tname}} \\[1.5cm]
 
-    {\fontsize{14pt}{1}\selectfont \textbf{CỬ NHÂN NGÀNH KỸ THUẬT ĐIỀU KHIỂN \& TỰ ĐỘNG HÓA}} \\[2cm]
-
-    {\fontsize{14pt}{1}\selectfont \textbf{GIẢNG VIÊN HƯỚNG DẪN}} \\[0.2cm]
-    {\fontsize{14pt}{1}\selectfont \textbf{\@sSupervise}} \\[2.5cm]
+    \begin{flushright}
+    \begin{minipage}{0.55\textwidth}
+        \begin{flushleft}
+        {\fontsize{14pt}{1.5}\selectfont \textbf{GIẢNG VIÊN HƯỚNG DẪN:}} \\[0.1cm]
+        {\fontsize{14pt}{1.5}\selectfont \textbf{\@sSupervise}} \\[0.5cm]
+        {\fontsize{14pt}{1.5}\selectfont \textbf{SINH VIÊN THỰC HIỆN:}} \\[0.1cm]
+        {\fontsize{14pt}{1.5}\selectfont \textbf{\@stuname}}
+        \end{flushleft}
+    \end{minipage}
+    \end{flushright}
 
     \vfill
     {\fontsize{14pt}{1}\selectfont \textbf{TP. HỒ CHÍ MINH, \@ttime}}

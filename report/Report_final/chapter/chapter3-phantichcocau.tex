@@ -76,7 +76,7 @@ Mô hình lắp ráp một chân đơn được thể hiện trong Hình \ref{fi
 
 Dựa trên cấu trúc chân của robot bốn chân, có thể thấy rằng cẳng chân là bộ phận dễ bị gãy và uốn cong nhất vì nó phải chịu trọng lượng của toàn bộ robot cũng như các lực nén khi tiếp xúc với mặt đất. 
 
-Ở đây, lực tiếp xúc với mặt đất được đơn giản hóa chỉ gồm lực pháp tuyến $F_N$ và lực tiếp tuyến $F_\mu$ trong mặt phẳng thẳng đứng, như thể hiện ở Hình \ref{fig15}.
+Ở đây, lực tiếp xúc với mặt đất được đơn giản hóa chỉ gồm lực pháp tuyến $F_N$ và lực tiếp tuyến $F_\mu$ trong mặt phẳng thẳng đứng.
 
 Khi cẳng chân quay quanh trục khớp gối, nếu bỏ qua ma sát tại khớp và ma sát tiếp xúc với mặt đất, mô-men tải ngoài lớn nhất có thể được xác định theo công thức:
 
@@ -86,7 +86,7 @@ Khi cẳng chân quay quanh trục khớp gối, nếu bỏ qua ma sát tại kh
 
 trong đó $F_N$ là lực pháp tuyến, $L_3$ là khoảng cách từ trục khớp gối đến điểm tiếp xúc mặt đất, $\alpha$ là góc giữa cẳng chân và phương thẳng đứng và $\eta$ là hệ số tải động.
 
-Bằng cách định nghĩa các thuộc tính vật liệu phù hợp cho từng bộ phận của robot bốn chân trong mô hình SolidWorks, tổng khối lượng robot thu được xấp xỉ $M = 2.3\text{ kg}$.
+Tổng khối lượng robot được ước tính xấp xỉ $M = 2.3\text{ kg}$.
 
 Giả sử bốn chân chịu đều toàn bộ trọng lượng của robot trong trạng thái tĩnh, lực pháp tuyến được tính là:
 
@@ -96,74 +96,6 @@ Giả sử bốn chân chịu đều toàn bộ trọng lượng của robot tro
 
 Trong phân tích bền số học dưới đây, sử dụng các giá trị: chiều dài cẳng chân $L_3 = 0.125\text{ m}$, góc nghiêng $\alpha = 45^\circ$, và hệ số tải động $\eta = 1.2$.
 
-\section{Phân tích vật liệu và công nghệ chế tạo}
-
-\subsection{Lựa chọn vật liệu in 3D}
-
-Toàn bộ các chi tiết cơ khí của robot (thân, giá đỡ khớp hông, đùi, cẳng chân) được chế tạo bằng công nghệ in 3D FDM (Fused Deposition Modeling). Vật liệu được lựa chọn là PLA (Polylactic Acid) --- một loại nhựa sinh học phổ biến trong prototyping nhanh. Bảng~\ref{tab:pla_props} trình bày các thuộc tính cơ học chính của PLA so với một số vật liệu thay thế.
-
-\begin{table}[H]
-\centering
-\caption{So sánh thuộc tính cơ học các vật liệu in 3D phổ biến}
-\label{tab:pla_props}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-\textbf{Thuộc tính} & \textbf{PLA} & \textbf{ABS} & \textbf{PETG} & \textbf{Nylon} \\ \hline
-Giới hạn bền kéo (MPa) & 50--60 & 35--45 & 50--55 & 70--85 \\ \hline
-Mô đun đàn hồi (GPa) & 3,5 & 2,1 & 2,0 & 1,5--2,5 \\ \hline
-Tỷ trọng (g/cm$^3$) & 1,24 & 1,04 & 1,27 & 1,14 \\ \hline
-Nhiệt độ biến dạng ($^\circ$C) & 56 & 98 & 72 & 180 \\ \hline
-Độ khó in & Thấp & Trung bình & Trung bình & Cao \\ \hline
-Giá thành & Thấp & Trung bình & Trung bình & Cao \\ \hline
-\end{tabular}
-\end{table}
-
-PLA được chọn vì các lý do sau:
-\begin{itemize}
-    \item \textbf{Độ cứng cao:} Mô đun đàn hồi $E = 3{,}5$ GPa là cao nhất trong các vật liệu in 3D phổ biến, giúp giảm biến dạng dưới tải trọng.
-    \item \textbf{Dễ in:} Nhiệt độ đùn thấp ($200$--$210^\circ$C), không cần bàn sấy nóng, ít cong vênh (warping).
-    \item \textbf{Chi phí thấp:} Phù hợp với giai đoạn prototyping và nghiên cứu.
-    \item \textbf{Bề mặt mịn:} Chất lượng bề mặt tốt, giảm ma sát tại các vùng tiếp xúc khớp.
-\end{itemize}
-
-Tuy nhiên, PLA có nhược điểm là giòn (dễ gãy khi va đập mạnh) và chịu nhiệt kém (biến dạng trên $56^\circ$C). Để khắc phục, các vùng chịu lực tập trung (như đầu nối khớp hông) được in với mật độ điền (infill density) 80--100\%, cao hơn so với mức 30--40\% thông thường.
-
-\subsection{Tham số in 3D}
-
-Bảng~\ref{tab:print_params} trình bày các tham số in 3D được sử dụng để chế tạo các chi tiết cơ khí.
-
-\begin{table}[H]
-\centering
-\caption{Tham số in 3D cho các chi tiết robot}
-\label{tab:print_params}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|l|c|l|}
-\hline
-\textbf{Tham số} & \textbf{Giá trị} & \textbf{Ghi chú} \\ \hline
-Chiều cao lớp in (layer height) & 0,2 mm & Cân bằng tốc độ và chất lượng \\ \hline
-Số vỏ ngoài (wall count) & 4 & Tăng độ bền \\ \hline
-Mật độ điền -- thân & 40\% & Pattern: gyroid \\ \hline
-Mật độ điền -- khớp & 80--100\% & Chịu lực tập trung \\ \hline
-Nhiệt độ đùn & 210$^\circ$C & PLA+ \\ \hline
-Tốc độ in & 50 mm/s & Đảm bảo bám dính lớp \\ \hline
-Hỗ trợ (support) & Có & Cho các góc nhô > 45$^\circ$ \\ \hline
-\end{tabular}
-\end{table}
-
-Tổng thời gian in cho toàn bộ chi tiết robot (thân, nắp thân, 4 bộ khớp hông, 4 đùi, 4 cẳng chân, phụ kiện) là khoảng 35--40 giờ. Sau khi in, các chi tiết được xử lý hậu kỳ: loại bỏ support, chà nhám bề mặt tiếp xúc khớp, và khoan lỗ cho ốc vít M3 cùng ổ bi 626zz.
-
-\subsection{Phân tích tải trọng bằng SolidWorks Simulation}
-
-Để kiểm chứng độ bền của thiết kế, nhóm đã thực hiện phân tích phần tử hữu hạn (FEA -- Finite Element Analysis) trên phần mềm SolidWorks Simulation cho chi tiết cẳng chân --- bộ phận chịu tải lớn nhất. Các điều kiện biên được đặt là:
-
-\begin{itemize}
-    \item \textbf{Ràng buộc:} Cố định đầu trên cẳng chân (vùng nối với khớp gối).
-    \item \textbf{Tải trọng:} Lực pháp tuyến $F_N = 11{,}28$ N tại đầu dưới cẳng chân (bàn chân), hướng dọc theo trục chân.
-    \item \textbf{Vật liệu:} PLA với $E = 3{,}5$ GPa, $\sigma_{yield} = 50$ MPa.
-\end{itemize}
-
-Kết quả phân tích cho thấy ứng suất Von Mises cực đại trên cẳng chân đạt khoảng $12$ MPa, nhỏ hơn nhiều so với giới hạn chảy $50$ MPa của PLA, cho hệ số an toàn $n = 50/12 \approx 4{,}2$. Giá trị này xác nhận thiết kế cẳng chân đủ bền cho vận hành bình thường.
 
 \section{Lựa chọn cơ cấu chấp hành}
 Việc lựa chọn cơ cấu chấp hành có ảnh hưởng lớn đến hiệu năng di chuyển của robot bốn chân. Do trọng lượng bản thân của robot, cơ cấu chấp hành cần tạo ra mô-men xoắn lớn, đáp ứng nhanh và có kích thước nhỏ gọn.
@@ -323,50 +255,3 @@ Chiều dài & Chiều rộng & Chiều cao & \makecell{Chiều dài\\hông\\$L_
 \bottomrule
 \end{tabular}
 \end{table}
-
-\subsection{Phân tích ngân sách khối lượng}
-
-Việc quản lý khối lượng có ý nghĩa quan trọng đối với robot bốn chân, ảnh hưởng trực tiếp đến mô-men yêu cầu tại các khớp, thời gian hoạt động và tính ổn định. Bảng~\ref{tab:weight_budget} trình bày phân tích chi tiết ngân sách khối lượng của toàn bộ hệ thống.
-
-\begin{table}[H]
-\centering
-\caption{Ngân sách khối lượng robot bốn chân}
-\label{tab:weight_budget}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|l|c|c|c|}
-\hline
-\textbf{Thành phần} & \textbf{Số lượng} & \textbf{Đơn vị (g)} & \textbf{Tổng (g)} \\ \hline
-Khung thân (PLA) & 1 & 250 & 250 \\ \hline
-Nắp thân (PLA) & 1 & 80 & 80 \\ \hline
-Cụm khớp hông (PLA) & 4 & 45 & 180 \\ \hline
-Đùi chân (PLA) & 4 & 30 & 120 \\ \hline
-Cẳng chân (PLA) & 4 & 25 & 100 \\ \hline
-Servo ST3215 & 12 & 69 & 828 \\ \hline
-Jetson Nano B01 & 1 & 140 & 140 \\ \hline
-IMU BNO055 & 1 & 5 & 5 \\ \hline
-Bus Servo Adapter (A) & 2 & 15 & 30 \\ \hline
-Mạch giảm áp XL4015 & 1 & 25 & 25 \\ \hline
-Ốc vít, ổ bi, phụ kiện & -- & -- & 100 \\ \hline
-Cáp và dây nối & -- & -- & 150 \\ \hline
-\midrule
-\textbf{Tổng cộng} & & & \textbf{$\sim$2008} \\ \hline
-\end{tabular}
-\end{table}
-
-Kết quả cho thấy khối lượng robot (không bao gồm nguồn và cáp nguồn) vào khoảng 2,0 kg, phù hợp với giá trị $M = 2{,}3$ kg đã sử dụng trong các tính toán mô-men ở các mục trước (bao gồm cả cáp nguồn). Phần lớn khối lượng đến từ 12 servo ($\sim$41\%), tiếp theo là khung thân và phụ kiện PLA ($\sim$36\%).
-
-\subsection{Quy trình lắp ráp}
-
-Quy trình lắp ráp robot bốn chân được thực hiện theo các bước tuần tự sau:
-
-\begin{enumerate}
-    \item \textbf{Lắp ráp khớp hông:} Gắn servo hip roll vào giá đỡ khớp hông, lắp ổ bi 626zz ở phía đối diện. Sau đó lắp servo hip pitch bên trong giá đỡ.
-    \item \textbf{Lắp ráp chân:} Gắn servo knee (gối) vào phần trên của đùi, nối cẳng chân qua cơ cấu tay đòn và thanh liên kết ball-head.
-    \item \textbf{Nối chân với thân:} Lắp 4 cụm khớp hông vào 4 góc của thân robot. Đảm bảo các trục servo hip roll song song với trục dọc thân.
-    \item \textbf{Đi dây servo:} Nối cáp tín hiệu từ 12 servo về hai mạch Bus Servo Adapter. Nhóm cáp theo danh tính driver (A: chân LF+RB, B: chân LB+RF).
-    \item \textbf{Lắp điện tử:} Gắn Jetson Nano, IMU BNO055, mạch giảm áp XL4015 và hai Bus Servo Adapter vào bên trong thân robot.
-    \item \textbf{Kết nối nguồn:} Nối nguồn xung 12V vào hai Bus Servo Adapter (cấp cho servo) và mạch giảm áp (cấp 5V cho Jetson Nano).
-    \item \textbf{Kiểm tra:} Cấp nguồn và chạy chương trình calibrate để xác minh chiều quay, ID servo và phạm vi góc quay của từng khớp.
-\end{enumerate}
-
-Toàn bộ quá trình lắp ráp từ các chi tiết in 3D đến robot hoàn chỉnh có thể vận hành mất khoảng 4--5 giờ, không bao gồm thời gian in 3D và calibrate phần mềm.

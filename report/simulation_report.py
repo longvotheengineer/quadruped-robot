@@ -294,8 +294,8 @@ def fig1_foot_trajectory_2d():
 
     axes[0].set_ylabel('Z position (mm)')
 
-    fig.suptitle('Figure 1 -- Foot-end Trajectory in Sagittal Plane (X-Z)',
-                 fontsize=14, fontweight='bold', y=1.02)
+    # fig.suptitle('Figure 1 -- Foot-end Trajectory in Sagittal Plane (X-Z)',
+    #              fontsize=14, fontweight='bold', y=1.02)
     fig.tight_layout()
     fig.savefig(os.path.join(FIGURE_DIR, 'fig1_foot_trajectory_2d.png'))
     plt.close(fig)
@@ -334,8 +334,8 @@ def fig2_foot_trajectory_3d():
     ax.set_xlabel('X (mm)')
     ax.set_ylabel('Y (mm)')
     ax.set_zlabel('Z (mm)')
-    ax.set_title('Figure 2 -- 3D Foot Trajectories of All Four Legs',
-                 fontsize=13, fontweight='bold', pad=15)
+    # ax.set_title('Figure 2 -- 3D Foot Trajectories of All Four Legs',
+    #              fontsize=13, fontweight='bold', pad=15)
     ax.legend(loc='upper left', fontsize=9)
     ax.view_init(elev=25, azim=-55)
     fig.tight_layout()
@@ -390,9 +390,9 @@ def fig3_velocity_acceleration():
     axes[0, 0].text(T_SWING + T_STANCE/2, axes[0, 0].get_ylim()[1]*0.85,
                     'Stance', ha='center', fontsize=9, color='gray')
 
-    fig.suptitle('Figure 3 -- Foot-end Velocity and Acceleration Profiles\n'
-                 '(Sine-wave  vs  Quintic Polynomial)',
-                 fontsize=14, fontweight='bold', y=1.02)
+    # fig.suptitle('Figure 3 -- Foot-end Velocity and Acceleration Profiles\\n'
+    #              '(Sine-wave  vs  Quintic Polynomial)',
+    #              fontsize=14, fontweight='bold', y=1.02)
     fig.tight_layout()
     fig.savefig(os.path.join(FIGURE_DIR, 'fig3_velocity_acceleration.png'))
     plt.close(fig)
@@ -431,9 +431,9 @@ def fig4_joint_angles():
         axes[j].axvline(T_TOTAL * 0.5 + T_SWING, color='gray', ls=':', lw=1, alpha=0.3)
 
     axes[2].set_xlabel('Waypoint index')
-    fig.suptitle('Figure 4 -- Joint Angle Profiles over One Gait Cycle\n'
-                 '(Quintic Polynomial Trajectory, Trot Gait -- IK Output)',
-                 fontsize=14, fontweight='bold', y=1.01)
+    # fig.suptitle('Figure 4 -- Joint Angle Profiles over One Gait Cycle\\n'
+    #              '(Quintic Polynomial Trajectory, Trot Gait -- IK Output)',
+    #              fontsize=14, fontweight='bold', y=1.01)
     fig.tight_layout()
     fig.savefig(os.path.join(FIGURE_DIR, 'fig4_joint_angles.png'))
     plt.close(fig)
@@ -498,9 +498,9 @@ def fig5_pd_torque():
         axes[j].axvline(T_SWING, color='gray', ls=':', lw=1, alpha=0.4)
 
     axes[2].set_xlabel('Waypoint index')
-    fig.suptitle('Figure 5 -- Estimated PD Controller Torque (Left-Front Leg)\n'
-                 f'Kp = {KP},  Kd = {KD},  with gravity compensation',
-                 fontsize=14, fontweight='bold', y=1.01)
+    # fig.suptitle('Figure 5 -- Estimated PD Controller Torque (Left-Front Leg)\\n'
+    #              f'Kp = {KP},  Kd = {KD},  with gravity compensation',
+    #              fontsize=14, fontweight='bold', y=1.01)
     fig.tight_layout()
     fig.savefig(os.path.join(FIGURE_DIR, 'fig5_pd_torque.png'))
     plt.close(fig)
@@ -541,8 +541,8 @@ def fig6_gait_timing():
     ax.set_yticklabels(labels[::-1])
     ax.set_xlabel('Waypoint index')
     ax.set_xlim(0, n_cycles * T_TOTAL)
-    ax.set_title('Figure 6 -- Trot Gait Timing Diagram',
-                 fontsize=14, fontweight='bold')
+    # ax.set_title('Figure 6 -- Trot Gait Timing Diagram',
+    #              fontsize=14, fontweight='bold')
 
     swing_patch  = mpatches.Patch(facecolor=color_swing,
                                    edgecolor='#2c3e50', label='Swing phase')
@@ -642,9 +642,9 @@ def fig7_support_polygon():
         if ax_idx == 0:
             ax.set_ylabel('Y (mm)')
 
-    fig.suptitle('Figure 7 -- Support Polygon at Different Trot Gait Phases\n'
-                 '(o = stance,   X = swing,   shaded = support polygon)',
-                 fontsize=13, fontweight='bold', y=1.06)
+    # fig.suptitle('Figure 7 -- Support Polygon at Different Trot Gait Phases\\n'
+    #              '(o = stance,   X = swing,   shaded = support polygon)',
+    #              fontsize=13, fontweight='bold', y=1.06)
     fig.tight_layout()
     fig.savefig(os.path.join(FIGURE_DIR, 'fig7_support_polygon.png'))
     plt.close(fig)
@@ -705,9 +705,9 @@ def fig8_workspace():
     ax.set_title('(c) Frontal Plane (py-pz)')
     ax.set_aspect('equal', adjustable='datalim')
 
-    fig.suptitle('Figure 8 -- Workspace Analysis of a Single Leg (Left-Front)\n'
-                 f'Link lengths:  l1 = {l1} mm,  l2 = {l2} mm,  l3 = {l3} mm',
-                 fontsize=14, fontweight='bold', y=1.04)
+    # fig.suptitle('Figure 8 -- Workspace Analysis of a Single Leg (Left-Front)\\n'
+    #              f'Link lengths:  l1 = {l1} mm,  l2 = {l2} mm,  l3 = {l3} mm',
+    #              fontsize=14, fontweight='bold', y=1.04)
     fig.tight_layout()
     fig.savefig(os.path.join(FIGURE_DIR, 'fig8_workspace.png'))
     plt.close(fig)
