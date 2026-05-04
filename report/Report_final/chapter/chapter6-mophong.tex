@@ -60,39 +60,40 @@ Môi trường mô phỏng được cấu hình với các tham số vật lý s
 
 Tốc độ cập nhật bộ điều khiển ROS~2 được đặt ở 1000 Hz ($f_{ctrl} = 1000$ Hz), đồng bộ với bước thời gian vật lý của Gazebo. Chu kỳ timer của Gait Generator node là 3 ms, tương ứng với tần số xuất lệnh quỹ đạo 333 Hz.
 
-\section{Phân tích quỹ đạo bàn chân}
+\section{Hình ảnh trực quan hóa mô phỏng}
 
-\begin{figure}[htbp]
+\subsection{Mô phỏng quá trình Homing}
+\begin{figure}[H]
     \centering
     % ---- HÀNG 1: 5 ẢNH ĐẦU ----
     \begin{subfigure}[b]{0.19\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/Gait/frame_01.png}
+        \includegraphics[width=\textwidth]{img/sim_homing_frames/frame_001.jpg}
         \caption{0.0s}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.19\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/Gait/frame_02.png}
-        \caption{0.5s}
+        \includegraphics[width=\textwidth]{img/sim_homing_frames/frame_002.jpg}
+        \caption{1.3s}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.19\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/Gait/frame_03.png}
-        \caption{1.0s}
+        \includegraphics[width=\textwidth]{img/sim_homing_frames/frame_003.jpg}
+        \caption{2.7s}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.19\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/Gait/frame_04.png}
-        \caption{1.5s}
+        \includegraphics[width=\textwidth]{img/sim_homing_frames/frame_004.jpg}
+        \caption{4.0s}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.19\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/Gait/frame_05.png}
-        \caption{2.0s}
+        \includegraphics[width=\textwidth]{img/sim_homing_frames/frame_005.jpg}
+        \caption{5.3s}
     \end{subfigure}
     
     \vspace{0.3cm} % Tạo khoảng trống giữa 2 hàng
@@ -100,37 +101,110 @@ Tốc độ cập nhật bộ điều khiển ROS~2 được đặt ở 1000 Hz 
     % ---- HÀNG 2: 5 ẢNH SAU ----
     \begin{subfigure}[b]{0.19\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/Gait/frame_06.png}
-        \caption{2.5s}
+        \includegraphics[width=\textwidth]{img/sim_homing_frames/frame_006.jpg}
+        \caption{6.7s}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.19\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/Gait/frame_07.png}
-        \caption{3.0s}
+        \includegraphics[width=\textwidth]{img/sim_homing_frames/frame_007.jpg}
+        \caption{8.0s}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.19\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/Gait/frame_08.png}
-        \caption{3.5s}
+        \includegraphics[width=\textwidth]{img/sim_homing_frames/frame_008.jpg}
+        \caption{9.3s}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.19\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/Gait/frame_09.png}
+        \includegraphics[width=\textwidth]{img/sim_homing_frames/frame_009.jpg}
+        \caption{10.7s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/sim_homing_frames/frame_010.jpg}
+        \caption{12.0s}
+    \end{subfigure}
+
+   \caption{Chuỗi hình ảnh mô phỏng quá trình Homing của robot từ lúc nằm đến lúc đứng}
+    \label{fig:timelapse_homing_gazebo}
+\end{figure}
+
+\subsection{Mô phỏng chuyển động Trot}
+\begin{figure}[H]
+    \centering
+    % ---- HÀNG 1: 5 ẢNH ĐẦU ----
+    \begin{subfigure}[b]{0.19\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/sim_trot_frames/frame_001.jpg}
+        \caption{0.0s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/sim_trot_frames/frame_002.jpg}
+        \caption{2.0s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/sim_trot_frames/frame_003.jpg}
         \caption{4.0s}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.19\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img/Gait/frame_10.png}
-        \caption{4.5s}
+        \includegraphics[width=\textwidth]{img/sim_trot_frames/frame_004.jpg}
+        \caption{6.0s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/sim_trot_frames/frame_005.jpg}
+        \caption{8.0s}
+    \end{subfigure}
+    
+    \vspace{0.3cm} % Tạo khoảng trống giữa 2 hàng
+
+    % ---- HÀNG 2: 5 ẢNH SAU ----
+    \begin{subfigure}[b]{0.19\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/sim_trot_frames/frame_006.jpg}
+        \caption{10.0s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/sim_trot_frames/frame_007.jpg}
+        \caption{12.0s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/sim_trot_frames/frame_008.jpg}
+        \caption{14.0s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/sim_trot_frames/frame_009.jpg}
+        \caption{16.0s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/sim_trot_frames/frame_010.jpg}
+        \caption{18.0s}
     \end{subfigure}
 
-   \caption{Chuỗi hình ảnh mô phỏng dáng đi Trot của robot chó trong 5 giây}
-    \label{fig:timelapse_gazebo}
+   \caption{Chuỗi hình ảnh mô phỏng quá trình robot thực hiện dáng đi Trot liên tục}
+    \label{fig:timelapse_trot_gazebo}
 \end{figure}
+
+\section{Phân tích quỹ đạo bàn chân}
 
 \subsection{Quỹ đạo trong mặt phẳng 2D}
 \begin{figure}[H]
@@ -428,15 +502,6 @@ Sau khi xác minh tính đúng đắn của các thuật toán thông qua mô ph
 
 Mô hình robot bốn chân đã được lắp ráp hoàn chỉnh với các thành phần chính: khung thân in 3D (PLA), 12 động cơ bus servo ST3215, máy tính nhúng Jetson Nano B01, cảm biến IMU BNO055, hai mạch Bus Servo Adapter (A), mạch giảm áp XL4015 và nguồn xung tổ ong 12V--40A. Tổng khối lượng robot (không bao gồm nguồn và dây cáp) vào khoảng 2,3~kg.
 
-% TODO: Thêm ảnh robot thực tế đã lắp ráp hoàn chỉnh
-% Đặt ảnh vào thư mục img/ với tên file phù hợp
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7\textwidth]{img/fig_hw_robot_assembled.jpg}
-%     \caption{Mô hình robot bốn chân đã lắp ráp hoàn chỉnh}
-%     \label{fig_hw_assembled}
-% \end{figure}
-
 \begin{table}[H]
 \centering
 \caption{Thông số hình học robot thực tế}
@@ -466,14 +531,6 @@ Hệ thống phần cứng thực được khởi động thông qua launch file
 \end{itemize}
 
 Mỗi serial driver nhận lệnh góc servo (đơn vị độ) từ topic \texttt{/servo\_commands\_a} hoặc \texttt{/servo\_commands\_b}, chuyển đổi sang giá trị tick (0--4095) và gửi qua giao tiếp UART bán song công đến các servo ST3215. Tốc độ truyền (baudrate) được cấu hình ở mức 1~Mbps để đảm bảo đáp ứng thời gian thực.
-
-% TODO: Thêm ảnh sơ đồ ROS 2 nodes/topics cho phần cứng thực
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{img/fig_hw_ros2_graph.png}
-%     \caption{Sơ đồ ROS~2 nodes và topics trên phần cứng thực}
-%     \label{fig_hw_ros2_graph}
-% \end{figure}
 
 \subsection{Chuyển đổi góc IK sang góc servo}
 
@@ -523,14 +580,6 @@ Right-Behind (RB) & $-125$ & $-135$ & $-170$ & $-5$ \\ \hline
 \end{tabular}
 \end{table}
 
-% TODO: Thêm ảnh robot ở tư thế đứng chuẩn sau khi homing
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.6\textwidth]{img/fig_hw_homing.jpg}
-%     \caption{Robot ở tư thế đứng chuẩn sau quá trình homing}
-%     \label{fig_hw_homing}
-% \end{figure}
-
 \subsection{Thử nghiệm dáng đi Trot (chế độ TROT\_FORWARD)}
 
 Sau khi robot đạt tư thế đứng ổn định, dáng đi Trot được kích hoạt. Các tham số dáng đi trên phần cứng thực được trình bày trong Bảng~\ref{tab:hw_gait_params}.
@@ -556,18 +605,6 @@ Duty cycle & $\beta$ & 81,6\% & -- \\ \hline
 
 Dáng đi Trot sử dụng mảng dịch pha: LF = 0,0; RB = 0,0; LB = 0,5; RF = 0,5, nghĩa là cặp chân chéo (LF+RB) và (LB+RF) luân phiên thực hiện pha swing. Quỹ đạo bàn chân được tạo bằng hàm nội suy đa thức bậc 5 (quintic planning) với điều khiển vận tốc, đảm bảo tính liên tục $C^2$.
 
-% TODO: Thêm ảnh/video chuỗi hình ảnh robot đang đi trot
-% \begin{figure}[H]
-%     \centering
-%     % Có thể dùng subfigure để đặt nhiều ảnh liên tiếp
-%     \includegraphics[width=0.8\textwidth]{img/fig_hw_trot_sequence.jpg}
-%     \caption{Chuỗi hình ảnh robot thực hiện dáng đi Trot trên mặt phẳng}
-%     \label{fig_hw_trot_sequence}
-% \end{figure}
-
-% TODO: Thêm nhận xét kết quả thực nghiệm dáng đi
-% Ví dụ: Robot di chuyển được / gặp vấn đề gì / so sánh với mô phỏng
-
 \subsection{Cơ chế tắt an toàn (ROBOTOFF)}
 
 Để đảm bảo an toàn khi dừng hoạt động, hệ thống triển khai quy trình tắt máy ba pha (three-phase shutdown) trực tiếp trong không gian góc servo, không sử dụng IK. Mỗi pha gồm 300 frame với chu kỳ $\sim$7~ms/frame, tổng thời gian tắt khoảng 6,3 giây.
@@ -588,14 +625,6 @@ Dáng đi Trot sử dụng mảng dịch pha: LF = 0,0; RB = 0,0; LB = 0,5; RF =
 
 Thiết kế tuần tự ba pha đảm bảo rằng robot không bao giờ rơi tự do: thân được hạ từ từ xuống đất trước khi các chân được thu gọn. Các giá trị góc đích có biên độ an toàn $\sim$3$^\circ$ so với giới hạn EEPROM của servo, tránh hiện tượng kẹt cơ khí.
 
-% TODO: Thêm ảnh robot ở trạng thái sau khi ROBOTOFF hoàn tất
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.6\textwidth]{img/fig_hw_robotoff.jpg}
-%     \caption{Robot ở trạng thái an toàn sau khi hoàn tất quy trình ROBOTOFF}
-%     \label{fig_hw_robotoff}
-% \end{figure}
-
 \subsection{Các vấn đề thực tế và giải pháp}
 
 Trong quá trình triển khai và thử nghiệm trên phần cứng thực, nhóm đã gặp và giải quyết một số vấn đề kỹ thuật quan trọng:
@@ -608,8 +637,6 @@ Trong quá trình triển khai và thử nghiệm trên phần cứng thực, nh
     \item \textbf{Xung đột bus UART:} Khi cả lệnh điều khiển và phản hồi vị trí cùng chia sẻ một đường truyền UART bán song công, xảy ra hiện tượng xung đột dữ liệu. Giải pháp: vô hiệu hóa feedback sau khi hoàn tất bước đọc vị trí ban đầu trong quá trình homing.
 
     \item \textbf{Chia tải serial driver:} Một serial driver đơn lẻ không đủ băng thông để điều khiển đồng thời 12 servo ở tốc độ cao. Giải pháp: sử dụng hai serial driver (Driver A và Driver B), mỗi driver quản lý 6 servo thông qua một mạch Bus Servo Adapter riêng biệt.
-
-    % TODO: Bổ sung thêm các vấn đề thực tế khác nếu có
 \end{enumerate}
 
 \subsection{Nhận xét và đánh giá thực nghiệm}

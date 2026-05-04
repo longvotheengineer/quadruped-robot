@@ -1299,11 +1299,11 @@ INPUT chapter/chapter4-donghoc.tex
 INPUT ./chapter/chapter4-donghoc.tex
 INPUT ./chapter/chapter4-donghoc.tex
 INPUT chapter/chapter4-donghoc.tex
-INPUT ./img/fig20-Schematic diagram of the robot's leg segments and joint configuration..png
-INPUT ./img/fig20-Schematic diagram of the robot's leg segments and joint configuration..png
-INPUT img/fig20-Schematic diagram of the robot's leg segments and joint configuration..png
-INPUT ./img/fig20-Schematic diagram of the robot's leg segments and joint configuration..png
-INPUT ./img/fig20-Schematic diagram of the robot's leg segments and joint configuration..png
+INPUT ./img/fig_model_referenceframe.png
+INPUT ./img/fig_model_referenceframe.png
+INPUT img/fig_model_referenceframe.png
+INPUT ./img/fig_model_referenceframe.png
+INPUT ./img/fig_model_referenceframe.png
 INPUT ./img/fig21-Diagram of the DH coordinate system..png
 INPUT ./img/fig21-Diagram of the DH coordinate system..png
 INPUT img/fig21-Diagram of the DH coordinate system..png

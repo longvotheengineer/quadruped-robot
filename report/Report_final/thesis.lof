@@ -51,20 +51,21 @@
 \contentsline {figure}{\numberline {5.11}{\ignorespaces Giao thức truyền thông UART\relax }}{59}{figure.caption.65}%
 \contentsline {figure}{\numberline {5.12}{\ignorespaces Sơ đồ kiến trúc ROS~2 của hệ thống: các node, topic và luồng dữ liệu\relax }}{61}{figure.caption.67}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Chuỗi hình ảnh mô phỏng dáng đi Trot của robot chó trong 5 giây\relax }}{67}{figure.caption.71}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Quỹ đạo bàn chân trong không gian 2D\relax }}{67}{figure.caption.72}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Quỹ đạo bàn chân trong không gian 3D\relax }}{68}{figure.caption.73}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Biên dạng vận tốc và gia tốc\relax }}{68}{figure.caption.74}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Sự biến thiên vị trí, vận tốc và gia tốc của 3 trục X, Y, Z trong chu kỳ bước đầy đủ\relax }}{69}{figure.caption.75}%
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Biến thiên góc khớp\relax }}{70}{figure.caption.76}%
-\contentsline {figure}{\numberline {6.7}{\ignorespaces Mô-men xoắn bộ điều khiển PD\relax }}{71}{figure.caption.77}%
-\contentsline {figure}{\numberline {6.8}{\ignorespaces Gait timing\relax }}{72}{figure.caption.78}%
-\contentsline {figure}{\numberline {6.9}{\ignorespaces Đa giác đỡ và ổn định tĩnh\relax }}{72}{figure.caption.79}%
-\contentsline {figure}{\numberline {6.10}{\ignorespaces Không gian làm việc\relax }}{73}{figure.caption.80}%
-\contentsline {figure}{\numberline {6.11}{\ignorespaces Quỹ đạo Cartesian $(x, y, z)$ của chân trước bên trái trong một chu kỳ dáng đi\relax }}{75}{figure.caption.84}%
-\contentsline {figure}{\numberline {6.12}{\ignorespaces Biên dạng vận tốc và gia tốc của chân trước bên trái\relax }}{76}{figure.caption.85}%
-\contentsline {figure}{\numberline {6.13}{\ignorespaces Góc khớp $(\theta _1, \theta _2, \theta _3)$ giải qua IK cho chân trước bên trái\relax }}{76}{figure.caption.86}%
-\contentsline {figure}{\numberline {6.14}{\ignorespaces Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng\relax }}{77}{figure.caption.87}%
-\contentsline {figure}{\numberline {6.15}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME\relax }}{77}{figure.caption.88}%
-\contentsline {figure}{\numberline {6.16}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)\relax }}{78}{figure.caption.89}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Chuỗi hình ảnh mô phỏng quá trình Homing của robot từ lúc nằm đến lúc đứng\relax }}{67}{figure.caption.71}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Chuỗi hình ảnh mô phỏng quá trình robot thực hiện dáng đi Trot liên tục\relax }}{67}{figure.caption.72}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Quỹ đạo bàn chân trong không gian 2D\relax }}{67}{figure.caption.73}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Quỹ đạo bàn chân trong không gian 3D\relax }}{68}{figure.caption.74}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Biên dạng vận tốc và gia tốc\relax }}{69}{figure.caption.75}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Sự biến thiên vị trí, vận tốc và gia tốc của 3 trục X, Y, Z trong chu kỳ bước đầy đủ\relax }}{69}{figure.caption.76}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Biến thiên góc khớp\relax }}{70}{figure.caption.77}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Mô-men xoắn bộ điều khiển PD\relax }}{71}{figure.caption.78}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Gait timing\relax }}{72}{figure.caption.79}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Đa giác đỡ và ổn định tĩnh\relax }}{72}{figure.caption.80}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Không gian làm việc\relax }}{73}{figure.caption.81}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Quỹ đạo Cartesian $(x, y, z)$ của chân trước bên trái trong một chu kỳ dáng đi\relax }}{75}{figure.caption.85}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Biên dạng vận tốc và gia tốc của chân trước bên trái\relax }}{76}{figure.caption.86}%
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Góc khớp $(\theta _1, \theta _2, \theta _3)$ giải qua IK cho chân trước bên trái\relax }}{76}{figure.caption.87}%
+\contentsline {figure}{\numberline {6.15}{\ignorespaces Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng\relax }}{77}{figure.caption.88}%
+\contentsline {figure}{\numberline {6.16}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME\relax }}{77}{figure.caption.89}%
+\contentsline {figure}{\numberline {6.17}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)\relax }}{78}{figure.caption.90}%
 \addvspace {10\p@ }

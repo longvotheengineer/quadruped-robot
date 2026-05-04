@@ -29,7 +29,7 @@ Trong phương pháp DH, mỗi khâu liên kết có thể được mô tả b�
     \label{fig21}
 \end{figure}
 
-Do đó, lấy chân trước bên phải của robot bốn chân làm ví dụ, các tham số của từng khâu liên kết được suy ra như thể hiện trong Bảng \ref{tab:3}.
+Các tham số Denavit-Hartenberg (DH) của từng khâu liên kết cho một chân robot được suy ra như thể hiện trong Bảng \ref{tab:3}.
 
 \begin{table}[h]
 \centering
@@ -79,7 +79,7 @@ liên kết $^{i-1}_{i}T$. Dựa trên định nghĩa của từng tham số li�
 0 & 0 & 0 & 1
 \end{bmatrix}
 \end{equation}
-Lấy chân trước bên phải làm ví dụ, ta có:
+Áp dụng cho cấu trúc của một chân robot, các ma trận biến đổi thành phần được xác định như sau:
 
 \begin{equation}
 {}^{0}_{1}T=
@@ -132,7 +132,7 @@ Theo Hình \ref{fig20}, ma trận biến đổi từ hệ tọa độ $\{O_{i,0}
 \end{bmatrix}
 \end{equation}
 
-Do đó, ma trận biến đổi của hệ tọa độ đầu chân của chân trước bên phải so với hệ tọa độ thân $\{O_B\}$ được xác định như sau:
+Do đó, ma trận biến đổi của hệ tọa độ đầu chân so với hệ tọa độ thân $\{O_B\}$ được xác định như sau:
 
 \begin{equation}
 ^{B}_{4}T = {}^{B}_{0}T \, {}^{0}_{4}T
@@ -336,16 +336,6 @@ trong đó $\sigma_{s3} = -1$ cho chân trái và $\sigma_{s3} = +1$ cho chân p
 \mathrm{atan2}(L_3 \sin\theta_3,\, L_2 + L_3 \cos\theta_3)
 \label{eq:ik_theta2}
 \end{equation}
-
-Lấy ví dụ cho chân trước bên trái (Left-Front), với tọa độ đầu bàn chân trong hệ thân $(x_B, y_B, z_B) = (125, 135, -170)$ mm:
-\begin{equation}
-\begin{aligned}
-x' &= z_B = -170, \quad
-y' = \tfrac{W}{2} - y_B = \tfrac{191}{2} - 135 = -39{,}5, \quad
-z' = -\tfrac{L}{2} + x_B = -\tfrac{209}{2} + 125 = 20{,}5
-\end{aligned}
-\end{equation}
-Thay vào các phương trình (\ref{eq:ik_theta1})-(\ref{eq:ik_theta2}) với $\sigma_W=+1$, $\sigma_L=-1$, dấu $L_1 = -26$ mm, $\sigma_{p2}=+1$, $\sigma_{s3}=-1$, ta thu được các góc khớp tương ứng.
 
 \section{Quy hoạch dáng đi và phân tích chuyển động }
 
@@ -576,19 +566,6 @@ Vị trí bắt đầu và kết thúc cho mỗi chân được tính theo:
 x_A &= x_{center} - \frac{L_{stride}}{2}, \quad x_D = x_{center} + \frac{L_{stride}}{2} \\
 z_A &= z_D = z_{stance}
 \end{align}
-
-Lấy ví dụ cho chân trước bên trái, tọa độ hai điểm đầu cuối trong không gian Descartes là:
-
-\begin{align}
-\mathbf{p}_A &= (120,\; 135,\; -170) \;\text{mm} \\
-\mathbf{p}_D &= (130,\; 135,\; -170) \;\text{mm}
-\end{align}
-
-Tọa độ $z$ tại đỉnh pha vung ($s = 0.5$) đạt:
-
-\begin{equation}
-z_{max} = z_{stance} + \Delta h \cdot 4 \times 0.5 \times 0.5 = -170 + 100 = -70 \;\text{mm}
-\end{equation}
 
 Hệ số chu kỳ nhiệm vụ (duty cycle) tương ứng là:
 

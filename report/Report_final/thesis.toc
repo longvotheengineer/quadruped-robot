@@ -97,39 +97,42 @@
 \contentsline {subsection}{\numberline {6.2.1}Mô hình robot URDF}{65}{subsection.6.2.1}%
 \contentsline {subsection}{\numberline {6.2.2}Plugin điều khiển Gazebo}{66}{subsection.6.2.2}%
 \contentsline {subsection}{\numberline {6.2.3}Cấu hình vật lý và môi trường}{66}{subsection.6.2.3}%
-\contentsline {section}{\numberline {6.3}Phân tích quỹ đạo bàn chân}{67}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Quỹ đạo trong mặt phẳng 2D}{67}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Quỹ đạo trong không gian 3D}{68}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Biên dạng vận tốc và gia tốc}{68}{subsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.3.4}Phân tích biến thiên quỹ đạo theo các trục tọa độ}{69}{subsection.6.3.4}%
-\contentsline {section}{\numberline {6.4}Phân tích góc khớp và mô-men xoắn}{70}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Biến thiên góc khớp}{70}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2}Ước lượng mô-men xoắn bộ điều khiển PD}{71}{subsection.6.4.2}%
-\contentsline {section}{\numberline {6.5}Phân tích dáng đi và ổn định}{72}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Giản đồ thời gian dáng đi Trot}{72}{subsection.6.5.1}%
-\contentsline {subsection}{\numberline {6.5.2}Đa giác đỡ và ổn định tĩnh}{72}{subsection.6.5.2}%
-\contentsline {section}{\numberline {6.6}Không gian làm việc}{73}{section.6.6}%
-\contentsline {section}{\numberline {6.7}Tổng hợp tham số hệ thống}{73}{section.6.7}%
-\contentsline {section}{\numberline {6.8}Nhận xét và đánh giá}{73}{section.6.8}%
-\contentsline {section}{\numberline {6.9}Đánh giá hiệu năng bộ điều khiển PID nâng cao trên mô phỏng}{74}{section.6.9}%
-\contentsline {subsection}{\numberline {6.9.1}Kết quả quy hoạch quỹ đạo offline}{75}{subsection.6.9.1}%
-\contentsline {subsection}{\numberline {6.9.2}Quỹ đạo 3D bàn chân trong môi trường mô phỏng}{76}{subsection.6.9.2}%
-\contentsline {subsection}{\numberline {6.9.3}Ổn định tư thế tĩnh (chế độ HOME)}{77}{subsection.6.9.3}%
-\contentsline {subsection}{\numberline {6.9.4}Ổn định động trong dáng đi Trot (chế độ GAIT)}{78}{subsection.6.9.4}%
-\contentsline {section}{\numberline {6.10}Thực nghiệm trên phần cứng thực}{78}{section.6.10}%
-\contentsline {subsection}{\numberline {6.10.1}Giới thiệu}{78}{subsection.6.10.1}%
-\contentsline {subsection}{\numberline {6.10.2}Mô hình robot thực tế}{78}{subsection.6.10.2}%
-\contentsline {subsection}{\numberline {6.10.3}Kiến trúc khởi động hệ thống phần cứng}{79}{subsection.6.10.3}%
-\contentsline {subsection}{\numberline {6.10.4}Chuyển đổi góc IK sang góc servo}{79}{subsection.6.10.4}%
-\contentsline {subsection}{\numberline {6.10.5}Thử nghiệm Homing (chế độ ZERO)}{80}{subsection.6.10.5}%
-\contentsline {subsection}{\numberline {6.10.6}Thử nghiệm dáng đi Trot (chế độ TROT\_FORWARD)}{80}{subsection.6.10.6}%
-\contentsline {subsection}{\numberline {6.10.7}Cơ chế tắt an toàn (ROBOTOFF)}{81}{subsection.6.10.7}%
-\contentsline {subsection}{\numberline {6.10.8}Các vấn đề thực tế và giải pháp}{81}{subsection.6.10.8}%
-\contentsline {subsection}{\numberline {6.10.9}Nhận xét và đánh giá thực nghiệm}{81}{subsection.6.10.9}%
-\contentsline {section}{\numberline {6.11}Phân tích sự khác biệt giữa mô phỏng và thực nghiệm}{82}{section.6.11}%
-\contentsline {subsection}{\numberline {6.11.1}Khác biệt về kích thước mô hình}{82}{subsection.6.11.1}%
-\contentsline {subsection}{\numberline {6.11.2}Khác biệt về tham số dáng đi}{82}{subsection.6.11.2}%
-\contentsline {subsection}{\numberline {6.11.3}Các yếu tố phi lý tưởng trên phần cứng thực}{83}{subsection.6.11.3}%
+\contentsline {section}{\numberline {6.3}Hình ảnh trực quan hóa mô phỏng}{67}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Mô phỏng quá trình Homing}{67}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Mô phỏng chuyển động Trot}{67}{subsection.6.3.2}%
+\contentsline {section}{\numberline {6.4}Phân tích quỹ đạo bàn chân}{67}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Quỹ đạo trong mặt phẳng 2D}{67}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Quỹ đạo trong không gian 3D}{68}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Biên dạng vận tốc và gia tốc}{69}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}Phân tích biến thiên quỹ đạo theo các trục tọa độ}{69}{subsection.6.4.4}%
+\contentsline {section}{\numberline {6.5}Phân tích góc khớp và mô-men xoắn}{70}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Biến thiên góc khớp}{70}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Ước lượng mô-men xoắn bộ điều khiển PD}{71}{subsection.6.5.2}%
+\contentsline {section}{\numberline {6.6}Phân tích dáng đi và ổn định}{72}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Giản đồ thời gian dáng đi Trot}{72}{subsection.6.6.1}%
+\contentsline {subsection}{\numberline {6.6.2}Đa giác đỡ và ổn định tĩnh}{72}{subsection.6.6.2}%
+\contentsline {section}{\numberline {6.7}Không gian làm việc}{73}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Tổng hợp tham số hệ thống}{73}{section.6.8}%
+\contentsline {section}{\numberline {6.9}Nhận xét và đánh giá}{73}{section.6.9}%
+\contentsline {section}{\numberline {6.10}Đánh giá hiệu năng bộ điều khiển PID nâng cao trên mô phỏng}{74}{section.6.10}%
+\contentsline {subsection}{\numberline {6.10.1}Kết quả quy hoạch quỹ đạo offline}{75}{subsection.6.10.1}%
+\contentsline {subsection}{\numberline {6.10.2}Quỹ đạo 3D bàn chân trong môi trường mô phỏng}{76}{subsection.6.10.2}%
+\contentsline {subsection}{\numberline {6.10.3}Ổn định tư thế tĩnh (chế độ HOME)}{77}{subsection.6.10.3}%
+\contentsline {subsection}{\numberline {6.10.4}Ổn định động trong dáng đi Trot (chế độ GAIT)}{78}{subsection.6.10.4}%
+\contentsline {section}{\numberline {6.11}Thực nghiệm trên phần cứng thực}{78}{section.6.11}%
+\contentsline {subsection}{\numberline {6.11.1}Giới thiệu}{78}{subsection.6.11.1}%
+\contentsline {subsection}{\numberline {6.11.2}Mô hình robot thực tế}{78}{subsection.6.11.2}%
+\contentsline {subsection}{\numberline {6.11.3}Kiến trúc khởi động hệ thống phần cứng}{79}{subsection.6.11.3}%
+\contentsline {subsection}{\numberline {6.11.4}Chuyển đổi góc IK sang góc servo}{79}{subsection.6.11.4}%
+\contentsline {subsection}{\numberline {6.11.5}Thử nghiệm Homing (chế độ ZERO)}{80}{subsection.6.11.5}%
+\contentsline {subsection}{\numberline {6.11.6}Thử nghiệm dáng đi Trot (chế độ TROT\_FORWARD)}{80}{subsection.6.11.6}%
+\contentsline {subsection}{\numberline {6.11.7}Cơ chế tắt an toàn (ROBOTOFF)}{81}{subsection.6.11.7}%
+\contentsline {subsection}{\numberline {6.11.8}Các vấn đề thực tế và giải pháp}{81}{subsection.6.11.8}%
+\contentsline {subsection}{\numberline {6.11.9}Nhận xét và đánh giá thực nghiệm}{81}{subsection.6.11.9}%
+\contentsline {section}{\numberline {6.12}Phân tích sự khác biệt giữa mô phỏng và thực nghiệm}{82}{section.6.12}%
+\contentsline {subsection}{\numberline {6.12.1}Khác biệt về kích thước mô hình}{82}{subsection.6.12.1}%
+\contentsline {subsection}{\numberline {6.12.2}Khác biệt về tham số dáng đi}{82}{subsection.6.12.2}%
+\contentsline {subsection}{\numberline {6.12.3}Các yếu tố phi lý tưởng trên phần cứng thực}{83}{subsection.6.12.3}%
 \contentsline {chapter}{\numberline {7}Kết luận và hướng phát triển}{84}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Kết luận}{84}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Đóng góp của đề tài}{85}{section.7.2}%
