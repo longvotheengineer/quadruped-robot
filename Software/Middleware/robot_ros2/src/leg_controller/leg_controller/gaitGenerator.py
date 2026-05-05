@@ -148,8 +148,8 @@ class GaitConfig:
     # Negative = foot reaches lower (use when a leg is physically higher).
     LF_Z_OFFSET = 0
     LB_Z_OFFSET = 0
-    RF_Z_OFFSET = -5
-    RB_Z_OFFSET = 0
+    RF_Z_OFFSET = 0
+    RB_Z_OFFSET = -5
 
     PARAMS_GAIT_FORWARD = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET},
