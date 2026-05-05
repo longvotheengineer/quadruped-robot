@@ -266,7 +266,7 @@ class Gait:
         robot_length = RobotLength(L=209, W=191, l1=26, l2=106, l3=125)
         self._kinematics = Kinematics(self._node, robot_length, use_real=node.use_real)
         self.serial_publish = SerialPublish(self._node)
-        self._waypoint = Waypoint(200, 200, 50, 1000)
+        self._waypoint = Waypoint(200, 200, 30, 1000)
 
         # Trajectory state
         self._angle_data = None
@@ -569,7 +569,7 @@ class Gait:
         z_stance = -170 + z_offset
         z_swing = -130
         lift_height = z_swing - z_stance
-        lift_height = 50
+        lift_height = 100
 
         if reverse:
             pos_A = [x_forward, y_val, z_stance]
