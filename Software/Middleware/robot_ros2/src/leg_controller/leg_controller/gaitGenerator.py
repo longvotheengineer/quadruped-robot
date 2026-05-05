@@ -563,7 +563,7 @@ class Gait:
 
     def _trajectory_moving(self, x_center, y_val, reverse=False, z_offset=0):
         """Build D-shape foot path in Cartesian space (x, y, z)."""
-        stride_length = 10
+        stride_length = 20
         x_forward = x_center + stride_length / 2
         x_backward = x_center - stride_length / 2
         z_stance = -170 + z_offset
