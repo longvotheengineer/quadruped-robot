@@ -146,7 +146,7 @@ class GaitConfig:
 
     # Per-leg z_offset: compensate mechanical height differences (mm).
     # Negative = foot reaches lower (use when a leg is physically higher).
-    LF_Z_OFFSET = -2
+    LF_Z_OFFSET = -3
     LB_Z_OFFSET = -3
     RF_Z_OFFSET = -5
     RB_Z_OFFSET = -5
@@ -563,13 +563,13 @@ class Gait:
 
     def _trajectory_moving(self, x_center, y_val, reverse=False, z_offset=0):
         """Build D-shape foot path in Cartesian space (x, y, z)."""
-        stride_length = 10
+        stride_length = 8
         x_forward = x_center + stride_length / 2
         x_backward = x_center - stride_length / 2
         z_stance = -170 + z_offset
         z_swing = -130
         lift_height = z_swing - z_stance
-        lift_height = 100
+        lift_height = 80
 
         if reverse:
             pos_A = [x_forward, y_val, z_stance]
