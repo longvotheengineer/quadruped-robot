@@ -569,7 +569,7 @@ class Gait:
         z_stance = -170 + z_offset
         z_swing = -130
         lift_height = z_swing - z_stance
-        lift_height = 100
+        lift_height = 50
 
         if reverse:
             pos_A = [x_forward, y_val, z_stance]
