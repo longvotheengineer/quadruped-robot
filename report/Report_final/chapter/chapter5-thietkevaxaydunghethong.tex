@@ -1,3 +1,4 @@
+% !TeX root = ../thesis.tex
 \chapter {Thiết kế và xây dựng hệ thống}
 
 \section{Tổng quan về kiến trúc hệ thống }
@@ -96,7 +97,7 @@ Nguồn xung tổ ong mang lại lợi thế vượt trội về độ an toàn 
 
 \subsection{Bus Servo Adapter (A)}
 
-Các động cơ servo ST3215 được sử dụng trong thiết kế hoạt động dựa trên chuẩn giao tiếp nối tiếp bán song công (half-duplex UART). Để máy tính nhúng Jetson Nano có thể điều khiển đồng thời cả 12 động cơ này một cách an toàn và tối ưu nhất, hệ thống sử dụng hai mạch chuyển đổi tín hiệu Bus Servo Adapter (A). Mạch Adapter đóng vai trò trung gian, chuyển đổi tín hiệu UART tiêu chuẩn từ Jetson Nano (thông qua cổng USB) thành tín hiệu bus nối tiếp cấp cho các động cơ. 
+Các động cơ servo ST3215 được sử dụng trong thiết kế hoạt động dựa trên chuẩn giao tiếp nối tiếp bán song công (half-duplex UART). Để máy tính nhúng Jetson Nano có thể điều khiển đồng thời cả 12 động cơ này một cách an toàn và tối ưu, hệ thống sử dụng hai mạch chuyển đổi tín hiệu Bus Servo Adapter (A). Mạch Adapter đóng vai trò trung gian, chuyển đổi tín hiệu UART tiêu chuẩn từ Jetson Nano (thông qua cổng USB) thành tín hiệu bus nối tiếp cấp cho các động cơ. 
 
 Mặc dù về mặt lý thuyết, một mạch Bus Servo Adapter (A) có thể điều khiển tối đa 253 động cơ nối tiếp, nhưng trong thực tế, dòng điện khởi động của 12 động cơ ST3215 có thể lên đến 32.4A. Việc sử dụng song song hai mạch Adapter mang lại những lợi ích thiết thực:
 \begin{itemize}
@@ -233,32 +234,33 @@ Việc lựa chọn cơ cấu chấp hành có ảnh hưởng trực tiếp đ�
 \end{tabular}
 \end{table}
 
-Sau khi xác định kiến trúc truyền động tối ưu là sử dụng \textbf{Bus Servo nối tiếp} thay vì Servo PWM hay động cơ BLDC, nhóm đã tiến hành khảo sát và đánh giá các dòng Bus Servo phổ biến trên thị trường để tìm ra phương án phù hợp nhất cho hệ thống 12 bậc tự do của robot.
+Sau khi xác định kiến trúc truyền động tối ưu là sử dụng \textbf{Bus Servo nối tiếp} thay vì Servo PWM hay động cơ BLDC, nhóm đã tiến hành khảo sát và đánh giá các dòng Bus Servo phổ biến trên thị trường để tìm ra phương án phù hợp nhất cho hệ thống 12 bậc tự do của robot. Tuy nhiên, để có cái nhìn trực quan và toàn diện nhất, nhóm cũng đưa vào bảng so sánh một đại diện tiêu biểu của dòng Servo PWM là \textbf{JX Servo PDI-HV5932MG 30KG} -- loại động cơ có lực xoắn lớn, góc quay $180^{\circ}$, vốn rất phổ biến trong các dự án sinh viên để thấy rõ sự khác biệt giữa hai công nghệ.
 
-Ba đại diện tiêu biểu được đưa ra so sánh bao gồm: Hiwonder LX-16A, Waveshare ST3215 và Dynamixel XL430-W250-T.
+Bốn đại diện tiêu biểu được đưa ra so sánh bao gồm: JX PDI-HV5932MG (Servo PWM), Hiwonder LX-16A, Waveshare ST3215 và Dynamixel XL430-W250-T.
 
 \begin{table}[H]
 \centering
-\caption{So sánh các dòng Bus Servo nối tiếp phổ biến trên thị trường}
+\caption{So sánh các dòng Servo phổ biến trên thị trường}
 \label{tab:bus_servo_comparison}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{0.2\linewidth}|p{0.2\linewidth}|p{0.25\linewidth}|p{0.2\linewidth}|}
+\begin{tabular}{|p{0.16\linewidth}|p{0.18\linewidth}|p{0.18\linewidth}|p{0.22\linewidth}|p{0.16\linewidth}|}
 \hline
-\textbf{Tiêu chí} & \textbf{Hiwonder LX-16A} & \textbf{Waveshare ST3215 (Được chọn)} & \textbf{Dynamixel XL430-W250-T} \\ \hline
-\textbf{Giao thức} & TTL UART (Half-duplex) & TTL UART (Half-duplex) & TTL UART (Half-duplex) \\ \hline
-\textbf{Điện áp} & 6.0V - 8.4V (Tối ưu 7.4V) & 6.0V - 12.6V (Tối ưu 12V) & 10.0V - 14.8V (Tối ưu 11.1V) \\ \hline
-\textbf{Lực xoắn tối đa} & 17 kg.cm (@7.4V) & 30 kg.cm / 20 kg.cm (@12V) & $\sim$15.3 kg.cm (1.5 N.m @11.1V) \\ \hline
-\textbf{Cảm biến vị trí} & Biến trở (Potentiometer) & Từ tính (Magnetic Encoder $360^{\circ}$) & Từ tính (Absolute Encoder) \\ \hline
-\textbf{Độ phân giải góc} & 0.24$^{\circ}$ & 0.088$^{\circ}$ & 0.088$^{\circ}$ \\ \hline
-\textbf{Tốc độ truyền} & 115200 bps & Lên đến 1 Mbps & Lên đến 4.5 Mbps \\ \hline
-\textbf{Bộ điều khiển} & Cơ bản (P) & Nâng cao (PI) & Cao cấp (PID vị trí, vận tốc, dòng) \\ \hline
-\textbf{Giá thành} & Thấp ($\sim$300.000 VNĐ) & Trung bình ($\sim$500.000 VNĐ) & Rất cao ($\sim$1.500.000 VNĐ) \\ \hline
+\textbf{Tiêu chí} & \textbf{JX PDI-HV5932MG} & \textbf{Hiwonder LX-16A} & \textbf{Waveshare ST3215 (Được chọn)} & \textbf{Dynamixel XL430-W250-T} \\ \hline
+\textbf{Giao thức} & Xung PWM ($180^{\circ}$) & TTL UART (Half-duplex) & TTL UART (Half-duplex) & TTL UART (Half-duplex) \\ \hline
+\textbf{Điện áp} & 6.0V - 8.4V & 6.0V - 8.4V (Tối ưu 7.4V) & 6.0V - 12.6V (Tối ưu 12V) & 10.0V - 14.8V (Tối ưu 11.1V) \\ \hline
+\textbf{Lực xoắn tối đa} & 32.3 kg.cm (@8.4V) & 17 kg.cm (@7.4V) & 30 kg.cm / 20 kg.cm (@12V) & $\sim$15.3 kg.cm (1.5 N.m @11.1V) \\ \hline
+\textbf{Cảm biến vị trí} & Biến trở (Potentiometer) & Biến trở (Potentiometer) & Từ tính (Magnetic Encoder $360^{\circ}$) & Từ tính (Absolute Encoder) \\ \hline
+\textbf{Độ phân giải góc} & Phụ thuộc vi điều khiển & 0.24$^{\circ}$ & 0.088$^{\circ}$ & 0.088$^{\circ}$ \\ \hline
+\textbf{Tốc độ truyền} & 50Hz - 330Hz (PWM) & 115200 bps & Lên đến 1 Mbps & Lên đến 4.5 Mbps \\ \hline
+\textbf{Bộ điều khiển} & Cơ bản (P) & Cơ bản (P) & Nâng cao (PI) & Cao cấp (PID vị trí, vận tốc, dòng) \\ \hline
+\textbf{Giá thành} & Trung bình ($\sim$500.000 VNĐ) & Thấp ($\sim$300.000 VNĐ) & Trung bình ($\sim$500.000 VNĐ) & Rất cao ($\sim$1.500.000 VNĐ) \\ \hline
 \end{tabular}
 \end{table}
 
-Dựa trên các thông số phân tích từ Bảng \ref{tab:bus_servo_comparison}, Waveshare ST3215 được lựa chọn là giải pháp tối ưu nhất cho hệ thống cơ cấu chấp hành của đồ án vì những lý do sau:
+Dựa trên các thông số phân tích từ Bảng \ref{tab:bus_servo_comparison}, Waveshare ST3215 được lựa chọn là giải pháp tối ưu cho hệ thống cơ cấu chấp hành của đồ án vì những lý do sau:
 
 \begin{itemize}
+    \item \textbf{Khắc phục nhược điểm của Servo PWM (JX PDI-HV5932MG):} Mặc dù JX PDI-HV5932MG có lực xoắn rất ấn tượng (lên đến 32.3 kg.cm ở mức 8.4V), góc quay giới hạn $180^{\circ}$ và cùng phân khúc giá với ST3215, nhưng việc sử dụng giao thức PWM đơn hướng khiến nó \textbf{không có khả năng phản hồi} trạng thái (góc quay thực tế, dòng điện, nhiệt độ). Điều này là một cản trở lớn đối với bài toán điều khiển thăng bằng robot bốn chân. Hơn nữa, việc phải nối 12 dây tín hiệu PWM riêng biệt từ mỗi động cơ về mạch điều khiển làm sơ đồ đi dây vô cùng phức tạp, dễ sinh nhiễu và đứt ngầm. 
     \item \textbf{Khắc phục nhược điểm của LX-16A:} Mặc dù Hiwonder LX-16A có lợi thế về giá thành thấp, nhưng lực xoắn tối đa chỉ đạt 17 kg.cm, không đủ để đáp ứng tải trọng động khi robot di chuyển hoặc thực hiện các tư thế phức tạp. Hơn nữa, việc sử dụng biến trở (Potentiometer) làm cảm biến vị trí khiến độ phân giải góc thấp ($0.24^{\circ}$) và dễ bị hao mòn cơ học theo thời gian. Bộ điều khiển của LX-16A chỉ dừng ở mức cơ bản (P), dẫn đến sai số tĩnh lớn và khả năng bám quỹ đạo kém.
     \item \textbf{Cân bằng hiệu năng và chi phí so với Dynamixel:} Dòng Dynamixel XL430-W250-T sở hữu bộ điều khiển PID hoàn chỉnh cùng nhiều tính năng cao cấp. Tuy nhiên, mức giá cực kỳ đắt đỏ (gấp khoảng 3 lần ST3215). Với yêu cầu 12 bậc tự do, việc sử dụng Dynamixel sẽ làm chi phí phần cứng vượt quá ngân sách cho phép. Thêm vào đó, lực xoắn của XL430-W250-T ($\sim$15.3 kg.cm) lại thấp hơn ST3215, đòi hỏi phải sử dụng cơ cấu truyền động phức tạp để khuyếch đại lực.
     \item \textbf{Ưu điểm vượt trội của ST3215:} Waveshare ST3215 mang lại điểm cân bằng hoàn hảo giữa hiệu năng cơ học và chi phí. Lực xoắn cao (lên đến 30 kg.cm ở 12V) cung cấp dư dả công suất để robot duy trì thăng bằng và thực hiện dáng đi. Cảm biến vị trí từ tính (Magnetic Encoder $360^{\circ}$) với độ phân giải rất cao ($0.088^{\circ}$) cung cấp phản hồi góc chính xác tuyệt đối mà không lo bị hao mòn. Tốc độ truyền tải 1 Mbps hoàn toàn đáp ứng được yêu cầu của vòng lặp điều khiển thời gian thực. Đặc biệt, bộ điều khiển PI tích hợp sẵn giúp động cơ khử sai số tĩnh, đảm bảo robot bám sát quỹ đạo dáng đi một cách mượt mà và ổn định.

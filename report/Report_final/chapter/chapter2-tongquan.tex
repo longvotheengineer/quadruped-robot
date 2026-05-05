@@ -1,3 +1,4 @@
+% !TeX root = ../thesis.tex
 \chapter{Cơ sở lý thuyết}
 
 Trong quá trình nghiên cứu và thực hiện đề tài, nhóm tác giả đã tham khảo nhiều công trình nghiên cứu và bài báo khoa học trên thế giới \cite{siciliano2009, craig2005, gonzalez2018}. Tuy nhiên, tại Việt Nam, các tài liệu và báo cáo khoa học đi sâu vào việc hiện thực hóa toàn diện hệ thống điều khiển cho robot bốn chân vẫn còn khá hạn chế. Do đó, chương này sẽ tổng hợp các cơ sở lý thuyết nền tảng cốt lõi nhất làm tiền đề cho việc thiết kế và điều khiển hệ thống.
@@ -172,27 +173,51 @@ trong đó $\mathbf{p}_{CoM}$ là hình chiếu CoM lên mặt đất, $\overlin
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{img/fig_static_stability.pdf}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/fig_static_stability_a.png}
+        \caption{Walk Gait -- 3 stance legs}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/fig_static_stability_b.png}
+        \caption{Trot Gait -- 2 diagonal stance legs}
+    \end{subfigure}
     \caption{Minh họa Đa giác đỡ và Biên ổn định tĩnh (SSM) của robot bốn chân}
     \label{fig:static_stability}
 \end{figure}
 
 \subsection{Ổn định động}
 
-Khi robot di chuyển ở tốc độ trung bình đến cao, phân tích ổn định tĩnh không còn đủ vì các hiệu ứng quán tính trở nên đáng kể. Ổn định động sử dụng khái niệm \textbf{Zero Moment Point} (ZMP) --- điểm trên mặt đất mà tổng mô-men do trọng lực và lực quán tính bằng không:
+Khi robot di chuyển ở tốc độ trung bình đến cao, phân tích ổn định tĩnh không còn đủ vì các hiệu ứng quán tính trở nên đáng kể. Ổn định động sử dụng khái niệm \textbf{Zero Moment Point} (ZMP) --- điểm trên mặt đất mà tổng mô-men do trọng lực và lực quán tính bằng không \cite{vukobratovic2004}.
+
+Xét mô hình đơn giản hóa của robot bốn chân như Hình \ref{fig:zmp_stability}, trong đó toàn bộ khối lượng robot được tập trung tại trọng tâm CoM có tọa độ $(x, y, z)$ ở độ cao $z_0$ so với mặt đất. Các điểm tiếp xúc giữa chân và mặt đất (các chấm xanh) tạo thành đa giác đỡ (đường nét đứt xanh lá). Điểm ZMP $(p_{x_k}, p_{y_k})$ nằm trên mặt phẳng đất, là điểm mà tại đó tổng mô-men của tất cả các lực tác dụng (bao gồm trọng lực và lực quán tính) bằng không.
+
+Tọa độ ZMP được xác định bởi:
+
+\begin{equation}
+    p_{x_k} = x - \frac{\ddot{x}}{\ddot{z} + g} \cdot z_0, \quad
+    p_{y_k} = y - \frac{\ddot{y}}{\ddot{z} + g} \cdot z_0
+    \label{eq:zmp_simplified}
+\end{equation}
+
+trong đó $(x, y, z)$ là tọa độ CoM, $(\ddot{x}, \ddot{y}, \ddot{z})$ là gia tốc của CoM, $g$ là gia tốc trọng trường, và $z_0$ là chiều cao danh nghĩa của CoM. Đối với trường hợp tổng quát nhiều khâu, công thức mở rộng thành:
 
 \begin{equation}
     \mathbf{p}_{ZMP} = \frac{\sum_i m_i (\ddot{z}_i + g) \mathbf{r}_i - \sum_i m_i \ddot{\mathbf{r}}_i z_i}{\sum_i m_i (\ddot{z}_i + g)}
+    \label{eq:zmp_general}
 \end{equation}
 
-trong đó $m_i$, $\mathbf{r}_i$, $z_i$ lần lượt là khối lượng, vị trí ngang và độ cao của khâu thứ $i$, và $g$ là gia tốc trọng trường. Robot ổn định động khi ZMP nằm bên trong đa giác đỡ.
+trong đó $m_i$, $\mathbf{r}_i = (x_i, y_i)^T$, $z_i$ lần lượt là khối lượng, vị trí ngang và độ cao của khâu thứ $i$. Robot ổn định động khi ZMP nằm bên trong đa giác đỡ.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{img/fig_zmp_stability.pdf}
-    \caption{Minh họa lực tác dụng và Điểm Moment Không (ZMP) trong phân tích ổn định động}
+    \includegraphics[width=0.5\textwidth]{img/fig_zmp_3d_model.png}
+    \caption{Mô hình 3D minh họa quan hệ giữa trọng tâm CoM $(x,y,z)$ và điểm ZMP $(p_{x_k}, p_{y_k})$ trên mặt phẳng đỡ của robot bốn chân}
     \label{fig:zmp_stability}
 \end{figure}
+
 
 Trong đồ án này, robot hoạt động ở tốc độ thấp nên phân tích ổn định tĩnh là đủ cho mục đích thiết kế. Bộ điều khiển PID cân bằng IMU đóng vai trò bổ sung, giảm thiểu sai lệch hướng của thân robot khi di chuyển, đưa CoM về gần đường nối hai bàn chân đang chạm đất.
 
