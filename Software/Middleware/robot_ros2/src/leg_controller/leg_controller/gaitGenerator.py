@@ -146,7 +146,7 @@ class GaitConfig:
 
     # Per-leg z_offset: compensate mechanical height differences (mm).
     # Negative = foot reaches lower (use when a leg is physically higher).
-    LF_Z_OFFSET = -3
+    LF_Z_OFFSET = -6
     LB_Z_OFFSET = 0
     RF_Z_OFFSET = 0
     RB_Z_OFFSET = -5
