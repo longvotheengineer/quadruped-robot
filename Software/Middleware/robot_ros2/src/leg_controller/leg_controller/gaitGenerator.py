@@ -151,11 +151,23 @@ class GaitConfig:
     RF_Z_OFFSET = 0
     RB_Z_OFFSET = -5
 
+    # Per-leg stride length (mm): how far the foot moves forward/backward.
+    LF_STRIDE = 10
+    LB_STRIDE = 10
+    RF_STRIDE = 10
+    RB_STRIDE = 10
+
+    # Per-leg lift height (mm): how high the foot lifts during swing.
+    LF_LIFT = 80
+    LB_LIFT = 50
+    RF_LIFT = 80
+    RB_LIFT = 50
+
     PARAMS_GAIT_FORWARD = {
-        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET},
-        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False, "z_offset": LB_Z_OFFSET},
-        "right-front":   {"x_center":  125, "y_val": -135, "reverse": False, "z_offset": RF_Z_OFFSET},
-        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET, "stride": LF_STRIDE, "lift": LF_LIFT},
+        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False, "z_offset": LB_Z_OFFSET, "stride": LB_STRIDE, "lift": LB_LIFT},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": False, "z_offset": RF_Z_OFFSET, "stride": RF_STRIDE, "lift": RF_LIFT},
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET, "stride": RB_STRIDE, "lift": RB_LIFT},
     }
 
     # Body motions (PUSHUP / SWAY / CIRCLE): back feet tucked closer
@@ -168,24 +180,24 @@ class GaitConfig:
     }
 
     PARAMS_GAIT_BACKWARD = {
-        "left-front":    {"x_center":  125, "y_val":  135, "reverse": True, "z_offset": LF_Z_OFFSET},
-        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True, "z_offset": LB_Z_OFFSET},
-        "right-front":   {"x_center":  125, "y_val": -135, "reverse": True, "z_offset": RF_Z_OFFSET},
-        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True, "z_offset": RB_Z_OFFSET},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": True, "z_offset": LF_Z_OFFSET, "stride": LF_STRIDE, "lift": LF_LIFT},
+        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": True, "z_offset": LB_Z_OFFSET, "stride": LB_STRIDE, "lift": LB_LIFT},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": True, "z_offset": RF_Z_OFFSET, "stride": RF_STRIDE, "lift": RF_LIFT},
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True, "z_offset": RB_Z_OFFSET, "stride": RB_STRIDE, "lift": RB_LIFT},
     }
 
     PARAMS_GAIT_TURN_RIGHT = {
-        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET},
-        "left-behind":   {"x_center": -60, "y_val":  135, "reverse": False, "z_offset": LB_Z_OFFSET},
-        "right-front":   {"x_center":  125, "y_val": -135, "reverse": True, "z_offset": RF_Z_OFFSET},
-        "right-behind":  {"x_center": -60, "y_val": -135, "reverse": True, "z_offset": RB_Z_OFFSET},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET, "stride": LF_STRIDE, "lift": LF_LIFT},
+        "left-behind":   {"x_center": -60, "y_val":  135, "reverse": False, "z_offset": LB_Z_OFFSET, "stride": LB_STRIDE, "lift": LB_LIFT},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": True, "z_offset": RF_Z_OFFSET, "stride": RF_STRIDE, "lift": RF_LIFT},
+        "right-behind":  {"x_center": -60, "y_val": -135, "reverse": True, "z_offset": RB_Z_OFFSET, "stride": RB_STRIDE, "lift": RB_LIFT},
     }
 
     PARAMS_GAIT_TURN_LEFT = {
-        "left-front":    {"x_center":  125, "y_val":  135, "reverse": True, "z_offset": LF_Z_OFFSET},
-        "left-behind":   {"x_center": -110, "y_val":  135, "reverse": True, "z_offset": LB_Z_OFFSET},
-        "right-front":   {"x_center":  125, "y_val": -135, "reverse": False, "z_offset": RF_Z_OFFSET},
-        "right-behind":  {"x_center": -110, "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": True, "z_offset": LF_Z_OFFSET, "stride": LF_STRIDE, "lift": LF_LIFT},
+        "left-behind":   {"x_center": -110, "y_val":  135, "reverse": True, "z_offset": LB_Z_OFFSET, "stride": LB_STRIDE, "lift": LB_LIFT},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": False, "z_offset": RF_Z_OFFSET, "stride": RF_STRIDE, "lift": RF_LIFT},
+        "right-behind":  {"x_center": -110, "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET, "stride": RB_STRIDE, "lift": RB_LIFT},
     }
 
     PARAMS_PHASESHIFT_TROT = {
@@ -561,15 +573,12 @@ class Gait:
 
     # ── Trajectory generation ─────────────────────────────────────
 
-    def _trajectory_moving(self, x_center, y_val, reverse=False, z_offset=0):
+    def _trajectory_moving(self, x_center, y_val, reverse=False, z_offset=0,
+                           stride_length=10, lift_height=80):
         """Build D-shape foot path in Cartesian space (x, y, z)."""
-        stride_length = 10
         x_forward = x_center + stride_length / 2
         x_backward = x_center - stride_length / 2
         z_stance = -170 + z_offset
-        z_swing = -130
-        lift_height = z_swing - z_stance
-        lift_height = 80
 
         if reverse:
             pos_A = [x_forward, y_val, z_stance]
@@ -890,8 +899,11 @@ class Gait:
         else:
             reverse = params.get("reverse", False)
             z_offset = params.get("z_offset", 0) if self.serial_publish.use_real else 0
+            stride = params.get("stride", 10)
+            lift = params.get("lift", 80)
             waypoint = self._trajectory_moving(
-                params["x_center"], params["y_val"], reverse, z_offset)
+                params["x_center"], params["y_val"], reverse, z_offset,
+                stride_length=stride, lift_height=lift)
 
         theta_i = np.zeros_like(waypoint)
         for i in range(waypoint.shape[0]):
