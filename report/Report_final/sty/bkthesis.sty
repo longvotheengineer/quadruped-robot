@@ -19,10 +19,10 @@
 \def\thesislayout{	% A4: 210 × 297
 	\geometry{
 		a4paper,
-		left=30mm,
-		right=20mm,
-		top=20mm,
-		bottom=20mm,
+		left=40mm,
+		right=25mm,
+		top=40mm,
+		bottom=25mm,
 	}
 }
 
@@ -55,60 +55,62 @@
 
 \pagestyle{empty}
 
+% Vẽ khung bìa
+\begin{tikzpicture}[remember picture, overlay]
+  \draw[line width=1.5pt] ($(current page.north west) + (3cm,-2cm)$) rectangle ($(current page.south east) + (-2cm,2cm)$);
+  \draw[line width=0.5pt] ($(current page.north west) + (3.1cm,-2.1cm)$) rectangle ($(current page.south east) + (-2.1cm,2.1cm)$);
+\end{tikzpicture}
+
 \begin{center}
     {\fontsize{14pt}{1}\selectfont \textbf{ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH}} \\[0.1cm]
     {\fontsize{14pt}{1}\selectfont \textbf{TRƯỜNG ĐẠI HỌC BÁCH KHOA}} \\[0.1cm]
-    {\fontsize{14pt}{1}\selectfont \textbf{\@sdeptname}} \\[1.2cm]
+    {\fontsize{14pt}{1}\selectfont \textbf{\@sdeptname}} \\[0.2cm]
+    {\fontsize{14pt}{1}\selectfont --------------------o0o--------------------} \\[1.2cm]
 
-    \includegraphics[scale=0.35]{img/LogoBK.png}\\[1.5cm]
+    \includegraphics[scale=0.35]{img/LogoBK.png}\\[1.2cm]
 
-    % --- LOẠI ĐỒ ÁN ---
-    {\fontsize{16pt}{1}\selectfont \textbf{\@rname}} \\[0.3cm] 
-    {\fontsize{14pt}{1}\selectfont \textbf{CỬ NHÂN NGÀNH KỸ THUẬT ĐIỀU KHIỂN \& TỰ ĐỘNG HÓA}} \\[1.5cm]
+    {\fontsize{14pt}{1}\selectfont \textbf{\@rname}} \\[1.5cm]
 
-    % --- TÊN ĐỀ TÀI ---
     {\fontsize{18pt}{1.5}\selectfont \textbf{\@tname}} \\[1.5cm]
 
-    \begin{flushright}
-    \begin{minipage}{0.55\textwidth}
-        \begin{flushleft}
-        {\fontsize{14pt}{1.5}\selectfont \textbf{GIẢNG VIÊN HƯỚNG DẪN:}} \\[0.1cm]
-        {\fontsize{14pt}{1.5}\selectfont \textbf{\@sSupervise}} \\[0.5cm]
-        {\fontsize{14pt}{1.5}\selectfont \textbf{SINH VIÊN THỰC HIỆN:}} \\[0.1cm]
-        {\fontsize{14pt}{1.5}\selectfont \textbf{\@stuname}}
-        \end{flushleft}
+    \hfill
+    \begin{minipage}{0.65\textwidth}
+        {\fontsize{14pt}{1.5}\selectfont
+        \begin{tabular}{llll}
+            \textbf{SVTH:} & \@stuname \\[0.3cm]
+            \textbf{GVHD:} & \multicolumn{3}{l}{\textbf{\@sSupervise}}
+        \end{tabular}}
     \end{minipage}
-    \end{flushright}
 
     \vfill
     {\fontsize{14pt}{1}\selectfont \textbf{TP. HỒ CHÍ MINH, \@ttime}}
 \end{center}
-\clearpage
+\newpage
 }
 \def\makeprintversion{}
 
 %% Remember to load babel before loading this package or define the command \abstractname!
 \makeatletter
 \newenvironment{abstract}{
-  \titlepage
-  \null\vfil
+  \clearpage
+  \thispagestyle{empty}
   \@beginparpenalty\@lowpenalty
   \begin{center}
 	\bfseries Tóm tắt nội dung
 	\@endparpenalty\@M
   \end{center}}
- {\par\vfil\null\endtitlepage}
+ {\par\clearpage}
 \makeatother
 
 \makeatletter
 \newenvironment{acknowledgments}{
-	\titlepage \null\vfil
-	\small
+	\clearpage
+	\thispagestyle{empty}
 	\begin{center}
 	  {\bfseries Lời cảm ơn \vspace{-.5em}\vspace{\z@}}
 	\end{center}
 	\quotation
-  }{}
+  }{\endquotation\clearpage}
 \makeatother
 
 % Declaration

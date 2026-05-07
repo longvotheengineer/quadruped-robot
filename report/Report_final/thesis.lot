@@ -1,36 +1,36 @@
 \babel@toc {vietnamese}{}\relax 
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {1.1}{\ignorespaces Bảng phân công nhiệm vụ thực hiện đồ án\relax }}{6}{table.caption.4}%
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Các tham số khớp của một chân robot bốn chân.\relax }}{23}{table.caption.20}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Các thông số DH\relax }}{23}{table.caption.21}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Hệ số dấu biến đổi tọa độ và dấu IK cho bốn chân\relax }}{27}{table.caption.22}%
+\contentsline {table}{\numberline {2.4}{\ignorespaces Các tham số quỹ đạo chân robot\relax }}{35}{table.caption.29}%
+\contentsline {table}{\numberline {2.5}{\ignorespaces Cấu hình pha dịch cho các dáng đi\relax }}{36}{table.caption.30}%
+\contentsline {table}{\numberline {2.6}{\ignorespaces Tổng hợp pipeline điều khiển PID 5 giai đoạn\relax }}{43}{table.caption.37}%
+\contentsline {table}{\numberline {2.7}{\ignorespaces So sánh chế độ HOME và GAIT\relax }}{44}{table.caption.38}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Thông số kỹ thuật của động cơ servo ST3215 và ST3215-HS.\relax }}{21}{table.caption.23}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Các thông số chính của robot bốn chân\relax }}{24}{table.caption.27}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Thông số kỹ thuật của động cơ servo ST3215 và ST3215-HS.\relax }}{49}{table.caption.45}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Các thông số chính của robot bốn chân\relax }}{53}{table.caption.49}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Thông số kỹ thuật\relax }}{57}{table.caption.54}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces Thông số kỹ thuật mạch Bus Servo Adapter (A)\relax }}{59}{table.caption.56}%
+\contentsline {table}{\numberline {3.5}{\ignorespaces Thông số kỹ thuật module cảm biến GY-BNO055\relax }}{60}{table.caption.58}%
+\contentsline {table}{\numberline {3.6}{\ignorespaces Thông số kỹ thuật mạch giảm áp XL4015 5A 75W\relax }}{62}{table.caption.60}%
+\contentsline {table}{\numberline {3.7}{\ignorespaces Bảng so sánh các loại cơ cấu chấp hành áp dụng cho Robot bốn chân\relax }}{63}{table.caption.61}%
+\contentsline {table}{\numberline {3.8}{\ignorespaces So sánh các dòng Servo phổ biến trên thị trường\relax }}{64}{table.caption.62}%
+\contentsline {table}{\numberline {3.9}{\ignorespaces Ánh xạ ID servo theo driver và chân robot\relax }}{69}{table.caption.67}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Các tham số khớp của một chân robot bốn chân.\relax }}{26}{table.caption.30}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Các thông số DH\relax }}{26}{table.caption.31}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Hệ số dấu biến đổi tọa độ và dấu IK cho bốn chân\relax }}{29}{table.caption.32}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Các tham số quỹ đạo chân robot\relax }}{36}{table.caption.39}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces Cấu hình pha dịch cho các dáng đi\relax }}{37}{table.caption.40}%
-\contentsline {table}{\numberline {4.6}{\ignorespaces Tổng hợp pipeline điều khiển PID 5 giai đoạn\relax }}{43}{table.caption.47}%
-\contentsline {table}{\numberline {4.7}{\ignorespaces So sánh chế độ HOME và GAIT\relax }}{44}{table.caption.48}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Cấu trúc các ROS 2 packages trong hệ thống\relax }}{72}{table.caption.69}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Các topic ROS~2 chính trong hệ thống\relax }}{73}{table.caption.70}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Thông số kỹ thuật\relax }}{49}{table.caption.53}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Thông số kỹ thuật mạch Bus Servo Adapter (A)\relax }}{50}{table.caption.55}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Thông số kỹ thuật module cảm biến GY-BNO055\relax }}{52}{table.caption.57}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Thông số kỹ thuật mạch giảm áp XL4015 5A 75W\relax }}{53}{table.caption.59}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces Bảng so sánh các loại cơ cấu chấp hành áp dụng cho Robot bốn chân\relax }}{54}{table.caption.60}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces So sánh các dòng Servo phổ biến trên thị trường\relax }}{55}{table.caption.61}%
-\contentsline {table}{\numberline {5.7}{\ignorespaces Ánh xạ ID servo theo driver và chân robot\relax }}{59}{table.caption.66}%
-\contentsline {table}{\numberline {5.8}{\ignorespaces Cấu trúc các ROS 2 packages trong hệ thống\relax }}{61}{table.caption.68}%
-\contentsline {table}{\numberline {5.9}{\ignorespaces Các topic ROS~2 chính trong hệ thống\relax }}{62}{table.caption.69}%
-\addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Tham số hình học mô hình URDF\relax }}{65}{table.caption.70}%
-\contentsline {table}{\numberline {6.2}{\ignorespaces Tham số hệ thống robot bốn chân\relax }}{72}{table.caption.82}%
-\contentsline {table}{\numberline {6.3}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ tĩnh (HOME)\relax }}{73}{table.caption.83}%
-\contentsline {table}{\numberline {6.4}{\ignorespaces Tham số bộ điều khiển PID thích nghi -- Chế độ động (GAIT)\relax }}{74}{table.caption.84}%
-\contentsline {table}{\numberline {6.5}{\ignorespaces Thông số hình học robot thực tế\relax }}{78}{table.caption.91}%
-\contentsline {table}{\numberline {6.6}{\ignorespaces Công thức chuyển đổi IK → Servo cho từng chân\relax }}{78}{table.caption.92}%
-\contentsline {table}{\numberline {6.7}{\ignorespaces Tọa độ bàn chân tư thế đứng chuẩn và bù trừ chiều cao\relax }}{79}{table.caption.93}%
-\contentsline {table}{\numberline {6.8}{\ignorespaces Tham số dáng đi Trot trên phần cứng thực\relax }}{79}{table.caption.94}%
-\contentsline {table}{\numberline {6.9}{\ignorespaces Quy trình tắt an toàn ba pha (ROBOTOFF)\relax }}{80}{table.caption.95}%
-\contentsline {table}{\numberline {6.10}{\ignorespaces So sánh tham số giữa mô phỏng và phần cứng thực\relax }}{81}{table.caption.96}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Tham số hình học mô hình URDF\relax }}{76}{table.caption.71}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Tham số hệ thống robot bốn chân\relax }}{84}{table.caption.83}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ tĩnh (HOME)\relax }}{86}{table.caption.84}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Tham số bộ điều khiển PID thích nghi -- Chế độ động (GAIT)\relax }}{86}{table.caption.85}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Thông số hình học robot thực tế\relax }}{91}{table.caption.92}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Công thức chuyển đổi IK → Servo cho từng chân\relax }}{92}{table.caption.93}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Tọa độ bàn chân tư thế đứng chuẩn và bù trừ chiều cao\relax }}{92}{table.caption.94}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Tham số dáng đi Trot trên phần cứng thực\relax }}{93}{table.caption.95}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces Quy trình tắt an toàn ba pha (ROBOTOFF)\relax }}{93}{table.caption.96}%
+\contentsline {table}{\numberline {5.10}{\ignorespaces So sánh tham số giữa mô phỏng và phần cứng thực\relax }}{94}{table.caption.97}%
 \addvspace {10\p@ }

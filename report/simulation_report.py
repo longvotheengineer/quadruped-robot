@@ -52,24 +52,24 @@ os.makedirs(FIGURE_DIR, exist_ok=True)
 #  ROBOT PARAMETERS  (from URDF & gaitGenerator.py)
 # ═══════════════════════════════════════════════════════════════════════════
 # --- Link lengths (mm) ---
-L  = 120.0   # body length — distance between front & rear hip
-W  = 90.0    # body width  — distance between left & right hip
-l1 = 20.0    # coxa  length (mm)  — link 1
-l2 = 80.0    # femur length (mm)  — link 2 (URDF: 0.1063m ≈ 106.3mm, but IK uses 80)
-l3 = 80.0    # tibia length (mm)  — link 3 (URDF: 0.10403m ≈ 104mm, but IK uses 80)
+L  = 209.0   # body length — distance between front & rear hip
+W  = 191.0    # body width  — distance between left & right hip
+l1 = 26.0    # coxa  length (mm)  — link 1
+l2 = 106.0    # femur length (mm)  — link 2
+l3 = 125.0    # tibia length (mm)  — link 3
 
 BODY_LENGTH_FULL = 300.0  # full body box (mm)  — URDF: 0.3m
 BODY_WIDTH_FULL  = 180.0  # full body box (mm)  — URDF: 0.18049m
 
 # --- Gait parameters (from gaitGenerator.py) ---
-STRIDE_LENGTH = 45.0      # mm
-Z_STANCE      = -150.0    # mm (ground level)
-Z_SWING       = -110.0    # mm (max lift)
-LIFT_HEIGHT   = Z_SWING - Z_STANCE   # 40 mm
+STRIDE_LENGTH = 10.0      # mm
+Z_STANCE      = -170.0    # mm (ground level)
+Z_SWING       = -70.0     # mm (max lift)
+LIFT_HEIGHT   = 100.0     # 100 mm
 
-T_SWING  = 30    # waypoints in swing phase
-T_STANCE = 300   # waypoints in stance phase
-T_TOTAL  = T_SWING + T_STANCE  # 330 waypoints per cycle
+T_SWING  = 45    # waypoints in swing phase
+T_STANCE = 200   # waypoints in stance phase
+T_TOTAL  = T_SWING + T_STANCE  # 245 waypoints per cycle
 
 # --- PD controller (from controllerSim.py) ---
 KP = 20.0    # Nm/rad
@@ -86,10 +86,10 @@ GRAVITY     = 9.81   # m/s²
 
 # --- Leg configurations (from gaitGenerator.py PARAMS_GAIT_TROT) ---
 LEG_CONFIGS = {
-    'LF': {'x_center':  60, 'y_val':  60, 'label': 'Left-Front',   'ik_name': 'left-front'},
-    'LB': {'x_center': -60, 'y_val':  60, 'label': 'Left-Behind',  'ik_name': 'left-behind'},
-    'RF': {'x_center':  60, 'y_val': -60, 'label': 'Right-Front',  'ik_name': 'right-front'},
-    'RB': {'x_center': -60, 'y_val': -60, 'label': 'Right-Behind', 'ik_name': 'right-behind'},
+    'LF': {'x_center':  125, 'y_val':  135, 'label': 'Left-Front',   'ik_name': 'left-front'},
+    'LB': {'x_center': -125, 'y_val':  135, 'label': 'Left-Behind',  'ik_name': 'left-behind'},
+    'RF': {'x_center':  125, 'y_val': -135, 'label': 'Right-Front',  'ik_name': 'right-front'},
+    'RB': {'x_center': -125, 'y_val': -135, 'label': 'Right-Behind', 'ik_name': 'right-behind'},
 }
 
 # Phase shifts (trot gait — from gaitGenerator.py PARAMS_PHASESHIFT_TROT)
@@ -133,7 +133,7 @@ def inverse_kinematics(px, py, pz, leg_type):
     elif leg_type == 'left-behind':
         x_l =  pz;  y_l =  W/2 - py;  z_l =  L/2 + px
         t1 = math.atan2(-x_l, y_l) + math.atan2(-math.sqrt(max(0, x_l**2 + y_l**2 - l1**2)), -l1)
-        sign_s3, sign_p2 = 1, 1
+        sign_s3, sign_p2 = -1, 1
     elif leg_type == 'right-front':
         x_l =  pz;  y_l = -W/2 - py;  z_l = -L/2 + px
         t1 = math.atan2(-x_l, y_l) + math.atan2(-math.sqrt(max(0, x_l**2 + y_l**2 - l1**2)),  l1)
@@ -141,7 +141,7 @@ def inverse_kinematics(px, py, pz, leg_type):
     elif leg_type == 'right-behind':
         x_l =  pz;  y_l = -W/2 - py;  z_l =  L/2 + px
         t1 = math.atan2(-x_l, y_l) + math.atan2(-math.sqrt(max(0, x_l**2 + y_l**2 - l1**2)),  l1)
-        sign_s3, sign_p2 = -1, -1
+        sign_s3, sign_p2 = 1, -1
     else:
         return None
 
@@ -267,7 +267,7 @@ def compute_gait_angles(key, cfg):
 
 def fig1_foot_trajectory_2d():
     """Compare sine-wave vs quintic polynomial foot trajectory in sagittal plane."""
-    xc, yv = 60, 60
+    xc, yv = 125, 135
     wp_sine  = sine_trajectory(xc, yv)
     wp_quint = quintic_trajectory(xc, yv)
 
@@ -283,7 +283,7 @@ def fig1_foot_trajectory_2d():
         ax.set_xlabel('X position (mm)')
         ax.set_title(title)
         ax.legend(loc='upper left')
-        ax.set_aspect('equal', adjustable='datalim')
+        ax.set_aspect('auto')
 
         ax.annotate('A', xy=(wp[0, 0], wp[0, 2]), fontsize=12,
                     fontweight='bold', xytext=(-14, 8), textcoords='offset points')
@@ -338,6 +338,10 @@ def fig2_foot_trajectory_3d():
     #              fontsize=13, fontweight='bold', pad=15)
     ax.legend(loc='upper left', fontsize=9)
     ax.view_init(elev=25, azim=-55)
+    
+    # Make the 3D box proportional to the physical data ranges
+    # X spans ~300, Y spans ~270, Z spans ~100
+    ax.set_box_aspect((3.0, 2.7, 1.0))
     fig.tight_layout()
     fig.savefig(os.path.join(FIGURE_DIR, 'fig2_foot_trajectory_3d.png'))
     plt.close(fig)
@@ -350,8 +354,8 @@ def fig2_foot_trajectory_3d():
 
 def fig3_velocity_acceleration():
     """Velocity and acceleration of foot-end vs normalised time."""
-    wp_sine  = sine_trajectory(60, 60)
-    wp_quint = quintic_trajectory(60, 60)
+    wp_sine  = sine_trajectory(125, 135)
+    wp_quint = quintic_trajectory(125, 135)
     N = wp_sine.shape[0]
     dt = 1.0  # normalised time step
 
@@ -685,7 +689,7 @@ def fig8_workspace():
     ax.set_aspect('equal', adjustable='datalim')
 
     # Overlay gait trajectory
-    wp = quintic_trajectory(60, 60)
+    wp = quintic_trajectory(125, 135)
     ax.plot(wp[:, 2], wp[:, 0], 'r-', lw=2, label='Gait trajectory')
     ax.legend(fontsize=9)
 

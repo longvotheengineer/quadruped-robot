@@ -8,9 +8,26 @@
 \usepackage[vietnamese]{babel}
 \usepackage{tgtermes} % Times New Roman equivalent for professional look
 \usepackage{setspace}
-\onehalfspacing % 1.5 line spacing
+\setstretch{1.3} % 1.3 line spacing
 \setlength{\parskip}{6pt} % Paragraph spacing
-\setlength{\parindent}{1cm} % Paragraph indentation
+\setlength{\parindent}{1.25cm} % Paragraph indentation
+
+\usepackage{caption}
+\captionsetup[table]{position=top}
+\captionsetup[figure]{position=bottom}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\fontsize{14pt}{16.8pt}\bfseries\centering}
+  {\MakeUppercase{\chaptertitlename}~\thechapter}{0.5em}{\MakeUppercase}
+\titleformat{\section}
+  {\normalfont\fontsize{13pt}{15.6pt}\bfseries}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\fontsize{13pt}{15.6pt}\bfseries\itshape}
+  {\thesubsection}{1em}{}
+
+\renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -39,21 +56,20 @@
 \usepackage{longtable}
 \usepackage{comment}
 
-% Khai báo Khoa và Bộ môn (Xuống dòng bằng \\)
-\csdeptname{KHOA ĐIỆN -- ĐIỆN TỬ \\ BỘ MÔN ĐIỀU KHIỂN TỰ ĐỘNG}
+% Khai báo Khoa (theo mẫu template)
+\csdeptname{KHOA ĐIỆN -- ĐIỆN TỬ}
 
 % Khai báo tên đồ án (Gộp cả tiếng Việt và tiếng Anh)
 \ctname{
-    THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG \\ HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI \\ VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN \\ SỬ DỤNG PHẢN HỒI IMU \\[0.5cm]
-    {\fontsize{12pt}{14pt}\selectfont Design, Simulation, and Implementation of an Adaptive \\ Gait Generation and Postural Stabilization Framework \\ for Quadruped Robots using IMU Feedback}
+    THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG \\ HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI \\ VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN \\ SỬ DỤNG PHẢN HỒI IMU
 }
 
-% Khai báo Sinh viên (Chỉ dùng 1 lệnh \cstuname, nối nhau bằng \\)
-\cstuname{TRƯƠNG TUẤN AN - 2210041 \\ VÕ QUẾ LONG - 2211910}
+% Khai báo Sinh viên theo mẫu template
+\cstuname{\textbf{Trương Tuấn An} & \textbf{MSSV:} & \textbf{2210041} \\ & \textbf{Võ Quế Long} & \textbf{MSSV:} & \textbf{2211910}}
 
-\crname{ĐỒ ÁN TỐT NGHIỆP}
-\csSupervise{TS. NGUYỄN LÊ DŨNG}
-\cttime{2026}
+\crname{ĐỒ ÁN TỐT NGHIỆP ĐẠI HỌC}
+\csSupervise{TS. Nguyễn Lê Dũng}
+\cttime{THÁNG 5 NĂM 2026}
 
 \thesislayout
 
@@ -73,326 +89,120 @@
 
 \coverpage
 % ========================================================
-% 1. TRANG XÁC NHẬN CÔNG TRÌNH (HỘI ĐỒNG)
+% NHIỆM VỤ KHÓA LUẬN TỐT NGHIỆP (macro cho từng SV)
 % ========================================================
-\newpage
-\thispagestyle{empty} % Tắt đánh số trang
-
-\begin{center}
-    {\fontsize{14pt}{1.5}\selectfont CÔNG TRÌNH ĐƯỢC HOÀN THÀNH TẠI \\ TRƯỜNG ĐẠI HỌC BÁCH KHOA -- ĐHQG TP.HCM}
-\end{center}
-\vspace{1.5cm}
-
-\noindent Cán bộ hướng dẫn Đồ án tốt nghiệp: \dotfill \\
-\hspace*{3cm} (Ghi rõ họ, tên, học hàm, học vị và chữ ký) \\[1cm]
-Cán bộ chấm nhận xét 1: \dotfill \\
-\hspace*{3cm} (Ghi rõ họ, tên, học hàm, học vị và chữ ký) \\[1cm]
-Cán bộ chấm nhận xét 2: \dotfill \\
-\hspace*{3cm} (Ghi rõ họ, tên, học hàm, học vị và chữ ký) \\[1.5cm]
-
-\noindent Đồ án tốt nghiệp được bảo vệ tại Trường Đại học Bách Khoa -- ĐHQG TP.HCM ngày \dots\dots tháng \dots\dots năm \dots\dots \\[0.5cm]
-Thành phần Hội đồng đánh giá đồ án tốt nghiệp gồm: \\
-(Ghi rõ họ, tên, học hàm, học vị của Hội đồng chấm bảo vệ đồ án tốt nghiệp)
-\begin{enumerate}
-    \item \dotfill
-    \item \dotfill
-    \item \dotfill
-    \item \dotfill
-    \item \dotfill
-\end{enumerate}
-\vspace{0.5cm}
-
-\noindent Xác nhận của Chủ tịch Hội đồng đánh giá đồ án tốt nghiệp và Chủ nhiệm Bộ môn sau khi Đồ án đã được sửa chữa (nếu có). \\[1.5cm]
-\noindent
-\begin{minipage}[t]{0.5\textwidth}
-    \centering
-    \textbf{CHỦ TỊCH HỘI ĐỒNG}
-\end{minipage}%
-\begin{minipage}[t]{0.5\textwidth}
-    \centering
-    \textbf{CHỦ NHIỆM BỘ MÔN \dots\dots}
-\end{minipage}
-\clearpage
-
-
-% ========================================================
-% 2. TRANG NHẬN XÉT CỦA CÁN BỘ HƯỚNG DẪN
-% ========================================================
-\newpage
 \thispagestyle{empty}
-\noindent
-\begin{minipage}[t]{0.5\textwidth}
-    \centering
-    TRƯỜNG ĐẠI HỌC BÁCH KHOA TP. HCM \\
-    \textbf{KHOA ĐIỆN -- ĐIỆN TỬ} \\
-    \textbf{BỘ MÔN: ĐIỀU KHIỂN TỰ ĐỘNG} \\
-    \rule{3cm}{0.5pt}
-\end{minipage}%
-\begin{minipage}[t]{0.5\textwidth}
-    \centering
-    CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM \\
-    Độc lập -- Tự do -- Hạnh phúc \\
-    \rule{3cm}{0.5pt} \\[0.2cm]
-    \textit{TP. HCM, ngày \dots tháng \dots năm \dots}
-\end{minipage}
-
-\vspace{1.5cm}
-\begin{center}
-    {\fontsize{14pt}{1.5}\selectfont \textbf{NHẬN XÉT ĐỒ ÁN TỐT NGHIỆP \\ CỦA CÁN BỘ HƯỚNG DẪN}}
-\end{center}
-\vspace{0.5cm}
-
-\noindent\textbf{\underline{Tên Đồ án:}} \\[0.2cm]
-\begin{center}
-    {\fontsize{13pt}{1.5}\selectfont \textbf{THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN SỬ DỤNG PHẢN HỒI IMU}} \\[0.2cm]
-    {\fontsize{11pt}{1.5}\selectfont DESIGN, SIMULATION, AND IMPLEMENTATION OF AN ADAPTIVE GAIT GENERATION AND POSTURAL STABILIZATION FRAMEWORK FOR QUADRUPED ROBOTS USING IMU FEEDBACK}
-\end{center}
-\vspace{0.5cm}
 
 \noindent
-\begin{minipage}[t]{0.5\textwidth}
-    \textbf{\underline{Nhóm Sinh viên thực hiện:}} \\[0.2cm]
-    Trương Tuấn An (MSSV: 2210041) \\
-    Võ Quế Long (MSSV: 2211910)
+\begin{minipage}[t]{0.45\textwidth}
+    ĐẠI HỌC QUỐC GIA TP.HCM \\
+    \textbf{TRƯỜNG ĐẠI HỌC BÁCH KHOA}
 \end{minipage}%
-\begin{minipage}[t]{0.5\textwidth}
-    \textbf{\underline{Cán bộ hướng dẫn:}} \\[0.2cm]
-    TS. Nguyễn Lê Dũng
-\end{minipage}
-
-\vspace{1cm}
-\noindent\textbf{\underline{Đánh giá Luận văn}}
-\begin{enumerate}
-    \item Về cuốn báo cáo: \\
-    Số trang \dots\dots\dots \hfill Số chương \dots\dots\dots \hfill \null \\
-    Số bảng số liệu \dots \hfill Số hình vẽ \dots\dots\dots \hfill \null \\
-    Số tài liệu tham khảo \dots \hfill Sản phẩm \dots\dots\dots \hfill \null \\[0.2cm]
-    Một số nhận xét về hình thức cuốn báo cáo: \dotfill \\ \dotfill
-    \item Về nội dung luận văn: \dotfill \\ \dotfill \\ \dotfill
-    \item Về tính ứng dụng: \dotfill \\ \dotfill \\ \dotfill
-    \item Về thái độ làm việc của sinh viên: \dotfill \\ \dotfill \\ \dotfill
-\end{enumerate}
-
-\vspace{0.5cm}
-\noindent\textbf{\underline{Đánh giá chung:}} \dotfill \\ \dotfill
-
-\vspace{0.5cm}
-\noindent\textbf{\underline{Điểm từng sinh viên:}} \\[0.2cm]
-TRƯƠNG TUẤN AN: \dots\dots\dots/10 \hspace{1cm} VÕ QUẾ LONG: \dots\dots\dots/10
-
-\vspace{0.5cm}
 \hfill
-\begin{minipage}[t]{0.4\textwidth}
-    \centering
-    \textbf{Cán bộ hướng dẫn} \\[0.2cm]
-    (Ký tên và ghi rõ họ tên)
-\end{minipage}
-\clearpage
-
-
-% ========================================================
-% 3. TRANG NHẬN XÉT CỦA CÁN BỘ PHẢN BIỆN
-% ========================================================
-\newpage
-\thispagestyle{empty}
-\noindent
-\begin{minipage}[t]{0.5\textwidth}
-    \centering
-    TRƯỜNG ĐẠI HỌC BÁCH KHOA TP. HCM \\
-    \textbf{KHOA ĐIỆN -- ĐIỆN TỬ} \\
-    \textbf{BỘ MÔN: ĐIỀU KHIỂN TỰ ĐỘNG} \\
-    \rule{3cm}{0.5pt}
-\end{minipage}%
-\begin{minipage}[t]{0.5\textwidth}
-    \centering
+\begin{minipage}[t]{0.50\textwidth}
+    \raggedleft
     CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM \\
-    Độc lập -- Tự do -- Hạnh phúc \\
-    \rule{3cm}{0.5pt} \\[0.2cm]
-    \textit{TP. HCM, ngày \dots tháng \dots năm \dots}
+    \textbf{Độc Lập -- Tự Do -- Hạnh Phúc}
 \end{minipage}
 
-\vspace{1.5cm}
-\begin{center}
-    {\fontsize{14pt}{1.5}\selectfont \textbf{NHẬN XÉT ĐỒ ÁN TỐT NGHIỆP \\ CỦA CÁN BỘ PHẢN BIỆN}}
-\end{center}
-\vspace{0.5cm}
+\vspace{0.3cm}
 
-\noindent\textbf{\underline{Tên Đồ án:}} \\[0.2cm]
-\begin{center}
-    {\fontsize{13pt}{1.5}\selectfont \textbf{THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN SỬ DỤNG PHẢN HỒI IMU}} \\[0.2cm]
-    {\fontsize{11pt}{1.5}\selectfont DESIGN, SIMULATION, AND IMPLEMENTATION OF AN ADAPTIVE GAIT GENERATION AND POSTURAL STABILIZATION FRAMEWORK FOR QUADRUPED ROBOTS USING IMU FEEDBACK}
-\end{center}
-\vspace{0.5cm}
-
+% 5-column table
+{\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.3}
 \noindent
-\begin{minipage}[t]{0.5\textwidth}
-    \textbf{\underline{Nhóm Sinh viên thực hiện:}} \\[0.2cm]
-    Trương Tuấn An (MSSV: 2210041) \\
-    Võ Quế Long (MSSV: 2211910)
-\end{minipage}%
-\begin{minipage}[t]{0.5\textwidth}
-    \textbf{\underline{Cán bộ phản biện:}} \\[0.2cm]
-    \dots\dots\dots\dots\dots\dots\dots\dots\dots
-\end{minipage}
-
-\vspace{1cm}
-\noindent\textbf{\underline{Đánh giá Luận văn}}
-\begin{enumerate}
-    \item Về cuốn báo cáo: \\
-    Số trang \dots\dots\dots \hfill Số chương \dots\dots\dots \hfill \null \\
-    Số bảng số liệu \dots \hfill Số hình vẽ \dots\dots\dots \hfill \null \\
-    Số tài liệu tham khảo \dots \hfill Sản phẩm \dots\dots\dots \hfill \null \\[0.2cm]
-    Một số nhận xét về hình thức cuốn báo cáo: \dotfill \\ \dotfill
-    \item Về nội dung luận văn: \dotfill \\ \dotfill \\ \dotfill
-    \item Về tính ứng dụng: \dotfill \\ \dotfill \\ \dotfill
-    \item Về thái độ làm việc của sinh viên: \dotfill \\ \dotfill \\ \dotfill
-\end{enumerate}
-
-\vspace{0.5cm}
-\noindent\textbf{\underline{Đánh giá chung:}} \dotfill \\ \dotfill
-
-\vspace{0.5cm}
-\noindent\textbf{\underline{Điểm từng sinh viên:}} \\[0.2cm]
-TRƯƠNG TUẤN AN: \dots\dots\dots/10 \hspace{1cm} VÕ QUẾ LONG: \dots\dots\dots/10
-
-\vspace{0.5cm}
-\hfill
-\begin{minipage}[t]{0.4\textwidth}
-    \centering
-    \textbf{Người nhận xét} \\[0.2cm]
-    (Ký tên và ghi rõ họ tên)
-\end{minipage}
-\clearpage
-% ========================================================
-% 4. ĐỀ CƯƠNG CHI TIẾT
-% ========================================================
-\newpage
-\thispagestyle{empty}
-\noindent
-\begin{minipage}[t]{0.5\textwidth}
-    \centering
-    TRƯỜNG ĐẠI HỌC BÁCH KHOA TP. HCM \\
-    \textbf{KHOA ĐIỆN -- ĐIỆN TỬ} \\
-    \textbf{BỘ MÔN: ĐIỀU KHIỂN TỰ ĐỘNG} \\
-    \rule{3cm}{0.5pt}
-\end{minipage}%
-\begin{minipage}[t]{0.5\textwidth}
-    \centering
-    CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM \\
-    Độc lập -- Tự do -- Hạnh phúc \\
-    \rule{3cm}{0.5pt} \\[0.2cm]
-    \textit{TP. HCM, ngày \dots tháng \dots năm \dots}
-\end{minipage}
-
-\vspace{1.5cm}
-\begin{center}
-    {\fontsize{14pt}{1.5}\selectfont \textbf{ĐỀ CƯƠNG CHI TIẾT}}
-\end{center}
-\vspace{0.5cm}
-
-\begin{longtable}{|p{0.95\textwidth}|}
+\begin{tabular}{|p{0.035\textwidth}|p{0.17\textwidth}|p{0.30\textwidth}|p{0.12\textwidth}|p{0.19\textwidth}|}
 \hline
-\textbf{TÊN ĐỒ ÁN:} THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN SỬ DỤNG PHẢN HỒI IMU \\[0.2cm]
+%%% HEADER
+\multicolumn{2}{|l|}{\textbf{KHOA ĐIỆN -- ĐIỆN TỬ}} &
+\multicolumn{3}{c|}{\fontsize{13pt}{15.6pt}\selectfont \textbf{NHIỆM VỤ KHÓA LUẬN TỐT NGHIỆP}} \\
 \hline
-\textbf{Cán bộ hướng dẫn:} TS. Nguyễn Lê Dũng \\[0.2cm]
+%%% HỌ VÀ TÊN 1
+\multicolumn{2}{|l|}{\textbf{HỌ VÀ TÊN 1:}} & Trương Tuấn An & \textbf{MSSV:} & 2210041 \\
 \hline
-\textbf{Thời gian thực hiện:} Từ ngày \dots\dots\dots đến ngày \dots\dots\dots \\[0.2cm]
+%%% NGÀNH 1
+\multicolumn{2}{|l|}{\textbf{NGÀNH:}} & Kỹ thuật ĐK \& TĐH & \textbf{LỚP:} & \dots\dots\dots \\
 \hline
-\textbf{Sinh viên thực hiện:} \\[0.2cm]
-Trương Tuấn An - 2210041 \\
-Võ Quế Long - 2211910 \\[0.2cm]
+%%% HỌ VÀ TÊN 2
+\multicolumn{2}{|l|}{\textbf{HỌ VÀ TÊN 2:}} & Võ Quế Long & \textbf{MSSV:} & 2211910 \\
 \hline
-\textbf{Nội dung đề tài:} \\[0.2cm]
-\underline{\textit{Mục tiêu:}} \\[0.2cm]
-Mục tiêu tổng quát của đề tài là thiết kế hệ thống điều khiển và phản hồi cho một hệ thống robot bốn chân mô hình cỡ nhỏ có khả năng duy trì chuyển động đi lại, thông qua sự hỗ trợ của các module cảm biến. \\[0.2cm]
-Các mục tiêu cụ thể cần đạt được bao gồm:
-\begin{itemize}
-    \item \textbf{Xây dựng Mô hình Động học:} 
-    \item \textbf{Phát triển Thuật toán Điều khiển:} 
-    \item \textbf{Xây dựng Hệ thống Giao tiếp:} 
-    \item \textbf{Thử nghiệm và Đánh giá:} 
-\end{itemize}
-
-\underline{\textit{Đối tượng:}} \\[0.2cm]
-- Lý thuyết: Mô hình toán học Động học (IK) của robot bốn chân; Các thuật toán điều khiển bước đi. \\
-- Công nghệ: Motor Servo công suất cao; Vi điều khiển (STM32) và lập trình nhúng; Giao tiếp không dây Bluetooth. \\[0.2cm]
-
-\underline{\textit{Phương pháp thực hiện:}} \\[0.2cm]
-Nghiên cứu Cơ sở Lý thuyết: Phân tích các tài liệu về Cơ học Robot, sử dụng phương pháp giải tích toán học và ma trận chuyển đổi để xây dựng mô hình Động học Ngược và xác định các thông số quỹ đạo chân. \\[0.1cm]
-Lựa chọn Thiết bị: Lựa chọn các loại motor servo có momen xoắn phù hợp và vi điều khiển có khả năng xử lý tốc độ cao cho điều khiển 12 bậc tự do. \\[0.1cm]
-Lập trình Hệ thống Nhúng:
-\begin{itemize}
-    \item Lập trình giải thuật IK để điều khiển vị trí của từng khớp motor.
-    \item Phát triển Gait Generator để tạo ra các tín hiệu điều khiển đồng bộ cho các chân, thực hiện các kiểu đi Trot, Walk một cách nhịp nhàng và ổn định.
-    \item Lập trình giao tiếp và xử lý lệnh nhận được qua module Bluetooth.
-\end{itemize}
-
-\underline{\textit{Kết quả mong đợi:}} \\[0.2cm]
-
-\textbf{Kế hoạch thực hiện:} \\[0.2cm]
-\textbf{Kế hoạch thực hiện được chia thành 5 giai đoạn chính như sau:}
-\begin{itemize}
-    \item \textbf{Giai đoạn 1:} 
-    \item \textbf{Giai đoạn 2:} 
-    \item \textbf{Giai đoạn 3:} 
-    \item \textbf{Giai đoạn 4:} 
-    \item \textbf{Giai đoạn 5:} 
-\end{itemize} \\
+%%% NGÀNH 2
+\multicolumn{2}{|l|}{\textbf{NGÀNH:}} & Kỹ thuật ĐK \& TĐH & \textbf{LỚP:} & \dots\dots\dots \\
 \hline
-% Dòng ký tên ở cuối bảng
-\begin{tabular}{p{0.45\textwidth} p{0.45\textwidth}}
-\begin{center}
-\textbf{Xác nhận của Cán bộ hướng dẫn} \\[0.3cm]
-(Ký tên và ghi rõ họ tên)
-\end{center}
-&
-\begin{center}
-TP. HCM, ngày \dots tháng \dots năm \dots \\[0.3cm]
-\textbf{Sinh viên} \\[0.3cm]
-(Ký tên và ghi rõ họ tên)
-\end{center}
-\\[5cm]
+%%% DÒNG TRỐNG
+\multicolumn{5}{|l|}{} \\
+\hline
+%%% 1. ĐẦU ĐỀ
+1. & \multicolumn{4}{l|}{\textbf{Đầu đề khóa luận:}} \\
+& \multicolumn{4}{c|}{Thiết kế, mô phỏng và thi công hệ thống tạo dáng đi thích nghi} \\
+& \multicolumn{4}{c|}{và ổn định tư thế cho robot bốn chân sử dụng phản hồi IMU} \\
+& \multicolumn{4}{c|}{\textit{(Design, Simulation, and Implementation of an Adaptive Gait Generation}} \\
+& \multicolumn{4}{c|}{\textit{and Postural Stabilization Framework for Quadruped Robots using IMU Feedback)}} \\
+\hline
+%%% 2. NHIỆM VỤ
+2. & \multicolumn{4}{l|}{\textbf{Nhiệm vụ (yêu cầu về nội dung và số liệu ban đầu):}} \\
+\hline
+-- & \multicolumn{4}{l|}{Xây dựng mô hình động học thuận và nghịch cho cơ cấu chân robot 3 DOF.} \\
+\hline
+-- & \multicolumn{4}{l|}{Phát triển thuật toán quy hoạch dáng đi và quy hoạch quỹ đạo bàn chân.} \\
+\hline
+-- & \multicolumn{4}{l|}{Thiết kế hệ thống điều khiển PID tích hợp phản hồi cảm biến IMU.} \\
+\hline
+-- & \multicolumn{4}{l|}{Mô phỏng đánh giá trên ROS 2 và Gazebo.} \\
+\hline
+-- & \multicolumn{4}{l|}{Thi công mô hình thực tế và thử nghiệm cân bằng.} \\
+\hline
+%%% 3. NGÀY GIAO
+3. & \multicolumn{2}{l|}{\textbf{Ngày giao nhiệm vụ khóa luận:}} &
+\multicolumn{2}{l|}{DD / MM / YYYY} \\
+\hline
+%%% 4. NGÀY HOÀN THÀNH
+4. & \multicolumn{2}{l|}{\textbf{Ngày hoàn thành nhiệm vụ:}} &
+\multicolumn{2}{l|}{DD / MM / YYYY} \\
+\hline
+%%% 5. NGƯỜI HƯỚNG DẪN
+5. & \multicolumn{3}{l|}{\textbf{Họ và tên người hướng dẫn:}} &
+\textbf{Phần hướng dẫn:} \\
+-- & \multicolumn{3}{l|}{TS. Nguyễn Lê Dũng} & Toàn bộ \\
+-- & \multicolumn{3}{l|}{} & \\
+\hline
+%%% THÔNG QUA
+\multicolumn{5}{|l|}{Nội dung và yêu cầu KLTN đã được thông qua Chủ trì ngành.} \\
+\multicolumn{5}{|l|}{\textit{\hspace{1cm}Ngày \dots\dots\dots tháng \dots\dots năm \dots\dots\dots\dots}} \\
+\hline
 \end{tabular}
-\\ \hline 
-\end{longtable}
+\renewcommand{\arraystretch}{1.0}}
+
+\vspace{0.3cm}
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \textbf{CHỦ TRÌ NGÀNH} \\[0.2cm]
+    \textit{(Ký và ghi rõ họ tên)}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \textbf{GIẢNG VIÊN HƯỚNG DẪN CHÍNH} \\[0.2cm]
+    \textit{(Ký và ghi rõ họ tên)}
+\end{minipage}
+
+\vspace{2.5cm}
+
+\noindent\textbf{PHẦN DÀNH CHO KHOA} \\[0.1cm]
+Người duyệt (chấm sơ bộ): \dotfill \\
+Đơn vị: \dotfill \\
+Ngày bảo vệ: \dotfill \\
+Điểm tổng kết: \dotfill \\
+Nơi lưu trữ luận án: \dotfill
+
 \clearpage
 
 
-% ========================================================
-% 5. DANH SÁCH HỘI ĐỒNG BẢO VỆ ĐỒ ÁN
-% ========================================================
-\newpage
-\thispagestyle{empty}
-
-\vspace*{2cm}
-\begin{center}
-    {\fontsize{14pt}{1.5}\selectfont \textbf{DANH SÁCH HỘI ĐỒNG BẢO VỆ ĐỒ ÁN}}
-\end{center}
-\vspace{0.5cm}
-
-\noindent Hội đồng chấm luận văn tốt nghiệp, thành lập theo Quyết định số \dotfill ngày \dotfill của Hiệu trưởng Trường Đại học Bách Khoa TP.HCM. \\[1cm]
-
-\noindent\hspace*{2cm} 1. \dotfill -- Chủ tịch. \\[0.6cm]
-\hspace*{2cm} 2. \dotfill -- Thư ký. \\[0.6cm]
-\hspace*{2cm} 3. \dotfill -- Ủy viên. \\[0.6cm]
-\hspace*{2cm} 4. \dotfill -- Ủy viên. \\[0.6cm]
-\hspace*{2cm} 5. \dotfill -- Ủy viên. \\[1cm]
-
-\clearpage
 
 \frontmatter
 
 
-\begin{declaration}
-    Chúng em xin cam đoan đây là công trình nghiên cứu của riêng chúng em, được thực hiện dưới sự hướng dẫn khoa học của TS. Nguyễn Lê Dũng. Nội dung nghiên cứu và các kết quả trình bày trong đồ án này là trung thực và chưa từng được công bố trong bất kỳ công trình nào khác.
-
-    Các số liệu, kết quả phân tích và nhận xét được chính chúng em thu thập, tính toán và tổng hợp từ quá trình thiết kế, mô phỏng và thực nghiệm. Các tài liệu tham khảo đã được trích dẫn đầy đủ và ghi rõ nguồn gốc.
-
-    Ngoài ra, chúng em cũng có sử dụng một số nhận xét, đánh giá và số liệu của các tác giả khác. Tất cả đều có trích dẫn và chú thích nguồn gốc rõ ràng.
-
-    Nếu phát hiện có bất kỳ sự gian lận nào, chúng em xin hoàn toàn chịu trách nhiệm về nội dung đồ án của mình. Trường Đại học Bách Khoa -- ĐHQG TP.HCM không liên quan đến những vi phạm tác quyền, bản quyền do chúng em gây ra trong quá trình thực hiện.
-
-\end{declaration}
 
 \begin{acknowledgments}
 
@@ -404,10 +214,11 @@ TP. HCM, ngày \dots tháng \dots năm \dots \\[0.3cm]
 
     Và hơn hết, chúng em xin gửi lời cảm ơn và tri ân sâu sắc đến gia đình vì đã luôn bên cạnh và động viên trong suốt thời gian vừa qua. Xin gửi lời cảm ơn đến các anh chị, bạn bè trong và ngoài nhóm đã đồng hành cùng chúng em trong suốt thời gian qua những người luôn luôn hỗ trợ chúng em hết mình, giúp đỡ, lắng nghe và chia sẻ khó khăn cùng nhau. 
     
-   \vspace{1.5cm} % Tạo khoảng trống 1.5cm trước khi ký tên
+   \vspace{1.5cm}
     \begin{flushright}
-        \textbf{Nhóm sinh viên thực hiện đề tài} \\[0.2cm] % In đậm và cách dòng nhỏ
-        \textit{Trương Tuấn An \& Võ Quế Long} % In nghiêng tên hai bạn (có thể xóa nếu không thích)
+        \textit{Tp. Hồ Chí Minh, ngày \hspace{0.7cm} tháng 5 năm 2026} \\[0.2cm]
+        \textbf{Nhóm sinh viên} \\[0.2cm]
+        \textit{Trương Tuấn An \& Võ Quế Long}
     \end{flushright}
 
 	
@@ -415,16 +226,16 @@ TP. HCM, ngày \dots tháng \dots năm \dots \\[0.3cm]
 	
 \begin{abstract}
 
-Đồ án này trình bày quá trình thiết kế, mô phỏng và chế tạo một hệ thống robot bốn chân (quadruped robot) 12 bậc tự do với khả năng di chuyển tự chủ trên mặt phẳng nằm ngang. Robot sử dụng cấu trúc chân nối tiếp (serial leg) ba bậc tự do, được dẫn động bởi 12 động cơ bus servo ST3215 và điều khiển bởi máy tính nhúng NVIDIA Jetson Nano.
+Đồ án này trình bày quá trình nghiên cứu, thiết kế, mô phỏng và chế tạo một hệ thống robot bốn chân (quadruped robot) 12 bậc tự do với khả năng di chuyển và tự cân bằng tĩnh cũng như động. Robot sử dụng cấu trúc động học chân nối tiếp (serial leg) 3 bậc tự do, được truyền động bởi 12 động cơ bus servo ST3215 và điều khiển tập trung bởi máy tính nhúng NVIDIA Jetson Nano.
 
-Về mặt lý thuyết, mô hình động học thuận và động học nghịch được xây dựng bằng phương pháp Denavit--Hartenberg. Quỹ đạo bàn chân được quy hoạch bằng phương pháp nội suy đa thức bậc năm, đảm bảo tính liên tục bậc hai ($C^2$) của vận tốc và gia tốc tại các điểm chuyển pha. Dáng đi trot chéo được lựa chọn làm dáng đi chính nhờ hiệu suất năng lượng cao và khả năng duy trì ổn định.
+Về mặt lý thuyết, phương pháp Denavit--Hartenberg (D-H) được áp dụng để xây dựng mô hình động học thuận, làm cơ sở giải quyết bài toán động học nghịch bằng phương pháp hình học giải tích. Quỹ đạo bước chân được quy hoạch dựa trên nội suy đa thức bước mượt bậc năm (quintic smooth-step), đảm bảo tính liên tục bậc hai ($C^2$) của vận tốc và gia tốc, giúp robot di chuyển mượt mà và giảm thiểu lực giật (jerk). Dáng đi Trot chéo được lựa chọn làm phương thức di chuyển chủ đạo nhờ sự cân bằng tối ưu giữa tốc độ và độ ổn định tĩnh marginal.
 
-Hệ thống được mô phỏng trên nền tảng ROS~2 Humble kết hợp Gazebo Classic, sử dụng bộ điều khiển PD ($K_p = 20{,}0$ Nm/rad, $K_d = 0{,}5$ Nm$\cdot$s/rad). Kết quả mô phỏng cho thấy mô-men xoắn tại các khớp đều nằm trong giới hạn cho phép của cơ cấu chấp hành, và robot duy trì ổn định tĩnh trong suốt chu kỳ dáng đi.
+Hệ thống được mô phỏng trên nền tảng ROS~2 Humble kết hợp Gazebo Classic. Mô hình sử dụng bộ điều khiển tỷ lệ - vi phân (PD) nhằm đánh giá khả năng bám quỹ đạo và phân tích lực - mô men tác dụng lên các khớp động cơ. Kết quả mô phỏng cho thấy các giá trị mô-men đều nằm trong giới hạn an toàn của cơ cấu chấp hành, khẳng định tính khả thi trong khâu thiết kế cơ khí và lựa chọn phần cứng.
 
-Về phần cứng, hệ thống tích hợp cảm biến IMU BNO055 cho phản hồi thăng bằng, giao tiếp I2C và UART với máy tính nhúng. Thiết kế cơ khí được thực hiện trên SolidWorks với tổng khối lượng robot khoảng 2,3~kg.
+Điểm nhấn kỹ thuật cốt lõi của đồ án là việc phát triển và tích hợp thành công kiến trúc điều khiển cân bằng dựa trên phản hồi tư thế từ cảm biến IMU BNO055. Hệ thống sử dụng bộ điều khiển PID thích nghi (Adaptive PID) được thiết kế chuyên biệt cho hai trạng thái vận hành: (1) \textbf{Chế độ tĩnh (HOME)} áp dụng lượng bù trực tiếp vào không gian khớp (Joint Space) giúp tối ưu hóa thời gian phản hồi; (2) \textbf{Chế độ động (GAIT)} thực hiện bù trừ bằng ma trận xoay trong không gian làm việc (Task Space), kết hợp cơ chế nhận biết pha (phase-aware) để chỉ điều chỉnh trục Z của các chân pha chống (stance), qua đó duy trì trạng thái thân song song với mặt đất mà không làm biến dạng chiều dài sải bước thực tế.
 
 \vspace{0.5cm}
-\noindent\textbf{Từ khóa:} Robot bốn chân, động học nghịch, quy hoạch quỹ đạo, dáng đi trot, đa thức bậc năm, ROS~2, Gazebo, bộ điều khiển PD.
+\noindent\textbf{Từ khóa:} Robot bốn chân, động học nghịch, quy hoạch quỹ đạo, dáng đi Trot, đa thức bậc năm, ROS~2, Gazebo, bộ điều khiển PID thích nghi.
 
 \end{abstract}
 
@@ -443,13 +254,12 @@ Về phần cứng, hệ thống tích hợp cảm biến IMU BNO055 cho phản 
 
 \pagestyle{fancy}  % Finally, use the "fancy" page style to implement the FancyHdr headers
 %
-\input{chapter/chapter1-gioithieu.tex}
-\input{chapter/chapter2-tongquan.tex}
-\input{chapter/chapter3-phantichcocau}
-\input{chapter/chapter4-donghoc}
-\input{chapter/chapter5-thietkevaxaydunghethong}
-\input{chapter/chapter6-mophong}
-\input{chapter/chapter7-ketluan}
+\input{chapter/ch1_gioithieu.tex}
+\input{chapter/ch2_lythuyet.tex}
+\input{chapter/ch3_thietkecung.tex}
+\input{chapter/ch4_thietkemem.tex}
+\input{chapter/ch5_ketqua.tex}
+\input{chapter/ch6_ketluan.tex}
 
 \begin{thebibliography}{99}
 
