@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  7 MAY 2026 20:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  7 MAY 2026 20:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1802,199 +1802,160 @@ Ch\uhorn \ohorn ng 5.
 [74
 
 ]
-<sim_homing_frames/frame_001.jpg, id=1817, 1927.2pt x 1084.05pt>
-File: sim_homing_frames/frame_001.jpg Graphic file (type jpg)
-<use sim_homing_frames/frame_001.jpg>
-Package pdftex.def Info: sim_homing_frames/frame_001.jpg  used on input line 75
-.
+<Images//frame_001.jpg, id=1817, 1927.2pt x 1084.05pt>
+File: Images//frame_001.jpg Graphic file (type jpg)
+<use Images//frame_001.jpg>
+Package pdftex.def Info: Images//frame_001.jpg  used on input line 75.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_homing_frames/frame_002.jpg, id=1818, 1927.2pt x 1084.05pt>
-File: sim_homing_frames/frame_002.jpg Graphic file (type jpg)
-<use sim_homing_frames/frame_002.jpg>
-Package pdftex.def Info: sim_homing_frames/frame_002.jpg  used on input line 81
-.
+<Images//frame_002.jpg, id=1818, 1927.2pt x 1084.05pt>
+File: Images//frame_002.jpg Graphic file (type jpg)
+<use Images//frame_002.jpg>
+Package pdftex.def Info: Images//frame_002.jpg  used on input line 81.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_homing_frames/frame_003.jpg, id=1819, 1927.2pt x 1084.05pt>
-File: sim_homing_frames/frame_003.jpg Graphic file (type jpg)
-<use sim_homing_frames/frame_003.jpg>
-Package pdftex.def Info: sim_homing_frames/frame_003.jpg  used on input line 87
-.
+<Images//frame_003.jpg, id=1819, 1927.2pt x 1084.05pt>
+File: Images//frame_003.jpg Graphic file (type jpg)
+<use Images//frame_003.jpg>
+Package pdftex.def Info: Images//frame_003.jpg  used on input line 87.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_homing_frames/frame_004.jpg, id=1820, 1927.2pt x 1084.05pt>
-File: sim_homing_frames/frame_004.jpg Graphic file (type jpg)
-<use sim_homing_frames/frame_004.jpg>
-Package pdftex.def Info: sim_homing_frames/frame_004.jpg  used on input line 93
-.
+<Images//frame_004.jpg, id=1820, 1927.2pt x 1084.05pt>
+File: Images//frame_004.jpg Graphic file (type jpg)
+<use Images//frame_004.jpg>
+Package pdftex.def Info: Images//frame_004.jpg  used on input line 93.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_homing_frames/frame_005.jpg, id=1821, 1927.2pt x 1084.05pt>
-File: sim_homing_frames/frame_005.jpg Graphic file (type jpg)
-<use sim_homing_frames/frame_005.jpg>
-Package pdftex.def Info: sim_homing_frames/frame_005.jpg  used on input line 99
-.
+<Images//frame_005.jpg, id=1821, 1927.2pt x 1084.05pt>
+File: Images//frame_005.jpg Graphic file (type jpg)
+<use Images//frame_005.jpg>
+Package pdftex.def Info: Images//frame_005.jpg  used on input line 99.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_homing_frames/frame_006.jpg, id=1822, 1927.2pt x 1084.05pt>
-File: sim_homing_frames/frame_006.jpg Graphic file (type jpg)
-<use sim_homing_frames/frame_006.jpg>
-Package pdftex.def Info: sim_homing_frames/frame_006.jpg  used on input line 10
-8.
+<Images//frame_006.jpg, id=1822, 1927.2pt x 1084.05pt>
+File: Images//frame_006.jpg Graphic file (type jpg)
+<use Images//frame_006.jpg>
+Package pdftex.def Info: Images//frame_006.jpg  used on input line 108.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_homing_frames/frame_007.jpg, id=1823, 1927.2pt x 1084.05pt>
-File: sim_homing_frames/frame_007.jpg Graphic file (type jpg)
-<use sim_homing_frames/frame_007.jpg>
-Package pdftex.def Info: sim_homing_frames/frame_007.jpg  used on input line 11
-4.
+<Images//frame_007.jpg, id=1823, 1927.2pt x 1084.05pt>
+File: Images//frame_007.jpg Graphic file (type jpg)
+<use Images//frame_007.jpg>
+Package pdftex.def Info: Images//frame_007.jpg  used on input line 114.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_homing_frames/frame_008.jpg, id=1824, 1927.2pt x 1084.05pt>
-File: sim_homing_frames/frame_008.jpg Graphic file (type jpg)
-<use sim_homing_frames/frame_008.jpg>
-Package pdftex.def Info: sim_homing_frames/frame_008.jpg  used on input line 12
-0.
+<Images//frame_008.jpg, id=1824, 1927.2pt x 1084.05pt>
+File: Images//frame_008.jpg Graphic file (type jpg)
+<use Images//frame_008.jpg>
+Package pdftex.def Info: Images//frame_008.jpg  used on input line 120.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_homing_frames/frame_009.jpg, id=1825, 1927.2pt x 1084.05pt>
-File: sim_homing_frames/frame_009.jpg Graphic file (type jpg)
-<use sim_homing_frames/frame_009.jpg>
-Package pdftex.def Info: sim_homing_frames/frame_009.jpg  used on input line 12
-6.
+<Images//frame_009.jpg, id=1825, 1927.2pt x 1084.05pt>
+File: Images//frame_009.jpg Graphic file (type jpg)
+<use Images//frame_009.jpg>
+Package pdftex.def Info: Images//frame_009.jpg  used on input line 126.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_homing_frames/frame_010.jpg, id=1826, 1927.2pt x 1084.05pt>
-File: sim_homing_frames/frame_010.jpg Graphic file (type jpg)
-<use sim_homing_frames/frame_010.jpg>
-Package pdftex.def Info: sim_homing_frames/frame_010.jpg  used on input line 13
-2.
+<Images//frame_010.jpg, id=1826, 1927.2pt x 1084.05pt>
+File: Images//frame_010.jpg Graphic file (type jpg)
+<use Images//frame_010.jpg>
+Package pdftex.def Info: Images//frame_010.jpg  used on input line 132.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
  [75]
-<sim_trot_frames/frame_001.jpg, id=1832, 1927.2pt x 1084.05pt>
-File: sim_trot_frames/frame_001.jpg Graphic file (type jpg)
-<use sim_trot_frames/frame_001.jpg>
-Package pdftex.def Info: sim_trot_frames/frame_001.jpg  used on input line 146.
-
+File: Images//frame_001.jpg Graphic file (type jpg)
+<use Images//frame_001.jpg>
+Package pdftex.def Info: Images//frame_001.jpg  used on input line 146.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_trot_frames/frame_002.jpg, id=1833, 1927.2pt x 1084.05pt>
-File: sim_trot_frames/frame_002.jpg Graphic file (type jpg)
-<use sim_trot_frames/frame_002.jpg>
-Package pdftex.def Info: sim_trot_frames/frame_002.jpg  used on input line 152.
-
+File: Images//frame_002.jpg Graphic file (type jpg)
+<use Images//frame_002.jpg>
+Package pdftex.def Info: Images//frame_002.jpg  used on input line 152.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_trot_frames/frame_003.jpg, id=1834, 1927.2pt x 1084.05pt>
-File: sim_trot_frames/frame_003.jpg Graphic file (type jpg)
-<use sim_trot_frames/frame_003.jpg>
-Package pdftex.def Info: sim_trot_frames/frame_003.jpg  used on input line 158.
-
+File: Images//frame_003.jpg Graphic file (type jpg)
+<use Images//frame_003.jpg>
+Package pdftex.def Info: Images//frame_003.jpg  used on input line 158.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_trot_frames/frame_004.jpg, id=1835, 1927.2pt x 1084.05pt>
-File: sim_trot_frames/frame_004.jpg Graphic file (type jpg)
-<use sim_trot_frames/frame_004.jpg>
-Package pdftex.def Info: sim_trot_frames/frame_004.jpg  used on input line 164.
-
+File: Images//frame_004.jpg Graphic file (type jpg)
+<use Images//frame_004.jpg>
+Package pdftex.def Info: Images//frame_004.jpg  used on input line 164.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_trot_frames/frame_005.jpg, id=1836, 1927.2pt x 1084.05pt>
-File: sim_trot_frames/frame_005.jpg Graphic file (type jpg)
-<use sim_trot_frames/frame_005.jpg>
-Package pdftex.def Info: sim_trot_frames/frame_005.jpg  used on input line 170.
-
+File: Images//frame_005.jpg Graphic file (type jpg)
+<use Images//frame_005.jpg>
+Package pdftex.def Info: Images//frame_005.jpg  used on input line 170.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_trot_frames/frame_006.jpg, id=1837, 1927.2pt x 1084.05pt>
-File: sim_trot_frames/frame_006.jpg Graphic file (type jpg)
-<use sim_trot_frames/frame_006.jpg>
-Package pdftex.def Info: sim_trot_frames/frame_006.jpg  used on input line 179.
-
+File: Images//frame_006.jpg Graphic file (type jpg)
+<use Images//frame_006.jpg>
+Package pdftex.def Info: Images//frame_006.jpg  used on input line 179.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_trot_frames/frame_007.jpg, id=1838, 1927.2pt x 1084.05pt>
-File: sim_trot_frames/frame_007.jpg Graphic file (type jpg)
-<use sim_trot_frames/frame_007.jpg>
-Package pdftex.def Info: sim_trot_frames/frame_007.jpg  used on input line 185.
-
+File: Images//frame_007.jpg Graphic file (type jpg)
+<use Images//frame_007.jpg>
+Package pdftex.def Info: Images//frame_007.jpg  used on input line 185.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_trot_frames/frame_008.jpg, id=1839, 1927.2pt x 1084.05pt>
-File: sim_trot_frames/frame_008.jpg Graphic file (type jpg)
-<use sim_trot_frames/frame_008.jpg>
-Package pdftex.def Info: sim_trot_frames/frame_008.jpg  used on input line 191.
-
+File: Images//frame_008.jpg Graphic file (type jpg)
+<use Images//frame_008.jpg>
+Package pdftex.def Info: Images//frame_008.jpg  used on input line 191.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_trot_frames/frame_009.jpg, id=1840, 1927.2pt x 1084.05pt>
-File: sim_trot_frames/frame_009.jpg Graphic file (type jpg)
-<use sim_trot_frames/frame_009.jpg>
-Package pdftex.def Info: sim_trot_frames/frame_009.jpg  used on input line 197.
-
+File: Images//frame_009.jpg Graphic file (type jpg)
+<use Images//frame_009.jpg>
+Package pdftex.def Info: Images//frame_009.jpg  used on input line 197.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<sim_trot_frames/frame_010.jpg, id=1841, 1927.2pt x 1084.05pt>
-File: sim_trot_frames/frame_010.jpg Graphic file (type jpg)
-<use sim_trot_frames/frame_010.jpg>
-Package pdftex.def Info: sim_trot_frames/frame_010.jpg  used on input line 203.
-
+File: Images//frame_010.jpg Graphic file (type jpg)
+<use Images//frame_010.jpg>
+Package pdftex.def Info: Images//frame_010.jpg  used on input line 203.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<Simulation/fig1_foot_trajectory_2d.png, id=1842, 856.6404pt x 316.3017pt>
-File: Simulation/fig1_foot_trajectory_2d.png Graphic file (type png)
-<use Simulation/fig1_foot_trajectory_2d.png>
-Package pdftex.def Info: Simulation/fig1_foot_trajectory_2d.png  used on input 
-line 216.
+<Images//fig1_foot_trajectory_2d.png, id=1832, 856.6404pt x 316.3017pt>
+File: Images//fig1_foot_trajectory_2d.png Graphic file (type png)
+<use Images//fig1_foot_trajectory_2d.png>
+Package pdftex.def Info: Images//fig1_foot_trajectory_2d.png  used on input lin
+e 216.
 (pdftex.def)             Requested size: 247.54149pt x 91.40176pt.
- [76 <./sim_homing_frames/frame_001.jpg> <./sim_homing_frames/frame_002.jpg> <.
-/sim_homing_frames/frame_003.jpg> <./sim_homing_frames/frame_004.jpg> <./sim_ho
-ming_frames/frame_005.jpg> <./sim_homing_frames/frame_006.jpg> <./sim_homing_fr
-ames/frame_007.jpg> <./sim_homing_frames/frame_008.jpg> <./sim_homing_frames/fr
-ame_009.jpg> <./sim_homing_frames/frame_010.jpg> <./sim_trot_frames/frame_001.j
-pg> <./sim_trot_frames/frame_002.jpg> <./sim_trot_frames/frame_003.jpg> <./sim_
-trot_frames/frame_004.jpg> <./sim_trot_frames/frame_005.jpg> <./sim_trot_frames
-/frame_006.jpg> <./sim_trot_frames/frame_007.jpg> <./sim_trot_frames/frame_008.
-jpg> <./sim_trot_frames/frame_009.jpg> <./sim_trot_frames/frame_010.jpg> <./Sim
-ulation/fig1_foot_trajectory_2d.png>]
-<Simulation/fig2_foot_trajectory_3d.png, id=1850, 552.3837pt x 496.4949pt>
-File: Simulation/fig2_foot_trajectory_3d.png Graphic file (type png)
-<use Simulation/fig2_foot_trajectory_3d.png>
-Package pdftex.def Info: Simulation/fig2_foot_trajectory_3d.png  used on input 
-line 229.
+ [76 <./Images//frame_001.jpg> <./Images//frame_002.jpg> <./Images//frame_003.j
+pg> <./Images//frame_004.jpg> <./Images//frame_005.jpg> <./Images//frame_006.jp
+g> <./Images//frame_007.jpg> <./Images//frame_008.jpg> <./Images//frame_009.jpg
+> <./Images//frame_010.jpg> <./Images//fig1_foot_trajectory_2d.png>]
+<Images//fig2_foot_trajectory_3d.png, id=1840, 552.3837pt x 496.4949pt>
+File: Images//fig2_foot_trajectory_3d.png Graphic file (type png)
+<use Images//fig2_foot_trajectory_3d.png>
+Package pdftex.def Info: Images//fig2_foot_trajectory_3d.png  used on input lin
+e 229.
 (pdftex.def)             Requested size: 247.54149pt x 222.49637pt.
-<Simulation/fig3_velocity_acceleration.png, id=1852, 927.2241pt x 569.7285pt>
-File: Simulation/fig3_velocity_acceleration.png Graphic file (type png)
-<use Simulation/fig3_velocity_acceleration.png>
-Package pdftex.def Info: Simulation/fig3_velocity_acceleration.png  used on inp
-ut line 238.
+<Images//fig3_velocity_acceleration.png, id=1842, 927.2241pt x 569.7285pt>
+File: Images//fig3_velocity_acceleration.png Graphic file (type png)
+<use Images//fig3_velocity_acceleration.png>
+Package pdftex.def Info: Images//fig3_velocity_acceleration.png  used on input 
+line 238.
 (pdftex.def)             Requested size: 247.54149pt x 152.09877pt.
- [77 <./Simulation/fig2_foot_trajectory_3d.png>]
-<Images//fig26- Fifth degree profiling curve.png, id=1859, 918.43124pt x 512.91
+
+[77 <./Images//fig2_foot_trajectory_3d.png>]
+<Images//fig26- Fifth degree profiling curve.png, id=1849, 918.43124pt x 512.91
 624pt>
 File: Images//fig26- Fifth degree profiling curve.png Graphic file (type png)
 <use Images//fig26- Fifth degree profiling curve.png>
 Package pdftex.def Info: Images//fig26- Fifth degree profiling curve.png  used 
 on input line 252.
 (pdftex.def)             Requested size: 350.68274pt x 195.84937pt.
- [78 <./Simulation/fig3_velocity_acceleration.png> <./Images//fig26- Fifth degr
-ee profiling curve.png>]
-<Simulation/fig4_joint_angles.png, id=1866, 857.1222pt x 642.2394pt>
-File: Simulation/fig4_joint_angles.png Graphic file (type png)
-<use Simulation/fig4_joint_angles.png>
-Package pdftex.def Info: Simulation/fig4_joint_angles.png  used on input line 2
-64.
+ [78 <./Images//fig3_velocity_acceleration.png> <./Images//fig26- Fifth degree 
+profiling curve.png>]
+<Images//fig4_joint_angles.png, id=1856, 857.1222pt x 642.2394pt>
+File: Images//fig4_joint_angles.png Graphic file (type png)
+<use Images//fig4_joint_angles.png>
+Package pdftex.def Info: Images//fig4_joint_angles.png  used on input line 264.
+
 (pdftex.def)             Requested size: 247.54149pt x 185.48027pt.
-<Simulation/fig5_pd_torque.png, id=1868, 858.3267pt x 641.9985pt>
-File: Simulation/fig5_pd_torque.png Graphic file (type png)
-<use Simulation/fig5_pd_torque.png>
-Package pdftex.def Info: Simulation/fig5_pd_torque.png  used on input line 279.
-
+<Images//fig5_pd_torque.png, id=1858, 858.3267pt x 641.9985pt>
+File: Images//fig5_pd_torque.png Graphic file (type png)
+<use Images//fig5_pd_torque.png>
+Package pdftex.def Info: Images//fig5_pd_torque.png  used on input line 279.
 (pdftex.def)             Requested size: 247.54149pt x 185.14621pt.
- [79 <./Simulation/fig4_joint_angles.png>]
-<Simulation/fig6_gait_timing.png, id=1875, 857.8449pt x 280.8894pt>
-File: Simulation/fig6_gait_timing.png Graphic file (type png)
-<use Simulation/fig6_gait_timing.png>
-Package pdftex.def Info: Simulation/fig6_gait_timing.png  used on input line 30
-3.
+ [79 <./Images//fig4_joint_angles.png>]
+<Images//fig6_gait_timing.png, id=1865, 857.8449pt x 280.8894pt>
+File: Images//fig6_gait_timing.png Graphic file (type png)
+<use Images//fig6_gait_timing.png>
+Package pdftex.def Info: Images//fig6_gait_timing.png  used on input line 303.
 (pdftex.def)             Requested size: 247.54149pt x 81.05295pt.
- [80 <./Simulation/fig5_pd_torque.png>]
-<Simulation/fig7_support_polygon.png, id=1883, 1147.6476pt x 275.3487pt>
-File: Simulation/fig7_support_polygon.png Graphic file (type png)
-<use Simulation/fig7_support_polygon.png>
-Package pdftex.def Info: Simulation/fig7_support_polygon.png  used on input lin
-e 314.
+ [80 <./Images//fig5_pd_torque.png>]
+<Images//fig7_support_polygon.png, id=1873, 1147.6476pt x 275.3487pt>
+File: Images//fig7_support_polygon.png Graphic file (type png)
+<use Images//fig7_support_polygon.png>
+Package pdftex.def Info: Images//fig7_support_polygon.png  used on input line 3
+14.
 (pdftex.def)             Requested size: 247.54149pt x 59.38788pt.
-<Simulation/fig8_workspace.png, id=1885, 1075.1367pt x 352.6776pt>
-File: Simulation/fig8_workspace.png Graphic file (type png)
-<use Simulation/fig8_workspace.png>
-Package pdftex.def Info: Simulation/fig8_workspace.png  used on input line 329.
-
+<Images//fig8_workspace.png, id=1875, 1075.1367pt x 352.6776pt>
+File: Images//fig8_workspace.png Graphic file (type png)
+<use Images//fig8_workspace.png>
+Package pdftex.def Info: Images//fig8_workspace.png  used on input line 329.
 (pdftex.def)             Requested size: 247.54149pt x 81.20024pt.
- [81 <./Simulation/fig6_gait_timing.png> <./Simulation/fig7_support_polygon.png
->]
+ [81 <./Images//fig6_gait_timing.png> <./Images//fig7_support_polygon.png>]
 Overfull \hbox (3.15424pt too wide) in paragraph at lines 335--336
 []\T5/qtm/m/n/10 Ph÷ìng ph¡p t½nh to¡n bao gçm: qu²t to n bë mi·n gâc khîp $\OM
 L/cmm/m/it/10 ^^R[] \OMS/cmsy/m/n/10 2 \OT1/cmr/m/n/10 [\OMS/cmsy/m/n/10 ^^@\OT
@@ -2003,21 +1964,21 @@ L/cmm/m/it/10 ^^R[] \OMS/cmsy/m/n/10 2 \OT1/cmr/m/n/10 [\OMS/cmsy/m/n/10 ^^@\OT
 1/cmr/m/n/10 90[]\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 90[]]$\T5/qtm/m/n/10 ,
  []
 
-[82 <./Simulation/fig8_workspace.png>] [83]
-<Images//fig_offline_traj_pos.png, id=1907, 681.2652pt x 408.0846pt>
+[82 <./Images//fig8_workspace.png>] [83]
+<Images//fig_offline_traj_pos.png, id=1897, 681.2652pt x 408.0846pt>
 File: Images//fig_offline_traj_pos.png Graphic file (type png)
 <use Images//fig_offline_traj_pos.png>
 Package pdftex.def Info: Images//fig_offline_traj_pos.png  used on input line 4
 32.
 (pdftex.def)             Requested size: 330.05322pt x 197.70284pt.
  [84]
-<Images//fig_offline_traj_vel_acc.png, id=1913, 675.0018pt x 415.7934pt>
+<Images//fig_offline_traj_vel_acc.png, id=1903, 675.0018pt x 415.7934pt>
 File: Images//fig_offline_traj_vel_acc.png Graphic file (type png)
 <use Images//fig_offline_traj_vel_acc.png>
 Package pdftex.def Info: Images//fig_offline_traj_vel_acc.png  used on input li
 ne 441.
 (pdftex.def)             Requested size: 330.05322pt x 203.30276pt.
-<Images//fig_offline_traj_angle.png, id=1915, 658.3797pt x 408.0846pt>
+<Images//fig_offline_traj_angle.png, id=1905, 658.3797pt x 408.0846pt>
 File: Images//fig_offline_traj_angle.png Graphic file (type png)
 <use Images//fig_offline_traj_angle.png>
 Package pdftex.def Info: Images//fig_offline_traj_angle.png  used on input line
@@ -2025,19 +1986,19 @@ Package pdftex.def Info: Images//fig_offline_traj_angle.png  used on input line
 (pdftex.def)             Requested size: 330.05322pt x 204.5773pt.
  [85 <./Images//fig_offline_traj_pos.png> <./Images//fig_offline_traj_vel_acc.p
 ng>]
-<Images//fig_gait_3d.png, id=1923, 267.399pt x 291.2481pt>
+<Images//fig_gait_3d.png, id=1913, 267.399pt x 291.2481pt>
 File: Images//fig_gait_3d.png Graphic file (type png)
 <use Images//fig_gait_3d.png>
 Package pdftex.def Info: Images//fig_gait_3d.png  used on input line 461.
 (pdftex.def)             Requested size: 247.54149pt x 269.6269pt.
  [86 <./Images//fig_offline_traj_angle.png> <./Images//fig_gait_3d.png>]
-<Images//fig_pid_error_home.png, id=1932, 700.2963pt x 408.0846pt>
+<Images//fig_pid_error_home.png, id=1922, 700.2963pt x 408.0846pt>
 File: Images//fig_pid_error_home.png Graphic file (type png)
 <use Images//fig_pid_error_home.png>
 Package pdftex.def Info: Images//fig_pid_error_home.png  used on input line 472
 .
 (pdftex.def)             Requested size: 350.68274pt x 204.35313pt.
-<Images//fig_pid_error_gait.png, id=1934, 700.2963pt x 408.0846pt>
+<Images//fig_pid_error_gait.png, id=1924, 700.2963pt x 408.0846pt>
 File: Images//fig_pid_error_gait.png Graphic file (type png)
 <use Images//fig_pid_error_gait.png>
 Package pdftex.def Info: Images//fig_pid_error_gait.png  used on input line 483
@@ -2106,14 +2067,17 @@ Overfull \hbox (65.06839pt too wide) in paragraph at lines 46--46
 
 
 ] [101]) [102] (./thesis.aux (./chapter/appendix.aux))
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: 7FBDEF9838A4D7B1087EFC3D905E135B;31338.
  ) 
 Here is how much of TeX's memory you used:
- 27316 strings out of 478287
- 511674 string characters out of 5849290
+ 27271 strings out of 478287
+ 509326 string characters out of 5849290
  770634 words of memory out of 5000000
- 44426 multiletter control sequences out of 15000+600000
+ 44384 multiletter control sequences out of 15000+600000
  504540 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,17n,103p,1182b,542s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2138,10 +2102,10 @@ onts/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex-gy
 re/qtmbi.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share
 /texmf/fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/vntex/vnr/vntt10.pfb>
-Output written on thesis.pdf (117 pages, 24024191 bytes).
+Output written on thesis.pdf (117 pages, 23043129 bytes).
 PDF statistics:
- 2219 PDF objects out of 2487 (max. 8388607)
+ 2209 PDF objects out of 2487 (max. 8388607)
  1779 compressed objects within 18 object streams
  507 named destinations out of 1000 (max. 500000)
- 1524 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1474 words of extra memory for PDF output out of 10000 (max. 10000000)
 
