@@ -1,0 +1,90 @@
+\chapter*{PHỤ LỤC: MÃ NGUỒN CỐT LÕI (ROS 2)}
+\addcontentsline{toc}{chapter}{PHỤ LỤC}
+
+Mã nguồn đầy đủ của đồ án được triển khai trên nền tảng ROS 2 Humble. Để làm rõ hơn các thuật toán đã trình bày trong báo cáo, phần phụ lục này trích dẫn hai đoạn mã nguồn cốt lõi: Thuật toán nội suy quỹ đạo bậc năm (Quintic Polynomial) và cơ chế điều khiển PID thích nghi (Adaptive PID).
+
+\section*{1. Thuật toán quy hoạch quỹ đạo (Quintic Planning)}
+
+Đoạn mã Python dưới đây thực thi phương trình nội suy đa thức bậc 5 (được trình bày ở Chương 2) nhằm tạo ra quỹ đạo mượt mà cho chân robot trong pha đu đưa (swing phase).
+
+\begin{verbatim}
+def quintic_planning(pos_start, pos_end, T_swing=10, T_stance=300, lift_height=40):
+    """
+    Quintic polynomial trajectory planning for swing and ground phases.
+    pos_start: [x0, y0, z0]
+    pos_end: [x1, y1, z1]
+    T_swing, T_stance: time duration mapping
+    """
+    path = []
+    
+    # 1. Swing Phase (Half cycle)
+    for t in range(T_swing):
+        tau = t / T_swing
+        # Quintic polynomial equations for x and y
+        x = pos_start[0] + (pos_end[0] - pos_start[0]) * (10*tau**3 - 15*tau**4 + 6*tau**5)
+        y = pos_start[1] + (pos_end[1] - pos_start[1]) * (10*tau**3 - 15*tau**4 + 6*tau**5)
+        
+        # Z-axis lift with quintic up and down
+        if tau < 0.5:
+            tau_z = tau * 2
+            z = pos_start[2] + lift_height * (10*tau_z**3 - 15*tau_z**4 + 6*tau_z**5)
+        else:
+            tau_z = (tau - 0.5) * 2
+            z = pos_start[2] + lift_height * (1 - (10*tau_z**3 - 15*tau_z**4 + 6*tau_z**5))
+            
+        path.append([x, y, z])
+        
+    # 2. Stance Phase
+    for t in range(T_stance):
+        tau = t / T_stance
+        x = pos_end[0] + (pos_start[0] - pos_end[0]) * tau
+        y = pos_end[1] + (pos_start[1] - pos_end[1]) * tau
+        z = pos_start[2]
+        path.append([x, y, z])
+        
+    return path
+\end{verbatim}
+
+\vspace{0.5cm}
+
+\section*{2. Bộ điều khiển cân bằng (Adaptive PID)}
+
+Đoạn mã Python dưới đây minh họa khối logic phân tách chế độ hoạt động (HOME và GAIT) của bộ điều khiển cân bằng, xử lý tín hiệu phản hồi từ cảm biến IMU BNO055.
+
+\begin{verbatim}
+def _mode_callback(self, msg: String):
+    """Switch between HOME and GAIT PID modes."""
+    new_mode = msg.data.strip().upper()
+    if new_mode not in ("HOME", "GAIT"):
+        return
+    if new_mode != self._mode:
+        self._mode = new_mode
+        if new_mode == "GAIT":
+            # Reset Gait-mode controller internal state
+            self.pid_gait_roll.reset()
+            self.pid_gait_pitch.reset()
+        self.get_logger().info(f'Balance mode -> {self._mode}')
+
+def _timer_callback(self):
+    if not self._enabled:
+        return
+
+    if self._mode == "HOME":
+        self._run_home_balance()
+    elif self._mode == "GAIT":
+        self._run_gait_balance()
+
+def _run_gait_balance(self):
+    # Adaptive PID: Task-space correction with phase-aware logic
+    u_roll = self.pid_gait_roll.compute(0.0, self.curr_roll)
+    u_pitch = self.pid_gait_pitch.compute(0.0, self.curr_pitch)
+    
+    # Rotation matrix compensation
+    rot = R.from_euler('yx', [u_pitch, u_roll], degrees=False).as_matrix()
+    
+    msg = Float32MultiArray()
+    msg.data = [rot[0,0], rot[0,1], rot[0,2],
+                rot[1,0], rot[1,1], rot[1,2],
+                rot[2,0], rot[2,1], rot[2,2]]
+    self._pub_gait_correction.publish(msg)
+\end{verbatim}
