@@ -1,7 +1,0 @@
-\babel@toc {vietnamese}{}\relax 
-\beamer@sectionintoc {1}{1. Giới thiệu đề tài}{3}{0}{1}
-\beamer@sectionintoc {2}{2. Cơ sở lý thuyết}{4}{0}{2}
-\beamer@sectionintoc {3}{3. Thiết kế Phần cứng}{8}{0}{3}
-\beamer@sectionintoc {4}{4. Hệ thống Phần mềm (ROS 2)}{11}{0}{4}
-\beamer@sectionintoc {5}{5. Kết quả Mô phỏng \& Thực nghiệm}{12}{0}{5}
-\beamer@sectionintoc {6}{6. Kết luận \& Hướng phát triển}{14}{0}{6}
