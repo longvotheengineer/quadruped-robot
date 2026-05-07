@@ -1,0 +1,643 @@
+% !TeX root = ../thesis.tex
+\chapter{THIẾT KẾ VÀ THỰC HIỆN PHẦN CỨNG}
+
+% !TeX root = ../thesis.tex
+
+
+
+\section{Phân tích kết cấu robot}
+
+\subsection{Thiết kế thân}
+Thân của robot bốn chân là bộ phận trung tâm của toàn bộ kết cấu robot. Bốn chân được liên kết với nhau thông qua thân, do đó thiết kế thân cần đáp ứng các yêu cầu sau: 
+
+Thứ nhất, phải có độ bền đủ lớn để đảm bảo không xảy ra biến dạng, nứt gãy,… trong quá trình robot di chuyển. 
+
+Thứ hai, để đạt được khả năng di chuyển linh hoạt và hiệu quả năng lượng cao, thân robot cần được thiết kế nhẹ nhất có thể. 
+
+Ngoài ra, bên trong thân robot phải có không gian đủ lớn để lắp đặt các servo, pin, bo mạch điều khiển, module chuyển đổi điện áp và các linh kiện khác. 
+
+Cuối cùng, 12 servo được lắp tại các khớp chân cần có thiết kế riêng cho đường đi dây và vị trí lắp đặt, vì chúng luôn chuyển động tương đối so với thân robot khi robot đi bộ hoặc chạy chậm. 
+
+Dựa trên các yêu cầu trên, thân robot được thiết kế theo dạng liền khối, nhằm ngăn ngừa biến dạng hoặc gãy vỡ. 
+
+Bốn góc của thân được thiết kế để kết nối với cụm khớp hông, đảm bảo không xảy ra giao thoa cơ khí khi khớp hông quay theo bất kỳ hướng nào. 
+
+Ngoài ra, tại những vị trí có khả năng chịu tải thấp, cấu trúc được khoét rỗng hợp lý để giảm khối lượng. Mô hình 3D của cấu trúc thân robot bốn chân được thể hiện ở Hình \ref{fig12-c} bên dưới.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig12-c-body.png}
+    \caption{Thiết kế thân liền khối nhằm đạt độ bền cao và khối lượng nhẹ.}
+    \label{fig12-c}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig12-b-nắp thân.png}
+    \caption{Nắp thân.}
+    \label{fig12-b}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig12-a-thân.png}
+    \caption{Thiết kế thân.}
+    \label{fig12-a}
+\end{figure}
+
+
+\subsection{Thiết kế khớp hông}
+
+Khớp hông của robot bốn chân được thiết kế để tạo ra hai bậc tự do, một cho chuyển động roll và một cho chuyển động pitch. Mỗi chuyển động được truyền động bởi một servo.
+
+Do servo được sử dụng trong thiết kế của chúng tôi là loại servo một trục, các ổ bi mặt bích 626zz được sử dụng ở phía đối diện trục servo nhằm giảm lực hướng kính tác dụng lên trục. Đầu trục và khớp hông được tích hợp trong quá trình chế tạo, điều này giúp thuận tiện cho việc lắp đặt và giảm sai số lắp ráp.
+
+Ngoài ra, servo điều khiển chuyển động vung trước (tức là chuyển động pitch) của khớp hông được lắp bên trong giá đỡ khớp hông để tiết kiệm không gian. Mô hình 3D của cụm khớp hông được thể hiện trong Hình \ref{fig13}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig13-Hip-joint assembly for the lateral and longitudinal swing motions..jpg }
+    \caption{Cụm khớp hông cho chuyển động vung ngang và vung dọc.}
+    \label{fig13}
+\end{figure}
+
+\subsection{Thiết kế chân}
+
+Chân của robot bốn chân thường xuyên tiếp xúc với mặt đất để tạo lực đẩy, do đó thiết kế chân đóng vai trò quan trọng đối với khả năng di chuyển thành công của robot.
+
+Chuyển động vung trước của khớp hông (phần đùi) sử dụng ổ bi để chịu lực dọc trục. Vì khối lượng của chân đã được bỏ qua trong các tính toán động học trình bày bên dưới, nên phần đùi và cẳng chân cần được thiết kế sao cho khối lượng và mô men quán tính nhỏ nhất có thể nhằm giảm sai số lý thuyết.
+
+Trong thiết kế này, thay vì sử dụng kết nối servo trực tiếp tại khớp gối, một cơ cấu liên kết đầu bi (ball-head linkage) được sử dụng, trong đó cẳng chân được truyền động gián tiếp thông qua tay đòn (rocker arm) của servo. Cách bố trí này cho phép đặt servo ở phía trên của đùi, gần khớp hông, nơi mô men quán tính quay của chân tương đối nhỏ.
+
+Mô hình lắp ráp một chân đơn được thể hiện trong Hình \ref{fig14}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig14- Single leg assembly..jpg}
+    \caption{Cụm lắp ráp một chân đơn.}
+    \label{fig14}
+\end{figure}
+
+Dựa trên cấu trúc chân của robot bốn chân, có thể thấy rằng cẳng chân là bộ phận dễ bị gãy và uốn cong nhất vì nó phải chịu trọng lượng của toàn bộ robot cũng như các lực nén khi tiếp xúc với mặt đất. 
+
+Ở đây, lực tiếp xúc với mặt đất được đơn giản hóa chỉ gồm lực pháp tuyến $F_N$ và lực tiếp tuyến $F_\mu$ trong mặt phẳng thẳng đứng.
+
+Khi cẳng chân quay quanh trục khớp gối, nếu bỏ qua ma sát tại khớp và ma sát tiếp xúc với mặt đất, mô-men tải ngoài lớn nhất có thể được xác định theo công thức:
+
+\begin{equation}
+    T_{\text{max}} = \eta F_N L_3 \sin(\alpha)
+\end{equation}
+
+trong đó $F_N$ là lực pháp tuyến, $L_3$ là khoảng cách từ trục khớp gối đến điểm tiếp xúc mặt đất, $\alpha$ là góc giữa cẳng chân và phương thẳng đứng và $\eta$ là hệ số tải động.
+
+Tổng khối lượng robot được ước tính xấp xỉ $M = 2.3\text{ kg}$.
+
+Giả sử bốn chân chịu đều toàn bộ trọng lượng của robot trong trạng thái tĩnh, lực pháp tuyến được tính là:
+
+\begin{equation}
+    F_N = \frac{Mg}{4}
+\end{equation}
+
+Trong phân tích bền số học dưới đây, sử dụng các giá trị: chiều dài cẳng chân $L_3 = 0.125\text{ m}$, góc nghiêng $\alpha = 45^\circ$, và hệ số tải động $\eta = 1.2$.
+
+
+\section{Lựa chọn cơ cấu chấp hành}
+Việc lựa chọn cơ cấu chấp hành có ảnh hưởng lớn đến hiệu năng di chuyển của robot bốn chân. Do trọng lượng bản thân của robot, cơ cấu chấp hành cần tạo ra mô-men xoắn lớn, đáp ứng nhanh và có kích thước nhỏ gọn.
+
+Động cơ không chổi than được sử dụng rộng rãi nhờ đặc tính động học vượt trội, tuy nhiên chúng thường có giá thành cao và kích thước lớn.
+
+Vì trọng tâm chính của đồ án này là triển khai và đánh giá sơ bộ thuật toán dáng đi trên mô hình robot kích thước để bàn, nên servo được lựa chọn làm nguồn truyền động.
+
+Được trang bị khả năng phản hồi góc quay trực tiếp theo thời gian thực cùng tỷ số truyền bánh răng lớn, loại servo này cho phép vi điều khiển dễ dàng thực hiện điều khiển vòng kín. Điều này là nền tảng thiết yếu để chạy các node tính toán động học nghịch, giúp robot tự bù trừ sai số trong các thử nghiệm dáng đi phức tạp và tự cân bằng chính xác hơn.
+
+Mẫu servo được sử dụng là ST3215 và ST3215-HS, như thể hiện ở Hình \ref{fig16}, và các thông số kỹ thuật cụ thể được trình bày trong Bảng \ref{tab:1}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig16-ST3215.jpg}
+    \caption{Cơ cấu chấp hành servo ST3215 dùng cho robot bốn chân.}
+    \label{fig16}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Thông số kỹ thuật của động cơ servo ST3215 và ST3215-HS.}
+    \label{tab:1}
+    \resizebox{\textwidth}{!}{% Thu nhỏ bảng vừa với chiều rộng trang giấy
+        \begin{tabular}{l c c c c c c c}
+            \toprule
+            \textbf{Mẫu} & \textbf{Trọng lượng} & \textbf{\makecell{Kích thước \\ (L $\times$ W $\times$ H)}} & \textbf{\makecell{Điện áp \\ hoạt động}} & \textbf{\makecell{Tốc độ truyền \\ (Baudrate)}} & \textbf{\makecell{Phạm vi \\ góc quay}} & \textbf{Tốc độ tối đa} & \textbf{Lực xoắn tối đa} \\
+            \midrule
+            ST3215 & 69 g & \makecell{$45.2 \times 24.7 \times$ \\ $35.0$ mm} & 6.0 V -- 12.6 V & \textasciitilde 1 Mbps & \makecell{360$^\circ$ } & 0.222 s/60$^\circ$ (@12 V) & 30 kg$\cdot$cm (@12 V) \\
+            \addlinespace % Thêm một khoảng trắng nhỏ giữa 2 hàng cho thoáng
+            ST3215-HS & 68 g & \makecell{$45.2 \times 24.7 \times$ \\ $35.0$ mm} & 6.0 V -- 12.6 V & \textasciitilde 1 Mbps & \makecell{360$^\circ$ } & 0.094 s/60$^\circ$ (@12 V) & 20 kg$\cdot$cm (@12 V) \\
+            \bottomrule
+        \end{tabular}
+    }
+\end{table}
+
+Để kiểm chứng mô-men xoắn định mức của servo đã chọn, tiến hành phân tích như sau. Dựa trên phân tích ở Mục 3.1.3, ảnh hưởng của mô-men xoắn lên cẳng chân là đáng kể nhất. Gọi góc giữa lực pháp tuyến tiếp xúc mặt đất $F_N$ và cẳng chân $L_3$ là $\alpha$. Như thể hiện trong Hình \ref{fig17}, mô-men do lực tiếp đất tác dụng lên khớp gối là:
+\begin{equation}
+    M_{\text{knee}} = \eta F_N L_3 \sin(\alpha)
+\end{equation}
+Mô-men này được cân bằng bởi lực truyền $F_t$ dọc theo thanh liên kết $CD$:
+\begin{equation}
+    M_{\text{knee}} = F_t L_{CB} \sin(\gamma)
+\end{equation}
+với $\gamma$ là góc giữa thanh liên kết $CD$ và cánh tay đòn $CB$. Mô-men tác dụng lên trục servo (qua cánh tay đòn $DE$) là:
+\begin{equation}
+    T_{\text{knee}} = F_t L_{DE} \sin(\beta)
+\end{equation}
+với $\beta$ là góc giữa thanh $CD$ và tay đòn $DE$. Trong thiết kế cơ cấu gần với hình bình hành, $\gamma \approx \beta$, do đó tỉ số $\sin(\beta)/\sin(\gamma) \approx 1$. Từ đó ta suy ra mô-men yêu cầu tại servo cẳng chân là:
+\begin{equation}
+    T_{\text{knee}} \approx \eta F_N L_3 \sin(\alpha) \frac{L_{DE}}{L_{CB}}
+\end{equation}
+Trong dáng đi trot, luôn có hai chân tiếp xúc mặt đất, do đó tải trọng lớn nhất tác dụng lên một chân là:
+\begin{equation}
+    F_N = \frac{Mg}{2}
+\end{equation}
+Thay các giá trị từ Bảng \ref{tab:2} với $M = 2.3\,\text{kg}$, $L_3 = 0.125\,\text{m}$, $L_{DE} = 0.024\,\text{m}$, $L_{CB} = 0.025\,\text{m}$, hệ số tải động $\eta = 1.2$, góc nghiêng $\alpha = 45^\circ$, và $g = 9.81\,\text{m/s}^2$ vào công thức, ta có $F_N = 11.28\,\text{N}$ và:
+\begin{equation}
+    T_{\text{knee}} \approx 1.2 \times 11.28 \times 0.125 \times \sin(45^\circ) \times \frac{0.024}{0.025} \approx 1.149\,\text{N}\cdot\text{m} \approx 11.7\,\text{kg}\cdot\text{cm}
+\end{equation}
+
+Giá trị này nhỏ hơn mô-men định mức $20\,\text{kg}\cdot\text{cm}$ của servo ST3215-HS, đảm bảo động cơ hoạt động an toàn.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig17-Torque analysis of the lower leg servo actuator.png}
+    \caption{Phân tích mô-men xoắn của cơ cấu chấp hành servo tại cẳng chân.}
+    \label{fig17}
+\end{figure}
+
+\subsection{Phân tích mô-men khớp vai (Hip Roll)}
+
+Trong thực tế vận hành, để duy trì khả năng thăng bằng và giảm chấn, chân robot không bao giờ duỗi thẳng hoàn toàn. Thay vào đó, phần đùi ($L_2$) và cẳng chân ($L_3$) luôn tạo với nhau một góc gập nhất định như thể hiện ở Hình \ref{fig18}. Việc tính toán mô-men xoắn cần sử dụng khoảng cách thực tế từ khớp hông đến bàn chân. 
+
+Gọi $L_{hd}$ là khoảng cách hiệu dụng từ trục khớp hông đến điểm tiếp xúc mặt đất của bàn chân. Dựa trên định lý hàm số cosin cho tam giác tạo bởi đùi, cẳng chân và góc gập gối $\beta$, ta có:
+\begin{equation}
+    L_{hd} = \sqrt{L_2^2 + L_3^2 - 2L_2L_3\cos(\beta)}
+\end{equation}
+
+Dựa theo Bảng \ref{tab:2} với thiết kế $L_2 = 0.106\,\text{m}$ và $L_3 = 0.125\,\text{m}$, giả sử ở tư thế đi bộ trot tiêu chuẩn robot duy trì góc khuỵu gối $\beta = 90^\circ$ nhằm tối ưu lực bám. Chiều dài hiệu dụng lúc này là:
+\begin{equation}
+    L_{hd} = \sqrt{0.106^2 + 0.125^2 - 2(0.106)(0.125)\cos(90^\circ)} \approx 0.164\,\text{m}
+\end{equation}
+
+Tương tự phân tích trước, tải trọng lớn nhất tác dụng lên một chân là $F_N = 11.28\,\text{N}$, hệ số tải động $\eta = 1.2$, dẫn đến lực tác dụng tổng cộng là $\eta F_N = 13.54\,\text{N}$. 
+
+Công thức tính mô-men xoắn cực đại cho khớp vai $T_{roll}$ theo góc dang chân $\theta_1$ được xác định dựa trên khoảng lệch ngàm $L_1$ và hình chiếu ngang của chiều dài chân hiệu dụng:
+\begin{equation}
+    T_{roll} = \eta F_N \big(L_1 \cos(\theta_1) + L_{hd} \sin(\theta_1)\big)
+\end{equation}
+
+Thay các thông số thiết kế ($L_1 = 0.026\,\text{m}$) vào phương trình, ta thu được:
+\begin{equation}
+    T_{roll} = 13.54 \times \big(0.026 \cos(\theta_1) + 0.164 \sin(\theta_1)\big) \quad \text{(N}\cdot\text{m)}
+\end{equation}
+
+\begin{itemize}
+    \item Khi $\theta_1 = 0^\circ$, mô-men tác dụng lên khớp vai chỉ xuất phát từ khoảng lệch ngàm cơ khí: $T_{roll} = 13.54 \times 0.026 \approx 0.35\,\text{N}\cdot\text{m} \approx 3.6\,\text{kg}\cdot\text{cm}$.
+    \item Khi $\theta_1 = 15^\circ$, mô-men tăng lên: $T_{roll} \approx 0.91\,\text{N}\cdot\text{m} \approx 9.3\,\text{kg}\cdot\text{cm}$, phản ánh trạng thái robot điều chỉnh tư thế rẽ với góc dang trung bình.
+    \item Khi $\theta_1 = 30^\circ$, mô-men đạt giá trị lớn nhất: $T_{roll} \approx 1.41\,\text{N}\cdot\text{m} \approx 14.4\,\text{kg}\cdot\text{cm}$, tương ứng với tình huống bất lợi khi chân dang rộng.
+\end{itemize}
+
+Giá trị mô-men cực đại vẫn nhỏ hơn định mức $20\,\text{kg}\cdot\text{cm}$ của servo ST3215-HS, do đó khớp vai vẫn hoạt động trong vùng an toàn, không gây quá tải.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig18-Free body diagram.png}
+    \caption{Mô hình một chân của robot bốn chân.}
+    \label{fig18}
+\end{figure}
+
+\subsection{Phân tích mô-men khớp hông (Hip Pitch)}
+
+Tương tự quy trình đánh giá ở khớp vai, mô-men xoắn yêu cầu cực đại đối với khớp hông (Pitch) được xác định thông qua chiều dài sải bước hiệu dụng của robot. Trong mặt phẳng dọc, cánh tay đòn tạo ra mô-men phụ thuộc vào độ vươn xa của bàn chân theo phương ngang. Gọi $\alpha$ là góc nghiêng của chân (đường nối từ trục khớp hông đến bàn chân) so với phương thẳng đứng. Phương trình tổng quát tính mô-men xoắn cho khớp hông là:
+\begin{equation}
+    T_{pitch} = \eta F_N L_{hd} \sin(\alpha)
+\end{equation}
+
+Sử dụng khoảng cách hiệu dụng $L_{hd} = 0.164\,\text{m}$ và lực tải $\eta F_N = 13.54\,\text{N}$ đã xác định:
+\begin{equation}
+    T_{pitch} = 13.54 \times 0.164 \sin(\alpha) = 2.221 \sin(\alpha) \quad \text{(N}\cdot\text{m)}
+\end{equation}
+
+Phân tích quỹ đạo chuyển động cho thấy:
+\begin{itemize}
+    \item Tại tư thế đứng thẳng chân ($\alpha = 0^\circ$), trọng lượng truyền dọc theo chân nên khớp hông không chịu tải uốn ($T_{pitch} = 0$).
+    \item Khi chân bước với góc $\alpha = 15^\circ$, mô-men tại khớp hông đạt $T_{pitch} = 2.221 \sin(15^\circ) \approx 0.57\,\text{N}\cdot\text{m} \approx 5.9\,\text{kg}\cdot\text{cm}$. Đây là vùng tải nhẹ, thuận lợi cho động cơ.
+    \item Khi $\alpha = 45^\circ$, mô-men tăng lên $T_{pitch} = 2.221 \sin(45^\circ) \approx 1.57\,\text{N}\cdot\text{m} \approx 16.0\,\text{kg}\cdot\text{cm}$, tương ứng với trạng thái vươn dài chân để leo dốc hoặc vượt chướng ngại vật.
+\end{itemize}
+
+Giá trị cực đại này vẫn nhỏ hơn đáng kể so với giới hạn mô-men của servo ST3215-HS, xác nhận rằng việc lựa chọn động cơ cho khớp hông là hoàn toàn phù hợp và đảm bảo độ tin cậy trong vận hành.
+
+\subsection{Thiết kế tổng thể}
+
+Thiết kế tổng thể của robot bốn chân được thể hiện trong Hình \ref{fig19}, với tổng cộng 12 bậc tự do và cấu hình chân full-elbow. Ở đây, cả bốn chân đều giống hệt nhau về cấu trúc và kích thước nhằm tạo thuận lợi cho việc điều khiển.
+
+Khớp hông được kết nối trực tiếp với servo ở cả hai bậc tự do để đơn giản hóa cấu trúc bên trong, trong khi khớp gối được thiết kế sử dụng cơ cấu tay đòn servo kết hợp với thanh liên kết nhằm giảm quán tính của chân.
+
+Các tham số chính của hệ thống được trình bày trong Bảng \ref{tab:2}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig19-preview_design.png }
+    \caption{3D thiết kế robot Dog}
+    \label{fig19}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\caption{Các thông số chính của robot bốn chân}
+ \label{tab:2}
+\begin{tabular}{ccccccc}
+\toprule
+Chiều dài & Chiều rộng & Chiều cao & \makecell{Chiều dài\\hông\\$L_1$} & \makecell{Chiều dài\\đùi\\$L_2$} & \makecell{Chiều dài\\cẳng chân\\$L_3$} & \makecell{Bậc\\tự do} \\
+\midrule
+209 mm & 191 mm & 185 mm & 26 mm & 106 mm & 125 mm & 12 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Tổng quan về kiến trúc hệ thống }
+
+Kiến trúc phần cứng của hệ thống robot bốn chân được xây dựng nhằm mục tiêu cung cấp nguồn năng lượng ổn định, đảm bảo khả năng xử lý thuật toán phức tạp theo thời gian thực và điều khiển đồng bộ nhiều cơ cấu chấp hành. Sơ đồ kết nối phần cứng tổng thể của mô hình thực nghiệm được thể hiện chi tiết trong Hình~\ref{fig30}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{img/fig_system_overview_new.png}
+    \caption{Sơ đồ kiến trúc tổng thể của hệ thống robot bốn chân.}
+    \label{fig30}
+\end{figure}
+
+Hình~\ref{fig:real_robot} trình bày mô hình robot bốn chân thực tế đã được chế tạo và lắp ráp hoàn chỉnh. Robot sử dụng khung thân và các chi tiết chân được gia công bằng công nghệ in 3D FDM với vật liệu PLA, tích hợp 12 động cơ bus servo ST3215 tại các khớp, cảm biến IMU BNO055 gắn trên thân và máy tính nhúng Jetson Nano làm bộ xử lý trung tâm.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{img/fig_real_robot.png}
+    \caption{Mô hình robot bốn chân thực tế đã được chế tạo và lắp ráp hoàn chỉnh.}
+    \label{fig:real_robot}
+\end{figure}
+
+\subsection{Khối xử lý trung tâm }
+Một yếu tố quan trọng của nguyên mẫu này là bộ xử lý trung tâm. Điều đầu tiên cần giải quyết là khả năng tính toán các bài toán phức tạp như động học nghịch, quy hoạch quỹ đạo và xử lý dữ liệu cân bằng theo thời gian thực.
+
+Nhóm đã quyết định sử dụng máy tính nhúng Jetson Nano Developer Kit B01 \cite{jetson_nano} thay vì các dòng vi điều khiển phổ thông vì nó mang lại sức mạnh tính toán vượt trội hơn hẳn. Những ưu điểm này bao gồm: tốc độ xung nhịp cao từ vi xử lý Quad-core ARM Cortex-A57, tích hợp GPU mạnh mẽ, khả năng chạy hệ điều hành Linux (Ubuntu) hỗ trợ đa nhiệm, và dễ dàng tích hợp các thư viện toán học phức tạp. Nhược điểm chính của nền tảng tiên tiến này là mức tiêu thụ điện năng lớn hơn và độ phức tạp trong việc làm chủ hệ thống phần mềm.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/fig34-Specifications-Jetson-B01.png} 
+    \caption{Thông số kỹ thuật Jetson Nano B01}
+    \label{fig34}
+    \vspace{0.2cm}
+\end{figure}
+
+Hầu hết những người chế tạo robot giải trí đơn giản thường sử dụng vi điều khiển Arduino. Tuy nhiên, trong các hệ thống robot đa chân đòi hỏi khả năng giữ thăng bằng động và xử lý toán học ma trận tốc độ cao, các máy tính nhúng như dòng Jetson lại là tiêu chuẩn trong nhiều nguyên mẫu nghiên cứu. Chúng được sử dụng trong nhiều lĩnh vực, từ robot tự hành (AMR), xe tự lái đến các hệ thống AI xử lý tại biên (Edge AI) đắt tiền. Tất cả những yếu tố này đã ảnh hưởng đến quyết định của chúng em khi lựa chọn bộ xử lý cấp cao hơn cho dự án.
+
+Jetson Nano được sử dụng để điều khiển nguyên mẫu của chúng em, bao gồm việc quản lý 12 động cơ servo và đọc dữ liệu từ module cảm biến IMU. Jetson Nano thiết lập giao tiếp UART với hai mạch Bus Servo Adapter (A). Hai mạch chuyển đổi này sẽ nhận các gói tin lệnh từ Jetson Nano và phân phối tín hiệu điều khiển nối tiếp đến 12 động cơ servo (mỗi mạch quản lý một nửa số lượng servo). Cấu trúc này giúp giảm tải dòng điện qua mạch điều khiển, phân bổ công suất hợp lý và tối giản hóa việc đi dây vật lý cho hai nửa của robot. 
+
+\subsection{ Hệ thống Cung cấp Nguồn điện}
+
+Sau khi nghiên cứu và lựa chọn động cơ servo ST3215 cùng mạch điều khiển, việc cấp nguồn đúng cách để hệ thống có thể đáp ứng các yêu cầu khắt khe về dòng điện tức thời trở nên vô cùng quan trọng. Để đạt được mục tiêu này, nhóm bắt đầu xem xét các phương án cung cấp năng lượng khác nhau, bao gồm pin và nguồn cấp điện trực tiếp. Các thông số kỹ thuật cốt lõi được đặt ra cho dự án bao gồm: Điện áp hoạt động, Dòng điện tối đa, Công suất tổng và Độ ổn định điện áp. Hai phương án chính được đưa ra cân nhắc là sử dụng Pin Lithium Polymer dung lượng lớn và Nguồn xung tổ ong; mỗi loại đều có những đặc tính riêng tác động đến quá trình thử nghiệm.
+
+Trong giai đoạn phát triển, thử nghiệm thuật toán và tinh chỉnh động học, hệ thống yêu cầu một nguồn điện có khả năng cung cấp dòng xả lớn, liên tục trong nhiều giờ đồng hồ mà không xảy ra hiện tượng sụt áp. Việc khởi chạy hoặc ép tải 12 động cơ servo cùng lúc đòi hỏi dòng khởi động cực kỳ cao. Do đó, nguồn xung tổ ong 12V - 40A (480W) đã được lựa chọn làm giải pháp cung cấp năng lượng chính thay vì dùng pin. Ưu điểm lớn nhất của nguồn tổ ong là giá thành hợp lý, khả năng cấp dòng xả lên đến 40A một cách ổn định và cung cấp đúng mức điện áp 12V tối ưu cho các servo ST3215 hoạt động với hiệu suất cao nhất. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig35-Nguồn Xung Tổ Ong 12V 40A 480W.png} 
+    \caption{Bộ nguồn xung tổ ong 12V 40A 480W}
+    \label{fig35}
+    \vspace{0.2cm}
+\end{figure}
+
+Việc lựa chọn nguồn xung tổ ong 12V - 40A (480W) được dựa trên tính toán dòng điện tiêu thụ của 12 động cơ servo ST3215:
+
+Dòng điện không tải/hoạt động bình thường : Khoảng 300mA - 600mA / servo (tại 12V).
+    
+Dòng điện khởi động/giữ tải lớn nhất ($I_{stall}$): Khoảng 2.7A / servo (tại 12V).
+
+Trong trường hợp xấu nhất khi robot khởi động hoặc thực hiện động tác nâng toàn thân, giả sử cả 12 servo đều chịu tải lớn, tổng dòng điện tức thời ($I_{total}$) là:
+
+$$I_{total} = N_{servo} \times I_{stall} = 12 \times 2.7 = 32.4A$$
+
+Theo đó, tổng công suất tiêu thụ điện tối đa ($P_{total}$) của riêng hệ thống cơ cấu chấp hành là:
+
+$$P_{total} = I_{total} \times U = 32.4 \times 12 = 388.8W$$
+
+Để đảm bảo an toàn và tuổi thọ cho linh kiện, tránh sụt áp nguồn khi ép tải, hệ số an toàn ($k$) thường được chọn từ 1.2 đến 1.5. Ở đây nhóm chọn hệ số $k = 1.2$, ta có yêu cầu công suất nguồn cấp tối thiểu phải đạt:
+
+$$P_{source} \ge P_{total} \times k = 388.8 \times 1.2 = 466.56W$$
+
+Việc lựa chọn nguồn xung tổ ong 12V - 40A (công suất cực đại 480W) là hoàn toàn chính xác và bám sát với tính toán lý thuyết ($466.56W \le 480W$). Mức công suất và dòng điện này đảm bảo khả năng đáp ứng dòng xả cao ngay cả khi robot hoạt động ở trạng thái tải nặng nhất mà không gây sụt áp hệ thống, giúp vi xử lý trung tâm Jetson Nano và các module không bị reset đột ngột.
+
+\begin{table}[H] % <--- Chỗ này bắt buộc phải là [H]
+\centering
+\caption{Thông số kỹ thuật}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ll}
+\toprule
+\textbf{Thuộc tính} & \textbf{Giá trị} \\
+\midrule
+Điện áp ngõ ra & 12V \\
+Dòng điện ngõ ra & 40-49A \\
+Số điện áp ra & 1 \\
+Điện áp ngõ vào & 220VAC \\
+Series & Khác \\
+Công suất & 400-499W \\
+Cách gắn & Gắn sàn \\
+Vỏ bọc & Vỏ kim loại \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Nguồn xung tổ ong mang lại lợi thế vượt trội về độ an toàn và tính liên tục so với việc sử dụng các khối pin Li-Po trong môi trường phòng thí nghiệm. Người phát triển có thể liên tục biên dịch code, kiểm thử các quỹ đạo dáng đi hàng giờ liền mà không phải lo lắng về việc dung lượng pin cạn kiệt làm gián đoạn bài test hay sụt giảm mô-men xoắn của động cơ. Mức công suất 480W cung cấp một biên độ an toàn  dư dả để cấp nguồn song song cho cả cụm 12 servo và bo mạch xử lý trung tâm Jetson Nano (thông qua mạch giảm áp). Nhược điểm duy nhất của giải pháp này là robot bị giới hạn phạm vi di chuyển bởi chiều dài của dây cáp nguồn, khiến nó chỉ phù hợp làm mô hình thử nghiệm tại chỗ.
+
+\subsection{Bus Servo Adapter (A)}
+
+Các động cơ servo ST3215 được sử dụng trong thiết kế hoạt động dựa trên chuẩn giao tiếp nối tiếp bán song công (half-duplex UART). Để máy tính nhúng Jetson Nano có thể điều khiển đồng thời cả 12 động cơ này một cách an toàn và tối ưu, hệ thống sử dụng hai mạch chuyển đổi tín hiệu Bus Servo Adapter (A). Mạch Adapter đóng vai trò trung gian, chuyển đổi tín hiệu UART tiêu chuẩn từ Jetson Nano (thông qua cổng USB) thành tín hiệu bus nối tiếp cấp cho các động cơ. 
+
+Mặc dù về mặt lý thuyết, một mạch Bus Servo Adapter (A) có thể điều khiển tối đa 253 động cơ nối tiếp, nhưng trong thực tế, dòng điện khởi động của 12 động cơ ST3215 có thể lên đến 32.4A. Việc sử dụng song song hai mạch Adapter mang lại những lợi ích thiết thực:
+\begin{itemize}
+    \item \textbf{Phân tán dòng điện:} Mỗi mạch Adapter chỉ cần chịu tải dòng điện cho 6 động cơ (khoảng 16.2A tối đa), giảm thiểu đáng kể rủi ro quá tải nhiệt và cháy nổ cho bản mạch in (PCB) của Adapter so với việc gánh toàn bộ tải.
+    \item \textbf{Tối ưu hóa đi dây:} Phân chia hệ thống thành hai cụm (ví dụ: nửa trái và nửa phải của robot), giúp sơ đồ đi dây trở nên gọn gàng, logic và dễ dàng kiểm tra, bảo trì hơn.
+\end{itemize}
+
+Thông qua các giao thức truyền thông và tập lệnh được định nghĩa sẵn, hệ thống có thể điều khiển hiệu quả các biến số như: góc quay, tốc độ di chuyển, giới hạn tải, cũng như đọc các tín hiệu phản hồi về nhiệt độ, điện áp và vị trí thực tế của từng động cơ.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig36-Bus-Servo-Adapter-A-details-1.jpg} 
+    \caption{Bus Servo Adapter (A)}
+    \label{fig36}
+    \vspace{0.2cm}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \caption{Thông số kỹ thuật mạch Bus Servo Adapter (A)}
+    \label{tab:adapter_specs}
+    \renewcommand{\arraystretch}{1.5} % Tăng độ rộng giữa các hàng cho thoáng và đẹp giống ảnh
+    \begin{tabular}{ll}
+        \hline
+        \textbf{Power Supply} & DC 9 $\sim$ 12.6V (ST series servo) \\ \hline
+        \textbf{Power supply connector} & 5.5 $\times$ 2.1mm DC \\ \hline
+        \textbf{communication interface} & UART \\ \hline
+        \textbf{Dimensions} & 42.00 $\times$ 33.00mm \\ \hline
+        \textbf{Mounting hole size} & 2.50mm \\ \hline
+        \textbf{Mounting hole spacing} & 37.00 $\times$ 28.00mm \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Bộ đo lường quán tính }
+
+Module IMU (Inertial Measurement Unit) đóng vai trò cốt lõi trong hệ thống phản hồi thăng bằng của robot. Thay vì sử dụng các cảm biến quán tính thô, đồ án này ứng dụng module GY-BNO055 \cite{bno055} --- một board mạch breakout nhỏ gọn được thiết kế trên nền tảng chip cảm biến BNO055 của Bosch Sensortec. Module tích hợp sẵn gia tốc kế 3 trục, con quay hồi chuyển 3 trục, từ kế 3 trục và đặc biệt là một vi xử lý ARM Cortex-M0+ 32-bit chạy thuật toán kết hợp cảm biến (Sensor Fusion) độc quyền của Bosch, cho phép xuất trực tiếp dữ liệu định hướng tuyệt đối mà không cần bộ lọc ngoại vi.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\textwidth]{img/fig37-IMU-BNO055.png}
+\caption{Module cảm biến 9 trục thông minh GY-BNO055 (mặt trước và mặt sau)}
+\label{fig37}
+\vspace{0.2cm}
+\end{figure}
+
+Module GY-BNO055 sở hữu kích thước cực kỳ nhỏ gọn (20,9~mm $\times$ 11,9~mm), rất phù hợp để gắn trực tiếp lên khung thân robot mà không chiếm nhiều không gian. Board mạch được bố trí 8 chân tín hiệu gồm: VIN (nguồn cấp), GND (mass), SCL/Rx (xung nhịp I2C hoặc nhận UART), SDA/Tx (dữ liệu I2C hoặc phát UART), ADD (chọn địa chỉ I2C), INT (ngắt ngoài), BOOT (chế độ nạp firmware) và RESET (khởi động lại phần cứng). Mạch tích hợp sẵn bộ ổn áp nội cho phép cấp nguồn linh hoạt từ 3,3V đến 5V qua chân VIN.
+
+Về mặt kiến trúc phần cứng, nhóm đã tối ưu hóa hệ thống bằng cách loại bỏ hoàn toàn vi điều khiển trung gian như cấu trúc dùng STM32. Nền tảng phát triển giờ đây được triển khai trực tiếp trên môi trường hệ điều hành Linux của Jetson Nano. Cảm biến BNO055 được kết nối và giao tiếp thẳng với Jetson Nano thông qua bus I2C (sử dụng hai chân SCL và SDA). Việc lập trình thu thập dữ liệu được thực hiện bằng ngôn ngữ Python. Sự thay đổi này không chỉ giúp giảm thiểu đáng kể độ trễ truyền dữ liệu mà còn tối giản hóa độ phức tạp của việc đi dây phần cứng.
+
+Khác với các cảm biến truyền thống (như MPU6050) dễ bị nhiễu từ môi trường và đòi hỏi người lập trình phải tự xây dựng các bộ lọc toán học phức tạp (như Complementary Filter hay Kalman Filter) trên máy tính chủ, BNO055 xử lý toàn bộ khối lượng công việc này ở cấp độ phần cứng nội bộ. Tính năng Sensor Fusion của BNO055 tự động tính toán và xuất trực tiếp dữ liệu định hướng dưới dạng các góc Euler (Roll, Pitch, Yaw) hoặc Quaternion với độ chính xác cao và tần số cập nhật nhanh. Do đó, bài toán của nhóm được chuyển từ việc ``viết bộ lọc nhiễu'' sang việc quản lý quy trình tự hiệu chuẩn của cảm biến.
+\begin{table}[H]
+\centering
+\caption{Thông số kỹ thuật module cảm biến GY-BNO055}
+\label{tab:bno055_specs}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ll}
+\toprule
+\textbf{Thông số} & \textbf{Giá trị} \\
+\midrule
+Chip cảm biến & Bosch BNO055 (SiP -- System in Package) \\
+Số trục đo & 9 trục (Accelerometer + Gyroscope + Magnetometer) \\
+Điện áp hoạt động & 3.3V -- 5V (qua chân VIN, tích hợp bộ ổn áp nội) \\
+Chuẩn giao tiếp & I2C / UART (chọn qua chân BOOT) \\
+Địa chỉ I2C mặc định & 0x28 (chân ADD = LOW); 0x29 (chân ADD = HIGH) \\
+Gia tốc kế (Accelerometer) & $\pm$2g / $\pm$4g / $\pm$8g / $\pm$16g \\
+Con quay hồi chuyển (Gyroscope) & $\pm$125$^\circ$/s đến $\pm$2000$^\circ$/s \\
+Từ kế (Magnetometer) & $\pm$1300$\mu$T (trục x,y); $\pm$2500$\mu$T (trục z) \\
+Bộ xử lý tích hợp & ARM Cortex-M0+ (chạy thuật toán Sensor Fusion) \\
+Dữ liệu đầu ra & Quaternion, góc Euler, vector trọng lực, gia tốc tuyến tính \\
+Tần số cập nhật Fusion & Lên đến 100 Hz \\
+Kích thước mạch & 20,9 $\times$ 11,9 mm \\
+Số chân tín hiệu & 8 (VIN, GND, SCL/Rx, SDA/Tx, ADD, INT, BOOT, RESET) \\
+Nhiệt độ hoạt động & $-40^\circ$C đến $+85^\circ$C \\
+\bottomrule
+\end{tabular}
+\end{table}
+\subsection{Mạch Giảm Áp }
+
+Bên cạnh nguồn năng lượng 12V cung cấp trực tiếp cho hệ thống động cơ servo, thiết bị xử lý trung tâm là máy tính nhúng Jetson Nano Developer Kit B01 yêu cầu một nguồn điện DC 5V ổn định để hoạt động. Trong các điều kiện tải nặng, chẳng hạn như khi tính toán động học nghịch liên tục cho 12 bậc tự do hoặc xử lý thuật toán cân bằng, Jetson Nano có thể tiêu thụ dòng điện lên đến 4A. Việc sử dụng các IC ổn áp tuyến tính thông thường sẽ gây ra hiện tượng hao phí nhiệt lượng rất lớn và không đáp ứng đủ dòng tải yêu cầu.
+
+Do đó, mạch giảm áp xung\textbf{XL4015 5A 75W} đã được lựa chọn để thực hiện nhiệm vụ chuyển đổi điện áp từ 12V của nguồn tổ ong xuống mức 5V an toàn cho Jetson Nano. Ưu điểm nổi bật của XL4015 là hiệu suất chuyển đổi năng lượng cao (lên đến 96\%), tần số băm xung 180KHz giúp giảm thiểu gợn điện áp, và khả năng cấp dòng đầu ra tối đa lên tới 5A. Điều này tạo ra một biên độ dự trữ công suất an toàn, giúp máy tính nhúng không bị sụt áp đột ngột dẫn đến tắt nguồn trong quá trình vận hành. Hơn nữa, mạch còn được tích hợp các tính năng bảo vệ ngắn mạch và bảo vệ quá nhiệt, đảm bảo an toàn tối đa cho các bo mạch điện tử đắt tiền phía sau.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig38-Mạch giảm áp.jpg} 
+    \caption{Mạch giảm áp XL4015 5A 75W}
+    \label{fig38}
+    \vspace{0.2cm}
+\end{figure}
+
+Các thông số kỹ thuật chi tiết của mạch giảm áp XL4015 được trình bày cụ thể trong Bảng \ref{tab:xl4015_specs}. Mức điện áp ngõ ra đã được nhóm tác giả tinh chỉnh qua biến trở tích hợp trên mạch để đạt chính xác mức 5.0V - 5.1V nhằm bù trừ sụt áp trên dây dẫn trước khi cấp vào Jetson Nano.
+
+\begin{table}[H]
+    \centering
+    \caption{Thông số kỹ thuật mạch giảm áp XL4015 5A 75W}
+    \label{tab:xl4015_specs}
+    \renewcommand{\arraystretch}{1.5} 
+    \begin{tabular}{ll}
+        \hline
+        \textbf{Điện áp ngõ vào} & 5 $\sim$ 32 VDC \\ \hline
+        \textbf{Điện áp ngõ ra} & 1.25 $\sim$ 30 VDC (Tinh chỉnh về 5V cấp cho vi xử lý) \\ \hline
+        \textbf{Dòng ngõ ra} & 0 $\sim$ 5A \\ \hline
+        \textbf{Công suất ngõ ra} & 75W \\ \hline
+        \textbf{Nhiệt độ làm việc} & -40 $\sim$ +85$^\circ$C \\ \hline
+        \textbf{Tần số hoạt động} & 180KHz \\ \hline
+        \textbf{Hiệu suất tối đa} & 96\% \\ \hline
+        \textbf{Bảo vệ ngắn mạch} & Có (giới hạn 8A) \\ \hline
+        \textbf{Bảo vệ quá nhiệt} & Có \\ \hline
+    \end{tabular}
+\end{table}
+
+
+\subsection{Cơ cấu chấp hành: Động cơ Bus Servo ST3215}
+
+Việc lựa chọn cơ cấu chấp hành có ảnh hưởng trực tiếp đến hiệu năng di chuyển, khả năng giữ thăng bằng và độ phức tạp của hệ thống phần cứng robot bốn chân. Trong đồ án này, động cơ Bus Servo ST3215 và phiên bản tốc độ cao ST3215-HS \cite{waveshare_st3215} đã được lựa chọn làm thiết bị truyền động cho toàn bộ 12 bậc tự do của robot. 
+
+Để làm rõ tính ưu việt và lý do lựa chọn công nghệ truyền động này cho mô hình nguyên mẫu, nhóm đã tiến hành đánh giá và so sánh dòng động cơ Bus Servo nối tiếp với hai loại cơ cấu chấp hành phổ biến khác: Động cơ Servo điều khiển bằng xung PWM truyền thống và Động cơ không chổi than (BLDC).
+
+\begin{table}[H]
+\centering
+\caption{Bảng so sánh các loại cơ cấu chấp hành áp dụng cho Robot bốn chân}
+\label{tab:motor_comparison}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{0.2\linewidth}|p{0.2\linewidth}|p{0.2\linewidth}|p{0.25\linewidth}|}
+\hline
+\textbf{Tiêu chí} & \textbf{Động cơ Servo PWM truyền thống} & \textbf{Động cơ BLDC (Tích hợp Driver)} & \textbf{Động cơ Bus Servo nối tiếp} \\ \hline
+\textbf{Giao thức điều khiển} & Xung PWM (Đơn hướng) & CAN / RS485 (Song công) & UART bán song công (Half-duplex) \\ \hline
+\textbf{Hệ thống dây dẫn} & Rất phức tạp (Mỗi motor 1 dây tín hiệu riêng) & Tối giản (Nối tiếp chuỗi - Daisy chain) & Tối giản (Nối tiếp chuỗi - Daisy chain) \\ \hline
+\textbf{Khả năng phản hồi (Feedback)} & Không có & Vị trí, tốc độ, dòng điện, nhiệt độ (FOC) & Vị trí thực tế, tốc độ, tải, nhiệt độ, điện áp \\ \hline
+\textbf{Mô-men xoắn} & Thường ở mức thấp đến trung bình & Rất cao & Cao (Tối ưu trong tầm giá) \\ \hline
+\textbf{Khối lượng \& Kích thước} & Nhẹ & Nặng, cồng kềnh & Gọn nhẹ \\ \hline
+\textbf{Giá thành} & Rất thấp & Rất cao & Trung bình - Hợp lý \\ \hline
+\textbf{Độ phù hợp} & Thấp (Do không có phản hồi và thiếu lực) & Thấp (Dư thừa công suất, chi phí quá cao) & \textbf{Rất cao (Đạt điểm cân bằng tối ưu)} \\ \hline
+\end{tabular}
+\end{table}
+
+Sau khi xác định kiến trúc truyền động tối ưu là sử dụng \textbf{Bus Servo nối tiếp} thay vì Servo PWM hay động cơ BLDC, nhóm đã tiến hành khảo sát và đánh giá các dòng Bus Servo phổ biến trên thị trường để tìm ra phương án phù hợp nhất cho hệ thống 12 bậc tự do của robot. Tuy nhiên, để có cái nhìn trực quan và toàn diện nhất, nhóm cũng đưa vào bảng so sánh một đại diện tiêu biểu của dòng Servo PWM là \textbf{JX Servo PDI-HV5932MG 30KG} -- loại động cơ có lực xoắn lớn, góc quay $180^{\circ}$, vốn rất phổ biến trong các dự án sinh viên để thấy rõ sự khác biệt giữa hai công nghệ.
+
+Bốn đại diện tiêu biểu được đưa ra so sánh bao gồm: JX PDI-HV5932MG (Servo PWM), Hiwonder LX-16A, Waveshare ST3215 và Dynamixel XL430-W250-T.
+
+\begin{table}[H]
+\centering
+\caption{So sánh các dòng Servo phổ biến trên thị trường}
+\label{tab:bus_servo_comparison}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{0.16\linewidth}|p{0.18\linewidth}|p{0.18\linewidth}|p{0.22\linewidth}|p{0.16\linewidth}|}
+\hline
+\textbf{Tiêu chí} & \textbf{JX PDI-HV5932MG} & \textbf{Hiwonder LX-16A} & \textbf{Waveshare ST3215 (Được chọn)} & \textbf{Dynamixel XL430-W250-T} \\ \hline
+\textbf{Giao thức} & Xung PWM ($180^{\circ}$) & TTL UART (Half-duplex) & TTL UART (Half-duplex) & TTL UART (Half-duplex) \\ \hline
+\textbf{Điện áp} & 6.0V - 8.4V & 6.0V - 8.4V (Tối ưu 7.4V) & 6.0V - 12.6V (Tối ưu 12V) & 10.0V - 14.8V (Tối ưu 11.1V) \\ \hline
+\textbf{Lực xoắn tối đa} & 32.3 kg.cm (@8.4V) & 17 kg.cm (@7.4V) & 30 kg.cm / 20 kg.cm (@12V) & $\sim$15.3 kg.cm (1.5 N.m @11.1V) \\ \hline
+\textbf{Cảm biến vị trí} & Biến trở (Potentiometer) & Biến trở (Potentiometer) & Từ tính (Magnetic Encoder $360^{\circ}$) & Từ tính (Absolute Encoder) \\ \hline
+\textbf{Độ phân giải góc} & Phụ thuộc vi điều khiển & 0.24$^{\circ}$ & 0.088$^{\circ}$ & 0.088$^{\circ}$ \\ \hline
+\textbf{Tốc độ truyền} & 50Hz - 330Hz (PWM) & 115200 bps & Lên đến 1 Mbps & Lên đến 4.5 Mbps \\ \hline
+\textbf{Bộ điều khiển} & Cơ bản (P) & Cơ bản (P) & Nâng cao (PI) & Cao cấp (PID vị trí, vận tốc, dòng) \\ \hline
+\textbf{Giá thành} & Trung bình ($\sim$500.000 VNĐ) & Thấp ($\sim$300.000 VNĐ) & Trung bình ($\sim$500.000 VNĐ) & Rất cao ($\sim$1.500.000 VNĐ) \\ \hline
+\end{tabular}
+\end{table}
+
+Dựa trên các thông số phân tích từ Bảng \ref{tab:bus_servo_comparison}, Waveshare ST3215 được lựa chọn là giải pháp tối ưu cho hệ thống cơ cấu chấp hành của đồ án vì những lý do sau:
+
+\begin{itemize}
+    \item \textbf{Khắc phục nhược điểm của Servo PWM (JX PDI-HV5932MG):} Mặc dù JX PDI-HV5932MG có lực xoắn rất ấn tượng (lên đến 32.3 kg.cm ở mức 8.4V), góc quay giới hạn $180^{\circ}$ và cùng phân khúc giá với ST3215, nhưng việc sử dụng giao thức PWM đơn hướng khiến nó \textbf{không có khả năng phản hồi} trạng thái (góc quay thực tế, dòng điện, nhiệt độ). Điều này là một cản trở lớn đối với bài toán điều khiển thăng bằng robot bốn chân. Hơn nữa, việc phải nối 12 dây tín hiệu PWM riêng biệt từ mỗi động cơ về mạch điều khiển làm sơ đồ đi dây vô cùng phức tạp, dễ sinh nhiễu và đứt ngầm. 
+    \item \textbf{Khắc phục nhược điểm của LX-16A:} Mặc dù Hiwonder LX-16A có lợi thế về giá thành thấp, nhưng lực xoắn tối đa chỉ đạt 17 kg.cm, không đủ để đáp ứng tải trọng động khi robot di chuyển hoặc thực hiện các tư thế phức tạp. Hơn nữa, việc sử dụng biến trở (Potentiometer) làm cảm biến vị trí khiến độ phân giải góc thấp ($0.24^{\circ}$) và dễ bị hao mòn cơ học theo thời gian. Bộ điều khiển của LX-16A chỉ dừng ở mức cơ bản (P), dẫn đến sai số tĩnh lớn và khả năng bám quỹ đạo kém.
+    \item \textbf{Cân bằng hiệu năng và chi phí so với Dynamixel:} Dòng Dynamixel XL430-W250-T sở hữu bộ điều khiển PID hoàn chỉnh cùng nhiều tính năng cao cấp. Tuy nhiên, mức giá cực kỳ đắt đỏ (gấp khoảng 3 lần ST3215). Với yêu cầu 12 bậc tự do, việc sử dụng Dynamixel sẽ làm chi phí phần cứng vượt quá ngân sách cho phép. Thêm vào đó, lực xoắn của XL430-W250-T ($\sim$15.3 kg.cm) lại thấp hơn ST3215, đòi hỏi phải sử dụng cơ cấu truyền động phức tạp để khuyếch đại lực.
+    \item \textbf{Ưu điểm vượt trội của ST3215:} Waveshare ST3215 mang lại điểm cân bằng hoàn hảo giữa hiệu năng cơ học và chi phí. Lực xoắn cao (lên đến 30 kg.cm ở 12V) cung cấp dư dả công suất để robot duy trì thăng bằng và thực hiện dáng đi. Cảm biến vị trí từ tính (Magnetic Encoder $360^{\circ}$) với độ phân giải rất cao ($0.088^{\circ}$) cung cấp phản hồi góc chính xác tuyệt đối mà không lo bị hao mòn. Tốc độ truyền tải 1 Mbps hoàn toàn đáp ứng được yêu cầu của vòng lặp điều khiển thời gian thực. Đặc biệt, bộ điều khiển PI tích hợp sẵn giúp động cơ khử sai số tĩnh, đảm bảo robot bám sát quỹ đạo dáng đi một cách mượt mà và ổn định.
+    \item \textbf{Phân bổ chiến lược giữa mô-men xoắn và tốc độ (ST3215 vs ST3215-HS):} Hệ thống tận dụng cả hai phiên bản động cơ để tối ưu hóa đặc tính động lực học của từng khớp.
+    \begin{itemize}
+        \item \textit{Khớp vai và khớp hông (Hip Roll, Hip Pitch):} Gánh chịu phần lớn trọng lượng của thân robot và tạo ra lực đẩy chính, yêu cầu mô-men xoắn lớn (theo tính toán lý thuyết lên tới 14.4 -- 16.0 kg.cm). Do đó, phiên bản tiêu chuẩn \textbf{ST3215 (30 kg.cm)} được sử dụng để tạo ra hệ số an toàn cao (gần gấp đôi yêu cầu), giúp động cơ hoạt động bền bỉ, không sinh nhiệt quá mức khi robot đứng khuỵu hoặc mang thêm tải trọng.
+        \item \textit{Khớp gối (Knee):} Yêu cầu về lực tại khớp gối thấp hơn đáng kể (khoảng 11.7 kg.cm) nhờ cơ cấu tay đòn và thanh liên kết. Tuy nhiên, khớp gối lại đòi hỏi tốc độ gập/duỗi cực kỳ nhanh để chân có thể nhấc lên và vung về phía trước (Swing phase) trong thời gian rất ngắn. Vì vậy, phiên bản tốc độ cao \textbf{ST3215-HS (20 kg.cm)} được lựa chọn. Dù mô-men xoắn giảm đi một phần nhưng vẫn vượt qua ngưỡng an toàn, đổi lại tốc độ phản hồi đạt $0.094\,\text{s}/60^{\circ}$ (nhanh gấp đôi bản thường), giúp robot di chuyển linh hoạt và lấy lại thăng bằng chớp nhoáng khi gặp nhiễu.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Hệ thống Phân phối Năng lượng và Lựa chọn Dây dẫn}
+
+Để đảm bảo hệ thống 12 động cơ hoạt động ổn định ở dòng tải cao mà không bị sụt áp, việc thiết kế sơ đồ đi dây và lựa chọn tiết diện dây dẫn đóng vai trò cực kỳ quan trọng. Dựa trên phân tích dòng điện tổng ($I_{total} \approx 32.4A$) từ nguồn tổ ong, hệ thống dây dẫn được chia thành 3 cấp độ với các tiêu chuẩn AWG (American Wire Gauge) khác nhau, được phân phối qua các khối đầu nối nguồn (Terminal Block).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{img/fig44-sododiday-hethong.jpg} 
+    \caption{Sơ đồ phân phối điện áp và tín hiệu tổng thể của robot}
+    \label{fig44}
+    \vspace{0.2cm}
+\end{figure}
+
+Dựa trên thông số kỹ thuật (Datasheet) của các loại dây lõi đồng, nhóm đã đưa ra thiết kế đi dây như sau:
+
+\textbf{1. Trục nguồn chính (Từ Nguồn tổ ong đến Khối đấu nối): Dây AWG 12}
+\begin{itemize}
+    \item \textbf{Chức năng:} Truyền tải toàn bộ dòng điện từ nguồn xung 12V-40A đến các khối chia nguồn trung tâm.
+    \item \textbf{Thông số kỹ thuật (AWG 12):} Đường kính lõi khoảng 2.05 mm, tiết diện 3.31 mm$^2$. Khả năng chịu dòng (Ampacity) trong điều kiện không khí mở có thể lên đến 30A - 40A, với điện trở cực kỳ thấp (khoảng 5.2 $\Omega$/km).
+    \item \textbf{Lý do lựa chọn:} Trục chính phải gánh toàn bộ tải của 12 servo cùng lúc (dòng xả tức thời có thể đạt 32.4A). Dây AWG 12 hoàn toàn đáp ứng được mức dòng điện này mà không sinh nhiệt hay gây sụt áp đáng kể trên đường truyền.
+\end{itemize}
+
+\textbf{2. Nhánh nguồn phụ (Từ Khối đấu nối đến Servo đầu tiên): Dây AWG 20}
+\begin{itemize}
+    \item \textbf{Chức năng:} Cấp nguồn trực tiếp từ khối chia nguồn đến động cơ Servo đầu tiên của mỗi nhánh (chuỗi 3 servo cho mỗi chân).
+    \item \textbf{Thông số kỹ thuật (AWG 20):} Đường kính lõi 0.81 mm, tiết diện 0.52 mm$^2$. Khả năng chịu dòng định mức khoảng 5A (tối đa có thể lên 11A tùy lớp cách điện).
+    \item \textbf{Lý do lựa chọn:} Mỗi nhánh chân gồm 3 servo ST3215, với dòng khởi động tổng cộng khoảng 8.1A. Dây AWG 20 cung cấp sự cân bằng hoàn hảo giữa khả năng chịu tải và độ linh hoạt (mềm dẻo) để luồn lách qua các khớp cơ khí của robot.
+\end{itemize}
+
+\textbf{3. Bus tín hiệu truyền thông (Từ Adapter đến Servo): Dây AWG 22}
+\begin{itemize}
+    \item \textbf{Chức năng:} Truyền tín hiệu UART (Data) từ mạch Bus Servo Adapter đến các servo, và kết nối chung chân Mass (GND) để đồng bộ mức điện áp logic.
+    \item \textbf{Thông số kỹ thuật (AWG 22):} Đường kính lõi 0.64 mm, tiết diện 0.326 mm$^2$. 
+    \item \textbf{Lý do lựa chọn:} Đường truyền dữ liệu không mang dòng điện tải cao (chỉ vài mA). Việc sử dụng dây AWG 22 giúp cáp tín hiệu nhỏ gọn, hạn chế nhiễu chéo, dễ dàng bấm cos và đi dây nối tiếp (daisy-chain) qua từng servo mà không gây cản trở chuyển động của các khớp.
+\end{itemize}
+
+Việc thiết kế phân nhánh nguồn thông qua Terminal Block kết hợp với việc tính toán và lựa chọn đúng cỡ dây AWG từ datasheet giúp giải quyết triệt để vấn đề sụt áp trên đường dây (Voltage Drop), đảm bảo 12 động cơ ở cuối chuỗi vẫn nhận đủ điện áp 12V để sinh ra mô-men xoắn tối đa.
+
+\section{Các Giao thức Truyền thông của Hệ thống}
+
+Toàn bộ hệ thống điều khiển sử dụng hai giao thức truyền thông chính: I2C để thu thập dữ liệu cảm biến và UART để điều khiển cơ cấu chấp hành. Vi xử lý trung tâm Jetson Nano đóng vai trò là thiết bị chủ , liên tục nhận dữ liệu tư thế không gian từ module IMU và thực hiện các tính toán động học nghịch dựa trên thông số hình học của các chân. Để hoàn thành nhiệm vụ này, việc đầu tiên nhóm thực hiện là thiết lập giao tiếp I2C giữa Jetson Nano và cảm biến IMU. Đây là một bước có thể thực hiện hiệu quả thông qua môi trường lập trình Python trên hệ điều hành Linux (Ubuntu), bằng cách khai báo đúng địa chỉ phần cứng và sử dụng trực tiếp các chân bus I2C tích hợp sẵn trên bo mạch Jetson.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig39-Different Communication Protocols .png} 
+    \caption{Các giao thức truyền thông khác nhau}
+    \label{fig39}
+    \vspace{0.2cm}
+    \textit{}
+\end{figure}
+
+Phần công việc đòi hỏi nhiều sự tinh chỉnh và thời gian hoàn thành hơn là việc thiết lập và tối ưu hóa đường truyền tín hiệu xuống các động cơ servo. Để điều khiển đồng bộ 12 động cơ ST3215, hệ thống sử dụng chuẩn giao tiếp UART (thông qua hai cổng USB) kết nối với hai mạch Bus Servo Adapter (A). Các mạch Adapter này hoạt động ở tốc độ truyền tải (baudrate) lên đến 1 Mbps, làm nhiệm vụ phân phối các gói tin lệnh dạng nối tiếp đến từng địa chỉ định danh (ID) của động cơ trên cùng một đường bus truyền tín hiệu tương ứng. Việc chuyển đổi từ tín hiệu mức logic của Jetson Nano sang chuẩn bus nối tiếp bán song công, kết hợp với việc chia thành 2 bus riêng biệt, giúp đơn giản hóa đáng kể sơ đồ đi dây vật lý mà vẫn đảm bảo tốc độ phản hồi siêu tốc độ theo thời gian thực cho vòng lặp điều khiển PID.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig40-Introduction-to-I2C-Data-Transmission-Diagram-Data-Frame.png} 
+    \caption{Giao thức truyền thông I2C}
+    \label{fig40}
+    \vspace{0.2cm}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/fig41-Wired-UART.png} 
+    \caption{Giao thức truyền thông UART}
+    \label{fig41}
+    \vspace{0.2cm}
+\end{figure}
+
+\subsection{Phân tích thời gian truyền thông UART}
+
+Việc phân tích thời gian truyền thông trên bus UART là cần thiết để đảm bảo tốc độ cập nhật lệnh servo đáp ứng yêu cầu thời gian thực của vòng lặp điều khiển. Với baudrate 1 Mbps và giao thức bán song công (half-duplex), mỗi giao dịch bao gồm:
+
+\begin{itemize}
+    \item \textbf{Gói lệnh ghi (Write):} Gồm header (2 byte), ID servo (1 byte), chiều dài (1 byte), lệnh (1 byte), dữ liệu vị trí + tốc độ (4 byte), và checksum (1 byte). Tổng: 10 byte.
+    \item \textbf{Gói phản hồi (Response):} Gồm header (2 byte), ID (1 byte), chiều dài (1 byte), lỗi (1 byte), dữ liệu (2 byte), và checksum (1 byte). Tổng: 8 byte.
+\end{itemize}
+
+Với cấu hình 8N1 (8 bit dữ liệu, không parity, 1 stop bit), mỗi byte cần 10 bit truyền. Thời gian cho một giao dịch hoàn chỉnh (ghi + đọc) với một servo:
+
+\begin{equation}
+    t_{servo} = \frac{(10 + 8) \times 10}{10^6} = 180 \; \mu\text{s}
+\end{equation}
+
+Mỗi bus driver quản lý 6 servo, thời gian tổng cho một frame lệnh:
+
+\begin{equation}
+    t_{bus} = 6 \times t_{servo} = 6 \times 180 = 1080 \; \mu\text{s} \approx 1{,}1 \text{ ms}
+\end{equation}
+
+Hai bus hoạt động song song trên hai cổng USB riêng biệt, nên tổng thời gian truyền thông cho 12 servo vẫn xấp xỉ $1{,}1$ ms --- nhỏ hơn nhiều so với chu kỳ điều khiển $\Delta T = 7$ ms. Điều này xác nhận băng thông truyền thông đủ cho vận hành thời gian thực.
+
+\subsection{Ánh xạ ID servo và phân bổ driver}
+
+Bảng~\ref{tab:servo_mapping} trình bày cấu hình ánh xạ ID servo và phân bổ cho hai driver UART.
+
+\begin{table}[H]
+\centering
+\caption{Ánh xạ ID servo theo driver và chân robot}
+\label{tab:servo_mapping}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Chân} & \textbf{Driver} & \textbf{Hip Roll} & \textbf{Hip Pitch} & \textbf{Knee} \\ \hline
+Left-Front (LF) & A & ID 7 & ID 8 & ID 9 \\ \hline
+Right-Behind (RB) & A & ID 10 & ID 11 & ID 12 \\ \hline
+Right-Front (RF) & B & ID 1 & ID 2 & ID 3 \\ \hline
+Left-Behind (LB) & B & ID 4 & ID 5 & ID 6 \\ \hline
+\end{tabular}
+\end{table}
+
+Chiến lược phân bổ ghép hai chân \textit{chéo nhau} trên cùng một driver (LF+RB trên Driver A, RF+LB trên Driver B) có ý nghĩa quan trọng: trong dáng đi Trot, hai chân chéo luôn ở cùng pha (swing hoặc stance). Khi một cặp chéo đang ở pha swing (cần cập nhật vị trí nhanh), cặp còn lại ở pha stance (ít thay đổi), giúp cân bằng tải truyền thông giữa hai bus.
+
