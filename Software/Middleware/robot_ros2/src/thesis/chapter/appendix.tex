@@ -1,0 +1,71 @@
+\chapter*{PHỤ LỤC: MÃ GIẢ CÁC THUẬT TOÁN CỐT LÕI}
+\addcontentsline{toc}{chapter}{PHỤ LỤC}
+
+Mã nguồn đầy đủ của đồ án được triển khai trên nền tảng ROS 2 Humble. Để làm rõ hơn các thuật toán đã trình bày trong báo cáo mà không phụ thuộc vào một ngôn ngữ lập trình cụ thể, phần phụ lục này cung cấp mã giả (pseudocode) của hai thành phần cốt lõi: Thuật toán quy hoạch quỹ đạo và Cơ chế điều khiển cân bằng.
+
+\section*{1. Thuật toán quy hoạch quỹ đạo (Quintic Planning)}
+
+Mã giả dưới đây thực thi phương trình nội suy đa thức bậc 5 nhằm tạo ra quỹ đạo mượt mà cho bàn chân robot trong pha vung chân (swing phase) và pha chống chân (stance phase).
+
+\begin{algorithm}[H]
+\caption{Quy hoạch quỹ đạo nội suy đa thức bậc 5}
+\SetAlgoLined
+\KwIn{Vị trí bắt đầu $\mathbf{p}_{start}$, Vị trí kết thúc $\mathbf{p}_{end}$, Số khung hình pha vung chân $N_{sw}$, Số khung hình pha chống chân $N_{st}$, Độ cao nâng chân $h$}
+\KwOut{Quỹ đạo bàn chân theo thời gian $\mathbf{P}_{path}$}
+$\mathbf{P}_{path} \leftarrow \emptyset$\;
+\tcp{1. Tính toán quỹ đạo pha vung chân (Swing Phase)}
+\For{$i \leftarrow 0$ \KwTo $N_{sw}-1$}{
+    $\tau \leftarrow i / (N_{sw}-1)$\;
+    $s \leftarrow 10\tau^3 - 15\tau^4 + 6\tau^5$\;
+    $x \leftarrow p_{start,x} + (p_{end,x} - p_{start,x}) \cdot s$\;
+    $y \leftarrow p_{start,y} + (p_{end,y} - p_{start,y}) \cdot s$\;
+    \eIf{$\tau \leq 0.5$}{
+        $\tau_z \leftarrow 2\tau$\;
+        $z \leftarrow p_{start,z} + h \cdot (10\tau_z^3 - 15\tau_z^4 + 6\tau_z^5)$\;
+    }{
+        $\tau_z \leftarrow 2(\tau - 0.5)$\;
+        $z \leftarrow p_{start,z} + h \cdot \big(1 - (10\tau_z^3 - 15\tau_z^4 + 6\tau_z^5)\big)$\;
+    }
+    $\mathbf{P}_{path}$.append($[x, y, z]$)\;
+}
+\tcp{2. Tính toán quỹ đạo pha chống chân (Stance Phase)}
+\For{$i \leftarrow 0$ \KwTo $N_{st}-1$}{
+    $\tau \leftarrow i / (N_{st}-1)$\;
+    $x \leftarrow p_{end,x} + (p_{start,x} - p_{end,x}) \cdot \tau$\;
+    $y \leftarrow p_{end,y} + (p_{start,y} - p_{end,y}) \cdot \tau$\;
+    $z \leftarrow p_{start,z}$\;
+    $\mathbf{P}_{path}$.append($[x, y, z]$)\;
+}
+\Return $\mathbf{P}_{path}$\;
+\end{algorithm}
+
+\vspace{0.5cm}
+
+\section*{2. Bộ điều khiển cân bằng nhận biết pha}
+
+Mã giả dưới đây minh họa khối logic phân tách chế độ hoạt động của bộ điều khiển cân bằng, xử lý tín hiệu phản hồi từ cảm biến IMU và áp dụng các bù trừ PID thông qua ma trận xoay.
+
+\begin{algorithm}[H]
+\caption{Bộ điều khiển cân bằng PID nhận biết pha}
+\SetAlgoLined
+\KwIn{Góc nghiêng đo được $\theta_{roll}, \theta_{pitch}$, Chế độ hiện tại $Mode$, Cờ kích hoạt $Ena$}
+\KwOut{Tín hiệu bù trừ $\mathbf{u}_{correction}$}
+\If{không kích hoạt $Ena$}{
+    \Return $0$\;
+}
+\If{chuyển đổi sang chế độ mới}{
+    $Mode \leftarrow Mode_{new}$\;
+    Đặt lại trạng thái bộ điều khiển PID\;
+}
+\uIf{$Mode =$ \textbf{HOME}}{
+    $\Delta\theta_{roll} \leftarrow \text{PID}_{home\_roll}(0, \theta_{roll})$\;
+    $\Delta\theta_{pitch} \leftarrow \text{PID}_{home\_pitch}(0, \theta_{pitch})$\;
+    \Return $[\Delta\theta_{roll}, \Delta\theta_{pitch}]$ \tcp*{Bù trừ trực tiếp vào góc khớp}
+}
+\uElseIf{$Mode =$ \textbf{GAIT}}{
+    $u_{roll} \leftarrow \text{PID}_{gait\_roll}(0, \theta_{roll})$\;
+    $u_{pitch} \leftarrow \text{PID}_{gait\_pitch}(0, \theta_{pitch})$\;
+    $R_{corr} \leftarrow \text{RotationMatrixY}(u_{pitch}) \times \text{RotationMatrixX}(u_{roll})$\;
+    \Return $R_{corr}$ \tcp*{Bù trừ qua ma trận xoay trong không gian làm việc}
+}
+\end{algorithm}
