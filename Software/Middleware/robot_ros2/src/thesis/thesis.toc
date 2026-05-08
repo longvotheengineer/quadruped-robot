@@ -134,12 +134,18 @@
 \contentsline {subsection}{\numberline {5.12.1}Khác biệt về kích thước mô hình}{92}{subsection.5.12.1}%
 \contentsline {subsection}{\numberline {5.12.2}Khác biệt về tham số dáng đi}{92}{subsection.5.12.2}%
 \contentsline {subsection}{\numberline {5.12.3}Các yếu tố phi lý tưởng trên phần cứng thực}{93}{subsection.5.12.3}%
-\contentsline {chapter}{\numberline {6}KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}{94}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Kết luận}{94}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Đóng góp của đề tài}{95}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Hạn chế}{95}{subsection.6.1.2}%
-\contentsline {section}{\numberline {6.2}Hướng phát triển}{96}{section.6.2}%
-\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{96}{section.6.2}%
-\contentsline {chapter}{PHỤ LỤC A}{99}{chapter*.99}%
-\contentsline {chapter}{PHỤ LỤC B}{101}{chapter*.100}%
-\contentsline {chapter}{PHỤ LỤC C}{103}{chapter*.101}%
+\contentsline {subsection}{\numberline {5.12.4}Các vấn đề thực tế và giải pháp}{93}{subsection.5.12.4}%
+\contentsline {subsection}{\numberline {5.12.5}Nhận xét và đánh giá thực nghiệm}{94}{subsection.5.12.5}%
+\contentsline {section}{\numberline {5.13}Phân tích sự khác biệt giữa mô phỏng và thực nghiệm}{95}{section.5.13}%
+\contentsline {subsection}{\numberline {5.13.1}Khác biệt về kích thước mô hình}{95}{subsection.5.13.1}%
+\contentsline {subsection}{\numberline {5.13.2}Khác biệt về tham số dáng đi}{95}{subsection.5.13.2}%
+\contentsline {subsection}{\numberline {5.13.3}Các yếu tố phi lý tưởng trên phần cứng thực}{95}{subsection.5.13.3}%
+\contentsline {chapter}{\numberline {6}KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}{97}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Kết luận}{97}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Đóng góp của đề tài}{98}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Hạn chế}{98}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Hướng phát triển}{99}{section.6.2}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{99}{section.6.2}%
+\contentsline {chapter}{PHỤ LỤC A}{102}{chapter*.101}%
+\contentsline {chapter}{PHỤ LỤC B}{104}{chapter*.102}%
+\contentsline {chapter}{PHỤ LỤC C}{106}{chapter*.103}%

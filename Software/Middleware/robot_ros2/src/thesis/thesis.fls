@@ -1,4 +1,4 @@
-PWD /home/lvdaengineer/Documents/CapstoneProject/quadruped-robot/report/Report_final/Thesis
+PWD /home/an/quadruped-robot/Software/Middleware/robot_ros2/src/thesis
 INPUT /etc/texmf/web2c/texmf.cnf
 INPUT /usr/share/texmf/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
@@ -1113,11 +1113,11 @@ INPUT ./thesis.out
 OUTPUT thesis.out
 INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/t5-qtmr.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/t5-qtmb.tfm
-INPUT ../Images//LogoBK.png
-INPUT ../Images//LogoBK.png
-INPUT ../Images//LogoBK.png
-INPUT ../Images//LogoBK.png
-INPUT ../Images//LogoBK.png
+INPUT ./Images//misc/logobk.png
+INPUT ./Images//misc/logobk.png
+INPUT Images//misc/logobk.png
+INPUT ./Images//misc/logobk.png
+INPUT ./Images//misc/logobk.png
 INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/t5-qtmr.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/t5-qtmb.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
@@ -1186,440 +1186,434 @@ INPUT chapter/chapter2_content.tex
 INPUT ./chapter/chapter2_content.tex
 INPUT ./chapter/chapter2_content.tex
 INPUT chapter/chapter2_content.tex
-INPUT ../Images//fig1-Robotdog.png
-INPUT ../Images//fig1-Robotdog.png
-INPUT ../Images//fig1-Robotdog.png
-INPUT ../Images//fig1-Robotdog.png
-INPUT ../Images//fig1-Robotdog.png
-INPUT ../Images//fig8-Both side of each Serial-Leg.png
-INPUT ../Images//fig8-Both side of each Serial-Leg.png
-INPUT ../Images//fig8-Both side of each Serial-Leg.png
-INPUT ../Images//fig8-Both side of each Serial-Leg.png
-INPUT ../Images//fig8-Both side of each Serial-Leg.png
-INPUT ../Images//fig9-Mechanical model & branch coordinate system.png
-INPUT ../Images//fig9-Mechanical model & branch coordinate system.png
-INPUT ../Images//fig9-Mechanical model & branch coordinate system.png
-INPUT ../Images//fig9-Mechanical model & branch coordinate system.png
-INPUT ../Images//fig9-Mechanical model & branch coordinate system.png
-INPUT ../Images//fig10-Mechanical model & branch coordinate system.png
-INPUT ../Images//fig10-Mechanical model & branch coordinate system.png
-INPUT ../Images//fig10-Mechanical model & branch coordinate system.png
-INPUT ../Images//fig10-Mechanical model & branch coordinate system.png
-INPUT ../Images//fig10-Mechanical model & branch coordinate system.png
-INPUT ../Images//fig11-Structure topology of the 12-DOF quadruped robot design (front view)..png
-INPUT ../Images//fig11-Structure topology of the 12-DOF quadruped robot design (front view)..png
-INPUT ../Images//fig11-Structure topology of the 12-DOF quadruped robot design (front view)..png
-INPUT ../Images//fig11-Structure topology of the 12-DOF quadruped robot design (front view)..png
-INPUT ../Images//fig11-Structure topology of the 12-DOF quadruped robot design (front view)..png
-INPUT ../Images//fig2-3 DOF of Single Leg Mechanism.png
-INPUT ../Images//fig2-3 DOF of Single Leg Mechanism.png
-INPUT ../Images//fig2-3 DOF of Single Leg Mechanism.png
-INPUT ../Images//fig2-3 DOF of Single Leg Mechanism.png
-INPUT ../Images//fig2-3 DOF of Single Leg Mechanism.png
+INPUT ./Images//hardware/robot_overview.png
+INPUT ./Images//hardware/robot_overview.png
+INPUT Images//hardware/robot_overview.png
+INPUT ./Images//hardware/robot_overview.png
+INPUT ./Images//hardware/robot_overview.png
+INPUT ./Images//hardware/serial_leg_both_sides.png
+INPUT ./Images//hardware/serial_leg_both_sides.png
+INPUT Images//hardware/serial_leg_both_sides.png
+INPUT ./Images//hardware/serial_leg_both_sides.png
+INPUT ./Images//hardware/serial_leg_both_sides.png
+INPUT ./Images//hardware/mechanical_model.png
+INPUT ./Images//hardware/mechanical_model.png
+INPUT Images//hardware/mechanical_model.png
+INPUT ./Images//hardware/mechanical_model.png
+INPUT ./Images//hardware/mechanical_model.png
+INPUT ./Images//hardware/mechanical_model_branch.png
+INPUT ./Images//hardware/mechanical_model_branch.png
+INPUT Images//hardware/mechanical_model_branch.png
+INPUT ./Images//hardware/mechanical_model_branch.png
+INPUT ./Images//hardware/mechanical_model_branch.png
+INPUT ./Images//hardware/structure_topology_front.png
+INPUT ./Images//hardware/structure_topology_front.png
+INPUT Images//hardware/structure_topology_front.png
+INPUT ./Images//hardware/structure_topology_front.png
+INPUT ./Images//hardware/structure_topology_front.png
+INPUT ./Images//kinematics/single_leg_3dof.png
+INPUT ./Images//kinematics/single_leg_3dof.png
+INPUT Images//kinematics/single_leg_3dof.png
+INPUT ./Images//kinematics/single_leg_3dof.png
+INPUT ./Images//kinematics/single_leg_3dof.png
 INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/t5-qtmr.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/t5-qtmr.tfm
-INPUT ../Images//fig3-Trot bait table.png
-INPUT ../Images//fig3-Trot bait table.png
-INPUT ../Images//fig3-Trot bait table.png
-INPUT ../Images//fig3-Trot bait table.png
-INPUT ../Images//fig3-Trot bait table.png
-INPUT ../Images//fig4-Walk gait table.png
-INPUT ../Images//fig4-Walk gait table.png
-INPUT ../Images//fig4-Walk gait table.png
-INPUT ../Images//fig4-Walk gait table.png
-INPUT ../Images//fig4-Walk gait table.png
-INPUT ../Images//fig5-Pace gait table.png
-INPUT ../Images//fig5-Pace gait table.png
-INPUT ../Images//fig5-Pace gait table.png
-INPUT ../Images//fig5-Pace gait table.png
-INPUT ../Images//fig5-Pace gait table.png
-INPUT ../Images//fig6-Bound gait table.png
-INPUT ../Images//fig6-Bound gait table.png
-INPUT ../Images//fig6-Bound gait table.png
-INPUT ../Images//fig6-Bound gait table.png
-INPUT ../Images//fig6-Bound gait table.png
-INPUT ../Images//fig7-Gallop gait table.png
-INPUT ../Images//fig7-Gallop gait table.png
-INPUT ../Images//fig7-Gallop gait table.png
-INPUT ../Images//fig7-Gallop gait table.png
-INPUT ../Images//fig7-Gallop gait table.png
-INPUT ../Images//fig_static_stability_a.png
-INPUT ../Images//fig_static_stability_a.png
-INPUT ../Images//fig_static_stability_a.png
-INPUT ../Images//fig_static_stability_a.png
-INPUT ../Images//fig_static_stability_a.png
+INPUT ./Images//gait_planner/trot_gait_table.png
+INPUT ./Images//gait_planner/trot_gait_table.png
+INPUT Images//gait_planner/trot_gait_table.png
+INPUT ./Images//gait_planner/trot_gait_table.png
+INPUT ./Images//gait_planner/trot_gait_table.png
+INPUT ./Images//gait_planner/walk_gait_table.png
+INPUT ./Images//gait_planner/walk_gait_table.png
+INPUT Images//gait_planner/walk_gait_table.png
+INPUT ./Images//gait_planner/walk_gait_table.png
+INPUT ./Images//gait_planner/walk_gait_table.png
+INPUT ./Images//gait_planner/pace_gait_table.png
+INPUT ./Images//gait_planner/pace_gait_table.png
+INPUT Images//gait_planner/pace_gait_table.png
+INPUT ./Images//gait_planner/pace_gait_table.png
+INPUT ./Images//gait_planner/pace_gait_table.png
+INPUT ./Images//gait_planner/bound_gait_table.png
+INPUT ./Images//gait_planner/bound_gait_table.png
+INPUT Images//gait_planner/bound_gait_table.png
+INPUT ./Images//gait_planner/bound_gait_table.png
+INPUT ./Images//gait_planner/bound_gait_table.png
+INPUT ./Images//gait_planner/gallop_gait_table.png
+INPUT ./Images//gait_planner/gallop_gait_table.png
+INPUT Images//gait_planner/gallop_gait_table.png
+INPUT ./Images//gait_planner/gallop_gait_table.png
+INPUT ./Images//gait_planner/gallop_gait_table.png
+INPUT ./Images//kinematics/static_stability_a.png
+INPUT ./Images//kinematics/static_stability_a.png
+INPUT Images//kinematics/static_stability_a.png
+INPUT ./Images//kinematics/static_stability_a.png
+INPUT ./Images//kinematics/static_stability_a.png
 INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/t5-qtmri.tfm
-INPUT ../Images//fig_static_stability_b.png
-INPUT ../Images//fig_static_stability_b.png
-INPUT ../Images//fig_static_stability_b.png
-INPUT ../Images//fig_static_stability_b.png
-INPUT ../Images//fig_static_stability_b.png
-INPUT ../Images//fig_zmp_3d_model.png
-INPUT ../Images//fig_zmp_3d_model.png
-INPUT ../Images//fig_zmp_3d_model.png
-INPUT ../Images//fig_zmp_3d_model.png
-INPUT ../Images//fig_zmp_3d_model.png
+INPUT ./Images//kinematics/static_stability_b.png
+INPUT ./Images//kinematics/static_stability_b.png
+INPUT Images//kinematics/static_stability_b.png
+INPUT ./Images//kinematics/static_stability_b.png
+INPUT ./Images//kinematics/static_stability_b.png
+INPUT ./Images//kinematics/zmp_3d_model.png
+INPUT ./Images//kinematics/zmp_3d_model.png
+INPUT Images//kinematics/zmp_3d_model.png
+INPUT ./Images//kinematics/zmp_3d_model.png
+INPUT ./Images//kinematics/zmp_3d_model.png
 INPUT /usr/share/texlive/texmf-dist/tex/latex/vntex/t5cmtt.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/vntex/t5cmtt.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/vntex/t5cmtt.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/vntex/t5cmtt.fd
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/vntex/vnr/vntt10.tfm
-INPUT ../Images//fig_model_referenceframe.png
-INPUT ../Images//fig_model_referenceframe.png
-INPUT ../Images//fig_model_referenceframe.png
-INPUT ../Images//fig_model_referenceframe.png
-INPUT ../Images//fig_model_referenceframe.png
-INPUT ../Images//fig21-Diagram of the DH coordinate system..png
-INPUT ../Images//fig21-Diagram of the DH coordinate system..png
-INPUT ../Images//fig21-Diagram of the DH coordinate system..png
-INPUT ../Images//fig21-Diagram of the DH coordinate system..png
-INPUT ../Images//fig21-Diagram of the DH coordinate system..png
-INPUT ../Images//fig22-Trot gait timing diagram β = 0.5 .png
-INPUT ../Images//fig22-Trot gait timing diagram β = 0.5 .png
-INPUT ../Images//fig22-Trot gait timing diagram β = 0.5 .png
-INPUT ../Images//fig22-Trot gait timing diagram β = 0.5 .png
-INPUT ../Images//fig22-Trot gait timing diagram β = 0.5 .png
-INPUT ../Images//fig23-Quy hoạch quỹ đạo một chân.png
-INPUT ../Images//fig23-Quy hoạch quỹ đạo một chân.png
-INPUT ../Images//fig23-Quy hoạch quỹ đạo một chân.png
-INPUT ../Images//fig23-Quy hoạch quỹ đạo một chân.png
-INPUT ../Images//fig23-Quy hoạch quỹ đạo một chân.png
-INPUT ../Images//fig_cubic_pva.pdf
-INPUT ../Images//fig_cubic_pva.pdf
-INPUT ../Images//fig_cubic_pva.pdf
-INPUT ../Images//fig_cubic_pva.pdf
-INPUT ../Images//fig_cubic_pva.pdf
-INPUT ../Images//fig_quintic_pva.pdf
-INPUT ../Images//fig_quintic_pva.pdf
-INPUT ../Images//fig_quintic_pva.pdf
-INPUT ../Images//fig_quintic_pva.pdf
-INPUT ../Images//fig_quintic_pva.pdf
-INPUT ../Images//fig_cubic_vs_quintic.pdf
-INPUT ../Images//fig_cubic_vs_quintic.pdf
-INPUT ../Images//fig_cubic_vs_quintic.pdf
-INPUT ../Images//fig_cubic_vs_quintic.pdf
-INPUT ../Images//fig_cubic_vs_quintic.pdf
-INPUT ../Images//fig46_gait_generator.png
-INPUT ../Images//fig46_gait_generator.png
-INPUT ../Images//fig46_gait_generator.png
-INPUT ../Images//fig46_gait_generator.png
-INPUT ../Images//fig46_gait_generator.png
-INPUT ../Images//fig27- Force analysis on a general link i .png
-INPUT ../Images//fig27- Force analysis on a general link i .png
-INPUT ../Images//fig27- Force analysis on a general link i .png
-INPUT ../Images//fig27- Force analysis on a general link i .png
-INPUT ../Images//fig27- Force analysis on a general link i .png
-INPUT ../Images//fig45-Locomotion_Planner_Balance_Controller.png
-INPUT ../Images//fig45-Locomotion_Planner_Balance_Controller.png
-INPUT ../Images//fig45-Locomotion_Planner_Balance_Controller.png
-INPUT ../Images//fig45-Locomotion_Planner_Balance_Controller.png
-INPUT ../Images//fig45-Locomotion_Planner_Balance_Controller.png
-INPUT ../Images//fig29- Attitude adjustment .png
-INPUT ../Images//fig29- Attitude adjustment .png
-INPUT ../Images//fig29- Attitude adjustment .png
-INPUT ../Images//fig29- Attitude adjustment .png
-INPUT ../Images//fig29- Attitude adjustment .png
-INPUT ../Images//fig_pid_architecture.pdf
-INPUT ../Images//fig_pid_architecture.pdf
-INPUT ../Images//fig_pid_architecture.pdf
-INPUT ../Images//fig_pid_architecture.pdf
-INPUT ../Images//fig_pid_architecture.pdf
+INPUT ./Images//kinematics/model_reference_frame.png
+INPUT ./Images//kinematics/model_reference_frame.png
+INPUT Images//kinematics/model_reference_frame.png
+INPUT ./Images//kinematics/model_reference_frame.png
+INPUT ./Images//kinematics/model_reference_frame.png
+INPUT ./Images//kinematics/dh_coordinate_system.png
+INPUT ./Images//kinematics/dh_coordinate_system.png
+INPUT Images//kinematics/dh_coordinate_system.png
+INPUT ./Images//kinematics/dh_coordinate_system.png
+INPUT ./Images//kinematics/dh_coordinate_system.png
+INPUT ./Images//gait_planner/trot_gait_timing.png
+INPUT ./Images//gait_planner/trot_gait_timing.png
+INPUT Images//gait_planner/trot_gait_timing.png
+INPUT ./Images//gait_planner/trot_gait_timing.png
+INPUT ./Images//gait_planner/trot_gait_timing.png
+INPUT ./Images//gait_planner/single_leg_trajectory.png
+INPUT ./Images//gait_planner/single_leg_trajectory.png
+INPUT Images//gait_planner/single_leg_trajectory.png
+INPUT ./Images//gait_planner/single_leg_trajectory.png
+INPUT ./Images//gait_planner/single_leg_trajectory.png
+INPUT ./Images//gait_planner/cubic_pva.pdf
+INPUT ./Images//gait_planner/cubic_pva.pdf
+INPUT Images//gait_planner/cubic_pva.pdf
+INPUT ./Images//gait_planner/cubic_pva.pdf
+INPUT ./Images//gait_planner/cubic_pva.pdf
+INPUT ./Images//gait_planner/quintic_pva.pdf
+INPUT ./Images//gait_planner/quintic_pva.pdf
+INPUT Images//gait_planner/quintic_pva.pdf
+INPUT ./Images//gait_planner/quintic_pva.pdf
+INPUT ./Images//gait_planner/quintic_pva.pdf
+INPUT ./Images//gait_planner/cubic_vs_quintic.pdf
+INPUT ./Images//gait_planner/cubic_vs_quintic.pdf
+INPUT Images//gait_planner/cubic_vs_quintic.pdf
+INPUT ./Images//gait_planner/cubic_vs_quintic.pdf
+INPUT ./Images//gait_planner/cubic_vs_quintic.pdf
+INPUT ./Images//gait_planner/gait_generator.png
+INPUT ./Images//gait_planner/gait_generator.png
+INPUT Images//gait_planner/gait_generator.png
+INPUT ./Images//gait_planner/gait_generator.png
+INPUT ./Images//gait_planner/gait_generator.png
+INPUT ./Images//kinematics/force_analysis_link.png
+INPUT ./Images//kinematics/force_analysis_link.png
+INPUT Images//kinematics/force_analysis_link.png
+INPUT ./Images//kinematics/force_analysis_link.png
+INPUT ./Images//kinematics/force_analysis_link.png
+INPUT ./Images//architecture/locomotion_balance_controller.png
+INPUT ./Images//architecture/locomotion_balance_controller.png
+INPUT Images//architecture/locomotion_balance_controller.png
+INPUT ./Images//architecture/locomotion_balance_controller.png
+INPUT ./Images//architecture/locomotion_balance_controller.png
+INPUT ./Images//kinematics/attitude_adjustment.png
+INPUT ./Images//kinematics/attitude_adjustment.png
+INPUT Images//kinematics/attitude_adjustment.png
+INPUT ./Images//kinematics/attitude_adjustment.png
+INPUT ./Images//kinematics/attitude_adjustment.png
+INPUT ./Images//architecture/pid_architecture.pdf
+INPUT ./Images//architecture/pid_architecture.pdf
+INPUT Images//architecture/pid_architecture.pdf
+INPUT ./Images//architecture/pid_architecture.pdf
+INPUT ./Images//architecture/pid_architecture.pdf
 INPUT ./chapter/ch3_thietkecung.tex
 INPUT chapter/ch3_thietkecung.tex
 INPUT ./chapter/ch3_thietkecung.tex
 INPUT chapter/ch3_thietkecung.tex
-INPUT ../Images//fig12-c-body.png
-INPUT ../Images//fig12-c-body.png
-INPUT ../Images//fig12-c-body.png
-INPUT ../Images//fig12-c-body.png
-INPUT ../Images//fig12-c-body.png
-INPUT ../Images//fig12-b-nắp thân.png
-INPUT ../Images//fig12-b-nắp thân.png
-INPUT ../Images//fig12-b-nắp thân.png
-INPUT ../Images//fig12-b-nắp thân.png
-INPUT ../Images//fig12-b-nắp thân.png
-INPUT ../Images//fig12-a-thân.png
-INPUT ../Images//fig12-a-thân.png
-INPUT ../Images//fig12-a-thân.png
-INPUT ../Images//fig12-a-thân.png
-INPUT ../Images//fig12-a-thân.png
-INPUT ../Images//fig13-Hip-joint assembly for the lateral and longitudinal swing motions..jpg
-INPUT ../Images//fig13-Hip-joint assembly for the lateral and longitudinal swing motions..jpg
-INPUT ../Images//fig13-Hip-joint assembly for the lateral and longitudinal swing motions..jpg
-INPUT ../Images//fig13-Hip-joint assembly for the lateral and longitudinal swing motions..jpg
-INPUT ../Images//fig13-Hip-joint assembly for the lateral and longitudinal swing motions..jpg
-INPUT ../Images//fig14- Single leg assembly..jpg
-INPUT ../Images//fig14- Single leg assembly..jpg
-INPUT ../Images//fig14- Single leg assembly..jpg
-INPUT ../Images//fig14- Single leg assembly..jpg
-INPUT ../Images//fig14- Single leg assembly..jpg
-INPUT ../Images//fig16-ST3215.jpg
-INPUT ../Images//fig16-ST3215.jpg
-INPUT ../Images//fig16-ST3215.jpg
-INPUT ../Images//fig16-ST3215.jpg
-INPUT ../Images//fig16-ST3215.jpg
-INPUT ../Images//fig17-Torque analysis of the lower leg servo actuator.png
-INPUT ../Images//fig17-Torque analysis of the lower leg servo actuator.png
-INPUT ../Images//fig17-Torque analysis of the lower leg servo actuator.png
-INPUT ../Images//fig17-Torque analysis of the lower leg servo actuator.png
-INPUT ../Images//fig17-Torque analysis of the lower leg servo actuator.png
-INPUT ../Images//fig18-Free body diagram.png
-INPUT ../Images//fig18-Free body diagram.png
-INPUT ../Images//fig18-Free body diagram.png
-INPUT ../Images//fig18-Free body diagram.png
-INPUT ../Images//fig18-Free body diagram.png
-INPUT ../Images//fig19-preview_design.png
-INPUT ../Images//fig19-preview_design.png
-INPUT ../Images//fig19-preview_design.png
-INPUT ../Images//fig19-preview_design.png
-INPUT ../Images//fig19-preview_design.png
-INPUT ../Images//fig_system_overview_new.png
-INPUT ../Images//fig_system_overview_new.png
-INPUT ../Images//fig_system_overview_new.png
-INPUT ../Images//fig_system_overview_new.png
-INPUT ../Images//fig_system_overview_new.png
-INPUT ../Images//fig_real_robot.png
-INPUT ../Images//fig_real_robot.png
-INPUT ../Images//fig_real_robot.png
-INPUT ../Images//fig_real_robot.png
-INPUT ../Images//fig_real_robot.png
-INPUT ../Images//fig34-Specifications-Jetson-B01.png
-INPUT ../Images//fig34-Specifications-Jetson-B01.png
-INPUT ../Images//fig34-Specifications-Jetson-B01.png
-INPUT ../Images//fig34-Specifications-Jetson-B01.png
-INPUT ../Images//fig34-Specifications-Jetson-B01.png
-INPUT ../Images//fig35-Nguồn Xung Tổ Ong 12V 40A 480W.png
-INPUT ../Images//fig35-Nguồn Xung Tổ Ong 12V 40A 480W.png
-INPUT ../Images//fig35-Nguồn Xung Tổ Ong 12V 40A 480W.png
-INPUT ../Images//fig35-Nguồn Xung Tổ Ong 12V 40A 480W.png
-INPUT ../Images//fig35-Nguồn Xung Tổ Ong 12V 40A 480W.png
-INPUT ../Images//fig36-Bus-Servo-Adapter-A-details-1.jpg
-INPUT ../Images//fig36-Bus-Servo-Adapter-A-details-1.jpg
-INPUT ../Images//fig36-Bus-Servo-Adapter-A-details-1.jpg
-INPUT ../Images//fig36-Bus-Servo-Adapter-A-details-1.jpg
-INPUT ../Images//fig36-Bus-Servo-Adapter-A-details-1.jpg
-INPUT ../Images//fig37-IMU-BNO055.png
-INPUT ../Images//fig37-IMU-BNO055.png
-INPUT ../Images//fig37-IMU-BNO055.png
-INPUT ../Images//fig37-IMU-BNO055.png
-INPUT ../Images//fig37-IMU-BNO055.png
-INPUT ../Images//fig38-Mạch giảm áp.jpg
-INPUT ../Images//fig38-Mạch giảm áp.jpg
-INPUT ../Images//fig38-Mạch giảm áp.jpg
-INPUT ../Images//fig38-Mạch giảm áp.jpg
-INPUT ../Images//fig38-Mạch giảm áp.jpg
-INPUT ../Images//fig44-sododiday-hethong.jpg
-INPUT ../Images//fig44-sododiday-hethong.jpg
-INPUT ../Images//fig44-sododiday-hethong.jpg
-INPUT ../Images//fig44-sododiday-hethong.jpg
-INPUT ../Images//fig44-sododiday-hethong.jpg
-INPUT ../Images//fig39-Different Communication Protocols .png
-INPUT ../Images//fig39-Different Communication Protocols .png
-INPUT ../Images//fig39-Different Communication Protocols .png
-INPUT ../Images//fig39-Different Communication Protocols .png
-INPUT ../Images//fig39-Different Communication Protocols .png
-INPUT ../Images//fig40-Introduction-to-I2C-Data-Transmission-Diagram-Data-Frame.png
-INPUT ../Images//fig40-Introduction-to-I2C-Data-Transmission-Diagram-Data-Frame.png
-INPUT ../Images//fig40-Introduction-to-I2C-Data-Transmission-Diagram-Data-Frame.png
-INPUT ../Images//fig40-Introduction-to-I2C-Data-Transmission-Diagram-Data-Frame.png
-INPUT ../Images//fig40-Introduction-to-I2C-Data-Transmission-Diagram-Data-Frame.png
-INPUT ../Images//fig41-Wired-UART.png
-INPUT ../Images//fig41-Wired-UART.png
-INPUT ../Images//fig41-Wired-UART.png
-INPUT ../Images//fig41-Wired-UART.png
-INPUT ../Images//fig41-Wired-UART.png
+INPUT ./Images//hardware/body_part_c.png
+INPUT ./Images//hardware/body_part_c.png
+INPUT Images//hardware/body_part_c.png
+INPUT ./Images//hardware/body_part_c.png
+INPUT ./Images//hardware/body_part_c.png
+INPUT ./Images//hardware/body_part_b.png
+INPUT ./Images//hardware/body_part_b.png
+INPUT Images//hardware/body_part_b.png
+INPUT ./Images//hardware/body_part_b.png
+INPUT ./Images//hardware/body_part_b.png
+INPUT ./Images//hardware/body_part_a.png
+INPUT ./Images//hardware/body_part_a.png
+INPUT Images//hardware/body_part_a.png
+INPUT ./Images//hardware/body_part_a.png
+INPUT ./Images//hardware/body_part_a.png
+INPUT ./Images//hardware/hip_joint_assembly.jpg
+INPUT ./Images//hardware/hip_joint_assembly.jpg
+INPUT Images//hardware/hip_joint_assembly.jpg
+INPUT ./Images//hardware/hip_joint_assembly.jpg
+INPUT ./Images//hardware/hip_joint_assembly.jpg
+INPUT ./Images//hardware/single_leg_assembly.jpg
+INPUT ./Images//hardware/single_leg_assembly.jpg
+INPUT Images//hardware/single_leg_assembly.jpg
+INPUT ./Images//hardware/single_leg_assembly.jpg
+INPUT ./Images//hardware/single_leg_assembly.jpg
+INPUT ./Images//hardware/servo_st3215.jpg
+INPUT ./Images//hardware/servo_st3215.jpg
+INPUT Images//hardware/servo_st3215.jpg
+INPUT ./Images//hardware/servo_st3215.jpg
+INPUT ./Images//hardware/servo_st3215.jpg
+INPUT ./Images//hardware/servo_torque_analysis.png
+INPUT ./Images//hardware/servo_torque_analysis.png
+INPUT Images//hardware/servo_torque_analysis.png
+INPUT ./Images//hardware/servo_torque_analysis.png
+INPUT ./Images//hardware/servo_torque_analysis.png
+INPUT ./Images//hardware/free_body_diagram.png
+INPUT ./Images//hardware/free_body_diagram.png
+INPUT Images//hardware/free_body_diagram.png
+INPUT ./Images//hardware/free_body_diagram.png
+INPUT ./Images//hardware/free_body_diagram.png
+INPUT ./Images//hardware/preview_design.png
+INPUT ./Images//hardware/preview_design.png
+INPUT Images//hardware/preview_design.png
+INPUT ./Images//hardware/preview_design.png
+INPUT ./Images//hardware/preview_design.png
+INPUT ./Images//architecture/system_overview.png
+INPUT ./Images//architecture/system_overview.png
+INPUT Images//architecture/system_overview.png
+INPUT ./Images//architecture/system_overview.png
+INPUT ./Images//architecture/system_overview.png
+INPUT ./Images//real_robot/real_robot_demo.png
+INPUT ./Images//real_robot/real_robot_demo.png
+INPUT Images//real_robot/real_robot_demo.png
+INPUT ./Images//real_robot/real_robot_demo.png
+INPUT ./Images//real_robot/real_robot_demo.png
+INPUT ./Images//hardware/jetson_b01_specs.png
+INPUT ./Images//hardware/jetson_b01_specs.png
+INPUT Images//hardware/jetson_b01_specs.png
+INPUT ./Images//hardware/jetson_b01_specs.png
+INPUT ./Images//hardware/jetson_b01_specs.png
+INPUT ./Images//hardware/power_supply_12v.png
+INPUT ./Images//hardware/power_supply_12v.png
+INPUT Images//hardware/power_supply_12v.png
+INPUT ./Images//hardware/power_supply_12v.png
+INPUT ./Images//hardware/power_supply_12v.png
+INPUT ./Images//hardware/bus_servo_adapter.jpg
+INPUT ./Images//hardware/bus_servo_adapter.jpg
+INPUT Images//hardware/bus_servo_adapter.jpg
+INPUT ./Images//hardware/bus_servo_adapter.jpg
+INPUT ./Images//hardware/bus_servo_adapter.jpg
+INPUT ./Images//hardware/imu_bno055.png
+INPUT ./Images//hardware/imu_bno055.png
+INPUT Images//hardware/imu_bno055.png
+INPUT ./Images//hardware/imu_bno055.png
+INPUT ./Images//hardware/imu_bno055.png
+INPUT ./Images//hardware/buck_converter.jpg
+INPUT ./Images//hardware/buck_converter.jpg
+INPUT Images//hardware/buck_converter.jpg
+INPUT ./Images//hardware/buck_converter.jpg
+INPUT ./Images//hardware/buck_converter.jpg
+INPUT ./Images//hardware/system_wiring_diagram.jpg
+INPUT ./Images//hardware/system_wiring_diagram.jpg
+INPUT Images//hardware/system_wiring_diagram.jpg
+INPUT ./Images//hardware/system_wiring_diagram.jpg
+INPUT ./Images//hardware/system_wiring_diagram.jpg
+INPUT ./Images//control_sys/communication_protocols.png
+INPUT ./Images//control_sys/communication_protocols.png
+INPUT Images//control_sys/communication_protocols.png
+INPUT ./Images//control_sys/communication_protocols.png
+INPUT ./Images//control_sys/communication_protocols.png
+INPUT ./Images//control_sys/i2c_data_frame.png
+INPUT ./Images//control_sys/i2c_data_frame.png
+INPUT Images//control_sys/i2c_data_frame.png
+INPUT ./Images//control_sys/i2c_data_frame.png
+INPUT ./Images//control_sys/i2c_data_frame.png
+INPUT ./Images//control_sys/wired_uart.png
+INPUT ./Images//control_sys/wired_uart.png
+INPUT Images//control_sys/wired_uart.png
+INPUT ./Images//control_sys/wired_uart.png
+INPUT ./Images//control_sys/wired_uart.png
 INPUT ./chapter/ch4_thietkemem.tex
 INPUT chapter/ch4_thietkemem.tex
 INPUT ./chapter/ch4_thietkemem.tex
 INPUT chapter/ch4_thietkemem.tex
-INPUT ../Images//fig_ros2_architecture.pdf
-INPUT ../Images//fig_ros2_architecture.pdf
-INPUT ../Images//fig_ros2_architecture.pdf
-INPUT ../Images//fig_ros2_architecture.pdf
-INPUT ../Images//fig_ros2_architecture.pdf
+INPUT ./Images//architecture/ros2_architecture.pdf
+INPUT ./Images//architecture/ros2_architecture.pdf
+INPUT Images//architecture/ros2_architecture.pdf
+INPUT ./Images//architecture/ros2_architecture.pdf
+INPUT ./Images//architecture/ros2_architecture.pdf
 INPUT ./chapter/ch5_ketqua.tex
 INPUT chapter/ch5_ketqua.tex
 INPUT ./chapter/ch5_ketqua.tex
 INPUT chapter/ch5_ketqua.tex
-INPUT ../Images//sim_homing_frames/frame_001.jpg
-INPUT ../Images//sim_homing_frames/frame_001.jpg
-INPUT ../Images//sim_homing_frames/frame_001.jpg
-INPUT ../Images//sim_homing_frames/frame_001.jpg
-INPUT ../Images//sim_homing_frames/frame_001.jpg
-INPUT ../Images//sim_homing_frames/frame_002.jpg
-INPUT ../Images//sim_homing_frames/frame_002.jpg
-INPUT ../Images//sim_homing_frames/frame_002.jpg
-INPUT ../Images//sim_homing_frames/frame_002.jpg
-INPUT ../Images//sim_homing_frames/frame_002.jpg
-INPUT ../Images//sim_homing_frames/frame_003.jpg
-INPUT ../Images//sim_homing_frames/frame_003.jpg
-INPUT ../Images//sim_homing_frames/frame_003.jpg
-INPUT ../Images//sim_homing_frames/frame_003.jpg
-INPUT ../Images//sim_homing_frames/frame_003.jpg
-INPUT ../Images//sim_homing_frames/frame_004.jpg
-INPUT ../Images//sim_homing_frames/frame_004.jpg
-INPUT ../Images//sim_homing_frames/frame_004.jpg
-INPUT ../Images//sim_homing_frames/frame_004.jpg
-INPUT ../Images//sim_homing_frames/frame_004.jpg
-INPUT ../Images//sim_homing_frames/frame_005.jpg
-INPUT ../Images//sim_homing_frames/frame_005.jpg
-INPUT ../Images//sim_homing_frames/frame_005.jpg
-INPUT ../Images//sim_homing_frames/frame_005.jpg
-INPUT ../Images//sim_homing_frames/frame_005.jpg
-INPUT ../Images//sim_homing_frames/frame_006.jpg
-INPUT ../Images//sim_homing_frames/frame_006.jpg
-INPUT ../Images//sim_homing_frames/frame_006.jpg
-INPUT ../Images//sim_homing_frames/frame_006.jpg
-INPUT ../Images//sim_homing_frames/frame_006.jpg
-INPUT ../Images//sim_homing_frames/frame_007.jpg
-INPUT ../Images//sim_homing_frames/frame_007.jpg
-INPUT ../Images//sim_homing_frames/frame_007.jpg
-INPUT ../Images//sim_homing_frames/frame_007.jpg
-INPUT ../Images//sim_homing_frames/frame_007.jpg
-INPUT ../Images//sim_homing_frames/frame_008.jpg
-INPUT ../Images//sim_homing_frames/frame_008.jpg
-INPUT ../Images//sim_homing_frames/frame_008.jpg
-INPUT ../Images//sim_homing_frames/frame_008.jpg
-INPUT ../Images//sim_homing_frames/frame_008.jpg
-INPUT ../Images//sim_homing_frames/frame_009.jpg
-INPUT ../Images//sim_homing_frames/frame_009.jpg
-INPUT ../Images//sim_homing_frames/frame_009.jpg
-INPUT ../Images//sim_homing_frames/frame_009.jpg
-INPUT ../Images//sim_homing_frames/frame_009.jpg
-INPUT ../Images//sim_homing_frames/frame_010.jpg
-INPUT ../Images//sim_homing_frames/frame_010.jpg
-INPUT ../Images//sim_homing_frames/frame_010.jpg
-INPUT ../Images//sim_homing_frames/frame_010.jpg
-INPUT ../Images//sim_homing_frames/frame_010.jpg
-INPUT ../Images//sim_trot_frames/frame_001.jpg
-INPUT ../Images//sim_trot_frames/frame_001.jpg
-INPUT ../Images//sim_trot_frames/frame_001.jpg
-INPUT ../Images//sim_trot_frames/frame_001.jpg
-INPUT ../Images//sim_trot_frames/frame_001.jpg
-INPUT ../Images//sim_trot_frames/frame_002.jpg
-INPUT ../Images//sim_trot_frames/frame_002.jpg
-INPUT ../Images//sim_trot_frames/frame_002.jpg
-INPUT ../Images//sim_trot_frames/frame_002.jpg
-INPUT ../Images//sim_trot_frames/frame_002.jpg
-INPUT ../Images//sim_trot_frames/frame_003.jpg
-INPUT ../Images//sim_trot_frames/frame_003.jpg
-INPUT ../Images//sim_trot_frames/frame_003.jpg
-INPUT ../Images//sim_trot_frames/frame_003.jpg
-INPUT ../Images//sim_trot_frames/frame_003.jpg
-INPUT ../Images//sim_trot_frames/frame_004.jpg
-INPUT ../Images//sim_trot_frames/frame_004.jpg
-INPUT ../Images//sim_trot_frames/frame_004.jpg
-INPUT ../Images//sim_trot_frames/frame_004.jpg
-INPUT ../Images//sim_trot_frames/frame_004.jpg
-INPUT ../Images//sim_trot_frames/frame_005.jpg
-INPUT ../Images//sim_trot_frames/frame_005.jpg
-INPUT ../Images//sim_trot_frames/frame_005.jpg
-INPUT ../Images//sim_trot_frames/frame_005.jpg
-INPUT ../Images//sim_trot_frames/frame_005.jpg
-INPUT ../Images//sim_trot_frames/frame_006.jpg
-INPUT ../Images//sim_trot_frames/frame_006.jpg
-INPUT ../Images//sim_trot_frames/frame_006.jpg
-INPUT ../Images//sim_trot_frames/frame_006.jpg
-INPUT ../Images//sim_trot_frames/frame_006.jpg
-INPUT ../Images//sim_trot_frames/frame_007.jpg
-INPUT ../Images//sim_trot_frames/frame_007.jpg
-INPUT ../Images//sim_trot_frames/frame_007.jpg
-INPUT ../Images//sim_trot_frames/frame_007.jpg
-INPUT ../Images//sim_trot_frames/frame_007.jpg
-INPUT ../Images//sim_trot_frames/frame_008.jpg
-INPUT ../Images//sim_trot_frames/frame_008.jpg
-INPUT ../Images//sim_trot_frames/frame_008.jpg
-INPUT ../Images//sim_trot_frames/frame_008.jpg
-INPUT ../Images//sim_trot_frames/frame_008.jpg
-INPUT ../Images//sim_trot_frames/frame_009.jpg
-INPUT ../Images//sim_trot_frames/frame_009.jpg
-INPUT ../Images//sim_trot_frames/frame_009.jpg
-INPUT ../Images//sim_trot_frames/frame_009.jpg
-INPUT ../Images//sim_trot_frames/frame_009.jpg
-INPUT ../Images//sim_trot_frames/frame_010.jpg
-INPUT ../Images//sim_trot_frames/frame_010.jpg
-INPUT ../Images//sim_trot_frames/frame_010.jpg
-INPUT ../Images//sim_trot_frames/frame_010.jpg
-INPUT ../Images//sim_trot_frames/frame_010.jpg
-INPUT ../Images//Simulation/fig1_foot_trajectory_2d.png
-INPUT ../Images//Simulation/fig1_foot_trajectory_2d.png
-INPUT ../Images//Simulation/fig1_foot_trajectory_2d.png
-INPUT ../Images//Simulation/fig1_foot_trajectory_2d.png
-INPUT ../Images//Simulation/fig1_foot_trajectory_2d.png
-INPUT ../Images//Simulation/fig2_foot_trajectory_3d.png
-INPUT ../Images//Simulation/fig2_foot_trajectory_3d.png
-INPUT ../Images//Simulation/fig2_foot_trajectory_3d.png
-INPUT ../Images//Simulation/fig2_foot_trajectory_3d.png
-INPUT ../Images//Simulation/fig2_foot_trajectory_3d.png
-INPUT ../Images//Simulation/fig3_velocity_acceleration.png
-INPUT ../Images//Simulation/fig3_velocity_acceleration.png
-INPUT ../Images//Simulation/fig3_velocity_acceleration.png
-INPUT ../Images//Simulation/fig3_velocity_acceleration.png
-INPUT ../Images//Simulation/fig3_velocity_acceleration.png
-INPUT ../Images//fig26- Fifth degree profiling curve.png
-INPUT ../Images//fig26- Fifth degree profiling curve.png
-INPUT ../Images//fig26- Fifth degree profiling curve.png
-INPUT ../Images//fig26- Fifth degree profiling curve.png
-INPUT ../Images//fig26- Fifth degree profiling curve.png
-INPUT ../Images//Simulation/fig4_joint_angles.png
-INPUT ../Images//Simulation/fig4_joint_angles.png
-INPUT ../Images//Simulation/fig4_joint_angles.png
-INPUT ../Images//Simulation/fig4_joint_angles.png
-INPUT ../Images//Simulation/fig4_joint_angles.png
-INPUT ../Images//Simulation/fig5_pd_torque.png
-INPUT ../Images//Simulation/fig5_pd_torque.png
-INPUT ../Images//Simulation/fig5_pd_torque.png
-INPUT ../Images//Simulation/fig5_pd_torque.png
-INPUT ../Images//Simulation/fig5_pd_torque.png
-INPUT ../Images//Simulation/fig6_gait_timing.png
-INPUT ../Images//Simulation/fig6_gait_timing.png
-INPUT ../Images//Simulation/fig6_gait_timing.png
-INPUT ../Images//Simulation/fig6_gait_timing.png
-INPUT ../Images//Simulation/fig6_gait_timing.png
-INPUT ../Images//Simulation/fig7_support_polygon.png
-INPUT ../Images//Simulation/fig7_support_polygon.png
-INPUT ../Images//Simulation/fig7_support_polygon.png
-INPUT ../Images//Simulation/fig7_support_polygon.png
-INPUT ../Images//Simulation/fig7_support_polygon.png
-INPUT ../Images//Simulation/fig8_workspace.png
-INPUT ../Images//Simulation/fig8_workspace.png
-INPUT ../Images//Simulation/fig8_workspace.png
-INPUT ../Images//Simulation/fig8_workspace.png
-INPUT ../Images//Simulation/fig8_workspace.png
-INPUT ../Images//fig_offline_traj_pos.png
-INPUT ../Images//fig_offline_traj_pos.png
-INPUT ../Images//fig_offline_traj_pos.png
-INPUT ../Images//fig_offline_traj_pos.png
-INPUT ../Images//fig_offline_traj_pos.png
-INPUT ../Images//fig_offline_traj_vel_acc.png
-INPUT ../Images//fig_offline_traj_vel_acc.png
-INPUT ../Images//fig_offline_traj_vel_acc.png
-INPUT ../Images//fig_offline_traj_vel_acc.png
-INPUT ../Images//fig_offline_traj_vel_acc.png
-INPUT ../Images//fig_offline_traj_angle.png
-INPUT ../Images//fig_offline_traj_angle.png
-INPUT ../Images//fig_offline_traj_angle.png
-INPUT ../Images//fig_offline_traj_angle.png
-INPUT ../Images//fig_offline_traj_angle.png
-INPUT ../Images//fig_gait_3d.png
-INPUT ../Images//fig_gait_3d.png
-INPUT ../Images//fig_gait_3d.png
-INPUT ../Images//fig_gait_3d.png
-INPUT ../Images//fig_gait_3d.png
-INPUT ../Images//fig_pid_error_home.png
-INPUT ../Images//fig_pid_error_home.png
-INPUT ../Images//fig_pid_error_home.png
-INPUT ../Images//fig_pid_error_home.png
-INPUT ../Images//fig_pid_error_home.png
-INPUT ../Images//fig_pid_error_gait.png
-INPUT ../Images//fig_pid_error_gait.png
-INPUT ../Images//fig_pid_error_gait.png
-INPUT ../Images//fig_pid_error_gait.png
-INPUT ../Images//fig_pid_error_gait.png
+INPUT ./Images//real_robot/frame_001.jpg
+INPUT ./Images//real_robot/frame_001.jpg
+INPUT Images//real_robot/frame_001.jpg
+INPUT ./Images//real_robot/frame_001.jpg
+INPUT ./Images//real_robot/frame_001.jpg
+INPUT ./Images//real_robot/frame_002.jpg
+INPUT ./Images//real_robot/frame_002.jpg
+INPUT Images//real_robot/frame_002.jpg
+INPUT ./Images//real_robot/frame_002.jpg
+INPUT ./Images//real_robot/frame_002.jpg
+INPUT ./Images//real_robot/frame_003.jpg
+INPUT ./Images//real_robot/frame_003.jpg
+INPUT Images//real_robot/frame_003.jpg
+INPUT ./Images//real_robot/frame_003.jpg
+INPUT ./Images//real_robot/frame_003.jpg
+INPUT ./Images//real_robot/frame_004.jpg
+INPUT ./Images//real_robot/frame_004.jpg
+INPUT Images//real_robot/frame_004.jpg
+INPUT ./Images//real_robot/frame_004.jpg
+INPUT ./Images//real_robot/frame_004.jpg
+INPUT ./Images//real_robot/frame_005.jpg
+INPUT ./Images//real_robot/frame_005.jpg
+INPUT Images//real_robot/frame_005.jpg
+INPUT ./Images//real_robot/frame_005.jpg
+INPUT ./Images//real_robot/frame_005.jpg
+INPUT ./Images//real_robot/frame_006.jpg
+INPUT ./Images//real_robot/frame_006.jpg
+INPUT Images//real_robot/frame_006.jpg
+INPUT ./Images//real_robot/frame_006.jpg
+INPUT ./Images//real_robot/frame_006.jpg
+INPUT ./Images//real_robot/frame_007.jpg
+INPUT ./Images//real_robot/frame_007.jpg
+INPUT Images//real_robot/frame_007.jpg
+INPUT ./Images//real_robot/frame_007.jpg
+INPUT ./Images//real_robot/frame_007.jpg
+INPUT ./Images//real_robot/frame_008.jpg
+INPUT ./Images//real_robot/frame_008.jpg
+INPUT Images//real_robot/frame_008.jpg
+INPUT ./Images//real_robot/frame_008.jpg
+INPUT ./Images//real_robot/frame_008.jpg
+INPUT ./Images//real_robot/frame_009.jpg
+INPUT ./Images//real_robot/frame_009.jpg
+INPUT Images//real_robot/frame_009.jpg
+INPUT ./Images//real_robot/frame_009.jpg
+INPUT ./Images//real_robot/frame_009.jpg
+INPUT ./Images//real_robot/frame_010.jpg
+INPUT ./Images//real_robot/frame_010.jpg
+INPUT Images//real_robot/frame_010.jpg
+INPUT ./Images//real_robot/frame_010.jpg
+INPUT ./Images//real_robot/frame_010.jpg
+INPUT ./Images//real_robot/frame_001.jpg
+INPUT ./Images//real_robot/frame_001.jpg
+INPUT Images//real_robot/frame_001.jpg
+INPUT ./Images//real_robot/frame_001.jpg
+INPUT ./Images//real_robot/frame_002.jpg
+INPUT ./Images//real_robot/frame_002.jpg
+INPUT Images//real_robot/frame_002.jpg
+INPUT ./Images//real_robot/frame_002.jpg
+INPUT ./Images//real_robot/frame_003.jpg
+INPUT ./Images//real_robot/frame_003.jpg
+INPUT Images//real_robot/frame_003.jpg
+INPUT ./Images//real_robot/frame_003.jpg
+INPUT ./Images//real_robot/frame_004.jpg
+INPUT ./Images//real_robot/frame_004.jpg
+INPUT Images//real_robot/frame_004.jpg
+INPUT ./Images//real_robot/frame_004.jpg
+INPUT ./Images//real_robot/frame_005.jpg
+INPUT ./Images//real_robot/frame_005.jpg
+INPUT Images//real_robot/frame_005.jpg
+INPUT ./Images//real_robot/frame_005.jpg
+INPUT ./Images//real_robot/frame_006.jpg
+INPUT ./Images//real_robot/frame_006.jpg
+INPUT Images//real_robot/frame_006.jpg
+INPUT ./Images//real_robot/frame_006.jpg
+INPUT ./Images//real_robot/frame_007.jpg
+INPUT ./Images//real_robot/frame_007.jpg
+INPUT Images//real_robot/frame_007.jpg
+INPUT ./Images//real_robot/frame_007.jpg
+INPUT ./Images//real_robot/frame_008.jpg
+INPUT ./Images//real_robot/frame_008.jpg
+INPUT Images//real_robot/frame_008.jpg
+INPUT ./Images//real_robot/frame_008.jpg
+INPUT ./Images//real_robot/frame_009.jpg
+INPUT ./Images//real_robot/frame_009.jpg
+INPUT Images//real_robot/frame_009.jpg
+INPUT ./Images//real_robot/frame_009.jpg
+INPUT ./Images//real_robot/frame_010.jpg
+INPUT ./Images//real_robot/frame_010.jpg
+INPUT Images//real_robot/frame_010.jpg
+INPUT ./Images//real_robot/frame_010.jpg
+INPUT ./Images//gait_planner/foot_trajectory_2d.png
+INPUT ./Images//gait_planner/foot_trajectory_2d.png
+INPUT Images//gait_planner/foot_trajectory_2d.png
+INPUT ./Images//gait_planner/foot_trajectory_2d.png
+INPUT ./Images//gait_planner/foot_trajectory_2d.png
+INPUT ./Images//gait_planner/foot_trajectory_3d.png
+INPUT ./Images//gait_planner/foot_trajectory_3d.png
+INPUT Images//gait_planner/foot_trajectory_3d.png
+INPUT ./Images//gait_planner/foot_trajectory_3d.png
+INPUT ./Images//gait_planner/foot_trajectory_3d.png
+INPUT ./Images//gait_planner/velocity_acceleration.png
+INPUT ./Images//gait_planner/velocity_acceleration.png
+INPUT Images//gait_planner/velocity_acceleration.png
+INPUT ./Images//gait_planner/velocity_acceleration.png
+INPUT ./Images//gait_planner/velocity_acceleration.png
+INPUT ./Images//gait_planner/fifth_degree_profiling.png
+INPUT ./Images//gait_planner/fifth_degree_profiling.png
+INPUT Images//gait_planner/fifth_degree_profiling.png
+INPUT ./Images//gait_planner/fifth_degree_profiling.png
+INPUT ./Images//gait_planner/fifth_degree_profiling.png
+INPUT ./Images//gait_planner/joint_angles.png
+INPUT ./Images//gait_planner/joint_angles.png
+INPUT Images//gait_planner/joint_angles.png
+INPUT ./Images//gait_planner/joint_angles.png
+INPUT ./Images//gait_planner/joint_angles.png
+INPUT ./Images//control_sys/pd_torque_control.png
+INPUT ./Images//control_sys/pd_torque_control.png
+INPUT Images//control_sys/pd_torque_control.png
+INPUT ./Images//control_sys/pd_torque_control.png
+INPUT ./Images//control_sys/pd_torque_control.png
+INPUT ./Images//gait_planner/gait_timing.png
+INPUT ./Images//gait_planner/gait_timing.png
+INPUT Images//gait_planner/gait_timing.png
+INPUT ./Images//gait_planner/gait_timing.png
+INPUT ./Images//gait_planner/gait_timing.png
+INPUT ./Images//kinematics/support_polygon.png
+INPUT ./Images//kinematics/support_polygon.png
+INPUT Images//kinematics/support_polygon.png
+INPUT ./Images//kinematics/support_polygon.png
+INPUT ./Images//kinematics/support_polygon.png
+INPUT ./Images//kinematics/workspace.png
+INPUT ./Images//kinematics/workspace.png
+INPUT Images//kinematics/workspace.png
+INPUT ./Images//kinematics/workspace.png
+INPUT ./Images//kinematics/workspace.png
+INPUT ./Images//results/offline_traj_pos.png
+INPUT ./Images//results/offline_traj_pos.png
+INPUT Images//results/offline_traj_pos.png
+INPUT ./Images//results/offline_traj_pos.png
+INPUT ./Images//results/offline_traj_pos.png
+INPUT ./Images//results/offline_traj_vel_acc.png
+INPUT ./Images//results/offline_traj_vel_acc.png
+INPUT Images//results/offline_traj_vel_acc.png
+INPUT ./Images//results/offline_traj_vel_acc.png
+INPUT ./Images//results/offline_traj_vel_acc.png
+INPUT ./Images//results/offline_traj_angle.png
+INPUT ./Images//results/offline_traj_angle.png
+INPUT Images//results/offline_traj_angle.png
+INPUT ./Images//results/offline_traj_angle.png
+INPUT ./Images//results/offline_traj_angle.png
+INPUT ./Images//gait_planner/gait_3d.png
+INPUT ./Images//gait_planner/gait_3d.png
+INPUT Images//gait_planner/gait_3d.png
+INPUT ./Images//gait_planner/gait_3d.png
+INPUT ./Images//gait_planner/gait_3d.png
+INPUT ./Images//results/pid_error_home.png
+INPUT ./Images//results/pid_error_home.png
+INPUT Images//results/pid_error_home.png
+INPUT ./Images//results/pid_error_home.png
+INPUT ./Images//results/pid_error_home.png
+INPUT ./Images//results/pid_error_gait.png
+INPUT ./Images//results/pid_error_gait.png
+INPUT Images//results/pid_error_gait.png
+INPUT ./Images//results/pid_error_gait.png
+INPUT ./Images//results/pid_error_gait.png
 INPUT ./chapter/ch6_ketluan.tex
 INPUT chapter/ch6_ketluan.tex
 INPUT ./chapter/ch6_ketluan.tex
 INPUT chapter/ch6_ketluan.tex
+INPUT ./thesis.bbl
+INPUT thesis.bbl
+INPUT ./thesis.bbl
+INPUT thesis.bbl
 INPUT ./chapter/appendix.tex
 INPUT ./chapter/appendix.tex
 INPUT ./chapter/appendix.tex
@@ -1630,6 +1624,7 @@ INPUT ./chapter/appendix.tex
 INPUT chapter/appendix.tex
 INPUT ./chapter/appendix.tex
 INPUT chapter/appendix.tex
+INPUT /usr/share/texmf/fonts/tfm/public/tex-gyre/t5-qtmbi.tfm
 INPUT thesis.aux
 INPUT ./chapter/appendix.aux
 INPUT chapter/appendix.aux

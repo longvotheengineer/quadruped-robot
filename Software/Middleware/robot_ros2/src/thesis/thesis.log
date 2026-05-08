@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  8 MAY 2026 09:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.28)  8 MAY 2026 15:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -45,7 +45,7 @@ Package: inputenc 2021/02/14 v1.3d Input encoding file
 Package: babel 2022/01/26 3.70 The Babel package
 \babel@savecnt=\count194
 \U@D=\dimen140
-\l@unhyphenated=\language87
+\l@unhyphenated=\language30
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
@@ -1012,6 +1012,12 @@ LaTeX Warning: Label `fig7' multiply defined.
 
 LaTeX Warning: Label `fig8' multiply defined.
 
+
+LaTeX Warning: Label `tab:robotoff' multiply defined.
+
+
+LaTeX Warning: Label `tab:sim_vs_hw' multiply defined.
+
 (./chapter/appendix.aux))
 \openout1 = `thesis.aux'.
 
@@ -1129,10 +1135,10 @@ LaTeX Info: Redefining \nameref on input line 85.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<Images//LogoBK.png, id=568, 291.0072pt x 293.898pt>
-File: Images//LogoBK.png Graphic file (type png)
-<use Images//LogoBK.png>
-Package pdftex.def Info: Images//LogoBK.png  used on input line 99.
+<Images//misc/logobk.png, id=592, 291.0072pt x 293.898pt>
+File: Images//misc/logobk.png Graphic file (type png)
+<use Images//misc/logobk.png>
+Package pdftex.def Info: Images//misc/logobk.png  used on input line 99.
 (pdftex.def)             Requested size: 101.85403pt x 102.86583pt.
 LaTeX Font Info:    Calculating math sizes for size <14> on input line 99.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 99.
@@ -1147,16 +1153,16 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 99.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./Images//LogoBK.png>] [2]
- [3] [1
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./Images//misc/logobk.png>
+] [2] [3] [1
 
-
-
-] [2
 
 
 ]
-(./thesis.toc [3
+[2
+
+
+] (./thesis.toc [3
 
 
 ] [4] [5] [6])
@@ -1211,214 +1217,215 @@ l.81
       [3] [4] [5] [6]) (./chapter/ch2_lythuyet.tex [7]
 Ch\uhorn \ohorn ng 2.
 (./chapter/chapter2_content.tex
-<Images//fig1-Robotdog.png, id=1049, 2409.0pt x 1606.0pt>
-File: Images//fig1-Robotdog.png Graphic file (type png)
-<use Images//fig1-Robotdog.png>
-Package pdftex.def Info: Images//fig1-Robotdog.png  used on input line 11.
+<Images//hardware/robot_overview.png, id=1083, 2409.0pt x 1606.0pt>
+File: Images//hardware/robot_overview.png Graphic file (type png)
+<use Images//hardware/robot_overview.png>
+Package pdftex.def Info: Images//hardware/robot_overview.png  used on input lin
+e 11.
 (pdftex.def)             Requested size: 288.79422pt x 192.51564pt.
  [8
 
- <./Images//fig1-Robotdog.png>]
-<Images//fig8-Both side of each Serial-Leg.png, id=1056, 175.65625pt x 149.5587
-5pt>
-File: Images//fig8-Both side of each Serial-Leg.png Graphic file (type png)
-<use Images//fig8-Both side of each Serial-Leg.png>
-Package pdftex.def Info: Images//fig8-Both side of each Serial-Leg.png  used on
- input line 23.
+ <./Images//hardware/robot_overview.png>]
+<Images//hardware/serial_leg_both_sides.png, id=1090, 175.65625pt x 149.55875pt
+>
+File: Images//hardware/serial_leg_both_sides.png Graphic file (type png)
+<use Images//hardware/serial_leg_both_sides.png>
+Package pdftex.def Info: Images//hardware/serial_leg_both_sides.png  used on in
+put line 23.
 (pdftex.def)             Requested size: 247.54149pt x 210.78201pt.
-<Images//fig9-Mechanical model & branch coordinate system.png, id=1058, 314.173
-75pt x 203.76125pt>
-File: Images//fig9-Mechanical model & branch coordinate system.png Graphic file
- (type png)
-<use Images//fig9-Mechanical model & branch coordinate system.png>
-Package pdftex.def Info: Images//fig9-Mechanical model & branch coordinate syst
-em.png  used on input line 32.
+<Images//hardware/mechanical_model.png, id=1092, 314.17375pt x 203.76125pt>
+File: Images//hardware/mechanical_model.png Graphic file (type png)
+<use Images//hardware/mechanical_model.png>
+Package pdftex.def Info: Images//hardware/mechanical_model.png  used on input l
+ine 32.
 (pdftex.def)             Requested size: 247.54149pt x 160.54366pt.
- [9 <./Images//fig8-Both side of each Serial-Leg.png> <./Images//fig9-Mechanica
-l model & branch coordinate system.png>]
-<Images//fig10-Mechanical model & branch coordinate system.png, id=1066, 291.08
-75pt x 175.65625pt>
-File: Images//fig10-Mechanical model & branch coordinate system.png Graphic fil
-e (type png)
-<use Images//fig10-Mechanical model & branch coordinate system.png>
-Package pdftex.def Info: Images//fig10-Mechanical model & branch coordinate sys
-tem.png  used on input line 41.
+
+[9 <./Images//hardware/serial_leg_both_sides.png> <./Images//hardware/mechanica
+l_model.png>]
+<Images//hardware/mechanical_model_branch.png, id=1100, 291.0875pt x 175.65625p
+t>
+File: Images//hardware/mechanical_model_branch.png Graphic file (type png)
+<use Images//hardware/mechanical_model_branch.png>
+Package pdftex.def Info: Images//hardware/mechanical_model_branch.png  used on 
+input line 41.
 (pdftex.def)             Requested size: 247.54149pt x 149.38087pt.
-<Images//fig11-Structure topology of the 12-DOF quadruped robot design (front v
-iew)..png, id=1068, 421.575pt x 135.50626pt>
-File: Images//fig11-Structure topology of the 12-DOF quadruped robot design (fr
-ont view)..png Graphic file (type png)
-<use Images//fig11-Structure topology of the 12-DOF quadruped robot design (fro
-nt view)..png>
-Package pdftex.def Info: Images//fig11-Structure topology of the 12-DOF quadrup
-ed robot design (front view)..png  used on input line 62.
+<Images//hardware/structure_topology_front.png, id=1102, 421.575pt x 135.50626p
+t>
+File: Images//hardware/structure_topology_front.png Graphic file (type png)
+<use Images//hardware/structure_topology_front.png>
+Package pdftex.def Info: Images//hardware/structure_topology_front.png  used on
+ input line 62.
 (pdftex.def)             Requested size: 247.54149pt x 79.56754pt.
- [10 <./Images//fig10-Mechanical model & branch coordinate system.png>]
-<Images//fig2-3 DOF of Single Leg Mechanism.png, id=1075, 175.65625pt x 250.937
-5pt>
-File: Images//fig2-3 DOF of Single Leg Mechanism.png Graphic file (type png)
-<use Images//fig2-3 DOF of Single Leg Mechanism.png>
-Package pdftex.def Info: Images//fig2-3 DOF of Single Leg Mechanism.png  used o
-n input line 72.
+ [10 <./Images//hardware/mechanical_model_branch.png>]
+<Images//kinematics/single_leg_3dof.png, id=1109, 175.65625pt x 250.9375pt>
+File: Images//kinematics/single_leg_3dof.png Graphic file (type png)
+<use Images//kinematics/single_leg_3dof.png>
+Package pdftex.def Info: Images//kinematics/single_leg_3dof.png  used on input 
+line 72.
 (pdftex.def)             Requested size: 247.54149pt x 353.66109pt.
- [11 <./Images//fig11-Structure topology of the 12-DOF quadruped robot design (
-front view)..png> <./Images//fig2-3 DOF of Single Leg Mechanism.png>]
-<Images//fig3-Trot bait table.png, id=1082, 313.17pt x 100.375pt>
-File: Images//fig3-Trot bait table.png Graphic file (type png)
-<use Images//fig3-Trot bait table.png>
-Package pdftex.def Info: Images//fig3-Trot bait table.png  used on input line 1
-12.
+ [11 <./Images//hardware/structure_topology_front.png> <./Images//kinematics/si
+ngle_leg_3dof.png>]
+<Images//gait_planner/trot_gait_table.png, id=1116, 313.17pt x 100.375pt>
+File: Images//gait_planner/trot_gait_table.png Graphic file (type png)
+<use Images//gait_planner/trot_gait_table.png>
+Package pdftex.def Info: Images//gait_planner/trot_gait_table.png  used on inpu
+t line 112.
 (pdftex.def)             Requested size: 247.54149pt x 79.34285pt.
  [12]
-<Images//fig4-Walk gait table.png, id=1091, 313.17pt x 113.92563pt>
-File: Images//fig4-Walk gait table.png Graphic file (type png)
-<use Images//fig4-Walk gait table.png>
-Package pdftex.def Info: Images//fig4-Walk gait table.png  used on input line 1
-21.
+<Images//gait_planner/walk_gait_table.png, id=1125, 313.17pt x 113.92563pt>
+File: Images//gait_planner/walk_gait_table.png Graphic file (type png)
+<use Images//gait_planner/walk_gait_table.png>
+Package pdftex.def Info: Images//gait_planner/walk_gait_table.png  used on inpu
+t line 121.
 (pdftex.def)             Requested size: 247.54149pt x 90.05414pt.
-<Images//fig5-Pace gait table.png, id=1092, 313.17pt x 113.92563pt>
-File: Images//fig5-Pace gait table.png Graphic file (type png)
-<use Images//fig5-Pace gait table.png>
-Package pdftex.def Info: Images//fig5-Pace gait table.png  used on input line 1
-30.
+<Images//gait_planner/pace_gait_table.png, id=1126, 313.17pt x 113.92563pt>
+File: Images//gait_planner/pace_gait_table.png Graphic file (type png)
+<use Images//gait_planner/pace_gait_table.png>
+Package pdftex.def Info: Images//gait_planner/pace_gait_table.png  used on inpu
+t line 130.
 (pdftex.def)             Requested size: 247.54149pt x 90.05414pt.
-<Images//fig6-Bound gait table.png, id=1093, 313.17pt x 113.92563pt>
-File: Images//fig6-Bound gait table.png Graphic file (type png)
-<use Images//fig6-Bound gait table.png>
-Package pdftex.def Info: Images//fig6-Bound gait table.png  used on input line 
-139.
+<Images//gait_planner/bound_gait_table.png, id=1127, 313.17pt x 113.92563pt>
+File: Images//gait_planner/bound_gait_table.png Graphic file (type png)
+<use Images//gait_planner/bound_gait_table.png>
+Package pdftex.def Info: Images//gait_planner/bound_gait_table.png  used on inp
+ut line 139.
 (pdftex.def)             Requested size: 247.54149pt x 90.05414pt.
- [13 <./Images//fig3-Trot bait table.png> <./Images//fig4-Walk gait table.png> 
-<./Images//fig5-Pace gait table.png> <./Images//fig6-Bound gait table.png>]
-<Images//fig7-Gallop gait table.png, id=1103, 313.17pt x 113.92563pt>
-File: Images//fig7-Gallop gait table.png Graphic file (type png)
-<use Images//fig7-Gallop gait table.png>
-Package pdftex.def Info: Images//fig7-Gallop gait table.png  used on input line
- 148.
+ [13 <./Images//gait_planner/trot_gait_table.png> <./Images//gait_planner/walk_
+gait_table.png> <./Images//gait_planner/pace_gait_table.png> <./Images//gait_pl
+anner/bound_gait_table.png>]
+<Images//gait_planner/gallop_gait_table.png, id=1137, 313.17pt x 113.92563pt>
+File: Images//gait_planner/gallop_gait_table.png Graphic file (type png)
+<use Images//gait_planner/gallop_gait_table.png>
+Package pdftex.def Info: Images//gait_planner/gallop_gait_table.png  used on in
+put line 148.
 (pdftex.def)             Requested size: 247.54149pt x 90.05414pt.
-<Images//fig_static_stability_a.png, id=1105, 494.84875pt x 436.63126pt>
-File: Images//fig_static_stability_a.png Graphic file (type png)
-<use Images//fig_static_stability_a.png>
-Package pdftex.def Info: Images//fig_static_stability_a.png  used on input line
- 176.
+<Images//kinematics/static_stability_a.png, id=1139, 494.84875pt x 436.63126pt>
+
+File: Images//kinematics/static_stability_a.png Graphic file (type png)
+<use Images//kinematics/static_stability_a.png>
+Package pdftex.def Info: Images//kinematics/static_stability_a.png  used on inp
+ut line 176.
 (pdftex.def)             Requested size: 198.02942pt x 174.72935pt.
-<Images//fig_static_stability_b.png, id=1106, 709.65125pt x 623.32875pt>
-File: Images//fig_static_stability_b.png Graphic file (type png)
-<use Images//fig_static_stability_b.png>
-Package pdftex.def Info: Images//fig_static_stability_b.png  used on input line
- 182.
+<Images//kinematics/static_stability_b.png, id=1140, 709.65125pt x 623.32875pt>
+
+File: Images//kinematics/static_stability_b.png Graphic file (type png)
+<use Images//kinematics/static_stability_b.png>
+Package pdftex.def Info: Images//kinematics/static_stability_b.png  used on inp
+ut line 182.
 (pdftex.def)             Requested size: 198.02942pt x 173.94116pt.
- [14 <./Images//fig7-Gallop gait table.png>]
-<Images//fig_zmp_3d_model.png, id=1115, 687.56876pt x 574.145pt>
-File: Images//fig_zmp_3d_model.png Graphic file (type png)
-<use Images//fig_zmp_3d_model.png>
-Package pdftex.def Info: Images//fig_zmp_3d_model.png  used on input line 214.
+ [14 <./Images//gait_planner/gallop_gait_table.png>]
+<Images//kinematics/zmp_3d_model.png, id=1149, 687.56876pt x 574.145pt>
+File: Images//kinematics/zmp_3d_model.png Graphic file (type png)
+<use Images//kinematics/zmp_3d_model.png>
+Package pdftex.def Info: Images//kinematics/zmp_3d_model.png  used on input lin
+e 214.
 (pdftex.def)             Requested size: 206.28249pt x 172.25359pt.
- [15 <./Images//fig_static_stability_a.png> <./Images//fig_static_stability_b.p
-ng>] [16 <./Images//fig_zmp_3d_model.png>] [17] [18] [19]
+ [15 <./Images//kinematics/static_stability_a.png> <./Images//kinematics/static
+_stability_b.png>] [16 <./Images//kinematics/zmp_3d_model.png>]
+[17] [18] [19]
 LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 3
 89.
-
-(/usr/share/texlive/texmf-dist/tex/latex/vntex/t5cmtt.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/vntex/t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)) [20]
-<Images//fig_model_referenceframe.png, id=1170, 898.35625pt x 727.71875pt>
-File: Images//fig_model_referenceframe.png Graphic file (type png)
-<use Images//fig_model_referenceframe.png>
-Package pdftex.def Info: Images//fig_model_referenceframe.png  used on input li
-ne 12.
+))
+[20]
+<Images//kinematics/model_reference_frame.png, id=1204, 898.35625pt x 727.71875
+pt>
+File: Images//kinematics/model_reference_frame.png Graphic file (type png)
+<use Images//kinematics/model_reference_frame.png>
+Package pdftex.def Info: Images//kinematics/model_reference_frame.png  used on 
+input line 12.
 (pdftex.def)             Requested size: 288.79422pt x 233.94075pt.
- [21 <./Images//fig_model_referenceframe.png>]
-<Images//fig21-Diagram of the DH coordinate system..png, id=1178, 188.20313pt x
- 188.20313pt>
-File: Images//fig21-Diagram of the DH coordinate system..png Graphic file (type
- png)
-<use Images//fig21-Diagram of the DH coordinate system..png>
-Package pdftex.def Info: Images//fig21-Diagram of the DH coordinate system..png
-  used on input line 30.
+ [21 <./Images//kinematics/model_reference_frame.png>]
+<Images//kinematics/dh_coordinate_system.png, id=1212, 188.20313pt x 188.20313p
+t>
+File: Images//kinematics/dh_coordinate_system.png Graphic file (type png)
+<use Images//kinematics/dh_coordinate_system.png>
+Package pdftex.def Info: Images//kinematics/dh_coordinate_system.png  used on i
+nput line 30.
 (pdftex.def)             Requested size: 247.54149pt x 247.55873pt.
- [22 <./Images//fig21-Diagram of the DH coordinate system..png>] [23] [24] [25]
- [26]
-<Images//fig22-Trot gait timing diagram β = 0.5 .png, id=1234, 432.61626pt x 1
-05.89563pt>
-File: Images//fig22-Trot gait timing diagram β = 0.5 .png Graphic file (type p
-ng)
-<use Images//fig22-Trot gait timing diagram β = 0.5 .png>
-Package pdftex.def Info: Images//fig22-Trot gait timing diagram β = 0.5 .png  
-used on input line 358.
-(pdftex.def)             Requested size: 247.54149pt x 60.5938pt.
- [27 <./Images//fig22-Trot gait timing diagram β = 0.5 .png>]
-<Images//fig23-Quy hoạch quỹ đạo một chân.png, id=1242, 440.847pt x 2
-42.8272pt>
-File: Images//fig23-Quy hoạch quỹ đạo một chân.png Graphic file (type
- png)
-<use Images//fig23-Quy hoạch quỹ đạo một chân.png>
-Package pdftex.def Info: Images//fig23-Quy hoạch quỹ đạo một chân.png
-  used on input line 393.
-(pdftex.def)             Requested size: 247.54149pt x 136.34912pt.
- [28 <./Images//fig23-Quy hoạch quỹ đạo một chân.png>]
-<Images//fig_cubic_pva.pdf, id=1249, 558.79045pt x 710.10982pt>
-File: Images//fig_cubic_pva.pdf Graphic file (type pdf)
-<use Images//fig_cubic_pva.pdf>
-Package pdftex.def Info: Images//fig_cubic_pva.pdf  used on input line 427.
-(pdftex.def)             Requested size: 330.05322pt x 419.4271pt.
- [29 <./Images//fig_cubic_pva.pdf>]
-<Images//fig_quintic_pva.pdf, id=1309, 571.58766pt x 710.10982pt>
-File: Images//fig_quintic_pva.pdf Graphic file (type pdf)
-<use Images//fig_quintic_pva.pdf>
-Package pdftex.def Info: Images//fig_quintic_pva.pdf  used on input line 455.
-(pdftex.def)             Requested size: 330.05322pt x 410.05447pt.
- [30 <./Images//fig_quintic_pva.pdf>]
-<Images//fig_cubic_vs_quintic.pdf, id=1371, 571.146pt x 710.10982pt>
-File: Images//fig_cubic_vs_quintic.pdf Graphic file (type pdf)
-<use Images//fig_cubic_vs_quintic.pdf>
-Package pdftex.def Info: Images//fig_cubic_vs_quintic.pdf  used on input line 4
-87.
-(pdftex.def)             Requested size: 330.05322pt x 410.3687pt.
+ [22 <./Images//kinematics/dh_coordinate_system.png>] [23] [24] [25] [26]
+<Images//gait_planner/trot_gait_timing.png, id=1269, 432.61626pt x 105.89563pt>
 
-[31] [32 <./Images//fig_cubic_vs_quintic.pdf>]
-<Images//fig46_gait_generator.png, id=1437, 770.88pt x 358.33875pt>
-File: Images//fig46_gait_generator.png Graphic file (type png)
-<use Images//fig46_gait_generator.png>
-Package pdftex.def Info: Images//fig46_gait_generator.png  used on input line 5
-36.
+File: Images//gait_planner/trot_gait_timing.png Graphic file (type png)
+<use Images//gait_planner/trot_gait_timing.png>
+Package pdftex.def Info: Images//gait_planner/trot_gait_timing.png  used on inp
+ut line 358.
+(pdftex.def)             Requested size: 247.54149pt x 60.5938pt.
+ [27 <./Images//gait_planner/trot_gait_timing.png>]
+<Images//gait_planner/single_leg_trajectory.png, id=1276, 440.847pt x 242.8272p
+t>
+File: Images//gait_planner/single_leg_trajectory.png Graphic file (type png)
+<use Images//gait_planner/single_leg_trajectory.png>
+Package pdftex.def Info: Images//gait_planner/single_leg_trajectory.png  used o
+n input line 393.
+(pdftex.def)             Requested size: 247.54149pt x 136.34912pt.
+ [28 <./Images//gait_planner/single_leg_trajectory.png>]
+<Images//gait_planner/cubic_pva.pdf, id=1283, 558.79045pt x 710.10982pt>
+File: Images//gait_planner/cubic_pva.pdf Graphic file (type pdf)
+<use Images//gait_planner/cubic_pva.pdf>
+Package pdftex.def Info: Images//gait_planner/cubic_pva.pdf  used on input line
+ 427.
+(pdftex.def)             Requested size: 330.05322pt x 419.4271pt.
+ [29 <./Images//gait_planner/cubic_pva.pdf>]
+<Images//gait_planner/quintic_pva.pdf, id=1343, 571.58766pt x 710.10982pt>
+File: Images//gait_planner/quintic_pva.pdf Graphic file (type pdf)
+<use Images//gait_planner/quintic_pva.pdf>
+Package pdftex.def Info: Images//gait_planner/quintic_pva.pdf  used on input li
+ne 455.
+(pdftex.def)             Requested size: 330.05322pt x 410.05447pt.
+ [30 <./Images//gait_planner/quintic_pva.pdf>]
+<Images//gait_planner/cubic_vs_quintic.pdf, id=1405, 571.146pt x 710.10982pt>
+File: Images//gait_planner/cubic_vs_quintic.pdf Graphic file (type pdf)
+<use Images//gait_planner/cubic_vs_quintic.pdf>
+Package pdftex.def Info: Images//gait_planner/cubic_vs_quintic.pdf  used on inp
+ut line 487.
+(pdftex.def)             Requested size: 330.05322pt x 410.3687pt.
+ [31] [32 <./Images//gait_planner/cubic_vs_quintic.pdf>]
+<Images//gait_planner/gait_generator.png, id=1471, 770.88pt x 358.33875pt>
+File: Images//gait_planner/gait_generator.png Graphic file (type png)
+<use Images//gait_planner/gait_generator.png>
+Package pdftex.def Info: Images//gait_planner/gait_generator.png  used on input
+ line 536.
 (pdftex.def)             Requested size: 330.05322pt x 153.42105pt.
- [33] [34 <./Images//fig46_gait_generator.png>] [35]
-<Images//fig27- Force analysis on a general link i .png, id=1473, 323.70938pt x
- 189.70876pt>
-File: Images//fig27- Force analysis on a general link i .png Graphic file (type
- png)
-<use Images//fig27- Force analysis on a general link i .png>
-Package pdftex.def Info: Images//fig27- Force analysis on a general link i .png
-  used on input line 673.
+ [33]
+[34 <./Images//gait_planner/gait_generator.png>] [35]
+<Images//kinematics/force_analysis_link.png, id=1507, 323.70938pt x 189.70876pt
+>
+File: Images//kinematics/force_analysis_link.png Graphic file (type png)
+<use Images//kinematics/force_analysis_link.png>
+Package pdftex.def Info: Images//kinematics/force_analysis_link.png  used on in
+put line 673.
 (pdftex.def)             Requested size: 247.54149pt x 145.07172pt.
- [36] [37 <./Images//fig27- Force analysis on a general link i .png>]
-<Images//fig45-Locomotion_Planner_Balance_Controller.png, id=1490, 3280.255pt x
- 1316.92pt>
-File: Images//fig45-Locomotion_Planner_Balance_Controller.png Graphic file (typ
-e png)
-<use Images//fig45-Locomotion_Planner_Balance_Controller.png>
-Package pdftex.def Info: Images//fig45-Locomotion_Planner_Balance_Controller.pn
-g  used on input line 715.
+ [36] [37 <./Images//kinematics/force_analysis_link.png>]
+<Images//architecture/locomotion_balance_controller.png, id=1524, 3280.255pt x 
+1316.92pt>
+File: Images//architecture/locomotion_balance_controller.png Graphic file (type
+ png)
+<use Images//architecture/locomotion_balance_controller.png>
+Package pdftex.def Info: Images//architecture/locomotion_balance_controller.png
+  used on input line 715.
 (pdftex.def)             Requested size: 412.56497pt x 165.61932pt.
- [38 <./Images//fig45-Locomotion_Planner_Balance_Controller.png>]
-[39pdfTeX warning (ext4): destination with the same identifier (name{equation.2
-.15.71}) has been already used, duplicate ignored
+ [38 <./Images//architecture/locomotion_balance_controller.png>] [39pdfTeX warn
+ing (ext4): destination with the same identifier (name{equation.2.15.71}) has b
+een already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.755 
       ]
-<Images//fig29- Attitude adjustment .png, id=1506, 1218.5525pt x 328.22626pt>
-File: Images//fig29- Attitude adjustment .png Graphic file (type png)
-<use Images//fig29- Attitude adjustment .png>
-Package pdftex.def Info: Images//fig29- Attitude adjustment .png  used on input
- line 758.
+<Images//kinematics/attitude_adjustment.png, id=1540, 1218.5525pt x 328.22626pt
+>
+File: Images//kinematics/attitude_adjustment.png Graphic file (type png)
+<use Images//kinematics/attitude_adjustment.png>
+Package pdftex.def Info: Images//kinematics/attitude_adjustment.png  used on in
+put line 758.
 (pdftex.def)             Requested size: 371.30595pt x 100.01118pt.
-<Images//fig_pid_architecture.pdf, id=1510, 1802.29636pt x 1182.50082pt>
-File: Images//fig_pid_architecture.pdf Graphic file (type pdf)
-<use Images//fig_pid_architecture.pdf>
-Package pdftex.def Info: Images//fig_pid_architecture.pdf  used on input line 7
-69.
+<Images//architecture/pid_architecture.pdf, id=1544, 1802.29636pt x 1182.50082p
+t>
+File: Images//architecture/pid_architecture.pdf Graphic file (type pdf)
+<use Images//architecture/pid_architecture.pdf>
+Package pdftex.def Info: Images//architecture/pid_architecture.pdf  used on inp
+ut line 769.
 (pdftex.def)             Requested size: 412.56497pt x 270.68839pt.
 pdfTeX warning (ext4): destination with the same identifier (name{equation.2.15
 .72}) has been already used, duplicate ignored
@@ -1440,131 +1447,130 @@ er (name{equation.2.15.72}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.776 \begin{equation}
-                       [40 <./Images//fig29- Attitude adjustment .png> <./Image
-s//fig_pid_architecture.pdf>] [41] [42]) (./chapter/ch3_thietkecung.tex
-[43]
+                       [40 <./Images//kinematics/attitude_adjustment.png> <./Im
+ages//architecture/pid_architecture.pdf>] [41] [42])
+(./chapter/ch3_thietkecung.tex [43]
 Ch\uhorn \ohorn ng 3.
-<Images//fig12-c-body.png, id=1590, 466.74374pt x 221.82875pt>
-File: Images//fig12-c-body.png Graphic file (type png)
-<use Images//fig12-c-body.png>
-Package pdftex.def Info: Images//fig12-c-body.png  used on input line 29.
+<Images//hardware/body_part_c.png, id=1625, 466.74374pt x 221.82875pt>
+File: Images//hardware/body_part_c.png Graphic file (type png)
+<use Images//hardware/body_part_c.png>
+Package pdftex.def Info: Images//hardware/body_part_c.png  used on input line 2
+9.
 (pdftex.def)             Requested size: 247.54149pt x 117.6499pt.
-<Images//fig12-b-nắp thân.png, id=1591, 550.055pt x 295.1025pt>
-File: Images//fig12-b-nắp thân.png Graphic file (type png)
-<use Images//fig12-b-nắp thân.png>
-Package pdftex.def Info: Images//fig12-b-nắp thân.png  used on input line 36
-.
+<Images//hardware/body_part_b.png, id=1626, 550.055pt x 295.1025pt>
+File: Images//hardware/body_part_b.png Graphic file (type png)
+<use Images//hardware/body_part_b.png>
+Package pdftex.def Info: Images//hardware/body_part_b.png  used on input line 3
+6.
 (pdftex.def)             Requested size: 247.54149pt x 132.8039pt.
 [44
 
- <./Images//fig12-c-body.png>]
-<Images//fig12-a-thân.png, id=1598, 328.22626pt x 215.80624pt>
-File: Images//fig12-a-thân.png Graphic file (type png)
-<use Images//fig12-a-thân.png>
-Package pdftex.def Info: Images//fig12-a-thân.png  used on input line 43.
+ <./Images//hardware/body_part_c.png>]
+<Images//hardware/body_part_a.png, id=1632, 328.22626pt x 215.80624pt>
+File: Images//hardware/body_part_a.png Graphic file (type png)
+<use Images//hardware/body_part_a.png>
+Package pdftex.def Info: Images//hardware/body_part_a.png  used on input line 4
+3.
 (pdftex.def)             Requested size: 247.54149pt x 162.75983pt.
-<Images//fig13-Hip-joint assembly for the lateral and longitudinal swing motion
-s..jpg, id=1600, 1325.95375pt x 803.0pt>
-File: Images//fig13-Hip-joint assembly for the lateral and longitudinal swing m
-otions..jpg Graphic file (type jpg)
-<use Images//fig13-Hip-joint assembly for the lateral and longitudinal swing mo
-tions..jpg>
-Package pdftex.def Info: Images//fig13-Hip-joint assembly for the lateral and l
-ongitudinal swing motions..jpg  used on input line 59.
+<Images//hardware/hip_joint_assembly.jpg, id=1634, 1325.95375pt x 803.0pt>
+File: Images//hardware/hip_joint_assembly.jpg Graphic file (type jpg)
+<use Images//hardware/hip_joint_assembly.jpg>
+Package pdftex.def Info: Images//hardware/hip_joint_assembly.jpg  used on input
+ line 59.
 (pdftex.def)             Requested size: 247.54149pt x 149.91273pt.
- [45 <./Images//fig12-b-nắp thân.png> <./Images//fig12-a-thân.png>]
-<Images//fig14- Single leg assembly..jpg, id=1608, 1027.84pt x 735.74875pt>
-File: Images//fig14- Single leg assembly..jpg Graphic file (type jpg)
-<use Images//fig14- Single leg assembly..jpg>
-Package pdftex.def Info: Images//fig14- Single leg assembly..jpg  used on input
- line 76.
+ [45 <./Images//hardware/body_part_b.png> <./Images//hardware/body_part_a.png>]
+<Images//hardware/single_leg_assembly.jpg, id=1642, 1027.84pt x 735.74875pt>
+File: Images//hardware/single_leg_assembly.jpg Graphic file (type jpg)
+<use Images//hardware/single_leg_assembly.jpg>
+Package pdftex.def Info: Images//hardware/single_leg_assembly.jpg  used on inpu
+t line 76.
 (pdftex.def)             Requested size: 247.54149pt x 177.18954pt.
- [46 <./Images//fig13-Hip-joint assembly for the lateral and longitudinal swing
- motions..jpg> <./Images//fig14- Single leg assembly..jpg>]
-<Images//fig16-ST3215.jpg, id=1616, 1160.335pt x 1122.1925pt>
-File: Images//fig16-ST3215.jpg Graphic file (type jpg)
-<use Images//fig16-ST3215.jpg>
-Package pdftex.def Info: Images//fig16-ST3215.jpg  used on input line 117.
+ [46 <./Images//hardware/hip_joint_assembly.jpg> <./Images//hardware/single_leg
+_assembly.jpg>]
+<Images//hardware/servo_st3215.jpg, id=1650, 1160.335pt x 1122.1925pt>
+File: Images//hardware/servo_st3215.jpg Graphic file (type jpg)
+<use Images//hardware/servo_st3215.jpg>
+Package pdftex.def Info: Images//hardware/servo_st3215.jpg  used on input line 
+117.
 (pdftex.def)             Requested size: 247.54149pt x 239.40025pt.
- [47] [48 <./Images//fig16-ST3215.jpg>]
-<Images//fig17-Torque analysis of the lower leg servo actuator.png, id=1633, 37
-6.40625pt x 338.76563pt>
-File: Images//fig17-Torque analysis of the lower leg servo actuator.png Graphic
- file (type png)
-<use Images//fig17-Torque analysis of the lower leg servo actuator.png>
-Package pdftex.def Info: Images//fig17-Torque analysis of the lower leg servo a
-ctuator.png  used on input line 168.
+ [47] [48 <./Images//hardware/servo_st3215.jpg>]
+<Images//hardware/servo_torque_analysis.png, id=1667, 376.40625pt x 338.76563pt
+>
+File: Images//hardware/servo_torque_analysis.png Graphic file (type png)
+<use Images//hardware/servo_torque_analysis.png>
+Package pdftex.def Info: Images//hardware/servo_torque_analysis.png  used on in
+put line 168.
 (pdftex.def)             Requested size: 247.54149pt x 222.79512pt.
- [49 <./Images//fig17-Torque analysis of the lower leg servo actuator.png>]
-<Images//fig18-Free body diagram.png, id=1644, 752.8125pt x 451.6875pt>
-File: Images//fig18-Free body diagram.png Graphic file (type png)
-<use Images//fig18-Free body diagram.png>
-Package pdftex.def Info: Images//fig18-Free body diagram.png  used on input lin
-e 209.
+ [49 <./Images//hardware/servo_torque_analysis.png>]
+<Images//hardware/free_body_diagram.png, id=1678, 752.8125pt x 451.6875pt>
+File: Images//hardware/free_body_diagram.png Graphic file (type png)
+<use Images//hardware/free_body_diagram.png>
+Package pdftex.def Info: Images//hardware/free_body_diagram.png  used on input 
+line 209.
 (pdftex.def)             Requested size: 247.54149pt x 148.52663pt.
- [50 <./Images//fig18-Free body diagram.png>]
-<Images//fig19-preview_design.png, id=1655, 617.80812pt x 316.68312pt>
-File: Images//fig19-preview_design.png Graphic file (type png)
-<use Images//fig19-preview_design.png>
-Package pdftex.def Info: Images//fig19-preview_design.png  used on input line 2
-45.
+
+[50 <./Images//hardware/free_body_diagram.png>]
+<Images//hardware/preview_design.png, id=1689, 617.80812pt x 316.68312pt>
+File: Images//hardware/preview_design.png Graphic file (type png)
+<use Images//hardware/preview_design.png>
+Package pdftex.def Info: Images//hardware/preview_design.png  used on input lin
+e 245.
 (pdftex.def)             Requested size: 247.54149pt x 126.88844pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[51 <./Images//fig19-preview_design.png>]
-<Images//fig_system_overview_new.png, id=1664, 1027.84pt x 603.25375pt>
-File: Images//fig_system_overview_new.png Graphic file (type png)
-<use Images//fig_system_overview_new.png>
-Package pdftex.def Info: Images//fig_system_overview_new.png  used on input lin
-e 269.
+[51 <./Images//hardware/preview_design.png>]
+<Images//architecture/system_overview.png, id=1698, 1027.84pt x 603.25375pt>
+File: Images//architecture/system_overview.png Graphic file (type png)
+<use Images//architecture/system_overview.png>
+Package pdftex.def Info: Images//architecture/system_overview.png  used on inpu
+t line 269.
 (pdftex.def)             Requested size: 412.56497pt x 242.14407pt.
-<Images//fig_real_robot.png, id=1666, 1027.84pt x 642.4pt>
-File: Images//fig_real_robot.png Graphic file (type png)
-<use Images//fig_real_robot.png>
-Package pdftex.def Info: Images//fig_real_robot.png  used on input line 278.
+<Images//real_robot/real_robot_demo.png, id=1700, 1027.84pt x 642.4pt>
+File: Images//real_robot/real_robot_demo.png Graphic file (type png)
+<use Images//real_robot/real_robot_demo.png>
+Package pdftex.def Info: Images//real_robot/real_robot_demo.png  used on input 
+line 278.
 (pdftex.def)             Requested size: 350.68274pt x 219.17769pt.
- [52 <./Images//fig_system_overview_new.png>]
-<Images//fig34-Specifications-Jetson-B01.png, id=1674, 1565.85pt x 1241.63875pt
->
-File: Images//fig34-Specifications-Jetson-B01.png Graphic file (type png)
-<use Images//fig34-Specifications-Jetson-B01.png>
-Package pdftex.def Info: Images//fig34-Specifications-Jetson-B01.png  used on i
-nput line 291.
+ [52 <./Images//architecture/system_overview.png>]
+<Images//hardware/jetson_b01_specs.png, id=1708, 1565.85pt x 1241.63875pt>
+File: Images//hardware/jetson_b01_specs.png Graphic file (type png)
+<use Images//hardware/jetson_b01_specs.png>
+Package pdftex.def Info: Images//hardware/jetson_b01_specs.png  used on input l
+ine 291.
 (pdftex.def)             Requested size: 330.05322pt x 261.69913pt.
- [53 <./Images//fig_real_robot.png>] [54 <./Images//fig34-Specifications-Jetson
--B01.png>]
-<Images//fig35-Nguồn Xung Tổ Ong 12V 40A 480W.png, id=1686, 752.8125pt x 75
-2.8125pt>
-File: Images//fig35-Nguồn Xung Tổ Ong 12V 40A 480W.png Graphic file (type p
-ng)
-<use Images//fig35-Nguồn Xung Tổ Ong 12V 40A 480W.png>
-Package pdftex.def Info: Images//fig35-Nguồn Xung Tổ Ong 12V 40A 480W.png  
-used on input line 308.
+ [53 <./Images//real_robot/real_robot_demo.png>] [54 <./Images//hardware/jetson
+_b01_specs.png>]
+<Images//hardware/power_supply_12v.png, id=1721, 752.8125pt x 752.8125pt>
+File: Images//hardware/power_supply_12v.png Graphic file (type png)
+<use Images//hardware/power_supply_12v.png>
+Package pdftex.def Info: Images//hardware/power_supply_12v.png  used on input l
+ine 308.
 (pdftex.def)             Requested size: 247.54149pt x 247.54439pt.
- [55 <./Images//fig35-Nguồn Xung Tổ Ong 12V 40A 480W.png>] [56]
-<Images//fig36-Bus-Servo-Adapter-A-details-1.jpg, id=1696, 963.6pt x 712.6625pt
->
-File: Images//fig36-Bus-Servo-Adapter-A-details-1.jpg Graphic file (type jpg)
-<use Images//fig36-Bus-Servo-Adapter-A-details-1.jpg>
-Package pdftex.def Info: Images//fig36-Bus-Servo-Adapter-A-details-1.jpg  used 
-on input line 369.
+ [55 <./Images//hardware/power_supply_12v.png>]
+[56]
+<Images//hardware/bus_servo_adapter.jpg, id=1731, 963.6pt x 712.6625pt>
+File: Images//hardware/bus_servo_adapter.jpg Graphic file (type jpg)
+<use Images//hardware/bus_servo_adapter.jpg>
+Package pdftex.def Info: Images//hardware/bus_servo_adapter.jpg  used on input 
+line 369.
 (pdftex.def)             Requested size: 247.54149pt x 183.06952pt.
- [57 <./Images//fig36-Bus-Servo-Adapter-A-details-1.jpg>]
-<Images//fig37-IMU-BNO055.png, id=1703, 1003.75pt x 1003.75pt>
-File: Images//fig37-IMU-BNO055.png Graphic file (type png)
-<use Images//fig37-IMU-BNO055.png>
-Package pdftex.def Info: Images//fig37-IMU-BNO055.png  used on input line 396.
+ [57 <./Images//hardware/bus_servo_adapter.jpg>]
+<Images//hardware/imu_bno055.png, id=1737, 1003.75pt x 1003.75pt>
+File: Images//hardware/imu_bno055.png Graphic file (type png)
+<use Images//hardware/imu_bno055.png>
+Package pdftex.def Info: Images//hardware/imu_bno055.png  used on input line 39
+6.
 (pdftex.def)             Requested size: 226.91199pt x 226.90613pt.
- [58 <./Images//fig37-IMU-BNO055.png>]
-<Images//fig38-Mạch giảm áp.jpg, id=1710, 1003.75pt x 1003.75pt>
-File: Images//fig38-Mạch giảm áp.jpg Graphic file (type jpg)
-<use Images//fig38-Mạch giảm áp.jpg>
-Package pdftex.def Info: Images//fig38-Mạch giảm áp.jpg  used on input lin
+ [58 <./Images//hardware/imu_bno055.png>]
+<Images//hardware/buck_converter.jpg, id=1744, 1003.75pt x 1003.75pt>
+File: Images//hardware/buck_converter.jpg Graphic file (type jpg)
+<use Images//hardware/buck_converter.jpg>
+Package pdftex.def Info: Images//hardware/buck_converter.jpg  used on input lin
 e 440.
 (pdftex.def)             Requested size: 247.54149pt x 247.53674pt.
- [59] [60 <./Images//fig38-Mạch giảm áp.jpg>]
+ [59] [60 <./Images//hardware/buck_converter.jpg>]
 Underfull \hbox (badness 10000) in paragraph at lines 480--480
 []|\T5/qtm/b/n/10 ^^^�ng c� Servo
  []
@@ -1730,45 +1736,43 @@ Overfull \hbox (21.14091pt too wide) in paragraph at lines 500--512
  []
 
 [61] [62]
-<Images//fig44-sododiday-hethong.jpg, id=1731, 2346.7675pt x 1798.72pt>
-File: Images//fig44-sododiday-hethong.jpg Graphic file (type jpg)
-<use Images//fig44-sododiday-hethong.jpg>
-Package pdftex.def Info: Images//fig44-sododiday-hethong.jpg  used on input lin
-e 534.
+<Images//hardware/system_wiring_diagram.jpg, id=1765, 2346.7675pt x 1798.72pt>
+File: Images//hardware/system_wiring_diagram.jpg Graphic file (type jpg)
+<use Images//hardware/system_wiring_diagram.jpg>
+Package pdftex.def Info: Images//hardware/system_wiring_diagram.jpg  used on in
+put line 534.
 (pdftex.def)             Requested size: 412.56497pt x 316.20792pt.
- [63] [64 <./Images//fig44-sododiday-hethong.jpg>]
-<Images//fig39-Different Communication Protocols .png, id=1741, 294.09875pt x 1
-92.72pt>
-File: Images//fig39-Different Communication Protocols .png Graphic file (type p
-ng)
-<use Images//fig39-Different Communication Protocols .png>
-Package pdftex.def Info: Images//fig39-Different Communication Protocols .png  
-used on input line 570.
+ [63] [64 <./Images//hardware/system_wiring_diagram.jpg>]
+<Images//control_sys/communication_protocols.png, id=1775, 294.09875pt x 192.72
+pt>
+File: Images//control_sys/communication_protocols.png Graphic file (type png)
+<use Images//control_sys/communication_protocols.png>
+Package pdftex.def Info: Images//control_sys/communication_protocols.png  used 
+on input line 570.
 (pdftex.def)             Requested size: 247.54149pt x 162.21303pt.
- [65 <./Images//fig39-Different Communication Protocols .png>]
-<Images//fig40-Introduction-to-I2C-Data-Transmission-Diagram-Data-Frame.png, id
-=1747, 1248.665pt x 1144.275pt>
-File: Images//fig40-Introduction-to-I2C-Data-Transmission-Diagram-Data-Frame.pn
-g Graphic file (type png)
-<use Images//fig40-Introduction-to-I2C-Data-Transmission-Diagram-Data-Frame.png
->
-Package pdftex.def Info: Images//fig40-Introduction-to-I2C-Data-Transmission-Di
-agram-Data-Frame.png  used on input line 580.
+ [65 <./Images//control_sys/communication_protocols.png>]
+<Images//control_sys/i2c_data_frame.png, id=1781, 1248.665pt x 1144.275pt>
+File: Images//control_sys/i2c_data_frame.png Graphic file (type png)
+<use Images//control_sys/i2c_data_frame.png>
+Package pdftex.def Info: Images//control_sys/i2c_data_frame.png  used on input 
+line 580.
 (pdftex.def)             Requested size: 247.54149pt x 226.84302pt.
-<Images//fig41-Wired-UART.png, id=1748, 1927.2pt x 1084.05pt>
-File: Images//fig41-Wired-UART.png Graphic file (type png)
-<use Images//fig41-Wired-UART.png>
-Package pdftex.def Info: Images//fig41-Wired-UART.png  used on input line 586.
+<Images//control_sys/wired_uart.png, id=1782, 1927.2pt x 1084.05pt>
+File: Images//control_sys/wired_uart.png Graphic file (type png)
+<use Images//control_sys/wired_uart.png>
+Package pdftex.def Info: Images//control_sys/wired_uart.png  used on input line
+ 586.
 (pdftex.def)             Requested size: 247.54149pt x 139.22769pt.
- [66 <./Images//fig40-Introduction-to-I2C-Data-Transmission-Diagram-Data-Frame.
-png> <./Images//fig41-Wired-UART.png (PNG copy)>]) (./chapter/ch4_thietkemem.te
-x [67]
+ [66 <./Images//control_sys/i2c_data_frame.png> <./Images//control_sys/wired_ua
+rt.png (PNG copy)>])
+(./chapter/ch4_thietkemem.tex [67]
 Ch\uhorn \ohorn ng 4.
-<Images//fig_ros2_architecture.pdf, id=1763, 619.00761pt x 495.23619pt>
-File: Images//fig_ros2_architecture.pdf Graphic file (type pdf)
-<use Images//fig_ros2_architecture.pdf>
-Package pdftex.def Info: Images//fig_ros2_architecture.pdf  used on input line 
-24.
+<Images//architecture/ros2_architecture.pdf, id=1797, 619.00761pt x 495.23619pt
+>
+File: Images//architecture/ros2_architecture.pdf Graphic file (type pdf)
+<use Images//architecture/ros2_architecture.pdf>
+Package pdftex.def Info: Images//architecture/ros2_architecture.pdf  used on in
+put line 24.
 (pdftex.def)             Requested size: 412.56497pt x 330.06848pt.
 [68
 
@@ -1782,7 +1786,7 @@ Underfull \hbox (badness 1314) in paragraph at lines 53--53
 []|\T5/qtm/m/n/10 Driver giao ti�p v�i bus servo ST3215 (th� vi�n
  []
 
-[69 <./Images//fig_ros2_architecture.pdf>]
+[69 <./Images//architecture/ros2_architecture.pdf>]
 Overfull \hbox (51.11427pt too wide) in paragraph at lines 66--67
 []\T5/qtm/b/n/10 �p d�ng hi�u ch�nh IMU: \T5/qtm/m/n/10 Nh�n t�n hi�u b� t� Bal
 -ance Con-troller qua hai topic \T5/cmtt/m/n/10 /posture/home_correction
@@ -1798,160 +1802,188 @@ Ch\uhorn \ohorn ng 5.
 [73
 
 ]
-<Images//frame_001.jpg, id=1828, 1927.2pt x 1084.05pt>
-File: Images//frame_001.jpg Graphic file (type jpg)
-<use Images//frame_001.jpg>
-Package pdftex.def Info: Images//frame_001.jpg  used on input line 75.
+<Images//real_robot/frame_001.jpg, id=1862, 1927.2pt x 1084.05pt>
+File: Images//real_robot/frame_001.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_001.jpg>
+Package pdftex.def Info: Images//real_robot/frame_001.jpg  used on input line 7
+5.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<Images//frame_002.jpg, id=1829, 1927.2pt x 1084.05pt>
-File: Images//frame_002.jpg Graphic file (type jpg)
-<use Images//frame_002.jpg>
-Package pdftex.def Info: Images//frame_002.jpg  used on input line 81.
+<Images//real_robot/frame_002.jpg, id=1863, 1927.2pt x 1084.05pt>
+File: Images//real_robot/frame_002.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_002.jpg>
+Package pdftex.def Info: Images//real_robot/frame_002.jpg  used on input line 8
+1.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<Images//frame_003.jpg, id=1830, 1927.2pt x 1084.05pt>
-File: Images//frame_003.jpg Graphic file (type jpg)
-<use Images//frame_003.jpg>
-Package pdftex.def Info: Images//frame_003.jpg  used on input line 87.
+<Images//real_robot/frame_003.jpg, id=1864, 1927.2pt x 1084.05pt>
+File: Images//real_robot/frame_003.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_003.jpg>
+Package pdftex.def Info: Images//real_robot/frame_003.jpg  used on input line 8
+7.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<Images//frame_004.jpg, id=1831, 1927.2pt x 1084.05pt>
-File: Images//frame_004.jpg Graphic file (type jpg)
-<use Images//frame_004.jpg>
-Package pdftex.def Info: Images//frame_004.jpg  used on input line 93.
+<Images//real_robot/frame_004.jpg, id=1865, 1927.2pt x 1084.05pt>
+File: Images//real_robot/frame_004.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_004.jpg>
+Package pdftex.def Info: Images//real_robot/frame_004.jpg  used on input line 9
+3.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<Images//frame_005.jpg, id=1832, 1927.2pt x 1084.05pt>
-File: Images//frame_005.jpg Graphic file (type jpg)
-<use Images//frame_005.jpg>
-Package pdftex.def Info: Images//frame_005.jpg  used on input line 99.
+<Images//real_robot/frame_005.jpg, id=1866, 1927.2pt x 1084.05pt>
+File: Images//real_robot/frame_005.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_005.jpg>
+Package pdftex.def Info: Images//real_robot/frame_005.jpg  used on input line 9
+9.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<Images//frame_006.jpg, id=1833, 1927.2pt x 1084.05pt>
-File: Images//frame_006.jpg Graphic file (type jpg)
-<use Images//frame_006.jpg>
-Package pdftex.def Info: Images//frame_006.jpg  used on input line 108.
+<Images//real_robot/frame_006.jpg, id=1867, 1927.2pt x 1084.05pt>
+File: Images//real_robot/frame_006.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_006.jpg>
+Package pdftex.def Info: Images//real_robot/frame_006.jpg  used on input line 1
+08.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<Images//frame_007.jpg, id=1834, 1927.2pt x 1084.05pt>
-File: Images//frame_007.jpg Graphic file (type jpg)
-<use Images//frame_007.jpg>
-Package pdftex.def Info: Images//frame_007.jpg  used on input line 114.
+<Images//real_robot/frame_007.jpg, id=1868, 1927.2pt x 1084.05pt>
+File: Images//real_robot/frame_007.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_007.jpg>
+Package pdftex.def Info: Images//real_robot/frame_007.jpg  used on input line 1
+14.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<Images//frame_008.jpg, id=1835, 1927.2pt x 1084.05pt>
-File: Images//frame_008.jpg Graphic file (type jpg)
-<use Images//frame_008.jpg>
-Package pdftex.def Info: Images//frame_008.jpg  used on input line 120.
+<Images//real_robot/frame_008.jpg, id=1869, 1927.2pt x 1084.05pt>
+File: Images//real_robot/frame_008.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_008.jpg>
+Package pdftex.def Info: Images//real_robot/frame_008.jpg  used on input line 1
+20.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<Images//frame_009.jpg, id=1836, 1927.2pt x 1084.05pt>
-File: Images//frame_009.jpg Graphic file (type jpg)
-<use Images//frame_009.jpg>
-Package pdftex.def Info: Images//frame_009.jpg  used on input line 126.
+<Images//real_robot/frame_009.jpg, id=1870, 1927.2pt x 1084.05pt>
+File: Images//real_robot/frame_009.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_009.jpg>
+Package pdftex.def Info: Images//real_robot/frame_009.jpg  used on input line 1
+26.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<Images//frame_010.jpg, id=1837, 1927.2pt x 1084.05pt>
-File: Images//frame_010.jpg Graphic file (type jpg)
-<use Images//frame_010.jpg>
-Package pdftex.def Info: Images//frame_010.jpg  used on input line 132.
+<Images//real_robot/frame_010.jpg, id=1871, 1927.2pt x 1084.05pt>
+File: Images//real_robot/frame_010.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_010.jpg>
+Package pdftex.def Info: Images//real_robot/frame_010.jpg  used on input line 1
+32.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
  [74]
-File: Images//frame_001.jpg Graphic file (type jpg)
-<use Images//frame_001.jpg>
-Package pdftex.def Info: Images//frame_001.jpg  used on input line 146.
+File: Images//real_robot/frame_001.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_001.jpg>
+Package pdftex.def Info: Images//real_robot/frame_001.jpg  used on input line 1
+46.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-File: Images//frame_002.jpg Graphic file (type jpg)
-<use Images//frame_002.jpg>
-Package pdftex.def Info: Images//frame_002.jpg  used on input line 152.
+File: Images//real_robot/frame_002.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_002.jpg>
+Package pdftex.def Info: Images//real_robot/frame_002.jpg  used on input line 1
+52.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-File: Images//frame_003.jpg Graphic file (type jpg)
-<use Images//frame_003.jpg>
-Package pdftex.def Info: Images//frame_003.jpg  used on input line 158.
+File: Images//real_robot/frame_003.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_003.jpg>
+Package pdftex.def Info: Images//real_robot/frame_003.jpg  used on input line 1
+58.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-File: Images//frame_004.jpg Graphic file (type jpg)
-<use Images//frame_004.jpg>
-Package pdftex.def Info: Images//frame_004.jpg  used on input line 164.
+File: Images//real_robot/frame_004.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_004.jpg>
+Package pdftex.def Info: Images//real_robot/frame_004.jpg  used on input line 1
+64.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-File: Images//frame_005.jpg Graphic file (type jpg)
-<use Images//frame_005.jpg>
-Package pdftex.def Info: Images//frame_005.jpg  used on input line 170.
+File: Images//real_robot/frame_005.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_005.jpg>
+Package pdftex.def Info: Images//real_robot/frame_005.jpg  used on input line 1
+70.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-File: Images//frame_006.jpg Graphic file (type jpg)
-<use Images//frame_006.jpg>
-Package pdftex.def Info: Images//frame_006.jpg  used on input line 179.
+File: Images//real_robot/frame_006.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_006.jpg>
+Package pdftex.def Info: Images//real_robot/frame_006.jpg  used on input line 1
+79.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-File: Images//frame_007.jpg Graphic file (type jpg)
-<use Images//frame_007.jpg>
-Package pdftex.def Info: Images//frame_007.jpg  used on input line 185.
+File: Images//real_robot/frame_007.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_007.jpg>
+Package pdftex.def Info: Images//real_robot/frame_007.jpg  used on input line 1
+85.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-File: Images//frame_008.jpg Graphic file (type jpg)
-<use Images//frame_008.jpg>
-Package pdftex.def Info: Images//frame_008.jpg  used on input line 191.
+File: Images//real_robot/frame_008.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_008.jpg>
+Package pdftex.def Info: Images//real_robot/frame_008.jpg  used on input line 1
+91.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-File: Images//frame_009.jpg Graphic file (type jpg)
-<use Images//frame_009.jpg>
-Package pdftex.def Info: Images//frame_009.jpg  used on input line 197.
+File: Images//real_robot/frame_009.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_009.jpg>
+Package pdftex.def Info: Images//real_robot/frame_009.jpg  used on input line 1
+97.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-File: Images//frame_010.jpg Graphic file (type jpg)
-<use Images//frame_010.jpg>
-Package pdftex.def Info: Images//frame_010.jpg  used on input line 203.
+File: Images//real_robot/frame_010.jpg Graphic file (type jpg)
+<use Images//real_robot/frame_010.jpg>
+Package pdftex.def Info: Images//real_robot/frame_010.jpg  used on input line 2
+03.
 (pdftex.def)             Requested size: 78.38835pt x 44.08243pt.
-<Images//fig1_foot_trajectory_2d.png, id=1843, 856.6404pt x 316.3017pt>
-File: Images//fig1_foot_trajectory_2d.png Graphic file (type png)
-<use Images//fig1_foot_trajectory_2d.png>
-Package pdftex.def Info: Images//fig1_foot_trajectory_2d.png  used on input lin
-e 216.
-(pdftex.def)             Requested size: 247.54149pt x 91.40176pt.
- [75 <./Images//frame_001.jpg> <./Images//frame_002.jpg> <./Images//frame_003.j
-pg> <./Images//frame_004.jpg> <./Images//frame_005.jpg> <./Images//frame_006.jp
-g> <./Images//frame_007.jpg> <./Images//frame_008.jpg> <./Images//frame_009.jpg
-> <./Images//frame_010.jpg> <./Images//fig1_foot_trajectory_2d.png>]
-<Images//fig2_foot_trajectory_3d.png, id=1850, 552.3837pt x 496.4949pt>
-File: Images//fig2_foot_trajectory_3d.png Graphic file (type png)
-<use Images//fig2_foot_trajectory_3d.png>
-Package pdftex.def Info: Images//fig2_foot_trajectory_3d.png  used on input lin
-e 229.
-(pdftex.def)             Requested size: 247.54149pt x 222.49637pt.
-<Images//fig3_velocity_acceleration.png, id=1852, 927.2241pt x 569.7285pt>
-File: Images//fig3_velocity_acceleration.png Graphic file (type png)
-<use Images//fig3_velocity_acceleration.png>
-Package pdftex.def Info: Images//fig3_velocity_acceleration.png  used on input 
-line 238.
-(pdftex.def)             Requested size: 247.54149pt x 152.09877pt.
+<Images//gait_planner/foot_trajectory_2d.png, id=1877, 856.6404pt x 316.3017pt>
 
-[76 <./Images//fig2_foot_trajectory_3d.png>]
-<Images//fig26- Fifth degree profiling curve.png, id=1860, 918.43124pt x 512.91
+File: Images//gait_planner/foot_trajectory_2d.png Graphic file (type png)
+<use Images//gait_planner/foot_trajectory_2d.png>
+Package pdftex.def Info: Images//gait_planner/foot_trajectory_2d.png  used on i
+nput line 216.
+(pdftex.def)             Requested size: 247.54149pt x 91.40176pt.
+ [75 <./Images//real_robot/frame_001.jpg> <./Images//real_robot/frame_002.jpg> 
+<./Images//real_robot/frame_003.jpg> <./Images//real_robot/frame_004.jpg> <./Im
+ages//real_robot/frame_005.jpg> <./Images//real_robot/frame_006.jpg> <./Images/
+/real_robot/frame_007.jpg> <./Images//real_robot/frame_008.jpg> <./Images//real
+_robot/frame_009.jpg> <./Images//real_robot/frame_010.jpg> <./Images//gait_plan
+ner/foot_trajectory_2d.png>]
+<Images//gait_planner/foot_trajectory_3d.png, id=1884, 552.3837pt x 496.4949pt>
+
+File: Images//gait_planner/foot_trajectory_3d.png Graphic file (type png)
+<use Images//gait_planner/foot_trajectory_3d.png>
+Package pdftex.def Info: Images//gait_planner/foot_trajectory_3d.png  used on i
+nput line 229.
+(pdftex.def)             Requested size: 247.54149pt x 222.49637pt.
+<Images//gait_planner/velocity_acceleration.png, id=1886, 927.2241pt x 569.7285
+pt>
+File: Images//gait_planner/velocity_acceleration.png Graphic file (type png)
+<use Images//gait_planner/velocity_acceleration.png>
+Package pdftex.def Info: Images//gait_planner/velocity_acceleration.png  used o
+n input line 238.
+(pdftex.def)             Requested size: 247.54149pt x 152.09877pt.
+ [76 <./Images//gait_planner/foot_trajectory_3d.png>]
+<Images//gait_planner/fifth_degree_profiling.png, id=1894, 918.43124pt x 512.91
 624pt>
-File: Images//fig26- Fifth degree profiling curve.png Graphic file (type png)
-<use Images//fig26- Fifth degree profiling curve.png>
-Package pdftex.def Info: Images//fig26- Fifth degree profiling curve.png  used 
+File: Images//gait_planner/fifth_degree_profiling.png Graphic file (type png)
+<use Images//gait_planner/fifth_degree_profiling.png>
+Package pdftex.def Info: Images//gait_planner/fifth_degree_profiling.png  used 
 on input line 252.
 (pdftex.def)             Requested size: 350.68274pt x 195.84937pt.
- [77 <./Images//fig3_velocity_acceleration.png> <./Images//fig26- Fifth degree 
-profiling curve.png>]
-<Images//fig4_joint_angles.png, id=1867, 857.1222pt x 642.2394pt>
-File: Images//fig4_joint_angles.png Graphic file (type png)
-<use Images//fig4_joint_angles.png>
-Package pdftex.def Info: Images//fig4_joint_angles.png  used on input line 264.
-
+ [77 <./Images//gait_planner/velocity_acceleration.png> <./Images//gait_planner
+/fifth_degree_profiling.png>]
+<Images//gait_planner/joint_angles.png, id=1901, 857.1222pt x 642.2394pt>
+File: Images//gait_planner/joint_angles.png Graphic file (type png)
+<use Images//gait_planner/joint_angles.png>
+Package pdftex.def Info: Images//gait_planner/joint_angles.png  used on input l
+ine 264.
 (pdftex.def)             Requested size: 247.54149pt x 185.48027pt.
-<Images//fig5_pd_torque.png, id=1869, 858.3267pt x 641.9985pt>
-File: Images//fig5_pd_torque.png Graphic file (type png)
-<use Images//fig5_pd_torque.png>
-Package pdftex.def Info: Images//fig5_pd_torque.png  used on input line 279.
+<Images//control_sys/pd_torque_control.png, id=1903, 858.3267pt x 641.9985pt>
+File: Images//control_sys/pd_torque_control.png Graphic file (type png)
+<use Images//control_sys/pd_torque_control.png>
+Package pdftex.def Info: Images//control_sys/pd_torque_control.png  used on inp
+ut line 279.
 (pdftex.def)             Requested size: 247.54149pt x 185.14621pt.
- [78 <./Images//fig4_joint_angles.png>]
-<Images//fig6_gait_timing.png, id=1876, 857.8449pt x 280.8894pt>
-File: Images//fig6_gait_timing.png Graphic file (type png)
-<use Images//fig6_gait_timing.png>
-Package pdftex.def Info: Images//fig6_gait_timing.png  used on input line 303.
+ [78 <./Images//gait_planner/joint_angles.png>]
+<Images//gait_planner/gait_timing.png, id=1910, 857.8449pt x 280.8894pt>
+File: Images//gait_planner/gait_timing.png Graphic file (type png)
+<use Images//gait_planner/gait_timing.png>
+Package pdftex.def Info: Images//gait_planner/gait_timing.png  used on input li
+ne 303.
 (pdftex.def)             Requested size: 247.54149pt x 81.05295pt.
- [79 <./Images//fig5_pd_torque.png>]
-<Images//fig7_support_polygon.png, id=1884, 1147.6476pt x 275.3487pt>
-File: Images//fig7_support_polygon.png Graphic file (type png)
-<use Images//fig7_support_polygon.png>
-Package pdftex.def Info: Images//fig7_support_polygon.png  used on input line 3
-14.
+ [79 <./Images//control_sys/pd_torque_control.png>]
+<Images//kinematics/support_polygon.png, id=1918, 1147.6476pt x 275.3487pt>
+File: Images//kinematics/support_polygon.png Graphic file (type png)
+<use Images//kinematics/support_polygon.png>
+Package pdftex.def Info: Images//kinematics/support_polygon.png  used on input 
+line 314.
 (pdftex.def)             Requested size: 247.54149pt x 59.38788pt.
-<Images//fig8_workspace.png, id=1886, 1075.1367pt x 352.6776pt>
-File: Images//fig8_workspace.png Graphic file (type png)
-<use Images//fig8_workspace.png>
-Package pdftex.def Info: Images//fig8_workspace.png  used on input line 329.
+<Images//kinematics/workspace.png, id=1920, 1075.1367pt x 352.6776pt>
+File: Images//kinematics/workspace.png Graphic file (type png)
+<use Images//kinematics/workspace.png>
+Package pdftex.def Info: Images//kinematics/workspace.png  used on input line 3
+29.
 (pdftex.def)             Requested size: 247.54149pt x 81.20024pt.
- [80 <./Images//fig6_gait_timing.png> <./Images//fig7_support_polygon.png>]
+ [80 <./Images//gait_planner/gait_timing.png> <./Images//kinematics/support_pol
+ygon.png>]
 Overfull \hbox (3.15424pt too wide) in paragraph at lines 335--336
 []\T5/qtm/m/n/10 Ph��ng ph�p t�nh to�n bao g�m: qu�t to�n b� mi�n g�c kh�p $\OM
 L/cmm/m/it/10 ^^R[] \OMS/cmsy/m/n/10 2 \OT1/cmr/m/n/10 [\OMS/cmsy/m/n/10 ^^@\OT
@@ -1960,91 +1992,93 @@ L/cmm/m/it/10 ^^R[] \OMS/cmsy/m/n/10 2 \OT1/cmr/m/n/10 [\OMS/cmsy/m/n/10 ^^@\OT
 1/cmr/m/n/10 90[]\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 90[]]$\T5/qtm/m/n/10 ,
  []
 
-[81 <./Images//fig8_workspace.png>] [82]
-<Images//fig_offline_traj_pos.png, id=1908, 681.2652pt x 408.0846pt>
-File: Images//fig_offline_traj_pos.png Graphic file (type png)
-<use Images//fig_offline_traj_pos.png>
-Package pdftex.def Info: Images//fig_offline_traj_pos.png  used on input line 4
-32.
+[81 <./Images//kinematics/workspace.png>] [82]
+<Images//results/offline_traj_pos.png, id=1943, 681.2652pt x 408.0846pt>
+File: Images//results/offline_traj_pos.png Graphic file (type png)
+<use Images//results/offline_traj_pos.png>
+Package pdftex.def Info: Images//results/offline_traj_pos.png  used on input li
+ne 432.
 (pdftex.def)             Requested size: 330.05322pt x 197.70284pt.
  [83]
-<Images//fig_offline_traj_vel_acc.png, id=1914, 675.0018pt x 415.7934pt>
-File: Images//fig_offline_traj_vel_acc.png Graphic file (type png)
-<use Images//fig_offline_traj_vel_acc.png>
-Package pdftex.def Info: Images//fig_offline_traj_vel_acc.png  used on input li
-ne 441.
+<Images//results/offline_traj_vel_acc.png, id=1949, 675.0018pt x 415.7934pt>
+File: Images//results/offline_traj_vel_acc.png Graphic file (type png)
+<use Images//results/offline_traj_vel_acc.png>
+Package pdftex.def Info: Images//results/offline_traj_vel_acc.png  used on inpu
+t line 441.
 (pdftex.def)             Requested size: 330.05322pt x 203.30276pt.
-<Images//fig_offline_traj_angle.png, id=1916, 658.3797pt x 408.0846pt>
-File: Images//fig_offline_traj_angle.png Graphic file (type png)
-<use Images//fig_offline_traj_angle.png>
-Package pdftex.def Info: Images//fig_offline_traj_angle.png  used on input line
- 450.
+<Images//results/offline_traj_angle.png, id=1951, 658.3797pt x 408.0846pt>
+File: Images//results/offline_traj_angle.png Graphic file (type png)
+<use Images//results/offline_traj_angle.png>
+Package pdftex.def Info: Images//results/offline_traj_angle.png  used on input 
+line 450.
 (pdftex.def)             Requested size: 330.05322pt x 204.5773pt.
- [84 <./Images//fig_offline_traj_pos.png> <./Images//fig_offline_traj_vel_acc.p
-ng>]
-<Images//fig_gait_3d.png, id=1925, 267.399pt x 291.2481pt>
-File: Images//fig_gait_3d.png Graphic file (type png)
-<use Images//fig_gait_3d.png>
-Package pdftex.def Info: Images//fig_gait_3d.png  used on input line 461.
+ [84 <./Images//results/offline_traj_pos.png> <./Images//results/offline_traj_v
+el_acc.png>]
+<Images//gait_planner/gait_3d.png, id=1959, 267.399pt x 291.2481pt>
+File: Images//gait_planner/gait_3d.png Graphic file (type png)
+<use Images//gait_planner/gait_3d.png>
+Package pdftex.def Info: Images//gait_planner/gait_3d.png  used on input line 4
+61.
 (pdftex.def)             Requested size: 247.54149pt x 269.6269pt.
- [85 <./Images//fig_offline_traj_angle.png> <./Images//fig_gait_3d.png>]
-<Images//fig_pid_error_home.png, id=1933, 700.2963pt x 408.0846pt>
-File: Images//fig_pid_error_home.png Graphic file (type png)
-<use Images//fig_pid_error_home.png>
-Package pdftex.def Info: Images//fig_pid_error_home.png  used on input line 472
-.
+ [85 <./Images//results/offline_traj_angle.png> <./Images//gait_planner/gait_3d
+.png>]
+<Images//results/pid_error_home.png, id=1967, 700.2963pt x 408.0846pt>
+File: Images//results/pid_error_home.png Graphic file (type png)
+<use Images//results/pid_error_home.png>
+Package pdftex.def Info: Images//results/pid_error_home.png  used on input line
+ 472.
 (pdftex.def)             Requested size: 350.68274pt x 204.35313pt.
-<Images//fig_pid_error_gait.png, id=1935, 700.2963pt x 408.0846pt>
-File: Images//fig_pid_error_gait.png Graphic file (type png)
-<use Images//fig_pid_error_gait.png>
-Package pdftex.def Info: Images//fig_pid_error_gait.png  used on input line 483
-.
+<Images//results/pid_error_gait.png, id=1969, 700.2963pt x 408.0846pt>
+File: Images//results/pid_error_gait.png Graphic file (type png)
+<use Images//results/pid_error_gait.png>
+Package pdftex.def Info: Images//results/pid_error_gait.png  used on input line
+ 483.
 (pdftex.def)             Requested size: 350.68274pt x 204.35313pt.
- [86 <./Images//fig_pid_error_home.png>] [87 <./Images//fig_pid_error_gait.png>
-]
+ [86 <./Images//results/pid_error_home.png>] [87 <./Images//results/pid_error_g
+ait.png>]
 Overfull \hbox (48.43729pt too wide) in paragraph at lines 538--539
 []\T5/qtm/m/n/10 M�i se-rial driver nh�n l�nh g�c servo (^^_�n v� ^^_�) t� topi
 c \T5/cmtt/m/n/10 /servo_commands_a \T5/qtm/m/n/10 ho�c \T5/cmtt/m/n/10 /servo_
 commands_b\T5/qtm/m/n/10 ,
  []
 
-[88] [89] [90] [91] [92]) (./chapter/ch6_ketluan.tex [93]
+[88] [89] [90] [91] [92] [93] [94] [95]) (./chapter/ch6_ketluan.tex [96]
 Ch\uhorn \ohorn ng 6.
-[94
+[97
 
-] [95]) (./thesis.bbl [96]
+] [98]) (./thesis.bbl [99]
 Underfull \hbox (badness 2065) in paragraph at lines 70--72
 []\T5/qtm/m/n/10 Open Robotics, ``Ros 2 doc-u-men-ta-tion: Hum-ble hawks-bill.'
 ' []$\T5/cmtt/m/n/10 https : / / docs . ros . org / en /
  []
 
-[97
+[100
 
-]) [98]
+]) [101]
 \openout2 = `chapter/appendix.aux'.
 
- (./chapter/appendix.tex [99
+ (./chapter/appendix.tex [102
 
 
-] [100] [101
+] [103] [104
 
-] [102] [103
+] [105] [106
 
-]) [104]
+]) [107]
 (./thesis.aux (./chapter/appendix.aux))
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 5C53C0DDE21A5523BFF55DCEF19B0EC9;31700.
+(rerunfilecheck)             Checksum: A1E4237279DF520DEBC3CC9A8E289404;33451.
  ) 
 Here is how much of TeX's memory you used:
- 27297 strings out of 478287
- 509620 string characters out of 5849290
- 771035 words of memory out of 5000000
- 44383 multiletter control sequences out of 15000+600000
+ 27325 strings out of 479662
+ 510305 string characters out of 5883895
+ 767647 words of memory out of 5000000
+ 44294 multiletter control sequences out of 15000+600000
  506558 words of font info for 66 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
+ 309 hyphenation exceptions out of 8191
  99i,18n,103p,1182b,542s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-t5.enc}{/usr/share/texmf/fonts/e
 nc/dvips/tex-gyre/q-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/a
@@ -2067,10 +2101,10 @@ onts/type1/public/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex-gy
 re/qtmbi.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share
 /texmf/fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/vntex/vnr/vntt10.pfb>
-Output written on thesis.pdf (119 pages, 23048498 bytes).
+Output written on thesis.pdf (122 pages, 23057747 bytes).
 PDF statistics:
- 2266 PDF objects out of 2487 (max. 8388607)
- 1824 compressed objects within 19 object streams
- 531 named destinations out of 1000 (max. 500000)
- 1498 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2323 PDF objects out of 2487 (max. 8388607)
+ 1878 compressed objects within 19 object streams
+ 546 named destinations out of 1000 (max. 500000)
+ 1546 words of extra memory for PDF output out of 10000 (max. 10000000)
 

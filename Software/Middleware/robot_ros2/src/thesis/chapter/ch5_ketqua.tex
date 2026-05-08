@@ -705,3 +705,94 @@ Một số yếu tố phi lý tưởng (non-ideal factors) ảnh hưởng đến
     \item \textbf{Độ trễ truyền thông UART:} Giao thức UART bán song công giới hạn tốc độ cập nhật lệnh servo. Với baudrate 1~Mbps và 6 servo/driver, thời gian truyền một frame lệnh khoảng 1--2~ms, thấp hơn đáng kể so với chu kỳ điều khiển 7~ms.
     \item \textbf{Sai lệch lắp ráp:} Dung sai gia công và lắp ráp tạo ra sự không đồng đều về chiều cao giữa các chân, được bù bằng tham số $z\_\text{offset}$ riêng cho mỗi chân.
 \end{itemize}
+\begin{table}[H]
+\centering
+\caption{Quy trình tắt an toàn ba pha}
+\label{tab:robotoff}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|c|p{0.15\linewidth}|p{0.45\linewidth}|c|}
+\hline
+\textbf{Pha} & \textbf{Khớp} & \textbf{Mô tả} & \textbf{Thời gian} \\ \hline
+1 & Joint 3 (gối) & Gập gối → thân robot hạ xuống đất. LF/LB: $-47^\circ$, RF/RB: $+47^\circ$ & $\sim$0,9~s \\ \hline
+2 & Joint 2 (vai) & Thu vai → chân gập sát thân robot. & $\sim$0,9~s \\ \hline
+3 & Joint 1 (hông) & Xoè hông → chân xoè ra ngoài, robot nằm phẳng. & $\sim$0,9~s \\ \hline
+\end{tabular}
+\end{table}
+
+Thiết kế tuần tự ba pha đảm bảo rằng robot không bao giờ rơi tự do: thân được hạ từ từ xuống đất trước khi các chân được thu gọn. Các giá trị góc đích có biên độ an toàn $\sim$3$^\circ$ so với giới hạn EEPROM của servo, tránh hiện tượng kẹt cơ khí.
+
+\subsection{Các vấn đề thực tế và giải pháp}
+
+Trong quá trình triển khai và thử nghiệm trên phần cứng thực, nhóm đã gặp và giải quyết một số vấn đề kỹ thuật quan trọng:
+
+\begin{enumerate}
+    \item \textbf{Sai lệch chiều cao giữa các chân:} Do dung sai gia công và lắp ráp, các chân robot có chiều cao không đồng đều khi đứng. Giải pháp: bổ sung tham số $z\_\text{offset}$ riêng cho từng chân (Bảng~\ref{tab:homing_targets}), được tinh chỉnh thủ công trong quá trình calibrate.
+
+    \item \textbf{Chiều quay ngược giữa các chân:} Cấu trúc lắp đặt đối xứng gương khiến servo của chân trái và chân phải quay ngược chiều nhau cho cùng một chuyển động. Giải pháp: xây dựng hàm chuyển đổi IK-to-Servo riêng biệt cho từng chân với các hệ số offset và đổi dấu phù hợp.
+
+    \item \textbf{Xung đột bus UART:} Khi cả lệnh điều khiển và phản hồi vị trí cùng chia sẻ một đường truyền UART bán song công, xảy ra hiện tượng xung đột dữ liệu. Giải pháp: vô hiệu hóa feedback sau khi hoàn tất bước đọc vị trí ban đầu trong quá trình khởi tạo tư thế đứng.
+
+    \item \textbf{Chia tải serial driver:} Một serial driver đơn lẻ không đủ băng thông để điều khiển đồng thời 12 servo ở tốc độ cao. Giải pháp: sử dụng hai serial driver (Driver A và Driver B), mỗi driver quản lý 6 servo thông qua một mạch Bus Servo Adapter riêng biệt.
+\end{enumerate}
+
+\subsection{Nhận xét và đánh giá thực nghiệm}
+
+Kết quả thực nghiệm trên phần cứng cho phép rút ra các đánh giá sau:
+
+Bảng~\ref{tab:sim_vs_hw} trình bày so sánh tổng quan giữa các tham số trong mô phỏng và trên phần cứng thực.
+
+\begin{table}[H]
+\centering
+\caption{So sánh tham số giữa mô phỏng và phần cứng thực}
+\label{tab:sim_vs_hw}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{0.3\linewidth}|c|c|}
+\hline
+\textbf{Tham số} & \textbf{Mô phỏng} & \textbf{Phần cứng thực} \\ \hline
+Kích thước thân ($L \times W$) & $120 \times 90$ mm & $209 \times 191$ mm \\ \hline
+Chiều dài link ($l_1, l_2, l_3$) & 20, 80, 80 mm & 26, 106, 125 mm \\ \hline
+Waypoint vung chân / chống chân & 30 / 310 & 45 / 200 \\ \hline
+Duty cycle $\beta$ & 91,2\% & 81,6\% \\ \hline
+Chiều dài bước & -- & 10 mm \\ \hline
+Độ cao nâng chân & 40 mm & 100 mm \\ \hline
+Bộ điều khiển & PD ($K_p=20$, $K_d=0,5$) & Servo PI nội bộ \\ \hline
+Phản hồi IMU & Có (mô phỏng) & Có (BNO055 -- I2C) \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Thứ nhất}, quy trình khởi tạo tư thế đứng hoạt động ổn định trên phần cứng thực. Robot được đưa từ vị trí ngẫu nhiên ban đầu về tư thế đứng chuẩn trong 200 frame ($\sim$1,4 giây với chu kỳ 7~ms/frame). Quá trình nội suy tuyến tính giữa vị trí feedback và vị trí đích IK tạo ra chuyển động mượt mà, không có hiện tượng giật hoặc va đập cơ khí.
+
+\textbf{Thứ hai}, dáng đi Trot trên mặt phẳng nằm ngang cho thấy robot có khả năng di chuyển tiến liên tục. Tuy nhiên, do chiều dài bước ngắn ($L_{stride} = 10$ mm) và duty cycle cao ($\beta = 81{,}6\%$), tốc độ di chuyển tương đối chậm. Thiết kế này ưu tiên ổn định hơn tốc độ, phù hợp với giai đoạn kiểm chứng ban đầu.
+
+\textbf{Thứ ba}, cơ chế tắt an toàn ba pha hoạt động đúng như thiết kế. Quy trình tuần tự gập gối → thu vai → xoè hông đảm bảo robot được hạ xuống đất an toàn trong mọi trường hợp. Tổng thời gian tắt khoảng 6,3 giây, đủ chậm để tránh lực quán tính gây hư hại cơ khí.
+
+\textbf{Thứ tư}, việc chia hai serial driver (Driver A và Driver B) giải quyết hiệu quả vấn đề băng thông UART. Mỗi driver chỉ cần quản lý 6 servo, giảm tải truyền thông và đảm bảo thời gian đáp ứng dưới 7~ms cho toàn bộ 12 khớp.
+
+\section{Phân tích sự khác biệt giữa mô phỏng và thực nghiệm}
+
+Trong quá trình chuyển đổi từ mô phỏng sang phần cứng thực (sim-to-real transfer), nhóm đã nhận diện và ghi nhận một số khác biệt quan trọng:
+
+\subsection{Khác biệt về kích thước mô hình}
+
+Mô hình URDF sử dụng trong Gazebo có kích thước nhỏ hơn so với robot thực tế (Bảng~\ref{tab:sim_vs_hw}). Lý do chính là mô hình URDF được xây dựng trước trong giai đoạn thiết kế sơ bộ, trong khi robot thực tế có các điều chỉnh kích thước sau quá trình chế tạo và lắp ráp. Sự khác biệt này không ảnh hưởng đến tính đúng đắn của các thuật toán (FK, IK, PID) vì chúng được tham số hóa (parameterized), cho phép thay đổi kích thước link mà không cần sửa đổi mã nguồn.
+
+\subsection{Khác biệt về tham số dáng đi}
+
+Các tham số quỹ đạo trên phần cứng thực ($T_{swing} = 45$, $T_{stance} = 200$, $\Delta h = 100$ mm) khác biệt đáng kể so với mô phỏng ($T_{swing} = 30$, $T_{stance} = 310$, $\Delta h = 40$ mm). Lý do chính bao gồm:
+
+\begin{itemize}
+    \item \textbf{Độ cao nâng chân lớn hơn} (100 mm vs 40 mm): Do bề mặt thử nghiệm thực tế không hoàn toàn phẳng, robot cần nâng chân cao hơn để tránh va chạm khi bước. Trong mô phỏng Gazebo với mặt đất lý tưởng, 40 mm đã đủ.
+    \item \textbf{Pha chống chân ngắn hơn} (200 vs 310 frame): Giảm thời gian pha chống chân giúp tăng tần số bước, cải thiện tốc độ di chuyển trên phần cứng thực.
+    \item \textbf{Pha vung chân dài hơn} (45 vs 30 frame): Tăng thời gian pha vung chân giúp servo có đủ thời gian đáp ứng, do servo thực tế có độ trễ cơ khí mà mô phỏng không thể hiện hoàn toàn.
+\end{itemize}
+
+\subsection{Các yếu tố phi lý tưởng trên phần cứng thực}
+
+Một số yếu tố phi lý tưởng (non-ideal factors) ảnh hưởng đến hiệu năng trên phần cứng thực mà mô phỏng không mô phỏng được:
+
+\begin{itemize}
+    \item \textbf{Ma sát và trượt bàn chân:} Vật liệu tiếp xúc của bàn chân có hệ số ma sát khác nhau trên các bề mặt thử nghiệm. Trên bề mặt trơn, robot có xu hướng trượt, giảm hiệu quả sải bước.
+    \item \textbf{Độ dẻo cơ khí:} Các chi tiết cấu thành khung có độ dẻo nhất định, gây ra biến dạng nhỏ dưới tải trọng, dẫn đến sai lệch giữa vị trí bàn chân lý thuyết và thực tế.
+    \item \textbf{Độ trễ truyền thông UART:} Giao thức UART bán song công giới hạn tốc độ cập nhật lệnh servo. Với baudrate 1~Mbps và 6 servo/driver, thời gian truyền một frame lệnh khoảng 1--2~ms, thấp hơn đáng kể so với chu kỳ điều khiển 7~ms.
+    \item \textbf{Sai lệch lắp ráp:} Dung sai gia công và lắp ráp tạo ra sự không đồng đều về chiều cao giữa các chân, được bù bằng tham số $z\_\text{offset}$ riêng cho mỗi chân.
+\end{itemize}
