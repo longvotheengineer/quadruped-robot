@@ -95,7 +95,7 @@ def generate_launch_description():
             'pitch_amplitude_deg': 10.0,
             'pitch_period_sec':    50.0,
             'pitch_phase_deg':     90.0,   # pitch lags roll by T/4
-            'update_rate_hz':      50.0,
+            'update_rate_hz':      300.0,
         }]
     )
 
@@ -106,6 +106,6 @@ def generate_launch_description():
         launch_entity,
         launch_encoder,
         launch_actuator,
-        node_rviz,
+        # node_rviz,
         node_ramp_mover,
     ])

@@ -146,22 +146,22 @@ class GaitConfig:
 
     # Per-leg z_offset: compensate mechanical height differences (mm).
     # Negative = foot reaches lower (use when a leg is physically higher).
-    LF_Z_OFFSET = -5
+    LF_Z_OFFSET = 0
     LB_Z_OFFSET = 0
     RF_Z_OFFSET = 0
-    RB_Z_OFFSET = -5
+    RB_Z_OFFSET = 0
 
     # Per-leg stride length (mm): how far the foot moves forward/backward.
-    LF_STRIDE = 10
-    LB_STRIDE = 10
-    RF_STRIDE = 10
-    RB_STRIDE = 10
+    LF_STRIDE = 40
+    LB_STRIDE = 40
+    RF_STRIDE = 40
+    RB_STRIDE = 40
 
     # Per-leg lift height (mm): how high the foot lifts during swing.
-    LF_LIFT = 80
-    LB_LIFT = 50
-    RF_LIFT = 80
-    RB_LIFT = 50
+    LF_LIFT = 60
+    LB_LIFT = 60
+    RF_LIFT = 60
+    RB_LIFT = 60
 
     PARAMS_GAIT_FORWARD = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET, "stride": LF_STRIDE, "lift": LF_LIFT},
