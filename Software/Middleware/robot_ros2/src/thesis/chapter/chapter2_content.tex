@@ -8,7 +8,7 @@ Trong khuôn khổ của nghiên cứu này, đối tượng nghiên cứu và c
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{fig1-Robotdog.png}
+    \includegraphics[width=0.7\textwidth]{hardware/robot_overview.png}
     \caption{Ví dụ robot bốn chân}
     \label{fig1}
 \end{figure}
@@ -20,7 +20,7 @@ Cấu trúc cơ khí của chân robot có ảnh hưởng lớn đến khả nă
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{fig8-Both side of each Serial-Leg.png}
+    \includegraphics[width=0.6\textwidth]{hardware/serial_leg_both_sides.png}
     \caption{Cơ cấu chân dạng nối tiếp}
     \label{fig8}
 \end{figure}
@@ -29,7 +29,7 @@ Cấu trúc cơ khí của chân robot có ảnh hưởng lớn đến khả nă
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{fig9-Mechanical model & branch coordinate system.png }
+    \includegraphics[width=0.6\textwidth]{hardware/mechanical_model.png }
     \caption{Mô hình cơ khí và hệ tọa độ nhánh của chân song song}
     \label{fig9}
 \end{figure}
@@ -38,7 +38,7 @@ Cấu trúc cơ khí của chân robot có ảnh hưởng lớn đến khả nă
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{fig10-Mechanical model & branch coordinate system.png  }
+    \includegraphics[width=0.6\textwidth]{hardware/mechanical_model_branch.png  }
     \caption{Cơ cấu chân lai nối tiếp – song song}
     \label{fig10}
 \end{figure}
@@ -59,7 +59,7 @@ Cấu trúc liên kết động học kết cấu rút gọn được thể hi�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{fig11-Structure topology of the 12-DOF quadruped robot design (front view)..png }
+    \includegraphics[width=0.6\textwidth]{hardware/structure_topology_front.png }
     \caption{Cấu trúc liên kết động học của robot bốn chân 12 bậc tự do}
     \label{fig11}
 \end{figure}
@@ -69,7 +69,7 @@ Cấu trúc liên kết động học kết cấu rút gọn được thể hi�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{fig2-3 DOF of Single Leg Mechanism.png}
+    \includegraphics[width=0.6\textwidth]{kinematics/single_leg_3dof.png}
     \caption{Ba bậc tự do của cơ cấu một chân}
     \label{fig2}
 \end{figure}
@@ -109,7 +109,7 @@ Robot bốn chân có rất nhiều phương thức di chuyển khác nhau tùy 
     
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{fig3-Trot bait table.png}
+        \includegraphics[width=0.6\textwidth]{gait_planner/trot_gait_table.png}
         \caption{Giản đồ pha chuyển động của dáng đi Trot}
         \label{fig3}
     \end{figure}
@@ -118,7 +118,7 @@ Robot bốn chân có rất nhiều phương thức di chuyển khác nhau tùy 
     
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{fig4-Walk gait table.png}
+        \includegraphics[width=0.6\textwidth]{gait_planner/walk_gait_table.png}
         \caption{Giản đồ pha chuyển động của dáng đi Walk}
         \label{fig4}
     \end{figure}
@@ -127,7 +127,7 @@ Robot bốn chân có rất nhiều phương thức di chuyển khác nhau tùy 
     
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{fig5-Pace gait table.png}
+        \includegraphics[width=0.6\textwidth]{gait_planner/pace_gait_table.png}
         \caption{Giản đồ pha chuyển động của dáng đi Pace}
         \label{fig5}
     \end{figure}
@@ -136,7 +136,7 @@ Robot bốn chân có rất nhiều phương thức di chuyển khác nhau tùy 
     
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{fig6-Bound gait table.png}
+        \includegraphics[width=0.6\textwidth]{gait_planner/bound_gait_table.png}
         \caption{Giản đồ pha chuyển động của dáng đi Bound}
         \label{fig6}
     \end{figure}
@@ -145,7 +145,7 @@ Robot bốn chân có rất nhiều phương thức di chuyển khác nhau tùy 
     
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{fig7-Gallop gait table.png}
+        \includegraphics[width=0.6\textwidth]{gait_planner/gallop_gait_table.png}
         \caption{Giản đồ pha chuyển động của dáng đi Gallop}
         \label{fig7}
     \end{figure}
@@ -173,13 +173,13 @@ trong đó $\mathbf{p}_{CoM}$ là hình chiếu CoM lên mặt đất, $\overlin
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{fig_static_stability_a.png}
+        \includegraphics[width=\textwidth]{kinematics/static_stability_a.png}
         \caption{Walk Gait -- 3 stance legs}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{fig_static_stability_b.png}
+        \includegraphics[width=\textwidth]{kinematics/static_stability_b.png}
         \caption{Trot Gait -- 2 diagonal stance legs}
     \end{subfigure}
     \caption{Minh họa Đa giác đỡ và Biên ổn định tĩnh (SSM) của robot bốn chân}
@@ -211,7 +211,7 @@ trong đó $m_i$, $\mathbf{r}_i = (x_i, y_i)^T$, $z_i$ lần lượt là khối 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{fig_zmp_3d_model.png}
+    \includegraphics[width=0.5\textwidth]{kinematics/zmp_3d_model.png}
     \caption{Mô hình 3D minh họa quan hệ giữa trọng tâm CoM $(x,y,z)$ và điểm ZMP $(p_{x_k}, p_{y_k})$ trên mặt phẳng đỡ của robot bốn chân}
     \label{fig:zmp_stability}
 \end{figure}

@@ -9,7 +9,7 @@ Mục tiêu của bài toán động học thuận của robot là xác định 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{fig_model_referenceframe.png}
+    \includegraphics[width=0.7\textwidth]{kinematics/model_reference_frame.png}
     \caption{Mô hình mô phỏng với các hệ tọa độ tham chiếu được gắn tại từng khớp của robot.}
     \label{fig20}
 \end{figure}
@@ -27,7 +27,7 @@ Trong phương pháp DH, mỗi khâu liên kết có thể được mô tả b�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{fig21-Diagram of the DH coordinate system..png }
+    \includegraphics[width=0.6\textwidth]{kinematics/dh_coordinate_system.png }
     \caption{Mô hình một chân của robot bốn chân được xây dựng bằng phương pháp D–H.}
     \label{fig21}
 \end{figure}
@@ -355,7 +355,7 @@ Do đó, robot có dải tốc độ rộng và có thể lựa chọn các tố
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{fig22-Trot gait timing diagram β = 0.5 .png}
+    \includegraphics[width=0.6\textwidth]{gait_planner/trot_gait_timing.png}
     \caption{Sơ đồ thời gian của dáng đi trot với $\beta = 0.5$, trong đó $\beta = \frac{T_{st}}{T}$ và $T_{st}$ là thời gian của pha chống đỡ.}
     \label{fig22}
 \end{figure}
@@ -390,7 +390,7 @@ không gian Descartes.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{fig23-Quy hoạch quỹ đạo một chân.png }
+    \includegraphics[width=0.6\textwidth]{gait_planner/single_leg_trajectory.png }
     \caption{Phân tích quỹ đạo của một chân}
     \label{fig23}
 \end{figure}
@@ -424,7 +424,7 @@ trong quá trình chuyển động.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{fig_cubic_pva.pdf}
+    \includegraphics[width=0.8\textwidth]{gait_planner/cubic_pva.pdf}
     \caption{Các đường cong quỹ đạo bậc ba}
     \label{fig25}
 \end{figure}
@@ -452,7 +452,7 @@ từ đó giúp chuyển động của robot trở nên ổn định và mượt
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{fig_quintic_pva.pdf}
+    \includegraphics[width=0.8\textwidth]{gait_planner/quintic_pva.pdf}
     \caption{Biên dạng vị trí, vận tốc và gia tốc của hàm bước mượt bậc năm}
     \label{fig26}
 \end{figure}
@@ -484,7 +484,7 @@ trong đó $\mathbf{p}_0$ và $\mathbf{p}_f$ lần lượt là vị trí đầu 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{fig_cubic_vs_quintic.pdf}
+    \includegraphics[width=0.8\textwidth]{gait_planner/cubic_vs_quintic.pdf}
     \caption{So sánh biên dạng động học giữa nội suy bậc 3 và bậc 5.}
     \label{fig:cubic_vs_quintic}
 \end{figure}
@@ -533,7 +533,7 @@ Tổng số điểm quỹ đạo cho một chu kỳ dáng đi đầy đủ là $
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{fig46_gait_generator.png}
+    \includegraphics[width=0.8\textwidth]{gait_planner/gait_generator.png}
     \caption{Quỹ đạo chân 3D dạng chữ D (Pha vung Parabol và Pha chống đỡ đường thẳng)}
     \label{fig:gait_trajectory_3d}
 \end{figure}
@@ -670,7 +670,7 @@ Trong đó:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{fig27- Force analysis on a general link i .png }
+    \includegraphics[width=0.6\textwidth]{kinematics/force_analysis_link.png }
     \caption{Phân tích lực tác dụng lên một khâu tổng quát $i$ (lưu ý: lực tiếp xúc với mặt đất chỉ tồn tại khi khâu $i$ là một trong các khâu chân dưới).}
     \label{fig27}
 \end{figure}
@@ -712,7 +712,7 @@ Hệ thống điều khiển tổng thể của robot được thiết kế theo
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{fig45-Locomotion_Planner_Balance_Controller.png}
+    \includegraphics[width=\textwidth]{architecture/locomotion_balance_controller.png}
     \caption{Tổng quan kiến trúc điều khiển của hệ thống (Locomotion Planner \& Balance Controller)}
     \label{fig28}
 \end{figure}
@@ -755,7 +755,7 @@ Việc "cắt bỏ" sự thay đổi trên trục $X, Y$ là cực kỳ quan tr�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{fig29- Attitude adjustment .png}
+    \includegraphics[width=0.9\textwidth]{kinematics/attitude_adjustment.png}
     \caption{Minh họa quá trình điều chỉnh tư thế thân robot: từ $\mathbf{p}_{raw}$ (trước bù) sang $\mathbf{p}_{adj}$ (sau bù), chỉ thay đổi $z$, giữ nguyên $x, y$}
     \label{fig29}
 \end{figure}
@@ -766,7 +766,7 @@ Trong chế độ tĩnh (HOME), toàn bộ bốn chân duy trì tiếp xúc mặ
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{fig_pid_architecture.pdf}
+    \includegraphics[width=\textwidth]{architecture/pid_architecture.pdf}
     \caption{Kiến trúc bộ điều khiển PID thích nghi cho ổn định tư thế}
     \label{fig_pid_arch}
 \end{figure}
