@@ -3,7 +3,7 @@
 
 \input{chapter/chapter2_content}
 
-Mục tiêu của bài toán động học thuận của robot là xác định biểu diễn vị trí của cơ cấu chấp hành cuối. Trong đồ án này, phương pháp biến đổi tọa độ Denavit--Hartenberg (DH) \cite{denavit1955, craig2005} được áp dụng để giải quyết bài toán này.
+Mục tiêu của bài toán động học thuận của robot là xác định biểu diễn vị trí của cơ cấu chấp hành cuối. Trong nghiên cứu này, phương pháp biến đổi tọa độ Denavit--Hartenberg (DH) \cite{denavit1955, craig2005} được áp dụng để giải quyết bài toán này.
 \section{Động học thuận }
 \subsection{Thiết lập hệ tọa độ DH}
 
@@ -232,7 +232,7 @@ Bài toán động học nghịch (Inverse Kinematics -- IK) là bài toán xác
 
 \subsection{Phương pháp giải tích}
 
-Trong đồ án này, phương pháp giải tích (analytical method) được sử dụng để giải bài toán IK. Phương pháp này phân rã hệ phương trình lượng giác phi tuyến của cơ cấu chân 3-DOF serial thành các bước giải tuần tự, tận dụng cấu trúc chuỗi hở (serial chain) để thu được nghiệm dạng đóng:
+Trong nghiên cứu này, phương pháp giải tích (analytical method) được sử dụng để giải bài toán IK. Phương pháp này phân rã hệ phương trình lượng giác phi tuyến của cơ cấu chân 3-DOF serial thành các bước giải tuần tự, tận dụng cấu trúc chuỗi hở (serial chain) để thu được nghiệm dạng đóng:
 
 \begin{enumerate}
     \item \textbf{Bước 1 -- Giải $\theta_1$ (khớp hip/coxa):} Từ phép chiếu tọa độ đầu chân lên mặt phẳng vuông góc với trục hip, sử dụng hàm $\text{atan2}$ để xác định góc dang chân $\theta_1$. Do cấu trúc đối xứng gương giữa chân trái và chân phải, dấu của $L_1$ trong công thức $\text{atan2}$ được đảo ngược.
@@ -345,7 +345,7 @@ trong đó $\sigma_{s3} = -1$ cho chân trái và $\sigma_{s3} = +1$ cho chân p
 Quy hoạch dáng đi đóng vai trò then chốt đối với sự di chuyển ổn định của robot bốn chân. Trong tự nhiên, các loài động vật có vú bốn chân lựa chọn các dáng đi khác nhau tùy thuộc vào vận tốc di chuyển mong muốn và độ gồ ghề của bề mặt địa hình nhằm giảm thiểu năng lượng tiêu thụ mà vẫn đạt được mục tiêu di chuyển. Trên cơ sở đó, các mẫu dáng đi phổ biến của động vật đã được trích xuất để làm nền tảng cho việc quy hoạch dáng đi trên robot bốn chân.
 
 \subsection{Lựa chọn dáng đi Trot}
-Dựa trên các phân tích lý thuyết về các phương thức di chuyển đã trình bày ở Chương 2, đồ án lựa chọn dáng đi \textbf{trot} làm trọng tâm nghiên cứu \cite{marhefka1999}. Đây là kiểu dáng đi ``hai nhịp'' điển hình, trong đó hai chân chéo nhau có đặc tính chuyển động giống hệt nhau, với chân trước bên trái (LF) và chân sau bên phải (RB) hoạt động đồng nhất, còn chân trước bên phải (RF) và chân sau bên trái (LB) hoạt động đồng nhất, như được thể hiện trong Hình~\ref{fig22}.
+Dựa trên các phân tích lý thuyết về các phương thức di chuyển đã trình bày ở Chương 2, tác giả lựa chọn dáng đi \textbf{trot} làm trọng tâm nghiên cứu \cite{marhefka1999}. Đây là kiểu dáng đi ``hai nhịp'' điển hình, trong đó hai chân chéo nhau có đặc tính chuyển động giống hệt nhau, với chân trước bên trái (LF) và chân sau bên phải (RB) hoạt động đồng nhất, còn chân trước bên phải (RF) và chân sau bên trái (LB) hoạt động đồng nhất, như được thể hiện trong Hình~\ref{fig22}.
 
 Về mặt lý thuyết, hệ số chu kỳ nhiệm vụ (duty cycle coefficient) trong dáng đi này không chịu bất kỳ hạn chế nào, và thỏa mãn điều kiện:
 \begin{equation}
@@ -495,7 +495,7 @@ Từ Hình~\ref{fig:cubic_vs_quintic}, có thể thấy rõ sự khác biệt �
     \item \textbf{Đa thức bậc 5:} Gia tốc tại $\tau=0$ và $\tau=1$ hoàn toàn bằng không, tạo sự chuyển tiếp mượt mà về mặt động lực học. Quỹ đạo đạt độ trơn bậc hai ($C^2$), phù hợp với yêu cầu chuyển động ổn định của robot bốn chân trong thực tế.
 \end{itemize}
 
-Do đó, đồ án sử dụng hoàn toàn nội suy đa thức bậc năm cho việc tạo quỹ đạo bước chân nhằm tăng cường sự ổn định và kéo dài tuổi thọ của hệ thống truyền động.
+Do đó, tác giả sử dụng hoàn toàn nội suy đa thức bậc năm cho việc tạo quỹ đạo bước chân nhằm tăng cường sự ổn định và kéo dài tuổi thọ của hệ thống truyền động.
 
 \subsection{Triển khai quỹ đạo chân dạng chữ D}
 
@@ -604,7 +604,7 @@ Pace & 0 & 0,5 & 0 & 0,5 & Hai chân cùng bên đồng pha \\ \hline
 \end{tabular}
 \end{table}
 
-\textbf{Dáng đi Trot} ($\phi = [0, 0{,}5, 0{,}5, 0]$) là dáng đi mặc định trong đồ án này. Hai chân chéo (LF--RB và RF--LB) hoạt động đồng pha, tạo ra hai nhóm chân xen kẽ. Tại mọi thời điểm, ít nhất hai chân thuộc cùng nhóm đang ở pha chống chân, duy trì ổn định tĩnh marginal.
+\textbf{Dáng đi Trot} ($\phi = [0, 0.5, 0.5, 0]$) là dáng đi mặc định trong nghiên cứu này. Hai chân chéo (LF--RB và RF--LB) hoạt động đồng pha, tạo ra hai nhóm chân xen kẽ. Tại mọi thời điểm, ít nhất hai chân thuộc cùng nhóm đang ở pha chống chân, duy trì ổn định tĩnh marginal.
 
 \textbf{Phân tích thời gian một chu kỳ.} Với $N_{sw} = 45$ frame, $N_{st} = 200$ frame và chu kỳ timer $\Delta T = 3$ ms/frame, thời gian một chu kỳ dáng đi đầy đủ là:
 
@@ -666,7 +666,7 @@ Trong đó:
 \item $J^T(q)$ là ma trận Jacobian chuyển vị của các chân dưới.
 \end{itemize}
 
-Ở đây, $F_C$ là vector lực tiếp xúc với mặt đất. Trong đồ án này, lực tiếp xúc không được mô hình hóa tường minh mà được xử lý bởi engine vật lý ODE (Open Dynamics Engine) tích hợp trong trình mô phỏng Gazebo, với hệ số ma sát Coulomb $\mu = 0{,}8$ và bước thời gian $\Delta t = 1$ ms.
+Ở đây, $F_C$ là vector lực tiếp xúc với mặt đất. Trong nghiên cứu này, lực tiếp xúc không được mô hình hóa tường minh mà được xử lý bởi engine vật lý ODE (Open Dynamics Engine) tích hợp trong trình mô phỏng Gazebo, với hệ số ma sát Coulomb $\mu = 0.8$ và bước thời gian $\Delta t = 1$~ms.
 
 \begin{figure}[H]
     \centering

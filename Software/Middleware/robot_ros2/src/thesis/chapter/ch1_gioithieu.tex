@@ -13,7 +13,7 @@ Trong những năm gần đây, lĩnh vực robot bốn chân đã chứng kiế
 
 Tại Việt Nam, các nghiên cứu chuyên sâu về hệ thống điều khiển chuyển động cho robot bốn chân vẫn còn tương đối hạn chế. Phần lớn các đồ án tốt nghiệp và luận văn trong nước tập trung vào thiết kế cơ khí hoặc mô phỏng lý thuyết, chưa hoàn thiện quy trình triển khai toàn diện từ mô phỏng đến phần cứng thực. Điều này tạo ra khoảng trống nghiên cứu đáng kể, đặc biệt trong việc xây dựng hệ thống điều khiển thăng bằng sử dụng cảm biến quán tính và kiến trúc phần mềm phân tán trên nền tảng ROS~2.
 
-Xuất phát từ nhu cầu thực tiễn về ứng dụng robot bốn chân trong các hoạt động tìm kiếm cứu nạn, thám hiểm địa hình phức tạp và giám sát môi trường nguy hiểm, đồ án này tập trung vào việc thiết kế hệ thống điều khiển chuyển động cho một mô hình robot bốn chân cỡ nhỏ. Đồ án đặt mục tiêu xây dựng quy trình phát triển hoàn chỉnh (end-to-end pipeline) từ mô hình toán học, mô phỏng, đến triển khai trên phần cứng thực, sử dụng các linh kiện có giá thành phù hợp với điều kiện nghiên cứu tại Việt Nam.
+Xuất phát từ nhu cầu thực tiễn về ứng dụng robot bốn chân trong các hoạt động tìm kiếm cứu nạn, thám hiểm địa hình phức tạp và giám sát môi trường nguy hiểm, nghiên cứu này tập trung vào việc thiết kế hệ thống điều khiển chuyển động cho một mô hình robot bốn chân cỡ nhỏ. Đề tài đặt mục tiêu xây dựng quy trình phát triển hoàn chỉnh (end-to-end pipeline) từ mô hình toán học, mô phỏng, đến triển khai trên phần cứng thực, sử dụng các linh kiện có giá thành phù hợp với điều kiện nghiên cứu tại Việt Nam.
 
 \section{Tình hình nghiên cứu trong và ngoài nước}
 
@@ -25,11 +25,11 @@ Tại ETH Zürich, nhóm của Hutter đã phát triển robot ANYmal \cite{hutt
 
 Gehring \textit{et al.} \cite{gehring2013} đã trình bày phương pháp điều khiển dáng đi động cho robot bốn chân StarlETH, sử dụng bộ điều khiển phân tầng kết hợp quy hoạch quỹ đạo và điều khiển lực.
 
-Sandeep \textit{et al.} \cite{sandeep2021} trình bày quy trình thiết kế và chế tạo một robot bốn chân cỡ nhỏ sử dụng động cơ servo, tương tự với phạm vi nghiên cứu của đồ án này.
+Sandeep \textit{et al.} \cite{sandeep2021} trình bày quy trình thiết kế và chế tạo một robot bốn chân cỡ nhỏ sử dụng động cơ servo, tương tự với phạm vi của nghiên cứu này.
 
 Về phương pháp quy hoạch dáng đi, Marhefka và Orin \cite{marhefka1999} đã nghiên cứu tối ưu hóa năng lượng trong quá trình di chuyển của robot có chân, chứng minh hiệu quả năng lượng của dáng đi trot so với các dáng đi khác.
 
-Nhìn chung, các công trình trên đều sử dụng các phương pháp động học DH \cite{denavit1955} và quy hoạch quỹ đạo đa thức tương tự như cách tiếp cận trong đồ án này. Điểm khác biệt chính nằm ở quy mô hệ thống: các nghiên cứu trên thường sử dụng động cơ BLDC công suất lớn và vi xử lý chuyên dụng, trong khi đồ án này tập trung vào mô hình cỡ nhỏ sử dụng servo bus nối tiếp và máy tính nhúng Jetson Nano.
+Nhìn chung, các công trình trên đều sử dụng các phương pháp động học DH \cite{denavit1955} và quy hoạch quỹ đạo đa thức tương tự như cách tiếp cận trong nghiên cứu này. Điểm khác biệt chính nằm ở quy mô hệ thống: các nghiên cứu trên thường sử dụng động cơ BLDC công suất lớn và vi xử lý chuyên dụng, trong khi công trình này tập trung vào mô hình cỡ nhỏ sử dụng servo bus nối tiếp và máy tính nhúng Jetson Nano.
 
 
 
@@ -110,11 +110,11 @@ Robot bốn chân có tiềm năng ứng dụng trong nhiều lĩnh vực:
 
 \subsection{Phân công nhiệm vụ}
 
-Toàn bộ đồ án là sự nỗ lực và phối hợp chặt chẽ của cả nhóm trong suốt quá trình nghiên cứu, thiết kế và thi công. Tuy nhiên, để tối ưu hóa hiệu quả công việc và phát huy thế mạnh của từng thành viên, nhóm đã phân chia các hạng mục chịu trách nhiệm chính như Bảng \ref{tab:phan_cong}.
+Toàn bộ khối lượng công việc là sự nỗ lực và phối hợp chặt chẽ của cả nhóm trong suốt quá trình nghiên cứu, thiết kế và thi công. Tuy nhiên, để tối ưu hóa hiệu quả công việc và phát huy thế mạnh của từng thành viên, nhóm đã phân chia các hạng mục chịu trách nhiệm chính như Bảng \ref{tab:phan_cong}.
 
 \begin{table}[H]
     \centering
-    \caption{Bảng phân công nhiệm vụ thực hiện đồ án}
+    \caption{Bảng phân công nhiệm vụ thực hiện}
     \label{tab:phan_cong}
     \renewcommand{\arraystretch}{1.5}
     \begin{tabular}{|p{0.05\textwidth}|p{0.25\textwidth}|p{0.6\textwidth}|}
@@ -125,7 +125,7 @@ Toàn bộ đồ án là sự nỗ lực và phối hợp chặt chẽ của c�
         \begin{itemize}
             \item Thiết kế mô hình cơ khí 3D trên phần mềm SolidWorks và lắp ráp hoàn thiện kết cấu khung robot 12 bậc tự do.
             \item Tính toán mô-men xoắn động lực học, từ đó phân tích và lựa chọn cơ cấu chấp hành (cụm động cơ Bus Servo ST3215).
-            \item Tính toán công suất và dòng điện tiêu thụ tổng thể để thiết kế sơ đồ đi dây, phân nhánh cấp nguồn và lựa chọn hệ thống nguồn (nguồn xung tổ ong 12V, mạch giảm áp XL4015).
+            \item Tính toán công suất và dòng điện tiêu thụ tổng thể để thiết kế sơ đồ đi dây, phân nhánh cấp nguồn và lựa chọn hệ thống nguồn (nguồn xung tổ ong 12~V, mạch giảm áp XL4015).
         \end{itemize} \vspace{-0.4cm} \\ \hline
         
         2 & Võ Quế Long \newline (MSSV: 2211910) & 
@@ -147,7 +147,7 @@ Toàn bộ đồ án là sự nỗ lực và phối hợp chặt chẽ của c�
 
 \textit{Ghi chú: Đánh giá mức độ hoàn thành nhiệm vụ chung của cả nhóm là 100\%, trong đó mức độ đóng góp của mỗi thành viên là tương đương nhau (50\% - 50\%).}
 
-\subsection{Bố cục đồ án}
+\subsection{Bố cục luận văn}
 
 Đồ án được tổ chức thành 6 chương với nội dung như sau:
 

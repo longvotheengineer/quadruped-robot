@@ -12,7 +12,7 @@
 \contentsline {subsubsection}{\numberline {1.3.4.1}Ý nghĩa khoa học}{4}{subsubsection.1.3.4.1}%
 \contentsline {subsubsection}{\numberline {1.3.4.2}Ý nghĩa thực tiễn}{4}{subsubsection.1.3.4.2}%
 \contentsline {subsection}{\numberline {1.3.5}Phân công nhiệm vụ}{5}{subsection.1.3.5}%
-\contentsline {subsection}{\numberline {1.3.6}Bố cục đồ án}{7}{subsection.1.3.6}%
+\contentsline {subsection}{\numberline {1.3.6}Bố cục luận văn}{7}{subsection.1.3.6}%
 \contentsline {chapter}{\numberline {2}LÝ THUYẾT}{8}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Tổng quan về Robot bốn chân}{8}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Phân loại cấu trúc chân robot}{8}{section.2.2}%
@@ -139,4 +139,7 @@
 \contentsline {subsection}{\numberline {6.1.1}Đóng góp của đề tài}{95}{subsection.6.1.1}%
 \contentsline {subsection}{\numberline {6.1.2}Hạn chế}{95}{subsection.6.1.2}%
 \contentsline {section}{\numberline {6.2}Hướng phát triển}{96}{section.6.2}%
-\contentsline {chapter}{PHỤ LỤC}{99}{chapter*.99}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{96}{section.6.2}%
+\contentsline {chapter}{PHỤ LỤC A}{99}{chapter*.99}%
+\contentsline {chapter}{PHỤ LỤC B}{101}{chapter*.100}%
+\contentsline {chapter}{PHỤ LỤC C}{103}{chapter*.101}%

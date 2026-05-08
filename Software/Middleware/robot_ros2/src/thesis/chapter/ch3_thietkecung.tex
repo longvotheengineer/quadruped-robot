@@ -50,7 +50,7 @@ Ngoài ra, tại những vị trí có khả năng chịu tải thấp, cấu tr
 
 Khớp hông của robot bốn chân được thiết kế để tạo ra hai bậc tự do, một cho chuyển động roll và một cho chuyển động pitch. Mỗi chuyển động được truyền động bởi một servo.
 
-Do servo được sử dụng trong thiết kế của chúng tôi là loại servo một trục, các ổ bi mặt bích 626zz được sử dụng ở phía đối diện trục servo nhằm giảm lực hướng kính tác dụng lên trục. Đầu trục và khớp hông được tích hợp trong quá trình chế tạo, điều này giúp thuận tiện cho việc lắp đặt và giảm sai số lắp ráp.
+Do servo được sử dụng trong thiết kế là loại servo một trục, các ổ bi mặt bích 626zz được sử dụng ở phía đối diện trục servo nhằm giảm lực hướng kính tác dụng lên trục. Đầu trục và khớp hông được tích hợp trong quá trình chế tạo, điều này giúp thuận tiện cho việc lắp đặt và giảm sai số lắp ráp.
 
 Ngoài ra, servo điều khiển chuyển động vung trước (tức là chuyển động pitch) của khớp hông được lắp bên trong giá đỡ khớp hông để tiết kiệm không gian. Mô hình 3D của cụm khớp hông được thể hiện trong Hình \ref{fig13}.
 
@@ -106,7 +106,7 @@ Việc lựa chọn cơ cấu chấp hành có ảnh hưởng lớn đến hiệ
 
 Động cơ không chổi than được sử dụng rộng rãi nhờ đặc tính động học vượt trội, tuy nhiên chúng thường có giá thành cao và kích thước lớn.
 
-Vì trọng tâm chính của đồ án này là triển khai và đánh giá sơ bộ thuật toán dáng đi trên mô hình robot kích thước để bàn, nên servo được lựa chọn làm nguồn truyền động.
+Vì trọng tâm chính của nghiên cứu này là triển khai và đánh giá sơ bộ thuật toán dáng đi trên mô hình robot kích thước để bàn, nên servo được lựa chọn làm nguồn truyền động.
 
 Được trang bị khả năng phản hồi góc quay trực tiếp theo thời gian thực cùng tỷ số truyền bánh răng lớn, loại servo này cho phép vi điều khiển dễ dàng thực hiện điều khiển vòng kín. Điều này là nền tảng thiết yếu để chạy các node tính toán động học nghịch, giúp robot tự bù trừ sai số trong các thử nghiệm dáng đi phức tạp và tự cân bằng chính xác hơn.
 
@@ -293,28 +293,28 @@ Nhóm đã quyết định sử dụng máy tính nhúng Jetson Nano Developer K
     \label{fig34}
 \end{figure}
 
-Hầu hết những người chế tạo robot giải trí đơn giản thường sử dụng vi điều khiển Arduino. Tuy nhiên, trong các hệ thống robot đa chân đòi hỏi khả năng giữ thăng bằng động và xử lý toán học ma trận tốc độ cao, các máy tính nhúng như dòng Jetson lại là tiêu chuẩn trong nhiều nguyên mẫu nghiên cứu. Chúng được sử dụng trong nhiều lĩnh vực, từ robot tự hành (AMR), xe tự lái đến các hệ thống AI xử lý tại biên (Edge AI) đắt tiền. Tất cả những yếu tố này đã ảnh hưởng đến quyết định của chúng em khi lựa chọn bộ xử lý cấp cao hơn cho dự án.
+Hầu hết những người chế tạo robot giải trí đơn giản thường sử dụng vi điều khiển Arduino. Tuy nhiên, trong các hệ thống robot đa chân đòi hỏi khả năng giữ thăng bằng động và xử lý toán học ma trận tốc độ cao, các máy tính nhúng như dòng Jetson lại là tiêu chuẩn trong nhiều nguyên mẫu nghiên cứu. Chúng được sử dụng trong nhiều lĩnh vực, từ robot tự hành (AMR), xe tự lái đến các hệ thống AI xử lý tại biên (Edge AI) đắt tiền. Tất cả những yếu tố này là cơ sở quan trọng để tác giả lựa chọn bộ xử lý cấp cao hơn cho dự án.
 
-Jetson Nano được sử dụng để điều khiển nguyên mẫu của chúng em, bao gồm việc quản lý 12 động cơ servo và đọc dữ liệu từ module cảm biến IMU. Jetson Nano thiết lập giao tiếp UART với hai mạch Bus Servo Adapter (A). Hai mạch chuyển đổi này sẽ nhận các gói tin lệnh từ Jetson Nano và phân phối tín hiệu điều khiển nối tiếp đến 12 động cơ servo (mỗi mạch quản lý một nửa số lượng servo). Cấu trúc này giúp giảm tải dòng điện qua mạch điều khiển, phân bổ công suất hợp lý và tối giản hóa việc đi dây vật lý cho hai nửa của robot. 
+Jetson Nano được sử dụng để điều khiển nguyên mẫu robot, bao gồm việc quản lý 12 động cơ servo và đọc dữ liệu từ module cảm biến IMU. Jetson Nano thiết lập giao tiếp UART với hai mạch Bus Servo Adapter (A). Hai mạch chuyển đổi này sẽ nhận các gói tin lệnh từ Jetson Nano và phân phối tín hiệu điều khiển nối tiếp đến 12 động cơ servo (mỗi mạch quản lý một nửa số lượng servo). Cấu trúc này giúp giảm tải dòng điện qua mạch điều khiển, phân bổ công suất hợp lý và tối giản hóa việc đi dây vật lý cho hai nửa của robot. 
 
 \subsection{ Hệ thống Cung cấp Nguồn điện}
 
 Sau khi nghiên cứu và lựa chọn động cơ servo ST3215 cùng mạch điều khiển, việc cấp nguồn đúng cách để hệ thống có thể đáp ứng các yêu cầu khắt khe về dòng điện tức thời trở nên vô cùng quan trọng. Để đạt được mục tiêu này, nhóm bắt đầu xem xét các phương án cung cấp năng lượng khác nhau, bao gồm pin và nguồn cấp điện trực tiếp. Các thông số kỹ thuật cốt lõi được đặt ra cho dự án bao gồm: Điện áp hoạt động, Dòng điện tối đa, Công suất tổng và Độ ổn định điện áp. Hai phương án chính được đưa ra cân nhắc là sử dụng Pin Lithium Polymer dung lượng lớn và Nguồn xung tổ ong; mỗi loại đều có những đặc tính riêng tác động đến quá trình thử nghiệm.
 
-Trong giai đoạn phát triển, thử nghiệm thuật toán và tinh chỉnh động học, hệ thống yêu cầu một nguồn điện có khả năng cung cấp dòng xả lớn, liên tục trong nhiều giờ đồng hồ mà không xảy ra hiện tượng sụt áp. Việc khởi chạy hoặc ép tải 12 động cơ servo cùng lúc đòi hỏi dòng khởi động cực kỳ cao. Do đó, nguồn xung tổ ong 12V - 40A (480W) đã được lựa chọn làm giải pháp cung cấp năng lượng chính thay vì dùng pin. Ưu điểm lớn nhất của nguồn tổ ong là giá thành hợp lý, khả năng cấp dòng xả lên đến 40A một cách ổn định và cung cấp đúng mức điện áp 12V tối ưu cho các servo ST3215 hoạt động với hiệu suất cao nhất. 
+Trong giai đoạn phát triển, thử nghiệm thuật toán và tinh chỉnh động học, hệ thống yêu cầu một nguồn điện có khả năng cung cấp dòng xả lớn, liên tục trong nhiều giờ đồng hồ mà không xảy ra hiện tượng sụt áp. Việc khởi chạy hoặc ép tải 12 động cơ servo cùng lúc đòi hỏi dòng khởi động cực kỳ cao. Do đó, nguồn xung tổ ong 12~V - 40~A (480~W) đã được lựa chọn làm giải pháp cung cấp năng lượng chính thay vì dùng pin. Ưu điểm lớn nhất của nguồn tổ ong là giá thành hợp lý, khả năng cấp dòng xả lên đến 40~A một cách ổn định và cung cấp đúng mức điện áp 12~V tối ưu cho các servo ST3215 hoạt động với hiệu suất cao nhất. 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{fig35-Nguồn Xung Tổ Ong 12V 40A 480W.png} 
-    \caption{Bộ nguồn xung tổ ong 12V 40A 480W}
+    \caption{Bộ nguồn xung tổ ong 12~V 40~A 480~W}
     \label{fig35}
 \end{figure}
 
-Việc lựa chọn nguồn xung tổ ong 12V - 40A (480W) được dựa trên tính toán dòng điện tiêu thụ của 12 động cơ servo ST3215:
+Việc lựa chọn nguồn xung tổ ong 12~V - 40~A (480~W) được dựa trên tính toán dòng điện tiêu thụ của 12 động cơ servo ST3215:
 
-Dòng điện không tải/hoạt động bình thường : Khoảng 300mA - 600mA / servo (tại 12V).
+Dòng điện không tải/hoạt động bình thường : Khoảng 300~mA - 600~mA / servo (tại 12~V).
     
-Dòng điện khởi động/giữ tải lớn nhất ($I_{stall}$): Khoảng 2.7A / servo (tại 12V).
+Dòng điện khởi động/giữ tải lớn nhất ($I_{stall}$): Khoảng 2.7~A / servo (tại 12~V).
 
 Trong trường hợp xấu nhất khi robot khởi động hoặc thực hiện động tác nâng toàn thân, giả sử cả 12 servo đều chịu tải lớn, tổng dòng điện tức thời ($I_{total}$) là:
 
@@ -328,7 +328,7 @@ $$P_{total} = I_{total} \times U = 32.4 \times 12 = 388.8W$$
 
 $$P_{source} \ge P_{total} \times k = 388.8 \times 1.2 = 466.56W$$
 
-Việc lựa chọn nguồn xung tổ ong 12V - 40A (công suất cực đại 480W) là hoàn toàn chính xác và bám sát với tính toán lý thuyết ($466.56W \le 480W$). Mức công suất và dòng điện này đảm bảo khả năng đáp ứng dòng xả cao ngay cả khi robot hoạt động ở trạng thái tải nặng nhất mà không gây sụt áp hệ thống, giúp vi xử lý trung tâm Jetson Nano và các module không bị reset đột ngột.
+Việc lựa chọn nguồn xung tổ ong 12~V - 40~A (công suất cực đại 480~W) là hoàn toàn chính xác và bám sát với tính toán lý thuyết ($466.56~W \le 480~W$). Mức công suất và dòng điện này đảm bảo khả năng đáp ứng dòng xả cao ngay cả khi robot hoạt động ở trạng thái tải nặng nhất mà không gây sụt áp hệ thống, giúp vi xử lý trung tâm Jetson Nano và các module không bị reset đột ngột.
 
 \begin{table}[H] % <--- Chỗ này bắt buộc phải là [H]
 \centering
@@ -338,7 +338,7 @@ Việc lựa chọn nguồn xung tổ ong 12V - 40A (công suất cực đại 4
 \toprule
 \textbf{Thuộc tính} & \textbf{Giá trị} \\
 \midrule
-Điện áp ngõ ra & 12V \\
+Điện áp ngõ ra & 12~V \\
 Dòng điện ngõ ra & 40-49A \\
 Số điện áp ra & 1 \\
 Điện áp ngõ vào & 220VAC \\
@@ -389,7 +389,7 @@ Thông qua các giao thức truyền thông và tập lệnh được định ng
 
 \subsection{Bộ đo lường quán tính }
 
-Module IMU (Inertial Measurement Unit) đóng vai trò cốt lõi trong hệ thống phản hồi thăng bằng của robot. Thay vì sử dụng các cảm biến quán tính thô, đồ án này ứng dụng module GY-BNO055 \cite{bno055} --- một board mạch breakout nhỏ gọn được thiết kế trên nền tảng chip cảm biến BNO055 của Bosch Sensortec. Module tích hợp sẵn gia tốc kế 3 trục, con quay hồi chuyển 3 trục, từ kế 3 trục và đặc biệt là một vi xử lý ARM Cortex-M0+ 32-bit chạy thuật toán kết hợp cảm biến (Sensor Fusion) độc quyền của Bosch, cho phép xuất trực tiếp dữ liệu định hướng tuyệt đối mà không cần bộ lọc ngoại vi.
+Module IMU (Inertial Measurement Unit) đóng vai trò cốt lõi trong hệ thống phản hồi thăng bằng của robot. Thay vì sử dụng các cảm biến quán tính thô, nghiên cứu này ứng dụng module GY-BNO055 \cite{bno055} --- một board mạch breakout nhỏ gọn được thiết kế trên nền tảng chip cảm biến BNO055 của Bosch Sensortec. Module tích hợp sẵn gia tốc kế 3 trục, con quay hồi chuyển 3 trục, từ kế 3 trục và đặc biệt là một vi xử lý ARM Cortex-M0+ 32-bit chạy thuật toán kết hợp cảm biến (Sensor Fusion) độc quyền của Bosch, cho phép xuất trực tiếp dữ liệu định hướng tuyệt đối mà không cần bộ lọc ngoại vi.
 
 \begin{figure}[H]
 \centering
@@ -431,9 +431,9 @@ Nhiệt độ hoạt động & $-40^\circ$C đến $+85^\circ$C \\
 \end{table}
 \subsection{Mạch Giảm Áp }
 
-Bên cạnh nguồn năng lượng 12V cung cấp trực tiếp cho hệ thống động cơ servo, thiết bị xử lý trung tâm là máy tính nhúng Jetson Nano Developer Kit B01 yêu cầu một nguồn điện DC 5V ổn định để hoạt động. Trong các điều kiện tải nặng, chẳng hạn như khi tính toán động học nghịch liên tục cho 12 bậc tự do hoặc xử lý thuật toán cân bằng, Jetson Nano có thể tiêu thụ dòng điện lên đến 4A. Việc sử dụng các IC ổn áp tuyến tính thông thường sẽ gây ra hiện tượng hao phí nhiệt lượng rất lớn và không đáp ứng đủ dòng tải yêu cầu.
+Bên cạnh nguồn năng lượng 12~V cung cấp trực tiếp cho hệ thống động cơ servo, thiết bị xử lý trung tâm là máy tính nhúng Jetson Nano Developer Kit B01 yêu cầu một nguồn điện DC 5~V ổn định để hoạt động. Trong các điều kiện tải nặng, chẳng hạn như khi tính toán động học nghịch liên tục cho 12 bậc tự do hoặc xử lý thuật toán cân bằng, Jetson Nano có thể tiêu thụ dòng điện lên đến 4~A. Việc sử dụng các IC ổn áp tuyến tính thông thường sẽ gây ra hiện tượng hao phí nhiệt lượng rất lớn và không đáp ứng đủ dòng tải yêu cầu.
 
-Do đó, mạch giảm áp xung\textbf{XL4015 5A 75W} đã được lựa chọn để thực hiện nhiệm vụ chuyển đổi điện áp từ 12V của nguồn tổ ong xuống mức 5V an toàn cho Jetson Nano. Ưu điểm nổi bật của XL4015 là hiệu suất chuyển đổi năng lượng cao (lên đến 96\%), tần số băm xung 180KHz giúp giảm thiểu gợn điện áp, và khả năng cấp dòng đầu ra tối đa lên tới 5A. Điều này tạo ra một biên độ dự trữ công suất an toàn, giúp máy tính nhúng không bị sụt áp đột ngột dẫn đến tắt nguồn trong quá trình vận hành. Hơn nữa, mạch còn được tích hợp các tính năng bảo vệ ngắn mạch và bảo vệ quá nhiệt, đảm bảo an toàn tối đa cho các bo mạch điện tử đắt tiền phía sau.
+Do đó, mạch giảm áp xung \textbf{XL4015 5~A 75~W} đã được lựa chọn để thực hiện nhiệm vụ chuyển đổi điện áp từ 12~V của nguồn tổ ong xuống mức 5~V an toàn cho Jetson Nano. Ưu điểm nổi bật của XL4015 là hiệu suất chuyển đổi năng lượng cao (lên đến 96\%), tần số băm xung 180~KHz giúp giảm thiểu gợn điện áp, và khả năng cấp dòng đầu ra tối đa lên tới 5~A. Điều này tạo ra một biên độ dự trữ công suất an toàn, giúp máy tính nhúng không bị sụt áp đột ngột dẫn đến tắt nguồn trong quá trình vận hành. Hơn nữa, mạch còn được tích hợp các tính năng bảo vệ ngắn mạch và bảo vệ quá nhiệt, đảm bảo an toàn tối đa cho các bo mạch điện tử đắt tiền phía sau.
 
 \begin{figure}[H]
     \centering
@@ -466,7 +466,7 @@ Các thông số kỹ thuật chi tiết của mạch giảm áp XL4015 được
 
 \subsection{Cơ cấu chấp hành: Động cơ Bus Servo ST3215}
 
-Việc lựa chọn cơ cấu chấp hành có ảnh hưởng trực tiếp đến hiệu năng di chuyển, khả năng giữ thăng bằng và độ phức tạp của hệ thống phần cứng robot bốn chân. Trong đồ án này, động cơ Bus Servo ST3215 và phiên bản tốc độ cao ST3215-HS \cite{waveshare_st3215} đã được lựa chọn làm thiết bị truyền động cho toàn bộ 12 bậc tự do của robot. 
+Việc lựa chọn cơ cấu chấp hành có ảnh hưởng trực tiếp đến hiệu năng di chuyển, khả năng giữ thăng bằng và độ phức tạp của hệ thống phần cứng robot bốn chân. Trong nghiên cứu này, động cơ Bus Servo ST3215 và phiên bản tốc độ cao ST3215-HS \cite{waveshare_st3215} đã được lựa chọn làm thiết bị truyền động cho toàn bộ 12 bậc tự do của robot. 
 
 Để làm rõ tính ưu việt và lý do lựa chọn công nghệ truyền động này cho mô hình nguyên mẫu, nhóm đã tiến hành đánh giá và so sánh dòng động cơ Bus Servo nối tiếp với hai loại cơ cấu chấp hành phổ biến khác: Động cơ Servo điều khiển bằng xung PWM truyền thống và Động cơ không chổi than (BLDC).
 
@@ -501,23 +501,23 @@ Bốn đại diện tiêu biểu được đưa ra so sánh bao gồm: JX PDI-HV
 \hline
 \textbf{Tiêu chí} & \textbf{JX PDI-HV5932MG} & \textbf{Hiwonder LX-16A} & \textbf{Waveshare ST3215 (Được chọn)} & \textbf{Dynamixel XL430-W250-T} \\ \hline
 \textbf{Giao thức} & Xung PWM ($180^{\circ}$) & TTL UART (Half-duplex) & TTL UART (Half-duplex) & TTL UART (Half-duplex) \\ \hline
-\textbf{Điện áp} & 6.0V - 8.4V & 6.0V - 8.4V (Tối ưu 7.4V) & 6.0V - 12.6V (Tối ưu 12V) & 10.0V - 14.8V (Tối ưu 11.1V) \\ \hline
-\textbf{Lực xoắn tối đa} & 32.3 kg.cm (@8.4V) & 17 kg.cm (@7.4V) & 30 kg.cm / 20 kg.cm (@12V) & $\sim$15.3 kg.cm (1.5 N.m @11.1V) \\ \hline
+\textbf{Điện áp} & 6.0~V - 8.4~V & 6.0~V - 8.4~V (Tối ưu 7.4~V) & 6.0~V - 12.6~V (Tối ưu 12~V) & 10.0~V - 14.8~V (Tối ưu 11.1~V) \\ \hline
+\textbf{Lực xoắn tối đa} & 32.3 kg.cm (@8.4~V) & 17 kg.cm (@7.4~V) & 30 kg.cm / 20 kg.cm (@12~V) & $\sim$15.3 kg.cm (1.5 N.m @11.1~V) \\ \hline
 \textbf{Cảm biến vị trí} & Biến trở (Potentiometer) & Biến trở (Potentiometer) & Từ tính (Magnetic Encoder $360^{\circ}$) & Từ tính (Absolute Encoder) \\ \hline
 \textbf{Độ phân giải góc} & Phụ thuộc vi điều khiển & 0.24$^{\circ}$ & 0.088$^{\circ}$ & 0.088$^{\circ}$ \\ \hline
-\textbf{Tốc độ truyền} & 50Hz - 330Hz (PWM) & 115200 bps & Lên đến 1 Mbps & Lên đến 4.5 Mbps \\ \hline
+\textbf{Tốc độ truyền} & 50~Hz - 330~Hz (PWM) & 115200 bps & Lên đến 1~Mbps & Lên đến 4.5~Mbps \\ \hline
 \textbf{Bộ điều khiển} & Cơ bản (P) & Cơ bản (P) & Nâng cao (PI) & Cao cấp (PID vị trí, vận tốc, dòng) \\ \hline
 \textbf{Giá thành} & Trung bình ($\sim$500.000 VNĐ) & Thấp ($\sim$300.000 VNĐ) & Trung bình ($\sim$500.000 VNĐ) & Rất cao ($\sim$1.500.000 VNĐ) \\ \hline
 \end{tabular}
 \end{table}
 
-Dựa trên các thông số phân tích từ Bảng \ref{tab:bus_servo_comparison}, Waveshare ST3215 được lựa chọn là giải pháp tối ưu cho hệ thống cơ cấu chấp hành của đồ án vì những lý do sau:
+Dựa trên các thông số phân tích từ Bảng \ref{tab:bus_servo_comparison}, Waveshare ST3215 được lựa chọn là giải pháp tối ưu cho hệ thống cơ cấu chấp hành vì những lý do sau:
 
 \begin{itemize}
     \item \textbf{Khắc phục nhược điểm của Servo PWM (JX PDI-HV5932MG):} Mặc dù JX PDI-HV5932MG có lực xoắn rất ấn tượng (lên đến 32.3 kg.cm ở mức 8.4V), góc quay giới hạn $180^{\circ}$ và cùng phân khúc giá với ST3215, nhưng việc sử dụng giao thức PWM đơn hướng khiến nó \textbf{không có khả năng phản hồi} trạng thái (góc quay thực tế, dòng điện, nhiệt độ). Điều này là một cản trở lớn đối với bài toán điều khiển thăng bằng robot bốn chân. Hơn nữa, việc phải nối 12 dây tín hiệu PWM riêng biệt từ mỗi động cơ về mạch điều khiển làm sơ đồ đi dây vô cùng phức tạp, dễ sinh nhiễu và đứt ngầm. 
     \item \textbf{Khắc phục nhược điểm của LX-16A:} Mặc dù Hiwonder LX-16A có lợi thế về giá thành thấp, nhưng lực xoắn tối đa chỉ đạt 17 kg.cm, không đủ để đáp ứng tải trọng động khi robot di chuyển hoặc thực hiện các tư thế phức tạp. Hơn nữa, việc sử dụng biến trở (Potentiometer) làm cảm biến vị trí khiến độ phân giải góc thấp ($0.24^{\circ}$) và dễ bị hao mòn cơ học theo thời gian. Bộ điều khiển của LX-16A chỉ dừng ở mức cơ bản (P), dẫn đến sai số tĩnh lớn và khả năng bám quỹ đạo kém.
     \item \textbf{Cân bằng hiệu năng và chi phí so với Dynamixel:} Dòng Dynamixel XL430-W250-T sở hữu bộ điều khiển PID hoàn chỉnh cùng nhiều tính năng cao cấp. Tuy nhiên, mức giá cực kỳ đắt đỏ (gấp khoảng 3 lần ST3215). Với yêu cầu 12 bậc tự do, việc sử dụng Dynamixel sẽ làm chi phí phần cứng vượt quá ngân sách cho phép. Thêm vào đó, lực xoắn của XL430-W250-T ($\sim$15.3 kg.cm) lại thấp hơn ST3215, đòi hỏi phải sử dụng cơ cấu truyền động phức tạp để khuyếch đại lực.
-    \item \textbf{Ưu điểm vượt trội của ST3215:} Waveshare ST3215 mang lại điểm cân bằng hoàn hảo giữa hiệu năng cơ học và chi phí. Lực xoắn cao (lên đến 30 kg.cm ở 12V) cung cấp dư dả công suất để robot duy trì thăng bằng và thực hiện dáng đi. Cảm biến vị trí từ tính (Magnetic Encoder $360^{\circ}$) với độ phân giải rất cao ($0.088^{\circ}$) cung cấp phản hồi góc chính xác tuyệt đối mà không lo bị hao mòn. Tốc độ truyền tải 1 Mbps hoàn toàn đáp ứng được yêu cầu của vòng lặp điều khiển thời gian thực. Đặc biệt, bộ điều khiển PI tích hợp sẵn giúp động cơ khử sai số tĩnh, đảm bảo robot bám sát quỹ đạo dáng đi một cách mượt mà và ổn định.
+    \item \textbf{Ưu điểm vượt trội của ST3215:} Waveshare ST3215 mang lại điểm cân bằng hoàn hảo giữa hiệu năng cơ học và chi phí. Lực xoắn cao (lên đến 30 kg.cm ở 12~V) cung cấp dư dả công suất để robot duy trì thăng bằng và thực hiện dáng đi. Cảm biến vị trí từ tính (Magnetic Encoder $360^{\circ}$) với độ phân giải rất cao ($0.088^{\circ}$) cung cấp phản hồi góc chính xác tuyệt đối mà không lo bị hao mòn. Tốc độ truyền tải 1~Mbps hoàn toàn đáp ứng được yêu cầu của vòng lặp điều khiển thời gian thực. Đặc biệt, bộ điều khiển PI tích hợp sẵn giúp động cơ khử sai số tĩnh, đảm bảo robot bám sát quỹ đạo dáng đi một cách mượt mà và ổn định.
     \item \textbf{Phân bổ chiến lược giữa mô-men xoắn và tốc độ (ST3215 vs ST3215-HS):} Hệ thống tận dụng cả hai phiên bản động cơ để tối ưu hóa đặc tính động lực học của từng khớp.
     \begin{itemize}
         \item \textit{Khớp vai và khớp hông (Hip Roll, Hip Pitch):} Gánh chịu phần lớn trọng lượng của thân robot và tạo ra lực đẩy chính, yêu cầu mô-men xoắn lớn (theo tính toán lý thuyết lên tới 14.4 -- 16.0 kg.cm). Do đó, phiên bản tiêu chuẩn \textbf{ST3215 (30 kg.cm)} được sử dụng để tạo ra hệ số an toàn cao (gần gấp đôi yêu cầu), giúp động cơ hoạt động bền bỉ, không sinh nhiệt quá mức khi robot đứng khuỵu hoặc mang thêm tải trọng.
@@ -540,7 +540,7 @@ Dựa trên thông số kỹ thuật (Datasheet) của các loại dây lõi đ�
 
 \textbf{1. Trục nguồn chính (Từ Nguồn tổ ong đến Khối đấu nối): Dây AWG 12}
 \begin{itemize}
-    \item \textbf{Chức năng:} Truyền tải toàn bộ dòng điện từ nguồn xung 12V-40A đến các khối chia nguồn trung tâm.
+    \item \textbf{Chức năng:} Truyền tải toàn bộ dòng điện từ nguồn xung 12~V - 40~A đến các khối chia nguồn trung tâm.
     \item \textbf{Thông số kỹ thuật (AWG 12):} Đường kính lõi khoảng 2.05 mm, tiết diện 3.31 mm$^2$. Khả năng chịu dòng (Ampacity) trong điều kiện không khí mở có thể lên đến 30A - 40A, với điện trở cực kỳ thấp (khoảng 5.2 $\Omega$/km).
     \item \textbf{Lý do lựa chọn:} Trục chính phải gánh toàn bộ tải của 12 servo cùng lúc (dòng xả tức thời có thể đạt 32.4A). Dây AWG 12 hoàn toàn đáp ứng được mức dòng điện này mà không sinh nhiệt hay gây sụt áp đáng kể trên đường truyền.
 \end{itemize}
@@ -559,7 +559,7 @@ Dựa trên thông số kỹ thuật (Datasheet) của các loại dây lõi đ�
     \item \textbf{Lý do lựa chọn:} Đường truyền dữ liệu không mang dòng điện tải cao (chỉ vài mA). Việc sử dụng dây AWG 22 giúp cáp tín hiệu nhỏ gọn, hạn chế nhiễu chéo, dễ dàng bấm cos và đi dây nối tiếp (daisy-chain) qua từng servo mà không gây cản trở chuyển động của các khớp.
 \end{itemize}
 
-Việc thiết kế phân nhánh nguồn thông qua Terminal Block kết hợp với việc tính toán và lựa chọn đúng cỡ dây AWG từ datasheet giúp giải quyết triệt để vấn đề sụt áp trên đường dây (Voltage Drop), đảm bảo 12 động cơ ở cuối chuỗi vẫn nhận đủ điện áp 12V để sinh ra mô-men xoắn tối đa.
+Việc thiết kế phân nhánh nguồn thông qua Terminal Block kết hợp với việc tính toán và lựa chọn đúng cỡ dây AWG từ datasheet giúp giải quyết triệt để vấn đề sụt áp trên đường dây (Voltage Drop), đảm bảo 12 động cơ ở cuối chuỗi vẫn nhận đủ điện áp 12~V để sinh ra mô-men xoắn tối đa.
 
 \section{Các Giao thức Truyền thông của Hệ thống}
 

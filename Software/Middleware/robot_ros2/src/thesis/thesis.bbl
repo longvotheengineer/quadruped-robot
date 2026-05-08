@@ -1,0 +1,102 @@
+\begin{thebibliography}{10}
+
+\bibitem{raibert1986}
+M.~H. Raibert, {\em Legged robots that balance}.
+\newblock MIT press, 1986.
+
+\bibitem{gonzalez2018}
+P.~Gonzalez-de Santos, E.~Garcia, and J.~Estremera, {\em Quadrupedal
+  Locomotion: An Introduction to the Control of Four-legged Robots}.
+\newblock Springer Science \& Business Media, 2006.
+
+\bibitem{hyun2014}
+D.~J. Hyun, S.~Seok, J.~Lee, and S.~Kim, ``High speed trot-running:
+  Implementation of a control policy on the mit cheetah,'' {\em The
+  International Journal of Robotics Research}, vol.~33, no.~11, pp.~1417--1445,
+  2014.
+
+\bibitem{bledt2018}
+G.~Bledt, M.~J. Powell, B.~Katz, J.~Di~Carlo, P.~M. Wensing, and S.~Kim, ``Mit
+  cheetah 3: Design and control of a robust, dynamic quadruped robot,'' in {\em
+  2018 IEEE/RSJ International Conference on Intelligent Robots and Systems
+  (IROS)}, pp.~2245--2252, IEEE, 2018.
+
+\bibitem{hutter2016}
+M.~Hutter, C.~Gehring, D.~Jud, A.~Lauber, C.~D. Bellicoso, V.~Tsounis,
+  J.~Hwangbo, K.~Bodie, P.~Fankhauser, M.~Bloesch, {\em et~al.}, ``Anymal - a
+  highly mobile and dynamic quadrupedal robot,'' in {\em 2016 IEEE/RSJ
+  International Conference on Intelligent Robots and Systems (IROS)},
+  pp.~38--44, IEEE, 2016.
+
+\bibitem{unitree2021}
+{Unitree Robotics}, ``Unitree go1 quadruped robot.''
+  \url{https://www.unitree.com/}, 2021.
+
+\bibitem{gehring2013}
+C.~Gehring, S.~Coros, M.~Hutter, M.~Bloesch, M.~A. Hoepflinger, and
+  R.~Siegwart, ``Control of dynamic gaits for a quadrupedal robot,'' in {\em
+  2013 IEEE International Conference on Robotics and Automation (ICRA)},
+  pp.~3287--3292, IEEE, 2013.
+
+\bibitem{sandeep2021}
+M.~S. Sandeep {\em et~al.}, ``Design and development of a low-cost quadruped
+  robot,'' {\em International Journal of Robotics and Automation}, 2021.
+
+\bibitem{marhefka1999}
+D.~W. Marhefka and D.~E. Orin, ``Gait planning for energy efficiency in walking
+  machines,'' in {\em Proceedings 1999 IEEE International Conference on
+  Robotics and Automation (ICRA)}, vol.~1, pp.~474--480, IEEE, 1999.
+
+\bibitem{denavit1955}
+J.~Denavit and R.~S. Hartenberg, ``A kinematic notation for lower-pair
+  mechanisms based on matrices,'' {\em Journal of Applied Mechanics}, vol.~22,
+  no.~2, pp.~215--221, 1955.
+
+\bibitem{siciliano2009}
+B.~Siciliano, L.~Sciavicco, L.~Villani, and G.~Oriolo, {\em Robotics:
+  modelling, planning and control}.
+\newblock Springer Science \& Business Media, 2009.
+
+\bibitem{craig2005}
+J.~J. Craig, {\em Introduction to robotics: mechanics and control}.
+\newblock Pearson Prentice Hall, 3rd~ed., 2005.
+
+\bibitem{spong2020}
+M.~W. Spong, S.~Hutchinson, and M.~Vidyasagar, {\em Robot modeling and
+  control}.
+\newblock John Wiley \& Sons, 2020.
+
+\bibitem{ros2docs}
+{Open Robotics}, ``Ros 2 documentation: Humble hawksbill.''
+  \url{https://docs.ros.org/en/humble/}, 2022.
+
+\bibitem{gazebo}
+{Open Source Robotics Foundation}, ``Gazebo classic simulator.''
+  \url{https://classic.gazebosim.org/}, 2023.
+
+\bibitem{vukobratovic2004}
+M.~Vukobratovi{\'c} and B.~Borovac, ``Zero-moment point---thirty five years of
+  its life,'' {\em International Journal of Humanoid Robotics}, vol.~1, no.~01,
+  pp.~157--173, 2004.
+
+\bibitem{astrom2006}
+K.~J. {\AA}str{\"o}m and T.~H{\"a}gglund, {\em Advanced PID control}.
+\newblock ISA-The Instrumentation, Systems, and Automation Society, 2006.
+
+\bibitem{madgwick2011}
+S.~O.~H. Madgwick, A.~J. Harrison, and R.~Vaidyanathan, ``Estimation of imu and
+  marg orientation using a gradient descent algorithm,'' in {\em 2011 IEEE
+  International Conference on Rehabilitation Robotics}, pp.~1--7, IEEE, 2011.
+
+\bibitem{bno055}
+{Bosch Sensortec}, {\em BNO055 Intelligent 9-axis absolute orientation sensor
+  Datasheet}, 2014.
+\newblock Rev. 1.4.
+
+\bibitem{jetson_nano}
+{NVIDIA Corporation}, {\em NVIDIA Jetson Nano Developer Kit User Guide}, 2019.
+
+\bibitem{waveshare_st3215}
+{Waveshare Electronics}, {\em ST3215 Serial Bus Servo User Manual}, 2023.
+
+\end{thebibliography}

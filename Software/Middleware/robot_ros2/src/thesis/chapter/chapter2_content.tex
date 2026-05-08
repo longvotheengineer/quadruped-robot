@@ -4,7 +4,7 @@ Trong quá trình nghiên cứu và thực hiện đề tài, nhóm tác giả �
 \section{Tổng quan về Robot bốn chân}
 Robot bốn chân là một hệ thống robot di động sử dụng cơ cấu bốn chân, được thiết kế dựa trên nguồn cảm hứng sinh học từ đặc điểm vận động của các loài côn trùng và động vật có vú. Khác với robot hai chân, robot bốn chân có trọng tâm thấp và diện tích đa giác chân đế rộng hơn. Nhờ đó, chúng có thể dễ dàng tự ổn định thân mình bằng cách linh hoạt điều chỉnh tư thế cơ thể cũng như thay đổi các dáng đi. Với đặc tính cơ động học ưu việt này, robot bốn chân sở hữu khả năng thích nghi tuyệt vời trên các địa hình gồ ghề và phức tạp.
 
-Trong khuôn khổ của đồ án này, đối tượng nghiên cứu và chế tạo cụ thể là một nguyên mẫu robot bốn chân mô phỏng hình dáng và cấu trúc khớp của loài chó. Cấu trúc này mang lại sự cân bằng tối ưu giữa kích thước, sự linh hoạt và tải trọng, là nền tảng lý tưởng để triển khai các giải thuật điều khiển thăng bằng.
+Trong khuôn khổ của nghiên cứu này, đối tượng nghiên cứu và chế tạo cụ thể là một nguyên mẫu robot bốn chân mô phỏng hình dáng và cấu trúc khớp của loài chó. Cấu trúc này mang lại sự cân bằng tối ưu giữa kích thước, sự linh hoạt và tải trọng, là nền tảng lý tưởng để triển khai các giải thuật điều khiển thăng bằng.
 
 \begin{figure}[H]
     \centering
@@ -43,7 +43,7 @@ Cấu trúc cơ khí của chân robot có ảnh hưởng lớn đến khả nă
     \label{fig10}
 \end{figure}
 
-Sau quá trình đánh giá, nhằm tối ưu hóa trọng lượng phần cứng và tập trung vào phát triển giải thuật điều khiển cũng như thuận lợi cho việc kiểm chứng mô phỏng, cấu trúc chân nối tiếp (Serial) đã được lựa chọn cho nguyên mẫu robot trong đồ án.
+Sau quá trình đánh giá, nhằm tối ưu hóa trọng lượng phần cứng và tập trung vào phát triển giải thuật điều khiển cũng như thuận lợi cho việc kiểm chứng mô phỏng, cấu trúc chân nối tiếp (Serial) đã được lựa chọn cho nguyên mẫu robot.
 \section{Cấu trúc liên kết động học của robot bốn chân}
 Mặc dù tồn tại nhiều dạng cấu trúc liên kết động học khác nhau trong thiết kế robot bốn chân, các cấu hình với 8, 12 hoặc 16 bậc tự do (DOF) được sử dụng phổ biến nhất.
 
@@ -105,7 +105,7 @@ Không gian làm việc có ý nghĩa quan trọng trong thiết kế: nó xác 
 Robot bốn chân có rất nhiều phương thức di chuyển khác nhau tùy thuộc vào tốc độ và đặc điểm địa hình. Dưới đây là 5 dáng đi (\textit{gait}) phổ biến nhất được áp dụng trong kỹ thuật điều khiển robot:
 
 \begin{itemize}
-    \item \textbf{Dáng đi Trot (Chạy kiệu):} Đây là dáng đi phổ biến nhất và cũng là dáng đi trọng tâm được nhóm lựa chọn để thực hiện trong đồ án. Ở dáng đi này, hai chân chéo nhau (ví dụ: chân trước-trái và chân sau-phải) sẽ đồng thời nhấc lên và tiếp đất cùng lúc. \textit{Trot gait} giúp robot di chuyển nhanh và mượt mà, nhưng đòi hỏi bài toán điều khiển cân bằng động liên tục do đa giác chân đế thu hẹp lại thành một đường chéo.
+    \item \textbf{Dáng đi Trot (Chạy kiệu):} Đây là dáng đi phổ biến nhất và cũng là dáng đi trọng tâm được tác giả lựa chọn để thực hiện. Ở dáng đi này, hai chân chéo nhau (ví dụ: chân trước-trái và chân sau-phải) sẽ đồng thời nhấc lên và tiếp đất cùng lúc. \textit{Trot gait} giúp robot di chuyển nhanh và mượt mà, nhưng đòi hỏi bài toán điều khiển cân bằng động liên tục do đa giác chân đế thu hẹp lại thành một đường chéo.
     
     \begin{figure}[H]
         \centering
@@ -217,7 +217,7 @@ trong đó $m_i$, $\mathbf{r}_i = (x_i, y_i)^T$, $z_i$ lần lượt là khối 
 \end{figure}
 
 
-Trong đồ án này, robot hoạt động ở tốc độ thấp nên phân tích ổn định tĩnh là đủ cho mục đích thiết kế. Bộ điều khiển PID cân bằng IMU đóng vai trò bổ sung, giảm thiểu sai lệch hướng của thân robot khi di chuyển, đưa CoM về gần đường nối hai bàn chân đang chạm đất.
+Trong nghiên cứu này, robot hoạt động ở tốc độ thấp nên phân tích ổn định tĩnh là đủ cho mục đích thiết kế. Bộ điều khiển PID cân bằng IMU đóng vai trò bổ sung, giảm thiểu sai lệch hướng của thân robot khi di chuyển, đưa CoM về gần đường nối hai bàn chân đang chạm đất.
 
 \section{Lý thuyết bộ điều khiển PID}
 
@@ -391,4 +391,4 @@ Gazebo \cite{gazebo} là trình mô phỏng robotics 3D mã nguồn mở, cung c
     \item \textbf{Cảm biến ảo:} Gazebo cung cấp các plugin mô phỏng cảm biến như IMU, camera, LiDAR, encoder, cho phép kiểm thử toàn bộ đường ống (pipeline) phần mềm mà không cần phần cứng thực.
 \end{itemize}
 
-Quy trình phát triển ``sim-to-real'' (từ mô phỏng đến thực tế) được áp dụng trong đồ án này: thuật toán được phát triển và kiểm thử trên Gazebo trước, sau đó chuyển sang phần cứng thực với các điều chỉnh tối thiểu (chủ yếu liên quan đến ánh xạ góc IK sang góc servo và giao tiếp phần cứng).
+Quy trình phát triển ``sim-to-real'' (từ mô phỏng đến thực tế) được áp dụng trong nghiên cứu này: thuật toán được phát triển và kiểm thử trên Gazebo trước, sau đó chuyển sang phần cứng thực với các điều chỉnh tối thiểu (chủ yếu liên quan đến ánh xạ góc IK sang góc servo và giao tiếp phần cứng).
