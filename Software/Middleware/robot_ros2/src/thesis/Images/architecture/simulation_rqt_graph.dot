@@ -1,0 +1,63 @@
+digraph G {
+  graph [rankdir=LR, splines=true, nodesep=0.5, ranksep=1.0];
+  node [shape=ellipse, fontname="Arial", fontsize=12, color="blue", penwidth=2, style="filled", fillcolor="white"];
+  edge [fontname="Arial", fontsize=10, color="black", arrowsize=0.8];
+
+  // ROS Nodes
+  gazebo [label="/gazebo"];
+  controller_manager [label="/controller_manager"];
+  robot_state_publisher [label="/robot_state_publisher"];
+  imu_plugin [label="/imu_plugin"];
+  node_leg_controller [label="/node_leg_controller"];
+  nodeBalanceController [label="/nodeBalanceController"];
+  teleop_command_node [label="/teleop_command_node"];
+
+  // ROS Topics
+  node [shape=box, color="red", style="filled", fillcolor="white"];
+  topic_joint_states [label="/joint_states"];
+  topic_robot_description [label="/robot_description"];
+  topic_leg_commands [label="/leg_controller/commands"];
+  topic_imu_data [label="/imu/data"];
+  
+  topic_gait_control [label="/gait_control"];
+  topic_posture_home [label="/posture/home_correction"];
+  topic_posture_gait [label="/posture/gait_correction"];
+  topic_posture_measurement [label="/posture/measurement"];
+  topic_balance_enable [label="/balance/enable"];
+  topic_balance_mode [label="/balance/mode"];
+  topic_balance_gait_frame [label="/balance/gait_frame"];
+
+  // Connections (Publishers to Topics)
+  teleop_command_node -> topic_gait_control;
+  teleop_command_node -> topic_balance_enable;
+  teleop_command_node -> topic_balance_mode;
+  teleop_command_node -> topic_balance_gait_frame;
+
+  imu_plugin -> topic_imu_data;
+
+  nodeBalanceController -> topic_posture_home;
+  nodeBalanceController -> topic_posture_gait;
+  nodeBalanceController -> topic_posture_measurement;
+
+  node_leg_controller -> topic_leg_commands;
+  node_leg_controller -> topic_balance_gait_frame; // leg controller publishes gait frame
+
+  controller_manager -> topic_joint_states;
+  robot_state_publisher -> topic_robot_description;
+
+  // Connections (Topics to Subscribers)
+  topic_gait_control -> node_leg_controller;
+  topic_posture_home -> node_leg_controller;
+  topic_posture_gait -> node_leg_controller;
+  topic_joint_states -> node_leg_controller;
+  topic_joint_states -> robot_state_publisher;
+
+  topic_leg_commands -> controller_manager;
+  topic_robot_description -> gazebo;
+
+  topic_imu_data -> nodeBalanceController;
+  topic_balance_enable -> nodeBalanceController;
+  topic_balance_mode -> nodeBalanceController;
+  topic_balance_gait_frame -> nodeBalanceController;
+
+}

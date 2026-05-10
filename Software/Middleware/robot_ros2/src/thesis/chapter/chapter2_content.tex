@@ -97,7 +97,7 @@ trong khi tầm với tối thiểu xảy ra khi các khâu gập hoàn toàn:
     r_{min} = |l_2 - l_3|
 \end{equation}
 
-Không gian làm việc có ý nghĩa quan trọng trong thiết kế: nó xác định phạm vi chiều cao đứng, chiều dài bước và biên độ chuyển động của robot. Vùng đạt được rộng nhất nằm trong mặt phẳng sagittal ($Y$-$Z$), trong khi chiều sâu theo phương $X$ bị giới hạn bởi biên độ khớp hip ($\theta_1$).
+Không gian làm việc có ý nghĩa quan trọng trong thiết kế: nó xác định phạm vi chiều cao đứng, chiều dài bước và biên độ chuyển động của robot. Vùng đạt được rộng nhất nằm trong mặt phẳng sagittal ($X$-$Z$), trong khi chiều ngang theo phương $Y$ bị giới hạn bởi biên độ khớp hông (hip - $\theta_1$).
 
 
 
@@ -388,7 +388,7 @@ Gazebo \cite{gazebo} là trình mô phỏng robotics 3D mã nguồn mở, cung c
 
     \item \textbf{Plugin điều khiển:} Giao diện \texttt{gazebo\_ros2\_control} cho phép kết nối bộ điều khiển ROS~2 với mô hình robot trong Gazebo, hỗ trợ các kiểu giao diện lệnh: vị trí (position), vận tốc (velocity) và lực/mô-men (effort).
 
-    \item \textbf{Cảm biến ảo:} Gazebo cung cấp các plugin mô phỏng cảm biến như IMU, camera, LiDAR, encoder, cho phép kiểm thử toàn bộ đường ống (pipeline) phần mềm mà không cần phần cứng thực.
+    \item \textbf{Cảm biến ảo:} Gazebo cung cấp các plugin mô phỏng cảm biến như IMU, camera, LiDAR, encoder, cho phép kiểm thử toàn bộ luồng xử lý (pipeline) phần mềm mà không cần phần cứng thực.
 \end{itemize}
 
 Quy trình phát triển ``sim-to-real'' (từ mô phỏng đến thực tế) được áp dụng trong nghiên cứu này: thuật toán được phát triển và kiểm thử trên Gazebo trước, sau đó chuyển sang phần cứng thực với các điều chỉnh tối thiểu (chủ yếu liên quan đến ánh xạ góc IK sang góc servo và giao tiếp phần cứng).

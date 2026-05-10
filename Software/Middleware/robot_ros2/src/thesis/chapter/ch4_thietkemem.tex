@@ -17,13 +17,24 @@ Hệ thống phần mềm được triển khai trên nền tảng ROS~2 Humble 
 
 Giao tiếp liên tiến trình giữa hai node sử dụng cơ chế publish-subscribe qua DDS (Data Distribution Service) của ROS~2. Balance Controller node phát các thông điệp vector hiệu chỉnh nhẹ trên các topic bất đồng bộ chuyên dụng. Kiến trúc tách rời này đảm bảo rằng các nút thắt xử lý tại Gait Generator không thể chiếm quyền hoặc chặn các bù trừ cảm biến quan trọng, cho phép vận hành xác định, chịu lỗi ngay cả dưới tải CPU cao.
 
-Sơ đồ tổng thể kiến trúc ROS~2 bao gồm các node, topic và luồng dữ liệu giữa các thành phần được thể hiện trong Hình~\ref{fig:ros2_arch}. Sơ đồ phân biệt rõ các thành phần theo loại: ROS~2 node (Python), driver (C++), topic truyền thông, cảm biến phần cứng, và giao diện mô phỏng Gazebo.
+Kiến trúc phần mềm ROS~2 của hệ thống được thiết kế linh hoạt để có thể dễ dàng chuyển đổi cấu hình giữa hai môi trường: Mô phỏng (Gazebo) và Thực tế (Hardware) mà không làm thay đổi thuật toán ở các node xử lý lõi (Sim-to-Real). 
+
+Sơ đồ kiến trúc ROS~2 trong môi trường mô phỏng được thể hiện trong Hình~\ref{fig:ros2_arch_sim}. Trong sơ đồ này, \texttt{controller\_manager} (điều khiển khớp) và \texttt{imu\_plugin} (cảm biến quán tính) được sử dụng làm các node ảo trong Gazebo để thay thế cho phần cứng thực tế.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{architecture/ros2_architecture.pdf}
-    \caption{Sơ đồ kiến trúc ROS~2 của hệ thống: các node, topic và luồng dữ liệu}
-    \label{fig:ros2_arch}
+    \includegraphics[width=0.95\textwidth]{architecture/simulation_rqt_graph.pdf}
+    \caption{Sơ đồ kiến trúc ROS~2 của hệ thống trong môi trường mô phỏng (Gazebo)}
+    \label{fig:ros2_arch_sim}
+\end{figure}
+
+Ngược lại, khi vận hành trên robot thực tế, hệ thống loại bỏ các node mô phỏng và thay thế bằng các trình điều khiển phần cứng chuyên dụng như thể hiện ở Hình~\ref{fig:ros2_arch_hw}. Trong đó, node \texttt{serial\_driver\_a} và \texttt{serial\_driver\_b} chịu trách nhiệm giao tiếp UART với 12 động cơ servo, còn node \texttt{imu\_sensor\_node} thu thập dữ liệu trực tiếp từ cảm biến quán tính. Kiến trúc phân tầng này giúp hệ thống đạt độ tin cậy cao, dễ dàng bảo trì và tận dụng lại toàn bộ mã nguồn điều khiển cốt lõi từ mô phỏng.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{architecture/hardware_rqt_graph.pdf}
+    \caption{Sơ đồ kiến trúc ROS~2 của hệ thống trên phần cứng thực tế}
+    \label{fig:ros2_arch_hw}
 \end{figure}
 
 \subsection{Các trạng thái vận hành}
@@ -109,7 +120,7 @@ Hệ thống tích hợp cơ chế chẩn đoán (diagnostics) cho phép giám s
     \item Ghi lại dữ liệu dưới dạng file CSV để phân tích offline
 \end{itemize}
 
-Tổng cộng, hệ thống xuất bản 22 topic chẩn đoán cho chế độ HOME (9 tín hiệu $\times$ 2 trục + 4 tín hiệu áp dụng) và 18 topic cho chế độ GAIT (9 tín hiệu $\times$ 2 trục), cung cấp khả năng quan sát toàn diện đường ống điều khiển.
+Tổng cộng, hệ thống xuất bản 22 topic chẩn đoán cho chế độ HOME (9 tín hiệu $\times$ 2 trục + 4 tín hiệu áp dụng) và 18 topic cho chế độ GAIT (9 tín hiệu $\times$ 2 trục), cung cấp khả năng quan sát toàn diện luồng xử lý điều khiển.
 
 \section{Quy trình Homing và Calibrate}
 

@@ -334,7 +334,7 @@ Hình \ref{fig8} trình bày không gian làm việc (workspace) của một ch�
 
 Phương pháp tính toán bao gồm: quét toàn bộ miền góc khớp $\theta_1 \in [-30^\circ, 30^\circ]$, $\theta_2 \in [-90^\circ, 90^\circ]$, $\theta_3 \in [-90^\circ, 90^\circ]$ với khoảng 90.000 tổ hợp góc. Tại mỗi tổ hợp, tọa độ đầu chân trong hệ tọa độ chân (leg-local frame) được tính bằng phương trình FK và vẽ thành đám mây điểm 3D.
 
-Kết quả cho thấy workspace có dạng \textbf{vòng cung} (annular sector), đặc trưng cho cơ cấu serial 3-DOF. Vùng đạt được rộng nhất trong mặt phẳng Y-Z (sagittal), trong khi chiều sâu theo phương X bị giới hạn bởi biên độ khớp hip ($\theta_1$). Tầm với tối đa của chân là $l_2 + l_3 = 106 + 125 = 231$ mm, tương ứng với trường hợp xương đùi và xương ống chân duỗi thẳng hoàn toàn.
+Kết quả cho thấy workspace có dạng \textbf{vòng cung} (annular sector), đặc trưng cho cơ cấu serial 3-DOF. Vùng đạt được rộng nhất trong mặt phẳng X-Z (sagittal), trong khi chiều ngang theo phương Y bị giới hạn bởi biên độ khớp hông (hip - $\theta_1$). Tầm với tối đa của chân là $l_2 + l_3 = 106 + 125 = 231$ mm, tương ứng với trường hợp xương đùi và xương ống chân duỗi thẳng hoàn toàn.
 
 \section{Tổng hợp tham số hệ thống}
 Bảng \ref{tab:thamso_robot} tổng hợp các tham số chính của hệ thống mô phỏng.
@@ -376,7 +376,7 @@ Thứ tư, không gian làm việc dạng vòng cung với tầm với tối đa
 
 \section{Đánh giá hiệu năng bộ điều khiển PID nâng cao trên mô phỏng}
 
-Phần này trình bày các kết quả thu được từ hệ thống mô phỏng, bao gồm dữ liệu chẩn đoán từ đường ống PID và các biên dạng quỹ đạo offline. Bảng~\ref{tab:pid_home_params} và Bảng~\ref{tab:pid_gait_params} tổng hợp toàn bộ tham số điều khiển cho hai chế độ hoạt động, được trích xuất trực tiếp từ mã nguồn hệ thống.
+Phần này trình bày các kết quả thu được từ hệ thống mô phỏng, bao gồm dữ liệu chẩn đoán từ chuỗi xử lý PID và các biên dạng quỹ đạo offline. Bảng~\ref{tab:pid_home_params} và Bảng~\ref{tab:pid_gait_params} tổng hợp toàn bộ tham số điều khiển cho hai chế độ hoạt động, được trích xuất trực tiếp từ mã nguồn hệ thống.
 
 \begin{table}[H]
 \centering
@@ -448,7 +448,7 @@ Hình~\ref{results/offline_traj_angle} cho thấy các góc khớp $(\theta_1, \
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{results/offline_traj_angle.png}
-    \caption{Góc khớp $(\theta_1, \theta_2, \theta_3)$ giải qua IK cho chân trước bên trái}
+    \caption{Góc khớp $(\theta_1, \theta_2, \theta_3)$ giải qua IK cho các chân bên trái (LF và LB)}
     \label{results/offline_traj_angle}
 \end{figure}
 
@@ -465,13 +465,57 @@ Hình~\ref{fig_gait_3d_real} trình bày quỹ đạo 3D của chân trước b�
 
 \subsection{Ổn định tư thế tĩnh (chế độ HOME)}
 
-Hình~\ref{fig_pid_home} trình bày đáp ứng sai lệch pitch và roll của bộ điều khiển PID trong chế độ HOME. Khi robot bị tác động nhiễu loạn bên ngoài (đẩy tay), sai lệch định hướng hội tụ nhanh chóng, ổn định hoàn toàn trong vùng chết $\pm 0{,}02$ rad trong khoảng $1{,}5$ giây sau nhiễu loạn. Kết quả này xác nhận cơ chế deadband và antiwindup hoạt động hiệu quả, tạo ra các lệnh servo có giảm chấn tới hạn phù hợp cho cân bằng tĩnh liên tục mà không gây dao động giới hạn quanh điểm đặt.
+Hình~\ref{fig_pid_home} trình bày khả năng duy trì thăng bằng (đáp ứng sai lệch pitch và roll) của bộ điều khiển PID trong chế độ HOME khi chịu nhiễu liên tục. Để đánh giá hệ thống, mặt phẳng đỡ dưới chân robot được cấu hình dao động lượn sóng liên tục (Sinusoidal Platform Sway) với biên độ lớn (khoảng $0{,}17$ rad $\approx 10^\circ$). Dao động này sinh ra mô-men xoắn nhiễu ($\tau_{\text{disturbance}}$) liên tục truyền ngược từ chân lên thân robot. Đồ thị cho thấy rõ: mặc dù nhiễu mặt đất (Roll/Pitch Disturbance) lắc lư rất mạnh theo hình sin, bộ điều khiển PID ở hệ thống vòng kín đã liên tục xử lý và xuất lệnh bù, giúp kìm hãm sai lệch định hướng của thân robot (Roll/Pitch Error) ở mức rất nhỏ (dao động dưới $\pm 0{,}05$ rad). Đặc biệt, các phân đoạn đồ thị Error bị "cắt phẳng" ở lân cận 0 xác nhận cơ chế deadband (vùng chết $\pm 0{,}02$ rad) hoạt động cực kỳ hiệu quả, giúp robot cân bằng tĩnh vững chắc mà không bị dao động chattering (lắc lắt nhắt) quanh điểm đặt. Thêm vào đó, cơ chế chống bão hòa khâu tích phân (Anti-windup) đảm bảo rằng lực kéo bù không bị cộng dồn vô hạn khi servo chạm ngưỡng giới hạn, giúp hệ thống triệt tiêu hoàn toàn hiện tượng văng lố (overshoot) khi mặt phẳng đổi chiều dao động.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{results/pid_error_home.png}
     \caption{Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME}
     \label{fig_pid_home}
+\end{figure}
+
+\subsubsection{Phân tích tín hiệu nội bộ chuỗi xử lý PID (Chế độ HOME)}
+
+Dựa trên kiến trúc 5 giai đoạn đã đề xuất ở Chương 2, hiệu năng của từng khối xử lý tín hiệu trong bộ điều khiển Roll và Pitch được đánh giá chi tiết thông qua các tín hiệu nội bộ thu thập từ mô phỏng. 
+
+Hình \ref{fig:home_pid_roll_meas} và Hình \ref{fig:home_pid_pitch_meas} minh họa quá trình xử lý tín hiệu đo lường và giới hạn đầu ra. Tín hiệu đo lường ban đầu từ IMU có chứa nhiễu tần số cao, được làm mượt qua bộ lọc trung bình trượt hàm mũ (EMA - Giai đoạn 1). Tiếp đó, vùng chết (deadband - Giai đoạn 2) $\pm 0{,}02$ rad loại bỏ các dao động vi mô không cần thiết. Tại đầu ra, tín hiệu bù được bão hòa (Giai đoạn 4) ở mức $\pm 1{,}5$ rad và làm mượt bằng bộ lọc thông thấp (LPF - Giai đoạn 5), giúp lệnh điều khiển gửi xuống các khớp không bị giật cục.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{results/home_pid_roll_controller_meas_sat_lpf.png}
+        \caption{Xử lý tín hiệu và đầu ra (Roll)}
+        \label{fig:home_pid_roll_meas}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{results/home_pid_pitch_controller_meas_sat_lpf.png}
+        \caption{Xử lý tín hiệu và đầu ra (Pitch)}
+        \label{fig:home_pid_pitch_meas}
+    \end{subfigure}
+    \caption{Phân tích tín hiệu đo lường và đầu ra chế độ HOME}
+\end{figure}
+
+Hình \ref{fig:home_pid_roll_pid} và Hình \ref{fig:home_pid_pitch_pid} phân rã ba thành phần P, I, D của bộ điều khiển (Giai đoạn 3). Thành phần tỷ lệ (P) đáp ứng ngay lập tức với sai lệch góc nghiêng, trong khi thành phần vi phân (D) phản ứng với tốc độ thay đổi góc để dập tắt dao động. Thành phần tích phân (I) tích lũy để triệt tiêu sai số xác lập nhưng được kiểm soát chặt chẽ bởi cơ chế chống windup và rò rỉ hàm mũ, không bị tăng vọt vượt ngưỡng an toàn trong suốt quá trình phục hồi tư thế.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{results/home_pid_roll_controller_p_i_d.png}
+        \caption{Thành phần P, I, D (Roll)}
+        \label{fig:home_pid_roll_pid}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{results/home_pid_pitch_controller_p_i_d.png}
+        \caption{Thành phần P, I, D (Pitch)}
+        \label{fig:home_pid_pitch_pid}
+    \end{subfigure}
+    \caption{Phân rã thành phần động lực học PID chế độ HOME}
 \end{figure}
 
 \subsection{Ổn định động trong dáng đi Trot (chế độ GAIT)}
@@ -483,6 +527,67 @@ Hình~\ref{fig_pid_gait} trình bày sai lệch pitch và roll động trong pha
     \includegraphics[width=0.85\textwidth]{results/pid_error_gait.png}
     \caption{Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)}
     \label{fig_pid_gait}
+\end{figure}
+
+\subsubsection{Phân tích tín hiệu nội bộ chuỗi xử lý PID (Chế độ GAIT)}
+
+Trong chế độ di chuyển (GAIT), bộ điều khiển phải đối mặt với các nhiễu loạn có tính chu kỳ sinh ra từ bước chân chạm đất. Chuỗi xử lý được bổ sung các cơ chế thích nghi đặc thù để duy trì ổn định.
+
+Hình \ref{fig:trot_pid_meas} minh họa cơ chế đường cơ sở trung bình trượt (Moving Average Baseline). Thay vì phản ứng với mọi dao động tần số cao do va chạm bước chân, hệ thống tính toán giá trị trung bình trượt của góc nghiêng để tạo ra một đường tham chiếu làm mượt. Điều này giúp bộ điều khiển bỏ qua các rung lắc tự nhiên của bản thân dáng đi và chỉ tập trung hiệu chỉnh khi toàn bộ thân robot thực sự bị lệch khỏi mặt phẳng ngang.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{results/trot_pid_roll_controller_meas_avg_zoom.png}
+        \caption{Cơ chế đường cơ sở trung bình (Roll)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{results/trot_pid_pitch_controller_meas_avg_zoom.png}
+        \caption{Cơ chế đường cơ sở trung bình (Pitch)}
+    \end{subfigure}
+    \caption{Phân tích xử lý tín hiệu đầu vào chế độ GAIT (phóng to)}
+    \label{fig:trot_pid_meas}
+\end{figure}
+
+Sự phân rã các thành phần PID trong Hình \ref{fig:trot_pid_pid} cho thấy tác dụng rõ rệt của cơ chế reset tích phân tại giao điểm không (Zero Crossing Integral Reset). Mỗi khi sai lệch đổi dấu (ví dụ thân robot lắc lư qua lại trục 0), khâu I lập tức bị xóa về 0, giúp ngăn chặn hoàn toàn hiện tượng quá điều chỉnh dao động (overshoot) thường thấy ở các bộ điều khiển PID truyền thống. Thành phần P cũng thể hiện tính thích nghi thông qua việc tự động điều chỉnh hệ số khuếch đại khi biên độ sai lệch tăng cao.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{results/trot_pid_roll_controller_p_i_d_zoom.png}
+        \caption{Thành phần P, I, D (Roll)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{results/trot_pid_pitch_controller_p_i_d_zoom.png}
+        \caption{Thành phần P, I, D (Pitch)}
+    \end{subfigure}
+    \caption{Phân rã thành phần động lực học PID chế độ GAIT (phóng to)}
+    \label{fig:trot_pid_pid}
+\end{figure}
+
+Hình \ref{fig:trot_pid_sat_lpf} minh họa khâu bão hòa và lọc đầu ra. So với chế độ HOME, tín hiệu bù trong chế độ GAIT bị bão hòa ở mức hẹp hơn ($u_{max} = 0{,}30$ rad) và bộ lọc thông thấp (LPF) hoạt động với cường độ lớn hơn rất nhiều ($\alpha = 0{,}97$). Thiết kế này đảm bảo các lệnh bù tư thế không được sinh ra quá gắt, ngăn chặn việc làm biến dạng quỹ đạo sải bước (stride trajectory) của các chân đang ở pha chống.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{results/trot_pid_roll_controller_sat_lpf_ff_zoom.png}
+        \caption{Xử lý tín hiệu đầu ra (Roll)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{results/trot_pid_pitch_controller_sat_lpf_ff_zoom.png}
+        \caption{Xử lý tín hiệu đầu ra (Pitch)}
+    \end{subfigure}
+    \caption{Phân tích bão hòa và lọc đầu ra chế độ GAIT (phóng to)}
+    \label{fig:trot_pid_sat_lpf}
 \end{figure}
 
 
@@ -610,6 +715,26 @@ Duty cycle & $\beta$ & 81,6\% & -- \\ \hline
 
 Dáng đi Trot sử dụng mảng dịch pha: LF = 0,0; RB = 0,0; LB = 0,5; RF = 0,5, nghĩa là cặp chân chéo (LF+RB) và (LB+RF) luân phiên thực hiện pha vung chân. Quỹ đạo bàn chân được tạo bằng hàm nội suy đa thức bậc 5 (quintic planning) với điều khiển vận tốc, đảm bảo tính liên tục $C^2$.
 
+\textbf{Phân tích thời gian và tốc độ.} Với $T_{\text{swing}} = 45$ frame, $T_{\text{stance}} = 200$ frame và chu kỳ điều khiển thực tế $\Delta T \approx 3$ ms/frame, thời gian một chu kỳ dáng đi đầy đủ là:
+
+\begin{equation}
+    T_{cycle} = (T_{\text{swing}} + T_{\text{stance}}) \times \Delta T = 245 \times 3 = 735 \text{ ms} \approx 0{,}74 \text{ s}
+\end{equation}
+
+Tần số bước chân tương ứng:
+
+\begin{equation}
+    f_{step} = \frac{1}{T_{cycle}} \approx 1{,}36 \text{ Hz}
+\end{equation}
+
+Tốc độ di chuyển tiến về phía trước theo lý thuyết với chiều dài bước $L_{\text{stride}} = 10$ mm:
+
+\begin{equation}
+    v_{forward} = L_{\text{stride}} \times f_{step} = 10 \times 1{,}36 \approx 13{,}6 \text{ mm/s}
+\end{equation}
+
+Đây là tốc độ di chuyển chậm ($\sim$0,049 km/h), được thiết kế có chủ đích để ưu tiên sự ổn định tĩnh trong giai đoạn thử nghiệm vận hành ban đầu trên phần cứng thực. Tốc độ này có thể được tăng lên dễ dàng bằng cách tăng sải bước $L_{\text{stride}}$ hoặc giảm thời gian pha chống chân $T_{\text{stance}}$.
+
 \subsection{Cơ chế tắt an toàn}
 
 Để đảm bảo an toàn khi dừng hoạt động, hệ thống triển khai quy trình tắt máy ba pha (three-phase shutdown) trực tiếp trong không gian góc servo, không sử dụng IK. Mỗi pha gồm 300 frame với chu kỳ $\sim$3~ms/frame, tổng thời gian tắt khoảng 2,7 giây.
@@ -658,8 +783,8 @@ Bảng~\ref{tab:sim_vs_hw} trình bày so sánh tổng quan giữa các tham s�
 \begin{tabular}{|p{0.3\linewidth}|c|c|}
 \hline
 \textbf{Tham số} & \textbf{Mô phỏng} & \textbf{Phần cứng thực} \\ \hline
-Kích thước thân ($L \times W$) & $120 \times 90$ mm & $209 \times 191$ mm \\ \hline
-Chiều dài link ($l_1, l_2, l_3$) & 20, 80, 80 mm & 26, 106, 125 mm \\ \hline
+Kích thước thân ($L \times W$) & $209 \times 191$ mm & $209 \times 191$ mm \\ \hline
+Chiều dài link ($l_1, l_2, l_3$) & 26, 106, 125 mm & 26, 106, 125 mm \\ \hline
 Waypoint vung chân / chống chân & 30 / 310 & 45 / 200 \\ \hline
 Duty cycle $\beta$ & 91,2\% & 81,6\% \\ \hline
 Chiều dài bước & -- & 10 mm \\ \hline
@@ -681,9 +806,7 @@ Phản hồi IMU & Có (mô phỏng) & Có (BNO055 -- I2C) \\ \hline
 
 Trong quá trình chuyển đổi từ mô phỏng sang phần cứng thực (sim-to-real transfer), nhóm đã nhận diện và ghi nhận một số khác biệt quan trọng:
 
-\subsection{Khác biệt về kích thước mô hình}
 
-Mô hình URDF sử dụng trong Gazebo có kích thước nhỏ hơn so với robot thực tế (Bảng~\ref{tab:sim_vs_hw}). Lý do chính là mô hình URDF được xây dựng trước trong giai đoạn thiết kế sơ bộ, trong khi robot thực tế có các điều chỉnh kích thước sau quá trình chế tạo và lắp ráp. Sự khác biệt này không ảnh hưởng đến tính đúng đắn của các thuật toán (FK, IK, PID) vì chúng được tham số hóa (parameterized), cho phép thay đổi kích thước link mà không cần sửa đổi mã nguồn.
 
 \subsection{Khác biệt về tham số dáng đi}
 
@@ -720,79 +843,3 @@ Một số yếu tố phi lý tưởng (non-ideal factors) ảnh hưởng đến
 \end{table}
 
 Thiết kế tuần tự ba pha đảm bảo rằng robot không bao giờ rơi tự do: thân được hạ từ từ xuống đất trước khi các chân được thu gọn. Các giá trị góc đích có biên độ an toàn $\sim$3$^\circ$ so với giới hạn EEPROM của servo, tránh hiện tượng kẹt cơ khí.
-
-\subsection{Các vấn đề thực tế và giải pháp}
-
-Trong quá trình triển khai và thử nghiệm trên phần cứng thực, nhóm đã gặp và giải quyết một số vấn đề kỹ thuật quan trọng:
-
-\begin{enumerate}
-    \item \textbf{Sai lệch chiều cao giữa các chân:} Do dung sai gia công và lắp ráp, các chân robot có chiều cao không đồng đều khi đứng. Giải pháp: bổ sung tham số $z\_\text{offset}$ riêng cho từng chân (Bảng~\ref{tab:homing_targets}), được tinh chỉnh thủ công trong quá trình calibrate.
-
-    \item \textbf{Chiều quay ngược giữa các chân:} Cấu trúc lắp đặt đối xứng gương khiến servo của chân trái và chân phải quay ngược chiều nhau cho cùng một chuyển động. Giải pháp: xây dựng hàm chuyển đổi IK-to-Servo riêng biệt cho từng chân với các hệ số offset và đổi dấu phù hợp.
-
-    \item \textbf{Xung đột bus UART:} Khi cả lệnh điều khiển và phản hồi vị trí cùng chia sẻ một đường truyền UART bán song công, xảy ra hiện tượng xung đột dữ liệu. Giải pháp: vô hiệu hóa feedback sau khi hoàn tất bước đọc vị trí ban đầu trong quá trình khởi tạo tư thế đứng.
-
-    \item \textbf{Chia tải serial driver:} Một serial driver đơn lẻ không đủ băng thông để điều khiển đồng thời 12 servo ở tốc độ cao. Giải pháp: sử dụng hai serial driver (Driver A và Driver B), mỗi driver quản lý 6 servo thông qua một mạch Bus Servo Adapter riêng biệt.
-\end{enumerate}
-
-\subsection{Nhận xét và đánh giá thực nghiệm}
-
-Kết quả thực nghiệm trên phần cứng cho phép rút ra các đánh giá sau:
-
-Bảng~\ref{tab:sim_vs_hw} trình bày so sánh tổng quan giữa các tham số trong mô phỏng và trên phần cứng thực.
-
-\begin{table}[H]
-\centering
-\caption{So sánh tham số giữa mô phỏng và phần cứng thực}
-\label{tab:sim_vs_hw}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{0.3\linewidth}|c|c|}
-\hline
-\textbf{Tham số} & \textbf{Mô phỏng} & \textbf{Phần cứng thực} \\ \hline
-Kích thước thân ($L \times W$) & $120 \times 90$ mm & $209 \times 191$ mm \\ \hline
-Chiều dài link ($l_1, l_2, l_3$) & 20, 80, 80 mm & 26, 106, 125 mm \\ \hline
-Waypoint vung chân / chống chân & 30 / 310 & 45 / 200 \\ \hline
-Duty cycle $\beta$ & 91,2\% & 81,6\% \\ \hline
-Chiều dài bước & -- & 10 mm \\ \hline
-Độ cao nâng chân & 40 mm & 100 mm \\ \hline
-Bộ điều khiển & PD ($K_p=20$, $K_d=0,5$) & Servo PI nội bộ \\ \hline
-Phản hồi IMU & Có (mô phỏng) & Có (BNO055 -- I2C) \\ \hline
-\end{tabular}
-\end{table}
-
-\textbf{Thứ nhất}, quy trình khởi tạo tư thế đứng hoạt động ổn định trên phần cứng thực. Robot được đưa từ vị trí ngẫu nhiên ban đầu về tư thế đứng chuẩn trong 200 frame ($\sim$1,4 giây với chu kỳ 7~ms/frame). Quá trình nội suy tuyến tính giữa vị trí feedback và vị trí đích IK tạo ra chuyển động mượt mà, không có hiện tượng giật hoặc va đập cơ khí.
-
-\textbf{Thứ hai}, dáng đi Trot trên mặt phẳng nằm ngang cho thấy robot có khả năng di chuyển tiến liên tục. Tuy nhiên, do chiều dài bước ngắn ($L_{stride} = 10$ mm) và duty cycle cao ($\beta = 81{,}6\%$), tốc độ di chuyển tương đối chậm. Thiết kế này ưu tiên ổn định hơn tốc độ, phù hợp với giai đoạn kiểm chứng ban đầu.
-
-\textbf{Thứ ba}, cơ chế tắt an toàn ba pha hoạt động đúng như thiết kế. Quy trình tuần tự gập gối → thu vai → xoè hông đảm bảo robot được hạ xuống đất an toàn trong mọi trường hợp. Tổng thời gian tắt khoảng 6,3 giây, đủ chậm để tránh lực quán tính gây hư hại cơ khí.
-
-\textbf{Thứ tư}, việc chia hai serial driver (Driver A và Driver B) giải quyết hiệu quả vấn đề băng thông UART. Mỗi driver chỉ cần quản lý 6 servo, giảm tải truyền thông và đảm bảo thời gian đáp ứng dưới 7~ms cho toàn bộ 12 khớp.
-
-\section{Phân tích sự khác biệt giữa mô phỏng và thực nghiệm}
-
-Trong quá trình chuyển đổi từ mô phỏng sang phần cứng thực (sim-to-real transfer), nhóm đã nhận diện và ghi nhận một số khác biệt quan trọng:
-
-\subsection{Khác biệt về kích thước mô hình}
-
-Mô hình URDF sử dụng trong Gazebo có kích thước nhỏ hơn so với robot thực tế (Bảng~\ref{tab:sim_vs_hw}). Lý do chính là mô hình URDF được xây dựng trước trong giai đoạn thiết kế sơ bộ, trong khi robot thực tế có các điều chỉnh kích thước sau quá trình chế tạo và lắp ráp. Sự khác biệt này không ảnh hưởng đến tính đúng đắn của các thuật toán (FK, IK, PID) vì chúng được tham số hóa (parameterized), cho phép thay đổi kích thước link mà không cần sửa đổi mã nguồn.
-
-\subsection{Khác biệt về tham số dáng đi}
-
-Các tham số quỹ đạo trên phần cứng thực ($T_{swing} = 45$, $T_{stance} = 200$, $\Delta h = 100$ mm) khác biệt đáng kể so với mô phỏng ($T_{swing} = 30$, $T_{stance} = 310$, $\Delta h = 40$ mm). Lý do chính bao gồm:
-
-\begin{itemize}
-    \item \textbf{Độ cao nâng chân lớn hơn} (100 mm vs 40 mm): Do bề mặt thử nghiệm thực tế không hoàn toàn phẳng, robot cần nâng chân cao hơn để tránh va chạm khi bước. Trong mô phỏng Gazebo với mặt đất lý tưởng, 40 mm đã đủ.
-    \item \textbf{Pha chống chân ngắn hơn} (200 vs 310 frame): Giảm thời gian pha chống chân giúp tăng tần số bước, cải thiện tốc độ di chuyển trên phần cứng thực.
-    \item \textbf{Pha vung chân dài hơn} (45 vs 30 frame): Tăng thời gian pha vung chân giúp servo có đủ thời gian đáp ứng, do servo thực tế có độ trễ cơ khí mà mô phỏng không thể hiện hoàn toàn.
-\end{itemize}
-
-\subsection{Các yếu tố phi lý tưởng trên phần cứng thực}
-
-Một số yếu tố phi lý tưởng (non-ideal factors) ảnh hưởng đến hiệu năng trên phần cứng thực mà mô phỏng không mô phỏng được:
-
-\begin{itemize}
-    \item \textbf{Ma sát và trượt bàn chân:} Vật liệu tiếp xúc của bàn chân có hệ số ma sát khác nhau trên các bề mặt thử nghiệm. Trên bề mặt trơn, robot có xu hướng trượt, giảm hiệu quả sải bước.
-    \item \textbf{Độ dẻo cơ khí:} Các chi tiết cấu thành khung có độ dẻo nhất định, gây ra biến dạng nhỏ dưới tải trọng, dẫn đến sai lệch giữa vị trí bàn chân lý thuyết và thực tế.
-    \item \textbf{Độ trễ truyền thông UART:} Giao thức UART bán song công giới hạn tốc độ cập nhật lệnh servo. Với baudrate 1~Mbps và 6 servo/driver, thời gian truyền một frame lệnh khoảng 1--2~ms, thấp hơn đáng kể so với chu kỳ điều khiển 7~ms.
-    \item \textbf{Sai lệch lắp ráp:} Dung sai gia công và lắp ráp tạo ra sự không đồng đều về chiều cao giữa các chân, được bù bằng tham số $z\_\text{offset}$ riêng cho mỗi chân.
-\end{itemize}
