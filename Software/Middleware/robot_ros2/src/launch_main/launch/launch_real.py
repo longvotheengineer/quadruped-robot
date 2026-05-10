@@ -5,7 +5,7 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    # ── Driver A: LF + RB legs (/dev/ttyACM0) ────────────────────────
+    # ── Driver A: LF + LB legs (/dev/ttyACM1) ────────────────────────
     driver_a = Node(
         package='serial_driver',
         executable='serial_driver_node',
@@ -14,13 +14,14 @@ def generate_launch_description():
         parameters=[{
             'port':            '/dev/ttyACM1',
             'num_servos':      6,
-            'servo_ids':       [7, 8, 9, 10, 11, 12],
+            'servo_ids':       [7, 8, 9, 4, 5, 6],
             'joint_names':     ['joint_lf_1', 'joint_lf_2', 'joint_lf_3',
-                                'joint_rb_1', 'joint_rb_2', 'joint_rb_3'],
+                                'joint_lb_1', 'joint_lb_2', 'joint_lb_3'],
 
-            # Calibration (LF + RB subset of the original 12-element arrays)
-            'tick_offsets':     [2048, 2048, 2048, 2048, 2048, 2048],
-            'directions':      [1, 1, 1, 1, 1, 1],
+            # Calibration (LF + LB subset)
+            # LB joint2 (index 4 in this 6-element array): direction=-1, offset=3144
+            'tick_offsets':     [2048, 2048, 2048, 2048, 3144, 2048],
+            'directions':      [1, 1, 1, 1, -1, 1],
             'tick_min':        [0, 0, 0, 0, 0, 0],
             'tick_max':        [4095, 4095, 4095, 4095, 4095, 4095],
 
@@ -36,7 +37,7 @@ def generate_launch_description():
         }],
     )
 
-    # ── Driver B: LB + RF legs (/dev/ttyACM1) ────────────────────────
+    # ── Driver B: RF + RB legs (/dev/ttyACM0) ────────────────────────
     driver_b = Node(
         package='serial_driver',
         executable='serial_driver_node',
@@ -45,14 +46,13 @@ def generate_launch_description():
         parameters=[{
             'port':            '/dev/ttyACM0',
             'num_servos':      6,
-            'servo_ids':       [4, 5, 6, 1, 2, 3],
-            'joint_names':     ['joint_lb_1', 'joint_lb_2', 'joint_lb_3',
-                                'joint_rf_1', 'joint_rf_2', 'joint_rf_3'],
+            'servo_ids':       [1, 2, 3, 10, 11, 12],
+            'joint_names':     ['joint_rf_1', 'joint_rf_2', 'joint_rf_3',
+                                'joint_rb_1', 'joint_rb_2', 'joint_rb_3'],
 
-            # Calibration (LB + RF subset)
-            # LB joint2 (index 1 in this 6-element array): direction=-1, offset=3144
-            'tick_offsets':     [2048, 3144, 2048, 2048, 2048, 2048],
-            'directions':      [1, -1, 1, 1, 1, 1],
+            # Calibration (RF + RB subset)
+            'tick_offsets':     [2048, 2048, 2048, 2048, 2048, 2048],
+            'directions':      [1, 1, 1, 1, 1, 1],
             'tick_min':        [0, 0, 0, 0, 0, 0],
             'tick_max':        [4095, 4095, 4095, 4095, 4095, 4095],
 

@@ -156,10 +156,10 @@ class GaitConfig:
     # and lift (swing height) so they can be tuned independently.
 
     PARAMS_GAIT_FORWARD = {
-        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET, "stride": 40, "lift": 40},
-        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False, "z_offset": LB_Z_OFFSET, "stride": 40, "lift": 40},
-        "right-front":   {"x_center":  125, "y_val": -135, "reverse": False, "z_offset": RF_Z_OFFSET, "stride": 40, "lift": 40},
-        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET, "stride": 40, "lift": 40},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET, "stride": 20, "lift": 100},
+        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False, "z_offset": LB_Z_OFFSET, "stride": 20, "lift": 100},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": False, "z_offset": RF_Z_OFFSET, "stride": 20, "lift": 100},
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET, "stride": 20, "lift": 100},
     }
 
     # Body motions (PUSHUP / SWAY / CIRCLE): back feet tucked closer
@@ -179,17 +179,37 @@ class GaitConfig:
     }
 
     PARAMS_GAIT_TURN_RIGHT = {
-        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET, "stride": 40, "lift": 40},
-        "left-behind":   {"x_center": -60,  "y_val":  135, "reverse": False, "z_offset": LB_Z_OFFSET, "stride": 40, "lift": 40},
-        "right-front":   {"x_center":  125, "y_val": -135, "reverse": True,  "z_offset": RF_Z_OFFSET, "stride": 40, "lift": 40},
-        "right-behind":  {"x_center": -60,  "y_val": -135, "reverse": True,  "z_offset": RB_Z_OFFSET, "stride": 40, "lift": 40},
+        "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET, "stride": 20, "lift": 80},
+        "left-behind":   {"x_center": -125, "y_val":  135, "reverse": False, "z_offset": LB_Z_OFFSET, "stride": 20, "lift": 80},
+        "right-front":   {"x_center":  125, "y_val": -135, "reverse": True,  "z_offset": RF_Z_OFFSET, "stride": 20, "lift": 80},
+        "right-behind":  {"x_center": -125, "y_val": -135, "reverse": True,  "z_offset": RB_Z_OFFSET, "stride": 20, "lift": 80},
     }
 
     PARAMS_GAIT_TURN_LEFT = {
-        "left-front":    {"x_center":  125,  "y_val":  135, "reverse": True,  "z_offset": LF_Z_OFFSET, "stride": 40, "lift": 40},
-        "left-behind":   {"x_center": -110,  "y_val":  135, "reverse": True,  "z_offset": LB_Z_OFFSET, "stride": 40, "lift": 40},
-        "right-front":   {"x_center":  125,  "y_val": -135, "reverse": False, "z_offset": RF_Z_OFFSET, "stride": 40, "lift": 40},
-        "right-behind":  {"x_center": -110,  "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET, "stride": 40, "lift": 40},
+        "left-front":    {"x_center":  125,  "y_val":  135, "reverse": True,  "z_offset": LF_Z_OFFSET, "stride": 20, "lift": 80},
+        "left-behind":   {"x_center": -125,  "y_val":  135, "reverse": True,  "z_offset": LB_Z_OFFSET, "stride": 20, "lift": 80},
+        "right-front":   {"x_center":  125,  "y_val": -135, "reverse": False, "z_offset": RF_Z_OFFSET, "stride": 20, "lift": 80},
+        "right-behind":  {"x_center": -125,  "y_val": -135, "reverse": False, "z_offset": RB_Z_OFFSET, "stride": 20, "lift": 80},
+    }
+
+    # ── Strafe (side-step) gait params ─────────────────────────────
+    # y_stride: lateral travel distance per step (mm).
+    # Positive y_stride → foot sweeps toward positive Y during swing.
+    # Left legs have y_val > 0, right legs y_val < 0.
+    # Strafe-right: all legs shift toward negative Y (right).
+    # Strafe-left:  all legs shift toward positive Y (left).
+    PARAMS_GAIT_STRAFE_RIGHT = {
+        "left-front":    {"x_center":  125, "y_val":  135, "z_offset": LF_Z_OFFSET, "y_stride": 40, "lift": 80},
+        "left-behind":   {"x_center": -125, "y_val":  135, "z_offset": LB_Z_OFFSET, "y_stride": 40, "lift": 80},
+        "right-front":   {"x_center":  125, "y_val": -135, "z_offset": RF_Z_OFFSET, "y_stride": 40, "lift": 80},
+        "right-behind":  {"x_center": -125, "y_val": -135, "z_offset": RB_Z_OFFSET, "y_stride": 40, "lift": 80},
+    }
+
+    PARAMS_GAIT_STRAFE_LEFT = {
+        "left-front":    {"x_center":  125, "y_val":  135, "z_offset": LF_Z_OFFSET, "y_stride": 40, "lift": 80},
+        "left-behind":   {"x_center": -125, "y_val":  135, "z_offset": LB_Z_OFFSET, "y_stride": 40, "lift": 80},
+        "right-front":   {"x_center":  125, "y_val": -135, "z_offset": RF_Z_OFFSET, "y_stride": 40, "lift": 80},
+        "right-behind":  {"x_center": -125, "y_val": -135, "z_offset": RB_Z_OFFSET, "y_stride": 40, "lift": 80},
     }
 
     # Wave gait uses PARAMS_GAIT_FORWARD by default but has its own
@@ -222,14 +242,14 @@ class GaitConfig:
         "left-behind":  0.75,
     }
 
-    PARAMS_PHASESHIFT_PUSHUP = {
+    PARAMS_PHASESHIFT_HEAVE = {
         "left-front":   0.00,
         "left-behind":  0.00,
         "right-front":  0.00,
         "right-behind": 0.00,
     }
 
-    PARAMS_PHASESHIFT_SWAY = {
+    PARAMS_PHASESHIFT_ROLL = {
         "left-front":   0.00,
         "left-behind":  0.00,
         "right-front":  0.50,
@@ -243,12 +263,27 @@ class GaitConfig:
         "left-behind":  0.75,
     }
 
+    PARAMS_PHASESHIFT_PITCH = {
+        "left-front":   0.00,
+        "right-front":  0.00,
+        "left-behind":  0.50,
+        "right-behind": 0.50,
+    }
+
     # ── Per-gait timing (zero, stance, swing, rest) ────────────────
-    WAYPOINT_TROT = Waypoint(zero=200, stance=400, swing=35, rest=1000)
+    WAYPOINT_TROT_FORWARD = Waypoint(zero=200, stance=800, swing=40, rest=1000)
+    WAYPOINT_TROT_BACKWARD = Waypoint(zero=200, stance=600, swing=35, rest=1000)
     WAYPOINT_WALK = Waypoint(zero=200, stance=200, swing=35, rest=1000)
     WAYPOINT_WAVE = Waypoint(zero=200, stance=300, swing=125, rest=1000)
-    WAYPOINT_TURN = Waypoint(zero=200, stance=200, swing=35, rest=1000)
-    WAYPOINT_BODY = Waypoint(zero=200, stance=200, swing=35, rest=1000)
+    WAYPOINT_TURN = Waypoint(zero=200, stance=300, swing=35, rest=1000)
+    WAYPOINT_STRAFE = Waypoint(zero=200, stance=400, swing=55, rest=1000)
+    WAYPOINT_BODY = Waypoint(zero=200, stance=200, swing=35, rest=1200)
+
+    # Smooth transition between body postures (cosine-eased blend)
+    BODY_BLEND_FRAMES = 200   # ~1.4 s at 7 ms/tick
+
+    # Body posture command names (for blend detection)
+    BODY_CMDS = {"BODY_HEAVE", "BODY_ROLL", "BODY_PITCH", "BODY_CIRCLE"}
 
     # ── Wave gait weight-shift configuration ───────────────────────
     # Tilt the body using Z-only adjustment (no XY sliding).
@@ -301,7 +336,7 @@ class Gait:
         robot_length = RobotLength(L=209, W=191, l1=26, l2=106, l3=125)
         self._kinematics = Kinematics(self._node, robot_length, use_real=node.use_real)
         self.serial_publish = SerialPublish(self._node)
-        self._waypoint = GaitConfig.WAYPOINT_TROT  # default; overridden per gait
+        self._waypoint = GaitConfig.WAYPOINT_TROT_FORWARD  # default; overridden per gait
 
         # Trajectory state
         self._angle_data = None
@@ -350,6 +385,8 @@ class Gait:
             }
         self._foot_z_prev = {leg: 0.0 for leg in GaitConfig.LEG_NAMES}
         self._foot_vz_prev = {leg: 0.0 for leg in GaitConfig.LEG_NAMES}
+        self._last_foot_pos = None   # {leg: np.array([x,y,z])} for smooth body transitions
+        self._blend_end_frame = 0    # frame index where cyclic part starts
 
     # ── Callbacks ─────────────────────────────────────────────────
 
@@ -458,9 +495,15 @@ class Gait:
 
         self.serial_publish.publish_message(pos)
 
+        # Track last foot position for smooth body posture transitions
+        if self._foot_data is not None:
+            self._last_foot_pos = {}
+            for i, leg in enumerate(GaitConfig.LEG_NAMES):
+                self._last_foot_pos[leg] = self._foot_data[i][frame].copy()
+
         self._step_current += 1
         if self._step_current >= angle_data[0].shape[0]:
-            self._step_current = 0
+            self._step_current = self._blend_end_frame  # skip blend on repeat
             self._step_final += 1
 
         # Publish foot P-V-A for PlotJuggler
@@ -633,11 +676,53 @@ class Gait:
 
             return np.vstack([swing, stance])
 
+    def _trajectory_strafe(self, x_center, y_val, y_stride, z_offset=0,
+                           lift_height=80, direction=-1):
+        """Build D-shape foot path for lateral (Y-axis) movement.
+
+        Args:
+            x_center: fixed X position of the foot (mm).
+            y_val: nominal Y position of the foot (mm).
+            y_stride: total lateral travel distance (mm, always positive).
+            z_offset: per-leg Z compensation (mm).
+            lift_height: swing height (mm).
+            direction: -1 for strafe-right (toward -Y),
+                       +1 for strafe-left  (toward +Y).
+        """
+        half = y_stride / 2
+        y_A = y_val - direction * half   # start of swing
+        y_B = y_val + direction * half   # end of swing
+        z_stance = -170 + z_offset
+
+        pos_A = [x_center, y_A, z_stance]
+        pos_B = [x_center, y_B, z_stance]
+
+        if GaitConfig.CONTROL_VELOCITY:
+            return quintic_planning(
+                pos_A, pos_B,
+                T_swing=self._waypoint.swing,
+                T_stance=self._waypoint.stance,
+                lift_height=lift_height)
+        else:
+            swing = np.zeros((self._waypoint.swing, 3))
+            swing[:, 0] = x_center
+            swing[:, 1] = np.linspace(y_A, y_B, self._waypoint.swing)
+            swing[:, 2] = (z_stance + lift_height
+                           * np.sin(np.linspace(
+                               0, np.pi, self._waypoint.swing)))
+
+            stance = np.zeros((self._waypoint.stance, 3))
+            stance[:, 0] = x_center
+            stance[:, 1] = np.linspace(y_B, y_A, self._waypoint.stance)
+            stance[:, 2] = z_stance
+
+            return np.vstack([swing, stance])
+
     def _trajectory_resting(self, x_center, y_val):
         """Resting trajectory: feet planted, body oscillates."""
         if self.serial_publish.use_real:
             z_low = -180
-            z_high = -110
+            z_high = -100
         else:
             z_low = -170
             z_high = -130
@@ -892,18 +977,30 @@ class Gait:
             case "TURN_LEFT":
                 params = GaitConfig.PARAMS_GAIT_TURN_LEFT.get(leg_type)
                 phase = GaitConfig.PARAMS_PHASESHIFT_TROT
-            case "BODY_PUSHUP":
+            case "STRAFE_RIGHT":
+                params = GaitConfig.PARAMS_GAIT_STRAFE_RIGHT.get(leg_type)
+                phase = GaitConfig.PARAMS_PHASESHIFT_TROT
+            case "STRAFE_LEFT":
+                params = GaitConfig.PARAMS_GAIT_STRAFE_LEFT.get(leg_type)
+                phase = GaitConfig.PARAMS_PHASESHIFT_TROT
+            case "BODY_HEAVE":
                 if self.serial_publish.use_real:
                     params = GaitConfig.PARAMS_GAIT_BODY.get(leg_type)
                 else:
                     params = GaitConfig.PARAMS_GAIT_FORWARD.get(leg_type)
-                phase = GaitConfig.PARAMS_PHASESHIFT_PUSHUP
-            case "BODY_SWAY":
+                phase = GaitConfig.PARAMS_PHASESHIFT_HEAVE
+            case "BODY_ROLL":
                 if self.serial_publish.use_real:
                     params = GaitConfig.PARAMS_GAIT_BODY.get(leg_type)
                 else:
                     params = GaitConfig.PARAMS_GAIT_FORWARD.get(leg_type)
-                phase = GaitConfig.PARAMS_PHASESHIFT_SWAY
+                phase = GaitConfig.PARAMS_PHASESHIFT_ROLL
+            case "BODY_PITCH":
+                if self.serial_publish.use_real:
+                    params = GaitConfig.PARAMS_GAIT_BODY.get(leg_type)
+                else:
+                    params = GaitConfig.PARAMS_GAIT_FORWARD.get(leg_type)
+                phase = GaitConfig.PARAMS_PHASESHIFT_PITCH
             case "BODY_CIRCLE":
                 if self.serial_publish.use_real:
                     params = GaitConfig.PARAMS_GAIT_BODY.get(leg_type)
@@ -916,10 +1013,17 @@ class Gait:
         if not params:
             return None, None
 
-        if self._gait_msg.cmd in (
-                "BODY_PUSHUP", "BODY_SWAY", "BODY_CIRCLE"):
+        if self._gait_msg.cmd in GaitConfig.BODY_CMDS:
             waypoint = self._trajectory_resting(
                 params["x_center"], params["y_val"])
+        elif self._gait_msg.cmd in ("STRAFE_RIGHT", "STRAFE_LEFT"):
+            z_offset = params.get("z_offset", 0) if self.serial_publish.use_real else 0
+            y_stride = params.get("y_stride", 20)
+            lift = params.get("lift", 80)
+            direction = -1 if self._gait_msg.cmd == "STRAFE_RIGHT" else 1
+            waypoint = self._trajectory_strafe(
+                params["x_center"], params["y_val"], y_stride, z_offset,
+                lift_height=lift, direction=direction)
         else:
             reverse = params.get("reverse", False)
             z_offset = params.get("z_offset", 0) if self.serial_publish.use_real else 0
@@ -1048,15 +1152,19 @@ class Gait:
     def _gait_change(self):
         # Select per-gait timing
         match self._gait_msg.cmd:
-            case "TROT_FORWARD" | "TROT_BACKWARD":
-                self._waypoint = GaitConfig.WAYPOINT_TROT
+            case "TROT_FORWARD":
+                self._waypoint = GaitConfig.WAYPOINT_TROT_FORWARD
+            case "TROT_BACKWARD":
+                self._waypoint = GaitConfig.WAYPOINT_TROT_BACKWARD
             case "WALK_FORWARD" | "WALK_BACKWARD":
                 self._waypoint = GaitConfig.WAYPOINT_WALK
             case "WAVE_FORWARD" | "WAVE_BACKWARD":
                 self._waypoint = GaitConfig.WAYPOINT_WAVE
             case "TURN_RIGHT" | "TURN_LEFT":
                 self._waypoint = GaitConfig.WAYPOINT_TURN
-            case "BODY_PUSHUP" | "BODY_SWAY" | "BODY_CIRCLE":
+            case "STRAFE_RIGHT" | "STRAFE_LEFT":
+                self._waypoint = GaitConfig.WAYPOINT_STRAFE
+            case "BODY_HEAVE" | "BODY_ROLL" | "BODY_PITCH" | "BODY_CIRCLE":
                 self._waypoint = GaitConfig.WAYPOINT_BODY
 
         match self._gait_msg.cmd:
@@ -1087,6 +1195,30 @@ class Gait:
                     angles, feet = self._generate_gait(leg)
                     theta_i[idx] = angles
                     foot_i[idx] = feet
+
+                # Smooth blend for body posture transitions
+                if (self._gait_msg.cmd in GaitConfig.BODY_CMDS
+                        and self._last_foot_pos is not None):
+                    blend_n = GaitConfig.BODY_BLEND_FRAMES
+                    for idx, leg in enumerate(GaitConfig.LEG_NAMES):
+                        start_foot = self._last_foot_pos[leg]
+                        end_foot = foot_i[idx][0]
+                        # Cosine-eased interpolation (smooth accel/decel)
+                        blend_foot = np.zeros((blend_n, 3))
+                        blend_ang = np.zeros((blend_n, 3))
+                        for f in range(blend_n):
+                            alpha = 0.5 - 0.5 * np.cos(
+                                np.pi * f / blend_n)
+                            ft = start_foot + alpha * (end_foot - start_foot)
+                            blend_foot[f] = ft
+                            blend_ang[f] = self._kinematics.inverse(
+                                *ft, leg)
+                        theta_i[idx] = np.vstack([blend_ang, theta_i[idx]])
+                        foot_i[idx] = np.vstack([blend_foot, foot_i[idx]])
+                    self._blend_end_frame = blend_n
+                else:
+                    self._blend_end_frame = 0
+
                 self._foot_data = foot_i
                 # Tell balance controller to use GAIT mode
                 self._pub_balance_mode.publish(String(data='GAIT'))

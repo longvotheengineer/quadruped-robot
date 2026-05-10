@@ -17,7 +17,7 @@ class SerialPublish():
             Float64MultiArray, '/leg_controller/commands', 10)
 
         # Publishers for real servo commands (degrees → serial_driver_node)
-        # Two drivers: A handles LF+RB, B handles LB+RF
+        # Two drivers: A handles LF+LB, B handles RF+RB
         self.pub_servo_commands_a = node.create_publisher(
             Float64MultiArray, '/servo_commands_a', 10)
         self.pub_servo_commands_b = node.create_publisher(
@@ -36,8 +36,8 @@ class SerialPublish():
 
         if self.use_real:
             self.get_logger.info('SerialPublish: REAL HARDWARE mode enabled')
-            self.get_logger.info('  Driver A topic: /servo_commands_a (LF+RB)')
-            self.get_logger.info('  Driver B topic: /servo_commands_b (LB+RF)')
+            self.get_logger.info('  Driver A topic: /servo_commands_a (LF+LB)')
+            self.get_logger.info('  Driver B topic: /servo_commands_b (RF+RB)')
         else:
             self.get_logger.info('SerialPublish: SIMULATION mode (Gazebo)')
 
@@ -197,8 +197,8 @@ class SerialPublish():
         empirically verified mapping, then publishes as two
         Float64MultiArray messages — one per driver.
 
-        Driver A (port A): LF + RB servos (6 values)
-        Driver B (port B): LB + RF servos (6 values)
+        Driver A (port A): LF + LB servos (6 values)
+        Driver B (port B): RF + RB servos (6 values)
 
         Args:
             theta: 4×3 numpy array of IK joint angles in degrees.
@@ -217,16 +217,16 @@ class SerialPublish():
         rb1, rb2, rb3 = self._ik_to_servo_rb(
             theta[3, 0], theta[3, 1], theta[3, 2])
 
-        # Driver A: LF + RB (servo IDs 7,8,9 + 10,11,12)
+        # Driver A: LF + LB (servo IDs 7,8,9 + 4,5,6)
         msg_a = Float64MultiArray()
         msg_a.data = [float(lf1), float(lf2), float(lf3),
-                      float(rb1), float(rb2), float(rb3)]
+                      float(lb1), float(lb2), float(lb3)]
         self.pub_servo_commands_a.publish(msg_a)
 
-        # Driver B: LB + RF (servo IDs 4,5,6 + 1,2,3)
+        # Driver B: RF + RB (servo IDs 1,2,3 + 10,11,12)
         msg_b = Float64MultiArray()
-        msg_b.data = [float(lb1), float(lb2), float(lb3),
-                      float(rf1), float(rf2), float(rf3)]
+        msg_b.data = [float(rf1), float(rf2), float(rf3),
+                      float(rb1), float(rb2), float(rb3)]
         self.pub_servo_commands_b.publish(msg_b)
 
     def publish_real_12(self, servo_angles_12):
@@ -236,14 +236,14 @@ class SerialPublish():
         a full 12-element array [LF1..3, LB1..3, RF1..3, RB1..3].
 
         Splits into:
-          Driver A: indices [0:3] (LF) + [9:12] (RB)
-          Driver B: indices [3:6] (LB) + [6:9]  (RF)
+          Driver A: indices [0:3] (LF) + [3:6]  (LB)
+          Driver B: indices [6:9] (RF) + [9:12] (RB)
         """
         msg_a = Float64MultiArray()
-        msg_a.data = [float(v) for v in servo_angles_12[0:3]] + [float(v) for v in servo_angles_12[9:12]]
+        msg_a.data = [float(v) for v in servo_angles_12[0:3]] + [float(v) for v in servo_angles_12[3:6]]
 
         msg_b = Float64MultiArray()
-        msg_b.data = [float(v) for v in servo_angles_12[3:6]] + [float(v) for v in servo_angles_12[6:9]]
+        msg_b.data = [float(v) for v in servo_angles_12[6:9]] + [float(v) for v in servo_angles_12[9:12]]
 
         self.pub_servo_commands_a.publish(msg_a)
         self.pub_servo_commands_b.publish(msg_b)

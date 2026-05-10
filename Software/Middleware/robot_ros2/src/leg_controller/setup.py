@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'node_leg_controller = leg_controller.nodeLegController:main',
+            'node_web_gui = leg_controller.nodeWebGui:main',
         ],
     },
 )
