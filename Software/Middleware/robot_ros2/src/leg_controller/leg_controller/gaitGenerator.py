@@ -152,16 +152,16 @@ class GaitConfig:
     RB_Z_OFFSET = -5
 
     # Per-leg stride length (mm): how far the foot moves forward/backward.
-    LF_STRIDE = 10
-    LB_STRIDE = 10
-    RF_STRIDE = 10
-    RB_STRIDE = 10
+    LF_STRIDE = 40
+    LB_STRIDE = 40
+    RF_STRIDE = 40
+    RB_STRIDE = 40
 
     # Per-leg lift height (mm): how high the foot lifts during swing.
-    LF_LIFT = 80
-    LB_LIFT = 50
-    RF_LIFT = 80
-    RB_LIFT = 50
+    LF_LIFT = 40
+    LB_LIFT = 40
+    RF_LIFT = 40
+    RB_LIFT = 40
 
     PARAMS_GAIT_FORWARD = {
         "left-front":    {"x_center":  125, "y_val":  135, "reverse": False, "z_offset": LF_Z_OFFSET, "stride": LF_STRIDE, "lift": LF_LIFT},
@@ -235,6 +235,21 @@ class GaitConfig:
         "left-behind":  0.75,
     }
 
+    # ── Per-gait timing (zero, stance, swing, rest) ────────────────
+    WAYPOINT_TROT = Waypoint(zero=200, stance=200, swing=35, rest=1000)
+    WAYPOINT_WALK = Waypoint(zero=200, stance=200, swing=35, rest=1000)
+    WAYPOINT_WAVE = Waypoint(zero=200, stance=300, swing=125, rest=1000)
+    WAYPOINT_TURN = Waypoint(zero=200, stance=200, swing=35, rest=1000)
+    WAYPOINT_BODY = Waypoint(zero=200, stance=200, swing=35, rest=1000)
+
+    # ── Wave gait weight-shift configuration ───────────────────────
+    # Tilt the body using Z-only adjustment (no XY sliding).
+    # Opposite-side support legs EXTEND (lower Z → push body up),
+    # same-side support leg COMPRESSES (raise Z → body drops).
+    WAVE_Z_EXTEND = 25      # mm — lower Z for opposite-side support legs
+    WAVE_Z_COMPRESS = 30    # mm — raise Z for same-side support leg
+    WAVE_LEAN_FRAMES = 250  # frames for the tilt transition
+
     CONTROL_VELOCITY = True
 
 
@@ -278,7 +293,7 @@ class Gait:
         robot_length = RobotLength(L=209, W=191, l1=26, l2=106, l3=125)
         self._kinematics = Kinematics(self._node, robot_length, use_real=node.use_real)
         self.serial_publish = SerialPublish(self._node)
-        self._waypoint = Waypoint(200, 200, 45, 1000)
+        self._waypoint = GaitConfig.WAYPOINT_TROT  # default; overridden per gait
 
         # Trajectory state
         self._angle_data = None
@@ -862,6 +877,7 @@ class Gait:
             case "WALK_BACKWARD":
                 params = GaitConfig.PARAMS_GAIT_BACKWARD.get(leg_type)
                 phase = GaitConfig.PARAMS_PHASESHIFT_WALK
+
             case "TURN_RIGHT":
                 params = GaitConfig.PARAMS_GAIT_TURN_RIGHT.get(leg_type)
                 phase = GaitConfig.PARAMS_PHASESHIFT_TROT
@@ -914,9 +930,149 @@ class Gait:
         return (np.roll(theta_i, shift, axis=0),
                 np.roll(waypoint, shift, axis=0))
 
+    # ── Sequential (wave) gait generation ────────────────────────
+
+    def _generate_sequential_gait(self):
+        """Generate one-leg-at-a-time gait with Z-only weight shifting.
+
+        For each leg in sequence (LF → LB → RF → RB):
+          Phase 1 — Tilt:    support legs adjust Z to tilt body
+                              (opposite-side extend, same-side compress).
+          Phase 2 — Rest:    hold tilted position (stance frames).
+          Phase 3 — Lift:    unloaded leg swings up and back (swing frames).
+          Phase 4 — Rest:    hold tilted position (stance frames).
+          Phase 5 — Un-tilt: all feet return to normal stance.
+          Phase 6 — Rest:    hold at normal stance (stance frames).
+
+        Z-tilt strategy (example: lifting LF, y>0):
+          LB (y>0, same side)     → extend (Z − WAVE_Z_EXTEND)  ← push body UP on left
+          RF (y<0, opposite side) → compress (Z + WAVE_Z_COMPRESS) ← body drops on right
+          RB (y<0, opposite side) → compress (Z + WAVE_Z_COMPRESS) ← body drops on right
+        This tilts the body so the LF corner rises.
+        """
+        params_dict = GaitConfig.PARAMS_GAIT_FORWARD
+        swing_frames = self._waypoint.swing
+        hold_frames = self._waypoint.stance
+        lean_frames = GaitConfig.WAVE_LEAN_FRAMES
+        z_extend = GaitConfig.WAVE_Z_EXTEND
+        z_compress = GaitConfig.WAVE_Z_COMPRESS
+
+        # Per-leg segment = tilt + rest + swing + rest + un-tilt + rest
+        seg_len = 2 * lean_frames + 3 * hold_frames + swing_frames
+        total_frames = seg_len * 4
+
+        # Precompute normal stance for every leg
+        normal_foot = {}
+        normal_ang = {}
+        for leg in GaitConfig.LEG_NAMES:
+            p = params_dict[leg]
+            z_off = p.get('z_offset', 0) if self.serial_publish.use_real else 0
+            ft = np.array([p['x_center'], p['y_val'], -170 + z_off])
+            normal_foot[leg] = ft
+            normal_ang[leg] = np.array(
+                self._kinematics.inverse(*ft, leg))
+
+        theta_all = np.empty(4, dtype=object)
+        foot_all = np.empty(4, dtype=object)
+
+        for idx, leg in enumerate(GaitConfig.LEG_NAMES):
+            lift = params_dict[leg].get('lift', 80)
+            full_angles = np.zeros((total_frames, 3))
+            full_feet = np.zeros((total_frames, 3))
+
+            for active_idx in range(4):
+                active_leg = GaitConfig.LEG_NAMES[active_idx]
+                s0 = active_idx * seg_len
+
+                # Y-sign of the leg being lifted
+                active_y = params_dict[active_leg]['y_val']
+
+                if active_idx == idx:
+                    # This IS the leg being lifted — stays at normal
+                    # position during tilt; Z-tilt of support legs
+                    # handles unloading.
+                    leaned_foot = normal_foot[leg].copy()
+                else:
+                    # Support leg — adjust Z only (no XY movement)
+                    leaned_foot = normal_foot[leg].copy()
+                    support_y = normal_foot[leg][1]
+                    if np.sign(support_y) == np.sign(active_y):
+                        # Same Y-side → extend (lower Z, push body up
+                        # on the lifting leg's side)
+                        leaned_foot[2] -= z_extend
+                    else:
+                        # Opposite Y-side → compress (raise Z, body drops)
+                        leaned_foot[2] += z_compress
+                leaned_ang = np.array(
+                    self._kinematics.inverse(*leaned_foot, leg))
+
+                # Phase boundaries
+                p1 = s0                          # tilt start
+                p2 = p1 + lean_frames            # rest-1 start
+                p3 = p2 + hold_frames            # swing start
+                p4 = p3 + swing_frames           # rest-2 start
+                p5 = p4 + hold_frames            # un-tilt start
+                p6 = p5 + lean_frames            # rest-3 start
+                p7 = p6 + hold_frames            # segment end
+
+                # Phase 1 — Tilt (interpolate normal → leaned)
+                for f in range(lean_frames):
+                    alpha = f / lean_frames
+                    ft = normal_foot[leg] + alpha * (leaned_foot - normal_foot[leg])
+                    full_feet[p1 + f] = ft
+                    full_angles[p1 + f] = self._kinematics.inverse(*ft, leg)
+
+                # Phase 2 — Rest at leaned
+                full_feet[p2:p3] = leaned_foot
+                full_angles[p2:p3] = leaned_ang
+
+                # Phase 3 — Swing (or hold if not the active leg)
+                if active_idx == idx:
+                    for f in range(swing_frames):
+                        ft = leaned_foot.copy()
+                        ft[2] += lift * np.sin(np.pi * f / swing_frames)
+                        full_feet[p3 + f] = ft
+                        full_angles[p3 + f] = self._kinematics.inverse(*ft, leg)
+                else:
+                    full_feet[p3:p4] = leaned_foot
+                    full_angles[p3:p4] = leaned_ang
+
+                # Phase 4 — Rest at leaned
+                full_feet[p4:p5] = leaned_foot
+                full_angles[p4:p5] = leaned_ang
+
+                # Phase 5 — Un-tilt (interpolate leaned → normal)
+                for f in range(lean_frames):
+                    alpha = f / lean_frames
+                    ft = leaned_foot + alpha * (normal_foot[leg] - leaned_foot)
+                    full_feet[p5 + f] = ft
+                    full_angles[p5 + f] = self._kinematics.inverse(*ft, leg)
+
+                # Phase 6 — Rest at normal
+                full_feet[p6:p7] = normal_foot[leg]
+                full_angles[p6:p7] = normal_ang[leg]
+
+            theta_all[idx] = full_angles
+            foot_all[idx] = full_feet
+
+        return theta_all, foot_all
+
     # ── Command dispatch ──────────────────────────────────────────
 
     def _gait_change(self):
+        # Select per-gait timing
+        match self._gait_msg.cmd:
+            case "TROT_FORWARD" | "TROT_BACKWARD":
+                self._waypoint = GaitConfig.WAYPOINT_TROT
+            case "WALK_FORWARD" | "WALK_BACKWARD":
+                self._waypoint = GaitConfig.WAYPOINT_WALK
+            case "WAVE_FORWARD" | "WAVE_BACKWARD":
+                self._waypoint = GaitConfig.WAYPOINT_WAVE
+            case "TURN_RIGHT" | "TURN_LEFT":
+                self._waypoint = GaitConfig.WAYPOINT_TURN
+            case "BODY_PUSHUP" | "BODY_SWAY" | "BODY_CIRCLE":
+                self._waypoint = GaitConfig.WAYPOINT_BODY
+
         match self._gait_msg.cmd:
             case "ZERO":
                 self._foot_data = None
@@ -933,6 +1089,11 @@ class Gait:
                 else:
                     self._logger.info('ROBOTOFF: simulation mode — nothing to do.')
                     return None
+            case "WAVE_FORWARD" | "WAVE_BACKWARD":
+                theta_i, foot_i = self._generate_sequential_gait()
+                self._foot_data = foot_i
+                self._pub_balance_mode.publish(String(data='GAIT'))
+                return theta_i
             case _:
                 theta_i = np.empty(4, dtype=object)
                 foot_i = np.empty(4, dtype=object)
