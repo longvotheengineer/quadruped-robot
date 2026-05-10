@@ -51,26 +51,15 @@
 \contentsline {figure}{\numberline {4-1}{\ignorespaces Sơ đồ kiến trúc ROS~2 của hệ thống trong môi trường mô phỏng (Gazebo)\relax }}{70}{figure.caption.66}%
 \contentsline {figure}{\numberline {4-2}{\ignorespaces Sơ đồ kiến trúc ROS~2 của hệ thống trên phần cứng thực tế\relax }}{70}{figure.caption.67}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5-1}{\ignorespaces Chuỗi hình ảnh mô phỏng quá trình Homing của robot từ lúc nằm đến lúc đứng\relax }}{76}{figure.caption.71}%
-\contentsline {figure}{\numberline {5-2}{\ignorespaces Chuỗi hình ảnh mô phỏng quá trình robot thực hiện dáng đi Trot liên tục\relax }}{76}{figure.caption.72}%
-\contentsline {figure}{\numberline {5-3}{\ignorespaces Quỹ đạo bàn chân trong không gian 2D\relax }}{76}{figure.caption.73}%
-\contentsline {figure}{\numberline {5-4}{\ignorespaces Quỹ đạo bàn chân trong không gian 3D\relax }}{77}{figure.caption.74}%
-\contentsline {figure}{\numberline {5-5}{\ignorespaces Biên dạng vận tốc và gia tốc\relax }}{78}{figure.caption.75}%
-\contentsline {figure}{\numberline {5-6}{\ignorespaces Sự biến thiên vị trí, vận tốc và gia tốc của 3 trục X, Y, Z trong chu kỳ bước đầy đủ\relax }}{78}{figure.caption.76}%
-\contentsline {figure}{\numberline {5-7}{\ignorespaces Biến thiên góc khớp\relax }}{79}{figure.caption.77}%
-\contentsline {figure}{\numberline {5-8}{\ignorespaces Mô-men xoắn bộ điều khiển PD\relax }}{80}{figure.caption.78}%
-\contentsline {figure}{\numberline {5-9}{\ignorespaces Gait timing\relax }}{81}{figure.caption.79}%
-\contentsline {figure}{\numberline {5-10}{\ignorespaces Đa giác đỡ và ổn định tĩnh\relax }}{81}{figure.caption.80}%
-\contentsline {figure}{\numberline {5-11}{\ignorespaces Không gian làm việc\relax }}{82}{figure.caption.81}%
-\contentsline {figure}{\numberline {5-12}{\ignorespaces Quỹ đạo Cartesian $(x, y, z)$ của chân trước bên trái trong một chu kỳ dáng đi\relax }}{85}{figure.caption.85}%
-\contentsline {figure}{\numberline {5-13}{\ignorespaces Biên dạng vận tốc và gia tốc của chân trước bên trái\relax }}{85}{figure.caption.86}%
-\contentsline {figure}{\numberline {5-14}{\ignorespaces Góc khớp $(\theta _1, \theta _2, \theta _3)$ giải qua IK cho các chân bên trái (LF và LB)\relax }}{86}{figure.caption.87}%
-\contentsline {figure}{\numberline {5-15}{\ignorespaces Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng\relax }}{86}{figure.caption.88}%
-\contentsline {figure}{\numberline {5-16}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME\relax }}{87}{figure.caption.89}%
-\contentsline {figure}{\numberline {5-17}{\ignorespaces Phân tích tín hiệu đo lường và đầu ra chế độ HOME\relax }}{88}{figure.caption.90}%
-\contentsline {figure}{\numberline {5-18}{\ignorespaces Phân rã thành phần động lực học PID chế độ HOME\relax }}{88}{figure.caption.91}%
-\contentsline {figure}{\numberline {5-19}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)\relax }}{89}{figure.caption.92}%
-\contentsline {figure}{\numberline {5-20}{\ignorespaces Phân tích xử lý tín hiệu đầu vào chế độ GAIT (phóng to)\relax }}{89}{figure.caption.93}%
-\contentsline {figure}{\numberline {5-21}{\ignorespaces Phân rã thành phần động lực học PID chế độ GAIT (phóng to)\relax }}{90}{figure.caption.94}%
-\contentsline {figure}{\numberline {5-22}{\ignorespaces Phân tích bão hòa và lọc đầu ra chế độ GAIT (phóng to)\relax }}{90}{figure.caption.95}%
+\contentsline {figure}{\numberline {5-1}{\ignorespaces Quỹ đạo Cartesian $(x, y, z)$ của chân trước bên trái trong một chu kỳ dáng đi\relax }}{77}{figure.caption.73}%
+\contentsline {figure}{\numberline {5-2}{\ignorespaces Biên dạng vận tốc và gia tốc của chân trước bên trái\relax }}{78}{figure.caption.74}%
+\contentsline {figure}{\numberline {5-3}{\ignorespaces Góc khớp $(\theta _1, \theta _2, \theta _3)$ giải qua IK cho các chân bên trái (LF và LB)\relax }}{78}{figure.caption.75}%
+\contentsline {figure}{\numberline {5-4}{\ignorespaces Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng\relax }}{79}{figure.caption.76}%
+\contentsline {figure}{\numberline {5-5}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME\relax }}{80}{figure.caption.77}%
+\contentsline {figure}{\numberline {5-6}{\ignorespaces Phân tích tín hiệu đo lường và đầu ra chế độ HOME\relax }}{80}{figure.caption.78}%
+\contentsline {figure}{\numberline {5-7}{\ignorespaces Phân rã thành phần động lực học PID chế độ HOME\relax }}{81}{figure.caption.79}%
+\contentsline {figure}{\numberline {5-8}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)\relax }}{81}{figure.caption.80}%
+\contentsline {figure}{\numberline {5-9}{\ignorespaces Phân tích xử lý tín hiệu đầu vào chế độ GAIT (phóng to)\relax }}{82}{figure.caption.81}%
+\contentsline {figure}{\numberline {5-10}{\ignorespaces Phân rã thành phần động lực học PID chế độ GAIT (phóng to)\relax }}{82}{figure.caption.82}%
+\contentsline {figure}{\numberline {5-11}{\ignorespaces Phân tích bão hòa và lọc đầu ra chế độ GAIT (phóng to)\relax }}{83}{figure.caption.83}%
 \addvspace {10\p@ }
