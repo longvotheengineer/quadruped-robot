@@ -64,6 +64,129 @@ Môi trường mô phỏng được cấu hình với các tham số vật lý s
 
 Tốc độ cập nhật bộ điều khiển ROS~2 được đặt ở 1000 Hz ($f_{ctrl} = 1000$ Hz), đồng bộ với bước thời gian vật lý của Gazebo. Chu kỳ timer của Gait Generator node là 3 ms, tương ứng với tần số xuất lệnh quỹ đạo 333 Hz.
 
+\subsection{Kết quả mô phỏng vận động cơ bản}
+
+Sau khi cấu hình xong môi trường, các thử nghiệm vận động cơ bản được tiến hành trên Gazebo để đánh giá khả năng di chuyển động học trước khi phân tích sâu vào hệ thống điều khiển.
+
+Hình \ref{fig:sim_home} minh họa chuỗi hình ảnh quá trình khởi tạo tư thế đứng chuẩn của robot từ lúc khởi động trên hệ thống mô phỏng Gazebo.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/1.jpg}
+        \caption{$t=0.1$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/2.jpg}
+        \caption{$t=0.2$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/3.jpg}
+        \caption{$t=0.3$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/4.jpg}
+        \caption{$t=0.4$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/5.jpg}
+        \caption{$t=0.5$ s}
+    \end{subfigure}
+    
+    \vspace{0.2cm}
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/6.jpg}
+        \caption{$t=0.6$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/7.jpg}
+        \caption{$t=0.7$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/8.jpg}
+        \caption{$t=0.8$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/9.jpg}
+        \caption{$t=0.9$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/10.jpg}
+        \caption{$t=1.0$ s}
+    \end{subfigure}
+    \caption{Chuỗi chuyển động quá trình khởi tạo tư thế đứng của robot trên mô phỏng Gazebo.}
+    \label{fig:sim_home}
+\end{figure}
+
+
+Hình \ref{fig:sim_trot_sequence} ghi lại chuỗi hình ảnh của robot khi thực hiện dáng đi Trot trên hệ thống mô phỏng Gazebo. Các pha luân phiên nhấc chân và chống chân được thể hiện rõ ràng.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/20.jpg}
+        \caption{$t=2.0$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/30.jpg}
+        \caption{$t=3.0$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/40.jpg}
+        \caption{$t=4.0$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/50.jpg}
+        \caption{$t=5.0$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/60.jpg}
+        \caption{$t=6.0$ s}
+    \end{subfigure}
+    
+    \vspace{0.2cm}
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/70.jpg}
+        \caption{$t=7.0$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/80.jpg}
+        \caption{$t=8.0$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/90.jpg}
+        \caption{$t=9.0$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/100.jpg}
+        \caption{$t=10.0$ s}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.19\textwidth}
+        \includegraphics[width=\textwidth]{real_robot/gait/frames_cropped/110.jpg}
+        \caption{$t=11.0$ s}
+    \end{subfigure}
+    \caption{Chuỗi chuyển động của robot trên hệ thống mô phỏng trong dáng đi Trot.}
+    \label{fig:sim_trot_sequence}
+\end{figure}
+
+
+
 \section{Đánh giá hiệu năng bộ điều khiển PID nâng cao trên mô phỏng}
 
 Phần này trình bày các kết quả thu được từ hệ thống mô phỏng, bao gồm dữ liệu chẩn đoán từ chuỗi xử lý PID và các biên dạng quỹ đạo offline. Bảng~\ref{tab:pid_home_params} và Bảng~\ref{tab:pid_gait_params} tổng hợp toàn bộ tham số điều khiển cho hai chế độ hoạt động, được trích xuất trực tiếp từ mã nguồn hệ thống.
@@ -380,6 +503,8 @@ Right-Behind (RB) & $-125$ & $-135$ & $-170$ & $-5$ \\ \hline
 \end{tabular}
 \end{table}
 
+
+
 \subsection{Thử nghiệm dáng đi Trot (chế độ TROT\_FORWARD)}
 
 Sau khi robot đạt tư thế đứng ổn định, dáng đi Trot được kích hoạt. Các tham số dáng đi trên phần cứng thực được trình bày trong Bảng~\ref{tab:hw_gait_params}.
@@ -424,6 +549,8 @@ Tốc độ di chuyển tiến về phía trước theo lý thuyết với chi�
 \end{equation}
 
 Đây là tốc độ di chuyển chậm ($\sim$0,049 km/h), được thiết kế có chủ đích để ưu tiên sự ổn định tĩnh trong giai đoạn thử nghiệm vận hành ban đầu trên phần cứng thực. Tốc độ này có thể được tăng lên dễ dàng bằng cách tăng sải bước $L_{\text{stride}}$ hoặc giảm thời gian pha chống chân $T_{\text{stance}}$.
+
+
 
 \subsection{Cơ chế tắt an toàn}
 
