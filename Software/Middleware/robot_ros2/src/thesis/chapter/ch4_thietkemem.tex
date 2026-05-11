@@ -28,7 +28,7 @@ Sơ đồ kiến trúc ROS~2 trong môi trường mô phỏng được thể hi�
     \label{fig:ros2_arch_sim}
 \end{figure}
 
-Ngược lại, khi vận hành trên robot thực tế, hệ thống loại bỏ các node mô phỏng và thay thế bằng các trình điều khiển phần cứng chuyên dụng như thể hiện ở Hình~\ref{fig:ros2_arch_hw}. Trong đó, node \texttt{serial\_driver\_a} và \texttt{serial\_driver\_b} chịu trách nhiệm giao tiếp UART với 12 động cơ servo, còn node \texttt{imu\_sensor\_node} thu thập dữ liệu trực tiếp từ cảm biến quán tính. Kiến trúc phân tầng này giúp hệ thống đạt độ tin cậy cao, dễ dàng bảo trì và tận dụng lại toàn bộ mã nguồn điều khiển cốt lõi từ mô phỏng.
+Ngược lại, khi vận hành trên robot thực tế, hệ thống loại bỏ các node mô phỏng và thay thế bằng các trình điều khiển phần cứng chuyên dụng như thể hiện ở Hình~\ref{fig:ros2_arch_hw}. Trong đó, node \texttt{serial\_}\allowbreak\texttt{driver\_}\allowbreak\texttt{a} và \texttt{serial\_}\allowbreak\texttt{driver\_}\allowbreak\texttt{b} chịu trách nhiệm giao tiếp UART với 12 động cơ servo, còn node \texttt{imu\_}\allowbreak\texttt{sensor\_}\allowbreak\texttt{node} thu thập dữ liệu trực tiếp từ cảm biến quán tính. Kiến trúc phân tầng này giúp hệ thống đạt độ tin cậy cao, dễ dàng bảo trì và tận dụng lại toàn bộ mã nguồn điều khiển cốt lõi từ mô phỏng.
 
 \begin{figure}[H]
     \centering
@@ -56,7 +56,7 @@ Toàn bộ hệ thống phần mềm được tổ chức thành 6 packages ROS~
 \caption{Cấu trúc các ROS 2 packages trong hệ thống}
 \label{tab:ros2_packages}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{0.22\linewidth}|p{0.12\linewidth}|p{0.52\linewidth}|}
+\begin{tabular}{|p{0.25\linewidth}|p{0.12\linewidth}|p{0.49\linewidth}|}
 \hline
 \textbf{Package} & \textbf{Ngôn ngữ} & \textbf{Chức năng} \\ \hline
 \texttt{leg\_controller} & Python & Tạo dáng đi, IK solver, quy hoạch quỹ đạo, giao tiếp servo \\ \hline
@@ -74,7 +74,7 @@ Toàn bộ hệ thống phần mềm được tổ chức thành 6 packages ROS~
 \begin{itemize}
     \item \textbf{Quản lý trạng thái:} Robot chuyển đổi giữa các trạng thái: INIT (khởi tạo) $\rightarrow$ ZERO (khởi tạo tư thế đứng) $\rightarrow$ TROT/WALK/PUSHUP/SWAY (dáng đi) $\rightarrow$ ROBOTOFF (tắt an toàn). Mỗi trạng thái có chu trình cập nhật độc lập để xử lý logic trong một khung thời gian điều khiển (frame).
     \item \textbf{Tạo quỹ đạo:} Gọi thuật toán nội suy quỹ đạo để tạo quỹ đạo hình chữ D cho mỗi chân, sau đó giải phương trình động học nghịch (IK) để chuyển đổi từ tọa độ Đề-các sang không gian góc khớp.
-    \item \textbf{Áp dụng hiệu chỉnh IMU:} Nhận tín hiệu bù từ Balance Controller qua hai topic \texttt{/posture/home\_correction} và \texttt{/posture/gait\_correction}, áp dụng vào góc khớp (HOME) hoặc tọa độ bàn chân (GAIT).
+    \item \textbf{Áp dụng hiệu chỉnh IMU:} Nhận tín hiệu bù từ Balance Controller qua hai topic \texttt{/posture/}\allowbreak\texttt{home\_correction} và \texttt{/posture/}\allowbreak\texttt{gait\_correction}, áp dụng vào góc khớp (HOME) hoặc tọa độ bàn chân (GAIT).
     \item \textbf{Xuất lệnh servo:} Gửi góc điều khiển đến phân hệ giao tiếp phần cứng để chuyển đổi từ góc khớp phân tích sang góc vật lý của servo và truyền qua giao thức UART.
 \end{itemize}
 

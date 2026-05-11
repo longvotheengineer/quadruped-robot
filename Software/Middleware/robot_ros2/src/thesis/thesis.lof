@@ -25,7 +25,7 @@
 \contentsline {figure}{\numberline {2-22}{\ignorespaces Phân tích lực tác dụng lên một khâu tổng quát $i$ (lưu ý: lực tiếp xúc với mặt đất chỉ tồn tại khi khâu $i$ là một trong các khâu chân dưới).\relax }}{37}{figure.caption.29}%
 \contentsline {figure}{\numberline {2-23}{\ignorespaces Tổng quan kiến trúc điều khiển của hệ thống (Locomotion Planner \& Balance Controller)\relax }}{39}{figure.caption.30}%
 \contentsline {figure}{\numberline {2-24}{\ignorespaces Minh họa quá trình điều chỉnh tư thế thân robot: từ $\mathbf {p}_{raw}$ (trước bù) sang $\mathbf {p}_{adj}$ (sau bù), chỉ thay đổi $z$, giữ nguyên $x, y$\relax }}{41}{figure.caption.33}%
-\contentsline {figure}{\numberline {2-25}{\ignorespaces Kiến trúc bộ điều khiển PID thích nghi cho ổn định tư thế\relax }}{41}{figure.caption.34}%
+\contentsline {figure}{\numberline {2-25}{\ignorespaces Kiến trúc bộ điều khiển PID cho ổn định tư thế\relax }}{41}{figure.caption.34}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3-1}{\ignorespaces Thiết kế thân liền khối nhằm đạt độ bền cao và khối lượng nhẹ.\relax }}{45}{figure.caption.37}%
 \contentsline {figure}{\numberline {3-2}{\ignorespaces Nắp thân.\relax }}{46}{figure.caption.38}%

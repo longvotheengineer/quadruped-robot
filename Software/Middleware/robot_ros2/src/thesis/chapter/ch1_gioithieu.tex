@@ -29,7 +29,7 @@ Sandeep \textit{et al.} \cite{sandeep2021} trình bày quy trình thiết kế v
 
 Về phương pháp quy hoạch dáng đi, Marhefka và Orin \cite{marhefka1999} đã nghiên cứu tối ưu hóa năng lượng trong quá trình di chuyển của robot có chân, chứng minh hiệu quả năng lượng của dáng đi trot so với các dáng đi khác.
 
-Nhìn chung, các công trình trên đều sử dụng các phương pháp động học DH \cite{denavit1955} và quy hoạch quỹ đạo đa thức tương tự như cách tiếp cận trong nghiên cứu này. Điểm khác biệt chính nằm ở quy mô hệ thống: các nghiên cứu trên thường sử dụng động cơ BLDC công suất lớn và vi xử lý chuyên dụng, trong khi công trình này tập trung vào mô hình cỡ nhỏ sử dụng servo bus nối tiếp và máy tính nhúng Jetson Nano.
+Nhìn chung, các công trình trên đều sử dụng các phương pháp động học MD-H \cite{denavit1955} và quy hoạch quỹ đạo đa thức tương tự như cách tiếp cận trong nghiên cứu này. Điểm khác biệt chính nằm ở quy mô hệ thống: các nghiên cứu trên thường sử dụng động cơ BLDC công suất lớn và vi xử lý chuyên dụng, trong khi công trình này tập trung vào mô hình cỡ nhỏ sử dụng servo bus nối tiếp và máy tính nhúng Jetson Nano.
 
 
 
@@ -40,7 +40,7 @@ Nhìn chung, các công trình trên đều sử dụng các phương pháp đ�
 Mục tiêu tổng quát của đề tài là thiết kế hệ thống điều khiển và phản hồi cho một hệ thống robot bốn chân mô hình cỡ nhỏ có khả năng duy trì chuyển động đi lại trên mặt phẳng nằm ngang, thông qua sự hỗ trợ của các module cảm biến. Các mục tiêu cụ thể bao gồm:
 
 \begin{itemize}
-    \item \textbf{Xây dựng mô hình động học:} Thiết lập mô hình động học thuận và động học nghịch cho cơ cấu chân robot 3 bậc tự do bằng phương pháp Denavit--Hartenberg \cite{denavit1955}.
+    \item \textbf{Xây dựng mô hình động học:} Thiết lập mô hình động học thuận và động học nghịch cho cơ cấu chân robot 3 bậc tự do bằng phương pháp Modified Denavit--Hartenberg (MD-H) \cite{denavit1955}.
     \item \textbf{Phát triển thuật toán điều khiển:} Xây dựng thuật toán quy hoạch dáng đi (gait planning) và quy hoạch quỹ đạo bàn chân (trajectory planning) sử dụng nội suy đa thức bậc năm.
     \item \textbf{Xây dựng hệ thống giao tiếp:} Thiết kế kiến trúc phần cứng với giao tiếp I2C (cảm biến IMU) và UART (động cơ servo) trên nền tảng máy tính nhúng Jetson Nano.
     \item \textbf{Mô phỏng và thực nghiệm:} Xác minh tính đúng đắn của thuật toán thông qua mô phỏng trên ROS~2 và Gazebo trước khi triển khai trên mô hình thực.
@@ -60,10 +60,10 @@ Mục tiêu tổng quát của đề tài là thiết kế hệ thống điều 
 \begin{itemize}
     \item Lập kế hoạch dáng đi trot (chạy kiệu) cho robot bốn chân trên mặt phẳng nằm ngang.
     \item Thiết kế và chế tạo mô hình robot bốn chân 12 bậc tự do với cấu trúc chân nối tiếp (serial), cấu hình full-elbow.
-    \item Sử dụng phương pháp DH (Denavit--Hartenberg) để xây dựng mô hình động học thuận và nghịch cho cơ cấu chân 3 bậc tự do.
+    \item Sử dụng phương pháp MD-H (Modified Denavit--Hartenberg) để xây dựng mô hình động học thuận và nghịch cho cơ cấu chân 3 bậc tự do.
     \item Thiết kế bộ điều khiển PID nâng cao kết hợp phản hồi cảm biến IMU cho cân bằng tư thế.
     \item Mô phỏng hệ thống trên ROS~2 Humble kết hợp Gazebo Classic, sử dụng bộ điều khiển PD effort-based.
-    \item Triển khai và thử nghiệm trên phần cứng thực sử dụng Jetson Nano, servo ST3215 và IMU BNO055.
+    \item Thực nghiệm thực tế trên máy tính nhúng Jetson Nano, servo ST3215 và cảm biến BNO055.
 \end{itemize}
 
 Đồ án \textbf{không} bao gồm các nội dung sau: điều khiển nâng cao MPC/impedance control, thị giác máy tính, SLAM, điều hướng tự động, học tăng cường, và vận hành trên địa hình phức tạp.
@@ -73,7 +73,7 @@ Mục tiêu tổng quát của đề tài là thiết kế hệ thống điều 
 Đồ án áp dụng phương pháp nghiên cứu kết hợp lý thuyết, mô phỏng và thực nghiệm theo quy trình phát triển sim-to-real (từ mô phỏng đến thực tế):
 
 \begin{itemize}
-    \item \textbf{Nghiên cứu cơ sở lý thuyết:} Phân tích các tài liệu về cơ học robot \cite{siciliano2009, craig2005, spong2020}, sử dụng phương pháp giải tích toán học và ma trận biến đổi DH để xây dựng mô hình động học. Nghiên cứu lý thuyết bộ điều khiển PID và các cải tiến nâng cao (anti-windup, gain scheduling, deadband).
+    \item \textbf{Nghiên cứu cơ sở lý thuyết:} Phân tích các tài liệu về cơ học robot \cite{siciliano2009, craig2005, spong2020}, sử dụng phương pháp giải tích toán học và ma trận biến đổi MD-H để xây dựng mô hình động học. Nghiên cứu lý thuyết bộ điều khiển PID và các cải tiến nâng cao (anti-windup, gain scheduling, deadband).
 
     \item \textbf{Thiết kế cơ khí:} Sử dụng SolidWorks để thiết kế 3D toàn bộ chi tiết robot, phân tích ứng suất FEA để kiểm chứng độ bền. Chế tạo bằng công nghệ in 3D FDM sử dụng vật liệu PLA.
 
@@ -138,7 +138,7 @@ Toàn bộ khối lượng công việc là sự nỗ lực và phối hợp ch�
         \multicolumn{2}{|c|}{\textbf{Thực hiện chung}} & 
         \vspace{-0.4cm}
         \begin{itemize}
-            \item Nghiên cứu cơ sở lý thuyết: động học nghịch (IK) theo phương pháp Denavit--Hartenberg, quy hoạch quỹ đạo đa thức bậc 5, dáng đi Trot và thuật toán điều khiển PID.
+            \item Nghiên cứu cơ sở lý thuyết: động học nghịch (IK) theo phương pháp Modified Denavit--Hartenberg (MD-H), quy hoạch quỹ đạo đa thức bậc 5, dáng đi Trot và thuật toán điều khiển PID.
             \item Thực nghiệm sim-to-real: chuyển đổi thuật toán từ mô phỏng xuống phần cứng thực, tinh chỉnh (tuning) các hệ số điều khiển và đánh giá khả năng cân bằng tư thế.
             \item Tổng hợp số liệu, phân tích biểu đồ và biên soạn tài liệu báo cáo luận văn hoàn chỉnh.
         \end{itemize} \vspace{-0.4cm} \\ \hline

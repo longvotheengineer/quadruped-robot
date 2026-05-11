@@ -215,22 +215,22 @@ Hệ số LPF đầu ra & $\alpha_c$ & 0,15 & Làm mượt tín hiệu bù \\ \h
 
 \begin{table}[H]
 \centering
-\caption{Tham số bộ điều khiển PID thích nghi -- Chế độ động (GAIT)}
+\caption{Tham số bộ điều khiển PID -- Chế độ động (GAIT)}
 \label{tab:pid_gait_params}
 \renewcommand{\arraystretch}{1.3}
 \begin{tabular}{|l|c|c|l|}
 \hline
 \textbf{Tham số} & \textbf{Ký hiệu} & \textbf{Giá trị} & \textbf{Mô tả} \\ \hline
-Hệ số tỷ lệ & $K_P$ & 3,0 & Khuếch đại thích nghi \\ \hline
+Hệ số tỷ lệ & $K_P$ & 3,0 & Khuếch đại động \\ \hline
 Hệ số tích phân & $K_I$ & 0,005 & Rất nhỏ (tránh dao động) \\ \hline
 Hệ số vi phân & $K_D$ & 1,2 & Giảm chấn mạnh \\ \hline
-Hệ số thích nghi P & $K_{prop}$ & 10,0 & Chia tỷ lệ adaptive gain \\ \hline
+Hệ số động P & $K_{prop}$ & 10,0 & Chia tỷ lệ dynamic gain \\ \hline
 Vùng chết trung bình & $d_{avg}$ & 0,03 rad & Ngưỡng triệt nhiễu \\ \hline
 Bão hòa đầu ra & $u_{max}$ & 0,30 rad & Giới hạn nhỏ hơn HOME \\ \hline
 Bão hòa tích phân & $\mathcal{I}_{max}$ & 0,3 & Chống windup \\ \hline
 Hệ số LPF đầu ra & $\alpha_{lpf}$ & 0,97 & Lọc mạnh hơn HOME \\ \hline
 Số chu kỳ học baseline & $N_{learn}$ & 2 & Chu kỳ dáng đi \\ \hline
-Tốc độ thích nghi baseline & $\eta_{adapt}$ & 0,05 & Cập nhật baseline \\ \hline
+Tốc độ hội tụ baseline & $\eta_{adapt}$ & 0,05 & Cập nhật baseline \\ \hline
 \end{tabular}
 \end{table}
 
@@ -267,7 +267,7 @@ Hình~\ref{results/offline_traj_angle} cho thấy các góc khớp $(\theta_1, \
 
 \subsection{Quỹ đạo 3D bàn chân trong môi trường mô phỏng}
 
-Hình~\ref{fig_gait_3d_real} trình bày quỹ đạo 3D thực tế của bàn chân khi chạy trong môi trường mô phỏng Gazebo. Ý nghĩa của đồ thị này vượt ra ngoài việc xác nhận hình chữ D đặc trưng; nó minh chứng cho sự tương thích hoàn hảo giữa luồng phần mềm lập kế hoạch tĩnh (ROS~2 node) và Engine vật lý động lực học (chịu ảnh hưởng của trọng lực, ma sát, quán tính). Quỹ đạo thực tế bám sát quỹ đạo lý thuyết chứng minh rằng bộ điều khiển cấp thấp (Low-level PD controller) đã giải quyết tốt bài toán bám sát quỹ đạo (trajectory tracking) dưới tải trọng thực của robot.
+Hình~\ref{fig_gait_3d_real} trình bày quỹ đạo 3D thực tế của bàn chân khi chạy trong môi trường mô phỏng Gazebo. Ý nghĩa của đồ thị này vượt ra ngoài việc xác nhận hình chữ D đặc trưng; nó minh chứng cho sự tương thích hoàn hảo giữa luồng phần mềm lập kế hoạch tĩnh (ROS~2 node) và Engine vật lý động lực học (chịu ảnh hưởng của trọng lực, ma sát, quán tính). Quỹ đạo thực tế bám sát quỹ đạo lý thuyết chứng minh rằng bộ điều khiển cấp thấp (Low-level PD controller) trên mô phỏng đã giải quyết tốt bài toán thực thi quỹ đạo dưới tải trọng ảo của robot.
 
 \begin{figure}[H]
     \centering
@@ -333,7 +333,7 @@ Hình \ref{fig:home_pid_roll_pid} và Hình \ref{fig:home_pid_pitch_pid} phân r
 
 \subsection{Ổn định động trong dáng đi Trot (chế độ GAIT)}
 
-Hình~\ref{fig_pid_gait} phân tích bài toán ổn định tư thế trong chế độ GAIT (dáng đi Trot), nơi bộ điều khiển đối mặt với thách thức phức tạp hơn nhiều do va đập chu kỳ từ các bước chân sinh ra nhiễu động học. Ý nghĩa cốt lõi của đồ thị này là chứng minh sự vượt trội của cấu trúc PID thích nghi: thay vì bị "đánh lừa" và phản ứng thái quá với các rung lắc tự nhiên của dáng đi (có những đỉnh nhiễu lên tới $\sim 0{,}15$ rad), bộ điều khiển đã duy trì thành công biên độ sai lệch định hướng xoay quanh mức an toàn $0{,}08$ rad. Năng lực này giải quyết triệt để bài toán trôi dạt tư thế (attitude drift), đảm bảo thân robot vận động phẳng, liên tục và không bị lật nhào khi di chuyển quãng đường dài.
+Hình~\ref{fig_pid_gait} phân tích bài toán ổn định tư thế trong chế độ GAIT (dáng đi Trot), nơi bộ điều khiển đối mặt với thách thức phức tạp hơn nhiều do va đập chu kỳ từ các bước chân sinh ra nhiễu động học. Ý nghĩa cốt lõi của đồ thị này là chứng minh sự vượt trội của cấu trúc PID: thay vì bị "đánh lừa" và phản ứng thái quá với các rung lắc tự nhiên của dáng đi (có những đỉnh nhiễu lên tới $\sim 0{,}15$ rad), bộ điều khiển đã duy trì thành công biên độ sai lệch định hướng xoay quanh mức an toàn $0{,}08$ rad. Năng lực này giải quyết triệt để bài toán trôi dạt tư thế (attitude drift), đảm bảo thân robot vận động phẳng, liên tục và không bị lật nhào khi di chuyển quãng đường dài.
 
 \begin{figure}[H]
     \centering
@@ -344,7 +344,7 @@ Hình~\ref{fig_pid_gait} phân tích bài toán ổn định tư thế trong ch�
 
 \subsubsection{Phân tích tín hiệu nội bộ chuỗi xử lý PID (Chế độ GAIT)}
 
-Trong chế độ di chuyển (GAIT), bộ điều khiển phải đối mặt với các nhiễu loạn có tính chu kỳ sinh ra từ bước chân chạm đất. Chuỗi xử lý được bổ sung các cơ chế thích nghi đặc thù để duy trì ổn định.
+Trong chế độ di chuyển (GAIT), bộ điều khiển phải đối mặt với các nhiễu loạn có tính chu kỳ sinh ra từ bước chân chạm đất. Chuỗi xử lý được bổ sung các cơ chế xử lý đặc thù để duy trì ổn định.
 
 Hình \ref{fig:trot_pid_meas} minh họa hoạt động của cơ chế đường cơ sở trung bình trượt (Moving Average Baseline). Thuật toán này sinh ra để giải quyết bài toán "nhận diện nhầm" (false positive) rất phổ biến trong điều khiển động học chân. Khi robot bước đi, thân máy tất yếu sẽ dao động theo nhịp. Nếu PID lấy giá trị tuyệt đối $0$ làm mốc, nó sẽ liên tục xuất lệnh "chống lại" bước đi của chính con robot. Việc sử dụng đường tham chiếu động (đường baseline mượt) giúp hệ thống thông minh hơn: nó bỏ qua sự lắc lư tự nhiên và chỉ xuất lệnh bù khi thân robot thực sự mất trọng tâm do tác động của ngoại lực hay địa hình dốc.
 
@@ -453,7 +453,7 @@ Hệ thống phần cứng thực được khởi động thông qua kịch bả
     \item \textbf{Leg Controller} (\texttt{node\_leg\_controller}): Tính toán động học nghịch, quy hoạch quỹ đạo và gửi lệnh điều khiển đến hai driver.
 \end{itemize}
 
-Mỗi serial driver nhận lệnh góc servo (đơn vị độ) từ topic \texttt{/servo\_commands\_a} hoặc \texttt{/servo\_commands\_b}, chuyển đổi sang giá trị tick (0--4095) và gửi qua giao tiếp UART bán song công đến các servo ST3215. Tốc độ truyền (baudrate) được cấu hình ở mức 1~Mbps để đảm bảo đáp ứng thời gian thực.
+Mỗi serial driver nhận lệnh góc servo (đơn vị độ) từ topic \texttt{/servo\_}\allowbreak\texttt{commands\_}\allowbreak\texttt{a} hoặc \texttt{/servo\_}\allowbreak\texttt{commands\_}\allowbreak\texttt{b}, chuyển đổi sang giá trị tick (0--4095) và gửi qua giao tiếp UART bán song công đến các servo ST3215. Tốc độ truyền (baudrate) được cấu hình ở mức 1~Mbps để đảm bảo đáp ứng thời gian thực.
 
 \subsection{Chuyển đổi góc IK sang góc servo}
 
@@ -572,6 +572,7 @@ Tốc độ di chuyển tiến về phía trước theo lý thuyết với chi�
 
 Thiết kế tuần tự ba pha đảm bảo rằng robot không bao giờ rơi tự do: thân được hạ từ từ xuống đất trước khi các chân được thu gọn. Các giá trị góc đích có biên độ an toàn $\sim$3$^\circ$ so với giới hạn EEPROM của servo, tránh hiện tượng kẹt cơ khí.
 
+
 \subsection{Các vấn đề thực tế và giải pháp}
 
 Trong quá trình triển khai và thử nghiệm trên phần cứng thực, nhóm đã gặp và giải quyết một số vấn đề kỹ thuật quan trọng:
@@ -607,7 +608,7 @@ Duty cycle $\beta$ & 91,2\% & 81,6\% \\ \hline
 Chiều dài bước & -- & 10 mm \\ \hline
 Độ cao nâng chân & 40 mm & 100 mm \\ \hline
 Bộ điều khiển & PD ($K_p=20$, $K_d=0,5$) & Servo PI nội bộ \\ \hline
-Phản hồi IMU & Có (mô phỏng) & Có (BNO055 -- I2C) \\ \hline
+Phản hồi IMU & Có (mô phỏng) & Phần cứng có sẵn (chưa tích hợp) \\ \hline
 \end{tabular}
 \end{table}
 
@@ -645,18 +646,4 @@ Một số yếu tố phi lý tưởng (non-ideal factors) ảnh hưởng đến
     \item \textbf{Độ trễ truyền thông UART:} Giao thức UART bán song công giới hạn tốc độ cập nhật lệnh servo. Với baudrate 1~Mbps và 6 servo/driver, thời gian truyền một frame lệnh khoảng 1--2~ms, thấp hơn đáng kể so với chu kỳ điều khiển 7~ms.
     \item \textbf{Sai lệch lắp ráp:} Dung sai gia công và lắp ráp tạo ra sự không đồng đều về chiều cao giữa các chân, được bù bằng tham số $z\_\text{offset}$ riêng cho mỗi chân.
 \end{itemize}
-\begin{table}[H]
-\centering
-\caption{Quy trình tắt an toàn ba pha}
-\label{tab:robotoff}
-\renewcommand{\arraystretch}{1.4}
-\begin{tabular}{|c|p{0.15\linewidth}|p{0.45\linewidth}|c|}
-\hline
-\textbf{Pha} & \textbf{Khớp} & \textbf{Mô tả} & \textbf{Thời gian} \\ \hline
-1 & Joint 3 (gối) & Gập gối → thân robot hạ xuống đất. LF/LB: $-47^\circ$, RF/RB: $+47^\circ$ & $\sim$0,9~s \\ \hline
-2 & Joint 2 (vai) & Thu vai → chân gập sát thân robot. & $\sim$0,9~s \\ \hline
-3 & Joint 1 (hông) & Xoè hông → chân xoè ra ngoài, robot nằm phẳng. & $\sim$0,9~s \\ \hline
-\end{tabular}
-\end{table}
 
-Thiết kế tuần tự ba pha đảm bảo rằng robot không bao giờ rơi tự do: thân được hạ từ từ xuống đất trước khi các chân được thu gọn. Các giá trị góc đích có biên độ an toàn $\sim$3$^\circ$ so với giới hạn EEPROM của servo, tránh hiện tượng kẹt cơ khí.

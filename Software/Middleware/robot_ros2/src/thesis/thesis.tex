@@ -136,7 +136,7 @@
 \multicolumn{2}{|l|}{\textbf{HỌ VÀ TÊN 2:}} & Võ Quế Long & \textbf{MSSV:} & 2211910 \\
 \hline
 %%% NGÀNH 2
-\multicolumn{2}{|l|}{\textbf{NGÀNH:}} & Kỹ thuật ĐK \& TĐH & \textbf{LỚP:} & \dots\dots\dots \\
+\multicolumn{2}{|l|}{\textbf{NGÀNH:}} & Kỹ thuật ĐK \& TĐH & \textbf{LỚP:} & DD22DTH2 \\
 \hline
 %%% DÒNG TRỐNG
 \multicolumn{5}{|l|}{} \\
@@ -173,7 +173,7 @@
 5. & \multicolumn{3}{l|}{\textbf{Họ và tên người hướng dẫn:}} &
 \textbf{Phần hướng dẫn:} \\
 -- & \multicolumn{3}{l|}{TS. Nguyễn Lê Dũng} & Toàn bộ \\
--- & \multicolumn{3}{l|}{} & \\
+
 \hline
 %%% THÔNG QUA
 \multicolumn{5}{|l|}{Nội dung và yêu cầu KLTN đã được thông qua Chủ trì ngành.} \\
@@ -234,16 +234,18 @@ Nơi lưu trữ luận án: \dotfill
 	
 \begin{abstract}
 
-Đồ án này trình bày quá trình nghiên cứu, thiết kế, mô phỏng và chế tạo một hệ thống robot bốn chân (quadruped robot) 12 bậc tự do với khả năng di chuyển và tự cân bằng tĩnh cũng như động. Robot sử dụng cấu trúc động học chân nối tiếp (serial leg) 3 bậc tự do, được truyền động bởi 12 động cơ bus servo ST3215 và điều khiển tập trung bởi máy tính nhúng NVIDIA Jetson Nano.
+Đồ án này trình bày quá trình nghiên cứu, thiết kế, mô phỏng và chế tạo một hệ thống robot bốn chân 12 bậc tự do với khả năng di chuyển linh hoạt. Robot sử dụng cấu trúc chân nối tiếp 3 bậc tự do, truyền động bởi 12 động cơ servo ST3215 và điều khiển tập trung bằng máy tính nhúng NVIDIA Jetson Nano.
 
-Về mặt lý thuyết, phương pháp Denavit--Hartenberg (D-H) được áp dụng để xây dựng mô hình động học thuận, làm cơ sở giải quyết bài toán động học nghịch bằng phương pháp hình học giải tích. Quỹ đạo bước chân được quy hoạch dựa trên nội suy đa thức bước mượt bậc năm (quintic smooth-step), đảm bảo tính liên tục bậc hai ($C^2$) của vận tốc và gia tốc, giúp robot di chuyển mượt mà và giảm thiểu lực giật (jerk). Dáng đi Trot chéo được lựa chọn làm phương thức di chuyển chủ đạo nhờ sự cân bằng tối ưu giữa tốc độ và độ ổn định tĩnh marginal.
+Về mặt lý thuyết, phương pháp Modified Denavit--Hartenberg (MD-H) được áp dụng để xây dựng mô hình động học thuận, làm cơ sở giải quyết bài toán động học nghịch bằng phương pháp hình học giải tích. Quỹ đạo bước chân được quy hoạch dựa trên nội suy đa thức bậc năm, đảm bảo tính liên tục của vận tốc và gia tốc, giúp cơ cấu di chuyển mượt mà và tránh sự thay đổi gia tốc đột ngột. Dáng đi chéo góc (Trot) được lựa chọn làm phương thức di chuyển chủ đạo nhờ sự cân bằng tối ưu giữa tốc độ và độ ổn định.
 
-Hệ thống được mô phỏng trên nền tảng ROS~2 Humble kết hợp Gazebo Classic. Mô hình sử dụng bộ điều khiển tỷ lệ - vi phân (PD) nhằm đánh giá khả năng bám quỹ đạo và phân tích lực - mô men tác dụng lên các khớp động cơ. Kết quả mô phỏng cho thấy các giá trị mô-men đều nằm trong giới hạn an toàn của cơ cấu chấp hành, khẳng định tính khả thi trong khâu thiết kế cơ khí và lựa chọn phần cứng.
+Hệ thống được mô phỏng trên nền tảng ROS~2 Humble kết hợp với môi trường Gazebo Classic để đánh giá đặc tính động học và phân tích lực, mô-men tác dụng lên các khớp chân. Kết quả mô phỏng cho thấy thông số động lực học đều nằm trong giới hạn an toàn của động cơ servo, qua đó khẳng định tính khả thi của khâu thiết kế cơ khí và cấu hình phần cứng.
 
-Điểm nhấn kỹ thuật cốt lõi của đồ án là việc phát triển và tích hợp thành công kiến trúc điều khiển cân bằng dựa trên phản hồi tư thế từ cảm biến IMU BNO055. Hệ thống sử dụng bộ điều khiển PID thích nghi (Adaptive PID) được thiết kế chuyên biệt cho hai trạng thái vận hành: (1) \textbf{Chế độ tĩnh (HOME)} áp dụng lượng bù trực tiếp vào không gian khớp (Joint Space) giúp tối ưu hóa thời gian phản hồi; (2) \textbf{Chế độ động (GAIT)} thực hiện bù trừ bằng ma trận xoay trong không gian làm việc (Task Space), kết hợp cơ chế nhận biết pha (phase-aware) để chỉ điều chỉnh trục Z của các chân pha chống (stance), qua đó duy trì trạng thái thân song song với mặt đất mà không làm biến dạng chiều dài sải bước thực tế.
+Điểm nhấn kỹ thuật của đồ án là việc phát triển kiến trúc điều khiển cân bằng tự động dựa trên tín hiệu tư thế từ cảm biến IMU. Trong môi trường mô phỏng, hệ thống đã tích hợp thành công bộ điều khiển PID với hai trạng thái vận hành chuyên biệt: ở trạng thái tĩnh, hệ thống áp dụng lượng bù trực tiếp vào không gian khớp để tối ưu thời gian đáp ứng; ở trạng thái di chuyển động, quá trình bù trừ được thực hiện thông qua ma trận xoay trong không gian làm việc kết hợp với việc nhận biết pha bước chân. Thuật toán này điều chỉnh độc lập độ cao của các chân đang chạm đất, giúp thân robot duy trì trạng thái song song với bề mặt di chuyển mà không làm sai lệch sải bước.
+
+Đối với mô hình thực tế, quá trình chế tạo và lập trình đã đáp ứng đúng thiết kế đề ra. Hiện tại, tính năng điều khiển cân bằng tự động qua phản hồi IMU mới hoàn thiện ở mức độ mô phỏng và chưa được tích hợp hoàn chỉnh lên robot thực tế. Trên thực tế, hệ thống chỉ sử dụng phương pháp động học nghịch để thực thi các dáng đi cơ bản (tiến, lùi, rẽ) mà không tích hợp khả năng bám quỹ đạo phức tạp. Thêm vào đó, do khối lượng tổng thể của robot thực tế vượt quá tính toán thiết kế ban đầu, mô-men xoắn của các động cơ servo tại hai chân trước không đáp ứng đủ yêu cầu tải trọng động. Điều này dẫn đến hiện tượng các bàn chân trước ma sát và rê nhẹ trên mặt đất trong pha nhấc chân thay vì đạt được độ cao bước định mức. Dù vậy, hệ thống vẫn duy trì được hình thái vận động tổng thể, đáp ứng các mục tiêu cốt lõi về cấu trúc cơ khí và nền tảng điều khiển của đề tài.
 
 \vspace{0.5cm}
-\noindent\textbf{Từ khóa:} Robot bốn chân, động học nghịch, quy hoạch quỹ đạo, dáng đi Trot, đa thức bậc năm, ROS~2, Gazebo, bộ điều khiển PID thích nghi.
+\noindent\textbf{Từ khóa:} Robot bốn chân, động học nghịch, quy hoạch quỹ đạo, dáng đi Trot, đa thức bậc năm, ROS~2, Gazebo, bộ điều khiển PID.
 
 \end{abstract}
 

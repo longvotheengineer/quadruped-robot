@@ -57,7 +57,7 @@
 \contentsline {subsection}{\numberline {2.15.1}Kiến trúc điều khiển tổng thể}{38}{subsection.2.15.1}%
 \contentsline {subsection}{\numberline {2.15.2}Cơ chế áp dụng tín hiệu điều chỉnh tư thế}{39}{subsection.2.15.2}%
 \contentsline {subsection}{\numberline {2.15.3}Bộ điều khiển cân bằng IMU -- Chế độ tĩnh (HOME)}{41}{subsection.2.15.3}%
-\contentsline {subsection}{\numberline {2.15.4}Bộ điều khiển cân bằng thích nghi -- Chế độ động (GAIT)}{42}{subsection.2.15.4}%
+\contentsline {subsection}{\numberline {2.15.4}Bộ điều khiển cân bằng -- Chế độ động (GAIT)}{42}{subsection.2.15.4}%
 \contentsline {subsection}{\numberline {2.15.5}Tổng hợp pipeline điều khiển}{43}{subsection.2.15.5}%
 \contentsline {subsection}{\numberline {2.15.6}So sánh hai chế độ điều khiển}{44}{subsection.2.15.6}%
 \contentsline {chapter}{\numberline {3}THIẾT KẾ VÀ THỰC HIỆN PHẦN CỨNG}{45}{chapter.3}%
@@ -119,12 +119,12 @@
 \contentsline {section}{\numberline {5.5}Phân tích sự khác biệt giữa mô phỏng và thực nghiệm}{89}{section.5.5}%
 \contentsline {subsection}{\numberline {5.5.1}Khác biệt về tham số dáng đi}{90}{subsection.5.5.1}%
 \contentsline {subsection}{\numberline {5.5.2}Các yếu tố phi lý tưởng trên phần cứng thực}{90}{subsection.5.5.2}%
-\contentsline {chapter}{\numberline {6}KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}{92}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Kết luận}{92}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Đóng góp của đề tài}{93}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Hạn chế}{93}{subsection.6.1.2}%
-\contentsline {section}{\numberline {6.2}Hướng phát triển}{94}{section.6.2}%
-\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{94}{section.6.2}%
-\contentsline {chapter}{PHỤ LỤC A}{97}{chapter*.94}%
-\contentsline {chapter}{PHỤ LỤC B}{99}{chapter*.95}%
-\contentsline {chapter}{PHỤ LỤC C}{101}{chapter*.96}%
+\contentsline {chapter}{\numberline {6}KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}{91}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Kết luận}{91}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Đóng góp của đề tài}{92}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Hạn chế}{92}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Hướng phát triển}{93}{section.6.2}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{93}{section.6.2}%
+\contentsline {chapter}{PHỤ LỤC A}{96}{chapter*.93}%
+\contentsline {chapter}{PHỤ LỤC B}{98}{chapter*.94}%
+\contentsline {chapter}{PHỤ LỤC C}{100}{chapter*.95}%

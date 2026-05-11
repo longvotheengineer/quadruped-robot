@@ -683,7 +683,7 @@ Hệ thống điều khiển tổng thể của robot hoạt động với tần
     Khi robot đứng yên tại chỗ, khối Locomotion Planner đóng vai trò duy trì tọa độ đứng danh định. Trong khi đó, dữ liệu Roll và Pitch từ cảm biến IMU liên tục được đưa qua bộ điều khiển PID để tính toán lượng bù góc khớp (Joint Space Offset). Lượng bù này ($\Delta\theta_3$) được cộng trực tiếp vào góc khớp gối ở khâu cuối cùng (sau khối Động học nghịch IK), ngay trước khi gửi lệnh xuống động cơ. Cấu trúc này đảm bảo phản ứng cực kỳ nhanh nhạy để giữ thăng bằng chống lại nhiễu loạn ngoại lực hoặc bề mặt nền nghiêng.
     
     \item \textbf{Chế độ động (GAIT) -- Bù trong không gian làm việc (Task Space):} 
-    Khi robot thực hiện dáng đi (ví dụ: Trot), máy trạng thái kích hoạt bộ lập lịch pha (Gait Phase Scheduler) để tạo quỹ đạo bàn chân 3D dạng chữ D. Đồng thời, bộ điều khiển cân bằng chuyển sang cấu hình PID thích nghi (Adaptive PID). Lượng hiệu chỉnh ($\Delta\mathbf{p}$) lúc này được định tuyến để can thiệp vào không gian làm việc (Task Space). Tọa độ bàn chân được cộng bù trực tiếp trong bộ Gait Attitude Compensator, sau đó mới đi qua khối Động học nghịch (IK). Phương pháp này giúp duy trì sải bước chuẩn xác và không làm biến dạng biên độ bước đi của robot.
+    Khi robot thực hiện dáng đi (ví dụ: Trot), máy trạng thái kích hoạt bộ lập lịch pha (Gait Phase Scheduler) để tạo quỹ đạo bàn chân 3D dạng chữ D. Đồng thời, bộ điều khiển cân bằng chuyển sang cấu hình PID. Lượng hiệu chỉnh ($\Delta\mathbf{p}$) lúc này được định tuyến để can thiệp vào không gian làm việc (Task Space). Tọa độ bàn chân được cộng bù trực tiếp trong bộ Gait Attitude Compensator, sau đó mới đi qua khối Động học nghịch (IK). Phương pháp này giúp duy trì sải bước chuẩn xác và không làm biến dạng biên độ bước đi của robot.
 \end{itemize}
 
 Sau khi đi qua các luồng xử lý tương ứng, góc khớp mục tiêu cuối cùng (Unified Final Joint Angles) được hợp nhất và truyền tải qua giao tiếp UART song song (Bus A \& B) đến các bộ truyền động servo ST3215 tại bốn cụm chân, đảm bảo khả năng thực thi đồng bộ thời gian thực.
@@ -745,7 +745,7 @@ Trong chế độ tĩnh (HOME), toàn bộ bốn chân duy trì tiếp xúc mặ
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{architecture/pid_architecture.pdf}
-    \caption{Kiến trúc bộ điều khiển PID thích nghi cho ổn định tư thế}
+    \caption{Kiến trúc bộ điều khiển PID cho ổn định tư thế}
     \label{fig_pid_arch}
 \end{figure}
 
@@ -794,14 +794,14 @@ Bộ lọc thông thấp bậc nhất làm mượt tín hiệu hiệu chỉnh, l
     H_{k} = \alpha_c H_{k-1} + (1 - \alpha_c)\, u_{sat}
 \end{equation}
 
-\subsection{Bộ điều khiển cân bằng thích nghi -- Chế độ động (GAIT)}
+\subsection{Bộ điều khiển cân bằng -- Chế độ động (GAIT)}
 
-Khi robot đang thực hiện dáng đi, bộ điều khiển chuyển sang chế độ PID thích nghi với ba cơ chế bổ sung:
+Khi robot đang thực hiện dáng đi, bộ điều khiển chuyển sang chế độ PID với ba cơ chế bổ sung:
 
 \textbf{Đường cơ sở trung bình trượt (Moving Average Baseline).}
 Các phép đo IMU được tích lũy vào bộ đệm trải dài một chu kỳ dáng đi đầy đủ. Giá trị trung bình cung cấp ước lượng làm mượt của góc nghiêng thực, lọc bỏ các dao động tuần hoàn vốn có trong vận động có chân.
 
-\textbf{Hệ số khuếch đại tỷ lệ thích nghi (Adaptive Proportional Gain).}
+\textbf{Hệ số khuếch đại tỷ lệ động (Dynamic Proportional Gain).}
 Hệ số tỷ lệ được điều chỉnh động theo biên độ nghiêng tức thời, cung cấp khả năng hiệu chỉnh mạnh hơn khi nhiễu loạn lớn:
 \begin{equation}
     K_{P,eff} = K_P \left(1 + \min\!\left(1{,}0, \;
@@ -852,7 +852,7 @@ Toàn bộ pipeline điều khiển cân bằng trong cả hai chế độ HOME 
 
 Trong chế độ HOME, tín hiệu $H_k$ sau bước 5 được chuyển trực tiếp thành offset góc khớp gối ($\theta_3$) cho từng chân qua công thức tuyến tính ở Mục~4.5.2, với hệ số khuếch đại $K_{home} = 7{,}0$.
 
-Trong chế độ GAIT, pipeline sử dụng bộ tham số khác (Bảng tham số GAIT), bổ sung đường cơ sở trung bình trượt và hệ số khuếch đại thích nghi. Tín hiệu $H_k$ đầu ra được chuyển đổi thành các góc roll/pitch của ma trận xoay $R$, sau đó chỉ áp dụng thành phần $z$ vào vị trí bàn chân pha chống.
+Trong chế độ GAIT, pipeline sử dụng bộ tham số khác (Bảng tham số GAIT), bổ sung đường cơ sở trung bình trượt và hệ số khuếch đại động. Tín hiệu $H_k$ đầu ra được chuyển đổi thành các góc roll/pitch của ma trận xoay $R$, sau đó chỉ áp dụng thành phần $z$ vào vị trí bàn chân pha chống.
 
 \subsection{So sánh hai chế độ điều khiển}
 
@@ -868,10 +868,10 @@ Bảng~\ref{tab:home_vs_gait} tổng hợp sự khác biệt cốt lõi giữa h
 \textbf{Tiêu chí} & \textbf{HOME (tĩnh)} & \textbf{GAIT (động)} \\ \hline
 Không gian áp dụng & Không gian khớp & Không gian làm việc \\ \hline
 Biến hiệu chỉnh & $\theta_3$ (góc gối) & $z$ (tọa độ đứng) \\ \hline
-Hệ số $K_P$ & 2,0 (gain-scheduled) & 3,0 (thích nghi, $K_{P,eff}$ tới 6,0) \\ \hline
+Hệ số $K_P$ & 2,0 (gain-scheduled) & 3,0 (động, $K_{P,eff}$ tới 6,0) \\ \hline
 Hệ số $K_I$ & 0,30 & 0,005 \\ \hline
 Hệ số $K_D$ & 0,15 & 1,2 \\ \hline
-$K_{prop}$ (thích nghi) & $e_{thresh} = 0{,}08$ rad & $K_{prop} = 10{,}0$ \\ \hline
+$K_{prop}$ (động) & $e_{thresh} = 0{,}08$ rad & $K_{prop} = 10{,}0$ \\ \hline
 Bão hòa $u_{max}$ & 1,5 rad (PID) / 0,5 rad (offset) & 0,30 rad \\ \hline
 Lọc đầu ra $\alpha_c$ & 0,15 (nhẹ) & 0,97 (mạnh) \\ \hline
 Phạm vi áp dụng & Tất cả 4 chân & Chỉ chân pha chống \\ \hline

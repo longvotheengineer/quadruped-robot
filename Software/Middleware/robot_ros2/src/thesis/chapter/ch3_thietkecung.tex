@@ -475,6 +475,7 @@ Việc lựa chọn cơ cấu chấp hành có ảnh hưởng trực tiếp đ�
 \caption{Bảng so sánh các loại cơ cấu chấp hành áp dụng cho Robot bốn chân}
 \label{tab:motor_comparison}
 \renewcommand{\arraystretch}{1.3}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{|p{0.2\linewidth}|p{0.2\linewidth}|p{0.2\linewidth}|p{0.25\linewidth}|}
 \hline
 \textbf{Tiêu chí} & \textbf{Động cơ Servo PWM truyền thống} & \textbf{Động cơ BLDC (Tích hợp Driver)} & \textbf{Động cơ Bus Servo nối tiếp} \\ \hline
@@ -486,6 +487,7 @@ Việc lựa chọn cơ cấu chấp hành có ảnh hưởng trực tiếp đ�
 \textbf{Giá thành} & Rất thấp & Rất cao & Trung bình - Hợp lý \\ \hline
 \textbf{Độ phù hợp} & Thấp (Do không có phản hồi và thiếu lực) & Thấp (Dư thừa công suất, chi phí quá cao) & \textbf{Rất cao (Đạt điểm cân bằng tối ưu)} \\ \hline
 \end{tabular}
+}
 \end{table}
 
 Sau khi xác định kiến trúc truyền động tối ưu là sử dụng \textbf{Bus Servo nối tiếp} thay vì Servo PWM hay động cơ BLDC, nhóm đã tiến hành khảo sát và đánh giá các dòng Bus Servo phổ biến trên thị trường để tìm ra phương án phù hợp nhất cho hệ thống 12 bậc tự do của robot. Tuy nhiên, để có cái nhìn trực quan và toàn diện nhất, nhóm cũng đưa vào bảng so sánh một đại diện tiêu biểu của dòng Servo PWM là \textbf{JX Servo PDI-HV5932MG 30KG} -- loại động cơ có lực xoắn lớn, góc quay $180^{\circ}$, vốn rất phổ biến trong các dự án sinh viên để thấy rõ sự khác biệt giữa hai công nghệ.
@@ -497,7 +499,8 @@ Bốn đại diện tiêu biểu được đưa ra so sánh bao gồm: JX PDI-HV
 \caption{So sánh các dòng Servo phổ biến trên thị trường}
 \label{tab:bus_servo_comparison}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{0.16\linewidth}|p{0.18\linewidth}|p{0.18\linewidth}|p{0.22\linewidth}|p{0.16\linewidth}|}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|p{0.14\linewidth}|p{0.17\linewidth}|p{0.18\linewidth}|p{0.21\linewidth}|p{0.20\linewidth}|}
 \hline
 \textbf{Tiêu chí} & \textbf{JX PDI-HV5932MG} & \textbf{Hiwonder LX-16A} & \textbf{Waveshare ST3215 (Được chọn)} & \textbf{Dynamixel XL430-W250-T} \\ \hline
 \textbf{Giao thức} & Xung PWM ($180^{\circ}$) & TTL UART (Half-duplex) & TTL UART (Half-duplex) & TTL UART (Half-duplex) \\ \hline
@@ -509,15 +512,16 @@ Bốn đại diện tiêu biểu được đưa ra so sánh bao gồm: JX PDI-HV
 \textbf{Bộ điều khiển} & Cơ bản (P) & Cơ bản (P) & Nâng cao (PI) & Cao cấp (PID vị trí, vận tốc, dòng) \\ \hline
 \textbf{Giá thành} & Trung bình ($\sim$500.000 VNĐ) & Thấp ($\sim$300.000 VNĐ) & Trung bình ($\sim$500.000 VNĐ) & Rất cao ($\sim$1.500.000 VNĐ) \\ \hline
 \end{tabular}
+}
 \end{table}
 
 Dựa trên các thông số phân tích từ Bảng \ref{tab:bus_servo_comparison}, Waveshare ST3215 được lựa chọn là giải pháp tối ưu cho hệ thống cơ cấu chấp hành vì những lý do sau:
 
 \begin{itemize}
     \item \textbf{Khắc phục nhược điểm của Servo PWM (JX PDI-HV5932MG):} Mặc dù JX PDI-HV5932MG có lực xoắn rất ấn tượng (lên đến 32.3 kg.cm ở mức 8.4V), góc quay giới hạn $180^{\circ}$ và cùng phân khúc giá với ST3215, nhưng việc sử dụng giao thức PWM đơn hướng khiến nó \textbf{không có khả năng phản hồi} trạng thái (góc quay thực tế, dòng điện, nhiệt độ). Điều này là một cản trở lớn đối với bài toán điều khiển thăng bằng robot bốn chân. Hơn nữa, việc phải nối 12 dây tín hiệu PWM riêng biệt từ mỗi động cơ về mạch điều khiển làm sơ đồ đi dây vô cùng phức tạp, dễ sinh nhiễu và đứt ngầm. 
-    \item \textbf{Khắc phục nhược điểm của LX-16A:} Mặc dù Hiwonder LX-16A có lợi thế về giá thành thấp, nhưng lực xoắn tối đa chỉ đạt 17 kg.cm, không đủ để đáp ứng tải trọng động khi robot di chuyển hoặc thực hiện các tư thế phức tạp. Hơn nữa, việc sử dụng biến trở (Potentiometer) làm cảm biến vị trí khiến độ phân giải góc thấp ($0.24^{\circ}$) và dễ bị hao mòn cơ học theo thời gian. Bộ điều khiển của LX-16A chỉ dừng ở mức cơ bản (P), dẫn đến sai số tĩnh lớn và khả năng bám quỹ đạo kém.
+    \item \textbf{Khắc phục nhược điểm của LX-16A:} Mặc dù Hiwonder LX-16A có lợi thế về giá thành thấp, nhưng lực xoắn tối đa chỉ đạt 17 kg.cm, không đủ để đáp ứng tải trọng động khi robot di chuyển hoặc thực hiện các tư thế phức tạp. Hơn nữa, việc sử dụng biến trở (Potentiometer) làm cảm biến vị trí khiến độ phân giải góc thấp ($0.24^{\circ}$) và dễ bị hao mòn cơ học theo thời gian. Bộ điều khiển của LX-16A chỉ dừng ở mức cơ bản (P), dẫn đến sai số tĩnh lớn và khả năng đáp ứng thực thi tĩnh và động kém.
     \item \textbf{Cân bằng hiệu năng và chi phí so với Dynamixel:} Dòng Dynamixel XL430-W250-T sở hữu bộ điều khiển PID hoàn chỉnh cùng nhiều tính năng cao cấp. Tuy nhiên, mức giá cực kỳ đắt đỏ (gấp khoảng 3 lần ST3215). Với yêu cầu 12 bậc tự do, việc sử dụng Dynamixel sẽ làm chi phí phần cứng vượt quá ngân sách cho phép. Thêm vào đó, lực xoắn của XL430-W250-T ($\sim$15.3 kg.cm) lại thấp hơn ST3215, đòi hỏi phải sử dụng cơ cấu truyền động phức tạp để khuyếch đại lực.
-    \item \textbf{Ưu điểm vượt trội của ST3215:} Waveshare ST3215 mang lại điểm cân bằng hoàn hảo giữa hiệu năng cơ học và chi phí. Lực xoắn cao (lên đến 30 kg.cm ở 12~V) cung cấp dư dả công suất để robot duy trì thăng bằng và thực hiện dáng đi. Cảm biến vị trí từ tính (Magnetic Encoder $360^{\circ}$) với độ phân giải rất cao ($0.088^{\circ}$) cung cấp phản hồi góc chính xác tuyệt đối mà không lo bị hao mòn. Tốc độ truyền tải 1~Mbps hoàn toàn đáp ứng được yêu cầu của vòng lặp điều khiển thời gian thực. Đặc biệt, bộ điều khiển PI tích hợp sẵn giúp động cơ khử sai số tĩnh, đảm bảo robot bám sát quỹ đạo dáng đi một cách mượt mà và ổn định.
+    \item \textbf{Ưu điểm vượt trội của ST3215:} Waveshare ST3215 mang lại điểm cân bằng hoàn hảo giữa hiệu năng cơ học và chi phí. Lực xoắn cao (lên đến 30 kg.cm ở 12~V) cung cấp dư dả công suất để robot duy trì thăng bằng và thực hiện dáng đi. Cảm biến vị trí từ tính (Magnetic Encoder $360^{\circ}$) với độ phân giải rất cao ($0.088^{\circ}$) cung cấp phản hồi góc chính xác tuyệt đối mà không lo bị hao mòn. Tốc độ truyền tải 1~Mbps hoàn toàn đáp ứng được yêu cầu của vòng lặp điều khiển thời gian thực. Đặc biệt, bộ điều khiển PI tích hợp sẵn giúp động cơ khử sai số tĩnh, đảm bảo robot thực thi dáng đi một cách mượt mà và ổn định.
     \item \textbf{Phân bổ chiến lược giữa mô-men xoắn và tốc độ (ST3215 vs ST3215-HS):} Hệ thống tận dụng cả hai phiên bản động cơ để tối ưu hóa đặc tính động lực học của từng khớp.
     \begin{itemize}
         \item \textit{Khớp vai và khớp hông (Hip Roll, Hip Pitch):} Gánh chịu phần lớn trọng lượng của thân robot và tạo ra lực đẩy chính, yêu cầu mô-men xoắn lớn (theo tính toán lý thuyết lên tới 14.4 -- 16.0 kg.cm). Do đó, phiên bản tiêu chuẩn \textbf{ST3215 (30 kg.cm)} được sử dụng để tạo ra hệ số an toàn cao (gần gấp đôi yêu cầu), giúp động cơ hoạt động bền bỉ, không sinh nhiệt quá mức khi robot đứng khuỵu hoặc mang thêm tải trọng.
