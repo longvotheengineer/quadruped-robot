@@ -1,7 +1,7 @@
 \babel@toc {vietnamese}{}\relax 
 \beamer@sectionintoc {1}{Giới thiệu}{3}{0}{1}
-\beamer@sectionintoc {2}{Lý thuyết động học và quy hoạch dáng đi}{6}{0}{2}
-\beamer@sectionintoc {3}{Thiết kế và thực hiện phần cứng}{10}{0}{3}
-\beamer@sectionintoc {4}{Thiết kế và thực hiện phần mềm}{14}{0}{4}
-\beamer@sectionintoc {5}{Kết quả và thảo luận}{18}{0}{5}
-\beamer@sectionintoc {6}{Kết luận và hướng phát triển}{23}{0}{6}
+\beamer@sectionintoc {2}{Lý thuyết động học và quy hoạch dáng đi}{8}{0}{2}
+\beamer@sectionintoc {3}{Thiết kế và thực hiện phần cứng}{15}{0}{3}
+\beamer@sectionintoc {4}{Thiết kế và thực hiện phần mềm}{19}{0}{4}
+\beamer@sectionintoc {5}{Kết quả và thảo luận}{25}{0}{5}
+\beamer@sectionintoc {6}{Kết luận và hướng phát triển}{34}{0}{6}
