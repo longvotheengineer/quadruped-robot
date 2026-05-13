@@ -1,0 +1,7181 @@
+ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH
+TRƯỜNG ĐẠI HỌC BÁCH KHOA
+KHOA ĐIỆN – ĐIỆN TỬ
+—————o0o—————
+
+ĐỒ ÁN TỐT NGHIỆP ĐẠI HỌC
+
+THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG
+HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI
+VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN
+SỬ DỤNG PHẢN HỒI IMU
+
+SVTH:
+
+Trương Tuấn An MSSV: 2210041
+Võ Quế Long
+MSSV: 2211910
+GVHD: TS. Nguyễn Lê Dũng
+
+TP. HỒ CHÍ MINH, THÁNG 5 NĂM 2026
+
+ĐẠI HỌC QUỐC GIA TP.HCM
+
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+
+TRƯỜNG ĐẠI HỌC BÁCH KHOA
+
+Độc Lập – Tự Do – Hạnh Phúc
+
+NHIỆM VỤ KHÓA LUẬN TỐT NGHIỆP
+
+KHOA ĐIỆN – ĐIỆN TỬ
+HỌ VÀ TÊN 1:
+
+Trương Tuấn An
+
+MSSV:
+
+2210041
+
+NGÀNH:
+
+Kỹ thuật ĐK & TĐH
+
+LỚP:
+
+DD22DTH1
+
+HỌ VÀ TÊN 2:
+
+Võ Quế Long
+
+MSSV:
+
+2211910
+
+NGÀNH:
+
+Kỹ thuật ĐK & TĐH
+
+LỚP:
+
+DD22DTH2
+
+1.
+
+Đầu đề khóa luận:
+Thiết kế, mô phỏng và thi công hệ thống tạo dáng đi thích nghi
+và ổn định tư thế cho robot bốn chân sử dụng phản hồi IMU
+(Design, Simulation, and Implementation of an Adaptive Gait Generation
+and Postural Stabilization Framework for Quadruped Robots using IMU Feedback)
+
+2.
+
+Nhiệm vụ (yêu cầu về nội dung và số liệu ban đầu):
+
+–
+
+Xây dựng mô hình động học thuận và nghịch cho cơ cấu chân robot 3 DOF.
+
+–
+
+Phát triển thuật toán quy hoạch dáng đi và quy hoạch quỹ đạo bàn chân.
+
+–
+
+Thiết kế hệ thống điều khiển PID tích hợp phản hồi cảm biến IMU.
+
+–
+
+Mô phỏng đánh giá trên ROS 2 và Gazebo.
+
+–
+
+Thi công mô hình thực tế và thử nghiệm cân bằng.
+
+3.
+
+Ngày giao nhiệm vụ khóa luận:
+
+DD / MM / YYYY
+
+4.
+
+Ngày hoàn thành nhiệm vụ:
+
+DD / MM / YYYY
+
+5.
+
+Họ và tên người hướng dẫn:
+
+Phần hướng dẫn:
+
+–
+
+TS. Nguyễn Lê Dũng
+
+Toàn bộ
+
+Nội dung và yêu cầu KLTN đã được thông qua Chủ trì ngành.
+Ngày . . . . . . . . . tháng . . . . . . năm . . . . . . . . . . . .
+CHỦ TRÌ NGÀNH
+
+GIẢNG VIÊN HƯỚNG DẪN CHÍNH
+
+(Ký và ghi rõ họ tên)
+
+(Ký và ghi rõ họ tên)
+
+PHẦN DÀNH CHO KHOA
+
+Người duyệt (chấm sơ bộ): . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Đơn vị: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Ngày bảo vệ: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Điểm tổng kết: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Nơi lưu trữ luận án: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+LỜI CẢM ƠN
+Để có thể hoàn thành đồ án tốt nghiệp, chúng em đã nhận được rất nhiều sự giúp đỡ từ
+mọi người xung quanh, do đó chúng em xin được gửi lời cảm ơn chân thành đến tất cả những
+người đã hỗ trợ và giúp đỡ nhóm trong suốt thời gian vừa qua.
+Đầu tiên, chúng em xin gửi lời cảm ơn chân thành đến TS. Nguyễn Lê Dũng đã hết lòng
+chỉ dạy cho chúng em những kiến thức bổ ích cần tiếp thu, những kỹ năng cần học và cả
+những bài học trong cuộc sống. Cảm ơn thầy đã luôn lắng nghe và tận tình giải đáp những
+thắc mắc của chúng em, động viên chúng em trong những khoảng thời gian khó khăn và trắc
+trở, chúng em thực sự vô cùng trân trọng. Ngoài những lời chỉ bảo trong công việc, những
+lời khuyên với các vấn đề về cuộc sống từ thầy đã giúp chúng em trưởng thành và có những
+cách ứng xử tốt hơn. Nhờ đó, chúng em đã tích lũy được rất nhiều kinh nghiệm cũng như
+học được cách hiểu và giải quyết vấn đề một cách tốt nhất.
+Bên cạnh đó, chúng em xin gửi lời cảm ơn đến trường Đại học Bách khoa - ĐHQG-HCM
+nơi đã tạo cho chúng em môi trường học tập, nghiên cứu tốt; và toàn thể cán bộ giảng viên
+bộ môn Điều khiển và Tự Động Hóa trường Đại học Bách Khoa đã cung cấp và trang bị cho
+chúng em những kiến thức cơ bản làm nền tảng vững chắc để chúng em hoàn thành đồ án.
+Xin gửi lời cảm ơn đến bộ môn Điều khiển và Tự Động Hóa đã hỗ trợ chúng em phương
+tiện vật chất và tạo những điều kiện thuận lợi nhất.
+Và hơn hết, chúng em xin gửi lời cảm ơn và tri ân sâu sắc đến gia đình vì đã luôn bên
+cạnh và động viên trong suốt thời gian vừa qua. Xin gửi lời cảm ơn đến các anh chị, bạn bè
+trong và ngoài nhóm đã đồng hành cùng chúng em trong suốt thời gian qua những người
+luôn luôn hỗ trợ chúng em hết mình, giúp đỡ, lắng nghe và chia sẻ khó khăn cùng nhau.
+
+Tp. Hồ Chí Minh, ngày
+
+tháng 5 năm 2026
+Nhóm sinh viên
+
+Trương Tuấn An & Võ Quế Long
+
+TÓM TẮT LUẬN VĂN
+Đồ án này trình bày quá trình nghiên cứu, thiết kế, mô phỏng và chế tạo một hệ thống robot bốn
+chân 12 bậc tự do với khả năng di chuyển linh hoạt. Robot sử dụng cấu trúc chân nối tiếp 3 bậc tự do,
+truyền động bởi 12 động cơ servo ST3215 và điều khiển tập trung bằng máy tính nhúng NVIDIA Jetson
+Nano.
+Về mặt lý thuyết, phương pháp Modified Denavit–Hartenberg (MD-H) được áp dụng để xây
+dựng mô hình động học thuận, làm cơ sở giải quyết bài toán động học nghịch bằng phương pháp hình
+học giải tích. Quỹ đạo bước chân được quy hoạch dựa trên nội suy đa thức bậc năm, đảm bảo tính liên
+tục của vận tốc và gia tốc, giúp cơ cấu di chuyển mượt mà và tránh sự thay đổi gia tốc đột ngột. Dáng đi
+chéo góc (Trot) được lựa chọn làm phương thức di chuyển chủ đạo nhờ sự cân bằng tối ưu giữa tốc độ và
+độ ổn định.
+Hệ thống được mô phỏng trên nền tảng ROS 2 Humble kết hợp với môi trường Gazebo Classic
+để đánh giá đặc tính động học và phân tích lực, mô-men tác dụng lên các khớp chân. Kết quả mô phỏng
+cho thấy thông số động lực học đều nằm trong giới hạn an toàn của động cơ servo, qua đó khẳng định
+tính khả thi của khâu thiết kế cơ khí và cấu hình phần cứng.
+Điểm nhấn kỹ thuật của đồ án là việc phát triển kiến trúc điều khiển cân bằng tự động dựa trên
+tín hiệu tư thế từ cảm biến IMU. Trong môi trường mô phỏng, hệ thống đã tích hợp thành công bộ điều
+khiển PID với hai trạng thái vận hành chuyên biệt: ở trạng thái tĩnh, hệ thống áp dụng lượng bù trực tiếp
+vào không gian khớp để tối ưu thời gian đáp ứng; ở trạng thái di chuyển động, quá trình bù trừ được thực
+hiện thông qua ma trận xoay trong không gian làm việc kết hợp với việc nhận biết pha bước chân. Thuật
+toán này điều chỉnh độc lập độ cao của các chân đang chạm đất, giúp thân robot duy trì trạng thái song
+song với bề mặt di chuyển mà không làm sai lệch sải bước.
+Đối với mô hình thực tế, quá trình chế tạo và lập trình đã đáp ứng đúng thiết kế đề ra. Hiện tại,
+tính năng điều khiển cân bằng tự động qua phản hồi IMU mới hoàn thiện ở mức độ mô phỏng và chưa
+được tích hợp hoàn chỉnh lên robot thực tế. Trên thực tế, hệ thống chỉ sử dụng phương pháp động học
+nghịch để thực thi các dáng đi cơ bản (tiến, lùi, rẽ) mà không tích hợp khả năng bám quỹ đạo phức tạp.
+Thêm vào đó, do khối lượng tổng thể của robot thực tế vượt quá tính toán thiết kế ban đầu, mô-men xoắn
+của các động cơ servo tại hai chân trước không đáp ứng đủ yêu cầu tải trọng động. Điều này dẫn đến
+hiện tượng các bàn chân trước ma sát và rê nhẹ trên mặt đất trong pha nhấc chân thay vì đạt được độ cao
+bước định mức. Dù vậy, hệ thống vẫn duy trì được hình thái vận động tổng thể, đáp ứng các mục tiêu cốt
+lõi về cấu trúc cơ khí và nền tảng điều khiển của đề tài.
+Từ khóa: Robot bốn chân, động học nghịch, quy hoạch quỹ đạo, dáng đi Trot, đa thức bậc năm, ROS 2,
+Gazebo, bộ điều khiển PID.
+
+MỤC LỤC
+
+1
+
+2
+
+GIỚI THIỆU
+
+1
+
+1.1
+
+Tổng quan . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1
+
+1.2
+
+Tình hình nghiên cứu trong và ngoài nước . . . . . . . . . . . . . . . . . . . . . . . .
+
+2
+
+1.3
+
+Nhiệm vụ luận văn . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+2
+
+1.3.1
+
+Mục tiêu nghiên cứu . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+2
+
+1.3.2
+
+Đối tượng và phạm vi nghiên cứu . . . . . . . . . . . . . . . . . . . . . . . .
+
+3
+
+1.3.3
+
+Phương pháp nghiên cứu . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3
+
+1.3.4
+
+Ý nghĩa khoa học và thực tiễn . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+4
+
+1.3.5
+
+Phân công nhiệm vụ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5
+
+1.3.6
+
+Bố cục luận văn . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+7
+
+LÝ THUYẾT
+
+8
+
+2.1
+
+Tổng quan về Robot bốn chân . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+8
+
+2.2
+
+Phân loại cấu trúc chân robot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+8
+
+2.3
+
+Cấu trúc liên kết động học của robot bốn chân . . . . . . . . . . . . . . . . . . . . . .
+
+10
+
+2.4
+
+Cơ cấu chân 3 bậc tự do . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+11
+
+2.5
+
+Không gian làm việc . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+12
+
+2.6
+
+Các phương thức di chuyển . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+12
+
+2.7
+
+Lý thuyết ổn định cho robot có chân . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+14
+
+2.7.1
+
+Ổn định tĩnh . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+14
+
+2.7.2
+
+Ổn định động . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+15
+
+Lý thuyết bộ điều khiển PID . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+16
+
+2.8.1
+
+Luật điều khiển PID chuẩn . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+16
+
+2.8.2
+
+Dạng rời rạc và triển khai số . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+17
+
+2.8.3
+
+Các cải tiến PID trong hệ thống thực . . . . . . . . . . . . . . . . . . . . . . .
+
+17
+
+Cảm biến quán tính IMU và biểu diễn hướng . . . . . . . . . . . . . . . . . . . . . . .
+
+18
+
+2.9.1
+
+Nguyên lý hoạt động . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+18
+
+2.9.2
+
+Biểu diễn hướng: Quaternion và góc Euler . . . . . . . . . . . . . . . . . . . .
+
+18
+
+2.9.3
+
+Bộ lọc cảm biến . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+19
+
+2.10 Tổng quan về nền tảng ROS 2 và Gazebo . . . . . . . . . . . . . . . . . . . . . . . .
+
+19
+
+2.8
+
+2.9
+
+iii
+
+3
+
+2.10.1 Hệ điều hành Robot ROS 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+19
+
+2.10.2 Trình mô phỏng Gazebo . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+20
+
+2.11 Mô hình động học . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+21
+
+2.11.1 Thiết lập hệ tọa độ MD-H . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+21
+
+2.11.2 Giải động học thuận . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+23
+
+2.12 Động học nghịch . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+25
+
+2.12.1 Phương pháp giải tích . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+25
+
+2.12.2 Xử lý đối xứng giữa các chân . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+26
+
+2.12.3 Biến đổi tọa độ từ hệ thân sang hệ chân . . . . . . . . . . . . . . . . . . . . .
+
+26
+
+2.12.4 Giải hệ phương trình IK . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+26
+
+2.13 Quy hoạch dáng đi và phân tích chuyển động . . . . . . . . . . . . . . . . . . . . . .
+
+27
+
+2.13.1 Lựa chọn dáng đi Trot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+27
+
+2.14 Quy hoạch quỹ đạo cho robot bốn chân . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+28
+
+2.14.1 Nội suy đa thức bậc ba . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+29
+
+2.14.2 Nội suy đa thức bậc năm . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+30
+
+2.14.3 So sánh nội suy bậc ba và bậc năm . . . . . . . . . . . . . . . . . . . . . . . .
+
+32
+
+2.14.4 Triển khai quỹ đạo chân dạng chữ D . . . . . . . . . . . . . . . . . . . . . . .
+
+34
+
+2.14.5 Tham số quỹ đạo trong hệ thống thực tế . . . . . . . . . . . . . . . . . . . . .
+
+35
+
+2.14.6 Lập lịch pha dáng đi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+35
+
+2.14.7 Quy trình tắt an toàn ba pha . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+36
+
+2.14.8 Mô hình động lực học . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+37
+
+2.15 Thiết kế bộ điều khiển . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+38
+
+2.15.1 Kiến trúc điều khiển tổng thể . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+38
+
+2.15.2 Cơ chế áp dụng tín hiệu điều chỉnh tư thế . . . . . . . . . . . . . . . . . . . .
+
+39
+
+2.15.3 Bộ điều khiển cân bằng IMU – Chế độ tĩnh (HOME) . . . . . . . . . . . . . .
+
+41
+
+2.15.4 Bộ điều khiển cân bằng – Chế độ động (GAIT) . . . . . . . . . . . . . . . . .
+
+42
+
+2.15.5 Tổng hợp pipeline điều khiển . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+43
+
+2.15.6 So sánh hai chế độ điều khiển . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+44
+
+THIẾT KẾ VÀ THỰC HIỆN PHẦN CỨNG
+
+45
+
+3.1
+
+45
+
+Phân tích kết cấu robot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.2
+
+3.3
+
+3.4
+
+4
+
+3.1.1
+
+Thiết kế thân . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+45
+
+3.1.2
+
+Thiết kế khớp hông . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+46
+
+3.1.3
+
+Thiết kế chân . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+47
+
+Lựa chọn cơ cấu chấp hành . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+48
+
+3.2.1
+
+Phân tích mô-men khớp vai (Hip Roll) . . . . . . . . . . . . . . . . . . . . . .
+
+50
+
+3.2.2
+
+Phân tích mô-men khớp hông (Hip Pitch) . . . . . . . . . . . . . . . . . . . .
+
+51
+
+3.2.3
+
+Thiết kế tổng thể . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+52
+
+Tổng quan về kiến trúc hệ thống . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+53
+
+3.3.1
+
+Khối xử lý trung tâm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+54
+
+3.3.2
+
+Hệ thống Cung cấp Nguồn điện . . . . . . . . . . . . . . . . . . . . . . . . .
+
+55
+
+3.3.3
+
+Bus Servo Adapter (A) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+57
+
+3.3.4
+
+Bộ đo lường quán tính . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+58
+
+3.3.5
+
+Mạch Giảm Áp . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+60
+
+3.3.6
+
+Cơ cấu chấp hành: Động cơ Bus Servo ST3215 . . . . . . . . . . . . . . . . .
+
+61
+
+3.3.7
+
+Hệ thống Phân phối Năng lượng và Lựa chọn Dây dẫn . . . . . . . . . . . . .
+
+64
+
+Các Giao thức Truyền thông của Hệ thống . . . . . . . . . . . . . . . . . . . . . . . .
+
+66
+
+3.4.1
+
+Phân tích thời gian truyền thông UART . . . . . . . . . . . . . . . . . . . . .
+
+67
+
+3.4.2
+
+Ánh xạ ID servo và phân bổ driver . . . . . . . . . . . . . . . . . . . . . . . .
+
+68
+
+THIẾT KẾ VÀ THỰC HIỆN PHẦN MỀM
+
+69
+
+4.1
+
+Kiến trúc phần mềm ROS 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+69
+
+4.1.1
+
+Tổng quan kiến trúc node . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+69
+
+4.1.2
+
+Giao tiếp giữa các node . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+69
+
+4.1.3
+
+Các trạng thái vận hành . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+70
+
+4.1.4
+
+Cấu trúc các ROS 2 packages . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+71
+
+4.1.5
+
+Chi tiết các module phần mềm . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+71
+
+4.1.6
+
+Bảng giao tiếp topic ROS 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+72
+
+4.1.7
+
+Cơ chế chẩn đoán thời gian thực . . . . . . . . . . . . . . . . . . . . . . . . .
+
+72
+
+Quy trình Homing và Calibrate . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+73
+
+4.2.1
+
+Calibrate servo . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+73
+
+4.2.2
+
+Quy trình Homing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+73
+
+4.2
+
+5
+
+KẾT QUẢ THỰC HIỆN
+
+74
+
+5.1
+
+Giới thiệu . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+74
+
+5.2
+
+Cấu hình môi trường mô phỏng Gazebo . . . . . . . . . . . . . . . . . . . . . . . . .
+
+74
+
+5.2.1
+
+Mô hình robot URDF . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+74
+
+5.2.2
+
+Plugin điều khiển Gazebo . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+75
+
+5.2.3
+
+Cấu hình vật lý và môi trường . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+75
+
+5.2.4
+
+Kết quả mô phỏng vận động cơ bản . . . . . . . . . . . . . . . . . . . . . . .
+
+75
+
+Đánh giá hiệu năng bộ điều khiển PID nâng cao trên mô phỏng . . . . . . . . . . . . .
+
+76
+
+5.3.1
+
+Kết quả quy hoạch quỹ đạo offline . . . . . . . . . . . . . . . . . . . . . . . .
+
+78
+
+5.3.2
+
+Quỹ đạo 3D bàn chân trong môi trường mô phỏng . . . . . . . . . . . . . . .
+
+79
+
+5.3.3
+
+Ổn định tư thế tĩnh (chế độ HOME) . . . . . . . . . . . . . . . . . . . . . . .
+
+80
+
+5.3.4
+
+Ổn định động trong dáng đi Trot (chế độ GAIT) . . . . . . . . . . . . . . . . .
+
+82
+
+Thực nghiệm trên phần cứng thực . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+84
+
+5.4.1
+
+Giới thiệu . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+84
+
+5.4.2
+
+Mô hình robot thực tế . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+84
+
+5.4.3
+
+Kiến trúc khởi động hệ thống phần cứng . . . . . . . . . . . . . . . . . . . . .
+
+85
+
+5.4.4
+
+Chuyển đổi góc IK sang góc servo . . . . . . . . . . . . . . . . . . . . . . . .
+
+85
+
+5.4.5
+
+Thử nghiệm khởi tạo tư thế đứng (chế độ ZERO) . . . . . . . . . . . . . . . .
+
+86
+
+5.4.6
+
+Thử nghiệm dáng đi Trot (chế độ TROT_FORWARD) . . . . . . . . . . . . .
+
+87
+
+5.4.7
+
+Cơ chế tắt an toàn . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+88
+
+5.4.8
+
+Các vấn đề thực tế và giải pháp . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+88
+
+5.4.9
+
+Nhận xét và đánh giá thực nghiệm . . . . . . . . . . . . . . . . . . . . . . . .
+
+88
+
+Phân tích sự khác biệt giữa mô phỏng và thực nghiệm . . . . . . . . . . . . . . . . . .
+
+89
+
+5.5.1
+
+Khác biệt về tham số dáng đi . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+90
+
+5.5.2
+
+Các yếu tố phi lý tưởng trên phần cứng thực . . . . . . . . . . . . . . . . . . .
+
+90
+
+5.3
+
+5.4
+
+5.5
+
+6
+
+KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN
+
+91
+
+6.1
+
+Kết luận . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+91
+
+6.1.1
+
+Đóng góp của đề tài . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+92
+
+6.1.2
+
+Hạn chế . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+92
+
+Hướng phát triển . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+93
+
+6.2
+
+TÀI LIỆU THAM KHẢO
+
+93
+
+PHỤ LỤC A
+
+96
+
+PHỤ LỤC B
+
+98
+
+PHỤ LỤC C
+
+100
+
+DANH SÁCH BẢNG SỐ LIỆU
+
+1.1
+
+Bảng phân công nhiệm vụ thực hiện . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+6
+
+2.1
+
+Tham số Modified Denavit-Hartenberg (MD-H) . . . . . . . . . . . . . . . . . . . . .
+
+23
+
+2.2
+
+Hệ số dấu biến đổi tọa độ và dấu IK cho bốn chân . . . . . . . . . . . . . . . . . . . .
+
+26
+
+2.3
+
+Cấu hình pha dịch cho các dáng đi . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+36
+
+2.4
+
+Tổng hợp pipeline điều khiển PID 5 giai đoạn . . . . . . . . . . . . . . . . . . . . . .
+
+43
+
+2.5
+
+So sánh chế độ HOME và GAIT . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+44
+
+3.1
+
+Thông số kỹ thuật của động cơ servo ST3215 và ST3215-HS. . . . . . . . . . . . . . .
+
+49
+
+3.2
+
+Các thông số chính của robot bốn chân . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+53
+
+3.3
+
+Thông số kỹ thuật . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+57
+
+3.4
+
+Thông số kỹ thuật mạch Bus Servo Adapter (A) . . . . . . . . . . . . . . . . . . . . .
+
+58
+
+3.5
+
+Thông số kỹ thuật module cảm biến GY-BNO055 . . . . . . . . . . . . . . . . . . . .
+
+60
+
+3.6
+
+Thông số kỹ thuật mạch giảm áp XL4015 5A 75W . . . . . . . . . . . . . . . . . . .
+
+61
+
+3.7
+
+Bảng so sánh các loại cơ cấu chấp hành áp dụng cho Robot bốn chân . . . . . . . . . .
+
+62
+
+3.8
+
+So sánh các dòng Servo phổ biến trên thị trường . . . . . . . . . . . . . . . . . . . . .
+
+63
+
+3.9
+
+Ánh xạ ID servo theo driver và chân robot . . . . . . . . . . . . . . . . . . . . . . . .
+
+68
+
+4.1
+
+Cấu trúc các ROS 2 packages trong hệ thống . . . . . . . . . . . . . . . . . . . . . . .
+
+71
+
+4.2
+
+Các topic ROS 2 chính trong hệ thống . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+72
+
+5.1
+
+Tham số hình học mô hình URDF . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+74
+
+5.2
+
+Tham số bộ điều khiển PID – Chế độ tĩnh (HOME) . . . . . . . . . . . . . . . . . . .
+
+77
+
+5.3
+
+Tham số bộ điều khiển PID – Chế độ động (GAIT) . . . . . . . . . . . . . . . . . . .
+
+77
+
+5.4
+
+Thông số hình học robot thực tế . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+85
+
+5.5
+
+Công thức chuyển đổi IK → Servo cho từng chân . . . . . . . . . . . . . . . . . . . .
+
+86
+
+5.6
+
+Tọa độ bàn chân tư thế đứng chuẩn và bù trừ chiều cao . . . . . . . . . . . . . . . . .
+
+86
+
+5.7
+
+Tham số dáng đi Trot trên phần cứng thực . . . . . . . . . . . . . . . . . . . . . . . .
+
+87
+
+5.8
+
+Quy trình tắt an toàn ba pha . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+88
+
+5.9
+
+So sánh tham số giữa mô phỏng và phần cứng thực . . . . . . . . . . . . . . . . . . .
+
+89
+
+viii
+
+DANH SÁCH HÌNH MINH HỌA
+
+2-1 Ví dụ robot bốn chân . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+8
+
+2-2 Cơ cấu chân dạng nối tiếp . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+9
+
+2-3 Mô hình cơ khí và hệ tọa độ nhánh của chân song song . . . . . . . . . . . . . . . . .
+
+9
+
+2-4 Cơ cấu chân lai nối tiếp – song song . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+10
+
+2-5 Cấu trúc liên kết động học của robot bốn chân 12 bậc tự do . . . . . . . . . . . . . . .
+
+11
+
+2-6 Ba bậc tự do của cơ cấu một chân . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+11
+
+2-7 Giản đồ pha chuyển động của dáng đi Trot . . . . . . . . . . . . . . . . . . . . . . . .
+
+13
+
+2-8 Giản đồ pha chuyển động của dáng đi Walk . . . . . . . . . . . . . . . . . . . . . . .
+
+13
+
+2-9 Giản đồ pha chuyển động của dáng đi Pace . . . . . . . . . . . . . . . . . . . . . . .
+
+13
+
+2-10 Giản đồ pha chuyển động của dáng đi Bound . . . . . . . . . . . . . . . . . . . . . .
+
+13
+
+2-11 Giản đồ pha chuyển động của dáng đi Gallop . . . . . . . . . . . . . . . . . . . . . .
+
+14
+
+2-12 Minh họa Đa giác đỡ và Biên ổn định tĩnh (SSM) của robot bốn chân . . . . . . . . . .
+
+15
+
+2-13 Mô hình 3D minh họa quan hệ giữa trọng tâm CoM (x, y, z) và điểm ZMP (pxk , pyk )
+trên mặt phẳng đỡ của robot bốn chân . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+16
+
+2-14 Mô hình mô phỏng với các hệ tọa độ tham chiếu được gắn tại từng khớp của robot. . .
+
+21
+
+2-15 Mô hình một chân của robot bốn chân được xây dựng bằng phương pháp MD-H. . . . .
+
+22
+
+2-16 Sơ đồ thời gian của dáng đi trot với β = 0.5, trong đó β = TTst và Tst là thời gian của
+pha chống đỡ. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+28
+
+2-17 Phân tích quỹ đạo của một chân . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+29
+
+2-18 Các đường cong quỹ đạo bậc ba . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+30
+
+2-19 Biên dạng vị trí, vận tốc và gia tốc của hàm bước mượt bậc năm . . . . . . . . . . . .
+
+31
+
+2-20 So sánh biên dạng động học giữa nội suy bậc 3 và bậc 5. . . . . . . . . . . . . . . . .
+
+33
+
+2-21 Quỹ đạo chân 3D dạng chữ D (Pha vung Parabol và Pha chống đỡ đường thẳng) . . . .
+
+35
+
+2-22 Phân tích lực tác dụng lên một khâu tổng quát i (lưu ý: lực tiếp xúc với mặt đất chỉ tồn
+tại khi khâu i là một trong các khâu chân dưới). . . . . . . . . . . . . . . . . . . . . .
+
+37
+
+2-23 Tổng quan kiến trúc điều khiển của hệ thống (Locomotion Planner & Balance Controller) 39
+2-24 Minh họa quá trình điều chỉnh tư thế thân robot: từ praw (trước bù) sang padj (sau bù),
+chỉ thay đổi z, giữ nguyên x, y . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+41
+
+2-25 Kiến trúc bộ điều khiển PID cho ổn định tư thế . . . . . . . . . . . . . . . . . . . . .
+
+41
+
+3-1 Thiết kế thân liền khối nhằm đạt độ bền cao và khối lượng nhẹ. . . . . . . . . . . . . .
+
+45
+
+ix
+
+3-2 Nắp thân. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+46
+
+3-3 Thiết kế thân. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+46
+
+3-4 Cụm khớp hông cho chuyển động vung ngang và vung dọc. . . . . . . . . . . . . . . .
+
+47
+
+3-5 Cụm lắp ráp một chân đơn. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+47
+
+3-6 Cơ cấu chấp hành servo ST3215 dùng cho robot bốn chân. . . . . . . . . . . . . . . .
+
+49
+
+3-7 Phân tích mô-men xoắn của cơ cấu chấp hành servo tại cẳng chân. . . . . . . . . . . .
+
+50
+
+3-8 Mô hình một chân của robot bốn chân. . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+51
+
+3-9 3D thiết kế robot Dog . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+52
+
+3-10 Sơ đồ kiến trúc tổng thể của hệ thống robot bốn chân. . . . . . . . . . . . . . . . . . .
+
+53
+
+3-11 Mô hình robot bốn chân thực tế đã được chế tạo và lắp ráp hoàn chỉnh. . . . . . . . . .
+
+54
+
+3-12 Thông số kỹ thuật Jetson Nano B01 . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+55
+
+3-13 Bộ nguồn xung tổ ong 12 V 40 A 480 W . . . . . . . . . . . . . . . . . . . . . . . . .
+
+56
+
+3-14 Bus Servo Adapter (A) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+58
+
+3-15 Module cảm biến 9 trục thông minh GY-BNO055 (mặt trước và mặt sau) . . . . . . . .
+
+59
+
+3-16 Mạch giảm áp XL4015 5A 75W . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+61
+
+3-17 Sơ đồ phân phối điện áp và tín hiệu tổng thể của robot . . . . . . . . . . . . . . . . . .
+
+65
+
+3-18 Các giao thức truyền thông khác nhau . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+66
+
+3-19 Giao thức truyền thông I2C . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+67
+
+3-20 Giao thức truyền thông UART . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+67
+
+4-1 Sơ đồ kiến trúc ROS 2 của hệ thống trong môi trường mô phỏng (Gazebo) . . . . . . .
+
+70
+
+4-2 Sơ đồ kiến trúc ROS 2 của hệ thống trên phần cứng thực tế . . . . . . . . . . . . . . .
+
+70
+
+5-1 Chuỗi chuyển động quá trình khởi tạo tư thế đứng của robot trên mô phỏng Gazebo. . .
+
+76
+
+5-2 Chuỗi chuyển động của robot trên hệ thống mô phỏng trong dáng đi Trot. . . . . . . .
+
+76
+
+5-3 Quỹ đạo Cartesian (x, y, z) của chân trước bên trái trong một chu kỳ dáng đi . . . . . .
+
+78
+
+5-4 Biên dạng vận tốc và gia tốc của chân trước bên trái . . . . . . . . . . . . . . . . . . .
+
+79
+
+5-5 Góc khớp (θ1 , θ2 , θ3 ) giải qua IK cho các chân bên trái (LF và LB) . . . . . . . . . . .
+
+79
+
+5-6 Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng . . . . . . . . . . .
+
+80
+
+5-7 Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME . . . . . . . . . . . . . . . .
+
+81
+
+5-8 Phân tích tín hiệu đo lường và đầu ra chế độ HOME . . . . . . . . . . . . . . . . . . .
+
+81
+
+5-9 Phân rã thành phần động lực học PID chế độ HOME . . . . . . . . . . . . . . . . . .
+
+82
+
+5-10 Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot) . . . . . . . . .
+
+82
+
+5-11 Phân tích xử lý tín hiệu đầu vào chế độ GAIT (phóng to) . . . . . . . . . . . . . . . .
+
+83
+
+5-12 Phân rã thành phần động lực học PID chế độ GAIT (phóng to) . . . . . . . . . . . . .
+
+83
+
+5-13 Phân tích bão hòa và lọc đầu ra chế độ GAIT (phóng to) . . . . . . . . . . . . . . . . .
+
+84
+
+1. GIỚI THIỆU
+
+1.1
+
+Tổng quan
+Robot, một thuật ngữ từng đại diện cho trí tưởng tượng và ước mơ, đã thu hút sự quan tâm của
+
+các nhà khoa học trong nhiều thế kỷ. Ngày nay có nhiều loại robot khác nhau, bao gồm robot di động và
+robot cố định, chẳng hạn như robot tay máy (manipulator), robot bánh xe, robot có chân, v.v. Ý tưởng về
+robot có chân bắt nguồn từ tự nhiên; robot hình người là sự mô phỏng loài người; robot hai chân (biped),
+bốn chân (quadruped), sáu chân (hexapod) và tám chân (octopod) được lấy cảm hứng từ các loài côn
+trùng và động vật có vú [1].
+Robot bánh xe có khả năng cơ động và di chuyển nhanh trên bề mặt bằng phẳng, tuy nhiên chưa
+thực sự hiệu quả trên địa hình gồ ghề, không bằng phẳng. Rung động phát sinh khi di chuyển trên bề mặt
+phức tạp cũng làm giảm tuổi thọ và độ ổn định của robot [2]. Ngược lại, robot bốn chân có khả năng
+thích nghi tốt trên nhiều loại bề mặt khác nhau nhờ cơ chế bước đi linh hoạt, cho phép lựa chọn điểm đặt
+chân tối ưu. Đây là ưu thế vượt trội so với robot bánh xe trong các ứng dụng thực địa.
+So sánh cụ thể hơn, robot bánh xe phụ thuộc vào tính liên tục của bề mặt tiếp xúc — bất kỳ
+khe hở, bậc thang hay bề mặt lồi lõm nào đều có thể gây mất ổn định hoặc ngừng di chuyển. Robot xích
+(tracked robot) cải thiện phần nào nhưng vẫn bị giới hạn bởi tỷ lệ khoảng cách vượt chướng ngại vật so
+với kích thước thân. Trong khi đó, robot bốn chân có thể lựa chọn rời rạc các điểm đặt chân, vượt qua
+các chướng ngại vật có chiều cao tương đương chiều dài chân, và điều chỉnh tư thế thân linh hoạt thông
+qua cơ chế điều khiển thăng bằng.
+Trong những năm gần đây, lĩnh vực robot bốn chân đã chứng kiến những bước tiến vượt bậc với
+các sản phẩm tiêu biểu như Boston Dynamics Spot, MIT Cheetah [3, 4], ETH ANYmal [5] và Unitree
+Go1 [6]. Các robot thương mại này sử dụng động cơ BLDC công suất lớn (>100W/khớp), bộ xử lý chuyên
+dụng và hệ thống cảm biến phức tạp (LiDAR, camera stereo), với giá thành từ hàng chục đến hàng trăm
+nghìn USD.
+Tại Việt Nam, các nghiên cứu chuyên sâu về hệ thống điều khiển chuyển động cho robot bốn
+chân vẫn còn tương đối hạn chế. Phần lớn các đồ án tốt nghiệp và luận văn trong nước tập trung vào thiết
+kế cơ khí hoặc mô phỏng lý thuyết, chưa hoàn thiện quy trình triển khai toàn diện từ mô phỏng đến phần
+cứng thực. Điều này tạo ra khoảng trống nghiên cứu đáng kể, đặc biệt trong việc xây dựng hệ thống điều
+khiển thăng bằng sử dụng cảm biến quán tính và kiến trúc phần mềm phân tán trên nền tảng ROS 2.
+Xuất phát từ nhu cầu thực tiễn về ứng dụng robot bốn chân trong các hoạt động tìm kiếm cứu
+nạn, thám hiểm địa hình phức tạp và giám sát môi trường nguy hiểm, nghiên cứu này tập trung vào việc
+thiết kế hệ thống điều khiển chuyển động cho một mô hình robot bốn chân cỡ nhỏ. Đề tài đặt mục tiêu
+xây dựng quy trình phát triển hoàn chỉnh (end-to-end pipeline) từ mô hình toán học, mô phỏng, đến triển
+khai trên phần cứng thực, sử dụng các linh kiện có giá thành phù hợp với điều kiện nghiên cứu tại Việt
+Nam.
+
+1
+
+1.2
+
+Tình hình nghiên cứu trong và ngoài nước
+Nhiều nhóm nghiên cứu trên thế giới đã đạt được những kết quả đáng chú ý trong lĩnh vực robot
+
+bốn chân. Raibert [1] là người tiên phong với các nghiên cứu nền tảng về robot có chân và cân bằng động,
+đặt cơ sở lý thuyết cho các thế hệ robot sau này.
+Nhóm nghiên cứu tại MIT đã phát triển robot MIT Cheetah với khả năng chạy tốc độ cao sử
+dụng điều khiển trở kháng (impedance control) [3]. Phiên bản MIT Cheetah 3 [4] cải tiến thêm khả năng
+di chuyển trên địa hình phức tạp mà không cần cảm biến thị giác.
+Tại ETH Zürich, nhóm của Hutter đã phát triển robot ANYmal [5] — một nền tảng nghiên cứu
+robot bốn chân có tính module hóa cao, sử dụng trong các ứng dụng giám sát công nghiệp và tìm kiếm
+cứu nạn.
+Gehring et al. [7] đã trình bày phương pháp điều khiển dáng đi động cho robot bốn chân StarlETH, sử dụng bộ điều khiển phân tầng kết hợp quy hoạch quỹ đạo và điều khiển lực.
+Sandeep et al. [8] trình bày quy trình thiết kế và chế tạo một robot bốn chân cỡ nhỏ sử dụng
+động cơ servo, tương tự với phạm vi của nghiên cứu này.
+Về phương pháp quy hoạch dáng đi, Marhefka và Orin [9] đã nghiên cứu tối ưu hóa năng lượng
+trong quá trình di chuyển của robot có chân, chứng minh hiệu quả năng lượng của dáng đi trot so với các
+dáng đi khác.
+Nhìn chung, các công trình trên đều sử dụng các phương pháp động học MD-H [10] và quy
+hoạch quỹ đạo đa thức tương tự như cách tiếp cận trong nghiên cứu này. Điểm khác biệt chính nằm ở quy
+mô hệ thống: các nghiên cứu trên thường sử dụng động cơ BLDC công suất lớn và vi xử lý chuyên dụng,
+trong khi công trình này tập trung vào mô hình cỡ nhỏ sử dụng servo bus nối tiếp và máy tính nhúng
+Jetson Nano.
+
+1.3
+
+Nhiệm vụ luận văn
+
+1.3.1
+
+Mục tiêu nghiên cứu
+Mục tiêu tổng quát của đề tài là thiết kế hệ thống điều khiển và phản hồi cho một hệ thống robot
+
+bốn chân mô hình cỡ nhỏ có khả năng duy trì chuyển động đi lại trên mặt phẳng nằm ngang, thông qua
+sự hỗ trợ của các module cảm biến. Các mục tiêu cụ thể bao gồm:
+• Xây dựng mô hình động học: Thiết lập mô hình động học thuận và động học nghịch cho cơ cấu
+chân robot 3 bậc tự do bằng phương pháp Modified Denavit–Hartenberg (MD-H) [10].
+• Phát triển thuật toán điều khiển: Xây dựng thuật toán quy hoạch dáng đi (gait planning) và quy
+hoạch quỹ đạo bàn chân (trajectory planning) sử dụng nội suy đa thức bậc năm.
+• Xây dựng hệ thống giao tiếp: Thiết kế kiến trúc phần cứng với giao tiếp I2C (cảm biến IMU) và
+UART (động cơ servo) trên nền tảng máy tính nhúng Jetson Nano.
+2
+
+• Mô phỏng và thực nghiệm: Xác minh tính đúng đắn của thuật toán thông qua mô phỏng trên
+ROS 2 và Gazebo trước khi triển khai trên mô hình thực.
+
+1.3.2
+
+Đối tượng và phạm vi nghiên cứu
+
+1.3.2.1
+
+Đối tượng nghiên cứu
+
+• Lý thuyết: Mô hình toán học động học thuận và động học nghịch (IK) của robot bốn chân; các
+thuật toán quy hoạch quỹ đạo và dáng đi; bộ điều khiển PD cho hệ truyền động servo.
+• Công nghệ: Động cơ bus servo ST3215 với giao tiếp nối tiếp bán song công; máy tính nhúng
+NVIDIA Jetson Nano; cảm biến IMU BNO055; nền tảng mô phỏng ROS 2 Humble và Gazebo
+Classic.
+
+1.3.2.2
+
+Phạm vi nghiên cứu
+
+• Lập kế hoạch dáng đi trot (chạy kiệu) cho robot bốn chân trên mặt phẳng nằm ngang.
+• Thiết kế và chế tạo mô hình robot bốn chân 12 bậc tự do với cấu trúc chân nối tiếp (serial), cấu
+hình full-elbow.
+• Sử dụng phương pháp MD-H (Modified Denavit–Hartenberg) để xây dựng mô hình động học
+thuận và nghịch cho cơ cấu chân 3 bậc tự do.
+• Thiết kế bộ điều khiển PID nâng cao kết hợp phản hồi cảm biến IMU cho cân bằng tư thế.
+• Mô phỏng hệ thống trên ROS 2 Humble kết hợp Gazebo Classic, sử dụng bộ điều khiển PD effortbased.
+• Thực nghiệm thực tế trên máy tính nhúng Jetson Nano, servo ST3215 và cảm biến BNO055.
+Đồ án không bao gồm các nội dung sau: điều khiển nâng cao MPC/impedance control, thị giác
+máy tính, SLAM, điều hướng tự động, học tăng cường, và vận hành trên địa hình phức tạp.
+
+1.3.3
+
+Phương pháp nghiên cứu
+Đồ án áp dụng phương pháp nghiên cứu kết hợp lý thuyết, mô phỏng và thực nghiệm theo quy
+
+trình phát triển sim-to-real (từ mô phỏng đến thực tế):
+• Nghiên cứu cơ sở lý thuyết: Phân tích các tài liệu về cơ học robot [11, 12, 13], sử dụng phương
+pháp giải tích toán học và ma trận biến đổi MD-H để xây dựng mô hình động học. Nghiên cứu lý
+thuyết bộ điều khiển PID và các cải tiến nâng cao (anti-windup, gain scheduling, deadband).
+• Thiết kế cơ khí: Sử dụng SolidWorks để thiết kế 3D toàn bộ chi tiết robot, phân tích ứng suất FEA
+để kiểm chứng độ bền. Chế tạo bằng công nghệ in 3D FDM sử dụng vật liệu PLA.
+3
+
+• Mô phỏng: Xây dựng mô hình URDF cho Gazebo, triển khai bộ điều khiển PD effort-based trên
+ROS 2 [14, 15]. Kiểm chứng quỹ đạo, mô-men, ổn định và bộ PID cân bằng trên mô phỏng trước
+khi chuyển sang phần cứng.
+• Lập trình hệ thống nhúng: Phát triển phần mềm điều khiển bằng Python trên Jetson Nano, bao
+gồm giải thuật IK, gait generator, bộ điều khiển PID cân bằng IMU, và giao tiếp servo qua UART.
+Sử dụng kiến trúc hai node ROS 2 giao tiếp qua DDS.
+• Thực nghiệm và đánh giá: Kiểm chứng kết quả mô phỏng trên mô hình robot thực, so sánh hiệu
+năng giữa hai nền tảng, phân tích các yếu tố phi lý tưởng (ma sát, trượt, độ trễ truyền thông).
+
+1.3.4
+
+Ý nghĩa khoa học và thực tiễn
+
+1.3.4.1
+
+Ý nghĩa khoa học
+Đồ án đóng góp vào việc xây dựng và kiểm chứng một quy trình thiết kế hoàn chỉnh cho robot
+
+bốn chân — từ mô hình động học, quy hoạch quỹ đạo, mô phỏng đến triển khai thực nghiệm. Cụ thể:
+• Xây dựng bộ điều khiển PID nâng cao với pipeline 5 giai đoạn, tích hợp nhiều cơ chế cải tiến
+(EMA, deadband, gain scheduling, anti-windup, integral leakage) cho bài toán cân bằng robot bốn
+chân.
+• Thiết kế kiến trúc điều khiển hai chế độ HOME/GAIT với cơ chế áp dụng tín hiệu hiệu chỉnh phân
+biệt trong không gian khớp và không gian làm việc.
+• Chứng minh quy trình sim-to-real với chi phí thấp, sử dụng servo bus nối tiếp thay vì động cơ
+BLDC đắt tiền.
+Kết quả nghiên cứu có thể làm nền tảng cho các nghiên cứu tiếp theo về điều khiển chuyển động
+robot đa chân tại Việt Nam.
+
+1.3.4.2
+
+Ý nghĩa thực tiễn
+Robot bốn chân có tiềm năng ứng dụng trong nhiều lĩnh vực:
+
+• Tìm kiếm và cứu hộ tại các khu vực thiên tai, động đất, nơi robot bánh xe không thể tiếp cận.
+• Giám sát và tuần tra trong môi trường nguy hiểm (hầm mỏ, nhà máy hóa chất, khu vực phóng xạ).
+• Thu hồi bom mìn tại khu vực chiến sự, giảm rủi ro cho con người.
+• Thám hiểm địa hình phức tạp (rừng rậm, hang động, bề mặt hành tinh) mà robot bánh xe không
+thể tiếp cận.
+• Hỗ trợ nông nghiệp: giám sát cánh đồng, thu hoạch, kiểm tra sức khỏe cây trồng trên địa hình
+không bằng phẳng.
+4
+
+• Giáo dục và nghiên cứu: làm nền tảng thực hành cho sinh viên các ngành cơ điện tử, tự động hóa
+và robotics.
+
+1.3.5
+
+Phân công nhiệm vụ
+Toàn bộ khối lượng công việc là sự nỗ lực và phối hợp chặt chẽ của cả nhóm trong suốt quá
+
+trình nghiên cứu, thiết kế và thi công. Tuy nhiên, để tối ưu hóa hiệu quả công việc và phát huy thế mạnh
+của từng thành viên, nhóm đã phân chia các hạng mục chịu trách nhiệm chính như Bảng 1.1.
+
+5
+
+Bảng 1.1: Bảng phân công nhiệm vụ thực hiện
+STT
+
+Họ và tên sinh viên
+
+1
+
+Trương Tuấn An
+(MSSV: 2210041)
+
+Nhiệm vụ đảm nhiệm chính
+• Thiết kế mô hình cơ khí 3D trên phần mềm SolidWorks
+và lắp ráp hoàn thiện kết cấu khung robot 12 bậc tự do.
+• Tính toán mô-men xoắn động lực học, từ đó phân tích
+và lựa chọn cơ cấu chấp hành (cụm động cơ Bus Servo
+ST3215).
+• Tính toán công suất và dòng điện tiêu thụ tổng thể để
+thiết kế sơ đồ đi dây, phân nhánh cấp nguồn và lựa chọn
+hệ thống nguồn (nguồn xung tổ ong 12 V, mạch giảm áp
+XL4015).
+
+2
+
+Võ Quế Long
+(MSSV: 2211910)
+
+• Phát triển phần mềm và xây dựng kiến trúc điều khiển
+phân tán trên nền tảng ROS 2 Humble.
+• Thiết lập mô hình URDF, xây dựng môi trường vật lý và
+đánh giá hệ thống trên trình mô phỏng Gazebo Classic.
+• Lập trình thực thi bộ điều khiển PD/PID nâng cao kết
+hợp module tạo dáng đi (Gait Generator) dựa trên phản
+hồi định hướng không gian từ cảm biến IMU.
+
+Thực hiện chung
+
+• Nghiên cứu cơ sở lý thuyết: động học nghịch (IK) theo
+phương pháp Modified Denavit–Hartenberg (MD-H),
+quy hoạch quỹ đạo đa thức bậc 5, dáng đi Trot và thuật
+toán điều khiển PID.
+• Thực nghiệm sim-to-real: chuyển đổi thuật toán từ mô
+phỏng xuống phần cứng thực, tinh chỉnh (tuning) các hệ
+số điều khiển và đánh giá khả năng cân bằng tư thế.
+• Tổng hợp số liệu, phân tích biểu đồ và biên soạn tài liệu
+báo cáo luận văn hoàn chỉnh.
+
+Ghi chú: Đánh giá mức độ hoàn thành nhiệm vụ chung của cả nhóm là 100%, trong đó mức độ
+đóng góp của mỗi thành viên là tương đương nhau (50% - 50%).
+6
+
+1.3.6
+
+Bố cục luận văn
+Đồ án được tổ chức thành 6 chương với nội dung như sau:
+
+• Chương 1 – Giới thiệu: Trình bày tổng quan, tình hình nghiên cứu trong và ngoài nước, mục tiêu,
+đối tượng, phạm vi, phương pháp nghiên cứu và ý nghĩa khoa học – thực tiễn.
+• Chương 2 – Lý thuyết: Cơ sở lý thuyết hình học, cân bằng, mô hình động học thuận/nghịch, quy
+hoạch quỹ đạo và dáng đi, thiết kế bộ điều khiển.
+• Chương 3 – Thiết kế và thực hiện phần cứng: Phân tích kết cấu, lựa chọn cơ cấu chấp hành,
+kiến trúc phần cứng, giao thức truyền thông.
+• Chương 4 – Thiết kế và thực hiện phần mềm: Kiến trúc phần mềm ROS 2, quy trình khởi tạo
+tư thế đứng (homing) và quy trình calibrate.
+• Chương 5 – Kết quả thực hiện: Mô phỏng Gazebo, phân tích quỹ đạo, góc khớp, mô-men xoắn,
+thực nghiệm phần cứng, phân tích sim-to-real.
+• Chương 6 – Kết luận và hướng phát triển: Tổng kết kết quả, đánh giá hạn chế, đóng góp và đề
+xuất hướng phát triển.
+
+7
+
+2. LÝ THUYẾT
+Trong quá trình nghiên cứu và thực hiện đề tài, nhóm tác giả đã tham khảo nhiều công trình
+nghiên cứu và bài báo khoa học trên thế giới [11, 12, 2]. Tuy nhiên, tại Việt Nam, các tài liệu và báo cáo
+khoa học đi sâu vào việc hiện thực hóa toàn diện hệ thống điều khiển cho robot bốn chân vẫn còn khá
+hạn chế. Do đó, chương này sẽ tổng hợp các cơ sở lý thuyết nền tảng cốt lõi nhất làm tiền đề cho việc
+thiết kế và điều khiển hệ thống.
+
+2.1
+
+Tổng quan về Robot bốn chân
+Robot bốn chân là một hệ thống robot di động sử dụng cơ cấu bốn chân, được thiết kế dựa trên
+
+nguồn cảm hứng sinh học từ đặc điểm vận động của các loài côn trùng và động vật có vú. Khác với robot
+hai chân, robot bốn chân có trọng tâm thấp và diện tích đa giác chân đế rộng hơn. Nhờ đó, chúng có thể
+dễ dàng tự ổn định thân mình bằng cách linh hoạt điều chỉnh tư thế cơ thể cũng như thay đổi các dáng
+đi. Với đặc tính cơ động học ưu việt này, robot bốn chân sở hữu khả năng thích nghi tuyệt vời trên các
+địa hình gồ ghề và phức tạp.
+Trong khuôn khổ của nghiên cứu này, đối tượng nghiên cứu và chế tạo cụ thể là một nguyên
+mẫu robot bốn chân mô phỏng hình dáng và cấu trúc khớp của loài chó. Cấu trúc này mang lại sự cân
+bằng tối ưu giữa kích thước, sự linh hoạt và tải trọng, là nền tảng lý tưởng để triển khai các giải thuật
+điều khiển thăng bằng.
+
+Hình 2-1: Ví dụ robot bốn chân
+
+2.2
+
+Phân loại cấu trúc chân robot
+Cấu trúc cơ khí của chân robot có ảnh hưởng lớn đến khả năng điều khiển, hiệu suất chuyển
+
+động, độ chính xác cũng như khả năng mở rộng trong thiết kế. Dựa trên nguyên lý cơ học, cấu trúc chân
+robot có thể được chia thành ba loại chính: cấu trúc nối tiếp (Serial), cấu trúc song song (Parallel) và cấu
+trúc lai (Hybrid).
+8
+
+Cấu trúc nối tiếp (Serial): Là cấu trúc phổ biến nhất, trong đó các khớp được liên kết tuần tự
+từ gốc (khung thân robot) đến điểm cuối (bàn chân). Mỗi khớp điều khiển một bậc tự do (DOF) và ảnh
+hưởng trực tiếp đến toàn bộ các khâu phía sau trong chuỗi động học. Hình 2-2 minh họa một dạng cấu
+trúc chân nối tiếp với ba động cơ được gắn lần lượt tại khớp vai, khớp hông và khớp gối:
+
+Hình 2-2: Cơ cấu chân dạng nối tiếp
+Cấu trúc song song (Parallel): Trong cấu trúc này, nhiều nhánh cơ cấu hoạt động đồng thời để
+điều khiển một điểm cuối duy nhất, tạo nên hệ thống động học khép kín. Loại này thường có cấu hình
+tương tự như bệ Stewart (một dạng bệ lục giác có khung đồng bộ với các chân), mang lại độ cứng vững
+cao và độ chính xác chuyển động tốt hơn so với cấu trúc nối tiếp. Tuy nhiên, cấu trúc này có khối lượng
+cơ khí lớn và thuật toán tính toán động học thuận (FK), động học nghịch (IK) phức tạp hơn đáng kể.
+Hình 2-3 trình bày một dạng cấu trúc chân song song phổ biến:
+
+Hình 2-3: Mô hình cơ khí và hệ tọa độ nhánh của chân song song
+Cấu trúc lai (Serial-Parallel Hybrid): Là sự kết hợp ưu điểm của cả hai cấu trúc trên, trong
+đó hệ thống sử dụng chuỗi động học nối tiếp để điều khiển chuyển động chính, đồng thời tích hợp cơ
+cấu song song để hỗ trợ truyền động (thường ứng dụng để dẫn động từ xa cho khớp gối). Do kết hợp cả
+9
+
+hai cơ chế, phần chân robot thường nặng nề về mặt cơ khí và thuật toán điều khiển chuyển động cũng trở
+nên vô cùng phức tạp. Hình 2-4 mô phỏng một trong những cấu trúc chân lai đơn giản nhất:
+
+Hình 2-4: Cơ cấu chân lai nối tiếp – song song
+Sau quá trình đánh giá, nhằm tối ưu hóa trọng lượng phần cứng và tập trung vào phát triển giải
+thuật điều khiển cũng như thuận lợi cho việc kiểm chứng mô phỏng, cấu trúc chân nối tiếp (Serial) đã
+được lựa chọn cho nguyên mẫu robot.
+
+2.3
+
+Cấu trúc liên kết động học của robot bốn chân
+Mặc dù tồn tại nhiều dạng cấu trúc liên kết động học khác nhau trong thiết kế robot bốn chân,
+
+các cấu hình với 8, 12 hoặc 16 bậc tự do (DOF) được sử dụng phổ biến nhất.
+Cấu trúc 8 bậc tự do bao gồm bốn khớp hông và bốn khớp gối, trong đó tất cả các trục khớp
+song song với nhau. Robot 8 DOF có khả năng di chuyển tiến và lùi với tốc độ cao và tương đối dễ điều
+khiển do không có bậc tự do vung ngang tại khớp hông. Tuy nhiên, robot bốn chân 8 DOF không thể
+thực hiện chuyển động theo phương ngang và khả năng quay hướng bị hạn chế đáng kể, dẫn đến hiệu
+suất chuyển động không cao.
+Ngược lại, robot bốn chân 16 DOF có số lượng khớp nhiều hơn, cho phép thực hiện các chuyển
+động linh hoạt và khéo léo hơn, nhưng đồng thời làm tăng đáng kể độ phức tạp trong điều khiển và tính
+toán.
+Dựa trên những phân tích trên, cấu hình 12 bậc tự do, với mỗi chân gồm ba khớp quay, được lựa
+chọn cho thiết kế trong nghiên cứu này.
+Về cấu hình chân, các dạng phổ biến bao gồm: inner knee-elbow, outer knee-elbow, full-knee
+và full-elbow. Hai cấu hình đầu có cấu trúc chân đối xứng hoàn toàn, do đó giúp robot đạt được độ ổn
+định cao hơn. Trong khi đó, hai cấu hình sau cung cấp không gian làm việc lớn hơn và thuận lợi hơn cho
+việc điều khiển chuyển động. Vì vậy, trong nghiên cứu này, cấu hình full-elbow được lựa chọn.
+Cấu trúc liên kết động học kết cấu rút gọn được thể hiện ở Hình 2-5, trong đó khớp hông có hai
+bậc tự do quay (vung ngang và vung dọc), còn khớp gối có thêm một bậc tự do quay.
+
+10
+
+Hình 2-5: Cấu trúc liên kết động học của robot bốn chân 12 bậc tự do
+
+2.4
+
+Cơ cấu chân 3 bậc tự do
+Đối với robot bốn chân, cơ cấu chân 3 bậc tự do được ưu tiên sử dụng phổ biến nhất nhờ tính
+
+linh hoạt cao trong việc mô phỏng các dáng đi sinh học. Một chân robot tiêu chuẩn thường được chia
+thành ba khâu chính: hông (hip), đùi (thigh) và cẳng chân (calf hoặc lower thigh).
+
+Hình 2-6: Ba bậc tự do của cơ cấu một chân
+Như vậy, để cấu thành nên một robot bốn chân hoàn chỉnh, hệ thống sẽ cần tổng cộng 12 bậc
+tự do. Mỗi khớp tương ứng với một bậc tự do và được dẫn động độc lập bởi một động cơ. Sự phối hợp
+đồng bộ giữa 3 khớp này cho phép đầu bàn chân di chuyển đến bất kỳ tọa độ (x, y, z) nào trong không
+11
+
+gian làm việc của nó. Để đảm bảo sự đồng đều về lực, các động cơ được sử dụng thường có công suất
+định mức và mô-men xoắn tương đương nhau.
+
+2.5
+
+Không gian làm việc
+Không gian làm việc chân robot là vùng không gian mà đầu bàn chân có thể vươn tới. Không
+
+gian làm việc của chân có thể được xác định bằng phương pháp phân tích hình học khi đã biết giới hạn
+góc quay của các động cơ và các khớp.
+Phương pháp động học thuận rất hữu ích trong việc xác định không gian làm việc vì cơ cấu chân
+điển hình có cấu trúc tương tự như một tay máy nối tiếp. Đối với cơ cấu chân 3 bậc tự do với các giới hạn
+góc θi,min ≤ θi ≤ θi,max (i = 1, 2, 3), không gian làm việc được xác định bằng cách quét toàn bộ miền
+
+góc khớp cho phép và tính tọa độ đầu chân bằng FK:
+
+pf oot = FK(θ1 , θ2 , θ3 )
+
+(2.1)
+
+Kết quả quét tạo ra một đám mây điểm 3D có dạng vòng cung (annular sector), đặc trưng cho
+cơ cấu serial. Tầm với tối đa của chân đạt được khi các khâu duỗi thẳng (θ3 = 0):
+
+rmax = l2 + l3
+
+(2.2)
+
+trong khi tầm với tối thiểu xảy ra khi các khâu gập hoàn toàn:
+
+rmin = |l2 − l3 |
+
+(2.3)
+
+Không gian làm việc có ý nghĩa quan trọng trong thiết kế: nó xác định phạm vi chiều cao đứng,
+chiều dài bước và biên độ chuyển động của robot. Vùng đạt được rộng nhất nằm trong mặt phẳng sagittal
+(X-Z), trong khi chiều ngang theo phương Y bị giới hạn bởi biên độ khớp hông (hip - θ1 ).
+
+2.6
+
+Các phương thức di chuyển
+Robot bốn chân có rất nhiều phương thức di chuyển khác nhau tùy thuộc vào tốc độ và đặc điểm
+
+địa hình. Dưới đây là 5 dáng đi (gait) phổ biến nhất được áp dụng trong kỹ thuật điều khiển robot:
+• Dáng đi Trot (Chạy kiệu): Đây là dáng đi phổ biến nhất và cũng là dáng đi trọng tâm được tác giả
+lựa chọn để thực hiện. Ở dáng đi này, hai chân chéo nhau (ví dụ: chân trước-trái và chân sau-phải)
+sẽ đồng thời nhấc lên và tiếp đất cùng lúc. Trot gait giúp robot di chuyển nhanh và mượt mà, nhưng
+đòi hỏi bài toán điều khiển cân bằng động liên tục do đa giác chân đế thu hẹp lại thành một đường
+chéo.
+
+12
+
+Hình 2-7: Giản đồ pha chuyển động của dáng đi Trot
+• Dáng đi Walk (Đi bộ): Là dáng đi chậm và ổn định nhất. Tại bất kỳ thời điểm nào, robot luôn có
+ít nhất 3 chân tiếp đất để tạo thành một chân đế vững chắc, trong khi 1 chân được nhấc lên bước
+tới. Các pha (phase) của 4 chân thường lệch nhau một góc 90◦ (tương ứng 0◦ , 90◦ , 180◦ , 270◦ ).
+
+Hình 2-8: Giản đồ pha chuyển động của dáng đi Walk
+• Dáng đi Pace (Đi kiệu song song): Hai chân cùng một bên (trái hoặc phải) được nhấc lên và tiến
+về phía trước cùng lúc. Đặc điểm của dáng đi này là trọng tâm khối lượng (CoM - Center of Mass)
+của robot sẽ bị lắc lư ngang theo trục Y trong quá trình di chuyển, do đó hệ thống cần có cơ chế
+bù trừ thăng bằng tốt.
+
+Hình 2-9: Giản đồ pha chuyển động của dáng đi Pace
+• Dáng đi Bound (Nhảy vọt): Hai chân trước đồng thời nhấc lên vươn tới, ngay sau đó hai chân sau
+cũng nhấc lên tạo ra chuyển động nảy bật về phía trước, mô phỏng chuyển động của các loài thú
+săn mồi.
+
+Hình 2-10: Giản đồ pha chuyển động của dáng đi Bound
+13
+
+• Dáng đi Gallop (Phi mã): Đây là dáng đi có tốc độ cao nhất của robot bốn chân. Quá trình di
+chuyển sẽ xuất hiện các pha bay hoàn toàn trên không (flight phase), tức là không có chân nào
+chạm đất. Dáng đi này đòi hỏi các cơ cấu chấp hành có mô-men xoắn và tốc độ cực kỳ cao.
+
+Hình 2-11: Giản đồ pha chuyển động của dáng đi Gallop
+
+2.7
+
+Lý thuyết ổn định cho robot có chân
+Phân tích ổn định là yêu cầu thiết yếu trong thiết kế và vận hành robot bốn chân. Khác với robot
+
+bánh xe có diện tích tiếp xúc liên tục với mặt đất, robot có chân chỉ tiếp xúc tại các điểm rời rạc, và diện
+tích đỡ thay đổi liên tục theo thời gian khi các chân chuyển pha.
+
+2.7.1
+
+Ổn định tĩnh
+Robot có chân được xem là ổn định tĩnh tại một thời điểm nếu hình chiếu của trọng tâm (Center
+
+of Mass – CoM) xuống mặt đất nằm bên trong đa giác đỡ (support polygon) — đa giác lồi được tạo bởi
+các điểm tiếp xúc giữa các chân đang chạm đất và mặt đất.
+Biên ổn định tĩnh (Static Stability Margin – SSM) được định nghĩa là khoảng cách nhỏ nhất từ
+hình chiếu CoM đến các cạnh của đa giác đỡ [2]:
+SSM = min d(pCoM , Pi Pi+1 )
+i
+
+(2.4)
+
+trong đó pCoM là hình chiếu CoM lên mặt đất, Pi Pi+1 là cạnh thứ i của đa giác đỡ, và d(·, ·)
+
+là khoảng cách từ điểm đến đoạn thẳng. Nếu SSM > 0, robot ổn định tĩnh; nếu SSM ≤ 0, robot sẽ đổ.
+
+Ứng dụng cho dáng đi Trot. Trong dáng đi trot, tại mỗi thời điểm có hai chân chéo nhau chạm
+đất. Đa giác đỡ suy biến thành một đoạn thẳng nối hai bàn chân. Về mặt lý thuyết, điều này có nghĩa
+là robot đang ở trạng thái biên của ổn định tĩnh (SSM ≈ 0 khi CoM nằm đúng trên đoạn thẳng). Trong
+
+thực tế, diện tích tiếp xúc hữu hạn của bàn chân và quán tính của thân robot tạo ra một vùng ổn định hẹp
+nhưng đủ để duy trì chuyển động.
+
+14
+
+(a) Walk Gait – 3 stance legs
+
+(b) Trot Gait – 2 diagonal stance legs
+
+Hình 2-12: Minh họa Đa giác đỡ và Biên ổn định tĩnh (SSM) của robot bốn chân
+
+2.7.2
+
+Ổn định động
+Khi robot di chuyển ở tốc độ trung bình đến cao, phân tích ổn định tĩnh không còn đủ vì các
+
+hiệu ứng quán tính trở nên đáng kể. Ổn định động sử dụng khái niệm Zero Moment Point (ZMP) —
+điểm trên mặt đất mà tổng mô-men do trọng lực và lực quán tính bằng không [16].
+Xét mô hình đơn giản hóa của robot bốn chân như Hình 2-13, trong đó toàn bộ khối lượng robot
+được tập trung tại trọng tâm CoM có tọa độ (x, y, z) ở độ cao z0 so với mặt đất. Các điểm tiếp xúc giữa
+chân và mặt đất (các chấm xanh) tạo thành đa giác đỡ (đường nét đứt xanh lá). Điểm ZMP (pxk , pyk )
+nằm trên mặt phẳng đất, là điểm mà tại đó tổng mô-men của tất cả các lực tác dụng (bao gồm trọng lực
+và lực quán tính) bằng không.
+Tọa độ ZMP được xác định bởi:
+
+pxk = x −
+
+ẍ
+· z0 ,
+z̈ + g
+
+pyk = y −
+
+ÿ
+· z0
+z̈ + g
+
+(2.5)
+
+trong đó (x, y, z) là tọa độ CoM, (ẍ, ÿ, z̈) là gia tốc của CoM, g là gia tốc trọng trường, và z0
+là chiều cao danh nghĩa của CoM. Đối với trường hợp tổng quát nhiều khâu, công thức mở rộng thành:
+
+pZM P =
+
+P
+
+i + g)ri −
+i mi (z̈
+P
+
+P
+
+i mi r̈i zi
+
+i mi (z̈i + g)
+
+(2.6)
+
+trong đó mi , ri = (xi , yi )T , zi lần lượt là khối lượng, vị trí ngang và độ cao của khâu thứ i.
+Robot ổn định động khi ZMP nằm bên trong đa giác đỡ.
+
+15
+
+Hình 2-13: Mô hình 3D minh họa quan hệ giữa trọng tâm CoM (x, y, z) và điểm ZMP (pxk , pyk ) trên
+mặt phẳng đỡ của robot bốn chân
+Trong nghiên cứu này, robot hoạt động ở tốc độ thấp nên phân tích ổn định tĩnh là đủ cho mục
+đích thiết kế. Bộ điều khiển PID cân bằng IMU đóng vai trò bổ sung, giảm thiểu sai lệch hướng của thân
+robot khi di chuyển, đưa CoM về gần đường nối hai bàn chân đang chạm đất.
+
+2.8
+
+Lý thuyết bộ điều khiển PID
+
+2.8.1
+
+Luật điều khiển PID chuẩn
+Bộ điều khiển PID (Proportional–Integral–Derivative) là một trong những thuật toán điều khiển
+
+phản hồi được sử dụng rộng rãi nhất trong kỹ thuật tự động hóa [17]. Bộ điều khiển liên tục tính toán sai
+lệch e(t) = r(t) − y(t) giữa giá trị đặt r(t) và giá trị đo được y(t), sau đó áp dụng tín hiệu hiệu chỉnh
+dựa trên ba thành phần:
+
+u(t) = KP · e(t) + KI
+
+Z t
+0
+
+e(τ ) dτ + KD
+
+de(t)
+dt
+
+(2.7)
+
+trong đó KP là hệ số khuếch đại tỷ lệ, KI là hệ số tích phân, và KD là hệ số vi phân. Mỗi thành
+phần đóng một vai trò riêng biệt trong việc định hình đáp ứng hệ thống:
+• Thành phần tỷ lệ (P): Tạo ra tín hiệu hiệu chỉnh tỷ lệ thuận với sai lệch hiện tại. Hệ số KP càng
+lớn, hệ thống phản ứng càng nhanh nhưng đồng thời có xu hướng dao động và vọt lố (overshoot)
+nhiều hơn. Thành phần P đơn thuần không thể triệt tiêu hoàn toàn sai lệch ở trạng thái xác lập.
+• Thành phần tích phân (I): Tích lũy sai lệch theo thời gian để triệt tiêu sai số ở trạng thái xác lập
+(steady-state error). Tuy nhiên, thành phần này có thể gây ra hiện tượng integral windup — khi
+sai lệch tồn tại trong thời gian dài, giá trị tích phân tích lũy quá lớn khiến hệ thống vọt lố nghiêm
+trọng và phục hồi chậm.
+• Thành phần vi phân (D): Dự đoán xu hướng thay đổi của sai lệch dựa trên đạo hàm. Thành phần
+16
+
+này hoạt động như một “phanh” hệ thống, giảm vọt lố và cải thiện thời gian ổn định. Nhược điểm
+chính là nhạy cảm với nhiễu tần số cao trong tín hiệu đo.
+
+2.8.2
+
+Dạng rời rạc và triển khai số
+Trong hệ thống nhúng với chu kỳ lấy mẫu ∆t, bộ PID được triển khai dưới dạng rời rạc:
+
+uk = KP · ek + KI
+
+k
+X
+j=0
+
+ej · ∆t + KD
+
+ek − ek−1
+∆t
+
+(2.8)
+
+trong đó chỉ số k biểu thị bước thời gian hiện tại. Phương trình trên là dạng triển khai cơ bản
+nhất. Trong thực tế, nhiều cải tiến quan trọng được áp dụng để nâng cao chất lượng điều khiển.
+
+2.8.3
+
+Các cải tiến PID trong hệ thống thực
+Chống tích lũy (Anti-windup). Khi đầu ra điều khiển bị bão hòa (vượt giới hạn cơ cấu chấp
+
+hành), thành phần tích phân vẫn tiếp tục tích lũy, gây ra hiện tượng windup. Hai phương pháp phổ biến
+để giải quyết:
+• Clamping: Dừng tích lũy khi đầu ra bão hòa, tức Ik = max(−Imax , min(Imax , Ik )).
+• Back-calculation: Trừ ngược phần vượt giới hạn vào bộ tích phân: Ik ← Ik − Kbc (uraw − usat ),
+trong đó Kbc là hệ số back-calculation.
+
+Lịch trình hệ số khuếch đại (Gain Scheduling). Thay vì sử dụng các hệ số PID cố định,
+phương pháp gain scheduling điều chỉnh động các hệ số theo điều kiện vận hành hiện tại. Ví dụ, khi sai
+lệch nhỏ (gần điểm đặt), hệ số KP có thể được giảm xuống để tránh hiệu chỉnh quá mạnh gây dao động:
+gs = clamp
+
+
+
+|e|
+
+ethresh
+
+, gmin , 1,0
+
+
+
+(2.9)
+
+trong đó gs là hệ số tỷ lệ nằm trong khoảng [gmin , 1], và ethresh là ngưỡng sai lệch tham chiếu.
+Vùng chết (Deadband/Deadzone). Vùng chết triệt tiêu các sai lệch nhỏ không đáng kể, tránh
+tạo ra hoạt động cơ cấu chấp hành không cần thiết do nhiễu cảm biến:
+
+
+
+e − d nếu e > d
+
+
+edz = 0
+nếu |e| ≤ d
+
+
+
+e + d nếu e < −d
+
+(2.10)
+
+trong đó d là bán kính vùng chết. Kỹ thuật này đặc biệt quan trọng trong các hệ thống servo nơi
+dao động nhỏ có thể gây mài mòn cơ khí.
+
+17
+
+Rò rỉ tích phân (Integral Leakage/Decay). Để ngăn bộ tích phân giữ lại sai số cũ quá lâu, hệ
+số rò rỉ λ ∈ (0, 1) được áp dụng:
+Ik = λ · Ik−1 + ek · ∆t,
+
+λ ≈ 0,999
+
+(2.11)
+
+Phương pháp này đặc biệt hữu ích trong các hệ thống có đặc tính thay đổi theo thời gian, nơi giá
+trị tích phân cũ không còn phản ánh đúng trạng thái hệ thống.
+
+2.9
+
+Cảm biến quán tính IMU và biểu diễn hướng
+
+2.9.1
+
+Nguyên lý hoạt động
+Bộ đo lường quán tính (Inertial Measurement Unit – IMU) là thiết bị kết hợp nhiều loại cảm
+
+biến để đo gia tốc, vận tốc góc và hướng của vật thể trong không gian ba chiều. Một IMU tiêu chuẩn 9
+trục bao gồm [18]:
+• Gia tốc kế (Accelerometer): Đo gia tốc tuyến tính theo ba trục (ax , ay , az ), bao gồm cả thành
+phần gia tốc trọng trường. Từ các phép đo này, góc nghiêng tĩnh (roll, pitch) có thể được suy ra
+thông qua hướng của vector trọng lực.
+• Con quay hồi chuyển (Gyroscope): Đo vận tốc góc (ωx , ωy , ωz ) quanh ba trục. Tích phân vận
+tốc góc theo thời gian cho ra góc quay, tuy nhiên do sai số tích lũy (drift), phương pháp này không
+đáng tin cậy trong thời gian dài.
+• Từ kế (Magnetometer): Đo cường độ từ trường Trái Đất theo ba trục, cung cấp thông tin về hướng
+Bắc từ, cho phép xác định góc hướng (yaw).
+
+2.9.2
+
+Biểu diễn hướng: Quaternion và góc Euler
+Hướng của một vật rắn trong không gian ba chiều có thể được biểu diễn bằng nhiều phương
+
+pháp, trong đó phổ biến nhất là góc Euler và quaternion.
+Góc Euler sử dụng ba góc quay liên tiếp quanh các trục cố định hoặc trục động để mô tả hướng.
+Trong hệ quy ước ZYX (yaw–pitch–roll), ma trận xoay tổng hợp là:
+
+R = Rz (ψ) · Ry (θ) · Rx (ϕ)
+
+(2.12)
+
+trong đó ϕ là góc lăn (roll), θ là góc nghiêng (pitch), và ψ là góc hướng (yaw). Nhược điểm
+chính của biểu diễn Euler là hiện tượng khóa gimbal (gimbal lock), xảy ra khi θ = ±90◦ , khiến hai trục
+quay trùng nhau và mất một bậc tự do.
+
+Quaternion q = (w, x, y, z) với |q| = 1 biểu diễn phép quay một góc α quanh trục đơn vị
+
+n̂ = (nx , ny , nz ):
+
+18
+
+
+α
+α
+α
+α
+q = cos , nx sin , ny sin , nz sin
+2
+2
+2
+2
+
+(2.13)
+
+Quaternion không bị hiện tượng khóa gimbal, tính toán nội suy mượt mà hơn, và yêu cầu ít
+phép toán hơn so với ma trận xoay. Công thức chuyển đổi từ quaternion sang góc Euler thường dùng
+trong robotics là:
+
+ϕ = atan2 2(wx + yz), 1 − 2(x2 + y 2 )
+θ = arcsin (2(wy − zx))
+
+
+
+
+ψ = atan2 2(wz + xy), 1 − 2(y 2 + z 2 )
+
+2.9.3
+
+(2.14)
+(2.15)
+(2.16)
+
+Bộ lọc cảm biến
+Dữ liệu thô từ IMU chứa nhiễu tần số cao và sai số trôi (drift), do đó cần được xử lý qua bộ lọc
+
+trước khi sử dụng. Các phương pháp phổ biến bao gồm:
+• Bộ lọc bổ sung (Complementary Filter): Kết hợp dữ liệu gia tốc kế (tin cậy ở tần số thấp) và con
+quay hồi chuyển (tin cậy ở tần số cao) thông qua hệ số trọng số α:
+θ̂k = α · (θ̂k−1 + ωk ∆t) + (1 − α) · θacc,k
+
+(2.17)
+
+• Bộ lọc Kalman: Phương pháp ước lượng tối ưu dựa trên mô hình trạng thái, kết hợp dự đoán
+(prediction) từ mô hình động học với cập nhật (update) từ phép đo. Bộ lọc Kalman mở rộng (EKF)
+được sử dụng cho các hệ phi tuyến.
+• Bộ lọc Madgwick: Thuật toán nhẹ về tính toán, sử dụng gradient descent để tối ưu hóa quaternion
+ước lượng, phù hợp với các hệ thống nhúng có tài nguyên hạn chế [18].
+• Sensor Fusion tích hợp (On-chip): Một số IMU cao cấp như BNO055 tích hợp sẵn bộ xử lý
+sensor fusion, cung cấp trực tiếp quaternion hoặc góc Euler đã được lọc, giảm tải tính toán cho vi
+xử lý chính.
+
+2.10
+2.10.1
+
+Tổng quan về nền tảng ROS 2 và Gazebo
+Hệ điều hành Robot ROS 2
+ROS 2 (Robot Operating System 2) [14] là nền tảng phần mềm mã nguồn mở dành cho phát
+
+triển ứng dụng robotics. So với phiên bản tiền nhiệm ROS 1, ROS 2 được thiết kế lại từ đầu với nhiều
+cải tiến quan trọng:
+
+19
+
+• Middleware DDS (Data Distribution Service): ROS 2 sử dụng DDS làm lớp truyền thông, cung
+cấp khả năng giao tiếp phân tán thời gian thực, đáng tin cậy, không cần máy chủ trung tâm (rosmaster). Điều này cho phép hệ thống tiếp tục hoạt động ngay cả khi một node bị lỗi.
+• Hỗ trợ thời gian thực: Kiến trúc ROS 2 được thiết kế tương thích với hệ điều hành thời gian thực
+(RTOS), cho phép triển khai các ứng dụng yêu cầu xác định thời gian (deterministic timing).
+• Đa nền tảng: Hỗ trợ Linux, Windows, macOS và nhiều kiến trúc phần cứng khác nhau (x86,
+ARM, RISC-V).
+Các khái niệm cốt lõi trong ROS 2 bao gồm:
+• Node: Đơn vị thực thi cơ bản, mỗi node thực hiện một chức năng cụ thể (ví dụ: đọc cảm biến, tính
+toán điều khiển, giao tiếp phần cứng).
+• Topic: Kênh truyền thông theo mô hình publish/subscribe. Một node có thể xuất bản (publish) dữ
+liệu lên topic và nhiều node khác có thể đăng ký nhận (subscribe) dữ liệu từ topic đó. Phương pháp
+này cho phép giao tiếp phi đồng bộ, lỏng ghép (loosely coupled).
+• Service: Mô hình giao tiếp request/response đồng bộ, phù hợp cho các thao tác yêu cầu phản hồi
+ngay lập tức.
+• Action: Tương tự service nhưng hỗ trợ phản hồi tiến trình (feedback), phù hợp cho các tác vụ kéo
+dài.
+• Launch file: Tệp cấu hình cho phép khởi chạy nhiều node đồng thời với các tham số được định
+nghĩa trước.
+
+2.10.2
+
+Trình mô phỏng Gazebo
+Gazebo [15] là trình mô phỏng robotics 3D mã nguồn mở, cung cấp môi trường vật lý chính xác
+
+để kiểm thử thuật toán trước khi triển khai trên phần cứng thực. Các đặc điểm chính bao gồm:
+• Động lực học vật lý: Sử dụng engine vật lý ODE (Open Dynamics Engine) hoặc Bullet để mô
+phỏng trọng lực, va chạm, ma sát, quán tính, và các hiệu ứng tiếp xúc giữa robot và môi trường.
+• Mô tả robot URDF/SDF: Robot được mô tả bằng file URDF (Unified Robot Description Format)
+hoặc SDF (Simulation Description Format), định nghĩa cấu trúc link, joint, thuộc tính quán tính
+(mass, inertia), vật liệu va chạm, và hình dạng hiển thị.
+• Plugin điều khiển: Giao diện gazebo_ros2_control cho phép kết nối bộ điều khiển ROS 2 với
+mô hình robot trong Gazebo, hỗ trợ các kiểu giao diện lệnh: vị trí (position), vận tốc (velocity) và
+lực/mô-men (effort).
+• Cảm biến ảo: Gazebo cung cấp các plugin mô phỏng cảm biến như IMU, camera, LiDAR, encoder,
+cho phép kiểm thử toàn bộ luồng xử lý (pipeline) phần mềm mà không cần phần cứng thực.
+20
+
+Quy trình phát triển “sim-to-real” (từ mô phỏng đến thực tế) được áp dụng trong nghiên cứu
+này: thuật toán được phát triển và kiểm thử trên Gazebo trước, sau đó chuyển sang phần cứng thực với
+các điều chỉnh tối thiểu (chủ yếu liên quan đến ánh xạ góc IK sang góc servo và giao tiếp phần cứng).
+Mục tiêu của bài toán động học thuận của robot là xác định biểu diễn vị trí của cơ cấu chấp
+hành cuối. Trong nghiên cứu này, phương pháp biến đổi tọa độ Modified Denavit–Hartenberg (MD-H)
+[10, 12] được áp dụng để giải quyết bài toán này.
+
+2.11
+2.11.1
+
+Mô hình động học
+Thiết lập hệ tọa độ MD-H
+Nhóm xây dựng một mô hình toán học và cơ khí của robot bốn chân phân bố trong không
+
+gian Descartes. Cấu trúc vật lý của robot bao gồm kích thước bệ đỡ với chiều dài L = 250 mm, chiều
+rộng W = 193 mm, và chiều dài các khâu chân lần lượt là L1 = 45 mm (Coxa/Hip), L2 = 107 mm
+(Femur/Thigh), và L3 = 116 mm (Tibia/Calf), tương đồng với thông số trình bày trong bài báo.
+
+Hình 2-14: Mô hình mô phỏng với các hệ tọa độ tham chiếu được gắn tại từng khớp của robot.
+Theo quy ước chuẩn của hệ điều hành ROS (Robot Operating System), các trục tọa độ trong
+Hình 2-14 được biểu diễn bằng màu sắc: Trục X (Đỏ) chỉ hướng tiến về phía trước, Trục Y (Xanh lá)
+chỉ hướng sang trái, và Trục Z (Xanh dương) chỉ hướng lên trên.
+Dựa theo hướng tiến về phía trước, chân trước bên trái (LF), chân trước bên phải (RF), chân sau
+bên trái (LB) và chân sau bên phải (RB) lần lượt được đánh số là 1, 2, 3 và 4. Hệ tọa độ thân {OB } được
+
+thiết lập tại tâm hình học của thân, và hệ tọa độ gốc của chân {Oi,0 } được thiết lập tại khớp nối giữa
+khớp hông và thân, trong đó i = 1, 2, 3, 4.
+
+21
+
+Trong phương pháp biến đổi tọa độ Modified Denavit-Hartenberg (MD-H) [12], chuỗi động
+học được mô tả một cách toán học thông qua các phép biến đổi tọa độ chính xác. Mỗi khâu liên kết được
+xác định bởi bốn tham số như trong Hình 2-15, theo định nghĩa chuẩn của MD-H:
+• ai−1 : khoảng cách từ trục Zi−1 đến trục Zi đo dọc theo trục Xi−1 ;
+• αi−1 : góc quay từ trục Zi−1 đến trục Zi đo quanh trục Xi−1 ;
+• di : khoảng cách từ trục Xi−1 đến trục Xi đo dọc theo trục Zi ;
+• θi : góc quay từ trục Xi−1 đến trục Xi đo quanh trục Zi .
+
+Hình 2-15: Mô hình một chân của robot bốn chân được xây dựng bằng phương pháp MD-H.
+Các tham số MD-H của từng khâu liên kết cho một chân robot được thiết lập và trình bày chi
+tiết trong Bảng 2.1, phản ánh chính xác sự khác biệt về cấu trúc động học giữa các chân bên trái và bên
+phải (tham số d2 mang dấu đối nhau do hệ quả của phép đối xứng gương).
+
+22
+
+Bảng 2.1: Tham số Modified Denavit-Hartenberg (MD-H)
+Link (i)
+
+ai−1
+
+di
+
+θi
+
+Left Limbs
+
+Right Limbs
+
+1 (Coxa)
+
+0◦
+
+0
+
+0
+
+0
+
+θ1∗
+
+2 (Femur)
+
+90◦
+
+0
+
+L1
+
+−L1
+
+θ2∗
+
+3 (Tibia)
+
+0◦
+
+L2
+
+0
+
+0
+
+θ3∗
+
+4 (Foot)
+
+0◦
+
+L3
+
+0
+
+0
+
+0
+
+∗
+
+2.11.2
+
+αi−1
+
+Variable articulation angle
+
+Giải động học thuận
+Khi giải các phương trình động học thuận bằng phương pháp MD-H, chúng thường được phân
+
+rã thành các bài toán con. Phép biến đổi từ hệ tọa độ khâu {i − 1} sang hệ tọa độ {i} tạo ra một ma trận
+biến đổi tọa độ chỉ liên quan đến bốn tham số liên kết i−1
+T . Dựa trên định nghĩa của từng tham số liên
+i
+kết ở trên, ta có:
+i−1
+T = T ransx {ai−1 } Rotx {αi−1 } T ransz {di } Rotz {θi }
+i
+
+
+
+cos θi
+
+sin θi cos αi−1
+i−1
+T =
+i
+ sin θ sin α
+
+i
+i−1
+
+− sin θi
+
+0
+− sin αi−1
+
+cos θi cos αi−1
+cos θi sin αi−1
+
+0
+
+ai−1
+
+cos αi−1
+
+0
+
+0
+
+(2.18)
+
+
+
+−di sin αi−1 
+
+di cos αi−1 
+
+1
+
+(2.19)
+
+Áp dụng cho cấu trúc của một chân robot, các ma trận biến đổi thành phần được xác định như sau:
+
+cos θ1
+
+
+0
+ sin θ1
+1T = 
+ 0
+0
+
+
+cos θ2
+
+ 0
+1
+
+2T = 
+ sin θ2
+0
+
+
+0
+
+0 0
+
+1 0
+
+0 1
+
+− sin θ1
+
+0
+
+cos θ1
+0
+0
+
+− sin θ2
+0
+
+cos θ2
+0
+
+23
+
+0
+−1
+0
+
+0
+
+0
+
+(2.20)
+
+
+
+
+−L1 
+
+0 
+
+1
+
+(2.21)
+
+
+cos θ3
+
+ sin θ3
+2
+
+3T = 
+ 0
+0
+
+− sin θ3
+
+0
+
+cos θ3
+
+0
+
+0
+
+1
+
+0
+
+0
+
+
+1 0 0
+
+
+3
+0 1 0
+4T = 
+0 0 1
+0 0 0
+
+L3
+
+L2
+
+
+
+
+0
+
+0
+
+1
+
+
+
+(2.22)
+
+
+0
+
+0
+
+1
+
+(2.23)
+
+Theo Hình 2-14, ma trận biến đổi từ hệ tọa độ {Oi,0 } đến hệ tọa độ thân {OB } được viết như sau:
+
+0
+
+0
+B
+
+0 T =
+1
+0
+sau:
+
+0
+
+1
+
+−1
+
+0
+
+0
+
+0
+
+0
+
+0
+
+
+
+L
+2
+W
+
+2 
+
+(2.24)
+
+0
+
+1
+
+Do đó, ma trận biến đổi của hệ tọa độ đầu chân so với hệ tọa độ thân {OB } được xác định như
+
+(2.25)
+
+B
+B 0
+4 T = 0 T 4T
+
+
+
+
+
+S23
+
+B
+−S1 c23
+4 T =
+ c1 c23
+
+0
+
+c23
+
+0
+
+S1 S23
+
+c1
+
+−c1 S23
+
+S1
+
+0
+
+0
+
+B
+4 T =
+
+
+
+
+
+B
+
+4 T =
+
+
+
+
+0
+
+L
+2 + L2 S2 + L3 S23
+
+
+
+
+W
+
+2 + L1 c1 − L2 S1 c2 − L3 S1 c23 
+L1 S1 + L2 c1 c2 + L3 c1 c23
+1
+
+"
+
+R
+
+P
+
+0
+
+1
+
+#
+Px
+
+R
+0
+
+S23
+
+0
+
+
+R=
+−S1 c23
+
+S1 S23
+−c1 S23
+
+c1 c23
+
+24
+
+(2.26)
+
+(2.27)
+
+
+
+Py 
+
+Pz 
+
+1
+
+c23
+
+
+
+
+0
+
+(2.28)
+
+
+
+
+c1 
+
+
+S1
+
+(2.29)
+
+
+  
+L
+B
++
+L
+s
++
+L
+s
+2
+2
+3
+23
+P
+
+2
+ x 
+
+B =  W
+P =
+
+P
++ L1 c1 − L2 s1 c2 − L3 s1 c23 
+ y  
+
+2
+PzB
+L1 s1 + L2 c1 c2 + L3 c1 c23
+
+(2.30)
+
+
+  
+L1 sin θ1 + L2 cos θ1 cos θ2 + L3 cos θ1 cos(θ2 + θ3 )
+Px
+
+  
+
+ 
+PLF = 
+Py  = −L1 cos θ1 + L2 sin θ1 cos θ2 + L3 sin θ1 cos(θ2 + θ3 )
+L2 sin θ2 + L3 sin(θ2 + θ3 )
+Pz
+
+(2.31)
+
+  
+
+Px
+−L1 sin θ1 + L2 cos θ1 cos θ2 + L3 cos θ1 cos(θ2 + θ3 )
+
+  
+
+ 
+PRF = 
+Py  =  L1 cos θ1 + L2 sin θ1 cos θ2 + L3 sin θ1 cos(θ2 + θ3 ) 
+L2 sin θ2 + L3 sin(θ2 + θ3 )
+Pz
+
+(2.32)
+
+Các ma trận trên biểu diễn phương trình động học thuận của chân trước bên phải và trái.
+
+2.12
+
+Động học nghịch
+Bài toán động học nghịch (Inverse Kinematics – IK) là bài toán xác định các giá trị góc khớp
+
+(θ1 , θ2 , θ3 ) khi biết tọa độ đầu bàn chân (x, y, z) trong hệ tọa độ thân robot. Đây là bài toán ngược của
+động học thuận, và thường có nhiều nghiệm (do tính phi tuyến của các phương trình lượng giác) hoặc
+không có nghiệm (khi điểm đích nằm ngoài không gian làm việc).
+
+2.12.1
+
+Phương pháp giải tích
+Trong nghiên cứu này, phương pháp giải tích (analytical method) được sử dụng để giải bài toán
+
+IK. Phương pháp này phân rã hệ phương trình lượng giác phi tuyến của cơ cấu chân 3-DOF serial thành
+các bước giải tuần tự, tận dụng cấu trúc chuỗi hở (serial chain) để thu được nghiệm dạng đóng:
+1. Bước 1 – Giải θ1 (khớp hip/coxa): Từ phép chiếu tọa độ đầu chân lên mặt phẳng vuông góc với
+trục hip, sử dụng hàm atan2 để xác định góc dang chân θ1 . Do cấu trúc đối xứng gương giữa chân
+trái và chân phải, dấu của L1 trong công thức atan2 được đảo ngược.
+2. Bước 2 – Tính các biến trung gian p1 , p2 : Sau khi biết θ1 , tọa độ đầu chân được chuyển đổi về
+mặt phẳng chứa khớp femur và tibia, tạo thành bài toán 2D trong mặt phẳng sagittal.
+3. Bước 3 – Giải θ3 (khớp gối): Sử dụng định lý hàm số cosine cho tam giác tạo bởi hai khâu (L2 ,
+L3 ) và khoảng cách từ khớp hip đến đầu chân:
+cos θ3 =
+
+p21 + p22 − L22 − L23
+2L2 L3
+25
+
+(2.33)
+
+Dấu của sin θ3 quyết định cấu hình gối (gập vào trong hay ra ngoài), được chọn phù hợp với thiết
+kế full-knee.
+4. Bước 4 – Giải θ2 (khớp đùi): Khi đã biết θ3 , góc θ2 được xác định bằng hiệu của hai hàm atan2,
+tương ứng với góc hướng tổng thể và góc lệch do khâu cẳng chân.
+
+2.12.2
+
+Xử lý đối xứng giữa các chân
+Một đặc điểm quan trọng trong triển khai IK cho robot bốn chân là sự đối xứng gương giữa chân
+
+trái và chân phải. Các hệ phương trình IK cho bốn chân không hoàn toàn giống nhau do:
+• Offset vị trí gốc chân so với tâm thân robot khác nhau (±L/2, ±W/2).
+• Chiều quay của khớp hip roll ngược nhau giữa chân trái (−L1 ) và chân phải (+L1 ).
+• Dấu của sin θ3 ngược nhau giữa chân trái (−) và chân phải (+) để duy trì cấu hình gối đối xứng.
+Trong phân hệ giải động học nghịch, bốn trường hợp được xử lý bằng cấu trúc điều kiện rẽ
+nhánh, mỗi trường hợp áp dụng phép biến đổi tọa độ và hệ số dấu riêng biệt.
+
+2.12.3
+
+Biến đổi tọa độ từ hệ thân sang hệ chân
+Trong triển khai thực tế, hàm IK nhận tọa độ đầu bàn chân (xB , yB , zB ) trong hệ tọa độ thân
+
+robot {OB }. Trước khi giải, tọa độ này được biến đổi sang hệ tọa độ cục bộ của chân (x′ , y ′ , z ′ ) bằng
+cách trừ offset vị trí gốc chân và hoán đổi trục cho phù hợp với quy ước MD-H. Cụ thể, với mỗi chân:
+x′ = zB ,
+
+y ′ = σW ·
+
+W
+− yB ,
+2
+
+z ′ = σL ·
+
+L
++ xB
+2
+
+(2.34)
+
+trong đó σW và σL là các hệ số dấu phụ thuộc vào vị trí chân, được trình bày trong Bảng 2.2.
+Bảng 2.2: Hệ số dấu biến đổi tọa độ và dấu IK cho bốn chân
+Chân
+
+σW
+
+σL
+
+Dấu L1 trong θ1
+
+Dấu sin θ3
+
+Left-Front
+
++1
+
+Left-Behind
+
++1
+
+−1
+
+−L1
+
+−1
+
+Right-Front
+
+−1
+
+−1
+
++L1
+
++1
+
+Right-Behind
+
+2.12.4
+
+−1
+
+−L1
+
++1
++1
+
++L1
+
+−1
+
++1
+
+Giải hệ phương trình IK
+Sau khi biến đổi tọa độ, bài toán IK được giải thống nhất cho cả bốn chân thông qua bốn bước
+
+sau. Các hệ số dấu tham chiếu Bảng 2.2.
+
+26
+
+Bước 1 – Giải θ1 : Từ phép chiếu tọa độ (x′ , y ′ ) lên mặt phẳng vuông góc với trục hip:
+ q
+
+θ1 = atan2(−x′ , y ′ ) + atan2 − x′2 + y ′2 − L21 , ±L1
+
+(2.35)
+
+trong đó dấu ±L1 là −L1 cho chân trái và +L1 cho chân phải.
+Bước 2 – Tính biến trung gian:
+p1 = x′ cos θ1 + y ′ sin θ1
+p2 = σp2 · z ′
+
+(2.36)
+
+trong đó σp2 = +1 cho chân trái và σp2 = −1 cho chân phải.
+Bước 3 – Giải θ3 : Áp dụng định lý hàm số cosine:
+cos θ3 =
+
+p21 + p22 − L22 − L23
+2L2 L3
+p
+
+(2.37)
+
+1 − cos2 θ3
+
+(2.38)
+
+θ3 = atan2(sin θ3 , cos θ3 )
+
+(2.39)
+
+sin θ3 = σs3
+
+trong đó σs3 = −1 cho chân trái và σs3 = +1 cho chân phải, nhằm duy trì cấu hình gối đối xứng.
+Bước 4 – Giải θ2 :
+θ2 = atan2(p2 , p1 ) − atan2(L3 sin θ3 , L2 + L3 cos θ3 )
+
+2.13
+
+(2.40)
+
+Quy hoạch dáng đi và phân tích chuyển động
+Quy hoạch dáng đi đóng vai trò then chốt đối với sự di chuyển ổn định của robot bốn chân.
+
+Trong tự nhiên, các loài động vật có vú bốn chân lựa chọn các dáng đi khác nhau tùy thuộc vào vận tốc
+di chuyển mong muốn và độ gồ ghề của bề mặt địa hình nhằm giảm thiểu năng lượng tiêu thụ mà vẫn
+đạt được mục tiêu di chuyển. Trên cơ sở đó, các mẫu dáng đi phổ biến của động vật đã được trích xuất
+để làm nền tảng cho việc quy hoạch dáng đi trên robot bốn chân.
+
+2.13.1
+
+Lựa chọn dáng đi Trot
+Dựa trên các phân tích lý thuyết về các phương thức di chuyển đã trình bày ở Chương 2, tác giả
+
+lựa chọn dáng đi trot làm trọng tâm nghiên cứu [9]. Đây là kiểu dáng đi “hai nhịp” điển hình, trong đó
+hai chân chéo nhau có đặc tính chuyển động giống hệt nhau, với chân trước bên trái (LF) và chân sau bên
+phải (RB) hoạt động đồng nhất, còn chân trước bên phải (RF) và chân sau bên trái (LB) hoạt động đồng
+nhất, như được thể hiện trong Hình 2-16.
+27
+
+Về mặt lý thuyết, hệ số chu kỳ nhiệm vụ (duty cycle coefficient) trong dáng đi này không chịu
+bất kỳ hạn chế nào, và thỏa mãn điều kiện:
+0<β<1
+
+(2.41)
+
+Do đó, robot có dải tốc độ rộng và có thể lựa chọn các tốc độ khác nhau cho các địa hình khác nhau.
+Ngoài ra, các thực nghiệm về lượng oxy tiêu thụ của ngựa ở các dáng đi khác nhau (walk, trot và gallop)
+cho thấy dáng đi trot có mức tiêu thụ năng lượng tương đối thấp trong một dải tốc độ khá lớn. Điều này
+chứng minh rằng dáng đi này có hiệu suất năng lượng cao về mặt lý thuyết.
+
+Hình 2-16: Sơ đồ thời gian của dáng đi trot với β = 0.5, trong đó β = TTst và Tst là thời gian của pha
+chống đỡ.
+Tùy thuộc vào giá trị của hệ số chu kỳ làm việc, dáng đi trot chéo có thể được chia thành ba
+loại.
+Khi β < 0.5, robot xuất hiện một pha bay ngắn, tức là thời điểm mà cả bốn chân đều ở pha
+vung. Khi đó tốc độ di chuyển của robot tăng đáng kể, tuy nhiên sự xuất hiện của pha bay này cũng làm
+tăng đáng kể độ khó trong việc điều khiển.
+Khi β > 0.5, robot có bốn giai đoạn chống đỡ khi chân vung chuyển đổi trạng thái. Điều này
+giúp tăng độ ổn định nhưng đồng thời làm giảm tốc độ di chuyển của robot.
+Khi β = 0.5, hai cặp chân chéo luân phiên chuyển đổi liên tục giữa pha vung và pha chống đỡ.
+Trạng thái này nằm giữa hai trường hợp trên và đảm bảo sự cân bằng giữa tốc độ di chuyển và độ ổn định
+của robot, do đó đây là dáng đi được sử dụng phổ biến nhất.
+
+2.14
+
+Quy hoạch quỹ đạo cho robot bốn chân
+Chuyển động của chân robot về cơ bản được mô tả thông qua quỹ đạo chuyển động của robot.
+
+Trong đó, quỹ đạo là sự biến thiên theo thời gian của vị trí, vận tốc và gia tốc của từng bậc tự do của
+robot.
+Khi quá trình mô phỏng được thực hiện mà không có một phương pháp quy hoạch quỹ đạo phù
+hợp, chuyển động của robot thường trở nên ngẫu nhiên và không đều, đồng thời robot sẽ khó duy trì được
+sự cân bằng. Nguyên nhân của hiện tượng này là do sự thay đổi đột ngột của vận tốc trong không gian
+Descartes.
+
+28
+
+Hình 2-17: Phân tích quỹ đạo của một chân
+Việc quy hoạch quỹ đạo là cần thiết cho quá trình phân tích chuyển động dựa trên động học. Do
+đó, quỹ đạo được tạo ra với sự hỗ trợ của các điểm trung gian nhằm duy trì dạng chuyển động mượt mà.
+Vì robot bốn chân có 3 bậc tự do nên chuyển động của robot có sự thay đổi trên cả ba trục trong không
+gian Descartes.
+
+2.14.1
+
+Nội suy đa thức bậc ba
+Trong quá trình xây dựng quỹ đạo chuyển động, phương pháp nội suy đa thức thường được sử
+
+dụng để tạo ra đường cong chuyển động liên tục giữa các điểm. Một trong những phương pháp phổ biến
+là nội suy đa thức bậc ba. Dạng tổng quát của đa thức bậc ba được biểu diễn như sau:
+f (t) = a3 t3 + a2 t2 + a1 t + a0
+Trong đó a0 , a1 , a2 , a3 là các hệ số được xác định dựa trên bốn điều kiện biên gồm vị trí và vận
+tốc tại các điểm đầu và cuối của quỹ đạo:
+
+x(0) = x0 ,
+
+x(T ) = xf
+
+(2.42)
+
+ẋ(0) = 0,
+
+ẋ(T ) = 0
+
+(2.43)
+
+Phương pháp này giúp tạo ra quỹ đạo liên tục và đảm bảo tính liên tục của vị trí và vận tốc trong
+quá trình chuyển động.
+
+29
+
+1.0
+
+Position
+
+s( )
+
+0.8
+0.6
+
+Swing phase
+
+Stance phase
+
+0.4
+
+Stance phase
+
+0.2
+0.0
+0.50
+
+0.25
+
+0.00
+
+0.25
+
+0.50
+
+0.75
+
+1.00
+
+1.25
+
+1.50
+
+0.00
+
+0.25
+
+0.50
+
+0.75
+
+1.00
+
+1.25
+
+1.50
+
+0.25
+
+0.50
+
+0.75
+
+1.00
+
+1.25
+
+1.50
+
+Velocity
+
+1.4
+1.2
+
+s( )
+
+1.0
+0.8
+0.6
+0.4
+0.2
+0.0
+0.50
+6
+
+0.25
+
+Acceleration
+
+4
+
+s( )
+
+2
+0
+2
+4
+6
+0.50
+
+0.25
+
+0.00
+
+Normalized time
+
+Hình 2-18: Các đường cong quỹ đạo bậc ba
+
+2.14.2
+
+Nội suy đa thức bậc năm
+Tuy nhiên, để cải thiện độ mượt của quỹ đạo và đảm bảo thêm điều kiện liên tục của gia tốc,
+
+phương pháp nội suy đa thức bậc năm được sử dụng. Dạng tổng quát:
+f (t) = a5 t5 + a4 t4 + a3 t3 + a2 t2 + a1 t + a0
+Các hệ số được xác định dựa trên sáu điều kiện biên gồm vị trí, vận tốc và gia tốc tại điểm đầu
+và điểm cuối:
+
+30
+
+x(0) = x0 ,
+
+x(T ) = xf
+
+(2.44)
+
+ẋ(0) = 0,
+
+ẋ(T ) = 0
+
+(2.45)
+
+ẍ(0) = 0,
+
+ẍ(T ) = 0
+
+(2.46)
+
+Việc sử dụng đa thức bậc năm cho phép đảm bảo tính liên tục bậc hai (C 2 ) của vị trí, vận tốc
+và gia tốc, từ đó giúp chuyển động của robot trở nên ổn định và mượt mà hơn.
+1.0
+
+Position
+
+s( )
+
+0.8
+0.6
+
+Swing phase
+
+Stance phase
+
+0.4
+
+Stance phase
+
+0.2
+0.0
+0.50
+
+0.25
+
+0.00
+
+0.25
+
+0.50
+
+0.75
+
+1.00
+
+1.25
+
+1.50
+
+0.00
+
+0.25
+
+0.50
+
+0.75
+
+1.00
+
+1.25
+
+1.50
+
+0.25
+
+0.50
+
+0.75
+
+1.00
+
+1.25
+
+1.50
+
+Velocity
+
+1.75
+1.50
+
+s( )
+
+1.25
+1.00
+0.75
+0.50
+0.25
+0.00
+0.50
+6
+
+0.25
+
+Acceleration
+
+4
+
+s( )
+
+2
+0
+2
+4
+6
+
+0.50
+
+0.25
+
+0.00
+
+Normalized time
+
+Hình 2-19: Biên dạng vị trí, vận tốc và gia tốc của hàm bước mượt bậc năm
+Khi giải hệ sáu phương trình với sáu ẩn, nghiệm dạng đóng thu được dưới dạng tham số chuẩn
+hóa. Đặt τ = t/T ∈ [0, 1], hàm bước mượt bậc năm (quintic smooth-step) được xác định là:
+s(τ ) = 10τ 3 − 15τ 4 + 6τ 5
+31
+
+(2.47)
+
+Hàm s(τ ) thỏa mãn tất cả sáu điều kiện biên:
+
+s(0) = 0, s(1) = 1,
+
+ṡ(0) = ṡ(1) = 0,
+
+s̈(0) = s̈(1) = 0
+
+(2.48)
+
+Nhờ đó, quỹ đạo giữa hai điểm bất kỳ có thể được viết gọn:
+
+p(τ ) = p0 + s(τ ) · (pf − p0 )
+
+(2.49)
+
+trong đó p0 và pf lần lượt là vị trí đầu và vị trí cuối.
+
+2.14.3
+
+So sánh nội suy bậc ba và bậc năm
+Để làm rõ lý do lựa chọn phương pháp đa thức bậc năm thay vì bậc ba, ta xét biểu đồ so sánh
+
+biên dạng vị trí, vận tốc và gia tốc của cả hai phương pháp trên cùng một khoảng thời gian chuẩn hóa
+τ ∈ [0, 1] (Hình 2-20).
+
+32
+
+1.0
+
+Cubic polynomial
+Quintic polynomial
+
+Position s( )
+
+0.8
+0.6
+0.4
+0.2
+0.0
+0.50
+
+0.00
+
+0.25
+
+0.50
+
+0.75
+
+1.00
+
+1.25
+
+1.50
+
+0.25
+
+0.50
+
+0.75
+
+1.00
+
+1.25
+
+1.50
+
+0.25
+
+0.50
+
+0.75
+
+1.00
+
+1.25
+
+1.50
+
+Cubic polynomial
+Quintic polynomial
+
+1.75
+1.50
+
+Velocity s( )
+
+0.25
+
+1.25
+1.00
+0.75
+0.50
+0.25
+0.00
+0.50
+6
+
+0.00
+
+Cubic polynomial
+Quintic polynomial
+
+4
+
+Acceleration s( )
+
+0.25
+
+2
+0
+2
+4
+6
+0.50
+
+0.25
+
+0.00
+
+Normalized time
+
+Hình 2-20: So sánh biên dạng động học giữa nội suy bậc 3 và bậc 5.
+Từ Hình 2-20, có thể thấy rõ sự khác biệt ở biên dạng gia tốc:
+• Đa thức bậc 3: Gia tốc tại các thời điểm chuyển pha (τ = 0 và τ = 1) có giá trị khác không (±6).
+Sự thay đổi đột ngột gia tốc từ 0 lên giá trị này gây ra lực giật (jerk), dẫn đến rung lắc cơ khí và
+lực va đập tại các khớp của robot.
+• Đa thức bậc 5: Gia tốc tại τ = 0 và τ = 1 hoàn toàn bằng không, tạo sự chuyển tiếp mượt mà
+về mặt động lực học. Quỹ đạo đạt độ trơn bậc hai (C 2 ), phù hợp với yêu cầu chuyển động ổn định
+của robot bốn chân trong thực tế.
+Do đó, tác giả sử dụng hoàn toàn nội suy đa thức bậc năm cho việc tạo quỹ đạo bước chân nhằm
+tăng cường sự ổn định và kéo dài tuổi thọ của hệ thống truyền động.
+
+33
+
+2.14.4
+
+Triển khai quỹ đạo chân dạng chữ D
+Trong hệ thống thực tế, quỹ đạo của mỗi chân robot được chia thành hai pha: pha vung chân
+
+(swing phase) và pha chống chân (stance phase), tạo thành đường đi dạng chữ D trong không gian
+Descartes.
+Pha vung (Swing Phase). Trong pha vung, chân di chuyển từ vị trí bắt đầu pA (phía sau) đến
+vị trí kết thúc pD (phía trước) trong Nsw bước. Tọa độ ngang (x, y) được nội suy bằng hàm bước mượt
+bậc năm:
+
+τ=
+
+i
+Nsw − 1
+
+,
+
+i = 0, 1, . . . , Nsw − 1
+
+s = 10τ 3 − 15τ 4 + 6τ 5
+xi = xA + s · (xD − xA )
+yi = yA + s · (yD − yA )
+
+(2.50)
+(2.51)
+(2.52)
+(2.53)
+
+Đối với tọa độ theo phương z, thay vì sử dụng đa thức bậc năm thuần túy, quỹ đạo nâng chân
+được thiết kế theo đường cong parabol trên biến s:
+
+zi = zstance + ∆h · 4 s (1 − s)
+
+(2.54)
+
+trong đó zstance là chiều cao pha chống chân và ∆h là độ cao nâng chân. Biểu thức 4 s (1 − s)
+
+tạo ra đường cong hình chuông đối xứng đạt cực đại ∆h tại s = 0.5 (giữa pha vung chân), đồng thời trả
+về zstance tại s = 0 và s = 1 (đầu và cuối pha vung chân). Nhờ kế thừa tính liên tục C 2 từ hàm s(τ ),
+quỹ đạo z cũng mượt mà tại các điểm chuyển pha.
+Pha chống chân (Stance Phase). Trong pha chống chân, chân duy trì tiếp xúc mặt đất tại zstance
+và di chuyển ngược từ pD về pA trong Nst bước, cũng sử dụng hàm bước mượt bậc năm:
+
+τ=
+
+i
+,
+Nst − 1
+
+i = 0, 1, . . . , Nst − 1
+
+s = 10τ 3 − 15τ 4 + 6τ 5
+xi = xD + s · (xA − xD )
+yi = yD + s · (yA − yD )
+zi = zstance
+Tổng số điểm quỹ đạo cho một chu kỳ dáng đi đầy đủ là Ntotal = Nsw + Nst .
+
+34
+
+(2.55)
+(2.56)
+(2.57)
+(2.58)
+(2.59)
+
+Hình 2-21: Quỹ đạo chân 3D dạng chữ D (Pha vung Parabol và Pha chống đỡ đường thẳng)
+
+2.14.5
+
+Tham số quỹ đạo trong hệ thống thực tế
+Vị trí bắt đầu và kết thúc cho mỗi chân được tính theo:
+
+xA = xcenter −
+
+Lstride
+,
+2
+
+xD = xcenter +
+
+Lstride
+2
+
+(2.60)
+(2.61)
+
+zA = zD = zstance
+Hệ số chu kỳ nhiệm vụ (duty cycle) tổng quát được xác định là:
+
+β=
+
+Nst
+Nst + Nsw
+
+(2.62)
+
+Dáng đi Trot yêu cầu giá trị β > 0.5, đảm bảo robot luôn có ít nhất hai chân tiếp xúc mặt đất
+tại mọi thời điểm để duy trì ổn định tĩnh trong suốt chu kỳ.
+
+2.14.6
+
+Lập lịch pha dáng đi
+Dáng đi (gait) của robot bốn chân được xác định bởi mối quan hệ pha giữa các chân. Mỗi chân
+
+thực hiện cùng một quỹ đạo tuần hoàn, nhưng với độ lệch pha khác nhau. Pha dịch ϕi ∈ [0, 1) xác định
+
+vị trí tương đối của chân i trong chu kỳ dáng đi tổng thể.
+
+Trong triển khai thực tế, mỗi chân duy trì một chỉ số bước (waypoint index) ki trong mảng quỹ
+đạo tổng Ntotal = Nsw + Nst điểm. Pha dịch được áp dụng bằng cách khởi tạo chỉ số bắt đầu của mỗi
+chân:
+
+ki,0 = ⌊ϕi · Ntotal ⌋
+Bảng 2.3 trình bày các cấu hình pha dịch cho ba dáng đi phổ biến nhất.
+35
+
+(2.63)
+
+Bảng 2.3: Cấu hình pha dịch cho các dáng đi
+Dáng đi
+
+ϕLF
+
+ϕRF
+
+ϕLB
+
+ϕRB
+
+Đặc điểm
+
+Trot
+
+0
+
+0,5
+
+0,5
+
+0
+
+Hai chân chéo đồng pha
+
+Walk
+
+0
+
+0,5
+
+0,75
+
+0,25
+
+Tuần tự từng chân
+
+Pace
+
+0
+
+0,5
+
+0
+
+0,5
+
+Hai chân cùng bên đồng pha
+
+Dáng đi Trot (ϕ = [0, 0.5, 0.5, 0]) là cấu hình dáng đi phổ biến nhất. Hai chân chéo (LF–RB
+và RF–LB) hoạt động đồng pha, tạo ra hai nhóm chân xen kẽ. Tại mọi thời điểm, ít nhất hai chân thuộc
+cùng nhóm đang ở pha chống chân, duy trì ổn định tĩnh.
+Phân tích thời gian một chu kỳ. Tổng thời gian của một chu kỳ dáng đi đầy đủ phụ thuộc vào
+số lượng khung hình (frame) của các pha và chu kỳ bộ định thời (timer period) ∆T :
+
+Tcycle = (Nsw + Nst ) × ∆T
+
+(2.64)
+
+Tần số bước chân được tính theo chu kỳ:
+
+fstep =
+
+1
+Tcycle
+
+(2.65)
+
+Từ đó, tốc độ di chuyển tiến về phía trước theo lý thuyết là tích của chiều dài bước và tần số
+bước:
+
+vf orward = Lstride × fstep
+
+(2.66)
+
+Tốc độ này có thể được điều chỉnh trực tiếp thông qua việc thay đổi sải bước Lstride hoặc thay
+đổi thời gian pha chống chân Nst .
+
+2.14.7
+
+Quy trình tắt an toàn ba pha
+Cơ chế tắt an toàn là yêu cầu thiết yếu trong hệ thống robot bốn chân để tránh hư hại cơ khí khi
+
+động cơ ngừng cấp lực đột ngột. Về mặt lý thuyết, việc đưa robot về trạng thái nghỉ nên được thực hiện
+thông qua một quy trình tuần tự hạ thấp trọng tâm:
+1. Pha 1 – Gập gối: Tất cả 4 khớp gối (θ3 ) từ từ co lại làm hạ thấp trọng tâm thân robot xuống sát
+mặt đất.
+2. Pha 2 – Thu vai: Các khớp đùi (θ2 ) được thu về vị trí gốc để gấp gọn chân dọc theo thân robot.
+3. Pha 3 – Xòe hông: Các khớp hông (θ1 ) xòe ra giúp thân robot nằm hẳn trên mặt đất, phân tán đều
+trọng lượng.
+36
+
+Tốc độ thực hiện của các pha này cần được thiết kế đủ chậm để tránh tạo ra lực quán tính gây
+hư hại cơ khí, nhưng đồng thời phải đủ nhanh để đảm bảo robot dừng kịp thời trước các sự cố bất ngờ.
+
+2.14.8
+
+Mô hình động lực học
+Khi robot bốn chân hoạt động, các lực và mô-men từ các khâu lân cận và/hoặc từ mặt đất sẽ tác
+
+dụng lên từng khâu i, như được minh họa trong Hình 2-22. Sử dụng phương pháp Newton–Euler, đối với
+một khâu tổng quát i của robot bốn chân, các phương trình động lực học cho chuyển động của tâm khối
+lượng và cho chuyển động quay của vật rắn có thể được viết như sau :
+P
+
+
+ i Fi = mi ai
+
+fij = −fji
+
+
+
+P T = I θ¨
+i
+
+i
+
+(2.67)
+
+i i
+
+Phương trình trên có thể được viết lại trong không gian khớp như sau:
+M (q)q̈ + C(q, q̇)q̇ + G(q) = FS − J T (q)FC
+
+(2.68)
+
+Trong đó:
+• M (q) là ma trận quán tính tổng quát .
+• C(q, q̇)q̇ là vector lực Coriolis và lực ly tâm.
+• G(q) là vector trọng lực.
+• FS là vector lực của các servo tại các khớp.
+• J T (q) là ma trận Jacobian chuyển vị của các chân dưới.
+Ở đây, FC là vector lực phản lực tiếp xúc với mặt đất. Khi tính toán động lực học, các lực này
+có thể được tính bằng mô hình lực ma sát Coulomb.
+
+Hình 2-22: Phân tích lực tác dụng lên một khâu tổng quát i (lưu ý: lực tiếp xúc với mặt đất chỉ tồn tại
+khi khâu i là một trong các khâu chân dưới).
+37
+
+Đơn giản hóa cho bài toán lựa chọn động cơ. Trong bài toán thiết kế và lựa chọn động cơ
+cho robot bốn chân, mục tiêu chính là xác định mô-men lớn nhất có thể xuất hiện tại các khớp của chân
+robot. Đối với các hệ robot chân, mô-men cực đại thường xảy ra khi chân robot phải đỡ trọng lượng của
+thân robot trong các pha đứng hoặc chuyển tiếp giữa các bước đi.
+Do đó, trong giai đoạn thiết kế sơ bộ và lựa chọn động cơ (Chương 3), nhóm giải quyết bài toán
+mô hình tĩnh học nhằm xác định mô-men do trọng lực và lực phản lực từ mặt đất tác dụng lên các khâu
+của chân robot. Khi robot được giả thiết ở trạng thái tĩnh hoặc chuyển động rất chậm, vận tốc và gia tốc
+khớp có thể được xem xấp xỉ bằng không:
+
+q̇ = 0,
+
+q̈ = 0
+
+Khi đó các thành phần quán tính và Coriolis trong phương trình động lực học tổng quát có thể
+được bỏ qua. Phương trình được rút gọn thành dạng cân bằng tĩnh:
+FS = G(q) + J T (q)FC
+Trong đó FS là mô-men do các động cơ tại khớp tạo ra, G(q) là mô-men do trọng lực và
+J (q)FC là mô-men do lực phản lực từ mặt đất gây ra. Phương trình cân bằng tĩnh này là cơ sở cho
+T
+
+các tính toán mô-men tại khớp gối, khớp vai và khớp hông đã được trình bày chi tiết trong Mục 3.2.
+Điều khiển mô-men ở cấp thấp. Tại từng khớp động cơ, hệ thống sử dụng bộ điều khiển phản
+hồi vị trí (ví dụ: bộ điều khiển PD) để chuyển đổi sai lệch vị trí góc thành mô-men điều khiển:
+
+τi = Kp (θtarget,i − θactual,i ) − Kd · ωactual,i
+
+(2.69)
+
+trong đó θtarget,i là góc khớp mong muốn thu được từ bài toán động học nghịch (IK), θactual,i
+và ωactual,i là vị trí và vận tốc góc thực tế của khớp. Giá trị mô-men đầu ra thường bị giới hạn theo khả
+năng cung cấp lực tối đa của động cơ servo nhằm đảm bảo tính an toàn trong cả môi trường mô phỏng
+lẫn hệ thống thực tế.
+
+2.15
+2.15.1
+
+Thiết kế bộ điều khiển
+Kiến trúc điều khiển tổng thể
+Hệ thống điều khiển tổng thể của robot hoạt động với tần số vòng lặp 333 Hz (∆T = 3 ms),
+
+được thiết kế theo cấu trúc phân cấp chặt chẽ. Kiến trúc này tiếp nhận các lệnh cấp cao (trạng thái hoạt
+động, chế độ di chuyển, tham số bước đi) thông qua một máy trạng thái (Command Manager) và điều
+phối luồng dữ liệu xuống hai thành phần xử lý cốt lõi: Bộ quy hoạch chuyển động (Locomotion Planner)
+và Bộ điều khiển cân bằng (Balance Controller), như được minh họa trong Hình 2-23.
+Đặc điểm nổi bật của kiến trúc này là sự xuất hiện của công tắc chuyển mạch điều chỉnh cân
+
+38
+
+bằng (Balance Output Switch), cho phép rẽ nhánh luồng dữ liệu bù trừ tư thế dựa trên chế độ hoạt động
+của robot:
+• Chế độ tĩnh (HOME) – Bù trong không gian khớp (Joint Space): Khi robot đứng yên tại chỗ,
+khối Locomotion Planner đóng vai trò duy trì tọa độ đứng danh định. Trong khi đó, dữ liệu Roll
+và Pitch từ cảm biến IMU liên tục được đưa qua bộ điều khiển PID để tính toán lượng bù góc khớp
+(Joint Space Offset). Lượng bù này (∆θ3 ) được cộng trực tiếp vào góc khớp gối ở khâu cuối cùng
+(sau khối Động học nghịch IK), ngay trước khi gửi lệnh xuống động cơ. Cấu trúc này đảm bảo
+phản ứng cực kỳ nhanh nhạy để giữ thăng bằng chống lại nhiễu loạn ngoại lực hoặc bề mặt nền
+nghiêng.
+• Chế độ động (GAIT) – Bù trong không gian làm việc (Task Space): Khi robot thực hiện dáng
+đi (ví dụ: Trot), máy trạng thái kích hoạt bộ lập lịch pha (Gait Phase Scheduler) để tạo quỹ đạo
+bàn chân 3D dạng chữ D. Đồng thời, bộ điều khiển cân bằng chuyển sang cấu hình PID. Lượng
+hiệu chỉnh (∆p) lúc này được định tuyến để can thiệp vào không gian làm việc (Task Space). Tọa
+độ bàn chân được cộng bù trực tiếp trong bộ Gait Attitude Compensator, sau đó mới đi qua khối
+Động học nghịch (IK). Phương pháp này giúp duy trì sải bước chuẩn xác và không làm biến dạng
+biên độ bước đi của robot.
+Sau khi đi qua các luồng xử lý tương ứng, góc khớp mục tiêu cuối cùng (Unified Final Joint
+Angles) được hợp nhất và truyền tải qua giao tiếp UART song song (Bus A & B) đến các bộ truyền động
+servo ST3215 tại bốn cụm chân, đảm bảo khả năng thực thi đồng bộ thời gian thực.
+
+Hình 2-23: Tổng quan kiến trúc điều khiển của hệ thống (Locomotion Planner & Balance Controller)
+
+2.15.2
+
+Cơ chế áp dụng tín hiệu điều chỉnh tư thế
+Việc điều chỉnh tư thế được thực hiện theo thời gian thực thông qua quá trình đo đạc góc nghiêng
+
+từ cảm biến IMU so với hệ tọa độ chuẩn. Đầu ra của các bộ điều khiển PID là các tín hiệu bù hiệu chỉnh
+uroll và upitch . Sự khác biệt cốt lõi giữa hai chế độ hoạt động nằm ở không gian mà tín hiệu hiệu chỉnh
+được ánh xạ vào hệ thống cơ khí:
+1. Áp dụng hiệu chỉnh trong không gian khớp (Joint Space) ở chế độ HOME:
+Khi robot ở trạng thái tĩnh, mục tiêu tối thượng là khả năng phản hồi tức thời. Tín hiệu uroll , upitch từ
+39
+
+bộ PID được xử lý qua chuỗi ba bước: triệt vùng chết, khuếch đại, và bão hòa trước khi cộng trực tiếp
+làm offset cho góc khớp gối (θ3 ). Cần lưu ý rằng, do bản chất của cấu trúc động học chuỗi hở (serial
+kinematics), việc chỉ thay đổi góc khớp gối θ3 sẽ khiến bàn chân vung theo một cung tròn. Điều này có
+nghĩa là vị trí bàn chân bị thay đổi cả theo trục Z (chiều cao) và trục X (tiến/lùi). Việc dịch chuyển
+nhẹ theo trục X tạo ra các lực phản lực ngang giúp robot giữ thăng bằng vững hơn khi bị tác động mạnh
+từ bên ngoài.
+Đầu tiên, vùng chết (deadzone) dhome được áp dụng nhằm loại bỏ các dao động nhỏ:
+u′roll = dz(uroll , dhome ),
+
+u′pitch = dz(upitch , dhome )
+
+(2.70)
+
+Sau đó, tín hiệu sau vùng chết được khuếch đại bởi hệ số Khome và phân bổ thành offset cho
+từng chân, với giới hạn bão hòa |∆θ3 | ≤ θsat :
+
+
+
+∆θ3,LF = sat − (Khome u′roll − Khome u′pitch ), θsat
+
+
+
+
+
+
+∆θ3,LB = sat − (Khome u′ + Khome u′
+roll
+pitch ), θsat
+
+
+′
+′
+
+∆θ
+=
+sat
+−
+(K
+u
++
+K
+u
+),
+θ
+3,RF
+home
+home
+sat
+
+roll
+pitch
+
+
+
+
+∆θ
+′
+′
+3,RB = sat − (Khome uroll − Khome upitch ), θsat
+
+(5)
+
+Cuối cùng, bộ lọc thông thấp bậc nhất với hệ số αhome được áp dụng để làm mượt tín hiệu
+offset, tránh các bước nhảy đột ngột trên servo:
+(k)
+
+(k−1)
+
+∆θ3,i = αhome · ∆θ3,i
+
++ (1 − αhome ) · ∆θ3,i
+
+(2.71)
+
+Cơ chế này loại bỏ hoàn toàn độ trễ của việc tính toán động học nghịch (IK), giúp hệ thống phản
+ứng cực nhanh.
+2. Áp dụng hiệu chỉnh trong không gian làm việc (Task Space) ở chế độ GAIT:
+Khi robot di chuyển, quỹ đạo bước chân (stride) phải được bảo toàn nghiêm ngặt để tránh vấp ngã. Ma
+trận xoay nghịch đảo R = Ry (upitch )Rx (uroll ) được áp dụng lên vectơ vị trí chân praw sinh ra từ bộ
+tạo quỹ đạo để tạo ra vị trí bù padj . Mặc dù phép nhân ma trận R · praw tạo ra sự thay đổi trên cả ba trục
+
+X, Y, Z, nhưng hệ thống đã chủ động loại bỏ sự can thiệp trên trục X và Y , ép chúng giữ nguyên giá trị
+của quỹ đạo ban đầu, và chỉ áp dụng lượng bù cho duy nhất tọa độ dọc Z của bàn chân:
+padj = R · praw ,
+
+với
+
+xadj = xraw ,
+
+yadj = yraw
+
+(6)
+
+Việc "cắt bỏ"sự thay đổi trên trục X, Y là cực kỳ quan trọng, giúp chiều dài bước đi (stride
+length) không bị biến dạng bởi bộ điều khiển cân bằng. Sau đó, tọa độ Đề-các mới [xadj , yadj , zadj ] được
+đưa qua bộ động học nghịch (IK) để tính góc quay mới cho cả 3 khớp. Bằng phương pháp này, robot có
+thể vừa chống lại độ nghiêng thân mình, vừa không làm hỏng tính chu kỳ của dáng đi (được minh họa
+trực quan trong Hình 2-24).
+
+40
+
+Hình 2-24: Minh họa quá trình điều chỉnh tư thế thân robot: từ praw (trước bù) sang padj (sau bù), chỉ
+thay đổi z, giữ nguyên x, y
+
+2.15.3
+
+Bộ điều khiển cân bằng IMU – Chế độ tĩnh (HOME)
+Trong chế độ tĩnh (HOME), toàn bộ bốn chân duy trì tiếp xúc mặt đất. Tín hiệu quaternion từ
+
+cảm biến IMU BNO055 [19] được chuyển đổi sang góc Euler roll (ϕ) và pitch (θ) [18], sau đó xử lý qua
+một chuỗi xử lý (pipeline) năm giai đoạn như Hình 2-25.
+IMU Physics / Pose Update
+
+Signal Pre-Conditioning
+IMU Sensor
+sensor msgs
+
+(w, x, y, z)
+
+Kinematics & Execution
+
+quaternion to rp
+Euler Conversion
+
+Offline Gait Plan
+Target Feet (x,y,z)
+
+Moving Avg Buffer
+len=270 frames
+
+Rotation Matrix
+Ry (p) × Rx(r)
+
+r, praw
+
+EMA Filter
+α = 0.4
+
+XYZ
+
+r, p
+
+Adjusted
+XYZ
+
+Inverse
+Kinematics
+
+Joint Angles
+(Θ1−12 )
+
+Quadruped
+Robot Plant
+
+Correction
+
+Avg Baseline
+
+Adaptive Attitude PID Controller
+
+Kp
+Adaptive
+Gain Scale
+Deadzone
+±0.03 rad
+
+Avg
+
+Z
+
+Scale
++
+
+dt
+
+Sat ±0.3
+d
+dt
+
+Ki
+
++
+
+×
+
++
+
+Saturation
+±0.3
+
+Low Pass
+Filter α = 0.97
+
+Kd
+
+Hình 2-25: Kiến trúc bộ điều khiển PID cho ổn định tư thế
+Giai đoạn 1: Lọc EMA (Exponential Moving Average). Tín hiệu quán tính thô được làm mượt
+bằng bộ lọc trung bình trượt hàm mũ bậc nhất nhằm triệt tiêu nhiễu tần số cao:
+m̂k = αraw m̂k−1 + (1 − αraw )mk
+
+(2.72)
+
+Giai đoạn 2: Triệt nhiễu vùng chết (Deadband Suppression). Một vùng chết khả cấu hình
+
+41
+
+±d loại bỏ các dao động nhỏ không đáng kể, tránh tạo ra hoạt động servo không cần thiết:
+
+
+
+e − d nếu e > d
+
+
+edz = 0
+nếu |e| ≤ d
+
+
+
+e + d nếu e < −d
+
+(2.73)
+
+Giai đoạn 3: PID có lịch trình hệ số khuếch đại (Gain-Scheduled PID) với chống tích lũy
+(Antiwindup). Bộ điều khiển PID đầy đủ [17] với ba cải tiến xử lý sai lệch sau vùng chết:
+uP ID = KP · gs · e + KI · gs · I + KD · ėlpf
+
+(2.74)
+
+trong đó hệ số lịch trình khuếch đại gs tỷ lệ thuận với biên độ sai lệch, ngăn chặn hiệu chỉnh quá mạnh
+gần gốc:
+gs = clamp
+
+
+
+|e|
+
+ethresh
+
+, gmin , 1,0
+
+
+
+(2.75)
+
+Bộ tích phân có cơ chế rò rỉ hàm mũ (λ) để ngăn tích lũy ở trạng thái xác lập, kết hợp giới hạn
+bão hòa đối xứng (|I| ≤ Imax ). Ngoài ra, cơ chế chống tích lũy kiểu back-calculation giảm bộ tích phân
+khi đầu ra PID vượt giới hạn:
+
+Ik = Ik −
+
+uraw − usat
+2KI
+
+nếu
+
+|uraw | > umax
+
+(2.76)
+
+Giai đoạn 4: Bão hòa đầu ra. Tín hiệu PID tổng hợp được giới hạn trong phạm vi an toàn
+|u| ≤ umax nhằm bảo vệ giới hạn cơ cấu chấp hành.
+Giai đoạn 5: Lọc thông thấp đầu ra. Bộ lọc thông thấp bậc nhất làm mượt tín hiệu hiệu chỉnh,
+loại bỏ các bất liên tục dạng bậc thang:
+(2.77)
+
+Hk = αc Hk−1 + (1 − αc ) usat
+
+2.15.4
+
+Bộ điều khiển cân bằng – Chế độ động (GAIT)
+Khi robot đang thực hiện dáng đi, bộ điều khiển chuyển sang chế độ PID với ba cơ chế bổ sung:
+Đường cơ sở trung bình trượt (Moving Average Baseline). Các phép đo IMU được tích lũy
+
+vào bộ đệm trải dài một chu kỳ dáng đi đầy đủ. Giá trị trung bình cung cấp ước lượng làm mượt của góc
+nghiêng thực, lọc bỏ các dao động tuần hoàn vốn có trong vận động có chân.
+Hệ số khuếch đại tỷ lệ động (Dynamic Proportional Gain). Hệ số tỷ lệ được điều chỉnh động
+theo biên độ nghiêng tức thời, cung cấp khả năng hiệu chỉnh mạnh hơn khi nhiễu loạn lớn:
+KP,ef f = KP
+
+
+
+
+
+max(|ϕ|, |θ|)
+1 + min 1,0,
+Kprop
+
+
+
+(2.78)
+
+Reset tích phân tại giao điểm không (Zero Crossing Integral Reset). Bộ tích phân được đặt
+42
+
+lại về không ngay khi tín hiệu sai lệch đổi dấu, ngăn ngừa quá điều chỉnh dao động trong quá trình phục
+hồi chuyển tiếp.
+Bù xoay pha chống (Stance Phase Rotational Compensation). Tín hiệu hiệu chỉnh được áp
+dụng dưới dạng ma trận xoay trong hệ tọa độ thân R = Ry (θ)Rx (ϕ):
+
+
+cθ
+
+sϕ sθ
+
+
+R=
+ 0
+
+cϕ
+
+−sθ
+
+sϕ cθ
+
+cϕ sθ
+
+
+
+
+−sϕ 
+
+
+(2.79)
+
+cϕ cθ
+
+Ma trận này chỉ được áp dụng cho các chân thỏa mãn điều kiện pha chống chân |Zf oot −
+
+Zstance | ≤ Zthresh , trong đó Zstance = −170 mm và Zthresh = 5 mm. Chỉ thành phần dọc (z) của vị
+trí bàn chân được sửa đổi; tọa độ ngang được giữ nguyên nhằm duy trì hình học sải bước:
+padj = R · praw ,
+
+xadj = xraw ,
+
+yadj = yraw
+
+(2.80)
+
+Cách tiếp cận nhận biết pha này cho phép chân ở pha vung chân (swing phase) duy trì quỹ đạo
+không bị can thiệp, đảm bảo khoảng trống sải bước, trong khi chân ở pha chống chân (stance phase) nhận
+bù xoay để ổn định tư thế thân robot.
+
+2.15.5
+
+Tổng hợp pipeline điều khiển
+Toàn bộ pipeline điều khiển cân bằng trong cả hai chế độ HOME và GAIT có thể được tóm tắt
+
+qua năm giai đoạn tuần tự, được thực hiện riêng biệt cho trục roll (ϕ) và pitch (θ):
+Bảng 2.4: Tổng hợp pipeline điều khiển PID 5 giai đoạn
+Giai đoạn
+
+Tên
+
+Phép toán
+
+1
+
+Tiền xử lý
+
+ŷk = αraw ŷk−1 + (1 − αraw )yk
+
+2
+
+Tính sai lệch
+
+ek = r − ŷk , áp dụng vùng chết |e| ≤ d ⇒ e = 0
+
+3
+
+Tính PID
+
+u = KP gs e + KI gs I + KD ėlpf
+
+4
+
+Bão hòa
+
+usat = clamp(u, −umax , umax )
+
+5
+
+Lọc đầu ra
+
+Hk = αc Hk−1 + (1 − αc )usat
+
+Trong chế độ HOME, tín hiệu Hk sau bước 5 được chuyển trực tiếp thành offset góc khớp gối
+(θ3 ) cho từng chân qua công thức tuyến tính ở Mục 4.5.2, với hệ số khuếch đại Khome = 7,0.
+Trong chế độ GAIT, pipeline sử dụng bộ tham số khác (Bảng tham số GAIT), bổ sung đường
+cơ sở trung bình trượt và hệ số khuếch đại động. Tín hiệu Hk đầu ra được chuyển đổi thành các góc
+roll/pitch của ma trận xoay R, sau đó chỉ áp dụng thành phần z vào vị trí bàn chân pha chống.
+
+43
+
+2.15.6
+
+So sánh hai chế độ điều khiển
+Bảng 2.5 tổng hợp sự khác biệt cốt lõi giữa hai chế độ điều khiển, giúp nhìn nhận rõ chiến lược
+
+thiết kế cho từng tình huống vận hành.
+Bảng 2.5: So sánh chế độ HOME và GAIT
+Tiêu chí
+
+HOME (tĩnh)
+
+GAIT (động)
+
+Không gian áp dụng
+
+Không gian khớp
+
+Không gian làm việc
+
+Biến hiệu chỉnh
+
+θ3 (góc gối)
+
+z (tọa độ đứng)
+
+Hệ số KP
+
+2,0 (gain-scheduled)
+
+3,0 (động, KP,ef f tới 6,0)
+
+Hệ số KI
+
+0,30
+
+0,005
+
+Hệ số KD
+
+0,15
+
+1,2
+
+Kprop (động)
+
+ethresh = 0,08 rad
+
+Kprop = 10,0
+
+Bão hòa umax
+
+1,5 rad (PID) / 0,5 rad (offset)
+
+0,30 rad
+
+Lọc đầu ra αc
+
+0,15 (nhẹ)
+
+0,97 (mạnh)
+
+Phạm vi áp dụng
+
+Tất cả 4 chân
+
+Chỉ chân pha chống
+
+Cần IK?
+
+Không
+
+Có (sau bù z)
+
+Thời gian phản hồi
+
+Nhanh (< 50 ms)
+
+Trung bình (∼ 200 ms)
+
+Sự phân tách hai chế độ điều khiển là đặc điểm thiết kế quan trọng nhất của hệ thống. Chế độ
+HOME tối ưu cho phản hồi nhanh khi đứng yên bằng cách tránh tính toán IK, trong khi chế độ GAIT
+bảo toàn tính toàn vẹn của quỹ đạo sải bước bằng cách chỉ can thiệp vào thành phần đứng (z) của vị trí
+bàn chân.
+
+44
+
+3. THIẾT KẾ VÀ THỰC HIỆN PHẦN CỨNG
+
+3.1
+3.1.1
+
+Phân tích kết cấu robot
+Thiết kế thân
+Thân của robot bốn chân là bộ phận trung tâm của toàn bộ kết cấu robot. Bốn chân được liên
+
+kết với nhau thông qua thân, do đó thiết kế thân cần đáp ứng các yêu cầu sau:
+Thứ nhất, phải có độ bền đủ lớn để đảm bảo không xảy ra biến dạng, nứt gãy,. . . trong quá trình
+robot di chuyển.
+Thứ hai, để đạt được khả năng di chuyển linh hoạt và hiệu quả năng lượng cao, thân robot cần
+được thiết kế nhẹ nhất có thể.
+Ngoài ra, bên trong thân robot phải có không gian đủ lớn để lắp đặt các servo, pin, bo mạch
+điều khiển, module chuyển đổi điện áp và các linh kiện khác.
+Cuối cùng, 12 servo được lắp tại các khớp chân cần có thiết kế riêng cho đường đi dây và vị trí
+lắp đặt, vì chúng luôn chuyển động tương đối so với thân robot khi robot đi bộ hoặc chạy chậm.
+Dựa trên các yêu cầu trên, thân robot được thiết kế theo dạng liền khối, nhằm ngăn ngừa biến
+dạng hoặc gãy vỡ.
+Bốn góc của thân được thiết kế để kết nối với cụm khớp hông, đảm bảo không xảy ra giao thoa
+cơ khí khi khớp hông quay theo bất kỳ hướng nào.
+Ngoài ra, tại những vị trí có khả năng chịu tải thấp, cấu trúc được khoét rỗng hợp lý để giảm
+khối lượng. Mô hình 3D của cấu trúc thân robot bốn chân được thể hiện ở Hình 3-1 bên dưới.
+
+Hình 3-1: Thiết kế thân liền khối nhằm đạt độ bền cao và khối lượng nhẹ.
+
+45
+
+Hình 3-2: Nắp thân.
+
+Hình 3-3: Thiết kế thân.
+
+3.1.2
+
+Thiết kế khớp hông
+Khớp hông của robot bốn chân được thiết kế để tạo ra hai bậc tự do, một cho chuyển động roll
+
+và một cho chuyển động pitch. Mỗi chuyển động được truyền động bởi một servo.
+Do servo được sử dụng trong thiết kế là loại servo một trục, các ổ bi mặt bích 626zz được sử
+dụng ở phía đối diện trục servo nhằm giảm lực hướng kính tác dụng lên trục. Đầu trục và khớp hông
+được tích hợp trong quá trình chế tạo, điều này giúp thuận tiện cho việc lắp đặt và giảm sai số lắp ráp.
+Ngoài ra, servo điều khiển chuyển động vung trước (tức là chuyển động pitch) của khớp hông
+được lắp bên trong giá đỡ khớp hông để tiết kiệm không gian. Mô hình 3D của cụm khớp hông được thể
+hiện trong Hình 3-4.
+
+46
+
+Hình 3-4: Cụm khớp hông cho chuyển động vung ngang và vung dọc.
+
+3.1.3
+
+Thiết kế chân
+Chân của robot bốn chân thường xuyên tiếp xúc với mặt đất để tạo lực đẩy, do đó thiết kế chân
+
+đóng vai trò quan trọng đối với khả năng di chuyển thành công của robot.
+Chuyển động vung trước của khớp hông (phần đùi) sử dụng ổ bi để chịu lực dọc trục. Vì khối
+lượng của chân đã được bỏ qua trong các tính toán động học trình bày bên dưới, nên phần đùi và cẳng
+chân cần được thiết kế sao cho khối lượng và mô men quán tính nhỏ nhất có thể nhằm giảm sai số lý
+thuyết.
+Trong thiết kế này, thay vì sử dụng kết nối servo trực tiếp tại khớp gối, một cơ cấu liên kết đầu
+bi (ball-head linkage) được sử dụng, trong đó cẳng chân được truyền động gián tiếp thông qua tay đòn
+(rocker arm) của servo. Cách bố trí này cho phép đặt servo ở phía trên của đùi, gần khớp hông, nơi mô
+men quán tính quay của chân tương đối nhỏ.
+Mô hình lắp ráp một chân đơn được thể hiện trong Hình 3-5.
+
+Hình 3-5: Cụm lắp ráp một chân đơn.
+Dựa trên cấu trúc chân của robot bốn chân, có thể thấy rằng cẳng chân là bộ phận dễ bị gãy và
+47
+
+uốn cong nhất vì nó phải chịu trọng lượng của toàn bộ robot cũng như các lực nén khi tiếp xúc với mặt
+đất.
+Ở đây, lực tiếp xúc với mặt đất được đơn giản hóa chỉ gồm lực pháp tuyến FN và lực tiếp tuyến
+Fµ trong mặt phẳng thẳng đứng.
+Khi cẳng chân quay quanh trục khớp gối, nếu bỏ qua ma sát tại khớp và ma sát tiếp xúc với mặt
+đất, mô-men tải ngoài lớn nhất có thể được xác định theo công thức:
+
+Tmax = ηFN L3 sin(α)
+
+(3.1)
+
+trong đó FN là lực pháp tuyến, L3 là khoảng cách từ trục khớp gối đến điểm tiếp xúc mặt đất,
+α là góc giữa cẳng chân và phương thẳng đứng và η là hệ số tải động.
+Tổng khối lượng robot được ước tính xấp xỉ M = 2.3 kg.
+Giả sử bốn chân chịu đều toàn bộ trọng lượng của robot trong trạng thái tĩnh, lực pháp tuyến
+được tính là:
+
+FN =
+
+Mg
+4
+
+(3.2)
+
+Trong phân tích bền số học dưới đây, sử dụng các giá trị: chiều dài cẳng chân L3 = 0.125 m,
+góc nghiêng α = 45◦ , và hệ số tải động η = 1.2.
+
+3.2
+
+Lựa chọn cơ cấu chấp hành
+Việc lựa chọn cơ cấu chấp hành có ảnh hưởng lớn đến hiệu năng di chuyển của robot bốn chân.
+
+Do trọng lượng bản thân của robot, cơ cấu chấp hành cần tạo ra mô-men xoắn lớn, đáp ứng nhanh và có
+kích thước nhỏ gọn.
+Động cơ không chổi than được sử dụng rộng rãi nhờ đặc tính động học vượt trội, tuy nhiên
+chúng thường có giá thành cao và kích thước lớn.
+Vì trọng tâm chính của nghiên cứu này là triển khai và đánh giá sơ bộ thuật toán dáng đi trên
+mô hình robot kích thước để bàn, nên servo được lựa chọn làm nguồn truyền động.
+Được trang bị khả năng phản hồi góc quay trực tiếp theo thời gian thực cùng tỷ số truyền bánh
+răng lớn, loại servo này cho phép vi điều khiển dễ dàng thực hiện điều khiển vòng kín. Điều này là nền
+tảng thiết yếu để chạy các node tính toán động học nghịch, giúp robot tự bù trừ sai số trong các thử
+nghiệm dáng đi phức tạp và tự cân bằng chính xác hơn.
+Mẫu servo được sử dụng là ST3215 và ST3215-HS, như thể hiện ở Hình 3-6, và các thông số
+kỹ thuật cụ thể được trình bày trong Bảng 3.1.
+
+48
+
+Hình 3-6: Cơ cấu chấp hành servo ST3215 dùng cho robot bốn chân.
+Bảng 3.1: Thông số kỹ thuật của động cơ servo ST3215 và ST3215-HS.
+Mẫu
+
+Trọng lượng
+
+ST3215
+
+69 g
+
+ST3215-HS
+
+68 g
+
+Kích thước
+(L × W × H)
+
+Điện áp
+hoạt động
+
+Tốc độ truyền
+(Baudrate)
+
+Phạm vi
+góc quay
+
+Tốc độ tối đa
+
+Lực xoắn tối đa
+
+45.2 × 24.7×
+35.0 mm
+
+6.0 V – 12.6 V
+
+~1 Mbps
+
+360◦
+
+0.222 s/60◦ (@12 V)
+
+30 kg·cm (@12 V)
+
+45.2 × 24.7×
+35.0 mm
+
+6.0 V – 12.6 V
+
+~1 Mbps
+
+360◦
+
+0.094 s/60◦ (@12 V)
+
+20 kg·cm (@12 V)
+
+Để kiểm chứng mô-men xoắn định mức của servo đã chọn, tiến hành phân tích như sau. Dựa
+trên phân tích ở Mục 3.1.3, ảnh hưởng của mô-men xoắn lên cẳng chân là đáng kể nhất. Gọi góc giữa lực
+pháp tuyến tiếp xúc mặt đất FN và cẳng chân L3 là α. Như thể hiện trong Hình 3-7, mô-men do lực tiếp
+đất tác dụng lên khớp gối là:
+Mknee = ηFN L3 sin(α)
+
+(3.3)
+
+Mô-men này được cân bằng bởi lực truyền Ft dọc theo thanh liên kết CD:
+Mknee = Ft LCB sin(γ)
+
+(3.4)
+
+với γ là góc giữa thanh liên kết CD và cánh tay đòn CB. Mô-men tác dụng lên trục servo (qua cánh tay
+đòn DE) là:
+Tknee = Ft LDE sin(β)
+
+(3.5)
+
+với β là góc giữa thanh CD và tay đòn DE. Trong thiết kế cơ cấu gần với hình bình hành, γ ≈ β, do đó
+
+tỉ số sin(β)/ sin(γ) ≈ 1. Từ đó ta suy ra mô-men yêu cầu tại servo cẳng chân là:
+Tknee ≈ ηFN L3 sin(α)
+
+49
+
+LDE
+LCB
+
+(3.6)
+
+Trong dáng đi trot, luôn có hai chân tiếp xúc mặt đất, do đó tải trọng lớn nhất tác dụng lên một chân là:
+FN =
+
+Mg
+2
+
+(3.7)
+
+Thay các giá trị từ Bảng 3.2 với M = 2.3 kg, L3 = 0.125 m, LDE = 0.024 m, LCB = 0.025 m, hệ số
+tải động η = 1.2, góc nghiêng α = 45◦ , và g = 9.81 m/s2 vào công thức, ta có FN = 11.28 N và:
+Tknee ≈ 1.2 × 11.28 × 0.125 × sin(45◦ ) ×
+
+0.024
+≈ 1.149 N · m ≈ 11.7 kg · cm
+0.025
+
+(3.8)
+
+Giá trị này nhỏ hơn mô-men định mức 20 kg · cm của servo ST3215-HS, đảm bảo động cơ hoạt
+
+động an toàn.
+
+Hình 3-7: Phân tích mô-men xoắn của cơ cấu chấp hành servo tại cẳng chân.
+
+3.2.1
+
+Phân tích mô-men khớp vai (Hip Roll)
+Trong thực tế vận hành, để duy trì khả năng thăng bằng và giảm chấn, chân robot không bao
+
+giờ duỗi thẳng hoàn toàn. Thay vào đó, phần đùi (L2 ) và cẳng chân (L3 ) luôn tạo với nhau một góc gập
+nhất định như thể hiện ở Hình 3-8. Việc tính toán mô-men xoắn cần sử dụng khoảng cách thực tế từ khớp
+hông đến bàn chân.
+Gọi Lhd là khoảng cách hiệu dụng từ trục khớp hông đến điểm tiếp xúc mặt đất của bàn chân.
+Dựa trên định lý hàm số cosin cho tam giác tạo bởi đùi, cẳng chân và góc gập gối β, ta có:
+Lhd =
+
+q
+
+L22 + L23 − 2L2 L3 cos(β)
+
+(3.9)
+
+Dựa theo Bảng 3.2 với thiết kế L2 = 0.106 m và L3 = 0.125 m, giả sử ở tư thế đi bộ trot tiêu
+
+50
+
+chuẩn robot duy trì góc khuỵu gối β = 90◦ nhằm tối ưu lực bám. Chiều dài hiệu dụng lúc này là:
+Lhd =
+
+p
+
+0.1062 + 0.1252 − 2(0.106)(0.125) cos(90◦ ) ≈ 0.164 m
+
+(3.10)
+
+Tương tự phân tích trước, tải trọng lớn nhất tác dụng lên một chân là FN = 11.28 N, hệ số tải
+động η = 1.2, dẫn đến lực tác dụng tổng cộng là ηFN = 13.54 N.
+Công thức tính mô-men xoắn cực đại cho khớp vai Troll theo góc dang chân θ1 được xác định
+dựa trên khoảng lệch ngàm L1 và hình chiếu ngang của chiều dài chân hiệu dụng:
+Troll = ηFN L1 cos(θ1 ) + Lhd sin(θ1 )
+
+
+
+(3.11)
+
+Thay các thông số thiết kế (L1 = 0.026 m) vào phương trình, ta thu được:
+
+Troll = 13.54 × 0.026 cos(θ1 ) + 0.164 sin(θ1 )
+
+(N · m)
+
+(3.12)
+
+• Khi θ1 = 0◦ , mô-men tác dụng lên khớp vai chỉ xuất phát từ khoảng lệch ngàm cơ khí: Troll =
+13.54 × 0.026 ≈ 0.35 N · m ≈ 3.6 kg · cm.
+• Khi θ1 = 15◦ , mô-men tăng lên: Troll ≈ 0.91 N · m ≈ 9.3 kg · cm, phản ánh trạng thái robot điều
+chỉnh tư thế rẽ với góc dang trung bình.
+
+• Khi θ1 = 30◦ , mô-men đạt giá trị lớn nhất: Troll ≈ 1.41 N · m ≈ 14.4 kg · cm, tương ứng với tình
+huống bất lợi khi chân dang rộng.
+
+Giá trị mô-men cực đại vẫn nhỏ hơn định mức 20 kg · cm của servo ST3215-HS, do đó khớp vai
+
+vẫn hoạt động trong vùng an toàn, không gây quá tải.
+
+Hình 3-8: Mô hình một chân của robot bốn chân.
+
+3.2.2
+
+Phân tích mô-men khớp hông (Hip Pitch)
+Tương tự quy trình đánh giá ở khớp vai, mô-men xoắn yêu cầu cực đại đối với khớp hông (Pitch)
+
+được xác định thông qua chiều dài sải bước hiệu dụng của robot. Trong mặt phẳng dọc, cánh tay đòn
+51
+
+tạo ra mô-men phụ thuộc vào độ vươn xa của bàn chân theo phương ngang. Gọi α là góc nghiêng của
+chân (đường nối từ trục khớp hông đến bàn chân) so với phương thẳng đứng. Phương trình tổng quát tính
+mô-men xoắn cho khớp hông là:
+Tpitch = ηFN Lhd sin(α)
+
+(3.13)
+
+Sử dụng khoảng cách hiệu dụng Lhd = 0.164 m và lực tải ηFN = 13.54 N đã xác định:
+Tpitch = 13.54 × 0.164 sin(α) = 2.221 sin(α) (N · m)
+
+(3.14)
+
+Phân tích quỹ đạo chuyển động cho thấy:
+• Tại tư thế đứng thẳng chân (α = 0◦ ), trọng lượng truyền dọc theo chân nên khớp hông không chịu
+tải uốn (Tpitch = 0).
+• Khi chân bước với góc α = 15◦ , mô-men tại khớp hông đạt Tpitch = 2.221 sin(15◦ ) ≈ 0.57 N ·
+m ≈ 5.9 kg · cm. Đây là vùng tải nhẹ, thuận lợi cho động cơ.
+
+• Khi α = 45◦ , mô-men tăng lên Tpitch = 2.221 sin(45◦ ) ≈ 1.57 N · m ≈ 16.0 kg · cm, tương ứng
+với trạng thái vươn dài chân để leo dốc hoặc vượt chướng ngại vật.
+
+Giá trị cực đại này vẫn nhỏ hơn đáng kể so với giới hạn mô-men của servo ST3215-HS, xác
+nhận rằng việc lựa chọn động cơ cho khớp hông là hoàn toàn phù hợp và đảm bảo độ tin cậy trong vận
+hành.
+
+3.2.3
+
+Thiết kế tổng thể
+Thiết kế tổng thể của robot bốn chân được thể hiện trong Hình 3-9, với tổng cộng 12 bậc tự do
+
+và cấu hình chân full-elbow. Ở đây, cả bốn chân đều giống hệt nhau về cấu trúc và kích thước nhằm tạo
+thuận lợi cho việc điều khiển.
+Khớp hông được kết nối trực tiếp với servo ở cả hai bậc tự do để đơn giản hóa cấu trúc bên
+trong, trong khi khớp gối được thiết kế sử dụng cơ cấu tay đòn servo kết hợp với thanh liên kết nhằm
+giảm quán tính của chân.
+Các tham số chính của hệ thống được trình bày trong Bảng 3.2.
+
+Hình 3-9: 3D thiết kế robot Dog
+
+52
+
+Bảng 3.2: Các thông số chính của robot bốn chân
+
+3.3
+
+Chiều dài
+
+Chiều rộng
+
+Chiều cao
+
+Chiều dài
+hông
+L1
+
+Chiều dài
+đùi
+L2
+
+Chiều dài
+cẳng chân
+L3
+
+Bậc
+tự do
+
+209 mm
+
+191 mm
+
+185 mm
+
+26 mm
+
+106 mm
+
+125 mm
+
+12
+
+Tổng quan về kiến trúc hệ thống
+Kiến trúc phần cứng của hệ thống robot bốn chân được xây dựng nhằm mục tiêu cung cấp nguồn
+
+năng lượng ổn định, đảm bảo khả năng xử lý thuật toán phức tạp theo thời gian thực và điều khiển đồng
+bộ nhiều cơ cấu chấp hành. Sơ đồ kết nối phần cứng tổng thể của mô hình thực nghiệm được thể hiện chi
+tiết trong Hình 3-10.
+
+Hình 3-10: Sơ đồ kiến trúc tổng thể của hệ thống robot bốn chân.
+Hình 3-11 trình bày mô hình robot bốn chân thực tế đã được chế tạo và lắp ráp hoàn chỉnh.
+Robot sử dụng khung thân và các chi tiết chân được gia công bằng công nghệ in 3D FDM với vật liệu
+PLA, tích hợp 12 động cơ bus servo ST3215 tại các khớp, cảm biến IMU BNO055 gắn trên thân và máy
+tính nhúng Jetson Nano làm bộ xử lý trung tâm.
+
+53
+
+Hình 3-11: Mô hình robot bốn chân thực tế đã được chế tạo và lắp ráp hoàn chỉnh.
+
+3.3.1
+
+Khối xử lý trung tâm
+Một yếu tố quan trọng của nguyên mẫu này là bộ xử lý trung tâm. Điều đầu tiên cần giải quyết
+
+là khả năng tính toán các bài toán phức tạp như động học nghịch, quy hoạch quỹ đạo và xử lý dữ liệu cân
+bằng theo thời gian thực.
+Nhóm đã quyết định sử dụng máy tính nhúng Jetson Nano Developer Kit B01 [20] thay vì các
+dòng vi điều khiển phổ thông vì nó mang lại sức mạnh tính toán vượt trội hơn hẳn. Những ưu điểm này
+bao gồm: tốc độ xung nhịp cao từ vi xử lý Quad-core ARM Cortex-A57, tích hợp GPU mạnh mẽ, khả
+năng chạy hệ điều hành Linux (Ubuntu) hỗ trợ đa nhiệm, và dễ dàng tích hợp các thư viện toán học phức
+tạp. Nhược điểm chính của nền tảng tiên tiến này là mức tiêu thụ điện năng lớn hơn và độ phức tạp trong
+việc làm chủ hệ thống phần mềm.
+
+54
+
+Hình 3-12: Thông số kỹ thuật Jetson Nano B01
+Hầu hết những người chế tạo robot giải trí đơn giản thường sử dụng vi điều khiển Arduino. Tuy
+nhiên, trong các hệ thống robot đa chân đòi hỏi khả năng giữ thăng bằng động và xử lý toán học ma trận
+tốc độ cao, các máy tính nhúng như dòng Jetson lại là tiêu chuẩn trong nhiều nguyên mẫu nghiên cứu.
+Chúng được sử dụng trong nhiều lĩnh vực, từ robot tự hành (AMR), xe tự lái đến các hệ thống AI xử lý
+tại biên (Edge AI) đắt tiền. Tất cả những yếu tố này là cơ sở quan trọng để tác giả lựa chọn bộ xử lý cấp
+cao hơn cho dự án.
+Jetson Nano được sử dụng để điều khiển nguyên mẫu robot, bao gồm việc quản lý 12 động cơ
+servo và đọc dữ liệu từ module cảm biến IMU. Jetson Nano thiết lập giao tiếp UART với hai mạch Bus
+Servo Adapter (A). Hai mạch chuyển đổi này sẽ nhận các gói tin lệnh từ Jetson Nano và phân phối tín
+hiệu điều khiển nối tiếp đến 12 động cơ servo (mỗi mạch quản lý một nửa số lượng servo). Cấu trúc này
+giúp giảm tải dòng điện qua mạch điều khiển, phân bổ công suất hợp lý và tối giản hóa việc đi dây vật lý
+cho hai nửa của robot.
+
+3.3.2
+
+Hệ thống Cung cấp Nguồn điện
+Sau khi nghiên cứu và lựa chọn động cơ servo ST3215 cùng mạch điều khiển, việc cấp nguồn
+
+đúng cách để hệ thống có thể đáp ứng các yêu cầu khắt khe về dòng điện tức thời trở nên vô cùng quan
+trọng. Để đạt được mục tiêu này, nhóm bắt đầu xem xét các phương án cung cấp năng lượng khác nhau,
+bao gồm pin và nguồn cấp điện trực tiếp. Các thông số kỹ thuật cốt lõi được đặt ra cho dự án bao gồm:
+Điện áp hoạt động, Dòng điện tối đa, Công suất tổng và Độ ổn định điện áp. Hai phương án chính được
+đưa ra cân nhắc là sử dụng Pin Lithium Polymer dung lượng lớn và Nguồn xung tổ ong; mỗi loại đều có
+những đặc tính riêng tác động đến quá trình thử nghiệm.
+55
+
+Trong giai đoạn phát triển, thử nghiệm thuật toán và tinh chỉnh động học, hệ thống yêu cầu một
+nguồn điện có khả năng cung cấp dòng xả lớn, liên tục trong nhiều giờ đồng hồ mà không xảy ra hiện
+tượng sụt áp. Việc khởi chạy hoặc ép tải 12 động cơ servo cùng lúc đòi hỏi dòng khởi động cực kỳ cao.
+Do đó, nguồn xung tổ ong 12 V - 40 A (480 W) đã được lựa chọn làm giải pháp cung cấp năng lượng
+chính thay vì dùng pin. Ưu điểm lớn nhất của nguồn tổ ong là giá thành hợp lý, khả năng cấp dòng xả
+lên đến 40 A một cách ổn định và cung cấp đúng mức điện áp 12 V tối ưu cho các servo ST3215 hoạt
+động với hiệu suất cao nhất.
+
+Hình 3-13: Bộ nguồn xung tổ ong 12 V 40 A 480 W
+Việc lựa chọn nguồn xung tổ ong 12 V - 40 A (480 W) được dựa trên tính toán dòng điện tiêu
+thụ của 12 động cơ servo ST3215:
+Dòng điện không tải/hoạt động bình thường : Khoảng 300 mA - 600 mA / servo (tại 12 V).
+Dòng điện khởi động/giữ tải lớn nhất (Istall ): Khoảng 2.7 A / servo (tại 12 V).
+Trong trường hợp xấu nhất khi robot khởi động hoặc thực hiện động tác nâng toàn thân, giả sử
+cả 12 servo đều chịu tải lớn, tổng dòng điện tức thời (Itotal ) là:
+
+Itotal = Nservo × Istall = 12 × 2.7 = 32.4A
+Theo đó, tổng công suất tiêu thụ điện tối đa (Ptotal ) của riêng hệ thống cơ cấu chấp hành là:
+
+Ptotal = Itotal × U = 32.4 × 12 = 388.8W
+Để đảm bảo an toàn và tuổi thọ cho linh kiện, tránh sụt áp nguồn khi ép tải, hệ số an toàn (k)
+thường được chọn từ 1.2 đến 1.5. Ở đây nhóm chọn hệ số k = 1.2, ta có yêu cầu công suất nguồn cấp tối
+56
+
+thiểu phải đạt:
+
+Psource ≥ Ptotal × k = 388.8 × 1.2 = 466.56W
+Việc lựa chọn nguồn xung tổ ong 12 V - 40 A (công suất cực đại 480 W) là hoàn toàn chính
+xác và bám sát với tính toán lý thuyết (466.56 W ≤ 480 W ). Mức công suất và dòng điện này đảm bảo
+
+khả năng đáp ứng dòng xả cao ngay cả khi robot hoạt động ở trạng thái tải nặng nhất mà không gây sụt
+áp hệ thống, giúp vi xử lý trung tâm Jetson Nano và các module không bị reset đột ngột.
+Bảng 3.3: Thông số kỹ thuật
+Thuộc tính
+
+Giá trị
+
+Điện áp ngõ ra
+
+12 V
+
+Dòng điện ngõ ra
+
+40-49A
+
+Số điện áp ra
+
+1
+
+Điện áp ngõ vào
+
+220VAC
+
+Series
+
+Khác
+
+Công suất
+
+400-499W
+
+Cách gắn
+
+Gắn sàn
+
+Vỏ bọc
+
+Vỏ kim loại
+
+Nguồn xung tổ ong mang lại lợi thế vượt trội về độ an toàn và tính liên tục so với việc sử dụng
+các khối pin Li-Po trong môi trường phòng thí nghiệm. Người phát triển có thể liên tục biên dịch code,
+kiểm thử các quỹ đạo dáng đi hàng giờ liền mà không phải lo lắng về việc dung lượng pin cạn kiệt làm
+gián đoạn bài test hay sụt giảm mô-men xoắn của động cơ. Mức công suất 480W cung cấp một biên độ an
+toàn dư dả để cấp nguồn song song cho cả cụm 12 servo và bo mạch xử lý trung tâm Jetson Nano (thông
+qua mạch giảm áp). Nhược điểm duy nhất của giải pháp này là robot bị giới hạn phạm vi di chuyển bởi
+chiều dài của dây cáp nguồn, khiến nó chỉ phù hợp làm mô hình thử nghiệm tại chỗ.
+
+3.3.3
+
+Bus Servo Adapter (A)
+Các động cơ servo ST3215 được sử dụng trong thiết kế hoạt động dựa trên chuẩn giao tiếp nối
+
+tiếp bán song công (half-duplex UART). Để máy tính nhúng Jetson Nano có thể điều khiển đồng thời cả
+12 động cơ này một cách an toàn và tối ưu, hệ thống sử dụng hai mạch chuyển đổi tín hiệu Bus Servo
+Adapter (A). Mạch Adapter đóng vai trò trung gian, chuyển đổi tín hiệu UART tiêu chuẩn từ Jetson Nano
+(thông qua cổng USB) thành tín hiệu bus nối tiếp cấp cho các động cơ.
+Mặc dù về mặt lý thuyết, một mạch Bus Servo Adapter (A) có thể điều khiển tối đa 253 động cơ
+nối tiếp, nhưng trong thực tế, dòng điện khởi động của 12 động cơ ST3215 có thể lên đến 32.4A. Việc
+sử dụng song song hai mạch Adapter mang lại những lợi ích thiết thực:
+57
+
+• Phân tán dòng điện: Mỗi mạch Adapter chỉ cần chịu tải dòng điện cho 6 động cơ (khoảng 16.2A
+tối đa), giảm thiểu đáng kể rủi ro quá tải nhiệt và cháy nổ cho bản mạch in (PCB) của Adapter so
+với việc gánh toàn bộ tải.
+• Tối ưu hóa đi dây: Phân chia hệ thống thành hai cụm (ví dụ: nửa trái và nửa phải của robot), giúp
+sơ đồ đi dây trở nên gọn gàng, logic và dễ dàng kiểm tra, bảo trì hơn.
+Thông qua các giao thức truyền thông và tập lệnh được định nghĩa sẵn, hệ thống có thể điều
+khiển hiệu quả các biến số như: góc quay, tốc độ di chuyển, giới hạn tải, cũng như đọc các tín hiệu phản
+hồi về nhiệt độ, điện áp và vị trí thực tế của từng động cơ.
+
+Hình 3-14: Bus Servo Adapter (A)
+Bảng 3.4: Thông số kỹ thuật mạch Bus Servo Adapter (A)
+
+3.3.4
+
+Power Supply
+
+DC 9 ∼ 12.6V (ST series servo)
+
+Power supply connector
+
+5.5 × 2.1mm DC
+
+communication interface
+
+UART
+
+Dimensions
+
+42.00 × 33.00mm
+
+Mounting hole size
+
+2.50mm
+
+Mounting hole spacing
+
+37.00 × 28.00mm
+
+Bộ đo lường quán tính
+Module IMU (Inertial Measurement Unit) đóng vai trò cốt lõi trong hệ thống phản hồi thăng
+
+bằng của robot. Thay vì sử dụng các cảm biến quán tính thô, nghiên cứu này ứng dụng module GYBNO055 [19] — một board mạch breakout nhỏ gọn được thiết kế trên nền tảng chip cảm biến BNO055
+của Bosch Sensortec. Module tích hợp sẵn gia tốc kế 3 trục, con quay hồi chuyển 3 trục, từ kế 3 trục và
+58
+
+đặc biệt là một vi xử lý ARM Cortex-M0+ 32-bit chạy thuật toán kết hợp cảm biến (Sensor Fusion) độc
+quyền của Bosch, cho phép xuất trực tiếp dữ liệu định hướng tuyệt đối mà không cần bộ lọc ngoại vi.
+
+Hình 3-15: Module cảm biến 9 trục thông minh GY-BNO055 (mặt trước và mặt sau)
+Module GY-BNO055 sở hữu kích thước cực kỳ nhỏ gọn (20,9 mm × 11,9 mm), rất phù hợp để
+
+gắn trực tiếp lên khung thân robot mà không chiếm nhiều không gian. Board mạch được bố trí 8 chân
+tín hiệu gồm: VIN (nguồn cấp), GND (mass), SCL/Rx (xung nhịp I2C hoặc nhận UART), SDA/Tx (dữ
+liệu I2C hoặc phát UART), ADD (chọn địa chỉ I2C), INT (ngắt ngoài), BOOT (chế độ nạp firmware) và
+RESET (khởi động lại phần cứng). Mạch tích hợp sẵn bộ ổn áp nội cho phép cấp nguồn linh hoạt từ 3,3V
+đến 5V qua chân VIN.
+Về mặt kiến trúc phần cứng, nhóm đã tối ưu hóa hệ thống bằng cách loại bỏ hoàn toàn vi điều
+khiển trung gian như cấu trúc dùng STM32. Nền tảng phát triển giờ đây được triển khai trực tiếp trên
+môi trường hệ điều hành Linux của Jetson Nano. Cảm biến BNO055 được kết nối và giao tiếp thẳng với
+Jetson Nano thông qua bus I2C (sử dụng hai chân SCL và SDA). Việc lập trình thu thập dữ liệu được
+thực hiện bằng ngôn ngữ Python. Sự thay đổi này không chỉ giúp giảm thiểu đáng kể độ trễ truyền dữ
+liệu mà còn tối giản hóa độ phức tạp của việc đi dây phần cứng.
+Khác với các cảm biến truyền thống (như MPU6050) dễ bị nhiễu từ môi trường và đòi hỏi người
+lập trình phải tự xây dựng các bộ lọc toán học phức tạp (như Complementary Filter hay Kalman Filter)
+trên máy tính chủ, BNO055 xử lý toàn bộ khối lượng công việc này ở cấp độ phần cứng nội bộ. Tính
+năng Sensor Fusion của BNO055 tự động tính toán và xuất trực tiếp dữ liệu định hướng dưới dạng các
+góc Euler (Roll, Pitch, Yaw) hoặc Quaternion với độ chính xác cao và tần số cập nhật nhanh. Do đó, bài
+toán của nhóm được chuyển từ việc “viết bộ lọc nhiễu” sang việc quản lý quy trình tự hiệu chuẩn của
+cảm biến.
+
+59
+
+Bảng 3.5: Thông số kỹ thuật module cảm biến GY-BNO055
+Thông số
+
+Giá trị
+
+Chip cảm biến
+
+Bosch BNO055 (SiP – System in Package)
+
+Số trục đo
+
+9 trục (Accelerometer + Gyroscope + Magnetometer)
+
+Điện áp hoạt động
+
+3.3V – 5V (qua chân VIN, tích hợp bộ ổn áp nội)
+
+Chuẩn giao tiếp
+
+I2C / UART (chọn qua chân BOOT)
+
+Địa chỉ I2C mặc định
+
+0x28 (chân ADD = LOW); 0x29 (chân ADD = HIGH)
+
+Gia tốc kế (Accelerometer)
+
+±2g / ±4g / ±8g / ±16g
+
+Con quay hồi chuyển (Gyroscope)
+
+±125◦ /s đến ±2000◦ /s
+
+Từ kế (Magnetometer)
+
+±1300µT (trục x,y); ±2500µT (trục z)
+
+Bộ xử lý tích hợp
+
+ARM Cortex-M0+ (chạy thuật toán Sensor Fusion)
+
+Dữ liệu đầu ra
+
+Quaternion, góc Euler, vector trọng lực, gia tốc tuyến tính
+
+Tần số cập nhật Fusion
+
+Lên đến 100 Hz
+
+Kích thước mạch
+
+20,9 × 11,9 mm
+
+Số chân tín hiệu
+
+8 (VIN, GND, SCL/Rx, SDA/Tx, ADD, INT, BOOT, RESET)
+
+Nhiệt độ hoạt động
+
+−40◦ C đến +85◦ C
+
+3.3.5
+
+Mạch Giảm Áp
+Bên cạnh nguồn năng lượng 12 V cung cấp trực tiếp cho hệ thống động cơ servo, thiết bị xử lý
+
+trung tâm là máy tính nhúng Jetson Nano Developer Kit B01 yêu cầu một nguồn điện DC 5 V ổn định
+để hoạt động. Trong các điều kiện tải nặng, chẳng hạn như khi tính toán động học nghịch liên tục cho
+12 bậc tự do hoặc xử lý thuật toán cân bằng, Jetson Nano có thể tiêu thụ dòng điện lên đến 4 A. Việc sử
+dụng các IC ổn áp tuyến tính thông thường sẽ gây ra hiện tượng hao phí nhiệt lượng rất lớn và không đáp
+ứng đủ dòng tải yêu cầu.
+Do đó, mạch giảm áp xung XL4015 5 A 75 W đã được lựa chọn để thực hiện nhiệm vụ chuyển
+đổi điện áp từ 12 V của nguồn tổ ong xuống mức 5 V an toàn cho Jetson Nano. Ưu điểm nổi bật của
+XL4015 là hiệu suất chuyển đổi năng lượng cao (lên đến 96%), tần số băm xung 180 KHz giúp giảm
+thiểu gợn điện áp, và khả năng cấp dòng đầu ra tối đa lên tới 5 A. Điều này tạo ra một biên độ dự trữ
+công suất an toàn, giúp máy tính nhúng không bị sụt áp đột ngột dẫn đến tắt nguồn trong quá trình vận
+hành. Hơn nữa, mạch còn được tích hợp các tính năng bảo vệ ngắn mạch và bảo vệ quá nhiệt, đảm bảo
+an toàn tối đa cho các bo mạch điện tử đắt tiền phía sau.
+
+60
+
+Hình 3-16: Mạch giảm áp XL4015 5A 75W
+Các thông số kỹ thuật chi tiết của mạch giảm áp XL4015 được trình bày cụ thể trong Bảng 3.6.
+Mức điện áp ngõ ra đã được nhóm tác giả tinh chỉnh qua biến trở tích hợp trên mạch để đạt chính xác
+mức 5.0V - 5.1V nhằm bù trừ sụt áp trên dây dẫn trước khi cấp vào Jetson Nano.
+Bảng 3.6: Thông số kỹ thuật mạch giảm áp XL4015 5A 75W
+
+3.3.6
+
+Điện áp ngõ vào
+
+5 ∼ 32 VDC
+
+Điện áp ngõ ra
+
+1.25 ∼ 30 VDC (Tinh chỉnh về 5V cấp cho vi xử lý)
+
+Dòng ngõ ra
+
+0 ∼ 5A
+
+Công suất ngõ ra
+
+75W
+
+Nhiệt độ làm việc
+
+-40 ∼ +85◦ C
+
+Tần số hoạt động
+
+180KHz
+
+Hiệu suất tối đa
+
+96%
+
+Bảo vệ ngắn mạch
+
+Có (giới hạn 8A)
+
+Bảo vệ quá nhiệt
+
+Có
+
+Cơ cấu chấp hành: Động cơ Bus Servo ST3215
+Việc lựa chọn cơ cấu chấp hành có ảnh hưởng trực tiếp đến hiệu năng di chuyển, khả năng giữ
+
+thăng bằng và độ phức tạp của hệ thống phần cứng robot bốn chân. Trong nghiên cứu này, động cơ Bus
+61
+
+Servo ST3215 và phiên bản tốc độ cao ST3215-HS [21] đã được lựa chọn làm thiết bị truyền động cho
+toàn bộ 12 bậc tự do của robot.
+Để làm rõ tính ưu việt và lý do lựa chọn công nghệ truyền động này cho mô hình nguyên mẫu,
+nhóm đã tiến hành đánh giá và so sánh dòng động cơ Bus Servo nối tiếp với hai loại cơ cấu chấp hành
+phổ biến khác: Động cơ Servo điều khiển bằng xung PWM truyền thống và Động cơ không chổi than
+(BLDC).
+Bảng 3.7: Bảng so sánh các loại cơ cấu chấp hành áp dụng cho Robot bốn chân
+
+Tiêu chí
+
+Động
+
+cơ
+
+Servo
+
+Động
+
+cơ
+
+BLDC
+
+Động cơ Bus Servo nối
+
+PWM truyền thống
+
+(Tích hợp Driver)
+
+tiếp
+
+Xung PWM (Đơn
+
+CAN / RS485 (Song
+
+UART bán song công
+
+khiển
+
+hướng)
+
+công)
+
+(Half-duplex)
+
+Hệ thống dây dẫn
+
+Rất phức tạp (Mỗi
+
+Tối giản (Nối tiếp
+
+Tối giản (Nối tiếp chuỗi -
+
+motor 1 dây tín hiệu
+
+chuỗi - Daisy chain)
+
+Daisy chain)
+
+Vị trí, tốc độ, dòng
+
+Vị trí thực tế, tốc độ, tải,
+
+điện, nhiệt độ (FOC)
+
+nhiệt độ, điện áp
+
+Rất cao
+
+Cao (Tối ưu trong tầm
+
+Giao
+
+thức
+
+điều
+
+riêng)
+Khả năng phản hồi
+
+Không có
+
+(Feedback)
+Mô-men xoắn
+
+Thường ở mức thấp
+đến trung bình
+
+giá)
+
+Nhẹ
+
+Nặng, cồng kềnh
+
+Gọn nhẹ
+
+Giá thành
+
+Rất thấp
+
+Rất cao
+
+Trung bình - Hợp lý
+
+Độ phù hợp
+
+Thấp (Do không có
+
+Thấp (Dư thừa công
+
+Rất cao (Đạt điểm cân
+
+phản hồi và thiếu
+
+suất, chi phí quá cao)
+
+bằng tối ưu)
+
+Khối lượng & Kích
+thước
+
+lực)
+Sau khi xác định kiến trúc truyền động tối ưu là sử dụng Bus Servo nối tiếp thay vì Servo PWM
+hay động cơ BLDC, nhóm đã tiến hành khảo sát và đánh giá các dòng Bus Servo phổ biến trên thị trường
+để tìm ra phương án phù hợp nhất cho hệ thống 12 bậc tự do của robot. Tuy nhiên, để có cái nhìn trực
+quan và toàn diện nhất, nhóm cũng đưa vào bảng so sánh một đại diện tiêu biểu của dòng Servo PWM
+là JX Servo PDI-HV5932MG 30KG – loại động cơ có lực xoắn lớn, góc quay 180◦ , vốn rất phổ biến
+trong các dự án sinh viên để thấy rõ sự khác biệt giữa hai công nghệ.
+Bốn đại diện tiêu biểu được đưa ra so sánh bao gồm: JX PDI-HV5932MG (Servo PWM), Hiwonder LX-16A, Waveshare ST3215 và Dynamixel XL430-W250-T.
+
+62
+
+Bảng 3.8: So sánh các dòng Servo phổ biến trên thị trường
+Tiêu chí
+
+JX
+
+Giao thức
+
+Waveshare ST3215
+
+Dynamixel XL430-
+
+HV5932MG
+
+PDI-
+
+16A
+
+(Được chọn)
+
+W250-T
+
+Xung
+
+TTL UART (Half-
+
+TTL UART (Half-
+
+TTL UART (Half-
+
+(180 )
+
+duplex)
+
+duplex)
+
+duplex)
+
+6.0 V - 8.4 V
+
+6.0 V - 8.4 V (Tối
+
+6.0 V - 12.6 V (Tối ưu
+
+10.0 V - 14.8 V (Tối
+
+ưu 7.4 V)
+
+12 V)
+
+ưu 11.1 V)
+
+30 kg.cm / 20 kg.cm
+
+∼15.3 kg.cm (1.5
+
+PWM
+
+◦
+
+Điện áp
+
+32.3
+
+đa
+
+(@8.4 V)
+
+(@7.4 V)
+
+(@12 V)
+
+Cảm biến vị
+
+Biến trở (Poten-
+
+Biến trở (Poten-
+
+Từ tính (Magnetic
+
+Từ tính (Absolute
+
+trí
+
+tiometer)
+
+tiometer)
+
+Encoder 360◦ )
+
+Encoder)
+
+Độ phân giải
+
+Phụ thuộc vi điều
+
+0.24◦
+
+0.088◦
+
+0.088◦
+
+góc
+
+khiển
+115200 bps
+
+Lên đến 1 Mbps
+
+Lên đến 4.5 Mbps
+
+Cơ bản (P)
+
+Nâng cao (PI)
+
+Cao cấp (PID vị trí,
+
+độ
+
+50 Hz - 330 Hz
+
+truyền
+
+(PWM)
+
+Bộ điều khiển
+
+Cơ bản (P)
+
+17
+
+LX-
+
+Lực xoắn tối
+
+Tốc
+
+kg.cm
+
+Hiwonder
+
+kg.cm
+
+N.m @11.1 V)
+
+vận tốc, dòng)
+Giá thành
+
+Trung
+(∼500.000
+
+bình
+
+Thấp
+
+(∼300.000
+
+VNĐ)
+
+Trung
+
+bình
+
+(∼500.000 VNĐ)
+
+Rất cao (∼1.500.000
+VNĐ)
+
+VNĐ)
+
+Dựa trên các thông số phân tích từ Bảng 3.8, Waveshare ST3215 được lựa chọn là giải pháp tối
+ưu cho hệ thống cơ cấu chấp hành vì những lý do sau:
+• Khắc phục nhược điểm của Servo PWM (JX PDI-HV5932MG): Mặc dù JX PDI-HV5932MG
+có lực xoắn rất ấn tượng (lên đến 32.3 kg.cm ở mức 8.4V), góc quay giới hạn 180◦ và cùng phân
+khúc giá với ST3215, nhưng việc sử dụng giao thức PWM đơn hướng khiến nó không có khả
+năng phản hồi trạng thái (góc quay thực tế, dòng điện, nhiệt độ). Điều này là một cản trở lớn đối
+với bài toán điều khiển thăng bằng robot bốn chân. Hơn nữa, việc phải nối 12 dây tín hiệu PWM
+riêng biệt từ mỗi động cơ về mạch điều khiển làm sơ đồ đi dây vô cùng phức tạp, dễ sinh nhiễu và
+đứt ngầm.
+• Khắc phục nhược điểm của LX-16A: Mặc dù Hiwonder LX-16A có lợi thế về giá thành thấp,
+nhưng lực xoắn tối đa chỉ đạt 17 kg.cm, không đủ để đáp ứng tải trọng động khi robot di chuyển
+hoặc thực hiện các tư thế phức tạp. Hơn nữa, việc sử dụng biến trở (Potentiometer) làm cảm biến
+vị trí khiến độ phân giải góc thấp (0.24◦ ) và dễ bị hao mòn cơ học theo thời gian. Bộ điều khiển
+của LX-16A chỉ dừng ở mức cơ bản (P), dẫn đến sai số tĩnh lớn và khả năng đáp ứng thực thi tĩnh
+và động kém.
+• Cân bằng hiệu năng và chi phí so với Dynamixel: Dòng Dynamixel XL430-W250-T sở hữu bộ
+điều khiển PID hoàn chỉnh cùng nhiều tính năng cao cấp. Tuy nhiên, mức giá cực kỳ đắt đỏ (gấp
+63
+
+khoảng 3 lần ST3215). Với yêu cầu 12 bậc tự do, việc sử dụng Dynamixel sẽ làm chi phí phần
+cứng vượt quá ngân sách cho phép. Thêm vào đó, lực xoắn của XL430-W250-T (∼15.3 kg.cm) lại
+thấp hơn ST3215, đòi hỏi phải sử dụng cơ cấu truyền động phức tạp để khuyếch đại lực.
+• Ưu điểm vượt trội của ST3215: Waveshare ST3215 mang lại điểm cân bằng hoàn hảo giữa hiệu
+năng cơ học và chi phí. Lực xoắn cao (lên đến 30 kg.cm ở 12 V) cung cấp dư dả công suất để robot
+duy trì thăng bằng và thực hiện dáng đi. Cảm biến vị trí từ tính (Magnetic Encoder 360◦ ) với độ
+phân giải rất cao (0.088◦ ) cung cấp phản hồi góc chính xác tuyệt đối mà không lo bị hao mòn. Tốc
+độ truyền tải 1 Mbps hoàn toàn đáp ứng được yêu cầu của vòng lặp điều khiển thời gian thực. Đặc
+biệt, bộ điều khiển PI tích hợp sẵn giúp động cơ khử sai số tĩnh, đảm bảo robot thực thi dáng đi
+một cách mượt mà và ổn định.
+• Phân bổ chiến lược giữa mô-men xoắn và tốc độ (ST3215 vs ST3215-HS): Hệ thống tận dụng
+cả hai phiên bản động cơ để tối ưu hóa đặc tính động lực học của từng khớp.
+– Khớp vai và khớp hông (Hip Roll, Hip Pitch): Gánh chịu phần lớn trọng lượng của thân robot
+và tạo ra lực đẩy chính, yêu cầu mô-men xoắn lớn (theo tính toán lý thuyết lên tới 14.4 – 16.0
+kg.cm). Do đó, phiên bản tiêu chuẩn ST3215 (30 kg.cm) được sử dụng để tạo ra hệ số an
+toàn cao (gần gấp đôi yêu cầu), giúp động cơ hoạt động bền bỉ, không sinh nhiệt quá mức
+khi robot đứng khuỵu hoặc mang thêm tải trọng.
+– Khớp gối (Knee): Yêu cầu về lực tại khớp gối thấp hơn đáng kể (khoảng 11.7 kg.cm) nhờ cơ
+cấu tay đòn và thanh liên kết. Tuy nhiên, khớp gối lại đòi hỏi tốc độ gập/duỗi cực kỳ nhanh
+để chân có thể nhấc lên và vung về phía trước (Swing phase) trong thời gian rất ngắn. Vì vậy,
+phiên bản tốc độ cao ST3215-HS (20 kg.cm) được lựa chọn. Dù mô-men xoắn giảm đi một
+phần nhưng vẫn vượt qua ngưỡng an toàn, đổi lại tốc độ phản hồi đạt 0.094 s/60◦ (nhanh gấp
+đôi bản thường), giúp robot di chuyển linh hoạt và lấy lại thăng bằng chớp nhoáng khi gặp
+nhiễu.
+
+3.3.7
+
+Hệ thống Phân phối Năng lượng và Lựa chọn Dây dẫn
+Để đảm bảo hệ thống 12 động cơ hoạt động ổn định ở dòng tải cao mà không bị sụt áp, việc
+
+thiết kế sơ đồ đi dây và lựa chọn tiết diện dây dẫn đóng vai trò cực kỳ quan trọng. Dựa trên phân tích
+dòng điện tổng (Itotal ≈ 32.4A) từ nguồn tổ ong, hệ thống dây dẫn được chia thành 3 cấp độ với các tiêu
+
+chuẩn AWG (American Wire Gauge) khác nhau, được phân phối qua các khối đầu nối nguồn (Terminal
+Block).
+
+64
+
+Hình 3-17: Sơ đồ phân phối điện áp và tín hiệu tổng thể của robot
+Dựa trên thông số kỹ thuật (Datasheet) của các loại dây lõi đồng, nhóm đã đưa ra thiết kế đi dây
+như sau:
+1. Trục nguồn chính (Từ Nguồn tổ ong đến Khối đấu nối): Dây AWG 12
+• Chức năng: Truyền tải toàn bộ dòng điện từ nguồn xung 12 V - 40 A đến các khối chia nguồn
+trung tâm.
+• Thông số kỹ thuật (AWG 12): Đường kính lõi khoảng 2.05 mm, tiết diện 3.31 mm2 . Khả năng
+chịu dòng (Ampacity) trong điều kiện không khí mở có thể lên đến 30A - 40A, với điện trở cực kỳ
+thấp (khoảng 5.2 Ω/km).
+• Lý do lựa chọn: Trục chính phải gánh toàn bộ tải của 12 servo cùng lúc (dòng xả tức thời có thể
+đạt 32.4A). Dây AWG 12 hoàn toàn đáp ứng được mức dòng điện này mà không sinh nhiệt hay
+gây sụt áp đáng kể trên đường truyền.
+2. Nhánh nguồn phụ (Từ Khối đấu nối đến Servo đầu tiên): Dây AWG 20
+• Chức năng: Cấp nguồn trực tiếp từ khối chia nguồn đến động cơ Servo đầu tiên của mỗi nhánh
+(chuỗi 3 servo cho mỗi chân).
+• Thông số kỹ thuật (AWG 20): Đường kính lõi 0.81 mm, tiết diện 0.52 mm2 . Khả năng chịu dòng
+định mức khoảng 5A (tối đa có thể lên 11A tùy lớp cách điện).
+65
+
+• Lý do lựa chọn: Mỗi nhánh chân gồm 3 servo ST3215, với dòng khởi động tổng cộng khoảng
+8.1A. Dây AWG 20 cung cấp sự cân bằng hoàn hảo giữa khả năng chịu tải và độ linh hoạt (mềm
+dẻo) để luồn lách qua các khớp cơ khí của robot.
+3. Bus tín hiệu truyền thông (Từ Adapter đến Servo): Dây AWG 22
+• Chức năng: Truyền tín hiệu UART (Data) từ mạch Bus Servo Adapter đến các servo, và kết nối
+chung chân Mass (GND) để đồng bộ mức điện áp logic.
+• Thông số kỹ thuật (AWG 22): Đường kính lõi 0.64 mm, tiết diện 0.326 mm2 .
+• Lý do lựa chọn: Đường truyền dữ liệu không mang dòng điện tải cao (chỉ vài mA). Việc sử dụng
+dây AWG 22 giúp cáp tín hiệu nhỏ gọn, hạn chế nhiễu chéo, dễ dàng bấm cos và đi dây nối tiếp
+(daisy-chain) qua từng servo mà không gây cản trở chuyển động của các khớp.
+Việc thiết kế phân nhánh nguồn thông qua Terminal Block kết hợp với việc tính toán và lựa chọn
+đúng cỡ dây AWG từ datasheet giúp giải quyết triệt để vấn đề sụt áp trên đường dây (Voltage Drop), đảm
+bảo 12 động cơ ở cuối chuỗi vẫn nhận đủ điện áp 12 V để sinh ra mô-men xoắn tối đa.
+
+3.4
+
+Các Giao thức Truyền thông của Hệ thống
+Toàn bộ hệ thống điều khiển sử dụng hai giao thức truyền thông chính: I2C để thu thập dữ liệu
+
+cảm biến và UART để điều khiển cơ cấu chấp hành. Vi xử lý trung tâm Jetson Nano đóng vai trò là thiết
+bị chủ , liên tục nhận dữ liệu tư thế không gian từ module IMU và thực hiện các tính toán động học
+nghịch dựa trên thông số hình học của các chân. Để hoàn thành nhiệm vụ này, việc đầu tiên nhóm thực
+hiện là thiết lập giao tiếp I2C giữa Jetson Nano và cảm biến IMU. Đây là một bước có thể thực hiện hiệu
+quả thông qua môi trường lập trình Python trên hệ điều hành Linux (Ubuntu), bằng cách khai báo đúng
+địa chỉ phần cứng và sử dụng trực tiếp các chân bus I2C tích hợp sẵn trên bo mạch Jetson.
+
+Hình 3-18: Các giao thức truyền thông khác nhau
+
+Phần công việc đòi hỏi nhiều sự tinh chỉnh và thời gian hoàn thành hơn là việc thiết lập và tối
+ưu hóa đường truyền tín hiệu xuống các động cơ servo. Để điều khiển đồng bộ 12 động cơ ST3215, hệ
+66
+
+thống sử dụng chuẩn giao tiếp UART (thông qua hai cổng USB) kết nối với hai mạch Bus Servo Adapter
+(A). Các mạch Adapter này hoạt động ở tốc độ truyền tải (baudrate) lên đến 1 Mbps, làm nhiệm vụ phân
+phối các gói tin lệnh dạng nối tiếp đến từng địa chỉ định danh (ID) của động cơ trên cùng một đường bus
+truyền tín hiệu tương ứng. Việc chuyển đổi từ tín hiệu mức logic của Jetson Nano sang chuẩn bus nối
+tiếp bán song công, kết hợp với việc chia thành 2 bus riêng biệt, giúp đơn giản hóa đáng kể sơ đồ đi dây
+vật lý mà vẫn đảm bảo tốc độ phản hồi siêu tốc độ theo thời gian thực cho vòng lặp điều khiển PID.
+
+Hình 3-19: Giao thức truyền thông I2C
+
+Hình 3-20: Giao thức truyền thông UART
+
+3.4.1
+
+Phân tích thời gian truyền thông UART
+Việc phân tích thời gian truyền thông trên bus UART là cần thiết để đảm bảo tốc độ cập nhật
+
+lệnh servo đáp ứng yêu cầu thời gian thực của vòng lặp điều khiển. Với baudrate 1 Mbps và giao thức
+bán song công (half-duplex), mỗi giao dịch bao gồm:
+• Gói lệnh ghi (Write): Gồm header (2 byte), ID servo (1 byte), chiều dài (1 byte), lệnh (1 byte),
+dữ liệu vị trí + tốc độ (4 byte), và checksum (1 byte). Tổng: 10 byte.
+67
+
+• Gói phản hồi (Response): Gồm header (2 byte), ID (1 byte), chiều dài (1 byte), lỗi (1 byte), dữ
+liệu (2 byte), và checksum (1 byte). Tổng: 8 byte.
+Với cấu hình 8N1 (8 bit dữ liệu, không parity, 1 stop bit), mỗi byte cần 10 bit truyền. Thời gian
+cho một giao dịch hoàn chỉnh (ghi + đọc) với một servo:
+
+tservo =
+
+(10 + 8) × 10
+= 180 µs
+106
+
+(3.15)
+
+Mỗi bus driver quản lý 6 servo, thời gian tổng cho một frame lệnh:
+tbus = 6 × tservo = 6 × 180 = 1080 µs ≈ 1,1 ms
+
+(3.16)
+
+Hai bus hoạt động song song trên hai cổng USB riêng biệt, nên tổng thời gian truyền thông cho
+12 servo vẫn xấp xỉ 1,1 ms — nhỏ hơn nhiều so với chu kỳ điều khiển ∆T = 7 ms. Điều này xác nhận
+băng thông truyền thông đủ cho vận hành thời gian thực.
+
+3.4.2
+
+Ánh xạ ID servo và phân bổ driver
+Bảng 3.9 trình bày cấu hình ánh xạ ID servo và phân bổ cho hai driver UART.
+Bảng 3.9: Ánh xạ ID servo theo driver và chân robot
+Chân
+
+Driver
+
+Hip Roll
+
+Hip Pitch
+
+Knee
+
+Left-Front (LF)
+
+A
+
+ID 7
+
+ID 8
+
+ID 9
+
+Right-Behind (RB)
+
+A
+
+ID 10
+
+ID 11
+
+ID 12
+
+Right-Front (RF)
+
+B
+
+ID 1
+
+ID 2
+
+ID 3
+
+Left-Behind (LB)
+
+B
+
+ID 4
+
+ID 5
+
+ID 6
+
+Chiến lược phân bổ ghép hai chân chéo nhau trên cùng một driver (LF+RB trên Driver A,
+RF+LB trên Driver B) có ý nghĩa quan trọng: trong dáng đi Trot, hai chân chéo luôn ở cùng pha (vung
+chân hoặc chống chân). Khi một cặp chéo đang ở pha vung chân (cần cập nhật vị trí nhanh), cặp còn lại
+ở pha chống chân (ít thay đổi), giúp cân bằng tải truyền thông giữa hai bus.
+
+68
+
+4. THIẾT KẾ VÀ THỰC HIỆN PHẦN MỀM
+
+4.1
+
+Kiến trúc phần mềm ROS 2
+
+4.1.1
+
+Tổng quan kiến trúc node
+Hệ thống phần mềm được triển khai trên nền tảng ROS 2 Humble [14], sử dụng kiến trúc xử lý
+
+phân tán gồm hai node tính toán được phân vùng theo chức năng:
+• Gait Generator Node (Node Điều khiển dáng đi): Quản lý toàn bộ quá trình tính toán quỹ đạo
+tuần hoàn, giải bài toán động học nghịch và gửi lệnh điều khiển đến các cơ cấu chấp hành qua bus
+nối tiếp. Node này được tổ chức thành các phân hệ chức năng: Phân hệ tạo dáng đi (quản lý trạng
+thái), Phân hệ động học nghịch (IK solver), Phân hệ nội suy quỹ đạo (đa thức bậc 5) và Phân hệ
+giao tiếp phần cứng (UART).
+• Balance Controller Node (Node Cân bằng tư thế): Xử lý bất đồng bộ việc thu thập dữ liệu quán
+tính tần số cao, xử lý tín hiệu đa giai đoạn và tính toán bù PID. Node này hoạt động như một tiến
+trình độc lập để đảm bảo chu kỳ điều khiển không bị gián đoạn.
+
+4.1.2
+
+Giao tiếp giữa các node
+Giao tiếp liên tiến trình giữa hai node sử dụng cơ chế publish-subscribe qua DDS (Data Distri-
+
+bution Service) của ROS 2. Balance Controller node phát các thông điệp vector hiệu chỉnh nhẹ trên các
+topic bất đồng bộ chuyên dụng. Kiến trúc tách rời này đảm bảo rằng các nút thắt xử lý tại Gait Generator
+không thể chiếm quyền hoặc chặn các bù trừ cảm biến quan trọng, cho phép vận hành xác định, chịu lỗi
+ngay cả dưới tải CPU cao.
+Kiến trúc phần mềm ROS 2 của hệ thống được thiết kế linh hoạt để có thể dễ dàng chuyển đổi
+cấu hình giữa hai môi trường: Mô phỏng (Gazebo) và Thực tế (Hardware) mà không làm thay đổi thuật
+toán ở các node xử lý lõi (Sim-to-Real).
+Sơ đồ kiến trúc ROS 2 trong môi trường mô phỏng được thể hiện trong Hình 4-1. Trong sơ đồ
+này, controller_manager (điều khiển khớp) và imu_plugin (cảm biến quán tính) được sử dụng làm
+các node ảo trong Gazebo để thay thế cho phần cứng thực tế.
+
+69
+
+/robot_state_publisher
+
+/robot_description
+
+/gazebo
+
+/joint_states
+/controller_manager
+/leg_controller/commands
+
+/node_leg_controller
+/posture/gait_correction
+/gait_control
+
+/posture/home_correction
+/balance/gait_frame
+/nodeBalanceController
+
+/posture/measurement
+
+/teleop_command_node
+/imu/data
+
+/imu_plugin
+
+/balance/enable
+
+/balance/mode
+
+Hình 4-1: Sơ đồ kiến trúc ROS 2 của hệ thống trong môi trường mô phỏng (Gazebo)
+Ngược lại, khi vận hành trên robot thực tế, hệ thống loại bỏ các node mô phỏng và thay thế bằng
+các trình điều khiển phần cứng chuyên dụng như thể hiện ở Hình 4-2. Trong đó, node serial_driver_a
+và serial_driver_b chịu trách nhiệm giao tiếp UART với 12 động cơ servo, còn node imu_sensor_
+node thu thập dữ liệu trực tiếp từ cảm biến quán tính. Kiến trúc phân tầng này giúp hệ thống đạt độ tin
+cậy cao, dễ dàng bảo trì và tận dụng lại toàn bộ mã nguồn điều khiển cốt lõi từ mô phỏng.
+/imu_sensor_node
+
+/imu/data_raw
+
+/balance/enable
+
+/balance/mode
+/nodeBalanceController
+
+/posture/measurement
+
+/balance/gait_frame
+
+/posture/home_correction
+/teleop_command_node
+
+/feedback_enable_a
+
+/servo_single_command_a
+/serial_driver_a
+
+/posture/gait_correction
+/joint_states_real_a
+
+/node_leg_controller
+
+/joint_states_real_b
+/gait_control
+/servo_commands_b
+/serial_driver_b
+/feedback_enable_b
+
+/servo_commands_a
+/servo_single_command_b
+
+Hình 4-2: Sơ đồ kiến trúc ROS 2 của hệ thống trên phần cứng thực tế
+
+4.1.3
+
+Các trạng thái vận hành
+Hệ thống quản lý hai trạng thái vận hành rời rạc thông qua cổng logic boolean:
+
+• HOME: Cấu hình tĩnh không có vector tịnh tiến tuần hoàn. Bộ điều khiển tính toán các điều chỉnh
+đồng nhất trong không gian khớp, ánh xạ cứng đến tư thế nghỉ. Sai lệch góc cơ sở được chuyển đổi
+70
+
+tỷ lệ thành các bù mô-men đối kháng nhằm hiệu chỉnh tư thế liên tục. Một khoảng trễ khởi động
+Tdelay giây có thể cấu hình giúp ngăn hiệu chỉnh sớm trong giai đoạn quá độ khởi tạo hệ thống.
+• GAIT: Trạng thái động kích hoạt khi có lệnh tịnh tiến mặt phẳng. Robot thực hiện quỹ đạo đa thức
+tuần hoàn sử dụng các mảng dịch pha khả cấu hình để tạo dáng đi trot (với LF, RB: 0 và LB, RF:
+0,5), walk (với LF: 0, RB: 0,25, RF: 0,5, LB: 0,75) và các dáng đi khác. Các hiệu chỉnh không
+gian từ phản hồi quán tính chỉ được áp dụng cho chân ở pha chống, trong khi chân ở pha bay duy
+trì bù bằng không để đảm bảo khoảng trống sải bước.
+
+4.1.4
+
+Cấu trúc các ROS 2 packages
+Toàn bộ hệ thống phần mềm được tổ chức thành 6 packages ROS 2:
+Bảng 4.1: Cấu trúc các ROS 2 packages trong hệ thống
+
+Package
+
+Ngôn ngữ
+
+Chức năng
+
+leg_controller
+
+Python
+
+Tạo dáng đi, IK solver, quy hoạch quỹ đạo, giao tiếp
+servo
+
+balance_controller
+
+Python
+
+Thu thập IMU, xử lý tín hiệu, PID cân bằng, chẩn
+đoán
+
+serial_driver
+
+C++
+
+Driver giao tiếp với bus servo ST3215 (thư viện
+SCServo)
+
+simulation
+
+Python
+
+Mô hình URDF, cấu hình Gazebo, RViz, launch mô
+phỏng
+
+launch_main
+
+4.1.5
+
+CMake
+
+Launch files cho hệ thống thực
+
+Chi tiết các module phần mềm
+Phân hệ điều khiển trung tâm (Gait Generator) là phân hệ cốt lõi của hệ thống, quản lý máy
+
+trạng thái (state machine) điều khiển toàn bộ vòng đời vận hành của robot. Phân hệ này thực hiện các
+chức năng:
+• Quản lý trạng thái: Robot chuyển đổi giữa các trạng thái: INIT (khởi tạo) → ZERO (khởi tạo tư
+
+thế đứng) → TROT/WALK/PUSHUP/SWAY (dáng đi) → ROBOTOFF (tắt an toàn). Mỗi trạng
+thái có chu trình cập nhật độc lập để xử lý logic trong một khung thời gian điều khiển (frame).
+
+• Tạo quỹ đạo: Gọi thuật toán nội suy quỹ đạo để tạo quỹ đạo hình chữ D cho mỗi chân, sau đó giải
+phương trình động học nghịch (IK) để chuyển đổi từ tọa độ Đề-các sang không gian góc khớp.
+• Áp dụng hiệu chỉnh IMU: Nhận tín hiệu bù từ Balance Controller qua hai topic /posture/
+home_correction và /posture/gait_correction, áp dụng vào góc khớp (HOME) hoặc tọa
+độ bàn chân (GAIT).
+71
+
+• Xuất lệnh servo: Gửi góc điều khiển đến phân hệ giao tiếp phần cứng để chuyển đổi từ góc khớp
+phân tích sang góc vật lý của servo và truyền qua giao thức UART.
+Phân hệ giao tiếp phần cứng (Serial Publish) đảm nhận việc chuyển đổi giữa hai chế độ vận
+hành (mô phỏng và phần cứng thực) thông qua cấu hình môi trường:
+• Chế độ mô phỏng: Xuất bản lệnh mô-men (effort) lên topic /effort_controller/commands
+để điều khiển robot trong Gazebo thông qua plugin gazebo_ros2_control.
+• Chế độ phần cứng: Chuyển đổi góc từ động học nghịch sang độ phân giải của servo bằng các
+hàm ánh xạ riêng biệt cho từng chân (xử lý ngược chiều quay do lắp đặt đối xứng), sau đó đóng
+gói dữ liệu và xuất bản lên các topic giao tiếp serial.
+
+4.1.6
+
+Bảng giao tiếp topic ROS 2
+Bảng 4.2 liệt kê các topic chính trong hệ thống, phân loại theo chức năng.
+Bảng 4.2: Các topic ROS 2 chính trong hệ thống
+
+Topic
+
+Kiểu
+
+dữ
+
+Mô tả
+
+liệu
+/imu/data
+
+Imu
+
+Dữ liệu quaternion từ BNO055
+
+/balance/enable
+
+Bool
+
+Bật/tắt bộ PID cân bằng
+
+/balance/mode
+
+String
+
+Chuyển chế độ HOME/GAIT
+
+/balance/gait_frame
+
+Int32
+
+Chỉ số frame dáng đi hiện tại
+
+/posture/home_correction
+
+Vector3
+
+Tín hiệu bù PID chế độ HOME
+
+/posture/gait_correction
+
+Vector3
+
+Tín hiệu bù PID chế độ GAIT
+
+/posture/measurement
+
+Vector3
+
+Góc roll/pitch đã lọc
+
+/servo_commands_a
+
+Float64[]
+
+Lệnh góc cho Driver A (6 servo)
+
+/servo_commands_b
+
+Float64[]
+
+Lệnh góc cho Driver B (6 servo)
+
+4.1.7
+
+Cơ chế chẩn đoán thời gian thực
+Hệ thống tích hợp cơ chế chẩn đoán (diagnostics) cho phép giám sát trực tiếp các biến nội bộ
+
+của bộ điều khiển PID trong thời gian thực thông qua công cụ PlotJuggler. Mỗi giai đoạn trong pipeline
+PID (đo lường → sai lệch → P/I/D → bão hòa → lọc) đều có topic chẩn đoán riêng, cho phép:
+• Quan sát trực tiếp từng thành phần P, I, D và tổng PID
+• Phát hiện hiện tượng windup hoặc bão hòa đầu ra
+72
+
+• So sánh tín hiệu đo (measurement) với điểm đặt (setpoint) để đánh giá chất lượng bám
+• Ghi lại dữ liệu dưới dạng file CSV để phân tích offline
+Tổng cộng, hệ thống xuất bản 22 topic chẩn đoán cho chế độ HOME (9 tín hiệu × 2 trục + 4
+
+tín hiệu áp dụng) và 18 topic cho chế độ GAIT (9 tín hiệu × 2 trục), cung cấp khả năng quan sát toàn
+diện luồng xử lý điều khiển.
+
+4.2
+
+Quy trình Homing và Calibrate
+
+4.2.1
+
+Calibrate servo
+Trước khi vận hành, mỗi servo cần được calibrate để đảm bảo góc 0◦ cơ học trùng với góc 0◦
+
+trong phần mềm. Quy trình calibrate bao gồm:
+1. Đặt tất cả chân robot ở tư thế tham chiếu (chân duỗi thẳng, vuông góc với thân).
+2. Đọc vị trí feedback của từng servo qua thư viện SCServo SDK.
+3. Ghi giá trị offset (∆calib ) — sai lệch giữa vị trí thực tế và vị trí lý thuyết tại góc 0◦ .
+4. Lưu offset vào tập tin cấu hình của hệ thống, áp dụng tự động trong các lần khởi chạy tiếp theo.
+
+4.2.2
+
+Quy trình Homing
+Quy trình khởi tạo tư thế đứng (homing) được thực hiện tự động mỗi khi robot khởi động:
+
+1. Đọc vị trí hiện tại: Lấy giá trị góc feedback từ tất cả 12 servo (θcurrent,i ).
+2. Tính tư thế đích: Giải IK cho tư thế đứng chuẩn, tạo ra bộ góc đích θtarget,i = (0◦ , 0◦ , 90◦ ) cho
+mỗi chân.
+3. Nội suy tuyến tính: Trong Nhoming = 200 frame, mỗi góc được nội suy tuyến tính:
+θi (k) = θcurrent,i +
+
+k
+(θtarget,i − θcurrent,i ),
+Nhoming
+
+k = 0, 1, . . . , Nhoming
+
+(4.1)
+
+4. Gửi lệnh: Tại mỗi frame, gửi bộ 12 góc đã nội suy đến servo qua UART.
+Phương pháp nội suy tuyến tính đảm bảo chuyển động mượt mà từ bất kỳ vị trí khởi đầu nào,
+tránh hiện tượng giật hoặc va đập. Tổng thời gian khởi tạo: 200 × 3 = 600 ms = 0,6 giây.
+
+73
+
+5. KẾT QUẢ THỰC HIỆN
+
+5.1
+
+Giới thiệu
+Chương này trình bày kết quả mô phỏng hệ thống robot bốn chân sử dụng nền tảng ROS 2
+
+Humble [14] kết hợp với trình mô phỏng Gazebo Classic [15]. Mục tiêu của quá trình mô phỏng là xác
+minh tính đúng đắn của các thuật toán lập kế hoạch quỹ đạo, động học nghịch (Inverse Kinematics), và
+bộ điều khiển PID trước khi triển khai trên robot thực. Toàn bộ kết quả được trình bày thông qua các hình
+minh họa, bao gồm cấu hình mô phỏng, trực quan hóa quá trình hoạt động, đánh giá quỹ đạo bàn chân,
+biên dạng góc khớp và hiệu năng bộ điều khiển PID.
+Nội dung chương được tổ chức như sau: Mục 5.2 trình bày cấu hình chi tiết của môi trường mô
+phỏng Gazebo; Mục 5.3 đánh giá hiệu năng bộ điều khiển PID nâng cao cùng với quỹ đạo sinh ra trên
+mô phỏng; và Mục 5.4 trình bày kết quả thực nghiệm trên phần cứng cùng phân tích so sánh sim-to-real.
+
+5.2
+5.2.1
+
+Cấu hình môi trường mô phỏng Gazebo
+Mô hình robot URDF
+Robot bốn chân được mô tả bằng file URDF (Unified Robot Description Format), định nghĩa
+
+đầy đủ cấu trúc cơ khí bao gồm 13 link (1 thân + 12 khâu chân) và 12 khớp quay (revolute joint). Mỗi
+link được gán các thuộc tính quán tính (khối lượng m, ma trận quán tính I), hình dạng va chạm (collision
+geometry) và hình dạng hiển thị (visual geometry) sử dụng file mesh STL.
+Các tham số hình học chính của mô hình URDF được trình bày trong Bảng 5.1.
+Bảng 5.1: Tham số hình học mô hình URDF
+Tham số
+
+Ký hiệu
+
+Giá trị
+
+Đơn vị
+
+Chiều dài thân
+
+L
+
+209
+
+mm
+
+Chiều rộng thân
+
+W
+
+191
+
+mm
+
+Chiều dài khớp coxa
+
+l1
+
+26
+
+mm
+
+Chiều dài xương đùi
+
+l2
+
+106
+
+mm
+
+Chiều dài xương ống chân
+
+l3
+
+125
+
+mm
+
+Khối lượng thân
+
+mbody
+
+1,5
+
+kg
+
+Khối lượng mỗi link chân
+
+mleg
+
+0,05–0,15
+
+kg
+
+Giới hạn effort khớp hip
+
+τmax,hip
+
+2,94
+
+Nm
+
+Giới hạn effort khớp tibia
+
+τmax,tibia
+
+1,96
+
+Nm
+
+Kích thước URDF trong mô phỏng được cập nhật để khớp hoàn toàn với robot thực tế (L = 209
+mm, W = 191 mm, l1 = 26 mm, l2 = 106 mm, l3 = 125 mm). Điều này đảm bảo tính nhất quán cao
+74
+
+nhất giữa mô phỏng và phần cứng.
+
+5.2.2
+
+Plugin điều khiển Gazebo
+Giao diện điều khiển giữa ROS 2 và Gazebo sử dụng plugin gazebo_ros2_control với cấu
+
+hình effort command interface. Trong chế độ này, ROS 2 gửi giá trị mô-men xoắn (effort, đơn vị Nm)
+trực tiếp đến các khớp trong Gazebo, thay vì gửi vị trí hoặc vận tốc. Bộ điều khiển PD cấp thấp được
+triển khai phía ROS 2 để chuyển đổi sai lệch vị trí thành mô-men:
+
+τi = Kp (θtarget,i − θactual,i ) − Kd · ωactual,i
+
+(5.1)
+
+trong đó θtarget,i là góc mong muốn từ IK, θactual,i và ωactual,i là vị trí và vận tốc góc thực tế
+đọc từ Gazebo.
+
+5.2.3
+
+Cấu hình vật lý và môi trường
+Môi trường mô phỏng được cấu hình với các tham số vật lý sau:
+
+• Engine vật lý: ODE (Open Dynamics Engine) với bước thời gian ∆t = 1 ms (tần số 1000 Hz).
+• Trọng lực: g = 9,81 m/s2 theo phương −z.
+• Ma sát mặt đất: Hệ số ma sát Coulomb µ = 0,8, mô phỏng bề mặt nhám.
+• Mặt phẳng đất: Mặt phẳng vô hạn tại z = 0, không có địa hình.
+• Cảm biến IMU ảo: Plugin libgazebo_ros_imu_sensor.so cung cấp dữ liệu quaternion, vận
+tốc góc và gia tốc tuyến tính tại tần số 100 Hz, với nhiễu Gaussian (σ = 0,001 rad/s cho gyro,
+σ = 0,01 m/s2 cho accelerometer).
+Tốc độ cập nhật bộ điều khiển ROS 2 được đặt ở 1000 Hz (fctrl = 1000 Hz), đồng bộ với bước
+thời gian vật lý của Gazebo. Chu kỳ timer của Gait Generator node là 3 ms, tương ứng với tần số xuất
+lệnh quỹ đạo 333 Hz.
+
+5.2.4
+
+Kết quả mô phỏng vận động cơ bản
+Sau khi cấu hình xong môi trường, các thử nghiệm vận động cơ bản được tiến hành trên Gazebo
+
+để đánh giá khả năng di chuyển động học trước khi phân tích sâu vào hệ thống điều khiển.
+Hình 5-1 minh họa chuỗi hình ảnh quá trình khởi tạo tư thế đứng chuẩn của robot từ lúc khởi
+động trên hệ thống mô phỏng Gazebo.
+
+75
+
+(a) t = 0.1 s
+
+(b) t = 0.2 s
+
+(c) t = 0.3 s
+
+(d) t = 0.4 s
+
+(e) t = 0.5 s
+
+(f) t = 0.6 s
+
+(g) t = 0.7 s
+
+(h) t = 0.8 s
+
+(i) t = 0.9 s
+
+(j) t = 1.0 s
+
+Hình 5-1: Chuỗi chuyển động quá trình khởi tạo tư thế đứng của robot trên mô phỏng Gazebo.
+Hình 5-2 ghi lại chuỗi hình ảnh của robot khi thực hiện dáng đi Trot trên hệ thống mô phỏng
+Gazebo. Các pha luân phiên nhấc chân và chống chân được thể hiện rõ ràng.
+
+(a) t = 2.0 s
+
+(b) t = 3.0 s
+
+(c) t = 4.0 s
+
+(d) t = 5.0 s
+
+(e) t = 6.0 s
+
+(f) t = 7.0 s
+
+(g) t = 8.0 s
+
+(h) t = 9.0 s
+
+(i) t = 10.0 s
+
+(j) t = 11.0 s
+
+Hình 5-2: Chuỗi chuyển động của robot trên hệ thống mô phỏng trong dáng đi Trot.
+
+5.3
+
+Đánh giá hiệu năng bộ điều khiển PID nâng cao trên mô phỏng
+Phần này trình bày các kết quả thu được từ hệ thống mô phỏng, bao gồm dữ liệu chẩn đoán từ
+
+chuỗi xử lý PID và các biên dạng quỹ đạo offline. Bảng 5.2 và Bảng 5.3 tổng hợp toàn bộ tham số điều
+khiển cho hai chế độ hoạt động, được trích xuất trực tiếp từ mã nguồn hệ thống.
+
+76
+
+Bảng 5.2: Tham số bộ điều khiển PID – Chế độ tĩnh (HOME)
+Tham số
+
+Ký hiệu
+
+Giá trị
+
+Mô tả
+
+Hệ số tỷ lệ
+
+KP
+
+2,0
+
+Khuếch đại sai lệch
+
+Hệ số tích phân
+
+KI
+
+0,30
+
+Triệt tiêu sai số xác lập
+
+Hệ số vi phân
+
+KD
+
+0,15
+
+Giảm chấn dao động
+
+Bão hòa đầu ra
+
+umax
+
+1,5 rad
+
+Giới hạn tín hiệu hiệu chỉnh
+
+Bão hòa tích phân
+
+Imax
+
+1,5
+
+Chống windup
+
+Rò rỉ tích phân
+
+λ
+
+0,9995
+
+Hệ số decay
+
+Vùng chết đo
+
+d
+
+0,02 rad
+
+Triệt nhiễu nhỏ
+
+Ngưỡng gain schedule
+
+ethresh
+
+0,08 rad
+
+Ngưỡng tỷ lệ khuếch đại
+
+Hệ số LPF đầu vào
+
+αraw
+
+0,4
+
+Lọc EMA tín hiệu thô
+
+Hệ số LPF đạo hàm
+
+αd
+
+0,7
+
+Lọc thành phần D
+
+Hệ số LPF đầu ra
+
+αc
+
+0,15
+
+Làm mượt tín hiệu bù
+
+Bảng 5.3: Tham số bộ điều khiển PID – Chế độ động (GAIT)
+Tham số
+
+Ký hiệu
+
+Giá trị
+
+Mô tả
+
+Hệ số tỷ lệ
+
+KP
+
+3,0
+
+Khuếch đại động
+
+Hệ số tích phân
+
+KI
+
+0,005
+
+Rất nhỏ (tránh dao động)
+
+Hệ số vi phân
+
+KD
+
+1,2
+
+Giảm chấn mạnh
+
+Hệ số động P
+
+Kprop
+
+10,0
+
+Chia tỷ lệ dynamic gain
+
+Vùng chết trung bình
+
+davg
+
+0,03 rad
+
+Ngưỡng triệt nhiễu
+
+Bão hòa đầu ra
+
+umax
+
+0,30 rad
+
+Giới hạn nhỏ hơn HOME
+
+Bão hòa tích phân
+
+Imax
+
+0,3
+
+Chống windup
+
+Hệ số LPF đầu ra
+
+αlpf
+
+0,97
+
+Lọc mạnh hơn HOME
+
+Số chu kỳ học baseline
+
+Nlearn
+
+2
+
+Chu kỳ dáng đi
+
+Tốc độ hội tụ baseline
+
+ηadapt
+
+0,05
+
+Cập nhật baseline
+
+Sự khác biệt giữa hai bộ tham số phản ánh yêu cầu vận hành riêng biệt: chế độ HOME cần phản
+ứng nhanh (KP = 2,0, αc = 0,15) để bù nhiễu loạn tức thời, trong khi chế độ GAIT cần lọc mạnh
+(αlpf = 0,97) và giới hạn đầu ra nhỏ (umax = 0,30 rad) để tránh can thiệp quá mức vào quỹ đạo sải
+bước.
+
+77
+
+5.3.1
+
+Kết quả quy hoạch quỹ đạo offline
+Hình 5-3 trình bày quỹ đạo Cartesian (x, y, z) của chân trước bên trái (Left-Front) trong một
+
+chu kỳ dáng đi đầy đủ. Việc quy hoạch quỹ đạo trục z theo biên dạng parabol với độ cao hlif t = 80 mm
+là đặc biệt quan trọng để tạo ra hình dáng chữ D (D-shape trajectory). Thiết kế này giải quyết bài toán
+tránh va chạm (ground clearance), giúp chân robot không bị vấp phải các chướng ngại vật nhỏ trên mặt
+đất khi vung chân. Đồng thời, việc trục y được duy trì ổn định tại giá trị 0 mang ý nghĩa đảm bảo chân
+bước thẳng, loại bỏ hoàn toàn hiện tượng trượt ngang (slippage) – nguyên nhân chính gây hao hụt động
+năng và làm suy giảm khả năng định hướng khi robot di chuyển.
+
+Hình 5-3: Quỹ đạo Cartesian (x, y, z) của chân trước bên trái trong một chu kỳ dáng đi
+Hình 5-4 trình bày biên dạng vận tốc và gia tốc của quỹ đạo. Kết quả này không chỉ xác nhận
+tính đúng đắn về mặt toán học mà còn mang ý nghĩa cơ khí thiết thực: việc đáp ứng được các điều kiện
+biên ṡ(0) = ṡ(1) = 0 và s̈(0) = s̈(1) = 0 của hàm đa thức bậc 5 (quintic) giúp triệt tiêu hoàn toàn sự
+thay đổi gia tốc đột ngột (infinite jerk). Phương pháp này giải quyết bài toán chống sốc cơ học tại hai thời
+điểm nhạy cảm nhất là nhấc chân (lift-off) và chạm đất (touch-down), từ đó giảm thiểu hao mòn bánh
+răng và kéo dài tuổi thọ của các động cơ servo.
+
+78
+
+Hình 5-4: Biên dạng vận tốc và gia tốc của chân trước bên trái
+Hình 5-5 cho thấy các góc khớp (θ1 , θ2 , θ3 ) thu được từ bộ giải động học nghịch (IK). Tính trơn
+tru, liên tục và không xuất hiện các đỉnh nhọn (bước nhảy) trong đồ thị này có ý nghĩa khẳng định rằng
+bộ tham số không gian cấu hình (Lstride = 10 mm, hlif t = 80 mm) được chọn nằm hoàn toàn bên trong
+vùng không gian làm việc an toàn (reachable workspace) của robot. Điều này chứng minh thuật toán IK
+đã giải quyết thành công bài toán nội suy tọa độ mà không vướng phải các điểm kỳ dị (singularities).
+
+Hình 5-5: Góc khớp (θ1 , θ2 , θ3 ) giải qua IK cho các chân bên trái (LF và LB)
+
+5.3.2
+
+Quỹ đạo 3D bàn chân trong môi trường mô phỏng
+Hình 5-6 trình bày quỹ đạo 3D thực tế của bàn chân khi chạy trong môi trường mô phỏng
+
+Gazebo. Ý nghĩa của đồ thị này vượt ra ngoài việc xác nhận hình chữ D đặc trưng; nó minh chứng cho
+sự tương thích hoàn hảo giữa luồng phần mềm lập kế hoạch tĩnh (ROS 2 node) và Engine vật lý động
+79
+
+lực học (chịu ảnh hưởng của trọng lực, ma sát, quán tính). Quỹ đạo thực tế bám sát quỹ đạo lý thuyết
+chứng minh rằng bộ điều khiển cấp thấp (Low-level PD controller) trên mô phỏng đã giải quyết tốt bài
+toán thực thi quỹ đạo dưới tải trọng ảo của robot.
+
+Hình 5-6: Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng
+
+5.3.3
+
+Ổn định tư thế tĩnh (chế độ HOME)
+Hình 5-7 trình bày khả năng duy trì thăng bằng của hệ thống vòng kín PID trong chế độ HOME
+
+khi chịu tác động của mặt phẳng dao động lượn sóng liên tục (biên độ nhiễu ≈ 10◦ ). Đồ thị này mang ý
+
+nghĩa minh chứng cho sự ưu việt của cơ cấu xử lý phi tuyến: thay vì cố gắng đưa sai lệch (Error) về tuyệt
+đối bằng 0 — một việc thường dẫn đến hiện tượng động cơ nhích liên tục gây ồn và quá nhiệt (chattering)
+— hệ thống chủ động áp dụng vùng chết (deadband ±0,02 rad). Đặc điểm "cắt phẳng"của đồ thị Error
+quanh trục hoành chứng tỏ thuật toán đã giải quyết thành công bài toán đánh đổi giữa độ chính xác và
+năng lượng tiêu thụ; robot chấp nhận một sai số vi mô không thể nhận biết bằng mắt thường để đổi lấy
+sự tĩnh lặng tuyệt đối của cơ khí. Thêm vào đó, khi nhiễu đổi chiều đột ngột, cơ chế chống bão hòa khâu
+tích phân (Anti-windup) bảo vệ hệ thống khỏi hiện tượng văng lố (overshoot), đảm bảo tư thế robot luôn
+êm ái.
+
+80
+
+Hình 5-7: Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME
+
+5.3.3.1
+
+Phân tích tín hiệu nội bộ chuỗi xử lý PID (Chế độ HOME)
+Dựa trên kiến trúc 5 giai đoạn đã đề xuất ở Chương 2, hiệu năng của từng khối xử lý tín hiệu
+
+trong bộ điều khiển Roll và Pitch được đánh giá chi tiết thông qua các tín hiệu nội bộ thu thập từ mô
+phỏng.
+Hình 5-8a và Hình 5-8b giải thích lý do tại sao tín hiệu thô không thể được đưa trực tiếp vào vòng
+lặp điều khiển. Cảm biến IMU gắn trên khung gầm robot vốn luôn bị ảnh hưởng bởi nhiễu rung động cơ
+học (mechanical vibration) từ các động cơ. Nếu không có bộ lọc trung bình trượt hàm mũ (EMA), khâu
+vi phân của PID sẽ khuếch đại các nhiễu tần số cao này thành những lệnh bù giật cục. Tại đầu ra, việc
+áp dụng khâu bão hòa (giới hạn ở ±1,5 rad) và bộ lọc thông thấp (LPF) giải quyết rủi ro mất an toàn: cơ
+
+cấu này ngăn chặn việc xuất ra các góc bù lớn đột biến có thể làm bật ngửa thân robot, đồng thời vuốt
+mượt tín hiệu bù (đường LPF trong đồ thị trơn hơn hẳn đường Sat) để các khớp gối phản hồi một cách
+uyển chuyển.
+
+(a) Xử lý tín hiệu và đầu ra (Roll)
+
+(b) Xử lý tín hiệu và đầu ra (Pitch)
+
+Hình 5-8: Phân tích tín hiệu đo lường và đầu ra chế độ HOME
+Hình 5-9a và Hình 5-9b phân rã ba thành phần P, I, D của bộ điều khiển (Giai đoạn 3). Thành
+81
+
+phần tỷ lệ (P) đáp ứng ngay lập tức với sai lệch góc nghiêng, trong khi thành phần vi phân (D) phản ứng
+với tốc độ thay đổi góc để dập tắt dao động. Thành phần tích phân (I) tích lũy để triệt tiêu sai số xác lập
+nhưng được kiểm soát chặt chẽ bởi cơ chế chống windup và rò rỉ hàm mũ, không bị tăng vọt vượt ngưỡng
+an toàn trong suốt quá trình phục hồi tư thế.
+
+(a) Thành phần P, I, D (Roll)
+
+(b) Thành phần P, I, D (Pitch)
+
+Hình 5-9: Phân rã thành phần động lực học PID chế độ HOME
+
+5.3.4
+
+Ổn định động trong dáng đi Trot (chế độ GAIT)
+Hình 5-10 phân tích bài toán ổn định tư thế trong chế độ GAIT (dáng đi Trot), nơi bộ điều khiển
+
+đối mặt với thách thức phức tạp hơn nhiều do va đập chu kỳ từ các bước chân sinh ra nhiễu động học. Ý
+nghĩa cốt lõi của đồ thị này là chứng minh sự vượt trội của cấu trúc PID: thay vì bị "đánh lừa"và phản
+ứng thái quá với các rung lắc tự nhiên của dáng đi (có những đỉnh nhiễu lên tới ∼ 0,15 rad), bộ điều
+
+khiển đã duy trì thành công biên độ sai lệch định hướng xoay quanh mức an toàn 0,08 rad. Năng lực này
+giải quyết triệt để bài toán trôi dạt tư thế (attitude drift), đảm bảo thân robot vận động phẳng, liên tục và
+không bị lật nhào khi di chuyển quãng đường dài.
+
+Hình 5-10: Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)
+
+82
+
+5.3.4.1
+
+Phân tích tín hiệu nội bộ chuỗi xử lý PID (Chế độ GAIT)
+Trong chế độ di chuyển (GAIT), bộ điều khiển phải đối mặt với các nhiễu loạn có tính chu kỳ
+
+sinh ra từ bước chân chạm đất. Chuỗi xử lý được bổ sung các cơ chế xử lý đặc thù để duy trì ổn định.
+Hình 5-11 minh họa hoạt động của cơ chế đường cơ sở trung bình trượt (Moving Average Baseline). Thuật toán này sinh ra để giải quyết bài toán "nhận diện nhầm"(false positive) rất phổ biến trong
+điều khiển động học chân. Khi robot bước đi, thân máy tất yếu sẽ dao động theo nhịp. Nếu PID lấy giá
+trị tuyệt đối 0 làm mốc, nó sẽ liên tục xuất lệnh "chống lại"bước đi của chính con robot. Việc sử dụng
+đường tham chiếu động (đường baseline mượt) giúp hệ thống thông minh hơn: nó bỏ qua sự lắc lư tự
+nhiên và chỉ xuất lệnh bù khi thân robot thực sự mất trọng tâm do tác động của ngoại lực hay địa hình
+dốc.
+
+(a) Cơ chế đường cơ sở trung bình (Roll)
+
+(b) Cơ chế đường cơ sở trung bình (Pitch)
+
+Hình 5-11: Phân tích xử lý tín hiệu đầu vào chế độ GAIT (phóng to)
+Sự phân rã các thành phần PID trong Hình 5-12 đặc biệt nhấn mạnh vào vai trò định hình của
+khâu Tích phân (I). Trong hệ thống di chuyển tuần hoàn như Trot, thân robot lắc qua lắc lại liên tục qua
+trục cân bằng. Nếu áp dụng PID truyền thống, khâu I sẽ tích lũy lỗi theo thời gian và gây ra hiện tượng
+quá điều chỉnh (overshoot) nghiêm trọng khi robot chuyển trụ giữa các chân. Việc thiết kế cơ chế reset
+tích phân tại giao điểm 0 (Zero Crossing Integral Reset) giải quyết dứt điểm rủi ro này, ép bộ điều khiển
+phải "quên"đi các sai lệch cũ ngay khi hệ thống vừa vượt chéo qua trạng thái cân bằng.
+
+(a) Thành phần P, I, D (Roll)
+
+(b) Thành phần P, I, D (Pitch)
+
+Hình 5-12: Phân rã thành phần động lực học PID chế độ GAIT (phóng to)
+Cuối cùng, Hình 5-13 minh họa lý do phải phân tách bộ tham số LPF độc lập cho từng chế độ.
+83
+
+Trong chế độ GAIT, nếu lệnh cân bằng được xuất ra quá gắt, nó sẽ phá vỡ động lực học của các chân
+đang đảm nhận nhiệm vụ chống đỡ thân (stance phase), làm chân bị trượt hoặc bước hụt. Vì vậy, việc siết
+chặt bão hòa (umax = 0,30 rad) và tăng cường cường độ lọc LPF (α = 0,97) mang ý nghĩa nhượng bộ
+chiến lược: hệ thống ưu tiên bảo toàn quỹ đạo sải bước nguyên vẹn, chỉ sử dụng một lực bù biên độ rất
+nhỏ và mềm mại để từ từ điều hướng trọng tâm, từ đó giải quyết bài toán xung đột cơ học giữa "nhiệm
+vụ bước đi"và "nhiệm vụ cân bằng".
+
+(a) Xử lý tín hiệu đầu ra (Roll)
+
+(b) Xử lý tín hiệu đầu ra (Pitch)
+
+Hình 5-13: Phân tích bão hòa và lọc đầu ra chế độ GAIT (phóng to)
+
+5.4
+
+Thực nghiệm trên phần cứng thực
+
+5.4.1
+
+Giới thiệu
+Sau khi xác minh tính đúng đắn của các thuật toán thông qua mô phỏng ROS 2/Gazebo, toàn
+
+bộ hệ thống phần mềm được triển khai trên phần cứng thực nhằm đánh giá khả năng vận hành của robot
+trong điều kiện thực tế. Mục tiêu của giai đoạn thực nghiệm bao gồm:
+• Kiểm chứng khả năng khởi tạo tư thế đứng (homing) từ vị trí ngẫu nhiên.
+• Đánh giá dáng đi Trot trên mặt phẳng nằm ngang.
+• Kiểm tra cơ chế tắt an toàn ba pha.
+• So sánh kết quả thực nghiệm với kết quả mô phỏng.
+
+5.4.2
+
+Mô hình robot thực tế
+Mô hình robot bốn chân đã được lắp ráp hoàn chỉnh với các thành phần chính: khung thân in
+
+3D (PLA), 12 động cơ bus servo ST3215, máy tính nhúng Jetson Nano B01, cảm biến IMU BNO055,
+hai mạch Bus Servo Adapter (A), mạch giảm áp XL4015 và nguồn xung tổ ong 12 V – 40 A. Tổng khối
+lượng robot (không bao gồm nguồn và dây cáp) vào khoảng 2,3 kg.
+
+84
+
+Bảng 5.4: Thông số hình học robot thực tế
+Tham số
+
+5.4.3
+
+Ký hiệu
+
+Giá trị
+
+Đơn vị
+
+Chiều dài thân robot
+
+L
+
+209
+
+mm
+
+Chiều rộng thân robot
+
+W
+
+191
+
+mm
+
+Chiều dài khớp coxa
+
+l1
+
+26
+
+mm
+
+Chiều dài xương đùi
+
+l2
+
+106
+
+mm
+
+Chiều dài xương ống chân
+
+l3
+
+125
+
+mm
+
+Tổng khối lượng robot
+
+m
+
+∼2,3
+
+kg
+
+Số bậc tự do
+
+DOF
+
+12
+
+–
+
+Kiến trúc khởi động hệ thống phần cứng
+Hệ thống phần cứng thực được khởi động thông qua kịch bản khởi chạy của ROS 2 (launch file),
+
+bao gồm ba node chính:
+• Serial Driver A (serial_driver_a): Quản lý 6 servo thuộc chân trước bên trái (LF) và chân sau
+bên phải (RB), giao tiếp qua cổng /dev/ttyACM1 với servo ID [7, 8, 9, 10, 11, 12].
+• Serial Driver B (serial_driver_b): Quản lý 6 servo thuộc chân sau bên trái (LB) và chân trước
+bên phải (RF), giao tiếp qua cổng /dev/ttyACM0 với servo ID [4, 5, 6, 1, 2, 3].
+• Leg Controller (node_leg_controller): Tính toán động học nghịch, quy hoạch quỹ đạo và gửi
+lệnh điều khiển đến hai driver.
+Mỗi serial driver nhận lệnh góc servo (đơn vị độ) từ topic /servo_commands_a hoặc /servo_
+commands_b, chuyển đổi sang giá trị tick (0–4095) và gửi qua giao tiếp UART bán song công đến các
+servo ST3215. Tốc độ truyền (baudrate) được cấu hình ở mức 1 Mbps để đảm bảo đáp ứng thời gian
+thực.
+
+5.4.4
+
+Chuyển đổi góc IK sang góc servo
+Một thách thức quan trọng khi chuyển từ mô phỏng sang phần cứng thực là việc ánh xạ chính
+
+xác các góc khớp từ thuật toán IK sang giá trị điều khiển servo. Do cấu trúc lắp đặt cơ khí khác nhau
+giữa các chân (chiều quay ngược, offset vật lý), mỗi chân cần một hàm chuyển đổi riêng biệt. Các hàm
+này đã được hiệu chỉnh thực nghiệm (empirically verified) thông qua quá trình calibrate từng servo.
+
+85
+
+Bảng 5.5: Công thức chuyển đổi IK → Servo cho từng chân
+Chân
+
+Công thức chuyển đổi
+
+Left-Front (LF)
+
+s1 = θ1 − 7,
+
+s2 = −(θ2 − 90) − 4,
+
+Left-Behind (LB)
+
+s1 = θ1 + 5,
+
+s2 = θ2 + 356,
+
+Right-Front (RF)
+
+s1 = θ1 + 7,
+
+s2 = −θ2 + 270,
+
+s3 = θ3 − 95
+
+Right-Behind (RB)
+
+s1 = θ1 + 5,
+
+s2 = −θ2 + 259,
+
+s3 = θ3 − 87
+
+s3 = θ3 + 90
+
+s3 = θ3 + 90
+
+Trong đó θi là góc IK (độ) và si là góc servo (độ). Giá trị servo sau đó được chuyển đổi sang
+tick bằng công thức: tick = offset + direction × si × 4096/360.
+
+5.4.5
+
+Thử nghiệm khởi tạo tư thế đứng (chế độ ZERO)
+Quy trình khởi tạo tư thế đứng đưa robot từ vị trí ngẫu nhiên ban đầu về tư thế đứng chuẩn. Hệ
+
+thống thực hiện các bước sau:
+1. Đọc vị trí hiện tại: Serial driver đọc vị trí feedback từ 12 servo qua giao thức phản hồi bán song
+công.
+2. Tính toán tư thế đích: Giải IK cho tư thế đứng chuẩn tại tọa độ bàn chân (x, y, z) của từng chân,
+với bù trừ z_offset riêng cho mỗi chân để bù sai lệch cơ khí.
+3. Nội suy tuyến tính: Tạo quỹ đạo nội suy tuyến tính gồm 200 frame từ vị trí hiện tại đến vị trí đích
+cho cả 12 servo.
+4. Vô hiệu hóa feedback: Sau khi bắt đầu khởi tạo tư thế đứng, feedback bị tắt trên cả hai driver để
+giải phóng đường truyền UART cho lệnh điều khiển.
+5. Giữ tư thế: Sau khi hoàn thành 200 frame, robot giữ tại vị trí đích.
+Bảng 5.6: Tọa độ bàn chân tư thế đứng chuẩn và bù trừ chiều cao
+x (mm)
+
+y (mm)
+
+zbase (mm)
+
+zoffset (mm)
+
+Left-Front (LF)
+
+125
+
+135
+
+−170
+
+−5
+
+Left-Behind (LB)
+
+−125
+
+135
+
+−170
+
+0
+
+Right-Front (RF)
+
+125
+
+−135
+
+−170
+
+0
+
+Right-Behind (RB)
+
+−125
+
+−135
+
+−170
+
+−5
+
+Chân
+
+86
+
+5.4.6
+
+Thử nghiệm dáng đi Trot (chế độ TROT_FORWARD)
+Sau khi robot đạt tư thế đứng ổn định, dáng đi Trot được kích hoạt. Các tham số dáng đi trên
+
+phần cứng thực được trình bày trong Bảng 5.7.
+Bảng 5.7: Tham số dáng đi Trot trên phần cứng thực
+Tham số
+
+Ký hiệu
+
+Giá trị
+
+Đơn vị
+
+Số waypoint pha vung chân
+
+Tswing
+
+45
+
+waypoints
+
+Số waypoint pha chống chân
+
+Tstance
+
+200
+
+waypoints
+
+Tổng waypoint/chu kỳ
+
+Ttotal
+
+245
+
+waypoints
+
+Chiều dài bước
+
+Lstride
+
+10
+
+mm
+
+Độ cao nâng chân
+
+hlift
+
+80
+
+mm
+
+Cao độ pha chống chân
+
+zstance
+
+−170
+
+mm
+
+Phương pháp nội suy
+
+–
+
+Đa thức bậc 5
+
+–
+
+Duty cycle
+
+β
+
+81,6%
+
+–
+
+Dáng đi Trot sử dụng mảng dịch pha: LF = 0,0; RB = 0,0; LB = 0,5; RF = 0,5, nghĩa là cặp chân
+chéo (LF+RB) và (LB+RF) luân phiên thực hiện pha vung chân. Quỹ đạo bàn chân được tạo bằng hàm
+nội suy đa thức bậc 5 (quintic planning) với điều khiển vận tốc, đảm bảo tính liên tục C 2 .
+Phân tích thời gian và tốc độ. Với Tswing = 45 frame, Tstance = 200 frame và chu kỳ điều khiển
+thực tế ∆T ≈ 3 ms/frame, thời gian một chu kỳ dáng đi đầy đủ là:
+Tcycle = (Tswing + Tstance ) × ∆T = 245 × 3 = 735 ms ≈ 0,74 s
+
+(5.2)
+
+Tần số bước chân tương ứng:
+
+fstep =
+
+1
+≈ 1,36 Hz
+Tcycle
+
+(5.3)
+
+Tốc độ di chuyển tiến về phía trước theo lý thuyết với chiều dài bước Lstride = 10 mm:
+vf orward = Lstride × fstep = 10 × 1,36 ≈ 13,6 mm/s
+
+(5.4)
+
+Đây là tốc độ di chuyển chậm (∼0,049 km/h), được thiết kế có chủ đích để ưu tiên sự ổn định
+tĩnh trong giai đoạn thử nghiệm vận hành ban đầu trên phần cứng thực. Tốc độ này có thể được tăng lên
+dễ dàng bằng cách tăng sải bước Lstride hoặc giảm thời gian pha chống chân Tstance .
+
+87
+
+5.4.7
+
+Cơ chế tắt an toàn
+Để đảm bảo an toàn khi dừng hoạt động, hệ thống triển khai quy trình tắt máy ba pha (three-
+
+phase shutdown) trực tiếp trong không gian góc servo, không sử dụng IK. Mỗi pha gồm 300 frame với
+chu kỳ ∼3 ms/frame, tổng thời gian tắt khoảng 2,7 giây.
+Bảng 5.8: Quy trình tắt an toàn ba pha
+Pha
+
+Khớp
+
+Mô tả
+
+Thời gian
+
+1
+
+Joint 3 (gối)
+
+Gập gối → thân robot hạ xuống đất. LF/LB:
+−47 , RF/RB: +47
+◦
+
+◦
+
+∼0,9 s
+
+2
+
+Joint 2 (vai)
+
+Thu vai → chân gập sát thân robot.
+
+∼0,9 s
+
+3
+
+Joint 1 (hông)
+
+Xoè hông → chân xoè ra ngoài, robot nằm
+
+∼0,9 s
+
+phẳng.
+
+Thiết kế tuần tự ba pha đảm bảo rằng robot không bao giờ rơi tự do: thân được hạ từ từ xuống đất
+trước khi các chân được thu gọn. Các giá trị góc đích có biên độ an toàn ∼3◦ so với giới hạn EEPROM
+
+của servo, tránh hiện tượng kẹt cơ khí.
+
+5.4.8
+
+Các vấn đề thực tế và giải pháp
+Trong quá trình triển khai và thử nghiệm trên phần cứng thực, nhóm đã gặp và giải quyết một
+
+số vấn đề kỹ thuật quan trọng:
+1. Sai lệch chiều cao giữa các chân: Do dung sai gia công và lắp ráp, các chân robot có chiều cao
+không đồng đều khi đứng. Giải pháp: bổ sung tham số z_offset riêng cho từng chân (Bảng 5.6),
+được tinh chỉnh thủ công trong quá trình calibrate.
+2. Chiều quay ngược giữa các chân: Cấu trúc lắp đặt đối xứng gương khiến servo của chân trái và
+chân phải quay ngược chiều nhau cho cùng một chuyển động. Giải pháp: xây dựng hàm chuyển
+đổi IK-to-Servo riêng biệt cho từng chân với các hệ số offset và đổi dấu phù hợp.
+3. Xung đột bus UART: Khi cả lệnh điều khiển và phản hồi vị trí cùng chia sẻ một đường truyền
+UART bán song công, xảy ra hiện tượng xung đột dữ liệu. Giải pháp: vô hiệu hóa feedback sau khi
+hoàn tất bước đọc vị trí ban đầu trong quá trình khởi tạo tư thế đứng.
+4. Chia tải serial driver: Một serial driver đơn lẻ không đủ băng thông để điều khiển đồng thời 12
+servo ở tốc độ cao. Giải pháp: sử dụng hai serial driver (Driver A và Driver B), mỗi driver quản lý
+6 servo thông qua một mạch Bus Servo Adapter riêng biệt.
+
+5.4.9
+
+Nhận xét và đánh giá thực nghiệm
+Kết quả thực nghiệm trên phần cứng cho phép rút ra các đánh giá sau:
+88
+
+Bảng 5.9 trình bày so sánh tổng quan giữa các tham số trong mô phỏng và trên phần cứng thực.
+Bảng 5.9: So sánh tham số giữa mô phỏng và phần cứng thực
+Tham số
+
+Mô phỏng
+
+Phần cứng thực
+
+Kích thước thân (L × W )
+
+209 × 191 mm
+
+209 × 191 mm
+
+Chiều dài link (l1 , l2 , l3 )
+
+26, 106, 125 mm
+
+26, 106, 125 mm
+
+30 / 310
+
+45 / 200
+
+Duty cycle β
+
+91,2%
+
+81,6%
+
+Chiều dài bước
+
+–
+
+10 mm
+
+Độ cao nâng chân
+
+40 mm
+
+100 mm
+
+Bộ điều khiển
+
+PD (Kp = 20, Kd = 0, 5)
+
+Servo PI nội bộ
+
+Phản hồi IMU
+
+Có (mô phỏng)
+
+Phần cứng có sẵn (chưa tích hợp)
+
+Waypoint vung chân / chống
+chân
+
+Thứ nhất, quy trình khởi tạo tư thế đứng hoạt động ổn định trên phần cứng thực. Robot được
+đưa từ vị trí ngẫu nhiên ban đầu về tư thế đứng chuẩn trong 200 frame (∼1,4 giây với chu kỳ 7 ms/frame).
+Quá trình nội suy tuyến tính giữa vị trí feedback và vị trí đích IK tạo ra chuyển động mượt mà, không có
+hiện tượng giật hoặc va đập cơ khí.
+Thứ hai, dáng đi Trot trên mặt phẳng nằm ngang cho thấy robot có khả năng di chuyển tiến liên
+tục. Tuy nhiên, do chiều dài bước ngắn (Lstride = 10 mm) và duty cycle cao (β = 81,6%), tốc độ di
+chuyển tương đối chậm. Thiết kế này ưu tiên ổn định hơn tốc độ, phù hợp với giai đoạn kiểm chứng ban
+đầu.
+Thứ ba, cơ chế tắt an toàn ba pha hoạt động đúng như thiết kế. Quy trình tuần tự gập gối →
+thu vai → xoè hông đảm bảo robot được hạ xuống đất an toàn trong mọi trường hợp. Tổng thời gian tắt
+khoảng 6,3 giây, đủ chậm để tránh lực quán tính gây hư hại cơ khí.
+Thứ tư, việc chia hai serial driver (Driver A và Driver B) giải quyết hiệu quả vấn đề băng thông
+UART. Mỗi driver chỉ cần quản lý 6 servo, giảm tải truyền thông và đảm bảo thời gian đáp ứng dưới 7 ms
+cho toàn bộ 12 khớp.
+
+5.5
+
+Phân tích sự khác biệt giữa mô phỏng và thực nghiệm
+Trong quá trình chuyển đổi từ mô phỏng sang phần cứng thực (sim-to-real transfer), nhóm đã
+
+nhận diện và ghi nhận một số khác biệt quan trọng:
+
+89
+
+5.5.1
+
+Khác biệt về tham số dáng đi
+Các tham số quỹ đạo trên phần cứng thực (Tswing = 45, Tstance = 200, ∆h = 100 mm) khác
+
+biệt đáng kể so với mô phỏng (Tswing = 30, Tstance = 310, ∆h = 40 mm). Lý do chính bao gồm:
+• Độ cao nâng chân lớn hơn (100 mm vs 40 mm): Do bề mặt thử nghiệm thực tế không hoàn toàn
+phẳng, robot cần nâng chân cao hơn để tránh va chạm khi bước. Trong mô phỏng Gazebo với mặt
+đất lý tưởng, 40 mm đã đủ.
+• Pha chống chân ngắn hơn (200 vs 310 frame): Giảm thời gian pha chống chân giúp tăng tần số
+bước, cải thiện tốc độ di chuyển trên phần cứng thực.
+• Pha vung chân dài hơn (45 vs 30 frame): Tăng thời gian pha vung chân giúp servo có đủ thời
+gian đáp ứng, do servo thực tế có độ trễ cơ khí mà mô phỏng không thể hiện hoàn toàn.
+
+5.5.2
+
+Các yếu tố phi lý tưởng trên phần cứng thực
+Một số yếu tố phi lý tưởng (non-ideal factors) ảnh hưởng đến hiệu năng trên phần cứng thực mà
+
+mô phỏng không mô phỏng được:
+• Ma sát và trượt bàn chân: Vật liệu PLA của bàn chân có hệ số ma sát khác nhau trên các bề mặt
+thử nghiệm. Trên bề mặt trơn, robot có xu hướng trượt, giảm hiệu quả sải bước.
+• Độ dẻo cơ khí: Các chi tiết in 3D (PLA) có độ dẻo nhất định, gây ra biến dạng nhỏ dưới tải trọng,
+dẫn đến sai lệch giữa vị trí bàn chân lý thuyết và thực tế.
+• Độ trễ truyền thông UART: Giao thức UART bán song công giới hạn tốc độ cập nhật lệnh servo.
+Với baudrate 1 Mbps và 6 servo/driver, thời gian truyền một frame lệnh khoảng 1–2 ms, thấp hơn
+đáng kể so với chu kỳ điều khiển 7 ms.
+• Sai lệch lắp ráp: Dung sai gia công và lắp ráp tạo ra sự không đồng đều về chiều cao giữa các
+chân, được bù bằng tham số z_offset riêng cho mỗi chân.
+
+90
+
+6. KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN
+
+6.1
+
+Kết luận
+Đồ án đã hoàn thành việc thiết kế, mô phỏng và chế tạo một hệ thống robot bốn chân 12 bậc tự
+
+do với các kết quả chính sau:
+1. Mô hình động học: Xây dựng thành công mô hình động học thuận và động học nghịch cho cơ
+cấu chân robot 3 bậc tự do sử dụng phương pháp Modified Denavit–Hartenberg (MD-H) [10]. Các
+phương trình IK đã được giải cho cả bốn chân với nghiệm dạng giải tích, cho phép tính toán nhanh
+trong vòng lặp điều khiển thời gian thực. Phương trình FK và IK đã được kiểm chứng trực tiếp qua
+mô phỏng Gazebo và triển khai thành công trên phần cứng thực.
+2. Quy hoạch quỹ đạo: Phương pháp nội suy đa thức bậc năm đã chứng minh tính ưu việt so với
+phương pháp sóng sin. Quỹ đạo bàn chân đạt tính liên tục bậc hai (C 2 ), với vận tốc và gia tốc bằng
+không tại các điểm chuyển pha vung - chống chân, giảm thiểu lực va đập và rung lắc tại các khớp.
+Biên dạng nâng chân sử dụng đường cong parabol trên biến nội suy s(τ ) = 10τ 3 − 15τ 4 + 6τ 5 ,
+tạo ra quỹ đạo hình chữ D mượt mà.
+
+3. Mô phỏng: Hệ thống đã được mô phỏng thành công trên nền tảng ROS 2 Humble kết hợp Gazebo
+Classic. Bộ điều khiển PD với Kp = 13,0 Nm/rad và Kd = 0,3 Nm·s/rad tạo ra mô-men xoắn
+nằm trong giới hạn cho phép tại cả ba khớp. Mô-men lớn nhất tại khớp femur (∼ 2,8 Nm) vẫn thấp
+hơn giới hạn URDF (2,94 Nm). Dáng đi Trot duy trì ổn định tĩnh trong suốt chu kỳ, xác nhận tính
+khả thi của thiết kế.
+4. Bộ điều khiển cân bằng PID nâng cao: Bộ điều khiển PID đa giai đoạn đã được thiết kế, triển
+khai và đánh giá thành công với hai chế độ hoạt động riêng biệt:
+• Trong chế độ tĩnh (HOME), sai lệch định hướng hội tụ trong khoảng 1,5 giây và ổn định
+trong vùng chết ±0,02 rad, nhờ các cơ chế lọc EMA, vùng chết, lịch trình khuếch đại, rò rỉ
+
+tích phân và chống tích lũy back-calculation.
+
+• Trong chế độ động (GAIT), bộ điều khiển PID nhận biết pha giới hạn sai lệch đỉnh trong
+ngưỡng 0,08 rad, sử dụng đường cơ sở trung bình trượt, hệ số khuếch đại động và reset tích
+phân tại giao điểm không.
+5. Kiến trúc phần mềm: Kiến trúc hai node ROS 2 tách biệt (Gait Generator và Balance Controller)
+giao tiếp qua middleware DDS đảm bảo vận hành xác định và chịu lỗi. Tách rời xử lý quỹ đạo khỏi
+phản hồi cảm biến cho phép tinh chỉnh độc lập và ngăn chặn hiện tượng chặn lẫn nhau giữa các
+tiến trình. Hệ thống chẩn đoán thời gian thực (PlotJuggler) giúp giám sát và gỡ lỗi hiệu quả.
+6. Phần cứng: Hệ thống phần cứng sử dụng máy tính nhúng Jetson Nano, 12 động cơ bus servo
+ST3215, cảm biến IMU BNO055 và nguồn xung tổ ong 12 V - 40 A đã được tích hợp và vận hành
+thành công. Robot đã thực hiện được quy trình khởi tạo tư thế đứng từ vị trí ngẫu nhiên, dáng đi
+Trot trên mặt phẳng nằm ngang và cơ chế tắt an toàn ba pha. Kiến trúc hai serial driver với Bus
+Servo Adapter giải quyết hiệu quả bài toán phân tải truyền thông UART.
+91
+
+7. Quy trình sim-to-real: Đồ án đã chứng minh tính khả thi của quy trình phát triển từ mô phỏng
+đến thực tế. Các thuật toán được kiểm thử trên Gazebo trước, sau đó chuyển sang phần cứng thực
+chỉ với các điều chỉnh tối thiểu (ánh xạ góc IK → servo, bù offset cơ khí, điều chỉnh tham số quỹ
+đạo).
+
+6.1.1
+
+Đóng góp của đề tài
+Đồ án đã đóng góp một quy trình thiết kế hoàn chỉnh — từ mô hình toán học, thiết kế cơ khí,
+
+lựa chọn linh kiện, mô phỏng đến triển khai phần cứng — cho robot bốn chân sử dụng các linh kiện có
+giá thành phù hợp. Cụ thể, các đóng góp kỹ thuật bao gồm:
+• Xây dựng bộ điều khiển PID nâng cao với 5 giai đoạn xử lý tín hiệu (EMA → deadband → gainscheduled PID → saturation → LPF), kèm theo cơ chế chống tích lũy back-calculation và rò rỉ tích
+phân.
+• Thiết kế kiến trúc điều khiển hai chế độ (HOME/GAIT) với cơ chế áp dụng tín hiệu phân biệt: trực
+tiếp trong không gian khớp (HOME) và thông qua ma trận xoay nhận biết pha trong không gian
+làm việc (GAIT).
+• Thiết kế cơ chế tắt an toàn ba pha đảm bảo robot được hạ xuống đất an toàn trong mọi tình huống.
+• Toàn bộ mã nguồn, file CAD và tài liệu kỹ thuật có thể làm tài liệu tham khảo cho các nghiên cứu
+tiếp theo về điều khiển chuyển động robot đa chân tại Việt Nam.
+
+6.1.2
+
+Hạn chế
+Trong quá trình thực hiện, đề tài vẫn còn một số hạn chế:
+
+• Robot chỉ được thử nghiệm trên mặt phẳng nằm ngang, chưa kiểm chứng khả năng vượt địa hình
+phức tạp (dốc, bậc thang, bề mặt mềm).
+• Hệ thống cung cấp nguồn sử dụng nguồn xung tổ ong cố định, giới hạn phạm vi di chuyển của
+robot do phải kéo dây cáp nguồn.
+• Bộ điều khiển cân bằng IMU chế độ GAIT chưa được tích hợp hoàn toàn trên phần cứng thực do
+giới hạn băng thông UART khi cần đồng thời đọc IMU và điều khiển servo.
+• Thời gian thử nghiệm trên mô hình thực còn hạn chế, chưa đánh giá đầy đủ độ bền và tin cậy của
+hệ thống trong vận hành dài hạn.
+• Chưa triển khai các phương pháp điều khiển nâng cao hơn (MPC, điều khiển trở kháng, học tăng
+cường) do giới hạn thời gian và phạm vi nghiên cứu.
+
+92
+
+6.2
+
+Hướng phát triển
+Dựa trên các kết quả đạt được và hạn chế hiện tại, một số hướng phát triển tiếp theo được đề
+
+xuất:
+• Nâng cấp bộ điều khiển: Triển khai bộ điều khiển MPC (Model Predictive Control) hoặc điều
+khiển trở kháng (impedance control) để cải thiện khả năng thích nghi với địa hình. MPC cho phép
+tối ưu hóa quỹ đạo theo mô hình động lực học trong một khung thời gian trượt, phù hợp với các
+tình huống vận hành phức tạp.
+• Tích hợp thị giác máy tính: Bổ sung camera stereo hoặc camera RGB-D và thuật toán nhận diện
+địa hình để robot có thể tự đánh giá bề mặt phía trước và lập kế hoạch đường đi trên bề mặt phức
+tạp. Jetson Nano với GPU Maxwell 128-core có đủ khả năng xử lý các mô hình thị giác nhẹ.
+• Chuyển đổi sang pin: Thay thế nguồn xung tổ ong bằng pin LiPo 3S (11,1V) hoặc 4S (14,8V)
+dung lượng lớn (≥ 5000 mAh) để robot có thể di chuyển tự do. Cần bổ sung mạch BMS (Battery
+Management System) và mạch đo điện áp để giám sát tình trạng pin.
+• Bổ sung dáng đi: Triển khai thêm các dáng đi walk, pace và bound để robot có thể lựa chọn dáng
+đi phù hợp với tốc độ và điều kiện địa hình khác nhau. Dáng đi walk với β > 0,75 đặc biệt phù
+hợp cho di chuyển chậm ổn định trên bề mặt không bằng phẳng.
+• Tối ưu cơ khí: Cải tiến thiết kế cơ khí bằng cách sử dụng vật liệu composite (carbon fiber) hoặc in
+3D kim loại (SLM/SLS) nhằm giảm khối lượng và tăng độ bền. Bổ sung đệm cao su tại bàn chân
+để tăng hệ số ma sát và giảm chấn.
+• SLAM và điều hướng tự động: Tích hợp thuật toán SLAM (Simultaneous Localization And
+Mapping) để robot có thể tự xây dựng bản đồ môi trường và định vị vị trí của mình, mở ra khả
+năng điều hướng tự động trong các không gian kín.
+• Ứng dụng học sâu: Áp dụng các phương pháp học tăng cường (Reinforcement Learning) để robot
+tự học và tối ưu hóa dáng đi qua quá trình tương tác với môi trường. Các framework như Isaac
+Gym của NVIDIA cho phép huấn luyện song song trên GPU với hàng nghìn robot ảo, tăng tốc quá
+trình học đáng kể.
+• Đồng bộ mô hình sim-to-real: Xây dựng lại mô hình URDF với kích thước chính xác từ bản thiết
+kế CAD cuối cùng, bao gồm thuộc tính quán tính (mass, inertia) được đo đạc thực tế. Điều này
+giúp thu hẹp khoảng cách giữa kết quả mô phỏng và thực nghiệm, cải thiện hiệu quả quy trình phát
+triển.
+• Phát triển mô hình động lực học: Nghiên cứu và xây dựng mô hình động lực học chi tiết cho
+nguyên mẫu HyperDog nhằm tối ưu hóa các bộ điều khiển tiên tiến và dự đoán chính xác phản lực
+tương tác với môi trường.
+• Lập kế hoạch đường đi và điều hướng tự hành: Phát triển các lớp thuật toán lập kế hoạch đường
+đi (path planning) và hệ thống điều hướng tự hành, cho phép robot tự động di chuyển thông minh,
+tránh vật cản và thực hiện nhiệm vụ trong môi trường phức tạp.
+93
+
+TÀI LIỆU THAM KHẢO
+[1] M. H. Raibert, Legged robots that balance. MIT press, 1986.
+[2] P. Gonzalez-de Santos, E. Garcia, and J. Estremera, Quadrupedal Locomotion: An Introduction to
+the Control of Four-legged Robots. Springer Science & Business Media, 2006.
+[3] D. J. Hyun, S. Seok, J. Lee, and S. Kim, “High speed trot-running: Implementation of a control policy on the mit cheetah,” The International Journal of Robotics Research, vol. 33, no. 11, pp. 1417–
+1445, 2014.
+[4] G. Bledt, M. J. Powell, B. Katz, J. Di Carlo, P. M. Wensing, and S. Kim, “Mit cheetah 3: Design
+and control of a robust, dynamic quadruped robot,” in 2018 IEEE/RSJ International Conference on
+Intelligent Robots and Systems (IROS), pp. 2245–2252, IEEE, 2018.
+[5] M. Hutter, C. Gehring, D. Jud, A. Lauber, C. D. Bellicoso, V. Tsounis, J. Hwangbo, K. Bodie,
+P. Fankhauser, M. Bloesch, et al., “Anymal - a highly mobile and dynamic quadrupedal robot,”
+in 2016 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), pp. 38–44,
+IEEE, 2016.
+[6] Unitree Robotics, “Unitree go1 quadruped robot.” https://www.unitree.com/, 2021.
+[7] C. Gehring, S. Coros, M. Hutter, M. Bloesch, M. A. Hoepflinger, and R. Siegwart, “Control of
+dynamic gaits for a quadrupedal robot,” in 2013 IEEE International Conference on Robotics and
+Automation (ICRA), pp. 3287–3292, IEEE, 2013.
+[8] M. S. Sandeep et al., “Design and development of a low-cost quadruped robot,” International Journal of Robotics and Automation, 2021.
+[9] D. W. Marhefka and D. E. Orin, “Gait planning for energy efficiency in walking machines,” in
+Proceedings 1999 IEEE International Conference on Robotics and Automation (ICRA), vol. 1,
+pp. 474–480, IEEE, 1999.
+[10] J. Denavit and R. S. Hartenberg, “A kinematic notation for lower-pair mechanisms based on matrices,” Journal of Applied Mechanics, vol. 22, no. 2, pp. 215–221, 1955.
+[11] B. Siciliano, L. Sciavicco, L. Villani, and G. Oriolo, Robotics: modelling, planning and control.
+Springer Science & Business Media, 2009.
+[12] J. J. Craig, Introduction to robotics: mechanics and control. Pearson Prentice Hall, 3rd ed., 2005.
+[13] M. W. Spong, S. Hutchinson, and M. Vidyasagar, Robot modeling and control. John Wiley & Sons,
+2020.
+[14] Open Robotics, “Ros 2 documentation: Humble hawksbill.” https://docs.ros.org/en/
+humble/, 2022.
+[15] Open Source Robotics Foundation, “Gazebo classic simulator.” https://classic.gazebosim.
+org/, 2023.
+
+94
+
+[16] M. Vukobratović and B. Borovac, “Zero-moment point—thirty five years of its life,” International
+Journal of Humanoid Robotics, vol. 1, no. 01, pp. 157–173, 2004.
+[17] K. J. Åström and T. Hägglund, Advanced PID control. ISA-The Instrumentation, Systems, and
+Automation Society, 2006.
+[18] S. O. H. Madgwick, A. J. Harrison, and R. Vaidyanathan, “Estimation of imu and marg orientation using a gradient descent algorithm,” in 2011 IEEE International Conference on Rehabilitation
+Robotics, pp. 1–7, IEEE, 2011.
+[19] Bosch Sensortec, BNO055 Intelligent 9-axis absolute orientation sensor Datasheet, 2014. Rev. 1.4.
+[20] NVIDIA Corporation, NVIDIA Jetson Nano Developer Kit User Guide, 2019.
+[21] Waveshare Electronics, ST3215 Serial Bus Servo User Manual, 2023.
+
+95
+
+PHỤ LỤC A: MÃ GIẢ CÁC THUẬT TOÁN CỐT LÕI
+Mã nguồn đầy đủ của đồ án được triển khai trên nền tảng ROS 2 Humble. Để làm rõ hơn các
+thuật toán đã trình bày trong báo cáo mà không phụ thuộc vào một ngôn ngữ lập trình cụ thể, phần phụ
+lục này cung cấp mã giả (pseudocode) của hai thành phần cốt lõi: Thuật toán quy hoạch quỹ đạo và Cơ
+chế điều khiển cân bằng.
+
+1. Thuật toán quy hoạch quỹ đạo (Quintic Planning)
+Mã giả dưới đây thực thi phương trình nội suy đa thức bậc 5 nhằm tạo ra quỹ đạo mượt mà cho
+bàn chân robot trong pha vung chân (swing phase) và pha chống chân (stance phase).
+Input: Start position pstart , End position pend , Swing frames Nsw , Stance frames Nst ,
+Step height h
+Output: Foot trajectory path Ppath
+Ppath ← ∅;
+
+// 1. Compute Swing Phase Trajectory
+for i ← 0 to Nsw − 1 do
+τ ← i/(Nsw − 1);
+
+s ← 10τ 3 − 15τ 4 + 6τ 5 ;
+
+x ← pstart,x + (pend,x − pstart,x ) · s;
+
+y ← pstart,y + (pend,y − pstart,y ) · s;
+
+if τ ≤ 0.5 then
+τz ← 2τ ;
+
+z ← pstart,z + h · (10τz3 − 15τz4 + 6τz5 );
+else
+τz ← 2(τ − 0.5);
+
+z ← pstart,z + h · 1 − (10τz3 − 15τz4 + 6τz5 ) ;
+
+end
+
+Ppath .append([x, y, z]);
+end
+// 2. Compute Stance Phase Trajectory
+for i ← 0 to Nst − 1 do
+τ ← i/(Nst − 1);
+
+x ← pend,x + (pstart,x − pend,x ) · τ ;
+
+y ← pend,y + (pstart,y − pend,y ) · τ ;
+
+z ← pstart,z ;
+
+Ppath .append([x, y, z]);
+end
+return Ppath ;
+Algorithm 1: Quintic Polynomial Trajectory Planning
+
+96
+
+2. Bộ điều khiển cân bằng nhận biết pha
+Mã giả dưới đây minh họa khối logic phân tách chế độ hoạt động của bộ điều khiển cân bằng,
+xử lý tín hiệu phản hồi từ cảm biến IMU và áp dụng các bù trừ PID thông qua ma trận xoay.
+Input: Measured orientation θroll , θpitch , Current M ode, Enable flag Ena
+Output: Correction signal ucorrection
+if not Ena then
+return 0;
+end
+if mode transitioned then
+M ode ← M odenew ;
+
+Reset PID controller states;
+end
+if M ode = HOME then
+∆θroll ← PIDhome_roll (0, θroll );
+
+∆θpitch ← PIDhome_pitch (0, θpitch );
+return [∆θroll , ∆θpitch ] ;
+
+// Direct joint angle correction
+
+else if M ode = GAIT then
+uroll ← PIDgait_roll (0, θroll );
+
+upitch ← PIDgait_pitch (0, θpitch );
+
+Rcorr ← RotationMatrixY(upitch ) × RotationMatrixX(uroll );
+
+return Rcorr ;
+// Workspace rotation matrix correction
+Algorithm 2: Phase-Aware PID Balance Controller
+
+97
+
+PHỤ LỤC B: CHỨNG MINH TOÁN HỌC QUỸ ĐẠO ĐA THỨC
+BẬC NĂM (QUINTIC POLYNOMIAL)
+Trong Chương 2, đa thức bậc năm (Quintic Polynomial) được sử dụng để nội suy quỹ đạo chuẩn
+hóa của bàn chân robot: s(τ ) = 10τ 3 − 15τ 4 + 6τ 5 , với thời gian chuẩn hóa τ ∈ [0, 1]. Phụ lục này trình
+
+bày chi tiết quá trình chứng minh toán học và giải hệ phương trình ma trận để tìm ra các hệ số trên, đảm
+bảo quỹ đạo đạt độ mượt C 2 (liên tục về vị trí, vận tốc và gia tốc).
+
+B.1. Điều kiện biên của bài toán
+Giả sử phương trình vị trí tổng quát của quỹ đạo nội suy là một đa thức bậc năm theo biến thời
+gian chuẩn hóa τ :
+P (τ ) = a0 + a1 τ + a2 τ 2 + a3 τ 3 + a4 τ 4 + a5 τ 5
+
+(6.1)
+
+Đạo hàm bậc một (vận tốc) và bậc hai (gia tốc) lần lượt là:
+V (τ ) = P ′ (τ ) = a1 + 2a2 τ + 3a3 τ 2 + 4a4 τ 3 + 5a5 τ 4
+
+(6.2)
+
+A(τ ) = P ′′ (τ ) = 2a2 + 6a3 τ + 12a4 τ 2 + 20a5 τ 3
+
+(6.3)
+
+Để quỹ đạo bắt đầu và kết thúc với trạng thái đứng yên (vận tốc và gia tốc bằng 0) và dịch chuyển
+từ 0 đến 1, ta có 6 điều kiện biên (Boundary Conditions):
+• Tại τ = 0 (bắt đầu): Vị trí P (0) = 0, Vận tốc V (0) = 0, Gia tốc A(0) = 0.
+• Tại τ = 1 (kết thúc): Vị trí P (1) = 1, Vận tốc V (1) = 0, Gia tốc A(1) = 0.
+
+B.2. Thiết lập và giải hệ phương trình ma trận
+Thay các điều kiện biên tại τ = 0 vào phương trình, ta dễ dàng tính được:
+P (0) = a0 = 0
+
+(6.4)
+
+V (0) = a1 = 0
+
+(6.5)
+
+A(0) = 2a2 = 0 =⇒ a2 = 0
+
+(6.6)
+
+Với a0 = a1 = a2 = 0, phương trình gốc rút gọn lại thành các bậc cao: P (τ ) = a3 τ 3 + a4 τ 4 +
+a5 τ 5 . Tiếp tục thay các điều kiện biên tại τ = 1 vào hệ, ta được 3 phương trình tuyến tính cho 3 hệ số
+còn lại:
+P (1) = a3 + a4 + a5 = 1
+
+(6.7)
+
+V (1) = 3a3 + 4a4 + 5a5 = 0
+
+(6.8)
+
+A(1) = 6a3 + 12a4 + 20a5 = 0
+
+(6.9)
+
+98
+
+Hệ phương trình này có thể được biểu diễn dưới dạng ma trận nghịch đảo tuyến tính:
+
+1
+
+3
+
+6
+
+1
+4
+12
+
+   
+a
+1
+  3  
+
+
+
+
+5  a4  = 0
+
+a5
+0
+20
+1
+
+(6.10)
+
+Sử dụng phương pháp khử Gauss hoặc định thức Cramer để tìm nghiệm:
+• Lấy (6.8) − 3 × (6.7): a4 + 2a5 = −3 =⇒ a4 = −3 − 2a5
+• Thay a4 vào (6.9): 6(1 − a4 − a5 ) + 12a4 + 20a5 = 0 =⇒ 6 + 6a4 + 14a5 = 0
+• Giải ra được: 6 + 6(−3 − 2a5 ) + 14a5 = 0 =⇒ 2a5 = 12 =⇒ a5 = 6
+• Suy ra: a4 = −3 − 2(6) = −15 và a3 = 1 − (−15) − 6 = 10.
+Kết luận, nghiệm của hệ phương trình ma trận là [a3 , a4 , a5 ] = [10, −15, 6]. Thế ngược lại vào
+
+đa thức tổng quát, ta thu được phương trình quỹ đạo mượt hoàn chỉnh mà hệ thống đang sử dụng:
+s(τ ) = 10τ 3 − 15τ 4 + 6τ 5
+
+99
+
+(6.11)
+
+PHỤ LỤC C: MÔ HÌNH TOÁN HỌC HỆ ĐIỀU KHIỂN CÂN
+BẰNG RỜI RẠC (DISCRETE-TIME CONTROL)
+Trong môi trường điện toán số học (máy tính nhúng Jetson Nano chạy ROS 2 với tần số loop
+cố định), các thuật toán điều khiển bắt buộc phải được thiết kế dưới dạng rời rạc (Discrete-Time) thay vì
+dạng liên tục (Continuous-Time). Phụ lục này giải thích nền tảng toán học của chuỗi 5 giai đoạn xử lý
+tín hiệu trong bộ điều khiển cân bằng.
+
+C.1. Bộ lọc trung bình trượt hàm mũ (EMA Filter)
+Tín hiệu thô từ cảm biến IMU bị nhiễu do rung động cơ khí. Bộ lọc EMA (Exponential Moving
+Average) hoạt động như một bộ lọc thông thấp (Low-Pass Filter) rời rạc IIR (Infinite Impulse Response)
+bậc 1. Phương trình sai phân (Difference Equation) trên miền thời gian k của bộ lọc là:
+θf iltered [k] = α · θraw [k] + (1 − α) · θf iltered [k − 1]
+
+(6.12)
+
+Trong đó α ∈ [0, 1] là hệ số làm mượt. Chuyển đổi sang miền Z (Z-Transform), hàm truyền (Transfer
+Function) của bộ lọc được xác định bởi:
+H(z) =
+
+α
+Θf iltered (z)
+=
+Θraw (z)
+1 − (1 − α)z −1
+
+(6.13)
+
+C.2. Bộ điều khiển PID rời rạc với Rò rỉ tích phân (Integral Leakage)
+Gọi ∆t là chu kỳ lấy mẫu của hệ thống điều khiển (333 Hz =⇒ ∆t ≈ 0.003 s), phương trình
+
+PID tiêu chuẩn được rời rạc hóa bằng phương pháp xấp xỉ Euler ngược (Backward Euler):
+e[k] = θref [k] − θf iltered [k]
+
+(6.14)
+
+Pterm [k] = Kp · e[k]
+
+(6.15)
+
+Dterm [k] = Kd ·
+
+(6.16)
+
+e[k] − e[k − 1]
+∆t
+
+Để giải quyết hiện tượng tích lũy sai số dư thừa khi robot đứng quá lâu ở mặt phẳng nghiêng,
+khâu tích phân (Integral) được bổ sung cơ chế rò rỉ (Leakage) với hệ số γ < 1 (thường chọn γ = 0.99):
+Iterm [k] = γ · Iterm [k − 1] + Ki · e[k] · ∆t
+
+(6.17)
+
+C.3. Cơ chế chống bão hòa (Anti-Windup Back-Calculation)
+Khi ngõ ra tổng u[k] = Pterm [k] + Iterm [k] + Dterm [k] vượt quá giới hạn bão hòa của cơ
+cấu chấp hành [Umin , Umax ], khâu tích phân sẽ liên tục cộng dồn gây ra hiện tượng Windup. Thuật toán
+
+100
+
+Anti-windup dạng Back-calculation hiệu chỉnh trực tiếp giá trị Iterm [k] ở vòng lặp hiện tại:
+Iterm_adj [k] = Iterm [k] + Kaw · (usat [k] − u[k])
+
+(6.18)
+
+Trong đó usat [k] là tín hiệu ngõ ra sau khi đã bị cắt ngọn (clamped) bởi hàm bão hòa, và Kaw là hệ số
+khuếch đại chống bão hòa (Anti-windup Gain). Phương pháp này giúp rút ngắn đáng kể thời gian quá độ
+của khâu tích phân khi hệ thống thoái khỏi trạng thái bão hòa, từ đó chống lật robot hiệu quả.
+
+101
+
+

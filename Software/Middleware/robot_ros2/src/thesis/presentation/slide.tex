@@ -99,6 +99,9 @@
         \node[anchor=north west, text=darktext, font=\normalsize] at ([xshift=1cm, yshift=-6.4cm]current page.north west) {\textbf{SVTH:} Trương Tuấn An (2210041) - Võ Quế Long (2211910)};
         \node[anchor=north west, text=darktext, font=\normalsize] at ([xshift=1cm, yshift=-7.1cm]current page.north west) {\textbf{GVHD:} TS. Nguyễn Lê Dũng};
         
+        % Date
+        \node[anchor=south west, text=darktext, font=\small] at ([xshift=1cm, yshift=0.5cm]current page.south west) {TP. Hồ Chí Minh, \today};
+        
         % Aesthetic watermark
         \fill[hcmutred!80] (current page.south east) -- ([yshift=1.5cm]current page.south east) -- ([xshift=-1.5cm]current page.south east) -- cycle;
     \end{tikzpicture}
@@ -149,22 +152,20 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Mục tiêu đề tài}
-  \begin{enumerate}
-      \item \textbf{Cơ khí \& Động học:} Thiết kế 3D, thi công khung robot, xây dựng mô hình IK cho cơ cấu 3 DOF.
-      \item \textbf{Quy hoạch quỹ đạo:} Nội suy đa thức quỹ đạo chân hình chữ D liên tục trơn tru.
-      \item \textbf{Điều khiển ổn định:} Bộ điều khiển PID thích nghi với hai chế độ tĩnh (HOME) và động (GAIT).
-      \item \textbf{Phần mềm:} Xây dựng kiến trúc điều khiển trên ROS 2, liên kết Gazebo.
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}{Tóm tắt đề tài}
-  \begin{itemize}
-      \item Đề tài trình bày một giải pháp điều khiển chuyển động hạng nhẹ, tối ưu tài nguyên cho robot bốn chân (12 DOF), đạt được khả năng di chuyển ổn định bằng cách tích hợp trực tiếp phản hồi dữ liệu quán tính (IMU).
-      \item \textbf{Kiến trúc luồng kép (Dual-pipeline):} Tách biệt hoàn toàn việc quy hoạch dáng đi (Gait Generation) khỏi quá trình cân bằng tư thế (Postural Stabilization), giúp tăng cường khả năng chịu lỗi.
-      \item \textbf{Quy hoạch quỹ đạo mượt mà:} Quỹ đạo từng chân được sinh bởi đa thức Quintic (bậc 5) giúp loại bỏ triệt để các va đập cơ học tại thời điểm nhấc/hạ chân.
-      \item \textbf{Bù trừ phản xạ:} Bộ điều khiển PID kết hợp lọc nhiễu đa tầng và ma trận bù xoay $R_y(\theta)R_x(\phi)$ được áp dụng linh hoạt dựa trên nhận dạng pha chân (Stance/Swing), giúp robot dập tắt dao động và giữ vững thăng bằng trên địa hình gồ ghề.
-  \end{itemize}
+\begin{frame}{Mục tiêu \& Kết quả đạt được}
+  \begin{table}[]
+      \centering
+      \small
+      \renewcommand{\arraystretch}{1.5}
+      \begin{tabular}{@{} p{0.22\textwidth} p{0.35\textwidth} p{0.35\textwidth} @{}}
+          \toprule
+          \textbf{Hạng mục} & \textbf{Mục tiêu đề ra} & \textbf{Kết quả đạt được} \\ \midrule
+          \textbf{Cơ khí \& Phần cứng} & Thiết kế 3D, thi công khung robot bốn chân 12 DOF. & \textcolor{green!60!black}{\textbf{Hoàn thành:}} Chế tạo thành công khung phần cứng tích hợp Jetson Nano và 12 servo ST3215. \\
+          \textbf{Động học \& Quỹ đạo} & Xây dựng mô hình IK, quy hoạch quỹ đạo chân hình chữ D trơn tru. & \textcolor{green!60!black}{\textbf{Hoàn thành:}} Giải IK, quy hoạch dáng đi Quintic. Robot thực tế di chuyển thành công các dáng đi cơ bản. \\
+          \textbf{Mô phỏng \& Phần mềm} & Xây dựng kiến trúc điều khiển trên ROS 2, liên kết Gazebo. & \textcolor{green!60!black}{\textbf{Hoàn thành:}} Đánh giá động lực học, kiểm chứng giới hạn mô-men xoắn thành công trên Gazebo. \\
+          \textbf{Điều khiển cân bằng} & Tích hợp bộ điều khiển cân bằng tư thế (PID + IMU). & \textcolor{orange}{\textbf{Một phần:}} Đã xác thực thuật toán trên mô phỏng (Gazebo), chưa triển khai xuống phần cứng thực tế. \\ \bottomrule
+      \end{tabular}
+  \end{table}
 \end{frame}
 
 \begin{frame}{Tổng quan kiến trúc hệ thống}
@@ -175,6 +176,13 @@
   \end{figure}
 \end{frame}
 
+\begin{frame}{Tổng quan kiến trúc điều khiển}
+  \begin{figure}
+      \centering
+      \includegraphics[width=\linewidth, height=0.75\textheight, keepaspectratio]{architecture/locomotion_balance_controller.png}
+      \caption{Tổng quan kiến trúc điều khiển của hệ thống (Locomotion Planner \& Balance Controller)}
+  \end{figure}
+\end{frame}
 % --------------------------------------------------
 \section{Lý thuyết động học và quy hoạch dáng đi}
 % --------------------------------------------------
@@ -214,46 +222,33 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Lý thuyết Pha dáng đi và Hệ số chu kỳ (Duty factor)}
-  \begin{itemize}
-      \item Quá trình di chuyển của mỗi chân được chia làm 2 giai đoạn độc lập nhưng nối tiếp nhau:
-      \begin{itemize}
-          \item \textbf{Pha vung (Swing phase):} Chân nhấc khỏi mặt đất, vung về phía trước để tịnh tiến sải bước. Quỹ đạo được nội suy bằng đường cong để tránh va đập.
-          \item \textbf{Pha chống (Stance phase):} Chân bám đất, chịu tải trọng và đẩy thân robot tiến về phía trước theo đường thẳng.
-      \end{itemize}
-      \vspace{0.2cm}
-      \item \textbf{Hệ số chu kỳ nhiệm vụ (Duty factor $\beta$):} Biểu diễn tỷ lệ thời gian chân ở trạng thái chống chạm đất so với tổng thời gian của một chu kỳ bước.
-  \end{itemize}
-  \begin{equation*}
-      \beta = \frac{T_{stance}}{T_{stance} + T_{swing}}
-  \end{equation*}
-  \begin{itemize}
-      \item \textbf{Tỷ lệ thiết lập hợp lý nhằm duy trì sự ổn định:}
-      \begin{itemize}
-          \item Dáng đi \textbf{Trot} (cân bằng động): Bắt buộc $\beta \ge 0.5$ để đảm bảo luôn có ít nhất 2 chân đối chéo tiếp đất tại mọi thời điểm. Nếu $\beta < 0.5$, sẽ xuất hiện pha bay (cả 4 chân lơ lửng) dễ gây ngã ở phần cứng cơ bản.
-          \item Dáng đi \textbf{Walk} (cân bằng tĩnh): Bắt buộc $\beta \ge 0.75$ nhằm bảo toàn đa giác chân đế (luôn có ít nhất 3 chân tiếp đất).
-      \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Phân bổ pha của các dáng đi (Gaits)}
+\begin{frame}{Lý thuyết Pha dáng đi và Phân bổ Gaits}
   \begin{columns}
-      \begin{column}{0.4\textwidth}
+      \begin{column}{0.55\textwidth}
           \begin{itemize}
-              \item Dáng đi được phân loại thông qua độ lệch pha $\phi \in [0, 1)$ của từng chân.
-              \item \textbf{Trot (Đi chéo):} 2 chân đối chéo nhấc đồng thời. Cân bằng động tốt, tốc độ di chuyển cao.
-              \item \textbf{Pace (Đi kiệu):} 2 chân cùng bên nhấc đồng thời.
-              \item \textbf{Walk (Đi bộ):} Tuần tự từng chân nhấc lên. Luôn có 3 chân bám đất, cực kỳ ổn định tĩnh.
+              \item \textbf{Chu kỳ bước:} Gồm \textbf{Pha vung} (Swing - nhấc chân) và \textbf{Pha chống} (Stance - tạo lực đẩy).
+              \item \textbf{Hệ số chu kỳ (Duty factor $\beta$):} Thể hiện tỷ lệ thời gian chân chống đất.
+              \vspace{-0.2cm}
+              \begin{equation*}
+                  \beta = \frac{T_{stance}}{T_{stance} + T_{swing}}
+              \end{equation*}
+              \vspace{-0.2cm}
+              \item \textbf{Phân loại dáng đi:} Dựa vào độ lệch pha $\phi$ và $\beta$.
+              \begin{itemize}
+                  \item \textbf{Trot (Đi chéo):} 2 chân chéo nhấc đồng thời ($\beta \ge 0.5$). Cân bằng động tốt, tốc độ cao.
+                  \item \textbf{Walk (Đi bộ):} Tuần tự từng chân ($\beta \ge 0.75$). Luôn có 3 chân bám đất, cực kỳ ổn định tĩnh.
+                  \item \textbf{Pace (Đi kiệu):} 2 chân cùng bên nhấc đồng thời.
+              \end{itemize}
           \end{itemize}
       \end{column}
-      \begin{column}{0.6\textwidth}
+      \begin{column}{0.45\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=0.9\linewidth, height=0.22\textheight, keepaspectratio]{gait_planner/trot_gait_table.png} \\
+              \includegraphics[width=0.95\linewidth, height=0.22\textheight, keepaspectratio]{gait_planner/trot_gait_table.png} \\
               \vspace{0.1cm}
-              \includegraphics[width=0.9\linewidth, height=0.22\textheight, keepaspectratio]{gait_planner/pace_gait_table.png} \\
+              \includegraphics[width=0.95\linewidth, height=0.22\textheight, keepaspectratio]{gait_planner/pace_gait_table.png} \\
               \vspace{0.1cm}
-              \includegraphics[width=0.9\linewidth, height=0.22\textheight, keepaspectratio]{gait_planner/walk_gait_table.png}
+              \includegraphics[width=0.95\linewidth, height=0.22\textheight, keepaspectratio]{gait_planner/walk_gait_table.png}
               \caption{Sơ đồ phân bổ pha Trot, Pace và Walk}
           \end{figure}
       \end{column}
@@ -305,20 +300,40 @@
 
 \begin{frame}{Thiết kế cơ khí}
   \begin{columns}
-      \begin{column}{0.4\textwidth}
-          \begin{itemize}
-              \item Khung thân và cụm chân rời được thiết kế trên SolidWorks.
-              \item Vật liệu chế tạo: Nhựa in 3D PLA kết hợp với các vòng bi gia cố tại khớp vai.
-              \item Động cơ: 12 Bus Servo ST3215.
-          \end{itemize}
+      \begin{column}{0.45\textwidth}
+          \begin{table}[htbp]
+              \centering
+              \resizebox{\textwidth}{!}{
+              \def\arraystretch{1.3}
+              \begin{tabular}{l c | l c}
+                  \toprule
+                  \textbf{Thông số cơ khí} & \textbf{Giá trị} & \textbf{Khớp} & \textbf{Biên độ} \\
+                  \midrule
+                  Chiều dài bệ đỡ ($L$) & 250 mm & Vai (Roll) & $\pm 45^\circ$ \\
+                  Chiều rộng bệ đỡ ($W$) & 193 mm & Hông (Pitch) & $\pm 90^\circ$ \\
+                  Chiều dài khớp hông ($L_1$) & 26 mm & Gối (Knee) & $\pm 150^\circ$ \\
+                  Chiều dài đùi ($L_2$) & 106 mm & \multicolumn{2}{c}{} \\
+                  Chiều dài cẳng chân ($L_3$) & 125 mm & \multicolumn{2}{c}{} \\
+                  Khối lượng tổng ($M$) & $2.5$ kg & \multicolumn{2}{c}{} \\
+                  \bottomrule
+              \end{tabular}
+              }
+          \end{table}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.48\linewidth, height=0.3\textheight, keepaspectratio]{hardware/hip_joint_assembly.jpg}
+              \hfill
+              \includegraphics[width=0.48\linewidth, height=0.3\textheight, keepaspectratio]{hardware/single_leg_assembly.jpg}
+              \caption{Cụm khớp hông (trái) và cấu trúc một chân (phải)}
+          \end{figure}
       \end{column}
-      \begin{column}{0.6\textwidth}
+      \begin{column}{0.55\textwidth}
           \begin{figure}
               \centering
               \includegraphics[width=0.85\linewidth, height=0.35\textheight, keepaspectratio]{hardware/preview_design.png} \\
               \vspace{0.2cm}
-              \includegraphics[width=0.85\linewidth, height=0.35\textheight, keepaspectratio]{hardware/single_leg_assembly.jpg}
-              \caption{Bản thiết kế 3D tổng thể (trên) và chi tiết cụm chân (dưới)}
+              \includegraphics[width=0.85\linewidth, height=0.35\textheight, keepaspectratio]{real_robot/quadrupedrobot.jpeg}
+              \caption{Bản thiết kế 3D tổng thể (trên) và nguyên mẫu hoàn thiện (dưới)}
           \end{figure}
       \end{column}
   \end{columns}
@@ -343,24 +358,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Robot thực tế hoàn thiện}
-  \begin{columns}
-      \begin{column}{0.5\textwidth}
-          \begin{itemize}
-              \item Trọng lượng: $\approx 4.0$ kg.
-              \item Hoàn thiện lắp ráp cơ khí và tinh chỉnh hệ thống điện.
-              \item Cấu trúc chân: Nối tiếp (Serial) với cấu hình Full-Knee (Gối gập trong).
-          \end{itemize}
-      \end{column}
-      \begin{column}{0.5\textwidth}
-          \begin{figure}
-              \centering
-              \includegraphics[width=\linewidth, height=0.6\textheight, keepaspectratio]{real_robot/quadrupedrobot.jpeg}
-              \caption{Nguyên mẫu robot bốn chân hoàn thiện}
-          \end{figure}
-      \end{column}
-  \end{columns}
-\end{frame}
+
 % --------------------------------------------------
 \section{Thiết kế và thực hiện phần mềm}
 % --------------------------------------------------
@@ -378,39 +376,43 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{Động lực: Ứng dụng trên các nền tảng dao động (Moving Platforms)}
+\begin{frame}{Động lực và Giải pháp Điều khiển cân bằng}
   \begin{columns}
-      \begin{column}{0.5\textwidth}
-          \begin{itemize}
-              \item \textbf{Ngữ cảnh thực tế:} Robot tự hành thường được triển khai trên các môi trường không cố định như boong tàu biển (chịu sóng dập dềnh), giàn khoan ngoài khơi, hoặc trên mặt thùng xe vận tải.
-              \item \textbf{Bài toán kiểm thử (Sinusoidal Platform):} Để đánh giá, mặt sàn mô phỏng Gazebo được ép dao động lượn sóng liên tục theo hàm Sin (biên độ $\approx 10^\circ$) nhằm tạo ra nhiễu loạn ngoại lực cực hạn.
-              \item \textbf{Nguy cơ:} Nếu chỉ giữ cứng các khớp, trọng tâm (CoM) của robot sẽ lắc lư theo ngoại lực và văng ra ngoài đa giác đỡ $\Rightarrow$ Mất thăng bằng và lật ngã.
-          \end{itemize}
+      \begin{column}{0.4\textwidth}
+          \textbf{Tại sao cần cân bằng chủ động?} \\
+          \vspace{0.2cm}
+          \small Môi trường thực tế (boong tàu dập dềnh, cầu tre rung lắc, sàn xe di chuyển) và sự dịch chuyển trọng tâm khi đi bộ khiến robot dễ lật ngã nếu chỉ giữ cứng khớp.
+          
+          \vspace{0.4cm}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.31\linewidth, height=0.18\textheight, keepaspectratio]{misc/boat_on_waves.png}
+              \hfill
+              \includegraphics[width=0.31\linewidth, height=0.18\textheight, keepaspectratio]{misc/bamboo_bridge.png}
+              \hfill
+              \includegraphics[width=0.31\linewidth, height=0.18\textheight, keepaspectratio]{misc/truck_bed.png}
+              \vspace{-0.2cm}
+              \caption{Các bề mặt nhiễu động thực tế}
+          \end{figure}
       \end{column}
-      \begin{column}{0.5\textwidth}
-          \begin{alertblock}{Giải pháp bắt buộc}
-              Hệ thống yêu cầu một bộ điều khiển \textbf{ổn định tư thế chủ động} (Active Postural Stabilization). Thuật toán \textbf{PID} kết hợp tín hiệu \textbf{IMU} được lựa chọn vì:
+      
+      \begin{column}{0.6\textwidth}
+          \begin{alertblock}{Giải pháp ổn định tư thế (PID + IMU)}
+              \small
+              Hệ thống xử lý vòng kín (closed-loop) tốc độ cao, tiết kiệm tài nguyên:
               \begin{itemize}
-                  \item Tốc độ đáp ứng chống nhiễu vòng kín (closed-loop) cực nhanh, dập tắt ngay lập tức các dao động.
-                  \item Cực kỳ tiết kiệm tài nguyên xử lý trên máy tính nhúng so với các bộ điều khiển dự phóng (MPC).
+                  \item \textbf{Cảm nhận:} Đọc góc nghiêng (Roll, Pitch) liên tục từ cảm biến IMU BNO055.
+                  \item \textbf{Tính toán bù trừ:} PID tính toán lượng phản xạ (Offset) để triệt tiêu dao động thân.
+              \end{itemize}
+              \vspace{0.2cm}
+              \textbf{Chiến lược áp dụng cho 2 trạng thái:}
+              \begin{itemize}
+                  \item \textbf{Chế độ Tĩnh (HOME):} Bù trực tiếp vào \textbf{Góc khớp} (Joint Space) giúp cơ cấu phản ứng chống nhiễu tức thời.
+                  \item \textbf{Chế độ Động (GAIT):} Bù vào \textbf{Tọa độ trục Z} Cartesian (Task Space) nhằm bảo toàn nguyên vẹn sải bước chân $X, Y$.
               \end{itemize}
           \end{alertblock}
       \end{column}
   \end{columns}
-\end{frame}
-
-\begin{frame}{Bài toán điều khiển cân bằng}
-  \begin{itemize}
-      \item \textbf{Vấn đề:} Khi robot di chuyển, sự thay đổi trọng tâm liên tục và sai số cơ khí khiến thân bị nghiêng (Roll, Pitch). Nếu không có cơ chế bù trừ, robot sẽ mất thăng bằng và ngã.
-      \item \textbf{Giải pháp áp dụng bộ điều khiển PID:}
-      \vspace{0.2cm}
-      \begin{itemize}
-          \item Thu thập dữ liệu góc nghiêng thực tế từ cảm biến quán tính (IMU BNO055).
-          \item Đưa qua bộ điều khiển PID để tính toán tín hiệu bù (Offset).
-          \item \textbf{Chế độ Tĩnh (HOME):} Bù trực tiếp vào \textbf{Góc khớp gối} (Joint Space) để phản ứng chống nhiễu tức thời.
-          \item \textbf{Chế độ Động (GAIT):} Bù vào \textbf{Tọa độ Cartesian trục $Z$} (Task Space) để giữ nguyên sải bước $X, Y$, tránh làm hỏng biên độ dáng đi.
-      \end{itemize}
-  \end{itemize}
 \end{frame}
 
 \begin{frame}{Thiết kế thuật toán ổn định tư thế}
@@ -649,7 +651,7 @@
           \end{itemize}
       \end{column}
       \begin{column}{0.5\textwidth}
-          \textbf{Thực tế (Nguyên mẫu 4.0kg)}
+          \textbf{Thực tế (Nguyên mẫu 3.0kg)}
           \begin{itemize}
               \item \textbf{Độ trễ truyền thông:} Bus Serial UART có độ trễ, làm giảm băng thông đáp ứng của PID.
               \item \textbf{Sai số cơ khí:} Khung in 3D (PLA) tạo ra sai lệch nhỏ ở biên độ sải bước.
@@ -676,14 +678,14 @@
   \vspace{0.3cm}
   \textbf{Hạn chế của phần cứng:}
   \begin{itemize}
-      \item Trọng lượng thực tế nặng, động cơ ST3215 ở hai chân trước có dấu hiệu yếu tải tĩnh.
-      \item Do đó thuật toán PID IMU động mới chứng minh hiệu quả cực cao ở khâu mô phỏng, và chưa được bật full trên robot thực.
+      \item Hệ thống phụ thuộc vào nguồn tổ ong có dây, gây cản trở không gian di chuyển tự do.
+      \item Động cơ ST3215 chỉ đủ đáp ứng các dáng đi cơ bản, thiếu dư dả mô-men xoắn để thực hiện thao tác linh hoạt cao.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Đề xuất Hướng phát triển}
   \begin{itemize}
-      \item \textbf{Vật liệu:} Thay thế kết cấu in 3D bằng Carbon hoặc hợp kim để hạ tải trọng, tối ưu Pin LiPo xả cao.
+      \item \textbf{Vật liệu \& Năng lượng:} Sử dụng vật liệu Carbon và tích hợp Pin LiPo để robot hoạt động hoàn toàn độc lập (Tetherless).
       \item \textbf{Điều khiển cấp cao:} Nâng cấp điều khiển lực bằng MPC (Model Predictive Control) kết hợp điều khiển trở kháng (Impedance Control).
       \item \textbf{Học máy (AI):} Thay thế IK và cấu hình thủ công bằng Học Tăng Cường (Reinforcement Learning - RL) trên môi trường Isaac Gym.
       \item \textbf{Điều hướng không gian:} Bổ sung Depth Camera hướng tới bài toán SLAM tự động tránh vật cản.
@@ -800,43 +802,81 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Phụ lục B2: Chứng minh Torque -- Lựa chọn Servo ST3215}
-  \begin{columns}[t]
-      \begin{column}{0.48\textwidth}
-          \begin{block}{1. Tính toán mô-men khớp Gối (Knee)}
-              Với $M=2.3\,$kg, Trot: $F_N = \frac{Mg}{2} = 11.28\,$N.\\
-              Tay đòn $L_{DE}=24\,$mm, $L_{CB}=25\,$mm, $\eta=1.2$:
-              \begin{equation*}
-                  T_{knee} = \eta F_N L_3 \sin\alpha \frac{L_{DE}}{L_{CB}}
-              \end{equation*}
-              \begin{equation*}
-                  = 1.2 \times 11.28 \times 0.125 \times \sin45^\circ \times \frac{24}{25}
-              \end{equation*}
-              \begin{equation*}
-                  \approx \textbf{11.7 kg.cm} \ll 20\,\text{kg.cm (ST3215-HS)}
-              \end{equation*}
-              $\Rightarrow$ Hệ số an toàn: $\frac{20}{11.7} \approx 1.71$
-          \end{block}
+\begin{frame}{Phụ lục B2.1: Chi tiết phân tích mô-men khớp Gối (Knee)}
+  \begin{columns}
+      \begin{column}{0.6\textwidth}
+          Mô-men do lực tiếp đất tác dụng lên khớp gối được cân bằng bởi lực truyền dọc thanh liên kết $CD$, tạo ra mô-men tác dụng lên trục servo. Phương trình:
+          \begin{equation*}
+              T_{\text{knee}} \approx \eta F_N L_3 \sin(\alpha) \frac{L_{DE}}{L_{CB}}
+          \end{equation*}
+          Trong dáng đi trot, luôn có hai chân tiếp đất, tải trọng cực đại:
+          \begin{equation*}
+              F_N = \frac{Mg}{2} = \frac{2.5 \times 9.81}{2} = 12.26\,\text{N}
+          \end{equation*}
+          Thay $L_3 = 0.125\,\text{m}$, $L_{DE} = 0.024\,\text{m}$, $L_{CB} = 0.025\,\text{m}$, $\eta = 1.6$, $\alpha = 45^\circ$:
+          \begin{equation*}
+              T_{\text{knee}} \approx 1.6 \times 12.26 \times 0.125 \times \sin(45^\circ) \times \frac{0.024}{0.025}
+          \end{equation*}
+          \begin{equation*}
+              T_{\text{knee}} \approx 1.665\,\text{N}\cdot\text{m} \approx \textbf{17.0 kg.cm}
+          \end{equation*}
+          \vspace{0.2cm}
+          \textbf{Kết luận:} $17.0\,\text{kg}\cdot\text{cm} < 20\,\text{kg}\cdot\text{cm}$ (Định mức ST3215-HS). Khớp gối hoạt động an toàn theo thiết kế lý thuyết.
       \end{column}
-      \begin{column}{0.48\textwidth}
-          \begin{block}{2. Tính toán mô-men khớp Hông (Hip Pitch)}
-              Chiều dài hiệu dụng ($\beta_{knee}=90^\circ$):
-              \begin{equation*}
-                  L_{hd} = \sqrt{L_2^2 + L_3^2} = \sqrt{106^2 + 125^2} \approx 164\,\text{mm}
-              \end{equation*}
-              \begin{equation*}
-                  T_{pitch} = \eta F_N L_{hd} \sin\alpha
-              \end{equation*}
-              Khi $\alpha = 45^\circ$ (leo dốc):
-              \begin{equation*}
-                  \approx \textbf{16.0 kg.cm} \ll 30\,\text{kg.cm (ST3215)}
-              \end{equation*}
-              $\Rightarrow$ Hệ số an toàn: $\frac{30}{16.0} \approx 1.88$
-          \end{block}
+      \begin{column}{0.4\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.9\linewidth]{hardware/servo_torque_analysis.png}
+          \end{figure}
       \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}{Phụ lục B2.2: Chi tiết phân tích mô-men khớp Vai (Hip Roll)}
+  Khoảng cách hiệu dụng từ trục khớp hông đến mặt đất ở góc khuỵu gối $\beta = 90^\circ$:
+  \begin{equation*}
+      L_{hd} = \sqrt{L_2^2 + L_3^2 - 2L_2L_3\cos(90^\circ)} = \sqrt{0.106^2 + 0.125^2} \approx 0.164\,\text{m}
+  \end{equation*}
+  Lực tác dụng tổng cộng $\eta F_N = 1.6 \times 12.26 = 19.62\,\text{N}$. 
+  Phương trình mô-men theo góc dang chân $\theta_1$:
+  \begin{equation*}
+      T_{roll} = \eta F_N \big(L_1 \cos(\theta_1) + L_{hd} \sin(\theta_1)\big) = 19.62 \times \big(0.026 \cos(\theta_1) + 0.164 \sin(\theta_1)\big)
+  \end{equation*}
+  \begin{itemize}
+      \item $\theta_1 = 0^\circ$ (Thẳng đứng): $T_{roll} \approx 0.51\,\text{N}\cdot\text{m} \approx \textbf{5.2 kg.cm}$.
+      \item $\theta_1 = 15^\circ$ (Dang trung bình): $T_{roll} \approx 1.33\,\text{N}\cdot\text{m} \approx \textbf{13.5 kg.cm}$.
+      \item $\theta_1 = 30^\circ$ (Dang rộng cực đại): $T_{roll} \approx 2.05\,\text{N}\cdot\text{m} \approx \textbf{20.9 kg.cm}$.
+  \end{itemize}
   \vspace{0.2cm}
-  {\small \textit{* Khớp Vai (Hip Roll) khi $\theta_1=30^\circ$: $T_{roll} \approx 14.4\,$kg.cm, hệ số an toàn $\frac{30}{14.4} \approx 2.08$. Tất cả đều thỏa mãn.}}
+  \textbf{Kết luận:} $20.9\,\text{kg}\cdot\text{cm} < 30\,\text{kg}\cdot\text{cm}$ (Định mức ST3215). Khớp vai hoạt động trong vùng an toàn, đảm bảo hiệu năng.
+\end{frame}
+
+\begin{frame}{Phụ lục B2.3: Chi tiết phân tích mô-men khớp Hông (Hip Pitch)}
+  \begin{columns}
+      \begin{column}{0.65\textwidth}
+          Mô-men phụ thuộc vào độ vươn xa của chân theo phương ngang. Với góc nghiêng $\alpha$ so với phương thẳng đứng:
+          \begin{equation*}
+              T_{pitch} = \eta F_N L_{hd} \sin(\alpha)
+          \end{equation*}
+          \begin{equation*}
+              T_{pitch} = 19.62 \times 0.164 \sin(\alpha) = 3.218 \sin(\alpha) \quad \text{(N}\cdot\text{m)}
+          \end{equation*}
+          Phân tích các quỹ đạo:
+          \begin{itemize}
+              \item $\alpha = 0^\circ$ (Đứng thẳng): Trọng lượng truyền dọc chân, $T_{pitch} = 0$.
+              \item $\alpha = 15^\circ$ (Bước thường): $T_{pitch} \approx 0.83\,\text{N}\cdot\text{m} \approx \textbf{8.5 kg.cm}$.
+              \item $\alpha = 45^\circ$ (Vươn dài leo dốc): $T_{pitch} \approx 2.27\,\text{N}\cdot\text{m} \approx \textbf{23.2 kg.cm}$.
+          \end{itemize}
+          \vspace{0.2cm}
+          \textbf{Kết luận:} $23.2\,\text{kg}\cdot\text{cm} < 30\,\text{kg}\cdot\text{cm}$ (Định mức ST3215). Cơ cấu ST3215 đáp ứng hoàn hảo yêu cầu tải động của khớp hông.
+      \end{column}
+      \begin{column}{0.35\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth]{hardware/free_body_diagram.png}
+          \end{figure}
+      \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Phụ lục B3: Tốc độ, Độ phân giải \& Xác nhận từ Mã nguồn}
@@ -1179,17 +1219,19 @@
   \end{columns}
 \end{frame}
 
+
+
 \begin{frame}{Phụ lục E1: Phân tích Nguyên nhân "Kéo lê chân" trên thực tế}
   \begin{block}{1. Sai lệch khối lượng thiết kế so với thực tế}
-      Lý thuyết $M = 2.3\,\text{kg}$. Thực tế gia công in 3D (in-fill đặc), pin Li-Po, tản nhiệt làm nguyên mẫu nặng tới $\textbf{4.0 kg}$ (+ $74\%$). Lực ép mỗi chân (Trot): $F_N = 4.0 / 2 = 2.0\,\text{kg}$.
+      Lý thuyết $M = 2.5\,\text{kg}$. Thực tế gia công in 3D (in-fill đặc), thêm phụ kiện ốc vít và tản nhiệt làm nguyên mẫu nặng lên $\textbf{3.0 kg}$ (+ $20\%$). Lực ép mỗi chân (Trot): $F_N = 3.0 / 2 = 1.5\,\text{kg}$.
   \end{block}
   \vspace{0.05cm}
   \begin{columns}[t]
       \begin{column}{0.48\textwidth}
           \begin{alertblock}{2. Quá tải Khớp Gối (Knee)}
               Servo ST3215-HS (định mức $20\,\text{kg.cm}$).\\
-              Mô-men thực tế:\\
-              $T_{knee} = 1.2 \times 2.0 \times 12.5 \times \sin45^\circ \times \frac{24}{25}$\\
+              Mô-men thực tế ($\eta=1.6$):\\
+              $T_{knee} = 1.6 \times 1.5 \times 12.5 \times \sin45^\circ \times \frac{24}{25}$\\
               $\approx \textbf{20.4 kg.cm} > 20\,\text{kg.cm}$\\
               $\Rightarrow$ Hệ số an toàn: $\frac{20}{20.4} \approx \textbf{0.98} < 1$.\\
               \textit{Hậu quả:} Động cơ gối \textbf{Overload}, không thể nâng chân đạt Lift height, gây hiện tượng kéo lê.
@@ -1199,7 +1241,7 @@
           \begin{alertblock}{3. Giảm biên độ Khớp Hông (Hip)}
               Servo ST3215 (định mức $30\,\text{kg.cm}$).\\
               Mô-men thực tế ($\alpha=45^\circ$):\\
-              $T_{pitch} = 1.2 \times 2.0 \times 16.4 \times \sin45^\circ$\\
+              $T_{pitch} = 1.6 \times 1.5 \times 16.4 \times \sin45^\circ$\\
               $\approx \textbf{27.8 kg.cm}$\\
               $\Rightarrow$ Hệ số an toàn: $\frac{30}{27.8} \approx \textbf{1.08}$.\\
               \textit{Hậu quả:} Tải tĩnh sát ngưỡng bão hòa sinh nhiệt cao. Vòng lặp PID nội bộ phản hồi chậm $\Rightarrow$ mất bước, lết gót.
@@ -1218,25 +1260,71 @@
   \begin{tabular}{|l|c|c|c|}
       \hline
       \textbf{Giai đoạn} & \textbf{Thiết kế gốc} & \textbf{Sau sửa CAD} & \textbf{Thực tế vận hành} \\
-      & ($L_3\!=\!107$, $M\!=\!2.3$\,kg) & ($L_3\!=\!125$, $M\!=\!2.3$\,kg) & ($L_3\!=\!125$, $M\!=\!4.0$\,kg) \\
+      & ($L_3\!=\!107$, $M\!=\!2.5$\,kg) & ($L_3\!=\!125$, $M\!=\!2.5$\,kg) & ($L_3\!=\!125$, $M\!=\!3.0$\,kg) \\
       \hline
-      $F_N = \frac{Mg}{2}$ & 11.28\,N & 11.28\,N & 19.62\,N \\
+      $F_N = \frac{Mg}{2}$ & 12.26\,N & 12.26\,N & 14.72\,N \\
       \hline
-      $T_{knee}$ & \textbf{10.0}\,kg.cm & 11.7\,kg.cm & \textcolor{red}{\textbf{20.4}}\,kg.cm \\
+      $T_{knee}$ & \textbf{14.5}\,kg.cm & 17.0\,kg.cm & \textcolor{red}{\textbf{20.4}}\,kg.cm \\
       \hline
-      SF$_{knee}$ {\tiny ($\tau_{HS}\!=\!20$)} & $\frac{20}{10.0} = \textbf{2.00}$ $\checkmark$ & $\frac{20}{11.7} = 1.71$ $\checkmark$ & $\frac{20}{20.4} = \textcolor{red}{\textbf{0.98}}$ $\times$ \\
+      SF$_{knee}$ {\tiny ($\tau_{HS}\!=\!20$)} & $\frac{20}{14.5} = \textbf{1.38}$ $\checkmark$ & $\frac{20}{17.0} = 1.18$ $\checkmark$ & $\frac{20}{20.4} = \textcolor{red}{\textbf{0.98}}$ $\times$ \\
       \hline
       $L_{eff} = \sqrt{L_2^2 + L_3^2}$ & 150.6\,mm & 163.9\,mm & 163.9\,mm \\
       \hline
-      $T_{pitch}$ & \textbf{14.4}\,kg.cm & 16.0\,kg.cm & \textcolor{red}{\textbf{27.8}}\,kg.cm \\
+      $T_{pitch}$ & \textbf{21.3}\,kg.cm & 23.2\,kg.cm & \textcolor{red}{\textbf{27.8}}\,kg.cm \\
       \hline
-      SF$_{pitch}$ {\tiny ($\tau_{Std}\!=\!30$)} & $\frac{30}{14.4} = \textbf{2.08}$ $\checkmark$ & $\frac{30}{16.0} = 1.88$ $\checkmark$ & $\frac{30}{27.8} = \textcolor{red}{\textbf{1.08}}$ $\triangle$ \\
+      SF$_{pitch}$ {\tiny ($\tau_{Std}\!=\!30$)} & $\frac{30}{21.3} = \textbf{1.41}$ $\checkmark$ & $\frac{30}{23.2} = 1.29$ $\checkmark$ & $\frac{30}{27.8} = \textcolor{red}{\textbf{1.08}}$ $\triangle$ \\
       \hline
   \end{tabular}
   }
   \begin{alertblock}{Kết luận}
-      {\footnotesize \textbf{(1)} Tại $L_{3,old}\!=\!107\,$mm, SF $\ge 2.0$ (biên an toàn cao). \textbf{(2)} Sau chỉnh sửa CAD, SF $\ge 1.71$ trên lý thuyết do giả định $M$ không đổi. \textbf{(3)} Thực tế $M$ tăng $+74\%$ $\Rightarrow$ Khớp Gối vượt ngưỡng chịu tải (SF$\,=\,0.98$), Khớp Hông hoạt động sát giới hạn bão hòa (SF$\,=\,1.08$) $\Rightarrow$ \textbf{hiện tượng kéo lê chân}.}
+      {\footnotesize \textbf{(1)} Tại $L_{3,old}\!=\!107\,$mm, SF $\ge 1.38$ (an toàn). \textbf{(2)} Sau chỉnh sửa CAD, SF giảm xuống $\ge 1.18$ trên lý thuyết do cánh tay đòn tăng. \textbf{(3)} Thực tế $M$ tăng lên $3.0\,$kg $\Rightarrow$ Khớp Gối vượt ngưỡng chịu tải (SF$\,=\,0.98$), Khớp Hông hoạt động sát giới hạn bão hòa (SF$\,=\,1.08$) $\Rightarrow$ \textbf{hiện tượng kéo lê chân}.}
   \end{alertblock}
+\end{frame}
+
+\begin{frame}{Phụ lục F1: So sánh các loại động cơ}
+  \begin{table}[htbp]
+      \centering
+      \small
+      \def\arraystretch{1.3}
+      \begin{tabular}{p{2.5cm} p{3.5cm} p{3.5cm} p{4cm}}
+          \toprule
+          \textbf{Tiêu chí} & \textbf{Servo PWM truyền thống} & \textbf{Động cơ BLDC} & \textbf{Bus Servo nối tiếp} \\
+          \midrule
+          \textbf{Giao thức điều khiển} & Xung PWM (Đơn hướng) & CAN / RS485 (Song công) & UART (Bán song công) \\
+          \textbf{Hệ thống dây dẫn} & Rất phức tạp (Mỗi motor 1 dây) & Tối giản (Nối tiếp chuỗi) & Tối giản (Nối tiếp chuỗi) \\
+          \textbf{Khả năng phản hồi} & Không có & Vị trí, tốc độ, dòng điện, nhiệt độ & Vị trí thực tế, tốc độ, tải, nhiệt độ, điện áp \\
+          \textbf{Mô-men xoắn} & Thường ở mức thấp/trung bình & Rất cao & Cao (Tối ưu trong tầm giá) \\
+          \textbf{Khối lượng \& KT} & Nhẹ & Nặng, cồng kềnh & Gọn nhẹ \\
+          \textbf{Giá thành} & Rất thấp & Rất cao & Trung bình - Hợp lý \\
+          \bottomrule
+      \end{tabular}
+  \end{table}
+  \vspace{0.1cm}
+  {\small \textit{* Hệ thống 12 bậc tự do yêu cầu một giải pháp truyền động cân bằng giữa hiệu năng cơ học, khả năng phản hồi và chi phí. Bus Servo nối tiếp được lựa chọn vì đáp ứng tốt nhất các tiêu chí này.}}
+\end{frame}
+
+\begin{frame}{Phụ lục F2: So sánh các dòng Servo phổ biến trên thị trường}
+  \begin{table}[htbp]
+      \centering
+      \scriptsize
+      \def\arraystretch{1.3}
+      \begin{tabular}{p{1.8cm} p{2.2cm} p{2.2cm} p{3cm} p{2.5cm}}
+          \toprule
+          \textbf{Tiêu chí} & \textbf{JX PDI-HV5932MG} & \textbf{Hiwonder LX-16A} & \textbf{\textcolor{hcmutred}{Waveshare ST3215}} & \textbf{Dynamixel XL430} \\
+          \midrule
+          \textbf{Giao thức} & PWM ($180^\circ$) & TTL UART & \textbf{TTL UART} & TTL UART \\
+          \textbf{Điện áp} & 6.0 V - 8.4 V & 6.0 V - 8.4 V & \textbf{6.0 V - 12.6 V} & 10.0 V - 14.8 V \\
+          \textbf{Lực xoắn tối đa} & 32.3 kg.cm (@8.4V) & 17 kg.cm (@7.4V) & \textbf{30 kg.cm / 20 kg.cm} & $\approx$ 15.3 kg.cm \\
+          \textbf{Cảm biến vị trí} & Biến trở & Biến trở & \textbf{Từ tính (Encoder $360^\circ$)} & Từ tính \\
+          \textbf{Độ phân giải góc} & Phụ thuộc vi điều khiển & $0.24^\circ$ & \textbf{$0.088^\circ$} & $0.088^\circ$ \\
+          \textbf{Tốc độ truyền} & 50 Hz - 330 Hz & 115200 bps & \textbf{Lên đến 1 Mbps} & Lên đến 4.5 Mbps \\
+          \textbf{Bộ điều khiển} & Cơ bản (P) & Cơ bản (P) & \textbf{Nâng cao (PI)} & Cao cấp (PID) \\
+          \textbf{Giá thành} & Trung bình & Thấp & \textbf{Trung bình} & Rất cao \\
+          \bottomrule
+      \end{tabular}
+  \end{table}
+  \vspace{0.1cm}
+  {\small \textit{* Waveshare ST3215 mang lại điểm cân bằng hoàn hảo. Lực xoắn cao, cảm biến từ tính độ phân giải cao và bộ điều khiển PI nội bộ giúp triệt tiêu sai số tĩnh, rất phù hợp cho cấu hình chân robot bốn chân.}}
 \end{frame}
 
 \end{document}

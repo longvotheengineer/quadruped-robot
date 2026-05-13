@@ -90,7 +90,7 @@ Khi cẳng chân quay quanh trục khớp gối, nếu bỏ qua ma sát tại kh
 
 trong đó $F_N$ là lực pháp tuyến, $L_3$ là khoảng cách từ trục khớp gối đến điểm tiếp xúc mặt đất, $\alpha$ là góc giữa cẳng chân và phương thẳng đứng và $\eta$ là hệ số tải động.
 
-Tổng khối lượng robot được ước tính xấp xỉ $M = 3.5\text{ kg}$.
+Tổng khối lượng robot được ước tính ở giai đoạn thiết kế xấp xỉ $M = 2.5\text{ kg}$.
 
 Giả sử bốn chân chịu đều toàn bộ trọng lượng của robot trong trạng thái tĩnh, lực pháp tuyến được tính là:
 
@@ -98,7 +98,7 @@ Giả sử bốn chân chịu đều toàn bộ trọng lượng của robot tro
     F_N = \frac{Mg}{4}
 \end{equation}
 
-Trong phân tích bền số học dưới đây, sử dụng các giá trị: chiều dài cẳng chân $L_3 = 0.125\text{ m}$, góc nghiêng $\alpha = 45^\circ$, và hệ số tải động $\eta = 1.2$.
+Trong phân tích bền số học dưới đây, sử dụng các giá trị: chiều dài cẳng chân $L_3 = 0.125\text{ m}$, góc nghiêng $\alpha = 45^\circ$, và hệ số tải động $\eta = 1.6$.
 
 
 \section{Lựa chọn cơ cấu chấp hành}
@@ -156,12 +156,12 @@ Trong dáng đi trot, luôn có hai chân tiếp xúc mặt đất, do đó tả
 \begin{equation}
     F_N = \frac{Mg}{2}
 \end{equation}
-Thay các giá trị từ Bảng \ref{tab:2} với $M = 3.5\,\text{kg}$, $L_3 = 0.125\,\text{m}$, $L_{DE} = 0.024\,\text{m}$, $L_{CB} = 0.025\,\text{m}$, hệ số tải động $\eta = 1.2$, góc nghiêng $\alpha = 45^\circ$, và $g = 9.81\,\text{m/s}^2$ vào công thức, ta có $F_N = 17.17\,\text{N}$ và:
+Thay các giá trị từ Bảng \ref{tab:2} với $M = 2.5\,\text{kg}$, $L_3 = 0.125\,\text{m}$, $L_{DE} = 0.024\,\text{m}$, $L_{CB} = 0.025\,\text{m}$, hệ số tải động $\eta = 1.6$, góc nghiêng $\alpha = 45^\circ$, và $g = 9.81\,\text{m/s}^2$ vào công thức, ta có $F_N = 12.26\,\text{N}$ và:
 \begin{equation}
-    T_{\text{knee}} \approx 1.2 \times 17.17 \times 0.125 \times \sin(45^\circ) \times \frac{0.024}{0.025} \approx 1.748\,\text{N}\cdot\text{m} \approx 17.8\,\text{kg}\cdot\text{cm}
+    T_{\text{knee}} \approx 1.6 \times 12.26 \times 0.125 \times \sin(45^\circ) \times \frac{0.024}{0.025} \approx 1.665\,\text{N}\cdot\text{m} \approx 17.0\,\text{kg}\cdot\text{cm}
 \end{equation}
 
-Giá trị này nhỏ hơn mô-men định mức $20\,\text{kg}\cdot\text{cm}$ của servo ST3215-HS, đảm bảo động cơ hoạt động an toàn.
+Giá trị này nhỏ hơn mô-men định mức $20\,\text{kg}\cdot\text{cm}$ của servo ST3215-HS, đảm bảo động cơ hoạt động an toàn theo thiết kế lý thuyết.
 
 \begin{figure}[H]
     \centering
@@ -184,7 +184,7 @@ Dựa theo Bảng \ref{tab:2} với thiết kế $L_2 = 0.106\,\text{m}$ và $L_
     L_{hd} = \sqrt{0.106^2 + 0.125^2 - 2(0.106)(0.125)\cos(90^\circ)} \approx 0.164\,\text{m}
 \end{equation}
 
-Tương tự phân tích trước, tải trọng lớn nhất tác dụng lên một chân là $F_N = 17.17\,\text{N}$, hệ số tải động $\eta = 1.2$, dẫn đến lực tác dụng tổng cộng là $\eta F_N = 20.6\,\text{N}$. 
+Tương tự phân tích trước, tải trọng lớn nhất tác dụng lên một chân là $F_N = 12.26\,\text{N}$, hệ số tải động $\eta = 1.6$, dẫn đến lực tác dụng tổng cộng là $\eta F_N = 19.62\,\text{N}$. 
 
 Công thức tính mô-men xoắn cực đại cho khớp vai $T_{roll}$ theo góc dang chân $\theta_1$ được xác định dựa trên khoảng lệch ngàm $L_1$ và hình chiếu ngang của chiều dài chân hiệu dụng:
 \begin{equation}
@@ -193,16 +193,16 @@ Công thức tính mô-men xoắn cực đại cho khớp vai $T_{roll}$ theo g�
 
 Thay các thông số thiết kế ($L_1 = 0.026\,\text{m}$) vào phương trình, ta thu được:
 \begin{equation}
-    T_{roll} = 20.6 \times \big(0.026 \cos(\theta_1) + 0.164 \sin(\theta_1)\big) \quad \text{(N}\cdot\text{m)}
+    T_{roll} = 19.62 \times \big(0.026 \cos(\theta_1) + 0.164 \sin(\theta_1)\big) \quad \text{(N}\cdot\text{m)}
 \end{equation}
 
 \begin{itemize}
-    \item Khi $\theta_1 = 0^\circ$, mô-men tác dụng lên khớp vai chỉ xuất phát từ khoảng lệch ngàm cơ khí: $T_{roll} = 20.6 \times 0.026 \approx 0.54\,\text{N}\cdot\text{m} \approx 5.5\,\text{kg}\cdot\text{cm}$.
-    \item Khi $\theta_1 = 15^\circ$, mô-men tăng lên: $T_{roll} \approx 1.39\,\text{N}\cdot\text{m} \approx 14.2\,\text{kg}\cdot\text{cm}$, phản ánh trạng thái robot điều chỉnh tư thế rẽ với góc dang trung bình.
-    \item Khi $\theta_1 = 30^\circ$, mô-men đạt giá trị lớn nhất: $T_{roll} \approx 2.15\,\text{N}\cdot\text{m} \approx 21.9\,\text{kg}\cdot\text{cm}$, tương ứng với tình huống bất lợi khi chân dang rộng.
+    \item Khi $\theta_1 = 0^\circ$, mô-men tác dụng lên khớp vai chỉ xuất phát từ khoảng lệch ngàm cơ khí: $T_{roll} = 19.62 \times 0.026 \approx 0.51\,\text{N}\cdot\text{m} \approx 5.2\,\text{kg}\cdot\text{cm}$.
+    \item Khi $\theta_1 = 15^\circ$, mô-men tăng lên: $T_{roll} \approx 1.33\,\text{N}\cdot\text{m} \approx 13.5\,\text{kg}\cdot\text{cm}$, phản ánh trạng thái robot điều chỉnh tư thế rẽ với góc dang trung bình.
+    \item Khi $\theta_1 = 30^\circ$, mô-men đạt giá trị lớn nhất: $T_{roll} \approx 2.05\,\text{N}\cdot\text{m} \approx 20.9\,\text{kg}\cdot\text{cm}$, tương ứng với tình huống bất lợi khi chân dang rộng.
 \end{itemize}
 
-Giá trị mô-men cực đại vẫn nhỏ hơn định mức $30\,\text{kg}\cdot\text{cm}$ của servo ST3215, do đó khớp vai vẫn hoạt động trong vùng an toàn, không gây quá tải.
+Giá trị mô-men cực đại $20.9\,\text{kg}\cdot\text{cm}$ vẫn nhỏ hơn định mức $30\,\text{kg}\cdot\text{cm}$ của servo ST3215, do đó khớp vai hoạt động trong vùng an toàn, đảm bảo hiệu năng và không gây quá tải nhiệt.
 
 \begin{figure}[H]
     \centering
@@ -218,19 +218,19 @@ Tương tự quy trình đánh giá ở khớp vai, mô-men xoắn yêu cầu c�
     T_{pitch} = \eta F_N L_{hd} \sin(\alpha)
 \end{equation}
 
-Sử dụng khoảng cách hiệu dụng $L_{hd} = 0.164\,\text{m}$ và lực tải $\eta F_N = 13.54\,\text{N}$ đã xác định:
+Sử dụng khoảng cách hiệu dụng $L_{hd} = 0.164\,\text{m}$ và lực tải $\eta F_N = 19.62\,\text{N}$ đã xác định:
 \begin{equation}
-    T_{pitch} = 20.6 \times 0.164 \sin(\alpha) = 3.378 \sin(\alpha) \quad \text{(N}\cdot\text{m)}
+    T_{pitch} = 19.62 \times 0.164 \sin(\alpha) = 3.218 \sin(\alpha) \quad \text{(N}\cdot\text{m)}
 \end{equation}
 
 Phân tích quỹ đạo chuyển động cho thấy:
 \begin{itemize}
     \item Tại tư thế đứng thẳng chân ($\alpha = 0^\circ$), trọng lượng truyền dọc theo chân nên khớp hông không chịu tải uốn ($T_{pitch} = 0$).
-    \item Khi chân bước với góc $\alpha = 15^\circ$, mô-men tại khớp hông đạt $T_{pitch} = 3.378 \sin(15^\circ) \approx 0.87\,\text{N}\cdot\text{m} \approx 8.9\,\text{kg}\cdot\text{cm}$. Đây là vùng tải nhẹ, thuận lợi cho động cơ.
-    \item Khi $\alpha = 45^\circ$, mô-men tăng lên $T_{pitch} = 3.378 \sin(45^\circ) \approx 2.39\,\text{N}\cdot\text{m} \approx 24.4\,\text{kg}\cdot\text{cm}$, tương ứng với trạng thái vươn dài chân để leo dốc hoặc vượt chướng ngại vật.
+    \item Khi chân bước với góc $\alpha = 15^\circ$, mô-men tại khớp hông đạt $T_{pitch} = 3.218 \sin(15^\circ) \approx 0.83\,\text{N}\cdot\text{m} \approx 8.5\,\text{kg}\cdot\text{cm}$. Đây là vùng tải nhẹ, thuận lợi cho động cơ.
+    \item Khi $\alpha = 45^\circ$, mô-men tăng lên $T_{pitch} = 3.218 \sin(45^\circ) \approx 2.27\,\text{N}\cdot\text{m} \approx 23.2\,\text{kg}\cdot\text{cm}$, tương ứng với trạng thái vươn dài chân để leo dốc hoặc vượt chướng ngại vật.
 \end{itemize}
 
-Giá trị cực đại này vẫn nhỏ hơn đáng kể so với giới hạn mô-men của servo ST3215 ($30\,\text{kg}\cdot\text{cm}$), xác nhận rằng việc lựa chọn động cơ cho khớp hông là hoàn toàn phù hợp và đảm bảo độ tin cậy trong vận hành.
+Giá trị cực đại này vẫn nhỏ hơn giới hạn mô-men $30\,\text{kg}\cdot\text{cm}$ của servo ST3215, xác nhận rằng việc lựa chọn động cơ ST3215 cho khớp hông là hoàn toàn phù hợp và đảm bảo độ an toàn cao.
 
 \subsection{Thiết kế tổng thể}
 
@@ -524,8 +524,8 @@ Dựa trên các thông số phân tích từ Bảng \ref{tab:bus_servo_comparis
     \item \textbf{Ưu điểm vượt trội của ST3215:} Waveshare ST3215 mang lại điểm cân bằng hoàn hảo giữa hiệu năng cơ học và chi phí. Lực xoắn cao (lên đến 30 kg.cm ở 12~V) cung cấp dư dả công suất để robot duy trì thăng bằng và thực hiện dáng đi. Cảm biến vị trí từ tính (Magnetic Encoder $360^{\circ}$) với độ phân giải rất cao ($0.088^{\circ}$) cung cấp phản hồi góc chính xác tuyệt đối mà không lo bị hao mòn. Tốc độ truyền tải 1~Mbps hoàn toàn đáp ứng được yêu cầu của vòng lặp điều khiển thời gian thực. Đặc biệt, bộ điều khiển PI tích hợp sẵn giúp động cơ khử sai số tĩnh, đảm bảo robot thực thi dáng đi một cách mượt mà và ổn định.
     \item \textbf{Phân bổ chiến lược giữa mô-men xoắn và tốc độ (ST3215 vs ST3215-HS):} Hệ thống tận dụng cả hai phiên bản động cơ để tối ưu hóa đặc tính động lực học của từng khớp.
     \begin{itemize}
-        \item \textit{Khớp vai và khớp hông (Hip Roll, Hip Pitch):} Gánh chịu phần lớn trọng lượng của thân robot và tạo ra lực đẩy chính, yêu cầu mô-men xoắn lớn (theo tính toán lý thuyết lên tới 21.9 -- 24.4 kg.cm). Do đó, phiên bản tiêu chuẩn \textbf{ST3215 (30 kg.cm)} được sử dụng để tạo ra hệ số an toàn, giúp động cơ hoạt động bền bỉ, không sinh nhiệt quá mức khi robot đứng khuỵu hoặc mang thêm tải trọng.
-        \item \textit{Khớp gối (Knee):} Yêu cầu về lực tại khớp gối thấp hơn đáng kể (khoảng 17.8 kg.cm) nhờ cơ cấu tay đòn và thanh liên kết. Tuy nhiên, khớp gối lại đòi hỏi tốc độ gập/duỗi cực kỳ nhanh để chân có thể nhấc lên và vung về phía trước (Swing phase) trong thời gian rất ngắn. Vì vậy, phiên bản tốc độ cao \textbf{ST3215-HS (20 kg.cm)} được lựa chọn. Dù mô-men xoắn giảm đi một phần nhưng vẫn vượt qua ngưỡng an toàn, đổi lại tốc độ phản hồi đạt $0.094\,\text{s}/60^{\circ}$ (nhanh gấp đôi bản thường), giúp robot di chuyển linh hoạt và lấy lại thăng bằng chớp nhoáng khi gặp nhiễu.
+        \item \textit{Khớp vai và khớp hông (Hip Roll, Hip Pitch):} Gánh chịu phần lớn trọng lượng của thân robot và tạo ra lực đẩy chính, yêu cầu mô-men xoắn lớn (theo tính toán lý thuyết lên tới 14.4 -- 16.0 kg.cm). Do đó, phiên bản tiêu chuẩn \textbf{ST3215 (30 kg.cm)} được sử dụng để tạo ra hệ số an toàn cao (gần gấp đôi yêu cầu), giúp động cơ hoạt động bền bỉ, không sinh nhiệt quá mức khi robot đứng khuỵu hoặc mang thêm tải trọng.
+        \item \textit{Khớp gối (Knee):} Yêu cầu về lực tại khớp gối thấp hơn đáng kể (khoảng 11.7 kg.cm) nhờ cơ cấu tay đòn và thanh liên kết. Tuy nhiên, khớp gối lại đòi hỏi tốc độ gập/duỗi cực kỳ nhanh để chân có thể nhấc lên và vung về phía trước (Swing phase) trong thời gian rất ngắn. Vì vậy, phiên bản tốc độ cao \textbf{ST3215-HS (20 kg.cm)} được lựa chọn. Dù mô-men xoắn giảm đi một phần nhưng vẫn vượt qua ngưỡng an toàn, đổi lại tốc độ phản hồi đạt $0.094\,\text{s}/60^{\circ}$ (nhanh gấp đôi bản thường), giúp robot di chuyển linh hoạt và lấy lại thăng bằng chớp nhoáng khi gặp nhiễu.
     \end{itemize}
 \end{itemize}
 
