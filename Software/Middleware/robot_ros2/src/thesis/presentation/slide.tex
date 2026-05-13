@@ -14,7 +14,7 @@
 \setbeamertemplate{caption}[numbered]
 \captionsetup[figure]{font=scriptsize, textfont=it, labelfont=bf}
 
-\graphicspath{{../Images/}}
+\graphicspath{{images/}}
 
 % --- Custom Colors HCMUT ---
 \definecolor{hcmutblue}{HTML}{003A70}
@@ -26,7 +26,8 @@
     colorlinks=true,
     linkcolor=hcmutblue,
     urlcolor=hcmutred,
-    citecolor=hcmutblue
+    citecolor=hcmutblue,
+    linktoc=all
 }
 
 % --- Theme Settings ---
@@ -86,7 +87,7 @@
         \fill[hcmutred] ([yshift=-4.5cm]current page.north west) rectangle ([yshift=-4.65cm]current page.north east);
         
         % Logo placement (Top Right)
-        \node[anchor=north east, inner sep=0.7cm] at (current page.north east) {\includegraphics[width=2.5cm]{../presentation/reference/images/hcmut_logo_transparent.png}};
+        \node[anchor=north east, inner sep=0.7cm] at (current page.north east) {\includegraphics[width=2.5cm]{misc/hcmut_logo_transparent.png}};
         
         % Main Title
         \node[anchor=west, text=white, font=\Large\bfseries, text width=12cm] at ([xshift=1cm, yshift=-2cm]current page.north west) {THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG\\ \textcolor{hcmutred}{HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI}};
@@ -695,7 +696,7 @@
         \fill[hcmutblue] (current page.south west) rectangle (current page.north east);
         
         % Subtle massive watermark associated with project/organization
-        \node[anchor=south east, opacity=0.06] at ([xshift=0.5cm, yshift=0cm]current page.south east) {\includegraphics[height=0.7\textheight]{../presentation/reference/images/hcmut_logo_transparent.png}};
+        \node[anchor=south east, opacity=0.06] at ([xshift=0.5cm, yshift=0cm]current page.south east) {\includegraphics[height=0.7\textheight]{misc/hcmut_logo_transparent.png}};
 
         % Main Thank you text (Centered, large)
         \node[anchor=south, text=white, font=\Huge\bfseries, scale=1.3] at ([yshift=0.8cm]current page.center) {XIN CẢM ƠN};
@@ -715,7 +716,8 @@
 \appendix
 \section*{Phụ lục}
 
-\begin{frame}{Phụ lục A: Bảng thông số MD-H (Modified Denavit-Hartenberg)}
+
+\begin{frame}{Phụ lục A1: Bảng thông số MD-H (Modified Denavit-Hartenberg)}
   \begin{itemize}
       \item Tham số hóa động học nghịch bằng quy ước MD-H giúp loại bỏ tính kỳ dị và xác định chính xác ma trận chuyển đổi tọa độ các khớp.
   \end{itemize}
@@ -738,10 +740,10 @@
           \bottomrule
       \end{tabular}
   \end{table}
-  {\small \textit{* Hệ số cấu trúc thực tế: $L_1=45\,\text{mm}, L_2=107\,\text{mm}, L_3=116\,\text{mm}$}}
+  {\small \textit{* Hệ số cấu trúc thực tế: $L_1=26\,\text{mm}, L_2=106\,\text{mm}, L_3=125\,\text{mm}$}}
 \end{frame}
 
-\begin{frame}{Phụ lục B: Thuật toán Nội suy Đa thức bậc 5 (Quintic)}
+\begin{frame}{Phụ lục A2: Thuật toán Nội suy Đa thức bậc 5 (Quintic)}
   \begin{itemize}
       \item Với thời gian chuẩn hóa $\tau = \frac{i}{N-1}$, đa thức vị trí $s(\tau) = 10\tau^3 - 15\tau^4 + 6\tau^5$ đảm bảo đạo hàm bậc 1 (Vận tốc) và bậc 2 (Gia tốc) tại hai biên $\tau=0, \tau=1$ hoàn toàn bằng $0$.
   \end{itemize}
@@ -761,47 +763,44 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{Phụ lục C: Bộ lọc Trung bình trượt hàm mũ (EMA)}
-  \begin{itemize}
-      \item Tín hiệu IMU thô chịu ảnh hưởng nặng từ rung động cơ khí sinh ra bởi động cơ.
-      \item Bộ lọc EMA đóng vai trò như một bộ lọc thông thấp IIR (Infinite Impulse Response) bậc 1, giúp làm mượt tín hiệu phản hồi.
-  \end{itemize}
-  \vspace{0.2cm}
-  \begin{block}{1. Phương trình sai phân (Miền thời gian)}
-      \begin{equation*}
-          \theta_{filtered}[k] = \alpha \cdot \theta_{raw}[k] + (1 - \alpha) \cdot \theta_{filtered}[k-1]
-      \end{equation*}
-  \end{block}
-  \vspace{0.2cm}
-  \begin{block}{2. Hàm truyền (Miền Z)}
-      Chuyển đổi Z-Transform của bộ lọc:
-      \begin{equation*}
-          H(z) = \frac{\Theta_{filtered}(z)}{\Theta_{raw}(z)} = \frac{\alpha}{1 - (1-\alpha)z^{-1}}
-      \end{equation*}
-  \end{block}
-  {\small \textit{* $\alpha \in [0, 1]$ là hệ số làm mượt (Smoothing factor) được cấu hình tĩnh.}}
+\begin{frame}{Phụ lục A3: Phân tích Ổn định Động \& Tĩnh (ZMP vs Support Polygon)}
+  \begin{columns}[t]
+      \begin{column}{0.48\textwidth}
+          \begin{block}{1. Đa giác chân đế (Support Polygon)}
+              \begin{itemize}
+                  \item \textbf{Dáng Walk (Tĩnh):} Luôn có ít nhất 3 chân tiếp đất tạo thành hình tam giác. Hình chiếu trọng tâm (CoM) luôn nằm bên trong tam giác này $\rightarrow$ Robot cân bằng hoàn toàn tĩnh.
+                  \item \textbf{Dáng Trot (Động):} Chỉ có 2 chân đối chéo chạm đất tạo thành một đường thẳng. CoM luôn có xu hướng rơi ra ngoài $\rightarrow$ Bắt buộc phải liên tục chuyển bước để giữ thăng bằng động.
+              \end{itemize}
+          \end{block}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+          \begin{block}{2. Tiêu chuẩn ZMP (Zero Moment Point)}
+              \begin{itemize}
+                  \item ZMP là tiêu chuẩn vàng để đánh giá thăng bằng động. Tuy nhiên, để tính chính xác ZMP cần có \textbf{Cảm biến lực 3 trục} ở mỗi bàn chân để đo áp lực tĩnh và ma sát.
+                  \item \textbf{Giải pháp thay thế:} Do giới hạn kinh phí không có cảm biến lực, đề tài sử dụng trực tiếp góc nghiêng từ IMU (Roll, Pitch) để ước lượng trạng thái mất cân bằng và phản xạ bù trừ tức thời.
+              \end{itemize}
+          \end{block}
+      \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{Phụ lục D: Chống bão hòa PID (Anti-Windup Back-Calculation)}
+\begin{frame}{Phụ lục B1: Phân tích Năng lượng và Giới hạn Dòng điện}
   \begin{itemize}
-      \item Khi robot hoạt động thời gian dài trên mặt nghiêng, khâu Tích phân ($I_{term}$) sẽ liên tục cộng dồn gây bão hòa vòng kín (Windup).
+      \item \textbf{Yêu cầu dòng điện cực đại:} 
+      \begin{itemize}
+          \item Dòng kẹt rotor (Stall current) mỗi servo ST3215: $2.0\text{--}2.5\,$A.
+          \item Trường hợp xấu nhất (12 servo đồng thời chịu tải cực đại): $I_{peak} \approx \textbf{30\,A}$.
+      \end{itemize}
+      \item \textbf{Nguồn cấp (Power Supply):}
+      \begin{itemize}
+          \item Nguồn xung công nghiệp (Switching PSU) \textbf{12V -- 40A} (480\,W).
+          \item Biên dự trữ dòng (Headroom): $40 - 30 = 10\,$A, đảm bảo điện áp ổn định, không sụt áp dưới tải đỉnh.
+      \end{itemize}
+      \item \textbf{Cách ly nguồn ngoại vi:} Jetson Nano ($5\text{V}/3\text{A}$) và Bus Servo Adapter được cấp qua các mạch giảm áp Buck Converter độc lập, cách ly nhiễu điện từ (EMI) do động cơ phát sinh.
   \end{itemize}
-  \begin{block}{1. Rò rỉ tích phân (Integral Leakage)}
-      Ngăn tích phân tăng vô hạn bằng cách áp dụng hệ số suy hao $\gamma \approx 0.99$:
-      \begin{equation*}
-          I_{term}[k] = \gamma \cdot I_{term}[k-1] + K_i \cdot e[k] \cdot \Delta t
-      \end{equation*}
-  \end{block}
-  \begin{block}{2. Back-calculation}
-      Khấu trừ giá trị dư thừa ở vòng lặp hiện tại khi tín hiệu vượt ngưỡng bão hòa Actuator ($u_{sat}$):
-      \begin{equation*}
-          I_{term\_adj}[k] = I_{term}[k] + K_{aw} \cdot \left( u_{sat}[k] - u[k] \right)
-      \end{equation*}
-  \end{block}
-  {\small \textit{* Giải pháp này giúp thời gian quá độ giảm đáng kể khi thoát khỏi trạng thái bão hòa, từ đó chống lật robot.}}
 \end{frame}
 
-\begin{frame}{Phụ lục E1: Chứng minh Torque -- Lựa chọn Servo ST3215}
+\begin{frame}{Phụ lục B2: Chứng minh Torque -- Lựa chọn Servo ST3215}
   \begin{columns}[t]
       \begin{column}{0.48\textwidth}
           \begin{block}{1. Tính toán mô-men khớp Gối (Knee)}
@@ -840,7 +839,7 @@
   {\small \textit{* Khớp Vai (Hip Roll) khi $\theta_1=30^\circ$: $T_{roll} \approx 14.4\,$kg.cm, hệ số an toàn $\frac{30}{14.4} \approx 2.08$. Tất cả đều thỏa mãn.}}
 \end{frame}
 
-\begin{frame}{Phụ lục E2: Tốc độ, Độ phân giải \& Xác nhận từ Mã nguồn}
+\begin{frame}{Phụ lục B3: Tốc độ, Độ phân giải \& Xác nhận từ Mã nguồn}
   \begin{columns}[t]
       \begin{column}{0.48\textwidth}
           \begin{block}{1. Kiểm chứng Tốc độ (Speed)}
@@ -880,7 +879,307 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Phụ lục E3: Phân tích Nguyên nhân "Kéo lê chân" trên thực tế}
+\begin{frame}{Phụ lục B4: Lý do chọn 2 loại Servo \& Phân tích Tốc độ}
+  \small
+  \begin{columns}[t]
+      \begin{column}{0.48\textwidth}
+          \begin{block}{1. So sánh 2 biến thể ST3215}
+              \def\arraystretch{1.1}
+              \centering
+              \begin{tabular}{l c c}
+                  \toprule
+                  & \textbf{HS} & \textbf{Std} \\
+                  \midrule
+                  Torque & 20\,kg.cm & 30\,kg.cm \\
+                  Tốc độ & 0.09\,s/60$^\circ$ & 0.22\,s/60$^\circ$ \\
+                  $\omega_{max}$ & 667$^\circ$/s & 273$^\circ$/s \\
+                  Vị trí & Khớp Gối & Khớp Hông \\
+                  \bottomrule
+              \end{tabular}
+          \end{block}
+          \begin{alertblock}{Tại sao không dùng HS cho toàn bộ khớp?}
+              {\footnotesize Khớp Hông chịu toàn bộ tải trọng thân. Với HS ($20\,$kg.cm):\\
+              $\text{SF}_{hip} = \frac{20}{16.0} = 1.25$ (biên an toàn không đủ).\\
+              Yêu cầu $30\,$kg.cm (Std) $\Rightarrow$ SF $= 1.88$.}
+          \end{alertblock}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+          \begin{block}{2. Kiểm chứng tốc độ Gối (Swing)}
+              $T_{sw} = 45 \times 7 = 315\,$ms.\\
+              Biên độ Gối max $\approx 90^\circ$:\\
+              $\omega_{req} = \frac{90^\circ}{0.315\,\text{s}} = 286^\circ/\text{s}$\\[0.1cm]
+              ST3215-HS: $667 \gg 286$ $\checkmark$\\
+              ST3215-Std: $273 < 286$ $\times$ {\footnotesize (không đáp ứng)}\\
+              $\Rightarrow$ Khớp Gối \textbf{bắt buộc} sử dụng biến thể HS.
+          \end{block}
+          \begin{block}{3. Kiểm chứng tốc độ Hông (Stance)}
+              Biên độ Hông mỗi sải $\approx 15^\circ$:\\
+              $\omega_{req} = \frac{15^\circ}{0.315} = 47.6^\circ/\text{s}$\\
+              ST3215-Std: $273 \gg 47.6$ $\checkmark$\\
+              $\Rightarrow$ Std đáp ứng dư tốc độ, ưu tiên mô-men.
+          \end{block}
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Phụ lục C1: Ưu điểm của ROS 2 và DDS trong điều khiển Robot}
+  \begin{itemize}
+      \item \textbf{Loại bỏ điểm lỗi đơn (Single Point of Failure):} ROS~2 sử dụng DDS giao tiếp ngang hàng (Peer-to-Peer), không phụ thuộc \texttt{roscore} như ROS~1. Sự cố tại một node không ảnh hưởng đến các node còn lại.
+      \item \textbf{Chính sách chất lượng dịch vụ (QoS):} 
+      \begin{itemize}
+          \item Cấu hình \texttt{Best\_effort} + \texttt{Keep\_last} cho luồng IMU.
+          \item Hệ thống chỉ xử lý mẫu phản hồi mới nhất, loại bỏ các gói tin lỗi thời $\rightarrow$ tối thiểu hóa độ trễ (latency) cho vòng lặp PID.
+      \end{itemize}
+      \item \textbf{Khả năng mở rộng:} Kiến trúc phân tán cho phép tích hợp thêm các module Navigation, SLAM hoặc AI mà không cần tái cấu trúc lõi điều khiển dáng đi.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Phụ lục C2: Phân tích Chuỗi thời gian \& Nút thắt cổ chai (Bottleneck)}
+  \begin{block}{1. Ngân sách thời gian mỗi chu kỳ điều khiển ($T_{cycle} = 7\,$ms)}
+      {\small
+      \def\arraystretch{1.15}
+      \centering
+      \begin{tabular}{l c r}
+          \toprule
+          \textbf{Tác vụ} & \textbf{Tính toán} & \textbf{Thời gian} \\
+          \midrule
+          ROS\,2 Callback + IK & Python interpreter & $\approx 0.5\,$ms \\
+          UART TX+RX (2 bus $\parallel$) & $\frac{6 \times 18 \times 10\,\text{bit}}{1\,\text{Mbps}} = 1.08\,$ms & $\approx 1.1\,$ms \\
+          Servo phản hồi cơ học & Nội bộ firmware PI & (chồng lấn) \\
+          \midrule
+          \textbf{Tổng chiếm dụng} & $0.5 + 1.1$ & $\textbf{1.6\,ms}$ \\
+          \textbf{Headroom còn lại} & $7.0 - 1.6$ & $\textbf{5.4\,ms}$ ($77\%$) \\
+          \bottomrule
+      \end{tabular}}
+  \end{block}
+  \begin{block}{2. Trường hợp 1 bus duy nhất (12 servo nối tiếp)}
+      \footnotesize $t_{bus} = 12 \times 180\,\mu\text{s} = 2.16\,$ms. Tổng: $0.5 + 2.16 = 2.66\,$ms $\ll 7\,$ms $\Rightarrow$ \textbf{UART không phải nút thắt cổ chai.}\\
+      Nút thắt nằm ở \textbf{tốc độ đáp ứng cơ học của servo} (xem F7). Việc chia 2 bus giảm xung đột gói tin trên đường truyền bán song công, nhưng \textbf{không} cải thiện tốc độ quay servo.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Phụ lục C3: Ảnh hưởng Non-Real-Time của Jetson lên Servo Chattering}
+  \small
+  \begin{columns}[t]
+      \begin{column}{0.48\textwidth}
+          \begin{block}{1. Jitter của Linux Scheduler}
+              {\footnotesize Jetson Nano chạy Ubuntu (CFS scheduler), \textbf{không phải RTOS}. Timer yêu cầu $7\,$ms, nhưng:\\
+              $T_{actual} = 7 \pm \delta$, \quad $\delta \approx 2\text{--}5\,$ms\\
+              Trường hợp xấu nhất:\\
+              $T_{max} = 7 + 5 = 12\,$ms ($+71\%$)\\
+              $T_{min} = 7 - 3 = 4\,$ms ($-43\%$)}
+          \end{block}
+          \begin{alertblock}{2. Hậu quả lên Quintic}
+              {\footnotesize Đa thức bậc 5 giả định $\Delta t$ đều. Khi $\Delta t$ dao động: $\ddot{s}(t) \neq 0$ tại biên $\Rightarrow$ gia tốc đột biến. Servo nhận burst lệnh gần nhau rồi khoảng trống $\Rightarrow$ \textbf{Chattering}.}
+          \end{alertblock}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+          \begin{block}{3. Cơ chế Chattering trong Servo}
+              {\footnotesize
+              \begin{itemize}
+                  \item Firmware servo: vòng PI nội bộ, sai lệch lớn $\rightarrow$ PWM 100\% (công suất tối đa).
+                  \item \textbf{Không có giới hạn gia tốc nội bộ} -- kiểm soát gia tốc hoàn toàn phụ thuộc Quintic.
+                  \item Jitter phá vỡ giả định $\Delta t$ đều $\Rightarrow$ Quintic mất tính hiệu lực.
+              \end{itemize}}
+          \end{block}
+          \begin{block}{4. Giải pháp tiềm năng}
+              {\footnotesize
+              \begin{itemize}
+                  \item Kernel PREEMPT\_RT ($\delta < 0.1\,$ms).
+                  \item MCU trung gian (STM32) làm bộ đệm RT.
+                  \item Bù jitter bằng timestamp nội suy.
+              \end{itemize}}
+          \end{block}
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Phụ lục D1: Tại sao chọn PID + IMU thay vì MPC hoặc RL?}
+  \begin{itemize}
+      \item \textbf{Ràng buộc cơ cấu chấp hành (Actuator):} Hệ thống sử dụng Bus Servo ST3215 điều khiển vị trí (Position Control) do giới hạn ngân sách. MPC và RL đòi hỏi động cơ BLDC điều khiển mô-men (Torque Control) với băng thông cao hơn nhiều lần.
+      \item \textbf{Thiếu cảm biến phản hồi lực:} Không trang bị cảm biến lực (Force Sensor) để đo phản lực mặt đất (GRF) hay Camera chiều sâu để nhận thức địa hình $\rightarrow$ thiếu quan trắc đầu vào cho bộ điều khiển phức tạp.
+      \item \textbf{Giới hạn năng lực tính toán:} Jetson Nano qua giao tiếp UART không đáp ứng đủ băng thông để giải bài toán tối ưu lồi (Convex Optimization) liên tục của MPC (yêu cầu tần số $> 500\,$Hz).
+      \item \textbf{Hiệu quả chi phí:} PID kết hợp IK cho thời gian tính toán vòng lặp $<1\,$ms, đảm bảo ổn định tư thế với chi phí triển khai tối thiểu.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Phụ lục D2: Bộ lọc Trung bình trượt hàm mũ (EMA)}
+  \begin{itemize}
+      \item Tín hiệu IMU thô chịu ảnh hưởng nặng từ rung động cơ khí sinh ra bởi động cơ.
+      \item Bộ lọc EMA đóng vai trò như một bộ lọc thông thấp IIR (Infinite Impulse Response) bậc 1, giúp làm mượt tín hiệu phản hồi.
+  \end{itemize}
+  \vspace{0.2cm}
+  \begin{block}{1. Phương trình sai phân (Miền thời gian)}
+      \begin{equation*}
+          \theta_{filtered}[k] = \alpha \cdot \theta_{raw}[k] + (1 - \alpha) \cdot \theta_{filtered}[k-1]
+      \end{equation*}
+  \end{block}
+  \vspace{0.2cm}
+  \begin{block}{2. Hàm truyền (Miền Z)}
+      Chuyển đổi Z-Transform của bộ lọc:
+      \begin{equation*}
+          H(z) = \frac{\Theta_{filtered}(z)}{\Theta_{raw}(z)} = \frac{\alpha}{1 - (1-\alpha)z^{-1}}
+      \end{equation*}
+  \end{block}
+  {\small \textit{* $\alpha \in [0, 1]$ là hệ số làm mượt (Smoothing factor) được cấu hình tĩnh.}}
+\end{frame}
+
+\begin{frame}{Phụ lục D3: Kiến trúc Lọc tín hiệu đầu vào (Tiền xử lý EMA)}
+  \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+          \vspace*{0pt}
+          \begin{block}{1. Nguồn nhiễu cơ học}
+              {\scriptsize 
+              \begin{itemize}
+                  \item Rung động truyền từ nhông cơ khí động cơ lên thân.
+                  \item Phản lực mặt đất (GRF) dội vào cảm biến khi chạm đất.
+              \end{itemize}}
+          \end{block}
+          \begin{alertblock}{2. Tác động lên Khâu Vi phân (D)}
+              {\scriptsize Khâu D hoạt động như bộ lọc thông cao. Nhiễu tần số cao bị khuếch đại, sinh ra tín hiệu điều khiển gai (spikes) gây mất ổn định.}
+          \end{alertblock}
+          \begin{block}{3. Giải pháp: Lọc EMA}
+              {\scriptsize EMA: $\bar{y}_t = \alpha y_t + (1-\alpha) \bar{y}_{t-1}$. Độ phức tạp $O(1)$, không tốn mảng nhớ. Giúp làm mượt tín hiệu \textcolor{purple}{Raw} thành \textcolor{cyan}{Filtered}.\\
+              \textcolor{red}{\textbf{Nhược điểm:}} Tạo độ trễ pha. Nếu hệ số $\alpha$ quá nhỏ, robot phản ứng chậm.}
+          \end{block}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+          \vspace*{0pt}
+          \centering
+          \includegraphics[width=\linewidth]{results/trot_pid_pitch_controller_meas_avg_zoom.png}
+          \vspace{0.1cm}
+          \includegraphics[width=\linewidth]{results/trot_pid_roll_controller_meas_avg_zoom.png}
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Phụ lục D4: Bộ điều khiển P-D và Xử lý Vùng chết (Deadzone)}
+  \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+          \vspace*{0pt}
+          \begin{block}{1. Lõi tính toán P-D}
+              {\scriptsize 
+              $u_{pd} = K_p e(t) + K_d \frac{de(t)}{dt}$. Không dùng khâu Tích phân (I) để tránh Windup lật robot khi chịu tải tĩnh lâu. Khâu P \textcolor{olive}{(vàng)} bám sát sai số, khâu D \textcolor{blue}{(xanh dương)} chống vọt lố.\\
+              \textcolor{red}{\textbf{Nhược điểm:}} Không triệt tiêu được sai số xác lập, robot luôn nghiêng nhẹ dưới tải.}
+          \end{block}
+          \begin{block}{2. Vai trò của Vùng chết (Deadzone)}
+              {\scriptsize
+              \begin{itemize}
+                  \item Khi $|e(t)| < \epsilon_{dz}$, nhiễu nhỏ làm động cơ rùng liên tục (jitter).
+                  \item Deadzone cắt hoàn toàn tín hiệu bù quanh điểm cân bằng để bảo vệ servo.
+              \end{itemize}
+              \textcolor{red}{\textbf{Nhược điểm:}} Sinh sai số vĩnh viễn $\pm \epsilon_{dz}$, mất nhạy cảm với biến động siêu nhỏ.}
+          \end{block}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+          \vspace*{0pt}
+          \centering
+          \includegraphics[width=\linewidth]{results/trot_pid_pitch_controller_p_i_d_zoom.png}
+          \vspace{0.1cm}
+          \includegraphics[width=\linewidth]{results/trot_pid_roll_controller_p_i_d_zoom.png}
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Phụ lục D5: Chống bão hòa PID (Anti-Windup Back-Calculation)}
+  \begin{itemize}
+      \item Khi robot hoạt động thời gian dài trên mặt nghiêng, khâu Tích phân ($I_{term}$) sẽ liên tục cộng dồn gây bão hòa vòng kín (Windup).
+  \end{itemize}
+  \begin{block}{1. Rò rỉ tích phân (Integral Leakage)}
+      Ngăn tích phân tăng vô hạn bằng cách áp dụng hệ số suy hao $\gamma \approx 0.99$:
+      \begin{equation*}
+          I_{term}[k] = \gamma \cdot I_{term}[k-1] + K_i \cdot e[k] \cdot \Delta t
+      \end{equation*}
+  \end{block}
+  \begin{block}{2. Back-calculation}
+      Khấu trừ giá trị dư thừa ở vòng lặp hiện tại khi tín hiệu vượt ngưỡng bão hòa Actuator ($u_{sat}$):
+      \begin{equation*}
+          I_{term\_adj}[k] = I_{term}[k] + K_{aw} \cdot \left( u_{sat}[k] - u[k] \right)
+      \end{equation*}
+  \end{block}
+  {\small \textit{* Giải pháp này giúp thời gian quá độ giảm đáng kể khi thoát khỏi trạng thái bão hòa, từ đó chống lật robot.}}
+\end{frame}
+
+\begin{frame}{Phụ lục D6: Bộ lọc ngõ ra (LPF), Bão hòa \& Feed-Forward}
+  \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+          \vspace*{0pt}
+          \begin{block}{1. Cắt cực đại (Saturation)}
+              {\scriptsize Giới hạn tín hiệu bù $u(t) \in [\pm Max\_Comp]$ để ngăn lệnh xuất đột biến gây ngã.\\
+              \textcolor{red}{\textbf{Nhược điểm:}} Giảm năng lực phục hồi trên mặt dốc lớn.}
+          \end{block}
+          \begin{block}{2. Bộ lọc thông thấp (LPF)}
+              {\scriptsize Làm mượt tín hiệu điều khiển sau PID, tránh gây giật cục và sốc cơ khí.\\
+              \textcolor{red}{\textbf{Nhược điểm:}} Gây trễ pha, giảm biên dự trữ ổn định và phản ứng chậm.}
+          \end{block}
+          \begin{block}{3. Tín hiệu định hướng (Feed-Forward)}
+              {\scriptsize Cộng thêm bù trước Feed-Forward (\textcolor{green}{xanh lá}) để triệt tiêu độ nghiêng tự nhiên của dáng đi Trot.\\
+              \textcolor{red}{\textbf{Nhược điểm:}} Là vòng hở. Nếu ước lượng mô hình sai lệch, FF sẽ bù sai.}
+          \end{block}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+          \vspace*{0pt}
+          \centering
+          \includegraphics[width=\linewidth]{results/trot_pid_pitch_controller_sat_lpf_ff_zoom.png}
+          \vspace{0.1cm}
+          \includegraphics[width=\linewidth]{results/trot_pid_roll_controller_sat_lpf_ff_zoom.png}
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Phụ lục D7: Phân biệt vai trò của Bộ lọc EMA và LPF}
+  \begin{itemize}
+      \item Trong sơ đồ kiến trúc PID 5 giai đoạn, hệ thống sử dụng hai bộ lọc ở 2 khâu với mục đích hoàn toàn độc lập:
+  \end{itemize}
+  \vspace{0.2cm}
+  \begin{columns}[t]
+      \begin{column}{0.48\textwidth}
+          \begin{block}{1. Lọc đầu vào: EMA (Tiền xử lý)}
+              \begin{itemize}
+                  \item \textbf{Vị trí:} Xử lý dữ liệu thô (Raw Data) ngay sau khi đọc từ cảm biến IMU (BNO055).
+                  \item \textbf{Vai trò:} Khử nhiễu tần số cao (High-frequency noise) do rung động cơ học truyền lên khung robot.
+                  \item \textbf{Đặc điểm:} Thuật toán EMA (Exponential Moving Average) -- độ phức tạp $O(1)$, tiết kiệm bộ nhớ.
+              \end{itemize}
+          \end{block}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+          \begin{block}{2. Lọc đầu ra: LPF (Hậu xử lý)}
+              \begin{itemize}
+                  \item \textbf{Vị trí:} Nằm ở khâu cuối cùng, làm mượt tín hiệu bù ($u$) trước khi cộng vào biên độ góc gửi xuống Servo.
+                  \item \textbf{Vai trò:} Triệt tiêu xung nhiễu (Spikes) từ khâu Vi phân (D-term).
+                  \item \textbf{Mục đích:} Ngăn hiện tượng rung cơ khí (Mechanical chattering), bảo vệ hệ truyền động bánh răng và giảm tổn hao nhiệt.
+              \end{itemize}
+          \end{block}
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Phụ lục D8: Biến đổi Tọa độ Không gian \& Gain Scheduling}
+  \small
+  \begin{columns}[t]
+      \begin{column}{0.48\textwidth}
+          \begin{block}{1. Biến đổi Tọa độ (Ma trận Xoay $R$)}
+              {\footnotesize Tín hiệu bù $u_{roll}, u_{pitch}$ là dạng vô hướng tương đối. Để áp dụng cho 4 chân $P_{foot} = [x, y, z]^T$:
+              \begin{itemize}
+                  \item Tọa độ mục tiêu tính toán: $P_{target} = R(-\theta_{comp}, -\phi_{comp}) \cdot P_{nominal}$
+                  \item $R$: Ma trận xoay Euler. Nó \textbf{quay ngược} tọa độ bàn chân một góc đối nghịch, giúp bù lại sai lệch nghiêng thân $\rightarrow$ duy trì thân song song trọng trường trước khi giải Động học ngược (IK).
+              \end{itemize}}
+          \end{block}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+          \begin{block}{2. Gain Scheduling (Bộ định tuyến ma trận $K_{pid}$)}
+              {\footnotesize Động lực học các dáng đi khác biệt rất lớn:
+              \begin{itemize}
+                  \item \textbf{Trot (Chạy bộ):} Động lượng rơi lớn, điểm tựa ít (2 chân) $\rightarrow$ Yêu cầu $K_p$ cao và $K_d$ gắt để phản xạ tức thời chống sập.
+                  \item \textbf{Walk (Đi bộ):} Hệ thống tĩnh ổn định (luôn có 3 chân tựa) $\rightarrow$ Yêu cầu $K_p$ thấp, tập trung giảm vọt lố để bước đi êm ái.
+                  \item Hệ thống liên tục chuyển đổi ma trận $K_{pid}$ tuỳ thuộc State Machine hiện tại.
+              \end{itemize}}
+          \end{block}
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Phụ lục E1: Phân tích Nguyên nhân "Kéo lê chân" trên thực tế}
   \begin{block}{1. Sai lệch khối lượng thiết kế so với thực tế}
       Lý thuyết $M = 2.3\,\text{kg}$. Thực tế gia công in 3D (in-fill đặc), pin Li-Po, tản nhiệt làm nguyên mẫu nặng tới $\textbf{4.0 kg}$ (+ $74\%$). Lực ép mỗi chân (Trot): $F_N = 4.0 / 2 = 2.0\,\text{kg}$.
   \end{block}
@@ -909,4 +1208,36 @@
   \end{columns}
 \end{frame}
 
+\begin{frame}{Phụ lục E2: Phân tích nguyên nhân gốc -- Thay đổi $L_3$ trong CAD}
+  \begin{block}{1. Sửa đổi CAD: Tăng chiều dài Tibia ($L_3$) nhưng không cập nhật tính toán}
+      {\footnotesize Thiết kế ban đầu: $L_{3,old} = 107\,$mm. Sau chỉnh sửa: $L_{3,new} = 125\,$mm ($+16.8\%$) nhằm cải thiện tầm với, nhưng \textbf{bỏ qua bước tái tính toán mô-men và khối lượng}.}
+  \end{block}
+  {\scriptsize
+  \def\arraystretch{1.1}
+  \centering
+  \begin{tabular}{|l|c|c|c|}
+      \hline
+      \textbf{Giai đoạn} & \textbf{Thiết kế gốc} & \textbf{Sau sửa CAD} & \textbf{Thực tế vận hành} \\
+      & ($L_3\!=\!107$, $M\!=\!2.3$\,kg) & ($L_3\!=\!125$, $M\!=\!2.3$\,kg) & ($L_3\!=\!125$, $M\!=\!4.0$\,kg) \\
+      \hline
+      $F_N = \frac{Mg}{2}$ & 11.28\,N & 11.28\,N & 19.62\,N \\
+      \hline
+      $T_{knee}$ & \textbf{10.0}\,kg.cm & 11.7\,kg.cm & \textcolor{red}{\textbf{20.4}}\,kg.cm \\
+      \hline
+      SF$_{knee}$ {\tiny ($\tau_{HS}\!=\!20$)} & $\frac{20}{10.0} = \textbf{2.00}$ $\checkmark$ & $\frac{20}{11.7} = 1.71$ $\checkmark$ & $\frac{20}{20.4} = \textcolor{red}{\textbf{0.98}}$ $\times$ \\
+      \hline
+      $L_{eff} = \sqrt{L_2^2 + L_3^2}$ & 150.6\,mm & 163.9\,mm & 163.9\,mm \\
+      \hline
+      $T_{pitch}$ & \textbf{14.4}\,kg.cm & 16.0\,kg.cm & \textcolor{red}{\textbf{27.8}}\,kg.cm \\
+      \hline
+      SF$_{pitch}$ {\tiny ($\tau_{Std}\!=\!30$)} & $\frac{30}{14.4} = \textbf{2.08}$ $\checkmark$ & $\frac{30}{16.0} = 1.88$ $\checkmark$ & $\frac{30}{27.8} = \textcolor{red}{\textbf{1.08}}$ $\triangle$ \\
+      \hline
+  \end{tabular}
+  }
+  \begin{alertblock}{Kết luận}
+      {\footnotesize \textbf{(1)} Tại $L_{3,old}\!=\!107\,$mm, SF $\ge 2.0$ (biên an toàn cao). \textbf{(2)} Sau chỉnh sửa CAD, SF $\ge 1.71$ trên lý thuyết do giả định $M$ không đổi. \textbf{(3)} Thực tế $M$ tăng $+74\%$ $\Rightarrow$ Khớp Gối vượt ngưỡng chịu tải (SF$\,=\,0.98$), Khớp Hông hoạt động sát giới hạn bão hòa (SF$\,=\,1.08$) $\Rightarrow$ \textbf{hiện tượng kéo lê chân}.}
+  \end{alertblock}
+\end{frame}
+
 \end{document}
+
