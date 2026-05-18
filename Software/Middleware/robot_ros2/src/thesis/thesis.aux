@@ -101,15 +101,15 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2.7}Lý thuyết ổn định cho robot có chân}{14}{section.2.7}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.7.1}Ổn định tĩnh}{14}{subsection.2.7.1}\protected@file@percent }
 \citation{vukobratovic2004}
+\citation{astrom2006}
 \@writefile{lof}{\contentsline {figure}{\numberline {2-12}{\ignorespaces Minh họa Đa giác đỡ và Biên ổn định tĩnh (SSM) của robot bốn chân\relax }}{15}{figure.caption.16}\protected@file@percent }
 \newlabel{fig:static_stability}{{2-12}{15}{Minh họa Đa giác đỡ và Biên ổn định tĩnh (SSM) của robot bốn chân\relax }{figure.caption.16}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.7.2}Ổn định động}{15}{subsection.2.7.2}\protected@file@percent }
 \newlabel{eq:zmp_simplified}{{2.5}{15}{Ổn định động}{equation.2.7.5}{}}
 \newlabel{eq:zmp_general}{{2.6}{15}{Ổn định động}{equation.2.7.6}{}}
-\citation{astrom2006}
-\@writefile{lof}{\contentsline {figure}{\numberline {2-13}{\ignorespaces Mô hình 3D minh họa quan hệ giữa trọng tâm CoM $(x,y,z)$ và điểm ZMP $(p_{x_k}, p_{y_k})$ trên mặt phẳng đỡ của robot bốn chân\relax }}{16}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:zmp_stability}{{2-13}{16}{Mô hình 3D minh họa quan hệ giữa trọng tâm CoM $(x,y,z)$ và điểm ZMP $(p_{x_k}, p_{y_k})$ trên mặt phẳng đỡ của robot bốn chân\relax }{figure.caption.17}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.8}Lý thuyết bộ điều khiển PID}{16}{section.2.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2-13}{\ignorespaces Cấu trúc sơ đồ khối của bộ điều khiển PID\relax }}{16}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:pid_theory_diagram}{{2-13}{16}{Cấu trúc sơ đồ khối của bộ điều khiển PID\relax }{figure.caption.17}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.8.1}Luật điều khiển PID chuẩn}{16}{subsection.2.8.1}\protected@file@percent }
 \newlabel{eq:pid_continuous}{{2.7}{16}{Luật điều khiển PID chuẩn}{equation.2.8.7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.8.2}Dạng rời rạc và triển khai số}{17}{subsection.2.8.2}\protected@file@percent }
@@ -125,9 +125,9 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2.10}Tổng quan về nền tảng ROS~2 và Gazebo}{19}{section.2.10}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.10.1}Hệ điều hành Robot ROS~2}{19}{subsection.2.10.1}\protected@file@percent }
 \citation{gazebo}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.2}Trình mô phỏng Gazebo}{20}{subsection.2.10.2}\protected@file@percent }
 \citation{denavit1955}
 \citation{craig2005}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.2}Trình mô phỏng Gazebo}{20}{subsection.2.10.2}\protected@file@percent }
 \citation{craig2005}
 \@writefile{toc}{\contentsline {section}{\numberline {2.11}Mô hình động học}{21}{section.2.11}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.11.1}Thiết lập hệ tọa độ MD-H}{21}{subsection.2.11.1}\protected@file@percent }
@@ -135,273 +135,291 @@
 \newlabel{fig20}{{2-14}{21}{Mô hình mô phỏng với các hệ tọa độ tham chiếu được gắn tại từng khớp của robot.\relax }{figure.caption.18}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2-15}{\ignorespaces Mô hình một chân của robot bốn chân được xây dựng bằng phương pháp MD-H.\relax }}{22}{figure.caption.19}\protected@file@percent }
 \newlabel{fig21}{{2-15}{22}{Mô hình một chân của robot bốn chân được xây dựng bằng phương pháp MD-H.\relax }{figure.caption.19}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces Tham số Modified Denavit-Hartenberg (MD-H)\relax }}{23}{table.caption.20}\protected@file@percent }
-\newlabel{tab:3}{{2.1}{23}{Tham số Modified Denavit-Hartenberg (MD-H)\relax }{table.caption.20}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces Tham số Modified Denavit-Hartenberg (MD-H)\relax }}{22}{table.caption.20}\protected@file@percent }
+\newlabel{tab:3}{{2.1}{22}{Tham số Modified Denavit-Hartenberg (MD-H)\relax }{table.caption.20}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.11.2}Giải động học thuận}{23}{subsection.2.11.2}\protected@file@percent }
-\newlabel{eq:1}{{2.31}{25}{Giải động học thuận}{equation.2.11.31}{}}
-\newlabel{eq:2}{{2.32}{25}{Giải động học thuận}{equation.2.11.32}{}}
+\newlabel{eq:1}{{2.30}{24}{Giải động học thuận}{equation.2.11.30}{}}
+\newlabel{eq:2}{{2.31}{24}{Giải động học thuận}{equation.2.11.31}{}}
+\newlabel{eq:3}{{2.32}{24}{Giải động học thuận}{equation.2.11.32}{}}
+\newlabel{eq:4}{{2.33}{25}{Giải động học thuận}{equation.2.11.33}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.12}Động học nghịch }{25}{section.2.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.12.1}Phương pháp giải tích}{25}{subsection.2.12.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.12.2}Xử lý đối xứng giữa các chân}{26}{subsection.2.12.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.12.3}Biến đổi tọa độ từ hệ thân sang hệ chân}{26}{subsection.2.12.3}\protected@file@percent }
-\newlabel{eq:body_to_leg}{{2.34}{26}{Biến đổi tọa độ từ hệ thân sang hệ chân}{equation.2.12.34}{}}
+\newlabel{eq:body_to_leg}{{2.34}{26}{Động học nghịch }{equation.2.12.34}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {2.2}{\ignorespaces Hệ số dấu biến đổi tọa độ và dấu IK cho bốn chân\relax }}{26}{table.caption.21}\protected@file@percent }
 \newlabel{tab:ik_signs}{{2.2}{26}{Hệ số dấu biến đổi tọa độ và dấu IK cho bốn chân\relax }{table.caption.21}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.12.4}Giải hệ phương trình IK}{26}{subsection.2.12.4}\protected@file@percent }
+\newlabel{eq:ik_theta1}{{2.35}{26}{Động học nghịch }{equation.2.12.35}{}}
+\newlabel{eq:ik_p1p2}{{2.36}{26}{Động học nghịch }{equation.2.12.36}{}}
 \citation{marhefka1999}
-\newlabel{eq:ik_theta1}{{2.35}{27}{Giải hệ phương trình IK}{equation.2.12.35}{}}
-\newlabel{eq:ik_p1p2}{{2.36}{27}{Giải hệ phương trình IK}{equation.2.12.36}{}}
-\newlabel{eq:ik_theta2}{{2.40}{27}{Giải hệ phương trình IK}{equation.2.12.40}{}}
+\newlabel{eq:ik_theta2}{{2.40}{27}{Động học nghịch }{equation.2.12.40}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.13}Quy hoạch dáng đi và phân tích chuyển động }{27}{section.2.13}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.13.1}Lựa chọn dáng đi Trot}{27}{subsection.2.13.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2-16}{\ignorespaces Sơ đồ thời gian của dáng đi trot với $\beta = 0.5$, trong đó $\beta = \frac  {T_{st}}{T}$ và $T_{st}$ là thời gian của pha chống đỡ.\relax }}{28}{figure.caption.22}\protected@file@percent }
-\newlabel{fig22}{{2-16}{28}{Sơ đồ thời gian của dáng đi trot với $\beta = 0.5$, trong đó $\beta = \frac {T_{st}}{T}$ và $T_{st}$ là thời gian của pha chống đỡ.\relax }{figure.caption.22}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-16}{\ignorespaces Sơ đồ thời gian của dáng đi trot với $\beta = 0.5$, trong đó $\beta = \frac  {T_{st}}{T}$ và $T_{st}$ là thời gian của pha chống đỡ.\relax }}{27}{figure.caption.22}\protected@file@percent }
+\newlabel{fig22}{{2-16}{27}{Sơ đồ thời gian của dáng đi trot với $\beta = 0.5$, trong đó $\beta = \frac {T_{st}}{T}$ và $T_{st}$ là thời gian của pha chống đỡ.\relax }{figure.caption.22}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.14}Quy hoạch quỹ đạo cho robot bốn chân}{28}{section.2.14}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2-17}{\ignorespaces Phân tích quỹ đạo của một chân\relax }}{29}{figure.caption.23}\protected@file@percent }
-\newlabel{fig23}{{2-17}{29}{Phân tích quỹ đạo của một chân\relax }{figure.caption.23}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.14.1}Nội suy đa thức bậc ba}{29}{subsection.2.14.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2-18}{\ignorespaces Các đường cong quỹ đạo bậc ba\relax }}{30}{figure.caption.24}\protected@file@percent }
-\newlabel{fig25}{{2-18}{30}{Các đường cong quỹ đạo bậc ba\relax }{figure.caption.24}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-17}{\ignorespaces Phân tích quỹ đạo của một chân\relax }}{28}{figure.caption.23}\protected@file@percent }
+\newlabel{fig23}{{2-17}{28}{Phân tích quỹ đạo của một chân\relax }{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.14.1}Nội suy đa thức bậc ba}{28}{subsection.2.14.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2-18}{\ignorespaces Các đường cong quỹ đạo bậc ba\relax }}{29}{figure.caption.24}\protected@file@percent }
+\newlabel{fig25}{{2-18}{29}{Các đường cong quỹ đạo bậc ba\relax }{figure.caption.24}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.14.2}Nội suy đa thức bậc năm}{30}{subsection.2.14.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2-19}{\ignorespaces Biên dạng vị trí, vận tốc và gia tốc của hàm bước mượt bậc năm\relax }}{31}{figure.caption.25}\protected@file@percent }
 \newlabel{fig26}{{2-19}{31}{Biên dạng vị trí, vận tốc và gia tốc của hàm bước mượt bậc năm\relax }{figure.caption.25}{}}
 \newlabel{eq:quintic_step}{{2.47}{31}{Nội suy đa thức bậc năm}{equation.2.14.47}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.14.3}So sánh nội suy bậc ba và bậc năm}{32}{subsection.2.14.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2-20}{\ignorespaces So sánh biên dạng động học giữa nội suy bậc 3 và bậc 5.\relax }}{33}{figure.caption.26}\protected@file@percent }
-\newlabel{fig:cubic_vs_quintic}{{2-20}{33}{So sánh biên dạng động học giữa nội suy bậc 3 và bậc 5.\relax }{figure.caption.26}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.14.4}Triển khai quỹ đạo chân dạng chữ D}{34}{subsection.2.14.4}\protected@file@percent }
-\newlabel{eq:z_parabolic}{{2.54}{34}{Triển khai quỹ đạo chân dạng chữ D}{equation.2.14.54}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2-21}{\ignorespaces Quỹ đạo chân 3D dạng chữ D (Pha vung Parabol và Pha chống đỡ đường thẳng)\relax }}{35}{figure.caption.27}\protected@file@percent }
-\newlabel{fig:gait_trajectory_3d}{{2-21}{35}{Quỹ đạo chân 3D dạng chữ D (Pha vung Parabol và Pha chống đỡ đường thẳng)\relax }{figure.caption.27}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.14.5}Tham số quỹ đạo trong hệ thống thực tế}{35}{subsection.2.14.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2-20}{\ignorespaces So sánh biên dạng động học giữa nội suy bậc 3 và bậc 5.\relax }}{32}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:cubic_vs_quintic}{{2-20}{32}{So sánh biên dạng động học giữa nội suy bậc 3 và bậc 5.\relax }{figure.caption.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.14.4}Triển khai quỹ đạo chân dạng chữ D}{33}{subsection.2.14.4}\protected@file@percent }
+\newlabel{eq:z_parabolic}{{2.54}{33}{Triển khai quỹ đạo chân dạng chữ D}{equation.2.14.54}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2-21}{\ignorespaces Quỹ đạo chân 3D dạng chữ D (Pha vung Parabol và Pha chống đỡ đường thẳng)\relax }}{34}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:gait_trajectory_3d}{{2-21}{34}{Quỹ đạo chân 3D dạng chữ D (Pha vung Parabol và Pha chống đỡ đường thẳng)\relax }{figure.caption.27}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.14.5}Tham số quỹ đạo trong hệ thống thực tế}{34}{subsection.2.14.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.14.6}Lập lịch pha dáng đi}{35}{subsection.2.14.6}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2.3}{\ignorespaces Cấu hình pha dịch cho các dáng đi\relax }}{36}{table.caption.28}\protected@file@percent }
-\newlabel{tab:gait_phases}{{2.3}{36}{Cấu hình pha dịch cho các dáng đi\relax }{table.caption.28}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2.3}{\ignorespaces Cấu hình pha dịch cho các dáng đi\relax }}{35}{table.caption.28}\protected@file@percent }
+\newlabel{tab:gait_phases}{{2.3}{35}{Cấu hình pha dịch cho các dáng đi\relax }{table.caption.28}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.14.7}Quy trình tắt an toàn ba pha}{36}{subsection.2.14.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.14.8}Mô hình động lực học}{37}{subsection.2.14.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2-22}{\ignorespaces Phân tích lực tác dụng lên một khâu tổng quát $i$ (lưu ý: lực tiếp xúc với mặt đất chỉ tồn tại khi khâu $i$ là một trong các khâu chân dưới).\relax }}{37}{figure.caption.29}\protected@file@percent }
-\newlabel{fig27}{{2-22}{37}{Phân tích lực tác dụng lên một khâu tổng quát $i$ (lưu ý: lực tiếp xúc với mặt đất chỉ tồn tại khi khâu $i$ là một trong các khâu chân dưới).\relax }{figure.caption.29}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.15}Thiết kế bộ điều khiển}{38}{section.2.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.15.1}Kiến trúc điều khiển tổng thể}{38}{subsection.2.15.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2-23}{\ignorespaces Tổng quan kiến trúc điều khiển của hệ thống (Locomotion Planner \& Balance Controller)\relax }}{39}{figure.caption.30}\protected@file@percent }
-\newlabel{fig28}{{2-23}{39}{Tổng quan kiến trúc điều khiển của hệ thống (Locomotion Planner \& Balance Controller)\relax }{figure.caption.30}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.15.2}Cơ chế áp dụng tín hiệu điều chỉnh tư thế}{39}{subsection.2.15.2}\protected@file@percent }
-\citation{bno055}
-\citation{madgwick2011}
-\@writefile{lof}{\contentsline {figure}{\numberline {2-24}{\ignorespaces Minh họa quá trình điều chỉnh tư thế thân robot: từ $\mathbf  {p}_{raw}$ (trước bù) sang $\mathbf  {p}_{adj}$ (sau bù), chỉ thay đổi $z$, giữ nguyên $x, y$\relax }}{41}{figure.caption.33}\protected@file@percent }
-\newlabel{fig29}{{2-24}{41}{Minh họa quá trình điều chỉnh tư thế thân robot: từ $\mathbf {p}_{raw}$ (trước bù) sang $\mathbf {p}_{adj}$ (sau bù), chỉ thay đổi $z$, giữ nguyên $x, y$\relax }{figure.caption.33}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.15.3}Bộ điều khiển cân bằng IMU -- Chế độ tĩnh (HOME)}{41}{subsection.2.15.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2-25}{\ignorespaces Kiến trúc bộ điều khiển PID cho ổn định tư thế\relax }}{41}{figure.caption.34}\protected@file@percent }
-\newlabel{fig_pid_arch}{{2-25}{41}{Kiến trúc bộ điều khiển PID cho ổn định tư thế\relax }{figure.caption.34}{}}
-\citation{astrom2006}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.15.4}Bộ điều khiển cân bằng -- Chế độ động (GAIT)}{42}{subsection.2.15.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.15.5}Tổng hợp pipeline điều khiển}{43}{subsection.2.15.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2.4}{\ignorespaces Tổng hợp pipeline điều khiển PID 5 giai đoạn\relax }}{43}{table.caption.35}\protected@file@percent }
-\newlabel{tab:pid_pipeline}{{2.4}{43}{Tổng hợp pipeline điều khiển PID 5 giai đoạn\relax }{table.caption.35}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.15.6}So sánh hai chế độ điều khiển}{44}{subsection.2.15.6}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2.5}{\ignorespaces So sánh chế độ HOME và GAIT\relax }}{44}{table.caption.36}\protected@file@percent }
-\newlabel{tab:home_vs_gait}{{2.5}{44}{So sánh chế độ HOME và GAIT\relax }{table.caption.36}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}THIẾT KẾ VÀ THỰC HIỆN PHẦN CỨNG}{45}{chapter.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.15}Thiết kế bộ điều khiển}{36}{section.2.15}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2-22}{\ignorespaces Sơ đồ khối bộ điều khiển tự cân bằng của robot bốn chân.\relax }}{37}{figure.caption.29}\protected@file@percent }
+\newlabel{fig:applied_pid_simulink}{{2-22}{37}{Sơ đồ khối bộ điều khiển tự cân bằng của robot bốn chân.\relax }{figure.caption.29}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.15.1}Kiến trúc điều khiển chi tiết}{37}{subsection.2.15.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2-23}{\ignorespaces Tổng quan kiến trúc điều khiển hệ thống robot bốn chân tích hợp bộ chuyển mạch chế độ tĩnh/động.\relax }}{37}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:overall_architecture_locomotion}{{2-23}{37}{Tổng quan kiến trúc điều khiển hệ thống robot bốn chân tích hợp bộ chuyển mạch chế độ tĩnh/động.\relax }{figure.caption.30}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.15.2}Cơ chế áp dụng tín hiệu điều chỉnh tư thế}{38}{subsection.2.15.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.15.2.1}Áp dụng hiệu chỉnh trong không gian khớp ở chế độ tĩnh}{39}{subsubsection.2.15.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.15.2.2}Áp dụng hiệu chỉnh trong không gian làm việc ở chế độ động}{39}{subsubsection.2.15.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2-24}{\ignorespaces Minh họa quá trình điều chỉnh tư thế thân robot: từ $\mathbf  {p}_{raw}$ (trước bù) sang $\mathbf  {p}_{adj}$ (sau bù), chỉ thay đổi trục $Z$, giữ nguyên trục $X$ và $Y$.\relax }}{39}{figure.caption.31}\protected@file@percent }
+\newlabel{fig29}{{2-24}{39}{Minh họa quá trình điều chỉnh tư thế thân robot: từ $\mathbf {p}_{raw}$ (trước bù) sang $\mathbf {p}_{adj}$ (sau bù), chỉ thay đổi trục $Z$, giữ nguyên trục $X$ và $Y$.\relax }{figure.caption.31}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.15.3}Thuật toán điều khiển PID và các khâu bảo vệ}{40}{subsection.2.15.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}THIẾT KẾ VÀ THỰC HIỆN PHẦN CỨNG}{41}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Phân tích kết cấu robot}{45}{section.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Thiết kế thân}{45}{subsection.3.1.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3-1}{\ignorespaces Thiết kế thân liền khối nhằm đạt độ bền cao và khối lượng nhẹ.\relax }}{45}{figure.caption.37}\protected@file@percent }
-\newlabel{fig12-c}{{3-1}{45}{Thiết kế thân liền khối nhằm đạt độ bền cao và khối lượng nhẹ.\relax }{figure.caption.37}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3-2}{\ignorespaces Nắp thân.\relax }}{46}{figure.caption.38}\protected@file@percent }
-\newlabel{fig12-b}{{3-2}{46}{Nắp thân.\relax }{figure.caption.38}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3-3}{\ignorespaces Thiết kế thân.\relax }}{46}{figure.caption.39}\protected@file@percent }
-\newlabel{fig12-a}{{3-3}{46}{Thiết kế thân.\relax }{figure.caption.39}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Thiết kế khớp hông}{46}{subsection.3.1.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3-4}{\ignorespaces Cụm khớp hông cho chuyển động vung ngang và vung dọc.\relax }}{47}{figure.caption.40}\protected@file@percent }
-\newlabel{fig13}{{3-4}{47}{Cụm khớp hông cho chuyển động vung ngang và vung dọc.\relax }{figure.caption.40}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.3}Thiết kế chân}{47}{subsection.3.1.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3-5}{\ignorespaces Cụm lắp ráp một chân đơn.\relax }}{47}{figure.caption.41}\protected@file@percent }
-\newlabel{fig14}{{3-5}{47}{Cụm lắp ráp một chân đơn.\relax }{figure.caption.41}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Lựa chọn cơ cấu chấp hành}{48}{section.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3-6}{\ignorespaces Cơ cấu chấp hành servo ST3215 dùng cho robot bốn chân.\relax }}{49}{figure.caption.42}\protected@file@percent }
-\newlabel{fig16}{{3-6}{49}{Cơ cấu chấp hành servo ST3215 dùng cho robot bốn chân.\relax }{figure.caption.42}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Thông số kỹ thuật của động cơ servo ST3215 và ST3215-HS.\relax }}{49}{table.caption.43}\protected@file@percent }
-\newlabel{tab:1}{{3.1}{49}{Thông số kỹ thuật của động cơ servo ST3215 và ST3215-HS.\relax }{table.caption.43}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3-7}{\ignorespaces Phân tích mô-men xoắn của cơ cấu chấp hành servo tại cẳng chân.\relax }}{50}{figure.caption.44}\protected@file@percent }
-\newlabel{fig17}{{3-7}{50}{Phân tích mô-men xoắn của cơ cấu chấp hành servo tại cẳng chân.\relax }{figure.caption.44}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Phân tích mô-men khớp vai (Hip Roll)}{50}{subsection.3.2.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3-8}{\ignorespaces Mô hình một chân của robot bốn chân.\relax }}{51}{figure.caption.45}\protected@file@percent }
-\newlabel{fig18}{{3-8}{51}{Mô hình một chân của robot bốn chân.\relax }{figure.caption.45}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Phân tích mô-men khớp hông (Hip Pitch)}{51}{subsection.3.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}Thiết kế tổng thể}{52}{subsection.3.2.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3-9}{\ignorespaces 3D thiết kế robot Dog\relax }}{52}{figure.caption.46}\protected@file@percent }
-\newlabel{fig19}{{3-9}{52}{3D thiết kế robot Dog\relax }{figure.caption.46}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces Các thông số chính của robot bốn chân\relax }}{53}{table.caption.47}\protected@file@percent }
-\newlabel{tab:2}{{3.2}{53}{Các thông số chính của robot bốn chân\relax }{table.caption.47}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}Tổng quan về kiến trúc hệ thống }{53}{section.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3-10}{\ignorespaces Sơ đồ kiến trúc tổng thể của hệ thống robot bốn chân.\relax }}{53}{figure.caption.48}\protected@file@percent }
-\newlabel{fig30}{{3-10}{53}{Sơ đồ kiến trúc tổng thể của hệ thống robot bốn chân.\relax }{figure.caption.48}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Phân tích kết cấu robot}{41}{section.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Thiết kế thân}{41}{subsection.3.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-1}{\ignorespaces Thiết kế thân liền khối nhằm đạt độ bền cao và khối lượng nhẹ.\relax }}{41}{figure.caption.32}\protected@file@percent }
+\newlabel{fig12-c}{{3-1}{41}{Thiết kế thân liền khối nhằm đạt độ bền cao và khối lượng nhẹ.\relax }{figure.caption.32}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-2}{\ignorespaces Nắp thân.\relax }}{42}{figure.caption.33}\protected@file@percent }
+\newlabel{fig12-b}{{3-2}{42}{Nắp thân.\relax }{figure.caption.33}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-3}{\ignorespaces Thiết kế thân.\relax }}{42}{figure.caption.34}\protected@file@percent }
+\newlabel{fig12-a}{{3-3}{42}{Thiết kế thân.\relax }{figure.caption.34}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Thiết kế khớp hông}{42}{subsection.3.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-4}{\ignorespaces Cụm khớp hông cho chuyển động vung ngang và vung dọc.\relax }}{43}{figure.caption.35}\protected@file@percent }
+\newlabel{fig13}{{3-4}{43}{Cụm khớp hông cho chuyển động vung ngang và vung dọc.\relax }{figure.caption.35}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.3}Thiết kế chân}{43}{subsection.3.1.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-5}{\ignorespaces Cụm lắp ráp một chân đơn.\relax }}{43}{figure.caption.36}\protected@file@percent }
+\newlabel{fig14}{{3-5}{43}{Cụm lắp ráp một chân đơn.\relax }{figure.caption.36}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Lựa chọn cơ cấu chấp hành}{44}{section.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-6}{\ignorespaces Cơ cấu chấp hành servo ST3215 dùng cho robot bốn chân.\relax }}{45}{figure.caption.37}\protected@file@percent }
+\newlabel{fig16}{{3-6}{45}{Cơ cấu chấp hành servo ST3215 dùng cho robot bốn chân.\relax }{figure.caption.37}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Thông số kỹ thuật của động cơ servo ST3215 và ST3215-HS.\relax }}{45}{table.caption.38}\protected@file@percent }
+\newlabel{tab:1}{{3.1}{45}{Thông số kỹ thuật của động cơ servo ST3215 và ST3215-HS.\relax }{table.caption.38}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-7}{\ignorespaces Phân tích mô-men xoắn của cơ cấu chấp hành servo tại cẳng chân.\relax }}{46}{figure.caption.39}\protected@file@percent }
+\newlabel{fig17}{{3-7}{46}{Phân tích mô-men xoắn của cơ cấu chấp hành servo tại cẳng chân.\relax }{figure.caption.39}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Phân tích mô-men khớp vai (Hip Roll)}{46}{subsection.3.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-8}{\ignorespaces Mô hình một chân của robot bốn chân.\relax }}{47}{figure.caption.40}\protected@file@percent }
+\newlabel{fig18}{{3-8}{47}{Mô hình một chân của robot bốn chân.\relax }{figure.caption.40}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Phân tích mô-men khớp hông (Hip Pitch)}{47}{subsection.3.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}Thiết kế tổng thể}{48}{subsection.3.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-9}{\ignorespaces 3D thiết kế robot Dog\relax }}{48}{figure.caption.41}\protected@file@percent }
+\newlabel{fig19}{{3-9}{48}{3D thiết kế robot Dog\relax }{figure.caption.41}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces Các thông số chính của robot bốn chân\relax }}{49}{table.caption.42}\protected@file@percent }
+\newlabel{tab:2}{{3.2}{49}{Các thông số chính của robot bốn chân\relax }{table.caption.42}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Tổng quan về kiến trúc hệ thống }{49}{section.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-10}{\ignorespaces Sơ đồ kiến trúc tổng thể của hệ thống robot bốn chân.\relax }}{49}{figure.caption.43}\protected@file@percent }
+\newlabel{fig30}{{3-10}{49}{Sơ đồ kiến trúc tổng thể của hệ thống robot bốn chân.\relax }{figure.caption.43}{}}
 \citation{jetson_nano}
-\@writefile{lof}{\contentsline {figure}{\numberline {3-11}{\ignorespaces Mô hình robot bốn chân thực tế đã được chế tạo và lắp ráp hoàn chỉnh.\relax }}{54}{figure.caption.49}\protected@file@percent }
-\newlabel{fig:real_robot}{{3-11}{54}{Mô hình robot bốn chân thực tế đã được chế tạo và lắp ráp hoàn chỉnh.\relax }{figure.caption.49}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Khối xử lý trung tâm }{54}{subsection.3.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3-12}{\ignorespaces Thông số kỹ thuật Jetson Nano B01\relax }}{55}{figure.caption.50}\protected@file@percent }
-\newlabel{fig34}{{3-12}{55}{Thông số kỹ thuật Jetson Nano B01\relax }{figure.caption.50}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2} Hệ thống Cung cấp Nguồn điện}{55}{subsection.3.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3-13}{\ignorespaces Bộ nguồn xung tổ ong 12~V 40~A 480~W\relax }}{56}{figure.caption.51}\protected@file@percent }
-\newlabel{fig35}{{3-13}{56}{Bộ nguồn xung tổ ong 12~V 40~A 480~W\relax }{figure.caption.51}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces Thông số kỹ thuật\relax }}{57}{table.caption.52}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Bus Servo Adapter (A)}{57}{subsection.3.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-11}{\ignorespaces Mô hình robot bốn chân thực tế đã được chế tạo và lắp ráp hoàn chỉnh.\relax }}{50}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:real_robot}{{3-11}{50}{Mô hình robot bốn chân thực tế đã được chế tạo và lắp ráp hoàn chỉnh.\relax }{figure.caption.44}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Khối xử lý trung tâm }{50}{subsection.3.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-12}{\ignorespaces Thông số kỹ thuật Jetson Nano B01\relax }}{51}{figure.caption.45}\protected@file@percent }
+\newlabel{fig34}{{3-12}{51}{Thông số kỹ thuật Jetson Nano B01\relax }{figure.caption.45}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2} Hệ thống Cung cấp Nguồn điện}{51}{subsection.3.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-13}{\ignorespaces Bộ nguồn xung tổ ong 12~V 40~A 480~W\relax }}{52}{figure.caption.46}\protected@file@percent }
+\newlabel{fig35}{{3-13}{52}{Bộ nguồn xung tổ ong 12~V 40~A 480~W\relax }{figure.caption.46}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces Thông số kỹ thuật\relax }}{53}{table.caption.47}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Bus Servo Adapter (A)}{53}{subsection.3.3.3}\protected@file@percent }
 \citation{bno055}
-\@writefile{lof}{\contentsline {figure}{\numberline {3-14}{\ignorespaces Bus Servo Adapter (A)\relax }}{58}{figure.caption.53}\protected@file@percent }
-\newlabel{fig36}{{3-14}{58}{Bus Servo Adapter (A)\relax }{figure.caption.53}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.4}{\ignorespaces Thông số kỹ thuật mạch Bus Servo Adapter (A)\relax }}{58}{table.caption.54}\protected@file@percent }
-\newlabel{tab:adapter_specs}{{3.4}{58}{Thông số kỹ thuật mạch Bus Servo Adapter (A)\relax }{table.caption.54}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.4}Bộ đo lường quán tính }{58}{subsection.3.3.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3-15}{\ignorespaces Module cảm biến 9 trục thông minh GY-BNO055 (mặt trước và mặt sau)\relax }}{59}{figure.caption.55}\protected@file@percent }
-\newlabel{fig37}{{3-15}{59}{Module cảm biến 9 trục thông minh GY-BNO055 (mặt trước và mặt sau)\relax }{figure.caption.55}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.5}{\ignorespaces Thông số kỹ thuật module cảm biến GY-BNO055\relax }}{60}{table.caption.56}\protected@file@percent }
-\newlabel{tab:bno055_specs}{{3.5}{60}{Thông số kỹ thuật module cảm biến GY-BNO055\relax }{table.caption.56}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.5}Mạch Giảm Áp }{60}{subsection.3.3.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-14}{\ignorespaces Bus Servo Adapter (A)\relax }}{54}{figure.caption.48}\protected@file@percent }
+\newlabel{fig36}{{3-14}{54}{Bus Servo Adapter (A)\relax }{figure.caption.48}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.4}{\ignorespaces Thông số kỹ thuật mạch Bus Servo Adapter (A)\relax }}{54}{table.caption.49}\protected@file@percent }
+\newlabel{tab:adapter_specs}{{3.4}{54}{Thông số kỹ thuật mạch Bus Servo Adapter (A)\relax }{table.caption.49}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.4}Bộ đo lường quán tính }{54}{subsection.3.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-15}{\ignorespaces Module cảm biến 9 trục thông minh GY-BNO055 (mặt trước và mặt sau)\relax }}{55}{figure.caption.50}\protected@file@percent }
+\newlabel{fig37}{{3-15}{55}{Module cảm biến 9 trục thông minh GY-BNO055 (mặt trước và mặt sau)\relax }{figure.caption.50}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.5}{\ignorespaces Thông số kỹ thuật module cảm biến GY-BNO055\relax }}{56}{table.caption.51}\protected@file@percent }
+\newlabel{tab:bno055_specs}{{3.5}{56}{Thông số kỹ thuật module cảm biến GY-BNO055\relax }{table.caption.51}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.5}Mạch Giảm Áp }{56}{subsection.3.3.5}\protected@file@percent }
 \citation{waveshare_st3215}
-\@writefile{lof}{\contentsline {figure}{\numberline {3-16}{\ignorespaces Mạch giảm áp XL4015 5A 75W\relax }}{61}{figure.caption.57}\protected@file@percent }
-\newlabel{fig38}{{3-16}{61}{Mạch giảm áp XL4015 5A 75W\relax }{figure.caption.57}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.6}{\ignorespaces Thông số kỹ thuật mạch giảm áp XL4015 5A 75W\relax }}{61}{table.caption.58}\protected@file@percent }
-\newlabel{tab:xl4015_specs}{{3.6}{61}{Thông số kỹ thuật mạch giảm áp XL4015 5A 75W\relax }{table.caption.58}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.6}Cơ cấu chấp hành: Động cơ Bus Servo ST3215}{61}{subsection.3.3.6}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.7}{\ignorespaces Bảng so sánh các loại cơ cấu chấp hành áp dụng cho Robot bốn chân\relax }}{62}{table.caption.59}\protected@file@percent }
-\newlabel{tab:motor_comparison}{{3.7}{62}{Bảng so sánh các loại cơ cấu chấp hành áp dụng cho Robot bốn chân\relax }{table.caption.59}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.8}{\ignorespaces So sánh các dòng Servo phổ biến trên thị trường\relax }}{63}{table.caption.60}\protected@file@percent }
-\newlabel{tab:bus_servo_comparison}{{3.8}{63}{So sánh các dòng Servo phổ biến trên thị trường\relax }{table.caption.60}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.7}Hệ thống Phân phối Năng lượng và Lựa chọn Dây dẫn}{64}{subsection.3.3.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3-17}{\ignorespaces Sơ đồ phân phối điện áp và tín hiệu tổng thể của robot\relax }}{65}{figure.caption.61}\protected@file@percent }
-\newlabel{fig44}{{3-17}{65}{Sơ đồ phân phối điện áp và tín hiệu tổng thể của robot\relax }{figure.caption.61}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}Các Giao thức Truyền thông của Hệ thống}{66}{section.3.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3-18}{\ignorespaces Các giao thức truyền thông khác nhau\relax }}{66}{figure.caption.62}\protected@file@percent }
-\newlabel{fig39}{{3-18}{66}{Các giao thức truyền thông khác nhau\relax }{figure.caption.62}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3-19}{\ignorespaces Giao thức truyền thông I2C\relax }}{67}{figure.caption.63}\protected@file@percent }
-\newlabel{fig40}{{3-19}{67}{Giao thức truyền thông I2C\relax }{figure.caption.63}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3-20}{\ignorespaces Giao thức truyền thông UART\relax }}{67}{figure.caption.64}\protected@file@percent }
-\newlabel{fig41}{{3-20}{67}{Giao thức truyền thông UART\relax }{figure.caption.64}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Phân tích thời gian truyền thông UART}{67}{subsection.3.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Ánh xạ ID servo và phân bổ driver}{68}{subsection.3.4.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.9}{\ignorespaces Ánh xạ ID servo theo driver và chân robot\relax }}{68}{table.caption.65}\protected@file@percent }
-\newlabel{tab:servo_mapping}{{3.9}{68}{Ánh xạ ID servo theo driver và chân robot\relax }{table.caption.65}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-16}{\ignorespaces Mạch giảm áp XL4015 5A 75W\relax }}{57}{figure.caption.52}\protected@file@percent }
+\newlabel{fig38}{{3-16}{57}{Mạch giảm áp XL4015 5A 75W\relax }{figure.caption.52}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.6}{\ignorespaces Thông số kỹ thuật mạch giảm áp XL4015 5A 75W\relax }}{57}{table.caption.53}\protected@file@percent }
+\newlabel{tab:xl4015_specs}{{3.6}{57}{Thông số kỹ thuật mạch giảm áp XL4015 5A 75W\relax }{table.caption.53}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.6}Cơ cấu chấp hành: Động cơ Bus Servo ST3215}{57}{subsection.3.3.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.7}{\ignorespaces Bảng so sánh các loại cơ cấu chấp hành áp dụng cho Robot bốn chân\relax }}{58}{table.caption.54}\protected@file@percent }
+\newlabel{tab:motor_comparison}{{3.7}{58}{Bảng so sánh các loại cơ cấu chấp hành áp dụng cho Robot bốn chân\relax }{table.caption.54}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.8}{\ignorespaces So sánh các dòng Servo phổ biến trên thị trường\relax }}{59}{table.caption.55}\protected@file@percent }
+\newlabel{tab:bus_servo_comparison}{{3.8}{59}{So sánh các dòng Servo phổ biến trên thị trường\relax }{table.caption.55}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.7}Hệ thống Phân phối Năng lượng và Lựa chọn Dây dẫn}{60}{subsection.3.3.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-17}{\ignorespaces Sơ đồ phân phối điện áp và tín hiệu tổng thể của robot\relax }}{61}{figure.caption.56}\protected@file@percent }
+\newlabel{fig44}{{3-17}{61}{Sơ đồ phân phối điện áp và tín hiệu tổng thể của robot\relax }{figure.caption.56}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Các Giao thức Truyền thông của Hệ thống}{62}{section.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3-18}{\ignorespaces Các giao thức truyền thông khác nhau\relax }}{62}{figure.caption.57}\protected@file@percent }
+\newlabel{fig39}{{3-18}{62}{Các giao thức truyền thông khác nhau\relax }{figure.caption.57}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-19}{\ignorespaces Giao thức truyền thông I2C\relax }}{63}{figure.caption.58}\protected@file@percent }
+\newlabel{fig40}{{3-19}{63}{Giao thức truyền thông I2C\relax }{figure.caption.58}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3-20}{\ignorespaces Giao thức truyền thông UART\relax }}{63}{figure.caption.59}\protected@file@percent }
+\newlabel{fig41}{{3-20}{63}{Giao thức truyền thông UART\relax }{figure.caption.59}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Phân tích thời gian truyền thông UART}{63}{subsection.3.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Ánh xạ ID servo và phân bổ driver}{64}{subsection.3.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.9}{\ignorespaces Ánh xạ ID servo theo driver và chân robot\relax }}{64}{table.caption.60}\protected@file@percent }
+\newlabel{tab:servo_mapping}{{3.9}{64}{Ánh xạ ID servo theo driver và chân robot\relax }{table.caption.60}{}}
 \citation{ros2docs}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}THIẾT KẾ VÀ THỰC HIỆN PHẦN MỀM}{69}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}THIẾT KẾ VÀ THỰC HIỆN PHẦN MỀM}{65}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Kiến trúc phần mềm ROS 2}{69}{section.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Tổng quan kiến trúc node}{69}{subsection.4.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Giao tiếp giữa các node}{69}{subsection.4.1.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4-1}{\ignorespaces Sơ đồ kiến trúc ROS~2 của hệ thống trong môi trường mô phỏng (Gazebo)\relax }}{70}{figure.caption.66}\protected@file@percent }
-\newlabel{fig:ros2_arch_sim}{{4-1}{70}{Sơ đồ kiến trúc ROS~2 của hệ thống trong môi trường mô phỏng (Gazebo)\relax }{figure.caption.66}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4-2}{\ignorespaces Sơ đồ kiến trúc ROS~2 của hệ thống trên phần cứng thực tế\relax }}{70}{figure.caption.67}\protected@file@percent }
-\newlabel{fig:ros2_arch_hw}{{4-2}{70}{Sơ đồ kiến trúc ROS~2 của hệ thống trên phần cứng thực tế\relax }{figure.caption.67}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Các trạng thái vận hành}{70}{subsection.4.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Cấu trúc các ROS 2 packages}{71}{subsection.4.1.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Cấu trúc các ROS 2 packages trong hệ thống\relax }}{71}{table.caption.68}\protected@file@percent }
-\newlabel{tab:ros2_packages}{{4.1}{71}{Cấu trúc các ROS 2 packages trong hệ thống\relax }{table.caption.68}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.5}Chi tiết các module phần mềm}{71}{subsection.4.1.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.6}Bảng giao tiếp topic ROS~2}{72}{subsection.4.1.6}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Các topic ROS~2 chính trong hệ thống\relax }}{72}{table.caption.69}\protected@file@percent }
-\newlabel{tab:ros2_topics}{{4.2}{72}{Các topic ROS~2 chính trong hệ thống\relax }{table.caption.69}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.7}Cơ chế chẩn đoán thời gian thực}{72}{subsection.4.1.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Quy trình Homing và Calibrate}{73}{section.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Calibrate servo}{73}{subsection.4.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Quy trình Homing}{73}{subsection.4.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Kiến trúc phần mềm ROS 2}{65}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Tổng quan kiến trúc node}{65}{subsection.4.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Kiến trúc phân tầng và phương pháp thiết kế Sim-to-Real}{65}{subsection.4.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4-1}{\ignorespaces Sơ đồ kiến trúc khối ROS~2 của hệ thống trong môi trường mô phỏng (Gazebo)\relax }}{66}{figure.caption.61}\protected@file@percent }
+\newlabel{fig:ros2_arch_sim}{{4-1}{66}{Sơ đồ kiến trúc khối ROS~2 của hệ thống trong môi trường mô phỏng (Gazebo)\relax }{figure.caption.61}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4-2}{\ignorespaces Sơ đồ kiến trúc ROS~2 phân tầng của hệ thống trên phần cứng thực tế\relax }}{67}{figure.caption.62}\protected@file@percent }
+\newlabel{fig:ros2_arch_hw}{{4-2}{67}{Sơ đồ kiến trúc ROS~2 phân tầng của hệ thống trên phần cứng thực tế\relax }{figure.caption.62}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Các trạng thái vận hành}{67}{subsection.4.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Cấu trúc các ROS 2 packages}{67}{subsection.4.1.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Cấu trúc các ROS 2 packages trong hệ thống\relax }}{68}{table.caption.63}\protected@file@percent }
+\newlabel{tab:ros2_packages}{{4.1}{68}{Cấu trúc các ROS 2 packages trong hệ thống\relax }{table.caption.63}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.5}Chi tiết các module phần mềm}{68}{subsection.4.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.6}Bảng giao tiếp topic ROS~2}{69}{subsection.4.1.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Các topic ROS~2 chính trong hệ thống\relax }}{69}{table.caption.64}\protected@file@percent }
+\newlabel{tab:ros2_topics}{{4.2}{69}{Các topic ROS~2 chính trong hệ thống\relax }{table.caption.64}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.7}Cơ chế chẩn đoán thời gian thực}{69}{subsection.4.1.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Quy trình Homing và Calibrate}{70}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Calibrate servo}{70}{subsection.4.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Quy trình Homing}{70}{subsection.4.2.2}\protected@file@percent }
 \citation{ros2docs}
 \citation{gazebo}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}KẾT QUẢ THỰC HIỆN}{74}{chapter.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}KẾT QUẢ THỰC HIỆN}{71}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Giới thiệu}{74}{section.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Cấu hình môi trường mô phỏng Gazebo}{74}{section.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Mô hình robot URDF}{74}{subsection.5.2.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Tham số hình học mô hình URDF\relax }}{74}{table.caption.70}\protected@file@percent }
-\newlabel{tab:urdf_params}{{5.1}{74}{Tham số hình học mô hình URDF\relax }{table.caption.70}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Plugin điều khiển Gazebo}{75}{subsection.5.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Cấu hình vật lý và môi trường}{75}{subsection.5.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Kết quả mô phỏng vận động cơ bản}{75}{subsection.5.2.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5-1}{\ignorespaces Chuỗi chuyển động quá trình khởi tạo tư thế đứng của robot trên mô phỏng Gazebo.\relax }}{76}{figure.caption.71}\protected@file@percent }
-\newlabel{fig:sim_home}{{5-1}{76}{Chuỗi chuyển động quá trình khởi tạo tư thế đứng của robot trên mô phỏng Gazebo.\relax }{figure.caption.71}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5-2}{\ignorespaces Chuỗi chuyển động của robot trên hệ thống mô phỏng trong dáng đi Trot.\relax }}{76}{figure.caption.72}\protected@file@percent }
-\newlabel{fig:sim_trot_sequence}{{5-2}{76}{Chuỗi chuyển động của robot trên hệ thống mô phỏng trong dáng đi Trot.\relax }{figure.caption.72}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Đánh giá hiệu năng bộ điều khiển PID nâng cao trên mô phỏng}{76}{section.5.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ tĩnh (HOME)\relax }}{77}{table.caption.73}\protected@file@percent }
-\newlabel{tab:pid_home_params}{{5.2}{77}{Tham số bộ điều khiển PID -- Chế độ tĩnh (HOME)\relax }{table.caption.73}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ động (GAIT)\relax }}{77}{table.caption.74}\protected@file@percent }
-\newlabel{tab:pid_gait_params}{{5.3}{77}{Tham số bộ điều khiển PID -- Chế độ động (GAIT)\relax }{table.caption.74}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Kết quả quy hoạch quỹ đạo offline}{78}{subsection.5.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5-3}{\ignorespaces Quỹ đạo Cartesian $(x, y, z)$ của chân trước bên trái trong một chu kỳ dáng đi\relax }}{78}{figure.caption.75}\protected@file@percent }
-\newlabel{results/offline_traj_pos}{{5-3}{78}{Quỹ đạo Cartesian $(x, y, z)$ của chân trước bên trái trong một chu kỳ dáng đi\relax }{figure.caption.75}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5-4}{\ignorespaces Biên dạng vận tốc và gia tốc của chân trước bên trái\relax }}{79}{figure.caption.76}\protected@file@percent }
-\newlabel{results/offline_traj_vel_acc}{{5-4}{79}{Biên dạng vận tốc và gia tốc của chân trước bên trái\relax }{figure.caption.76}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5-5}{\ignorespaces Góc khớp $(\theta _1, \theta _2, \theta _3)$ giải qua IK cho các chân bên trái (LF và LB)\relax }}{79}{figure.caption.77}\protected@file@percent }
-\newlabel{results/offline_traj_angle}{{5-5}{79}{Góc khớp $(\theta _1, \theta _2, \theta _3)$ giải qua IK cho các chân bên trái (LF và LB)\relax }{figure.caption.77}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Quỹ đạo 3D bàn chân trong môi trường mô phỏng}{79}{subsection.5.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5-6}{\ignorespaces Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng\relax }}{80}{figure.caption.78}\protected@file@percent }
-\newlabel{fig_gait_3d_real}{{5-6}{80}{Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng\relax }{figure.caption.78}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Ổn định tư thế tĩnh (chế độ HOME)}{80}{subsection.5.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5-7}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME\relax }}{81}{figure.caption.79}\protected@file@percent }
-\newlabel{fig_pid_home}{{5-7}{81}{Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME\relax }{figure.caption.79}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3.1}Phân tích tín hiệu nội bộ chuỗi xử lý PID (Chế độ HOME)}{81}{subsubsection.5.3.3.1}\protected@file@percent }
-\newlabel{fig:home_pid_roll_meas}{{5-8a}{81}{Xử lý tín hiệu và đầu ra (Roll)\relax }{figure.caption.80}{}}
-\newlabel{sub@fig:home_pid_roll_meas}{{a}{81}{Xử lý tín hiệu và đầu ra (Roll)\relax }{figure.caption.80}{}}
-\newlabel{fig:home_pid_pitch_meas}{{5-8b}{81}{Xử lý tín hiệu và đầu ra (Pitch)\relax }{figure.caption.80}{}}
-\newlabel{sub@fig:home_pid_pitch_meas}{{b}{81}{Xử lý tín hiệu và đầu ra (Pitch)\relax }{figure.caption.80}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5-8}{\ignorespaces Phân tích tín hiệu đo lường và đầu ra chế độ HOME\relax }}{81}{figure.caption.80}\protected@file@percent }
-\newlabel{fig:home_pid_roll_pid}{{5-9a}{82}{Thành phần P, I, D (Roll)\relax }{figure.caption.81}{}}
-\newlabel{sub@fig:home_pid_roll_pid}{{a}{82}{Thành phần P, I, D (Roll)\relax }{figure.caption.81}{}}
-\newlabel{fig:home_pid_pitch_pid}{{5-9b}{82}{Thành phần P, I, D (Pitch)\relax }{figure.caption.81}{}}
-\newlabel{sub@fig:home_pid_pitch_pid}{{b}{82}{Thành phần P, I, D (Pitch)\relax }{figure.caption.81}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5-9}{\ignorespaces Phân rã thành phần động lực học PID chế độ HOME\relax }}{82}{figure.caption.81}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Ổn định động trong dáng đi Trot (chế độ GAIT)}{82}{subsection.5.3.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5-10}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)\relax }}{82}{figure.caption.82}\protected@file@percent }
-\newlabel{fig_pid_gait}{{5-10}{82}{Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)\relax }{figure.caption.82}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.4.1}Phân tích tín hiệu nội bộ chuỗi xử lý PID (Chế độ GAIT)}{83}{subsubsection.5.3.4.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5-11}{\ignorespaces Phân tích xử lý tín hiệu đầu vào chế độ GAIT (phóng to)\relax }}{83}{figure.caption.83}\protected@file@percent }
-\newlabel{fig:trot_pid_meas}{{5-11}{83}{Phân tích xử lý tín hiệu đầu vào chế độ GAIT (phóng to)\relax }{figure.caption.83}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5-12}{\ignorespaces Phân rã thành phần động lực học PID chế độ GAIT (phóng to)\relax }}{83}{figure.caption.84}\protected@file@percent }
-\newlabel{fig:trot_pid_pid}{{5-12}{83}{Phân rã thành phần động lực học PID chế độ GAIT (phóng to)\relax }{figure.caption.84}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5-13}{\ignorespaces Phân tích bão hòa và lọc đầu ra chế độ GAIT (phóng to)\relax }}{84}{figure.caption.85}\protected@file@percent }
-\newlabel{fig:trot_pid_sat_lpf}{{5-13}{84}{Phân tích bão hòa và lọc đầu ra chế độ GAIT (phóng to)\relax }{figure.caption.85}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Thực nghiệm trên phần cứng thực}{84}{section.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}Giới thiệu}{84}{subsection.5.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.2}Mô hình robot thực tế}{84}{subsection.5.4.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5.4}{\ignorespaces Thông số hình học robot thực tế\relax }}{85}{table.caption.86}\protected@file@percent }
-\newlabel{tab:hw_robot_params}{{5.4}{85}{Thông số hình học robot thực tế\relax }{table.caption.86}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.3}Kiến trúc khởi động hệ thống phần cứng}{85}{subsection.5.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.4}Chuyển đổi góc IK sang góc servo}{85}{subsection.5.4.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5.5}{\ignorespaces Công thức chuyển đổi IK → Servo cho từng chân\relax }}{86}{table.caption.87}\protected@file@percent }
-\newlabel{tab:ik_to_servo}{{5.5}{86}{Công thức chuyển đổi IK → Servo cho từng chân\relax }{table.caption.87}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.5}Thử nghiệm khởi tạo tư thế đứng (chế độ ZERO)}{86}{subsection.5.4.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5.6}{\ignorespaces Tọa độ bàn chân tư thế đứng chuẩn và bù trừ chiều cao\relax }}{86}{table.caption.88}\protected@file@percent }
-\newlabel{tab:homing_targets}{{5.6}{86}{Tọa độ bàn chân tư thế đứng chuẩn và bù trừ chiều cao\relax }{table.caption.88}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.6}Thử nghiệm dáng đi Trot (chế độ TROT\_FORWARD)}{87}{subsection.5.4.6}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5.7}{\ignorespaces Tham số dáng đi Trot trên phần cứng thực\relax }}{87}{table.caption.89}\protected@file@percent }
-\newlabel{tab:hw_gait_params}{{5.7}{87}{Tham số dáng đi Trot trên phần cứng thực\relax }{table.caption.89}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.7}Cơ chế tắt an toàn}{88}{subsection.5.4.7}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5.8}{\ignorespaces Quy trình tắt an toàn ba pha\relax }}{88}{table.caption.90}\protected@file@percent }
-\newlabel{tab:robotoff}{{5.8}{88}{Quy trình tắt an toàn ba pha\relax }{table.caption.90}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.8}Các vấn đề thực tế và giải pháp}{88}{subsection.5.4.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.9}Nhận xét và đánh giá thực nghiệm}{88}{subsection.5.4.9}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5.9}{\ignorespaces So sánh tham số giữa mô phỏng và phần cứng thực\relax }}{89}{table.caption.91}\protected@file@percent }
-\newlabel{tab:sim_vs_hw}{{5.9}{89}{So sánh tham số giữa mô phỏng và phần cứng thực\relax }{table.caption.91}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Phân tích sự khác biệt giữa mô phỏng và thực nghiệm}{89}{section.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}Khác biệt về tham số dáng đi}{90}{subsection.5.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Các yếu tố phi lý tưởng trên phần cứng thực}{90}{subsection.5.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Giới thiệu}{71}{section.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Mô phỏng và đánh giá bộ điều khiển bằng Matlab/Simulink}{71}{section.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5-1}{\ignorespaces Sơ đồ khối tổng thể vòng lặp kín điều khiển tư thế robot\relax }}{71}{figure.caption.65}\protected@file@percent }
+\newlabel{fig:simulink_block_diagram}{{5-1}{71}{Sơ đồ khối tổng thể vòng lặp kín điều khiển tư thế robot\relax }{figure.caption.65}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Mô hình toán học đối tượng (Quadruped Robot)}{71}{subsection.5.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5-2}{\ignorespaces Cấu trúc khối đối tượng mô phỏng phản hồi trạng thái (Quadruped Robot)\relax }}{72}{figure.caption.66}\protected@file@percent }
+\newlabel{fig:simulink_quadruped_robot}{{5-2}{72}{Cấu trúc khối đối tượng mô phỏng phản hồi trạng thái (Quadruped Robot)\relax }{figure.caption.66}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-3}{\ignorespaces Cấu trúc mô hình hóa động học robot (dựa trên phương trình Động học thuận)\relax }}{72}{figure.caption.67}\protected@file@percent }
+\newlabel{fig:simulink_forward_kinematics}{{5-3}{72}{Cấu trúc mô hình hóa động học robot (dựa trên phương trình Động học thuận)\relax }{figure.caption.67}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Thiết kế bộ điều khiển PID và tiền xử lý tín hiệu}{73}{subsection.5.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5-4}{\ignorespaces Chi tiết cấu trúc chuỗi tiền xử lý tín hiệu và khối điều khiển PID rời rạc\relax }}{73}{figure.caption.68}\protected@file@percent }
+\newlabel{fig:pid_simulink_detail}{{5-4}{73}{Chi tiết cấu trúc chuỗi tiền xử lý tín hiệu và khối điều khiển PID rời rạc\relax }{figure.caption.68}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Khối thực thi động học nghịch (Execution)}{73}{subsection.5.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5-5}{\ignorespaces Cấu trúc khối thực thi giải tích động học nghịch (Inverse Kinematics) cho 4 chân\relax }}{74}{figure.caption.69}\protected@file@percent }
+\newlabel{fig:pid_execution_flow}{{5-5}{74}{Cấu trúc khối thực thi giải tích động học nghịch (Inverse Kinematics) cho 4 chân\relax }{figure.caption.69}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Kết quả mô phỏng}{74}{subsection.5.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4.1}Trường hợp sử dụng bộ điều khiển PID ($K_p=6$, $K_i=2$, $K_d=1$)}{74}{subsubsection.5.2.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5-6}{\ignorespaces Đồ thị đáp ứng hệ thống với tín hiệu nhiễu bước (step) ($K_p=6, K_i=2, K_d=1$)\relax }}{74}{figure.caption.70}\protected@file@percent }
+\newlabel{fig:pid_noise_step}{{5-6}{74}{Đồ thị đáp ứng hệ thống với tín hiệu nhiễu bước (step) ($K_p=6, K_i=2, K_d=1$)\relax }{figure.caption.70}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-7}{\ignorespaces Đồ thị đáp ứng hệ thống với tín hiệu nhiễu hình sin ($K_p=6, K_i=2, K_d=1$)\relax }}{75}{figure.caption.71}\protected@file@percent }
+\newlabel{fig:pid_noise_sine}{{5-7}{75}{Đồ thị đáp ứng hệ thống với tín hiệu nhiễu hình sin ($K_p=6, K_i=2, K_d=1$)\relax }{figure.caption.71}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4.2}Trường hợp bù sai số trực tiếp ($K_p=1$, $K_i=0$, $K_d=0$)}{75}{subsubsection.5.2.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5-8}{\ignorespaces Đồ thị đáp ứng hệ thống với tín hiệu nhiễu bước (step) ($K_p=1, K_i=0, K_d=0$)\relax }}{75}{figure.caption.72}\protected@file@percent }
+\newlabel{fig:p_noise_step}{{5-8}{75}{Đồ thị đáp ứng hệ thống với tín hiệu nhiễu bước (step) ($K_p=1, K_i=0, K_d=0$)\relax }{figure.caption.72}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-9}{\ignorespaces Đồ thị đáp ứng hệ thống với tín hiệu nhiễu hình sin ($K_p=1, K_i=0, K_d=0$)\relax }}{76}{figure.caption.73}\protected@file@percent }
+\newlabel{fig:p_noise_sine}{{5-9}{76}{Đồ thị đáp ứng hệ thống với tín hiệu nhiễu hình sin ($K_p=1, K_i=0, K_d=0$)\relax }{figure.caption.73}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-10}{\ignorespaces Đồ thị tín hiệu vị trí cao độ bàn chân trục Z (\texttt  {z\_out}) của 4 chân robot\relax }}{77}{figure.caption.74}\protected@file@percent }
+\newlabel{fig:pid_response_7}{{5-10}{77}{Đồ thị tín hiệu vị trí cao độ bàn chân trục Z (\texttt {z\_out}) của 4 chân robot\relax }{figure.caption.74}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-11}{\ignorespaces Đồ thị các tín hiệu xử lý nội bộ của bộ điều khiển PID góc Roll\relax }}{78}{figure.caption.75}\protected@file@percent }
+\newlabel{fig:pid_response_8}{{5-11}{78}{Đồ thị các tín hiệu xử lý nội bộ của bộ điều khiển PID góc Roll\relax }{figure.caption.75}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-12}{\ignorespaces Đồ thị các tín hiệu xử lý nội bộ của bộ điều khiển PID góc Pitch\relax }}{78}{figure.caption.76}\protected@file@percent }
+\newlabel{fig:pid_response_9}{{5-12}{78}{Đồ thị các tín hiệu xử lý nội bộ của bộ điều khiển PID góc Pitch\relax }{figure.caption.76}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Cấu hình môi trường mô phỏng Gazebo}{79}{section.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Mô hình robot URDF}{79}{subsection.5.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Tham số hình học mô hình URDF\relax }}{79}{table.caption.77}\protected@file@percent }
+\newlabel{tab:urdf_params}{{5.1}{79}{Tham số hình học mô hình URDF\relax }{table.caption.77}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Plugin điều khiển Gazebo}{79}{subsection.5.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Cấu hình vật lý và môi trường}{80}{subsection.5.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Kết quả mô phỏng vận động cơ bản}{80}{subsection.5.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5-13}{\ignorespaces Chuỗi chuyển động quá trình khởi tạo tư thế đứng của robot trên mô phỏng Gazebo.\relax }}{80}{figure.caption.78}\protected@file@percent }
+\newlabel{fig:sim_home}{{5-13}{80}{Chuỗi chuyển động quá trình khởi tạo tư thế đứng của robot trên mô phỏng Gazebo.\relax }{figure.caption.78}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-14}{\ignorespaces Chuỗi chuyển động của robot trên hệ thống mô phỏng trong dáng đi Trot.\relax }}{81}{figure.caption.79}\protected@file@percent }
+\newlabel{fig:sim_trot_sequence}{{5-14}{81}{Chuỗi chuyển động của robot trên hệ thống mô phỏng trong dáng đi Trot.\relax }{figure.caption.79}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Đánh giá hiệu năng bộ điều khiển PID nâng cao trên mô phỏng}{81}{section.5.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ tĩnh (HOME)\relax }}{81}{table.caption.80}\protected@file@percent }
+\newlabel{tab:pid_home_params}{{5.2}{81}{Tham số bộ điều khiển PID -- Chế độ tĩnh (HOME)\relax }{table.caption.80}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ động (GAIT)\relax }}{82}{table.caption.81}\protected@file@percent }
+\newlabel{tab:pid_gait_params}{{5.3}{82}{Tham số bộ điều khiển PID -- Chế độ động (GAIT)\relax }{table.caption.81}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}Kết quả quy hoạch quỹ đạo offline}{82}{subsection.5.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5-15}{\ignorespaces Quỹ đạo Cartesian $(x, y, z)$ của chân trước bên trái trong một chu kỳ dáng đi\relax }}{83}{figure.caption.82}\protected@file@percent }
+\newlabel{results/offline_traj_pos}{{5-15}{83}{Quỹ đạo Cartesian $(x, y, z)$ của chân trước bên trái trong một chu kỳ dáng đi\relax }{figure.caption.82}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-16}{\ignorespaces Biên dạng vận tốc và gia tốc của chân trước bên trái\relax }}{83}{figure.caption.83}\protected@file@percent }
+\newlabel{results/offline_traj_vel_acc}{{5-16}{83}{Biên dạng vận tốc và gia tốc của chân trước bên trái\relax }{figure.caption.83}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-17}{\ignorespaces Góc khớp $(\theta _1, \theta _2, \theta _3)$ giải qua IK cho các chân bên trái (LF và LB)\relax }}{84}{figure.caption.84}\protected@file@percent }
+\newlabel{results/offline_traj_angle}{{5-17}{84}{Góc khớp $(\theta _1, \theta _2, \theta _3)$ giải qua IK cho các chân bên trái (LF và LB)\relax }{figure.caption.84}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.2}Quỹ đạo 3D bàn chân trong môi trường mô phỏng}{84}{subsection.5.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5-18}{\ignorespaces Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng\relax }}{85}{figure.caption.85}\protected@file@percent }
+\newlabel{fig_gait_3d_real}{{5-18}{85}{Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng\relax }{figure.caption.85}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.3}Ổn định tư thế tĩnh (chế độ HOME)}{85}{subsection.5.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5-19}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME\relax }}{86}{figure.caption.86}\protected@file@percent }
+\newlabel{fig_pid_home}{{5-19}{86}{Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME\relax }{figure.caption.86}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.3.1}Phân tích tín hiệu nội bộ chuỗi xử lý PID (Chế độ HOME)}{86}{subsubsection.5.4.3.1}\protected@file@percent }
+\newlabel{fig:home_pid_roll_meas}{{5-20a}{86}{Xử lý tín hiệu và đầu ra (Roll)\relax }{figure.caption.87}{}}
+\newlabel{sub@fig:home_pid_roll_meas}{{a}{86}{Xử lý tín hiệu và đầu ra (Roll)\relax }{figure.caption.87}{}}
+\newlabel{fig:home_pid_pitch_meas}{{5-20b}{86}{Xử lý tín hiệu và đầu ra (Pitch)\relax }{figure.caption.87}{}}
+\newlabel{sub@fig:home_pid_pitch_meas}{{b}{86}{Xử lý tín hiệu và đầu ra (Pitch)\relax }{figure.caption.87}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-20}{\ignorespaces Phân tích tín hiệu đo lường và đầu ra chế độ HOME\relax }}{86}{figure.caption.87}\protected@file@percent }
+\newlabel{fig:home_pid_roll_pid}{{5-21a}{87}{Thành phần P, I, D (Roll)\relax }{figure.caption.88}{}}
+\newlabel{sub@fig:home_pid_roll_pid}{{a}{87}{Thành phần P, I, D (Roll)\relax }{figure.caption.88}{}}
+\newlabel{fig:home_pid_pitch_pid}{{5-21b}{87}{Thành phần P, I, D (Pitch)\relax }{figure.caption.88}{}}
+\newlabel{sub@fig:home_pid_pitch_pid}{{b}{87}{Thành phần P, I, D (Pitch)\relax }{figure.caption.88}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-21}{\ignorespaces Phân rã thành phần động học PID chế độ HOME\relax }}{87}{figure.caption.88}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.4}Ổn định động trong dáng đi Trot (chế độ GAIT)}{87}{subsection.5.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5-22}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)\relax }}{87}{figure.caption.89}\protected@file@percent }
+\newlabel{fig_pid_gait}{{5-22}{87}{Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)\relax }{figure.caption.89}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.4.1}Phân tích tín hiệu nội bộ chuỗi xử lý PID (Chế độ GAIT)}{88}{subsubsection.5.4.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5-23}{\ignorespaces Phân tích xử lý tín hiệu đầu vào chế độ GAIT (phóng to)\relax }}{88}{figure.caption.90}\protected@file@percent }
+\newlabel{fig:trot_pid_meas}{{5-23}{88}{Phân tích xử lý tín hiệu đầu vào chế độ GAIT (phóng to)\relax }{figure.caption.90}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-24}{\ignorespaces Phân rã thành phần động học PID chế độ GAIT (phóng to)\relax }}{88}{figure.caption.91}\protected@file@percent }
+\newlabel{fig:trot_pid_pid}{{5-24}{88}{Phân rã thành phần động học PID chế độ GAIT (phóng to)\relax }{figure.caption.91}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5-25}{\ignorespaces Phân tích bão hòa và lọc đầu ra chế độ GAIT (phóng to)\relax }}{89}{figure.caption.92}\protected@file@percent }
+\newlabel{fig:trot_pid_sat_lpf}{{5-25}{89}{Phân tích bão hòa và lọc đầu ra chế độ GAIT (phóng to)\relax }{figure.caption.92}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Thực nghiệm trên phần cứng thực}{89}{section.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}Giới thiệu}{89}{subsection.5.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Mô hình robot thực tế}{89}{subsection.5.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.4}{\ignorespaces Thông số hình học robot thực tế\relax }}{90}{table.caption.93}\protected@file@percent }
+\newlabel{tab:hw_robot_params}{{5.4}{90}{Thông số hình học robot thực tế\relax }{table.caption.93}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.3}Kiến trúc khởi động hệ thống phần cứng}{90}{subsection.5.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.4}Chuyển đổi góc IK sang góc servo}{90}{subsection.5.5.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.5}{\ignorespaces Công thức chuyển đổi IK → Servo cho từng chân\relax }}{91}{table.caption.94}\protected@file@percent }
+\newlabel{tab:ik_to_servo}{{5.5}{91}{Công thức chuyển đổi IK → Servo cho từng chân\relax }{table.caption.94}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.5}Thử nghiệm khởi tạo tư thế đứng (chế độ ZERO)}{91}{subsection.5.5.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.6}{\ignorespaces Tọa độ bàn chân tư thế đứng chuẩn và bù trừ chiều cao\relax }}{91}{table.caption.95}\protected@file@percent }
+\newlabel{tab:homing_targets}{{5.6}{91}{Tọa độ bàn chân tư thế đứng chuẩn và bù trừ chiều cao\relax }{table.caption.95}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.6}Thử nghiệm dáng đi Trot (chế độ TROT\_FORWARD)}{92}{subsection.5.5.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.7}{\ignorespaces Tham số dáng đi Trot trên phần cứng thực\relax }}{92}{table.caption.96}\protected@file@percent }
+\newlabel{tab:hw_gait_params}{{5.7}{92}{Tham số dáng đi Trot trên phần cứng thực\relax }{table.caption.96}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.7}Cơ chế tắt an toàn}{93}{subsection.5.5.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.8}{\ignorespaces Quy trình tắt an toàn ba pha\relax }}{93}{table.caption.97}\protected@file@percent }
+\newlabel{tab:robotoff}{{5.8}{93}{Quy trình tắt an toàn ba pha\relax }{table.caption.97}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.8}Các vấn đề thực tế và giải pháp}{93}{subsection.5.5.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.9}Nhận xét và đánh giá thực nghiệm}{93}{subsection.5.5.9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.9}{\ignorespaces So sánh tham số giữa mô phỏng và phần cứng thực\relax }}{94}{table.caption.98}\protected@file@percent }
+\newlabel{tab:sim_vs_hw}{{5.9}{94}{So sánh tham số giữa mô phỏng và phần cứng thực\relax }{table.caption.98}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Phân tích sự khác biệt giữa mô phỏng và thực nghiệm}{94}{section.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.1}Khác biệt về tham số dáng đi}{95}{subsection.5.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.2}Các yếu tố phi lý tưởng trên phần cứng thực}{95}{subsection.5.6.2}\protected@file@percent }
 \citation{denavit1955}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}{91}{chapter.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}{96}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Kết luận}{91}{section.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Đóng góp của đề tài}{92}{subsection.6.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Hạn chế}{92}{subsection.6.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Kết luận}{96}{section.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Đóng góp của đề tài}{97}{subsection.6.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Hạn chế}{97}{subsection.6.1.2}\protected@file@percent }
 \bibstyle{ieeetr}
 \bibdata{refs}
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Hướng phát triển}{93}{section.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{93}{section.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Hướng phát triển}{98}{section.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{98}{section.6.2}\protected@file@percent }
 \bibcite{raibert1986}{1}
 \bibcite{gonzalez2018}{2}
 \bibcite{hyun2014}{3}
@@ -420,8 +438,8 @@
 \bibcite{vukobratovic2004}{16}
 \bibcite{astrom2006}{17}
 \bibcite{madgwick2011}{18}
-\bibcite{bno055}{19}
-\bibcite{jetson_nano}{20}
+\bibcite{jetson_nano}{19}
+\bibcite{bno055}{20}
 \bibcite{waveshare_st3215}{21}
 \@input{chapter/appendix.aux}
-\gdef \@abspage@last{115}
+\gdef \@abspage@last{120}

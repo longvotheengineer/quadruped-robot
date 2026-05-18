@@ -13,27 +13,36 @@ Hệ thống phần mềm được triển khai trên nền tảng ROS~2 Humble 
     \item \textbf{Balance Controller Node (Node Cân bằng tư thế):} Xử lý bất đồng bộ việc thu thập dữ liệu quán tính tần số cao, xử lý tín hiệu đa giai đoạn và tính toán bù PID. Node này hoạt động như một tiến trình độc lập để đảm bảo chu kỳ điều khiển không bị gián đoạn.
 \end{itemize}
 
-\subsection{Giao tiếp giữa các node}
+\subsection{Kiến trúc phân tầng và phương pháp thiết kế Sim-to-Real}
 
-Giao tiếp liên tiến trình giữa hai node sử dụng cơ chế publish-subscribe qua DDS (Data Distribution Service) của ROS~2. Balance Controller node phát các thông điệp vector hiệu chỉnh nhẹ trên các topic bất đồng bộ chuyên dụng. Kiến trúc tách rời này đảm bảo rằng các nút thắt xử lý tại Gait Generator không thể chiếm quyền hoặc chặn các bù trừ cảm biến quan trọng, cho phép vận hành xác định, chịu lỗi ngay cả dưới tải CPU cao.
+Điểm nổi bật trong kiến trúc phần mềm ROS~2 của hệ thống là khả năng chuyển đổi liền mạch giữa môi trường mô phỏng (Gazebo) và phần cứng thực tế (Hardware) mà không yêu cầu chỉnh sửa thuật toán điều khiển cốt lõi (tư tưởng Sim-to-Real). Để đạt được điều này, hệ thống được thiết kế theo cấu trúc phân tầng (layered architecture), tách biệt rõ ràng các khối xử lý thuật toán khỏi các giao diện điều khiển thiết bị vật lý.
 
-Kiến trúc phần mềm ROS~2 của hệ thống được thiết kế linh hoạt để có thể dễ dàng chuyển đổi cấu hình giữa hai môi trường: Mô phỏng (Gazebo) và Thực tế (Hardware) mà không làm thay đổi thuật toán ở các node xử lý lõi (Sim-to-Real). 
-
-Sơ đồ kiến trúc ROS~2 trong môi trường mô phỏng được thể hiện trong Hình~\ref{fig:ros2_arch_sim}. Trong sơ đồ này, \texttt{controller\_manager} (điều khiển khớp) và \texttt{imu\_plugin} (cảm biến quán tính) được sử dụng làm các node ảo trong Gazebo để thay thế cho phần cứng thực tế.
+Trong môi trường mô phỏng (Hình~\ref{fig:ros2_arch_sim}), kiến trúc phần mềm được chia thành hai phân vùng chính:
+\begin{itemize}
+    \item \textbf{Tầng điều khiển phần mềm (ROS 2 Software Control):} Chứa hai node thuật toán cốt lõi là \texttt{Balance Controller Node} và \texttt{Gait Generator Node}. Hai node này giao tiếp nội bộ với nhau qua các topic \texttt{/posture/correction} để chia sẻ tín hiệu bù thăng bằng.
+    \item \textbf{Tầng mô phỏng (Gazebo Simulation Environment):} Hoạt động như một robot ảo, trong đó \texttt{imu\_plugin} đóng vai trò xuất bản dữ liệu quaternion thay cho cảm biến thật, còn \texttt{controller\_manager} đóng vai trò quản lý mô-men và góc khớp ảo dựa trên lệnh \texttt{/effort\_controller} từ bộ tạo dáng đi.
+\end{itemize}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{architecture/simulation_rqt_graph.pdf}
-    \caption{Sơ đồ kiến trúc ROS~2 của hệ thống trong môi trường mô phỏng (Gazebo)}
+    \includegraphics[width=0.95\textwidth]{architecture/simulation_rqt_graph.png}
+    \caption{Sơ đồ kiến trúc khối ROS~2 của hệ thống trong môi trường mô phỏng (Gazebo)}
     \label{fig:ros2_arch_sim}
 \end{figure}
 
-Ngược lại, khi vận hành trên robot thực tế, hệ thống loại bỏ các node mô phỏng và thay thế bằng các trình điều khiển phần cứng chuyên dụng như thể hiện ở Hình~\ref{fig:ros2_arch_hw}. Trong đó, node \texttt{serial\_}\allowbreak\texttt{driver\_}\allowbreak\texttt{a} và \texttt{serial\_}\allowbreak\texttt{driver\_}\allowbreak\texttt{b} chịu trách nhiệm giao tiếp UART với 12 động cơ servo, còn node \texttt{imu\_}\allowbreak\texttt{sensor\_}\allowbreak\texttt{node} thu thập dữ liệu trực tiếp từ cảm biến quán tính. Kiến trúc phân tầng này giúp hệ thống đạt độ tin cậy cao, dễ dàng bảo trì và tận dụng lại toàn bộ mã nguồn điều khiển cốt lõi từ mô phỏng.
+Ngược lại, khi chuyển sang vận hành trên robot thực tế (Hình~\ref{fig:ros2_arch_hw}), hệ thống thay thế toàn bộ Tầng mô phỏng bằng hai tầng vật lý chuyên dụng, trong khi vẫn \textbf{giữ nguyên} nguyên bản Tầng thuật toán cốt lõi (Tầng 1). Kiến trúc thực tế bao gồm ba tầng rõ rệt:
+\begin{itemize}
+    \item \textbf{Tầng 1 -- ROS 2 Core Algorithms:} Chứa các node giải quyết bài toán động học, nội suy quỹ đạo và điều khiển PID (tái sử dụng 100\% mã nguồn từ mô phỏng).
+    \item \textbf{Tầng 2 -- Hardware Interface Drivers:} Đóng vai trò cầu nối, bao gồm \texttt{imu\_sensor\_node} để chuyển đổi luồng I2C thành message ROS~2 tiêu chuẩn, cùng với \texttt{serial\_driver\_a} và \texttt{serial\_driver\_b} làm nhiệm vụ dịch các mảng góc khớp mục tiêu thành gói tin bus servo thông qua thư viện SCServo SDK.
+    \item \textbf{Tầng 3 -- Physical Hardware:} Gồm các linh kiện điện tử vật lý là cảm biến BNO055 IMU và chuỗi 12 động cơ ST3215 Servo giao tiếp theo chuẩn UART/RS485.
+\end{itemize}
+
+Sự phân tách ba tầng này giúp hệ thống đạt độ tin cậy vận hành rất cao, đồng thời cho phép việc bảo trì hay nâng cấp cảm biến, động cơ trong tương lai chỉ gói gọn ở việc thay đổi driver ở Tầng 2 mà không ảnh hưởng tới chất lượng thuật toán.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{architecture/hardware_rqt_graph.pdf}
-    \caption{Sơ đồ kiến trúc ROS~2 của hệ thống trên phần cứng thực tế}
+    \includegraphics[width=0.95\textwidth]{architecture/hardware_rqt_graph.png}
+    \caption{Sơ đồ kiến trúc ROS~2 phân tầng của hệ thống trên phần cứng thực tế}
     \label{fig:ros2_arch_hw}
 \end{figure}
 

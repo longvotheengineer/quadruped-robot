@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<System>
+  <P Name="Location">[-1, -8, 1921, 1081]</P>
+  <P Name="ZoomFactor">150</P>
+  <Block BlockType="Inport" Name="t" SID="44">
+    <P Name="Position">[-5, 33, 25, 47]</P>
+    <P Name="ZOrder">39</P>
+  </Block>
+  <Block BlockType="Inport" Name="leg_id" SID="45">
+    <P Name="Position">[-5, 68, 25, 82]</P>
+    <P Name="ZOrder">40</P>
+    <P Name="Port">2</P>
+  </Block>
+  <Block BlockType="Inport" Name="roll_corr" SID="46">
+    <P Name="Position">[265, 88, 295, 102]</P>
+    <P Name="ZOrder">41</P>
+    <P Name="Port">3</P>
+  </Block>
+  <Block BlockType="Inport" Name="pitch_corr" SID="47">
+    <P Name="Position">[265, 128, 295, 142]</P>
+    <P Name="ZOrder">42</P>
+    <P Name="Port">4</P>
+  </Block>
+  <Block BlockType="SubSystem" Name="Stance_Correction" SID="48">
+    <PortCounts in="5" out="3"/>
+    <P Name="Position">[355, 27, 560, 123]</P>
+    <P Name="ZOrder">38</P>
+    <P Name="ErrorFcn">Stateflow.Translate.translate</P>
+    <P Name="PermitHierarchicalResolution">ExplicitOnly</P>
+    <P Name="TreatAsAtomicUnit">on</P>
+    <P Name="SFBlockType">MATLAB Function</P>
+    <P Name="ContentPreviewEnabled">on</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">x_adj</P>
+      </Port>
+      <Port Type="out" Index="2">
+        <P Name="PropagatedSignals">y_adj</P>
+      </Port>
+      <Port Type="out" Index="3">
+        <P Name="PropagatedSignals">z_adj</P>
+      </Port>
+    </PortProperties>
+    <System Ref="system_48"/>
+  </Block>
+  <Block BlockType="SubSystem" Name="Universal_Gait_Planner" SID="49">
+    <PortCounts in="2" out="3"/>
+    <P Name="Position">[70, 21, 250, 89]</P>
+    <P Name="ZOrder">2</P>
+    <P Name="ErrorFcn">Stateflow.Translate.translate</P>
+    <P Name="PermitHierarchicalResolution">ExplicitOnly</P>
+    <P Name="TreatAsAtomicUnit">on</P>
+    <P Name="SFBlockType">MATLAB Function</P>
+    <P Name="ContentPreviewEnabled">on</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">x</P>
+      </Port>
+      <Port Type="out" Index="2">
+        <P Name="PropagatedSignals">y</P>
+      </Port>
+      <Port Type="out" Index="3">
+        <P Name="PropagatedSignals">z</P>
+      </Port>
+    </PortProperties>
+    <System Ref="system_49"/>
+  </Block>
+  <Block BlockType="SubSystem" Name="Universal_IK" SID="50">
+    <PortCounts in="4" out="3"/>
+    <P Name="Position">[665, 32, 800, 148]</P>
+    <P Name="ZOrder">30</P>
+    <P Name="ErrorFcn">Stateflow.Translate.translate</P>
+    <P Name="PermitHierarchicalResolution">ExplicitOnly</P>
+    <P Name="TreatAsAtomicUnit">on</P>
+    <P Name="SFBlockType">MATLAB Function</P>
+    <P Name="ContentPreviewEnabled">on</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">th1</P>
+      </Port>
+      <Port Type="out" Index="2">
+        <P Name="PropagatedSignals">th2</P>
+      </Port>
+      <Port Type="out" Index="3">
+        <P Name="PropagatedSignals">th3</P>
+      </Port>
+    </PortProperties>
+    <System Ref="system_50"/>
+  </Block>
+  <Block BlockType="Outport" Name="th1" SID="51">
+    <P Name="Position">[920, 43, 950, 57]</P>
+    <P Name="ZOrder">44</P>
+  </Block>
+  <Block BlockType="Outport" Name="th2" SID="52">
+    <P Name="Position">[920, 83, 950, 97]</P>
+    <P Name="ZOrder">45</P>
+    <P Name="Port">2</P>
+  </Block>
+  <Block BlockType="Outport" Name="th3" SID="53">
+    <P Name="Position">[920, 123, 950, 137]</P>
+    <P Name="ZOrder">46</P>
+    <P Name="Port">3</P>
+  </Block>
+  <Block BlockType="Outport" Name="z_foot_ref" SID="54">
+    <P Name="Position">[340, -67, 370, -53]</P>
+    <P Name="ZOrder">47</P>
+    <P Name="Port">4</P>
+  </Block>
+  <Line>
+    <P Name="ZOrder">1</P>
+    <P Name="Src">44#out:1</P>
+    <P Name="Dst">49#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">2</P>
+    <P Name="Src">49#out:2</P>
+    <P Name="Dst">48#in:2</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">3</P>
+    <P Name="Src">49#out:3</P>
+    <P Name="Points">[39, 0]</P>
+    <Branch>
+      <P Name="ZOrder">4</P>
+      <P Name="Points">[0, -135]</P>
+      <P Name="Dst">54#in:1</P>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">5</P>
+      <P Name="Dst">48#in:3</P>
+    </Branch>
+  </Line>
+  <Line>
+    <P Name="ZOrder">6</P>
+    <P Name="Src">49#out:1</P>
+    <P Name="Dst">48#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">7</P>
+    <P Name="Src">48#out:2</P>
+    <P Name="Dst">50#in:2</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">8</P>
+    <P Name="Src">47#out:1</P>
+    <P Name="Points">[25, 0; 0, -20]</P>
+    <P Name="Dst">48#in:5</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">9</P>
+    <P Name="Src">48#out:1</P>
+    <P Name="Dst">50#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">10</P>
+    <P Name="Src">48#out:3</P>
+    <P Name="Dst">50#in:3</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">11</P>
+    <P Name="Src">46#out:1</P>
+    <P Name="Dst">48#in:4</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">12</P>
+    <P Name="Src">45#out:1</P>
+    <P Name="Points">[13, 0]</P>
+    <Branch>
+      <P Name="ZOrder">13</P>
+      <P Name="Points">[0, 104; 537, 0; 0, -44]</P>
+      <P Name="Dst">50#in:4</P>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">14</P>
+      <P Name="Dst">49#in:2</P>
+    </Branch>
+  </Line>
+  <Line>
+    <P Name="ZOrder">15</P>
+    <P Name="Src">50#out:3</P>
+    <P Name="Dst">53#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">16</P>
+    <P Name="Src">50#out:1</P>
+    <P Name="Dst">51#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">17</P>
+    <P Name="Src">50#out:2</P>
+    <P Name="Dst">52#in:1</P>
+  </Line>
+</System>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<System>
+  <P Name="Location">[-1, -8, 1921, 1081]</P>
+  <Block BlockType="Inport" Name="theta" SID="189">
+    <P Name="Position">[-105, 253, -75, 267]</P>
+    <P Name="ZOrder">387</P>
+  </Block>
+  <Block BlockType="Inport" Name="zref" SID="193">
+    <P Name="Position">[890, 453, 920, 467]</P>
+    <P Name="ZOrder">389</P>
+    <P Name="Port">2</P>
+  </Block>
+  <Block BlockType="Demux" Name="Demux" SID="188">
+    <PortCounts in="1" out="12"/>
+    <P Name="Position">[5, 10, 20, 510]</P>
+    <P Name="ZOrder">386</P>
+    <P Name="Outputs">12</P>
+  </Block>
+  <Block BlockType="Demux" Name="Demux1" SID="192">
+    <PortCounts in="1" out="4"/>
+    <P Name="Position">[970, 324, 980, 596]</P>
+    <P Name="ZOrder">388</P>
+  </Block>
+  <Block BlockType="SubSystem" Name="IMU_Simulator" SID="79">
+    <PortCounts in="8" out="2"/>
+    <P Name="Position">[1060, 31, 1175, 609]</P>
+    <P Name="ZOrder">331</P>
+    <P Name="ErrorFcn">Stateflow.Translate.translate</P>
+    <P Name="PermitHierarchicalResolution">ExplicitOnly</P>
+    <P Name="TreatAsAtomicUnit">on</P>
+    <P Name="SFBlockType">MATLAB Function</P>
+    <P Name="ContentPreviewEnabled">on</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">roll_meas</P>
+      </Port>
+      <Port Type="out" Index="2">
+        <P Name="PropagatedSignals">pitch_meas</P>
+      </Port>
+    </PortProperties>
+    <System Ref="system_79"/>
+  </Block>
+  <Block BlockType="SubSystem" Name="Robot" SID="212">
+    <PortCounts in="12" out="4"/>
+    <P Name="Position">[315, 8, 720, 512]</P>
+    <P Name="ZOrder">390</P>
+    <P Name="ContentPreviewEnabled">on</P>
+    <System Ref="system_212"/>
+  </Block>
+  <Block BlockType="Scope" Name="Scope4" SID="165">
+    <PortCounts in="4"/>
+    <P Name="Position">[1085, -121, 1150, -49]</P>
+    <P Name="ZOrder">381</P>
+    <P Name="ScopeSpecificationString">Simulink.scopes.TimeScopeBlockCfg(&apos;CurrentConfiguration&apos;, extmgr.ConfigurationSet(extmgr.Configuration(&apos;Core&apos;,&apos;General UI&apos;,true,&apos;FigureColor&apos;,[1 1 1]),extmgr.Configuration(&apos;Core&apos;,&apos;Source UI&apos;,true),extmgr.Configuration(&apos;Sources&apos;,&apos;WiredSimulink&apos;,true,&apos;DataLoggingVariableName&apos;,&apos;ScopeData4&apos;),extmgr.Configuration(&apos;Visuals&apos;,&apos;Time Domain&apos;,true,&apos;SerializedDisplays&apos;,{struct(&apos;MinYLimReal&apos;,&apos;-239.42391&apos;,&apos;MaxYLimReal&apos;,&apos;-95.61957&apos;,&apos;YLabelReal&apos;,&apos;&apos;,&apos;MinYLimMag&apos;,&apos; 0.00000&apos;,&apos;MaxYLimMag&apos;,&apos;239.42391&apos;,&apos;LegendVisibility&apos;,&apos;On&apos;,&apos;XGrid&apos;,true,&apos;YGrid&apos;,true,&apos;PlotMagPhase&apos;,false,&apos;AxesColor&apos;,[1 1 1],&apos;AxesTickColor&apos;,[0 0 0],&apos;ColorOrder&apos;,[0.0666666666666667 0.443137254901961 0.745098039215686;0.866666666666667 0.329411764705882 0;0.929411764705882 0.694117647058824 0.125490196078431;0.52156862745098 0.0862745098039216 0.819607843137255;0.231372549019608 0.666666666666667 0.196078431372549;0.184313725490196 0.745098039215686 0.937254901960784;0.819607843137255 0.0156862745098039 0.545098039215686],&apos;Title&apos;,&apos;%&lt;SignalLabel&gt;&apos;,&apos;LinePropertiesCache&apos;,{{}},&apos;UserDefinedChannelNames&apos;,{{}},&apos;NumLines&apos;,1,&apos;LineNames&apos;,{{&apos;LF_FK/z_out&apos;}},&apos;ShowContent&apos;,true,&apos;Placement&apos;,1),struct(&apos;MinYLimReal&apos;,&apos;-212.94497&apos;,&apos;MaxYLimReal&apos;,&apos;-98.56167&apos;,&apos;YLabelReal&apos;,&apos;&apos;,&apos;MinYLimMag&apos;,&apos;0&apos;,&apos;MaxYLimMag&apos;,&apos;10&apos;,&apos;LegendVisibility&apos;,&apos;On&apos;,&apos;XGrid&apos;,true,&apos;YGrid&apos;,true,&apos;PlotMagPhase&apos;,false,&apos;AxesColor&apos;,[1 1 1],&apos;AxesTickColor&apos;,[0 0 0],&apos;ColorOrder&apos;,[0.0666666666666667 0.443137254901961 0.745098039215686;0.866666666666667 0.329411764705882 0;0.929411764705882 0.694117647058824 0.125490196078431;0.52156862745098 0.0862745098039216 0.819607843137255;0.231372549019608 0.666666666666667 0.196078431372549;0.184313725490196 0.745098039215686 0.937254901960784;0.819607843137255 0.0156862745098039 0.545098039215686],&apos;Title&apos;,&apos;%&lt;SignalLabel&gt;&apos;,&apos;LinePropertiesCache&apos;,{{}},&apos;UserDefinedChannelNames&apos;,{{}},&apos;NumLines&apos;,1,&apos;LineNames&apos;,{{&apos;LB_FK/z_out&apos;}},&apos;ShowContent&apos;,true,&apos;Placement&apos;,2),struct(&apos;MinYLimReal&apos;,&apos;-216.41741&apos;,&apos;MaxYLimReal&apos;,&apos;-98.17584&apos;,&apos;YLabelReal&apos;,&apos;&apos;,&apos;MinYLimMag&apos;,&apos;0&apos;,&apos;MaxYLimMag&apos;,&apos;10&apos;,&apos;LegendVisibility&apos;,&apos;On&apos;,&apos;XGrid&apos;,true,&apos;YGrid&apos;,true,&apos;PlotMagPhase&apos;,false,&apos;AxesColor&apos;,[1 1 1],&apos;AxesTickColor&apos;,[0 0 0],&apos;ColorOrder&apos;,[0.0666666666666667 0.443137254901961 0.745098039215686;0.866666666666667 0.329411764705882 0;0.929411764705882 0.694117647058824 0.125490196078431;0.52156862745098 0.0862745098039216 0.819607843137255;0.231372549019608 0.666666666666667 0.196078431372549;0.184313725490196 0.745098039215686 0.937254901960784;0.819607843137255 0.0156862745098039 0.545098039215686],&apos;Title&apos;,&apos;%&lt;SignalLabel&gt;&apos;,&apos;LinePropertiesCache&apos;,{{struct(&apos;Visible&apos;,&apos;on&apos;),struct(&apos;Visible&apos;,&apos;on&apos;)}},&apos;UserDefinedChannelNames&apos;,{{}},&apos;NumLines&apos;,1,&apos;LineNames&apos;,{{&apos;RF_FK/z_out&apos;}},&apos;ShowContent&apos;,true,&apos;Placement&apos;,3),struct(&apos;MinYLimReal&apos;,&apos;-222.47146&apos;,&apos;MaxYLimReal&apos;,&apos;-80.71554&apos;,&apos;YLabelReal&apos;,&apos;&apos;,&apos;MinYLimMag&apos;,&apos;0&apos;,&apos;MaxYLimMag&apos;,&apos;10&apos;,&apos;LegendVisibility&apos;,&apos;On&apos;,&apos;XGrid&apos;,true,&apos;YGrid&apos;,true,&apos;PlotMagPhase&apos;,false,&apos;AxesColor&apos;,[1 1 1],&apos;AxesTickColor&apos;,[0 0 0],&apos;ColorOrder&apos;,[0.0666666666666667 0.443137254901961 0.745098039215686;0.866666666666667 0.329411764705882 0;0.929411764705882 0.694117647058824 0.125490196078431;0.52156862745098 0.0862745098039216 0.819607843137255;0.231372549019608 0.666666666666667 0.196078431372549;0.184313725490196 0.745098039215686 0.937254901960784;0.819607843137255 0.0156862745098039 0.545098039215686],&apos;Title&apos;,&apos;%&lt;SignalLabel&gt;&apos;,&apos;LinePropertiesCache&apos;,{{}},&apos;UserDefinedChannelNames&apos;,{{}},&apos;NumLines&apos;,1,&apos;LineNames&apos;,{{&apos;RB_FK/z_out&apos;}},&apos;ShowContent&apos;,true,&apos;Placement&apos;,4)},&apos;DisplayPropertyDefaults&apos;,struct(&apos;YLabelReal&apos;,&apos;&apos;,&apos;AxesColor&apos;,[1 1 1],&apos;AxesTickColor&apos;,[0 0 0],&apos;ColorOrder&apos;,[0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;1 1 0.0666666666666667;0.717647058823529 0.274509803921569 1;0.392156862745098 0.831372549019608 0.0745098039215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863]),&apos;DisplayLayoutDimensions&apos;,[4 1],&apos;DisplayContentCache&apos;,[]),extmgr.Configuration(&apos;Tools&apos;,&apos;Plot Navigation&apos;,true),extmgr.Configuration(&apos;Tools&apos;,&apos;Measurements&apos;,true,&apos;Version&apos;,&apos;2024a&apos;)),&apos;Version&apos;,&apos;2024a&apos;,&apos;Position&apos;,[1 1 1920 1003])</P>
+    <P Name="NumInputPorts">4</P>
+    <P Name="Floating">off</P>
+  </Block>
+  <Block BlockType="Outport" Name="roll_meas" SID="132">
+    <P Name="Position">[1270, 168, 1300, 182]</P>
+    <P Name="ZOrder">354</P>
+  </Block>
+  <Block BlockType="Outport" Name="pitch_meas" SID="139">
+    <P Name="Position">[1270, 458, 1300, 472]</P>
+    <P Name="ZOrder">361</P>
+    <P Name="Port">2</P>
+  </Block>
+  <Line>
+    <P Name="ZOrder">270</P>
+    <P Name="Src">79#out:2</P>
+    <P Name="Dst">139#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">263</P>
+    <P Name="Src">79#out:1</P>
+    <P Name="Dst">132#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">339</P>
+    <P Name="Src">189#out:1</P>
+    <P Name="Dst">188#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">340</P>
+    <P Name="Src">192#out:1</P>
+    <P Name="Dst">79#in:5</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">341</P>
+    <P Name="Src">192#out:2</P>
+    <P Name="Dst">79#in:6</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">342</P>
+    <P Name="Src">192#out:3</P>
+    <P Name="Dst">79#in:7</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">343</P>
+    <P Name="Src">192#out:4</P>
+    <P Name="Dst">79#in:8</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">344</P>
+    <P Name="Src">193#out:1</P>
+    <P Name="Dst">192#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">390</P>
+    <P Name="Src">212#out:2</P>
+    <P Name="Points">[92, 0; 0, -55; 157, 0]</P>
+    <Branch>
+      <P Name="ZOrder">407</P>
+      <P Name="Points">[0, -240]</P>
+      <P Name="Dst">165#in:2</P>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">399</P>
+      <P Name="Dst">79#in:2</P>
+    </Branch>
+  </Line>
+  <Line>
+    <P Name="ZOrder">392</P>
+    <P Name="Src">212#out:4</P>
+    <P Name="Points">[115, 0; 0, -165; 199, 0]</P>
+    <Branch>
+      <P Name="ZOrder">405</P>
+      <P Name="Points">[0, -340]</P>
+      <P Name="Dst">165#in:4</P>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">320</P>
+      <P Name="Dst">79#in:4</P>
+    </Branch>
+  </Line>
+  <Line>
+    <P Name="ZOrder">389</P>
+    <P Name="Src">212#out:1</P>
+    <P Name="Points">[220, 0]</P>
+    <Branch>
+      <P Name="ZOrder">400</P>
+      <P Name="Points">[0, -190]</P>
+      <P Name="Dst">165#in:1</P>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">398</P>
+      <P Name="Dst">79#in:1</P>
+    </Branch>
+  </Line>
+  <Line>
+    <P Name="ZOrder">391</P>
+    <P Name="Src">212#out:3</P>
+    <P Name="Points">[96, 0; 0, -110; 181, 0]</P>
+    <Branch>
+      <P Name="ZOrder">406</P>
+      <P Name="Points">[0, -290]</P>
+      <P Name="Dst">165#in:3</P>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">318</P>
+      <P Name="Dst">79#in:3</P>
+    </Branch>
+  </Line>
+  <Line>
+    <P Name="ZOrder">377</P>
+    <P Name="Src">188#out:1</P>
+    <P Name="Dst">212#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">378</P>
+    <P Name="Src">188#out:2</P>
+    <P Name="Dst">212#in:2</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">379</P>
+    <P Name="Src">188#out:3</P>
+    <P Name="Dst">212#in:3</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">380</P>
+    <P Name="Src">188#out:4</P>
+    <P Name="Dst">212#in:4</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">381</P>
+    <P Name="Src">188#out:5</P>
+    <P Name="Dst">212#in:5</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">382</P>
+    <P Name="Src">188#out:6</P>
+    <P Name="Dst">212#in:6</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">383</P>
+    <P Name="Src">188#out:7</P>
+    <P Name="Dst">212#in:7</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">384</P>
+    <P Name="Src">188#out:8</P>
+    <P Name="Dst">212#in:8</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">385</P>
+    <P Name="Src">188#out:9</P>
+    <P Name="Dst">212#in:9</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">386</P>
+    <P Name="Src">188#out:10</P>
+    <P Name="Dst">212#in:10</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">387</P>
+    <P Name="Src">188#out:11</P>
+    <P Name="Dst">212#in:11</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">388</P>
+    <P Name="Src">188#out:12</P>
+    <P Name="Dst">212#in:12</P>
+  </Line>
+</System>

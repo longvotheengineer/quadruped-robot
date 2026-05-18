@@ -6,9 +6,151 @@
 %
 
 \section{Giới thiệu}
-Chương này trình bày kết quả mô phỏng hệ thống robot bốn chân sử dụng nền tảng ROS~2 Humble \cite{ros2docs} kết hợp với trình mô phỏng Gazebo Classic \cite{gazebo}. Mục tiêu của quá trình mô phỏng là xác minh tính đúng đắn của các thuật toán lập kế hoạch quỹ đạo, động học nghịch (Inverse Kinematics), và bộ điều khiển PID trước khi triển khai trên robot thực. Toàn bộ kết quả được trình bày thông qua các hình minh họa, bao gồm cấu hình mô phỏng, trực quan hóa quá trình hoạt động, đánh giá quỹ đạo bàn chân, biên dạng góc khớp và hiệu năng bộ điều khiển PID.
+Chương này trình bày kết quả mô phỏng hệ thống robot bốn chân sử dụng nền tảng ROS~2 Humble \cite{ros2docs} kết hợp với trình mô phỏng Gazebo Classic \cite{gazebo}. Trước khi triển khai trên mô phỏng phức tạp Gazebo, bộ điều khiển PID được mô hình hóa và kiểm chứng sơ bộ trên môi trường Matlab/Simulink để xác minh tính đáp ứng động học. Mục tiêu của toàn bộ quá trình mô phỏng là xác minh tính đúng đắn của các thuật toán lập kế hoạch quỹ đạo, động học nghịch (Inverse Kinematics), và bộ điều khiển PID trước khi triển khai trên robot thực. Toàn bộ kết quả được trình bày thông qua các hình minh họa, bao gồm cấu hình mô phỏng, trực quan hóa quá trình hoạt động, đánh giá quỹ đạo bàn chân, biên dạng góc khớp và hiệu năng bộ điều khiển PID.
 
-Nội dung chương được tổ chức như sau: Mục~5.2 trình bày cấu hình chi tiết của môi trường mô phỏng Gazebo; Mục~5.3 đánh giá hiệu năng bộ điều khiển PID nâng cao cùng với quỹ đạo sinh ra trên mô phỏng; và Mục~5.4 trình bày kết quả thực nghiệm trên phần cứng cùng phân tích so sánh sim-to-real.
+Nội dung chương được tổ chức như sau: Mục~5.2 trình bày mô phỏng và đánh giá bộ điều khiển bằng Matlab/Simulink; Mục~5.3 trình bày cấu hình chi tiết của môi trường mô phỏng Gazebo; Mục~5.4 đánh giá hiệu năng bộ điều khiển PID nâng cao cùng với quỹ đạo sinh ra trên mô phỏng; và Mục~5.5 trình bày kết quả thực nghiệm trên phần cứng cùng phân tích so sánh sim-to-real.
+
+\section{Mô phỏng và đánh giá bộ điều khiển bằng Matlab/Simulink}
+
+Để kiểm chứng bộ điều khiển PID trước khi đưa vào hệ thống thực tế hoặc môi trường mô phỏng Gazebo, toàn bộ hệ thống động học và điều khiển của robot được mô hình hóa trên môi trường Matlab/Simulink. Hệ thống được tổ chức thành một vòng lặp kín (Closed-loop) hoàn chỉnh như thể hiện trong Hình~\ref{fig:simulink_block_diagram}. Chu trình điều khiển bao gồm 3 khối chức năng chính: khối đối tượng vật lý (Quadruped Robot) cung cấp phản hồi trạng thái, khối điều khiển (PID Controller) tính toán tín hiệu bù, và khối thực thi (Execution) chuyển đổi lệnh bù thành góc khớp.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{img_matlab/fig1-PID-controller.png}
+    \caption{Sơ đồ khối tổng thể vòng lặp kín điều khiển tư thế robot}
+    \label{fig:simulink_block_diagram}
+\end{figure}
+
+\subsection{Mô hình toán học đối tượng (Quadruped Robot)}
+Khối Quadruped Robot (Hình~\ref{fig:simulink_quadruped_robot}) đóng vai trò là "môi trường vật lý ảo" của hệ thống. Đầu vào của khối này là bộ $12$ lệnh góc khớp $\theta$ sinh ra từ bộ điều khiển. Đầu ra là các giá trị cao độ bàn chân (\texttt{z\_out}) và phản hồi cảm biến IMU (\texttt{roll\_meas}, \texttt{pitch\_meas}). Sơ đồ này mô phỏng quy trình thu thập trạng thái cơ cấu chấp hành để tái tạo lại tư thế định hướng của thân robot.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img_matlab/fig3-quadruped-robot.png}
+    \caption{Cấu trúc khối đối tượng mô phỏng phản hồi trạng thái (Quadruped Robot)}
+    \label{fig:simulink_quadruped_robot}
+\end{figure}
+
+Sâu bên trong khối Robot, Hình~\ref{fig:simulink_forward_kinematics} phơi bày cấu trúc mô hình hóa động học của robot. Tại đây, hệ thống sử dụng 4 khối \texttt{Universal\_FK} chạy song song để giải phương trình động học thuận cho 4 chân. Từ các góc khớp $\theta_{1,2,3}$ của từng chân, mô hình ánh xạ ra tọa độ không gian thực $(x, y, z)$ của bàn chân đối với hệ quy chiếu thân robot. Giá trị \texttt{z\_out} thu được chính là cơ sở toán học để mô phỏng trạng thái nghiêng thân và xác định độ cân bằng của toàn hệ thống trong không gian 3D.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{img_matlab/fig4-mo-hinh-hoa-robot.png}
+    \caption{Cấu trúc mô hình hóa động học robot (dựa trên phương trình Động học thuận)}
+    \label{fig:simulink_forward_kinematics}
+\end{figure}
+
+\subsection{Thiết kế bộ điều khiển PID và tiền xử lý tín hiệu}
+Tín hiệu phản hồi từ mô hình Robot tiếp tục được đưa vào khối PID Controller (Hình~\ref{fig:pid_simulink_detail}). Khối này không chỉ thực hiện tính toán P-I-D đơn thuần mà còn bao hàm toàn bộ chuỗi tiền xử lý tín hiệu (Signal Processing Pipeline) để giải quyết hiện tượng nhiễu động học. Tín hiệu thô từ IMU trải qua 3 cấp độ lọc: lọc trung bình trượt hàm mũ (EMA), lọc thông thấp (Avg) để trích xuất sai lệch đường cơ sở, và cuối cùng là đi qua vùng chết (Deadzone). Chỉ những sai lệch đã qua thanh lọc này mới được đưa vào bộ điều khiển Rời rạc \texttt{PID(z)} để xuất ra lệnh bù tư thế (\texttt{roll\_correction}, \texttt{pitch\_correction}), đảm bảo hệ thống phản ứng trơn tru mà không bị đánh lừa bởi dao động bước đi tự nhiên.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img_matlab/fig5-PID.png}
+    \caption{Chi tiết cấu trúc chuỗi tiền xử lý tín hiệu và khối điều khiển PID rời rạc}
+    \label{fig:pid_simulink_detail}
+\end{figure}
+
+\subsection{Khối thực thi động học nghịch (Execution)}
+Cuối cùng, vòng lặp điều khiển được khép kín tại khối Execution (Hình~\ref{fig:pid_execution_flow}). Nhiệm vụ của khối này là giải quyết bài toán Động học nghịch (Inverse Kinematics). Đầu vào là tín hiệu bù góc Roll và Pitch; đầu ra là tập hợp $12$ quỹ đạo góc khớp \texttt{th1}, \texttt{th2}, \texttt{th3} của 4 chân. Sơ đồ minh họa quá trình ánh xạ ngược: từ yêu cầu duy trì mặt phẳng thăng bằng cho thân robot, khối Execution phân bổ độ dịch chuyển theo trục Z (\texttt{z\_foot\_ref}) xuống từng cơ cấu chân, buộc các động cơ phải tự động gập/duỗi để đáp ứng bù trừ sai lệch theo thời gian thực.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img_matlab/fig2-execution.png}
+    \caption{Cấu trúc khối thực thi giải tích động học nghịch (Inverse Kinematics) cho 4 chân}
+    \label{fig:pid_execution_flow}
+\end{figure}
+
+\subsection{Kết quả mô phỏng}
+
+\subsubsection{Trường hợp sử dụng bộ điều khiển PID ($K_p=6$, $K_i=2$, $K_d=1$)}
+Để đánh giá độ ổn định và hiệu năng của bộ điều khiển PID với bộ thông số tối ưu ($K_p=6, K_i=2, K_d=1$), hệ thống được thử nghiệm với các nhiễu động giả lập. Hình~\ref{fig:pid_noise_step} minh họa đáp ứng của hệ thống dưới tác động của nhiễu bước (step), trong khi Hình~\ref{fig:pid_noise_sine} thể hiện đáp ứng dưới tác động của nhiễu hình sin. Các kết quả này cho thấy sai lệch góc nghiêng dao động như thế nào và cách bộ điều khiển PID can thiệp để triệt tiêu sai số đó.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img_matlab/figb.jpg}
+    \caption{Đồ thị đáp ứng hệ thống với tín hiệu nhiễu bước (step) ($K_p=6, K_i=2, K_d=1$)}
+    \label{fig:pid_noise_step}
+\end{figure}
+
+Từ đồ thị Hình~\ref{fig:pid_noise_step}, tại thời điểm $t = 3$ s, một nhiễu bước có biên độ $0{,}15$ rad được đưa vào hệ thống. Phân tích đồ thị cho thấy:
+\begin{itemize}
+    \item \textbf{Độ vọt lố (Overshoot):} Khi bù nhiễu, giá trị sai số giảm và vượt qua mốc $0$, đạt giá trị âm lớn nhất khoảng $-0{,}018$ rad. Do đó, độ vọt lố tương đối so với biên độ nhiễu là $PO \approx (0{,}018 / 0{,}15) \times 100\% = 12\%$. Mức vọt lố này nằm trong giới hạn an toàn, đảm bảo robot không bị mất trọng tâm dẫn đến lật ngã trong quá trình phục hồi tư thế.
+    \item \textbf{Thời gian quá độ (Settling Time):} Hệ thống mất khoảng $7$ s (từ $t = 3$ s đến $t = 10$ s) để dập tắt các dao động và dao động tắt dần quanh giá trị cân bằng. Thời gian phản hồi này cho thấy hệ thống có khả năng đáp ứng khá nhanh trước các thay đổi bất ngờ.
+    \item \textbf{Sai số xác lập (Steady-state Error):} Từ sau mốc $t = 10$ s, hệ thống hoàn toàn duy trì được trạng thái thăng bằng với sai số tĩnh xấp xỉ bằng $0$. Điều này minh chứng thành phần khâu tích phân (I) trong bộ điều khiển PID đã hoạt động hiệu quả để triệt tiêu các sai lệch dư.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img_matlab/figa.jpg}
+    \caption{Đồ thị đáp ứng hệ thống với tín hiệu nhiễu hình sin ($K_p=6, K_i=2, K_d=1$)}
+    \label{fig:pid_noise_sine}
+\end{figure}
+
+\subsubsection{Trường hợp bù sai số trực tiếp ($K_p=1$, $K_i=0$, $K_d=0$)}
+Nhằm mục đích đối chiếu hiệu quả của các khâu I và D trong bộ điều khiển PID, một mô phỏng tương tự được thực hiện với trường hợp bù sai số trực tiếp, tương đương thông số $K_p=1, K_i=0, K_d=0$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img_matlab/fig-step Kp=1 Ki=0 Kd=0.png}
+    \caption{Đồ thị đáp ứng hệ thống với tín hiệu nhiễu bước (step) ($K_p=1, K_i=0, K_d=0$)}
+    \label{fig:p_noise_step}
+\end{figure}
+
+Từ đồ thị Hình~\ref{fig:p_noise_step}, đồ thị biểu diễn góc nghiêng thực tế đo được (measured angle) của thân robot. Khi nhiễu bước có biên độ $D = 0{,}15$ rad tác động vào hệ thống tại $t = 3$ s, thân robot bị nghiêng đi một góc tương ứng. Khảo sát đáp ứng của hệ thống trong trường hợp bù trực tiếp ($K_p=1, K_i=0, K_d=0$) cho thấy sự khác biệt rõ rệt so với bộ điều khiển PID hoàn chỉnh:
+\begin{itemize}
+    \item \textbf{Độ vọt lố (Overshoot):} Khác với PID hoàn chỉnh, trường hợp bù trực tiếp hoàn toàn \textbf{không có độ vọt lố} qua mốc cân bằng $0$. Góc nghiêng đo được giảm từ $0{,}15$ xuống thấp nhất là khoảng $0{,}035$ rad (đối với trục Roll) và $0{,}065$ rad (đối với trục Pitch), nhưng chưa bao giờ đạt tới hay vượt qua mốc $0$ rad. 
+    \item \textbf{Dao động và Thời gian quá độ (Settling Time):} Mặc dù không vượt qua mốc $0$, hệ thống lại xuất hiện trạng thái dao động (oscillatory behavior) kéo dài. Hiện tượng này xảy ra do sự vắng mặt của thành phần vi phân (D), vốn đóng vai trò dự báo và triệt tiêu sự thay đổi đột ngột của sai lệch. Nếu không có khâu D, hệ thống mất hơn $15$ s để các dao động suy giảm và ổn định trở lại.
+    \item \textbf{Sai số xác lập (Steady-state Error):} Đây là hạn chế nghiêm trọng nhất của phương pháp bù trực tiếp vòng kín. Sau thời gian quá độ, góc nghiêng xác lập ở mức rất cao, dao động quanh $0{,}07$ rad đối với Roll và $0{,}095$ rad đối với Pitch. Xét về mặt lý thuyết điều khiển tự động, đối với hệ thống tĩnh (Type 0) có nhiễu đầu vào không đổi $D$, góc nghiêng xác lập của khâu tỷ lệ được tính xấp xỉ bằng $Y = \frac{D}{1+K_p}$. Với tư duy thiết kế bù 1:1 ($K_p=1$), sai lệch tĩnh $e_{ss} \approx \frac{D}{2}$, tức là hệ thống chỉ có thể bù trừ được khoảng $50\%$ lượng nhiễu đầu vào ($0{,}075$ rad so với nhiễu $0{,}15$ rad). Để triệt tiêu hoàn toàn sai số này và đưa hệ thống về điểm làm việc chuẩn, bắt buộc phải tích hợp khâu tích phân (I) nhằm duy trì tín hiệu bù kể cả khi góc nghiêng tiến về $0$.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img_matlab/fig-sin Kp=1 Ki=0 Kd=0.png}
+    \caption{Đồ thị đáp ứng hệ thống với tín hiệu nhiễu hình sin ($K_p=1, K_i=0, K_d=0$)}
+    \label{fig:p_noise_sine}
+\end{figure}
+
+\textbf{Nhận xét so sánh:}
+Thông qua việc đối chiếu giữa bộ điều khiển PID ($K_p=6, K_i=2, K_d=1$) và cấu hình bù trực tiếp vòng kín ($K_p=1, K_i=0, K_d=0$), có thể khẳng định tính tất yếu của các khâu I và D trong cấu trúc điều khiển tư thế robot. Mặc dù tư duy bù trực tiếp tỷ lệ 1:1 không gây vọt lố qua mốc 0, nhưng nó để lại sai số xác lập quá lớn (lên tới $0{,}095$ rad) do đặc tính của hệ vòng kín thiếu khâu bù sai lệch tĩnh, đồng thời gây ra dao động kéo dài vì vắng mặt khâu vi phân dự báo. Ngược lại, bộ PID hoàn chỉnh với khâu tích phân $K_i=2$ đã loại bỏ triệt để sai số xác lập, đưa góc nghiêng hội tụ về đúng $0$ rad. Đồng thời, sự kết hợp giữa hệ số tỷ lệ $K_p=6$ lớn và khâu vi phân $K_d=1$ đã giúp hệ thống đáp ứng vô cùng nhanh nhạy, khống chế vọt lố ở mức an toàn ($12\%$) và xác lập tính ổn định chỉ trong $7$ s.
+
+Các Hình~\ref{fig:pid_response_7}, Hình~\ref{fig:pid_response_8} và Hình~\ref{fig:pid_response_9} trình bày các tín hiệu nội bộ thu được trong quá trình mô phỏng khi robot thực hiện chu trình di chuyển có tính tuần hoàn (dáng đi Trot).
+
+Hình~\ref{fig:pid_response_7} thể hiện quỹ đạo tọa độ trục Z (\texttt{z\_out}) của 4 bàn chân robot theo thời gian. Đồ thị cho thấy sự kết hợp giữa quỹ đạo bước đi cơ sở và tín hiệu bù từ bộ điều khiển PID:
+\begin{itemize}
+    \item Trước thời điểm $t = 3$ s, cả 4 chân đều có chung một biên dạng ổn định: pha chống chân (đường thẳng) nằm ở mức $-170$ mm, và pha vung chân (các đỉnh nhọn) nhấc lên mức $-110$ mm (độ nâng chân $60$ mm).
+    \item Từ thời điểm $t = 3$ s, khi có nhiễu nghiêng xuất hiện, đồ thị có sự phân hóa rõ rệt. Đặc biệt, đồ thị thứ 4 (chân phải-sau, RB) có hình dạng hoàn toàn khác biệt: đường cơ sở nhảy vọt lên $\approx -120$ mm và các đỉnh vung chân lại hướng xuống $\approx -160$ mm.
+    \item \textbf{Nguyên lý động học (Kinematic Coupling):} Hiện tượng trên xảy ra do sự cộng hưởng của nhiễu Roll và Pitch. Khi robot bị nghiêng mạnh (ví dụ: mũi ngóc lên, nghiêng sang phải), góc phải-sau (RB) là điểm bị ép sát xuống mặt đất nhất. Để bù trừ, PID ra lệnh thu chân RB lại cực hạn (từ $-170$ lên $-120$ mm). Trong tư thế gập sâu này, kết hợp với việc hệ trục tọa độ thân robot đã bị nghiêng lớn, động tác vung chân về phía trước (theo trục X toàn cục) bị "khớp nối động học" và chuyển hóa thành chuyển động duỗi dài ra (hướng về $-160$ mm) theo trục Z của thân robot để có thể chạm tới điểm đặt chân mong muốn. Điều này minh họa rõ rệt giới hạn không gian làm việc (workspace boundary) và phản ứng động học phức tạp của robot bốn chân dưới tác động của sai lệch tư thế lớn.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img_matlab/fig-zout.png}
+    \caption{Đồ thị tín hiệu vị trí cao độ bàn chân trục Z (\texttt{z\_out}) của 4 chân robot}
+    \label{fig:pid_response_7}
+\end{figure}
+
+Các Hình~\ref{fig:pid_response_8} và Hình~\ref{fig:pid_response_9} minh họa quá trình tiền xử lý tín hiệu bên trong bộ điều khiển PID góc Roll và Pitch nhằm phân lập sai lệch tư thế khỏi các dao động sinh ra do chu trình bước đi:
+\begin{itemize}
+    \item \textbf{\texttt{roll\_meas} / \texttt{pitch\_meas}:} Tín hiệu góc đo được bao gồm các dao động tuần hoàn với biên độ rất lớn (lên tới $\pm 0{,}4$ rad) do sự dịch chuyển trọng tâm luân phiên giữa các chân khi bước đi. 
+    \item \textbf{\texttt{after EMA}:} Bộ lọc trung bình trượt hàm mũ (EMA) làm suy giảm các nhiễu rung động cơ học tần số cao do va đập, giữ lại sóng cơ bản của dáng đi.
+    \item \textbf{\texttt{after Avg}:} Bộ lọc trung bình (Avg) đóng vai trò then chốt như một bộ lọc thông thấp (Low-pass Filter). Tại $t = 3$ s, khi nhiễu bước (step disturbance) có biên độ $0{,}15$ rad tác động vào hệ thống, bộ lọc Avg đã triệt tiêu hoàn toàn dao động $\pm 0{,}4$ rad của dáng đi và trích xuất thành công độ trôi dạt tư thế (baseline drift). Đồ thị cho thấy đường tín hiệu dịch chuyển và ổn định ở mức $\approx -0{,}18$ rad (tổng của nhiễu $0{,}15$ rad và một độ lệch cơ sở nhỏ của hệ thống).
+    \item \textbf{\texttt{after Deadzone}:} Tín hiệu qua khâu vùng chết (Deadzone) có thông số cài đặt là $\pm 0{,}03$ rad. Khâu này cắt xén phần vi sai, đưa giá trị từ $-0{,}18$ rad về chính xác $-0{,}15$ rad. Con số này chính là độ lớn của tín hiệu nhiễu bước đầu vào, minh chứng rằng bộ điều khiển đã trích xuất được mức sai số tư thế hữu ích và chính xác tuyệt đối để đưa vào khâu tính toán PID, giúp loại bỏ hoàn toàn hiện tượng phản ứng quá mức với các dao động tự nhiên.
+\end{itemize}
+Dựa trên chuỗi tín hiệu đã được xử lý này, bộ điều khiển PID có khả năng tính toán tín hiệu phản hồi dựa trên sai số tư thế cốt lõi mà không bị ảnh hưởng hay phá vỡ động học di chuyển tự nhiên của robot.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img_matlab/fig8.png}
+    \caption{Đồ thị các tín hiệu xử lý nội bộ của bộ điều khiển PID góc Roll}
+    \label{fig:pid_response_8}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img_matlab/fig9.png}
+    \caption{Đồ thị các tín hiệu xử lý nội bộ của bộ điều khiển PID góc Pitch}
+    \label{fig:pid_response_9}
+\end{figure}
 
 \section{Cấu hình môi trường mô phỏng Gazebo}
 
@@ -328,7 +470,7 @@ Hình \ref{fig:home_pid_roll_pid} và Hình \ref{fig:home_pid_pitch_pid} phân r
         \caption{Thành phần P, I, D (Pitch)}
         \label{fig:home_pid_pitch_pid}
     \end{subfigure}
-    \caption{Phân rã thành phần động lực học PID chế độ HOME}
+    \caption{Phân rã thành phần động học PID chế độ HOME}
 \end{figure}
 
 \subsection{Ổn định động trong dáng đi Trot (chế độ GAIT)}
@@ -380,11 +522,11 @@ Sự phân rã các thành phần PID trong Hình \ref{fig:trot_pid_pid} đặc 
         \includegraphics[width=\textwidth]{results/trot_pid_pitch_controller_p_i_d_zoom.png}
         \caption{Thành phần P, I, D (Pitch)}
     \end{subfigure}
-    \caption{Phân rã thành phần động lực học PID chế độ GAIT (phóng to)}
+    \caption{Phân rã thành phần động học PID chế độ GAIT (phóng to)}
     \label{fig:trot_pid_pid}
 \end{figure}
 
-Cuối cùng, Hình \ref{fig:trot_pid_sat_lpf} minh họa lý do phải phân tách bộ tham số LPF độc lập cho từng chế độ. Trong chế độ GAIT, nếu lệnh cân bằng được xuất ra quá gắt, nó sẽ phá vỡ động lực học của các chân đang đảm nhận nhiệm vụ chống đỡ thân (stance phase), làm chân bị trượt hoặc bước hụt. Vì vậy, việc siết chặt bão hòa ($u_{max} = 0{,}30$ rad) và tăng cường cường độ lọc LPF ($\alpha = 0{,}97$) mang ý nghĩa nhượng bộ chiến lược: hệ thống ưu tiên bảo toàn quỹ đạo sải bước nguyên vẹn, chỉ sử dụng một lực bù biên độ rất nhỏ và mềm mại để từ từ điều hướng trọng tâm, từ đó giải quyết bài toán xung đột cơ học giữa "nhiệm vụ bước đi" và "nhiệm vụ cân bằng".
+Cuối cùng, Hình \ref{fig:trot_pid_sat_lpf} minh họa lý do phải phân tách bộ tham số LPF độc lập cho từng chế độ. Trong chế độ GAIT, nếu lệnh cân bằng được xuất ra quá gắt, nó sẽ phá vỡ động học của các chân đang đảm nhận nhiệm vụ chống đỡ thân (stance phase), làm chân bị trượt hoặc bước hụt. Vì vậy, việc siết chặt bão hòa ($u_{max} = 0{,}30$ rad) và tăng cường cường độ lọc LPF ($\alpha = 0{,}97$) mang ý nghĩa nhượng bộ chiến lược: hệ thống ưu tiên bảo toàn quỹ đạo sải bước nguyên vẹn, chỉ sử dụng một lực bù biên độ rất nhỏ và mềm mại để từ từ điều hướng trọng tâm, từ đó giải quyết bài toán xung đột cơ học giữa "nhiệm vụ bước đi" và "nhiệm vụ cân bằng".
 
 \begin{figure}[H]
     \centering

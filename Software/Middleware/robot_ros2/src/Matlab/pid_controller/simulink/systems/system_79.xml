@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<System>
+  <P Name="Location">[223, 338, 826, 833]</P>
+  <P Name="SIDHighWatermark">39</P>
+  <Block BlockType="Inport" Name="z1" SID="79::1">
+    <P Name="Position">[20, 101, 40, 119]</P>
+    <P Name="ZOrder">-1</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">z_out</P>
+      </Port>
+    </PortProperties>
+  </Block>
+  <Block BlockType="Inport" Name="z2" SID="79::28">
+    <P Name="Position">[20, 136, 40, 154]</P>
+    <P Name="ZOrder">19</P>
+    <P Name="Port">2</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">z_out</P>
+      </Port>
+    </PortProperties>
+  </Block>
+  <Block BlockType="Inport" Name="z3" SID="79::29">
+    <P Name="Position">[20, 171, 40, 189]</P>
+    <P Name="ZOrder">20</P>
+    <P Name="Port">3</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">z_out</P>
+      </Port>
+    </PortProperties>
+  </Block>
+  <Block BlockType="Inport" Name="z4" SID="79::30">
+    <P Name="Position">[20, 206, 40, 224]</P>
+    <P Name="ZOrder">21</P>
+    <P Name="Port">4</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">z_out</P>
+      </Port>
+    </PortProperties>
+  </Block>
+  <Block BlockType="Inport" Name="zref1" SID="79::36">
+    <P Name="Position">[20, 246, 40, 264]</P>
+    <P Name="ZOrder">27</P>
+    <P Name="Port">5</P>
+  </Block>
+  <Block BlockType="Inport" Name="zref2" SID="79::37">
+    <P Name="Position">[20, 281, 40, 299]</P>
+    <P Name="ZOrder">28</P>
+    <P Name="Port">6</P>
+  </Block>
+  <Block BlockType="Inport" Name="zref3" SID="79::38">
+    <P Name="Position">[20, 316, 40, 334]</P>
+    <P Name="ZOrder">29</P>
+    <P Name="Port">7</P>
+  </Block>
+  <Block BlockType="Inport" Name="zref4" SID="79::39">
+    <P Name="Position">[20, 351, 40, 369]</P>
+    <P Name="ZOrder">30</P>
+    <P Name="Port">8</P>
+  </Block>
+  <Block BlockType="Demux" Name=" Demux " SID="79::26">
+    <PortCounts in="1" out="1"/>
+    <P Name="Position">[270, 230, 320, 270]</P>
+    <P Name="ZOrder">17</P>
+    <P Name="Outputs">1</P>
+  </Block>
+  <Block BlockType="S-Function" Name=" SFunction " SID="79::25">
+    <P Name="Tag">Stateflow S-Function 17</P>
+    <PortCounts in="8" out="3"/>
+    <P Name="Position">[180, 120, 230, 300]</P>
+    <P Name="ZOrder">16</P>
+    <P Name="FunctionName">sf_sfun</P>
+    <P Name="PortCounts">[8 3]</P>
+    <P Name="SFunctionDeploymentMode">off</P>
+    <P Name="EnableBusSupport">on</P>
+    <P Name="SFcnIsStateOwnerBlock">off</P>
+    <PortProperties>
+      <Port Type="out" Index="2">
+        <P Name="Name">roll_meas</P>
+      </Port>
+      <Port Type="out" Index="3">
+        <P Name="Name">pitch_meas</P>
+      </Port>
+    </PortProperties>
+  </Block>
+  <Block BlockType="Terminator" Name=" Terminator " SID="79::27">
+    <P Name="Position">[460, 241, 480, 259]</P>
+    <P Name="ZOrder">18</P>
+  </Block>
+  <Block BlockType="Outport" Name="roll_meas" SID="79::5">
+    <P Name="Position">[460, 101, 480, 119]</P>
+    <P Name="ZOrder">-5</P>
+  </Block>
+  <Block BlockType="Outport" Name="pitch_meas" SID="79::35">
+    <P Name="Position">[460, 136, 480, 154]</P>
+    <P Name="ZOrder">26</P>
+    <P Name="Port">2</P>
+  </Block>
+  <Line>
+    <P Name="ZOrder">115</P>
+    <P Name="Src">79::1#out:1</P>
+    <P Name="Points">[65, 0; 0, 30]</P>
+    <P Name="Dst">79::25#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">116</P>
+    <P Name="Src">79::28#out:1</P>
+    <P Name="Points">[54, 0; 0, 15]</P>
+    <P Name="Dst">79::25#in:2</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">117</P>
+    <P Name="Src">79::29#out:1</P>
+    <P Name="Dst">79::25#in:3</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">118</P>
+    <P Name="Src">79::30#out:1</P>
+    <P Name="Points">[30, 0; 0, -15]</P>
+    <P Name="Dst">79::25#in:4</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">119</P>
+    <P Name="Src">79::36#out:1</P>
+    <P Name="Points">[46, 0; 0, -35]</P>
+    <P Name="Dst">79::25#in:5</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">120</P>
+    <P Name="Src">79::37#out:1</P>
+    <P Name="Points">[60, 0; 0, -50]</P>
+    <P Name="Dst">79::25#in:6</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">121</P>
+    <P Name="Src">79::38#out:1</P>
+    <P Name="Points">[74, 0; 0, -65]</P>
+    <P Name="Dst">79::25#in:7</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">122</P>
+    <P Name="Src">79::39#out:1</P>
+    <P Name="Points">[88, 0; 0, -80]</P>
+    <P Name="Dst">79::25#in:8</P>
+  </Line>
+  <Line>
+    <P Name="Name">roll_meas</P>
+    <P Name="ZOrder">123</P>
+    <P Name="Labels">[0, 0]</P>
+    <P Name="Src">79::25#out:2</P>
+    <P Name="Points">[10, 0; 0, -100]</P>
+    <P Name="Dst">79::5#in:1</P>
+  </Line>
+  <Line>
+    <P Name="Name">pitch_meas</P>
+    <P Name="ZOrder">124</P>
+    <P Name="Labels">[0, 0]</P>
+    <P Name="Src">79::25#out:3</P>
+    <P Name="Points">[20, 0; 0, -125]</P>
+    <P Name="Dst">79::35#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">125</P>
+    <P Name="Src">79::26#out:1</P>
+    <P Name="Dst">79::27#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">126</P>
+    <P Name="Src">79::25#out:1</P>
+    <P Name="Points">[3, 0; 0, 100]</P>
+    <P Name="Dst">79::26#in:1</P>
+  </Line>
+</System>

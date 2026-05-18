@@ -123,32 +123,36 @@
 \section{Giới thiệu}
 % --------------------------------------------------
 
-\begin{frame}{Đặt vấn đề}
-  \begin{itemize}
-      \item \textbf{Thực tiễn:} Robot có chân linh hoạt trong môi trường gồ ghề hơn so với bánh xe hoặc bánh xích.
-      \item \textbf{Thách thức:} Đòi hỏi khả năng giữ thăng bằng cao và hệ thống điều khiển phức tạp.
-      \item \textbf{Giải pháp:} Thiết kế chế tạo nguyên mẫu robot bốn chân 12 DOF cỡ nhỏ. Tối ưu bộ điều khiển cân bằng sử dụng IMU trên môi trường phân tán ROS 2.
-  \end{itemize}
-  
-  \vspace{0.4cm}
-  \begin{columns}[t]
-      \begin{column}{0.31\textwidth}
-          \centering
-          \includegraphics[width=\linewidth, height=0.35\textheight, keepaspectratio]{misc/robot_industry.png} \\
-          \vspace{0.1cm}
-          {\small \textit{Công nghiệp \& Giám sát}}
+\begin{frame}{Đặt vấn đề và Giới hạn đề tài}
+  \vspace{-0.3cm}
+  \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+          \textbf{\textcolor{hcmutblue}{1. Đặt vấn đề}}
+          {\small
+          \begin{itemize}
+              \item \textbf{Thực tiễn:} Robot có chân linh hoạt trên địa hình gồ ghề, nhưng đòi hỏi hệ thống giữ thăng bằng phức tạp.
+              \item \textbf{Mục tiêu:} Chế tạo nguyên mẫu 12 DOF và phát triển bộ điều khiển cân bằng sử dụng IMU trên môi trường ROS 2.
+          \end{itemize}
+          }
+          \vspace{0.2cm}
+          \textbf{\textcolor{hcmutblue}{2. Giới hạn đề tài}}
+          {\small
+          \begin{itemize}
+              \item \textbf{Mô hình toán học:} Tập trung hoàn toàn vào \textit{Động học (Kinematics)}, \textbf{không} xét đến các yếu tố \textit{Động lực học (Dynamics)}.
+              \item \textbf{Cơ chế hoạt động:} Động học quy hoạch quỹ đạo của từng chân được tính toán \textbf{độc lập}.
+              \item \textbf{Phạm vi chuyển động:} Chỉ giới hạn ở các \textbf{dáng đi thẳng cơ bản} (Trot, Pace, Walk), chưa hỗ trợ quỹ đạo cong hay di chuyển đa hướng.
+          \end{itemize}
+          }
       \end{column}
-      \begin{column}{0.31\textwidth}
+      \begin{column}{0.4\textwidth}
           \centering
-          \includegraphics[width=\linewidth, height=0.35\textheight, keepaspectratio]{misc/robot_daily.png} \\
+          \includegraphics[width=0.9\linewidth, height=2.6cm, keepaspectratio]{misc/robot_industry.png} \\
           \vspace{0.1cm}
-          {\small \textit{Sản phẩm Đời sống}}
-      \end{column}
-      \begin{column}{0.31\textwidth}
-          \centering
-          \includegraphics[width=\linewidth, height=0.35\textheight, keepaspectratio]{misc/robot_rescue.png} \\
+          {\footnotesize \textit{Ứng dụng công nghiệp \& giám sát}} \\
+          \vspace{0.2cm}
+          \includegraphics[width=0.9\linewidth, height=2.6cm, keepaspectratio]{misc/robot_rescue.png} \\
           \vspace{0.1cm}
-          {\small \textit{Cứu hộ \& Thám hiểm}}
+          {\footnotesize \textit{Cứu hộ \& Thám hiểm}}
       \end{column}
   \end{columns}
 \end{frame}
@@ -163,7 +167,7 @@
           \textbf{Hạng mục} & \textbf{Mục tiêu đề ra} & \textbf{Kết quả đạt được} \\ \midrule
           \textbf{Cơ khí \& Phần cứng} & Thiết kế 3D, thi công khung robot bốn chân 12 DOF. & \textcolor{green!60!black}{\textbf{Hoàn thành:}} Chế tạo thành công khung phần cứng tích hợp Jetson Nano và 12 servo ST3215. \\
           \textbf{Động học \& Quỹ đạo} & Xây dựng mô hình IK, quy hoạch quỹ đạo chân hình chữ D trơn tru. & \textcolor{green!60!black}{\textbf{Hoàn thành:}} Giải IK, quy hoạch dáng đi Quintic. Robot thực tế di chuyển thành công các dáng đi cơ bản. \\
-          \textbf{Mô phỏng \& Phần mềm} & Xây dựng kiến trúc điều khiển trên ROS 2, liên kết Gazebo. & \textcolor{green!60!black}{\textbf{Hoàn thành:}} Đánh giá động lực học, kiểm chứng giới hạn mô-men xoắn thành công trên Gazebo. \\
+          \textbf{Mô phỏng \& Phần mềm} & Xây dựng kiến trúc ROS 2 liên kết Gazebo, mô phỏng thuật toán trên MATLAB. & \textcolor{green!60!black}{\textbf{Hoàn thành:}} Đánh giá giới hạn mô-men trên Gazebo và phân tích đáp ứng PID trên MATLAB. \\
           \textbf{Điều khiển cân bằng} & Tích hợp bộ điều khiển cân bằng tư thế (PID + IMU). & \textcolor{orange}{\textbf{Một phần:}} Đã xác thực thuật toán trên mô phỏng (Gazebo), chưa triển khai xuống phần cứng thực tế. \\ \bottomrule
       \end{tabular}
   \end{table}
@@ -181,65 +185,177 @@
   \begin{figure}
       \centering
       \includegraphics[width=\linewidth, height=0.75\textheight, keepaspectratio]{architecture/locomotion_balance_controller.png}
-      \caption{Tổng quan kiến trúc điều khiển của hệ thống (Locomotion Planner \& Balance Controller)}
+      \caption{Tổng quan kiến trúc điều khiển hệ thống robot bốn chân tích hợp bộ chuyển mạch chế độ tĩnh/động.}
   \end{figure}
 \end{frame}
 % --------------------------------------------------
 \section{Lý thuyết động học và quy hoạch dáng đi}
 % --------------------------------------------------
 
-\begin{frame}{Mô hình động học nghịch (IK)}
+\begin{frame}{Mô hình Động học thuận (FK) \& Tham số MD-H}
   \begin{columns}
-      \begin{column}{0.5\textwidth}
-          \begin{itemize}
-              \item Sử dụng phương pháp hình học giải tích cho cấu trúc 3-DOF: Coxa, Femur, Tibia.
-              \item Cho phép nội suy tọa độ không gian làm việc Cartesian $(x,y,z)$ thành các góc khớp $(\theta_1, \theta_2, \theta_3)$ với tốc độ cao, phục vụ thời gian thực.
-          \end{itemize}
+      \begin{column}{0.65\textwidth}
+          \begin{table}[htbp]
+              \centering\tiny
+              \def\arraystretch{1.3}
+              \begin{tabular}{l c c c c c}
+                  \toprule
+                  \textbf{Khớp ($i$)} & $\boldsymbol{\alpha_{i-1}}$ & $\boldsymbol{a_{i-1}}$ & \multicolumn{2}{c}{$\boldsymbol{d_i}$} & $\boldsymbol{\theta_i}$ \\
+                  \cmidrule(lr){4-5}
+                  & & & \textbf{Chân Trái} & \textbf{Chân Phải} & \\
+                  \midrule
+                  1 (Coxa)  & $0^\circ$ & $0$   & $0$    & $0$   & $\theta_1^*$ \\
+                  2 (Femur) & $90^\circ$& $0$   & $-L_1$ & $L_1$ & $\theta_2^*$ \\
+                  3 (Tibia) & $0^\circ$ & $L_2$ & $0$    & $0$   & $\theta_3^*$ \\
+                  4 (Foot)  & $0^\circ$ & $L_3$ & $0$    & $0$   & $0$ \\
+                  \bottomrule
+              \end{tabular}
+              \caption{Bảng tham số MD-H cho cơ cấu 3-DOF}
+          \end{table}
+          
+          \begin{alertblock}{Phương trình Động học thuận}
+          \vspace{-0.2cm}
+          {\tiny
+          \begin{equation*}
+              {}^B \mathbf{T}_4 = {}^B \mathbf{T}_0 \cdot {}^0 \mathbf{T}_1 \cdot {}^1 \mathbf{T}_2 \cdot {}^2 \mathbf{T}_3 \cdot {}^3 \mathbf{T}_4 = 
+              \begin{bmatrix}
+              s_{23} & c_{23} & 0 & \textcolor{red}{\mathbf{\frac{L}{2} + L_2 s_2 + L_3 s_{23}}} \\
+              - s_1 c_{23} & s_1 s_{23} & c_1 & \textcolor{green}{\mathbf{\frac{W}{2} + L_1 c_1 - L_2 s_1 c_2 - L_3 s_1 c_{23}}} \\
+              c_1 c_{23} & - c_1 s_{23} & s_1 & \textcolor{blue}{\mathbf{L_1 s_1 + L_2 c_1 c_2 + L_3 c_1 c_{23}}} \\
+              0 & 0 & 0 & 1
+              \end{bmatrix}
+          \end{equation*}
+          Cột 4 in đậm là tọa độ mũi chân $(\textcolor{red}{x}, \textcolor{green}{y}, \textcolor{blue}{z})$ so với tâm robot. Đây là hệ phương trình nền tảng để giải bài toán Động học nghịch (tính ra góc quay động cơ từ vị trí mục tiêu).
+          }
+          \end{alertblock}
       \end{column}
-      \begin{column}{0.5\textwidth}
+      \begin{column}{0.35\textwidth}
+          \vspace{-0.2cm}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.7\textheight, keepaspectratio]{kinematics/model_reference_frame.png}
-              \caption{Mô hình mô phỏng (RViz) với hệ tọa độ tham chiếu tại các khớp}
+              \includegraphics[width=\linewidth, height=0.3\textheight, keepaspectratio]{kinematics/model_reference_frame.png}
+              \vspace{-0.2cm}
+              \caption{Các hệ tọa độ tham chiếu trên mô hình robot}
+          \end{figure}
+          \vspace{-0.4cm}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, height=0.3\textheight, keepaspectratio]{kinematics/dh_coordinate_system.png}
+              \vspace{-0.2cm}
+              \caption{Mô hình động học một chân theo phương pháp MD-H}
           \end{figure}
       \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Nghiệm hệ phương trình Động học nghịch (IK)}
-    Hệ phương trình lượng giác phi tuyến được phân rã thành các bước giải tuần tự, cho ra nghiệm dạng đóng (closed-form) phục vụ tính toán thời gian thực:
-    \vspace{0.3cm}
-    \begin{block}{Nghiệm góc khớp $(\theta_1, \theta_2, \theta_3)$}
-        \begin{align*}
-            \theta_1 &= \mathrm{atan2}(-x',\, y') + \mathrm{atan2}\left(-\sqrt{x'^2 + y'^2 - L_1^2},\; \pm L_1\right) \\
-            \theta_3 &= \mathrm{atan2}(\sin\theta_3,\, \cos\theta_3) \quad \text{với} \quad \cos\theta_3 = \frac{p_1^2 + p_2^2 - L_2^2 - L_3^2}{2 L_2 L_3} \\
-            \theta_2 &= \mathrm{atan2}(p_2,\, p_1) - \mathrm{atan2}(L_3 \sin\theta_3,\, L_2 + L_3 \cos\theta_3)
-        \end{align*}
-    \end{block}
-    \vspace{0.2cm}
-    \begin{itemize}
-        \item Trong đó $p_1 = x'\cos\theta_1 + y'\sin\theta_1$ và $p_2 = \pm z'$ là các biến trung gian.
-        \item Hệ số dấu ($\pm$) phụ thuộc vào sự đối xứng gương giữa chân Trái/Phải để đảm bảo cấu hình khớp đồng nhất.
-    \end{itemize}
+\begin{frame}{Động học nghịch (IK)}
+  \begin{columns}[t]
+      \begin{column}{0.45\textwidth}
+          \begin{block}{Biến đổi Tọa độ \& Xử lý đối xứng}
+              \vspace{-0.2cm}
+              {\scriptsize
+              \begin{equation*}
+                  x' = z_B, \quad y' = \sigma_W \frac{W}{2} - y_B, \quad z' = \sigma_L \frac{L}{2} + x_B
+              \end{equation*}
+              }
+          \end{block}
+          {\footnotesize
+          Tọa độ mục tiêu $(x_B, y_B, z_B)$ từ hệ thân robot được tịnh tiến và hoán đổi trục để chuyển sang không gian cục bộ của từng chân. Bảng hệ số được thiết lập nhằm bù đắp sự khác biệt về vị trí gốc tọa độ và chiều quay của các khớp hông.
+          }
+          \vspace{0.1cm}
+          \begin{table}[htbp]
+              \centering
+              \resizebox{\linewidth}{!}{
+              \def\arraystretch{1.3}
+              \begin{tabular}{|l|c|c|c|c|}
+                  \hline
+                  \textbf{Chân} & $\boldsymbol{\sigma_W}$ & $\boldsymbol{\sigma_L}$ & \textbf{Dấu $\boldsymbol{L_1}$ trong $\boldsymbol{\theta_1}$} & \textbf{Dấu $\boldsymbol{\sin\theta_3}$} \\
+                  \hline
+                  Left-Front  & $+1$ & $-1$ & $-L_1$ & $-1$ \\
+                  \hline
+                  Left-Behind & $+1$ & $+1$ & $-L_1$ & $-1$ \\
+                  \hline
+                  Right-Front & $-1$ & $-1$ & $+L_1$ & $+1$ \\
+                  \hline
+                  Right-Behind & $-1$ & $+1$ & $+L_1$ & $+1$ \\
+                  \hline
+              \end{tabular}
+              }
+              \caption{Bảng hệ số biến đổi tọa độ và dấu IK}
+          \end{table}
+      \end{column}
+      \begin{column}{0.55\textwidth}
+          \begin{block}{Nghiệm theo phương pháp đại số}
+              \vspace{-0.2cm}
+              {\scriptsize
+              \begin{align*}
+                  \theta_1 &= \mathrm{atan2}(-x',\, y') + \mathrm{atan2}\left(-\sqrt{x'^2 + y'^2 - L_1^2},\; \pm L_1\right) \\
+                  \theta_3 &= \mathrm{atan2}(\pm\sqrt{1 - \cos^2\theta_3},\, \cos\theta_3) \quad \text{với} \quad \cos\theta_3 = \frac{p_1^2 + p_2^2 - L_2^2 - L_3^2}{2 L_2 L_3} \\
+                  \theta_2 &= \mathrm{atan2}(p_2,\, p_1) - \mathrm{atan2}(L_3 \sin\theta_3,\, L_2 + L_3 \cos\theta_3)
+              \end{align*}
+              }
+              {\scriptsize
+              Các biến trung gian: $p_1 = x'\cos\theta_1 + y'\sin\theta_1$ và $p_2 = z'$ (trái) hoặc $p_2 = -z'$ (phải). \\
+              \textit{Lưu ý: Các dấu $\pm$ trong phương trình $\theta_1, \theta_3$ được lấy trực tiếp từ Bảng 2.}
+              }
+          \end{block}
+          \vspace{0.2cm}
+          {\footnotesize
+          Vị trí không gian của các chân được ràng buộc chặt chẽ thông qua hệ tọa độ thân $\{B\}$. Hệ phương trình đại số ánh xạ trực tiếp tọa độ mục tiêu từ hệ thân sang hệ tọa độ góc khớp, đảm bảo sự phối hợp đồng bộ và bảo toàn cấu hình động học tổng thể của robot.
+          }
+      \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{Lý thuyết Pha dáng đi và Phân bổ Gaits}
-  \begin{columns}
-      \begin{column}{0.55\textwidth}
+\begin{frame}{Quy hoạch quỹ đạo chân (D-Shape \& Quintic)}
+  \begin{columns}[T]
+      \begin{column}{0.45\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, height=0.3\textheight, keepaspectratio]{gait_planner/gait_generator.png}
+              \vspace{-0.2cm}
+              \caption{Quỹ đạo chân 3D dạng chữ D}
+          \end{figure}
+          \vspace{-0.1cm}
+          {\small
           \begin{itemize}
-              \item \textbf{Chu kỳ bước:} Gồm \textbf{Pha vung} (Swing - nhấc chân) và \textbf{Pha chống} (Stance - tạo lực đẩy).
-              \item \textbf{Hệ số chu kỳ (Duty factor $\beta$):} Thể hiện tỷ lệ thời gian chân chống đất.
+              \item Quỹ đạo chân thiết kế theo \textbf{dạng hình chữ D}.
+              \item Gồm 2 pha: \textbf{Pha chống} và \textbf{Pha vung}.
+              \item Sử dụng \textbf{Đa thức bậc 5 (Quintic)} cho pha vung.
+              \item Triệt tiêu gia tốc ($\ddot{s} = 0$), giảm sốc cơ học.
+          \end{itemize}
+          }
+      \end{column}
+      \begin{column}{0.55\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, height=0.75\textheight, keepaspectratio]{gait_planner/cubic_vs_quintic.pdf}
               \vspace{-0.2cm}
-              \begin{equation*}
-                  \beta = \frac{T_{stance}}{T_{stance} + T_{swing}}
-              \end{equation*}
-              \vspace{-0.2cm}
-              \item \textbf{Phân loại dáng đi:} Dựa vào độ lệch pha $\phi$ và $\beta$.
-              \begin{itemize}
-                  \item \textbf{Trot (Đi chéo):} 2 chân chéo nhấc đồng thời ($\beta \ge 0.5$). Cân bằng động tốt, tốc độ cao.
-                  \item \textbf{Walk (Đi bộ):} Tuần tự từng chân ($\beta \ge 0.75$). Luôn có 3 chân bám đất, cực kỳ ổn định tĩnh.
-                  \item \textbf{Pace (Đi kiệu):} 2 chân cùng bên nhấc đồng thời.
-              \end{itemize}
+              \caption{So sánh gia tốc giữa Cubic và Quintic}
+          \end{figure}
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Toán học Bộ tạo Dáng đi (Gait Generator)}
+  \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+          \textbf{Biến pha $\boldsymbol{\phi_i(t)}$} điều phối nhịp điệu tuần hoàn cho từng chân $i$ dựa trên chu kỳ $T$ và độ lệch pha $\phi_{\text{offset}}$:
+          \begin{equation*}
+              \phi_i(t) = \left( \frac{t}{T} + \phi_{\text{offset}, i} \right) \bmod 1
+          \end{equation*}
+          
+          \vspace{0.4cm}
+          \textbf{Hệ số chu kỳ $\boldsymbol{\beta}$ (Duty factor)} thể hiện tỷ lệ thời gian chân chống đất trong một chu kỳ:
+          \begin{equation*}
+              \beta = \frac{T_{\text{stance}}}{T_{\text{stance}} + T_{\text{swing}}}
+          \end{equation*}
+          
+          \vspace{0.4cm}
+          \textbf{Trạng thái động học của chân:}
+          \begin{itemize}
+              \item $\phi_i(t) < \beta \Rightarrow$ \textbf{Pha chống (Stance phase)}
+              \item $\phi_i(t) \ge \beta \Rightarrow$ \textbf{Pha vung (Swing phase)}
           \end{itemize}
       \end{column}
       \begin{column}{0.45\textwidth}
@@ -256,56 +372,19 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Quy hoạch quỹ đạo chân hình chữ D}
-  \begin{columns}
-      \begin{column}{0.4\textwidth}
-          \begin{itemize}
-              \item Quỹ đạo mỗi chân được thiết kế theo dạng hình chữ D (D-shape) trong không gian 3D.
-              \item Gồm hai pha: Pha chống (Stance) trên mặt đất và Pha vung (Swing) nhấc theo Parabol.
-              \item Đảm bảo chân nhấc lên và hạ xuống mượt mà, không va đập.
-          \end{itemize}
-      \end{column}
-      \begin{column}{0.6\textwidth}
-          \begin{figure}
-              \centering
-              \includegraphics[width=\linewidth, height=0.65\textheight, keepaspectratio]{gait_planner/gait_generator.png}
-              \caption{Quỹ đạo chân 3D dạng chữ D}
-          \end{figure}
-      \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{So sánh quy hoạch Đa thức (Cubic vs Quintic)}
-  \begin{columns}
-      \begin{column}{0.4\textwidth}
-          \begin{itemize}
-              \item Thay vì đa thức bậc 3 (Cubic), hệ thống sử dụng \textbf{Đa thức bậc 5 (Quintic)}.
-              \item Triệt tiêu vô hạn gia tốc tại các điểm nhấc/hạ chân ($\ddot{s} = 0$).
-              \item Giảm sốc cơ học, bảo vệ hệ thống truyền động.
-          \end{itemize}
-      \end{column}
-      \begin{column}{0.6\textwidth}
-          \begin{figure}
-              \centering
-              \includegraphics[height=0.7\textheight, keepaspectratio]{gait_planner/cubic_vs_quintic.pdf}
-              \caption{So sánh gia tốc giữa Cubic và Quintic}
-          \end{figure}
-      \end{column}
-  \end{columns}
-\end{frame}
-
 
 % --------------------------------------------------
 \section{Thiết kế và thực hiện phần cứng}
 % --------------------------------------------------
 
 \begin{frame}{Thiết kế cơ khí}
-  \begin{columns}
-      \begin{column}{0.45\textwidth}
+  \vspace{-0.3cm}
+  \begin{columns}[b]
+      \begin{column}{0.48\textwidth}
           \begin{table}[htbp]
               \centering
-              \resizebox{\textwidth}{!}{
-              \def\arraystretch{1.3}
+              \resizebox{0.95\textwidth}{!}{
+              \def\arraystretch{1.1}
               \begin{tabular}{l c | l c}
                   \toprule
                   \textbf{Thông số cơ khí} & \textbf{Giá trị} & \textbf{Khớp} & \textbf{Biên độ} \\
@@ -320,21 +399,55 @@
               \end{tabular}
               }
           \end{table}
+          \vspace{0.4cm}
           \begin{figure}
               \centering
-              \includegraphics[width=0.48\linewidth, height=0.3\textheight, keepaspectratio]{hardware/hip_joint_assembly.jpg}
+              \includegraphics[width=0.48\linewidth, height=2.4cm, keepaspectratio]{hardware/hip_joint_assembly.jpg}
               \hfill
-              \includegraphics[width=0.48\linewidth, height=0.3\textheight, keepaspectratio]{hardware/single_leg_assembly.jpg}
+              \includegraphics[width=0.48\linewidth, height=2.4cm, keepaspectratio]{hardware/single_leg_assembly.jpg}
               \caption{Cụm khớp hông (trái) và cấu trúc một chân (phải)}
           \end{figure}
       \end{column}
-      \begin{column}{0.55\textwidth}
+      \begin{column}{0.48\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=0.85\linewidth, height=0.35\textheight, keepaspectratio]{hardware/preview_design.png} \\
+              \includegraphics[height=2.6cm, keepaspectratio]{hardware/preview_design.png} \\
               \vspace{0.2cm}
-              \includegraphics[width=0.85\linewidth, height=0.35\textheight, keepaspectratio]{real_robot/quadrupedrobot.jpeg}
+              \includegraphics[height=2.6cm, keepaspectratio]{real_robot/quadrupedrobot.jpeg}
               \caption{Bản thiết kế 3D tổng thể (trên) và nguyên mẫu hoàn thiện (dưới)}
+          \end{figure}
+      \end{column}
+  \end{columns}
+\end{frame}
+\begin{frame}{Lựa chọn cơ cấu chấp hành}
+  \begin{columns}[T]
+      \begin{column}{0.65\textwidth}
+          \textbf{Tải trọng thiết kế:} Mô hình tính toán dựa trên lực tĩnh. Các gia tốc động lực học được bù trừ bằng hệ số an toàn $\eta=1.6$: $F_N = \frac{Mg}{2} \approx 12.26\,\text{N}$.
+          
+          \vspace{0.15cm}
+          \textbf{Đánh giá mô-men xoắn (Torque) cực đại:}
+          \begin{itemize}
+              \item \textbf{Khớp gối (Knee):} Thông qua cơ cấu thanh kéo $CB-CD-DE$:
+              \begin{equation*}
+                  T_{\text{knee}} = \eta F_N L_3 \sin(\alpha) \frac{L_{DE}}{L_{CB}} \approx \mathbf{17.0\,\text{kg}\cdot\text{cm}}
+              \end{equation*}
+              $\Rightarrow$ Thỏa mãn định mức an toàn của động cơ ST3215-HS ($20\,\text{kg}\cdot\text{cm}$).
+              
+              \vspace{0.15cm}
+              \item \textbf{Khớp vai (Hip Roll):} Tại góc dang chân cực đại $\theta_1 = 30^\circ$: \\
+              $T_{\text{roll}} \approx \mathbf{20.9\,\text{kg}\cdot\text{cm}} < 30\,\text{kg}\cdot\text{cm}$ (Định mức ST3215).
+              
+              \vspace{0.15cm}
+              \item \textbf{Khớp hông (Hip Pitch):} Tại góc vươn chân leo dốc $\alpha = 45^\circ$: \\
+              $T_{\text{pitch}} \approx \mathbf{23.2\,\text{kg}\cdot\text{cm}} < 30\,\text{kg}\cdot\text{cm}$ (Định mức ST3215).
+          \end{itemize}
+      \end{column}
+      \begin{column}{0.35\textwidth}
+          \begin{figure}
+              \centering
+              \vspace{0.3cm}
+              \includegraphics[width=\linewidth, keepaspectratio]{hardware/servo_torque_analysis.png}
+              \caption{Sơ đồ phân tích lực tại khớp gối}
           \end{figure}
       \end{column}
   \end{columns}
@@ -377,12 +490,12 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{Động lực và Giải pháp Điều khiển cân bằng}
+\begin{frame}{Sự tinh tế của Điều khiển PID trong Cân bằng}
   \begin{columns}
       \begin{column}{0.4\textwidth}
           \textbf{Tại sao cần cân bằng chủ động?} \\
           \vspace{0.2cm}
-          \small Môi trường thực tế (boong tàu dập dềnh, cầu tre rung lắc, sàn xe di chuyển) và sự dịch chuyển trọng tâm khi đi bộ khiến robot dễ lật ngã nếu chỉ giữ cứng khớp.
+          \small Môi trường thực tế luôn không hoàn hảo. Các ngoại lực bất ngờ và sự dịch chuyển trọng tâm (CoM) liên tục đe dọa sự cân bằng động, khiến robot dễ lật ngã nếu chỉ giữ cứng khớp.
           
           \vspace{0.4cm}
           \begin{figure}
@@ -398,18 +511,13 @@
       \end{column}
       
       \begin{column}{0.6\textwidth}
-          \begin{alertblock}{Giải pháp ổn định tư thế (PID + IMU)}
+          \begin{alertblock}{Vẻ đẹp của bộ điều khiển PID}
               \small
-              Hệ thống xử lý vòng kín (closed-loop) tốc độ cao, tiết kiệm tài nguyên:
+              Thay vì các thuật toán đắt đỏ (RL, MPC), PID là một giải pháp \textit{vượt thời gian}: cực kỳ thanh lịch, nhẹ về tính toán và thích ứng tuyệt vời với thế giới thực:
               \begin{itemize}
-                  \item \textbf{Cảm nhận:} Đọc góc nghiêng (Roll, Pitch) liên tục từ cảm biến IMU BNO055.
-                  \item \textbf{Tính toán bù trừ:} PID tính toán lượng phản xạ (Offset) để triệt tiêu dao động thân.
-              \end{itemize}
-              \vspace{0.2cm}
-              \textbf{Chiến lược áp dụng cho 2 trạng thái:}
-              \begin{itemize}
-                  \item \textbf{Chế độ Tĩnh (HOME):} Bù trực tiếp vào \textbf{Góc khớp} (Joint Space) giúp cơ cấu phản ứng chống nhiễu tức thời.
-                  \item \textbf{Chế độ Động (GAIT):} Bù vào \textbf{Tọa độ trục Z} Cartesian (Task Space) nhằm bảo toàn nguyên vẹn sải bước chân $X, Y$.
+                  \item \textbf{Khâu P (Bản năng):} Phản ứng tức thời với độ nghiêng, tạo ra mô-men bù để giữ trọng tâm (CoM) trong đa giác chân đế.
+                  \item \textbf{Khâu I (Trí nhớ):} Lặng lẽ triệt tiêu các sai số tĩnh, giúp robot thích nghi với thiên vị tải trọng hoặc mặt phẳng nghiêng kéo dài.
+                  \item \textbf{Khâu D (Dự đoán):} Đóng vai trò như bộ giảm xóc (damping). Khử các dao động gắt (jittering), mang lại chuyển động mượt mà và tự nhiên.
               \end{itemize}
           \end{alertblock}
       \end{column}
@@ -417,50 +525,127 @@
 \end{frame}
 
 \begin{frame}{Thiết kế thuật toán ổn định tư thế}
-  \begin{columns}
-      \begin{column}{0.4\textwidth}
+  \vspace{-0.4cm}
+  \begin{figure}
+      \centering
+      \includegraphics[width=\linewidth, height=0.62\textheight, keepaspectratio]{img_matlab/fig-PID.png}
+      \vspace{-0.3cm}
+      \caption{Cấu trúc bộ điều khiển PID và cơ chế chuyển đổi bù trừ}
+  \end{figure}
+  \vspace{-0.4cm}
+  {\scriptsize
+  \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+          \textbf{Chế độ Tĩnh (HOME):}
           \begin{itemize}
-              \item Tích hợp cảm biến BNO055 xử lý độ nghiêng Roll, Pitch.
-              \item Xử lý nhiễu bằng lọc EMA và tạo vùng chết (Deadband) trước khi đưa vào bộ điều khiển.
-              \item Làm mượt tín hiệu đầu ra (Low Pass Filter) bảo vệ cơ khí.
-          \end{itemize}
-      \end{column}
-      \begin{column}{0.6\textwidth}
-          \begin{figure}
-              \centering
-              \includegraphics[width=\linewidth, height=0.7\textheight, keepaspectratio]{architecture/pid_architecture.pdf}
-              \caption{Sơ đồ chuỗi xử lý tín hiệu PID 5 giai đoạn}
-          \end{figure}
-      \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{Hai chế độ bù trừ thăng bằng}
-  \begin{columns}
-      \begin{column}{0.5\textwidth}
-          \textbf{Chế độ Tĩnh (HOME)}
-          \begin{itemize}
-              \item Khi robot đứng yên.
-              \item Cộng trực tiếp tín hiệu (Roll, Pitch) vào phương trình IK ở không gian khớp.
+              \item Hoạt động khi robot đứng yên.
+              \item Cộng bù (Roll, Pitch) vào IK không gian khớp.
               \item Phản hồi cực nhanh để dập tắt dao động.
           \end{itemize}
       \end{column}
-      \begin{column}{0.5\textwidth}
-          \textbf{Chế độ Động (GAIT)}
+      \begin{column}{0.52\textwidth}
+          \textbf{Chế độ Động (GAIT):}
           \begin{itemize}
-              \item Khi đang đi (chạy Trot).
-              \item Tính bù thông qua ma trận xoay 3D (Cartesian) và chỉ tác dụng lên các chân chống (stance).
-              \item Lọc Baseline trung bình trượt bỏ qua nhiễu bước chân.
+              \item Hoạt động khi đang chạy Trot.
+              \item Tính bù ma trận xoay 3D (Cartesian) lên chân chống.
+              \item Lọc Baseline trung bình trượt bỏ qua nhiễu.
           \end{itemize}
       \end{column}
   \end{columns}
+  }
 \end{frame}
 
 % --------------------------------------------------
 \section{Kết quả và thảo luận}
 % --------------------------------------------------
 
+\begin{frame}{Kiểm chứng Thuật toán PID trên MATLAB/Simulink}
+  \begin{columns}
+      \begin{column}{0.45\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, keepaspectratio]{img_matlab/fig1-PID-controller.png}
+              \caption{Mô hình Simulink mô phỏng hệ thống điều khiển PID cân bằng}
+          \end{figure}
+          \vspace{-0.2cm}
+          {\small
+          \begin{itemize}
+              \item \textbf{Mô hình hóa robot động học:} Sử dụng Giải tích Động học thuận (Forward Kinematics) để ánh xạ từ góc khớp ra tọa độ không gian 3D của 4 chân.
+              \item \textbf{Vòng lặp kín (Closed-loop):} Khép kín điều khiển thông qua bộ Động học nghịch (IK), giúp đánh giá khả năng phản xạ bù tư thế.
+          \end{itemize}
+          }
+      \end{column}
+      \begin{column}{0.55\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, keepaspectratio]{img_matlab/fig4-mo-hinh-hoa-robot.png}
+              \caption{Cấu trúc mô hình hóa động học Robot}
+          \end{figure}
+      \end{column}
+  \end{columns}
+\end{frame}
 
+\begin{frame}{Tiền xử lý Tín hiệu và Khối điều khiển PID}
+  \begin{columns}[T]
+      \begin{column}{0.33\textwidth}
+          {\footnotesize
+          \begin{itemize}
+              \item \textbf{Chuỗi tiền xử lý:} Giải quyết hiện tượng nhiễu động học từ dáng đi của robot.
+              \item Tín hiệu IMU qua 3 bộ lọc:
+              \begin{enumerate}
+                  \item \textbf{Lọc EMA:} Khử nhiễu tần số cao.
+                  \item \textbf{Lọc Avg:} Trích xuất sai lệch đường cơ sở.
+                  \item \textbf{Vùng chết:} Bỏ các dao động nhỏ.
+              \end{enumerate}
+              \item \textbf{Điều khiển Rời rạc $\text{PID}(z)$:} Phản ứng trơn tru, không bị đánh lừa bởi nhiễu bước đi.
+          \end{itemize}
+          }
+      \end{column}
+      \begin{column}{0.67\textwidth}
+          \vspace{-1.2cm}
+          \begin{figure}
+              \makebox[\linewidth][l]{\includegraphics[height=0.86\textheight, keepaspectratio]{img_matlab/fig5-PID.png}}
+              \vspace{-0.3cm}
+              \caption{Chi tiết cấu trúc chuỗi tiền xử lý và khối điều khiển PID rời rạc}
+          \end{figure}
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Đáp ứng của Bộ điều khiển với Nhiễu đo lường}
+  \begin{columns}[T]
+      \begin{column}{0.5\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.85\linewidth, keepaspectratio]{img_matlab/figb.jpg}
+              \caption{Bộ điều khiển PID ($K_p=6, K_i=2, K_d=1$)}
+          \end{figure}
+          \vspace{-0.2cm}
+          {\small
+          \begin{itemize}
+              \item \textbf{Độ vọt lố (Overshoot):} $12\%$, mức khá thấp giúp robot không bị giật cơ học.
+              \item \textbf{Thời gian xác lập:} Nhanh ($\sim 7$ s), nhanh chóng dập tắt dao động và ổn định.
+              \item \textbf{Sai số xác lập:} Triệt tiêu hoàn toàn về $0$ nhờ sự hiện diện của khâu tích phân (I).
+          \end{itemize}
+          }
+      \end{column}
+      \begin{column}{0.5\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.85\linewidth, keepaspectratio]{img_matlab/fig-step Kp=1 Ki=0 Kd=0.png}
+              \caption{Bù trực tiếp vòng kín ($K_p=1, K_i=0, K_d=0$)}
+          \end{figure}
+          \vspace{-0.2cm}
+          {\small
+          \begin{itemize}
+              \item \textbf{Độ vọt lố (Overshoot):} Hoàn toàn không có, hệ thống không vượt qua mốc cân bằng $0$.
+              \item \textbf{Thời gian xác lập:} Kéo dài ($> 15$ s) với các dao động dư do thiếu khâu vi phân (D).
+              \item \textbf{Sai số xác lập:} Rất lớn (hệ thống bị kẹt và chỉ bù được $\sim 50\%$ lượng nhiễu đầu vào).
+          \end{itemize}
+          }
+      \end{column}
+  \end{columns}
+\end{frame}
 
 \begin{frame}{Hình học Quỹ đạo chân 3D (Mô phỏng Gazebo)}
   \begin{columns}
@@ -480,20 +665,35 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Đánh giá quy hoạch quỹ đạo chân: Vị trí (Cartesian)}
+\begin{frame}{Đánh giá quy hoạch quỹ đạo chân: Vị trí \& Góc khớp}
   \begin{columns}
-      \begin{column}{0.4\textwidth}
+      \begin{column}{0.5\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.9\linewidth, keepaspectratio]{results/offline_traj_pos.png}
+              \caption{Vị trí Cartesian}
+          \end{figure}
+          \vspace{-0.2cm}
+          {\small
           \begin{itemize}
               \item Trục $Z$ sinh hình chữ D đặc trưng cho pha nhấc và hạ chân.
               \item Trục $X, Y$ tuần hoàn ổn định và bám chuẩn biên độ sải bước được thiết lập.
           \end{itemize}
+          }
       \end{column}
-      \begin{column}{0.6\textwidth}
+      \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.7\textheight, keepaspectratio]{results/offline_traj_pos.png}
-              \caption{Đồ thị Vị trí (Cartesian)}
+              \includegraphics[width=0.9\linewidth, keepaspectratio]{results/offline_traj_angle.png}
+              \caption{Góc khớp $\theta$}
           \end{figure}
+          \vspace{-0.2cm}
+          {\small
+          \begin{itemize}
+              \item Bộ giải IK chuyển đổi mượt mà quỹ đạo mục tiêu sang các góc khớp $(\theta_1, \theta_2, \theta_3)$.
+              \item Đồ thị góc khớp biến thiên liên tục, không xuất hiện các thay đổi đột ngột (điểm kỳ dị).
+          \end{itemize}
+          }
       \end{column}
   \end{columns}
 \end{frame}
@@ -511,24 +711,6 @@
               \centering
               \includegraphics[width=\linewidth, height=0.7\textheight, keepaspectratio]{results/offline_traj_vel_acc.png}
               \caption{Đồ thị Vận tốc và Gia tốc}
-          \end{figure}
-      \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{Đánh giá quy hoạch quỹ đạo chân: Góc khớp}
-  \begin{columns}
-      \begin{column}{0.4\textwidth}
-          \begin{itemize}
-              \item Bộ giải IK chuyển đổi mượt mà quỹ đạo mục tiêu sang các góc khớp $(\theta_1, \theta_2, \theta_3)$.
-              \item Đồ thị góc khớp biến thiên liên tục, không xuất hiện các thay đổi đột ngột (điểm kỳ dị).
-          \end{itemize}
-      \end{column}
-      \begin{column}{0.6\textwidth}
-          \begin{figure}
-              \centering
-              \includegraphics[width=\linewidth, height=0.7\textheight, keepaspectratio]{results/offline_traj_angle.png}
-              \caption{Đồ thị biến thiên Góc khớp}
           \end{figure}
       \end{column}
   \end{columns}
@@ -670,27 +852,41 @@
 \section{Kết luận và hướng phát triển}
 % --------------------------------------------------
 
-\begin{frame}{Đóng góp và Kết quả đạt được}
-  \begin{enumerate}
-      \item Hoàn thiện hệ thống "Sim-to-Real": Từ mô hình SolidWorks $\rightarrow$ ROS 2 / Gazebo $\rightarrow$ Robot thực 12 DOF.
-      \item Triển khai quy hoạch quỹ đạo theo phương pháp nội suy đa thức bậc 5 mượt mà.
-      \item Phát triển bộ cân bằng định hướng PID 5 giai đoạn, chia 2 mô hình toán học tĩnh/động chuyên biệt nhằm chống trôi lật.
-  \end{enumerate}
-  \vspace{0.3cm}
-  \textbf{Hạn chế của phần cứng:}
-  \begin{itemize}
-      \item Hệ thống phụ thuộc vào nguồn tổ ong có dây, gây cản trở không gian di chuyển tự do.
-      \item Động cơ ST3215 chỉ đủ đáp ứng các dáng đi cơ bản, thiếu dư dả mô-men xoắn để thực hiện thao tác linh hoạt cao.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Đề xuất Hướng phát triển}
-  \begin{itemize}
-      \item \textbf{Vật liệu \& Năng lượng:} Sử dụng vật liệu Carbon và tích hợp Pin LiPo để robot hoạt động hoàn toàn độc lập (Tetherless).
-      \item \textbf{Điều khiển cấp cao:} Nâng cấp điều khiển lực bằng MPC (Model Predictive Control) kết hợp điều khiển trở kháng (Impedance Control).
-      \item \textbf{Học máy (AI):} Thay thế IK và cấu hình thủ công bằng Học Tăng Cường (Reinforcement Learning - RL) trên môi trường Isaac Gym.
-      \item \textbf{Điều hướng không gian:} Bổ sung Depth Camera hướng tới bài toán SLAM tự động tránh vật cản.
-  \end{itemize}
+\begin{frame}[t]{Kết luận và Hướng phát triển}
+  \vspace{-0.1cm}
+  \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+          \textbf{\textcolor{hcmutblue}{1. Kết quả đạt được}}
+          {\footnotesize
+          \begin{enumerate}
+              \item Hoàn thiện quy trình "Sim-to-Real": Từ mô hình SolidWorks $\rightarrow$ ROS 2 / Gazebo $\rightarrow$ Robot thực.
+              \item Triển khai quy hoạch quỹ đạo chân bằng đa thức bậc 5 mượt mà.
+              \item Phát triển bộ cân bằng định hướng PID 5 giai đoạn chuyên biệt chống trôi lật.
+          \end{enumerate}
+          }
+          
+          \vspace{0.1cm}
+          \textbf{\textcolor{hcmutblue}{2. Hạn chế phần cứng}}
+          {\footnotesize
+          \begin{itemize}
+              \item Phụ thuộc nguồn tổ ong có dây, cản trở di chuyển.
+              \item Động cơ ST3215 chỉ đủ đáp ứng dáng đi cơ bản, thiếu mô-men xoắn cho các thao tác phức tạp.
+          \end{itemize}
+          }
+      \end{column}
+      
+      \begin{column}{0.5\textwidth}
+          \textbf{\textcolor{hcmutblue}{3. Hướng phát triển tương lai}}
+          {\footnotesize
+          \begin{itemize}
+              \item \textbf{Năng lượng \& Vật liệu:} Tích hợp Pin LiPo để hoạt động hoàn toàn độc lập (Tetherless), sử dụng vật liệu Carbon.
+              \item \textbf{Điều khiển cấp cao:} Nâng cấp bộ cân bằng thành Điều khiển Dự báo Mô hình (MPC) kết hợp Điều khiển Trở kháng.
+              \item \textbf{Học máy (AI):} Thay thế IK bằng thuật toán Học Tăng Cường (RL) trên môi trường Isaac Gym.
+              \item \textbf{Điều hướng không gian:} Bổ sung Depth Camera/LiDAR để giải quyết bài toán SLAM tự động tránh vật cản.
+          \end{itemize}
+          }
+      \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}[plain]
@@ -1326,6 +1522,168 @@
   \end{table}
   \vspace{0.1cm}
   {\small \textit{* Waveshare ST3215 mang lại điểm cân bằng hoàn hảo. Lực xoắn cao, cảm biến từ tính độ phân giải cao và bộ điều khiển PI nội bộ giúp triệt tiêu sai số tĩnh, rất phù hợp cho cấu hình chân robot bốn chân.}}
+\end{frame}
+
+\begin{frame}{Phụ lục G1: Sơ đồ khối Vòng lặp kín (Matlab/Simulink)}
+  \vspace{-0.3cm}
+  \begin{columns}
+      \begin{column}{0.5\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.9\linewidth, keepaspectratio]{img_matlab/fig1-PID-controller.png}
+              \caption{Sơ đồ khối tổng thể vòng lặp kín}
+          \end{figure}
+          \vspace{-0.3cm}
+          {\small
+          \begin{itemize}
+              \item Mô hình gồm 3 khối chức năng chính: khối đối tượng vật lý (Quadruped Robot), khối điều khiển (PID Controller) tính toán tín hiệu bù, và khối thực thi (Execution).
+          \end{itemize}
+          }
+      \end{column}
+      \begin{column}{0.5\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.9\linewidth, keepaspectratio]{img_matlab/fig3-quadruped-robot.png}
+              \caption{Cấu trúc khối đối tượng Quadruped Robot}
+          \end{figure}
+          \vspace{-0.3cm}
+          {\small
+          \begin{itemize}
+              \item Đóng vai trò "môi trường vật lý ảo". Đầu vào là 12 lệnh góc khớp $\theta$. Đầu ra là cao độ bàn chân (\texttt{z\_out}) và phản hồi IMU (\texttt{roll\_meas}, \texttt{pitch\_meas}).
+          \end{itemize}
+          }
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Phụ lục G1: Mô hình hóa Động học \& Chi tiết PID}
+  \vspace{-0.2cm}
+  \begin{columns}
+      \begin{column}{0.5\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.9\linewidth, keepaspectratio]{img_matlab/fig4-mo-hinh-hoa-robot.png}
+              \caption{Cấu trúc mô hình hóa động học robot}
+          \end{figure}
+          \vspace{-0.3cm}
+          {\small
+          \begin{itemize}
+              \item Mô phỏng môi trường vật lý ảo thông qua Động học thuận (Forward Kinematics). Từ 12 góc khớp suy ra được vị trí/tư thế thân robot trong không gian.
+          \end{itemize}
+          }
+      \end{column}
+      \begin{column}{0.5\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.9\linewidth, keepaspectratio]{img_matlab/fig5-PID.png}
+              \caption{Chi tiết tiền xử lý tín hiệu và khối PID rời rạc}
+          \end{figure}
+          \vspace{-0.3cm}
+          {\small
+          \begin{itemize}
+              \item Thể hiện rõ các bộ lọc tín hiệu IMU (EMA, Average), khối giới hạn bão hòa (Deadzone) trước khi đưa sai số vào tính toán P-I-D.
+          \end{itemize}
+          }
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Phụ lục G1: Khối thực thi Động học nghịch (Matlab/Simulink)}
+  \begin{columns}
+      \begin{column}{0.4\textwidth}
+          \begin{itemize}
+              \item \textbf{Nhiệm vụ:} Giải quyết bài toán Động học nghịch (Inverse Kinematics).
+              \item \textbf{Đầu vào:} Tín hiệu bù góc Roll và Pitch từ bộ điều khiển PID.
+              \item \textbf{Đầu ra:} 12 quỹ đạo góc khớp \texttt{th1}, \texttt{th2}, \texttt{th3} của 4 chân.
+              \item \textbf{Nguyên lý:} Phân bổ độ dịch chuyển theo trục Z (\texttt{z\_foot\_ref}) xuống từng chân, buộc động cơ tự động gập/duỗi để duy trì mặt phẳng thăng bằng theo thời gian thực.
+          \end{itemize}
+      \end{column}
+      \begin{column}{0.6\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, keepaspectratio]{img_matlab/fig2-execution.png}
+              \caption{Cấu trúc khối thực thi giải tích động học nghịch cho 4 chân}
+          \end{figure}
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Phụ lục G1: Phân tích Tín hiệu nội bộ PID góc Roll \& Pitch}
+  \vspace{-0.2cm}
+  \begin{columns}
+      \begin{column}{0.5\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.95\linewidth, keepaspectratio]{img_matlab/fig8.png}
+              \caption{Đồ thị các tín hiệu nội bộ PID góc Roll}
+          \end{figure}
+      \end{column}
+      \begin{column}{0.5\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.95\linewidth, keepaspectratio]{img_matlab/fig9.png}
+              \caption{Đồ thị các tín hiệu nội bộ PID góc Pitch}
+          \end{figure}
+      \end{column}
+  \end{columns}
+  \vspace{0.1cm}
+  {\small
+  \begin{itemize}
+      \item \textbf{\texttt{roll\_meas} / \texttt{pitch\_meas}:} Tín hiệu chứa dao động tuần hoàn biên độ lớn do sự dịch chuyển trọng tâm luân phiên khi đi Trot.
+      \item \textbf{Lọc Avg (Thông thấp):} Đóng vai trò then chốt triệt tiêu dao động $\pm 0.4\,$rad, trích xuất thành công độ trôi dạt tư thế thực sự (đường baseline).
+      \item \textbf{Khâu Deadzone:} Cắt xén vi sai dư thừa, chỉ đưa sai số hữu ích vào lõi PID, tránh phản ứng quá mức với dao động bước đi tự nhiên.
+  \end{itemize}
+  }
+\end{frame}
+
+\begin{frame}{Phụ lục G1: Phân tích Quỹ đạo bù dọc trục Z khi đi Trot}
+  \begin{columns}
+      \begin{column}{0.4\textwidth}
+          \begin{itemize}
+              \item Phản xạ \textbf{khớp nối động học (Kinematic Coupling)}: Trong tư thế thân robot bị nghiêng lớn, động tác vung chân về phía trước (trục X) bị chuyển hóa thành chuyển động duỗi dài (hướng về $-160\,$mm) theo trục Z thân robot để chạm tới điểm đặt mong muốn.
+              \item Hiện tượng này minh họa rõ rệt giới hạn không gian làm việc (workspace boundary) và phản ứng động học phức tạp dưới tác động bù tư thế.
+          \end{itemize}
+      \end{column}
+      \begin{column}{0.6\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, keepaspectratio]{img_matlab/fig7.png}
+              \caption{Quỹ đạo bù dọc trục Z ($z_{\text{out}}$) của 4 chân}
+          \end{figure}
+      \end{column}
+  \end{columns}
+\end{frame}
+\begin{frame}{Phụ lục G1: So sánh Đáp ứng với Nhiễu hình sin}
+  \begin{columns}[T]
+      \begin{column}{0.5\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.9\linewidth, keepaspectratio]{img_matlab/figa.jpg}
+              \caption{Bộ điều khiển PID ($K_p=6, K_i=2, K_d=1$)}
+          \end{figure}
+          \vspace{-0.2cm}
+          {\small
+          \begin{itemize}
+              \item \textbf{Khả năng bám sát:} Rất tốt nhờ sự phối hợp của khâu I và D phản ứng nhịp nhàng với tần số nhiễu động tuần hoàn.
+              \item \textbf{Triệt tiêu dao động:} Biên độ dao động của thân robot được giảm thiểu đáng kể so với biên độ nhiễu đầu vào.
+          \end{itemize}
+          }
+      \end{column}
+      \begin{column}{0.5\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=0.9\linewidth, keepaspectratio]{img_matlab/fig-sin Kp=1 Ki=0 Kd=0.png}
+              \caption{Bù trực tiếp vòng kín ($K_p=1, K_i=0, K_d=0$)}
+          \end{figure}
+          \vspace{-0.2cm}
+          {\small
+          \begin{itemize}
+              \item \textbf{Khả năng bám sát:} Kém, đồ thị cho thấy sai lệch pha và sai số biên độ lớn giữa tín hiệu nhiễu và đáp ứng.
+              \item \textbf{Triệt tiêu dao động:} Dao động thân robot rất lớn, hệ thống không thể bám sát dải nhiễu biến thiên liên tục do thiếu khâu vi phân (D).
+          \end{itemize}
+          }
+      \end{column}
+  \end{columns}
 \end{frame}
 
 \end{document}

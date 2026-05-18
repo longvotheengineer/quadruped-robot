@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Stateflow>
+  <machine id="18">
+    <P Name="sfVersion">80000101</P>
+    <Children>
+      <target id="222" name="sfun">
+        <P Name="description">Default Simulink S-Function Target.</P>
+      </target>
+      <chart Ref="chart_19"/>
+      <chart Ref="chart_31"/>
+      <chart Ref="chart_41"/>
+      <chart Ref="chart_53"/>
+      <chart Ref="chart_66"/>
+      <chart Ref="chart_79"/>
+      <chart Ref="chart_89"/>
+      <chart Ref="chart_101"/>
+      <chart Ref="chart_114"/>
+      <chart Ref="chart_124"/>
+      <chart Ref="chart_136"/>
+      <chart Ref="chart_149"/>
+      <chart Ref="chart_159"/>
+      <chart Ref="chart_171"/>
+      <chart Ref="chart_183"/>
+      <chart Ref="chart_195"/>
+      <chart Ref="chart_207"/>
+    </Children>
+  </machine>
+  <instance id="30">
+    <P Name="machine">18</P>
+    <P Name="name">Execution/LF_Leg/Universal_IK</P>
+    <P Name="chart">19</P>
+  </instance>
+  <instance id="40">
+    <P Name="machine">18</P>
+    <P Name="name">Execution/LF_Leg/Universal_Gait_Planner</P>
+    <P Name="chart">31</P>
+  </instance>
+  <instance id="52">
+    <P Name="machine">18</P>
+    <P Name="name">Quadruped Robot/Robot/LF_FK</P>
+    <P Name="chart">41</P>
+  </instance>
+  <instance id="65">
+    <P Name="machine">18</P>
+    <P Name="name">Execution/LF_Leg/Stance_Correction</P>
+    <P Name="chart">53</P>
+  </instance>
+  <instance id="78">
+    <P Name="machine">18</P>
+    <P Name="name">Execution/LB_Leg/Stance_Correction</P>
+    <P Name="chart">66</P>
+  </instance>
+  <instance id="88">
+    <P Name="machine">18</P>
+    <P Name="name">Execution/LB_Leg/Universal_Gait_Planner</P>
+    <P Name="chart">79</P>
+  </instance>
+  <instance id="100">
+    <P Name="machine">18</P>
+    <P Name="name">Execution/LB_Leg/Universal_IK</P>
+    <P Name="chart">89</P>
+  </instance>
+  <instance id="113">
+    <P Name="machine">18</P>
+    <P Name="name">Execution/RF_Leg/Stance_Correction</P>
+    <P Name="chart">101</P>
+  </instance>
+  <instance id="123">
+    <P Name="machine">18</P>
+    <P Name="name">Execution/RF_Leg/Universal_Gait_Planner</P>
+    <P Name="chart">114</P>
+  </instance>
+  <instance id="135">
+    <P Name="machine">18</P>
+    <P Name="name">Execution/RF_Leg/Universal_IK</P>
+    <P Name="chart">124</P>
+  </instance>
+  <instance id="148">
+    <P Name="machine">18</P>
+    <P Name="name">Execution/RB_Leg/Stance_Correction</P>
+    <P Name="chart">136</P>
+  </instance>
+  <instance id="158">
+    <P Name="machine">18</P>
+    <P Name="name">Execution/RB_Leg/Universal_Gait_Planner</P>
+    <P Name="chart">149</P>
+  </instance>
+  <instance id="170">
+    <P Name="machine">18</P>
+    <P Name="name">Execution/RB_Leg/Universal_IK</P>
+    <P Name="chart">159</P>
+  </instance>
+  <instance id="182">
+    <P Name="machine">18</P>
+    <P Name="name">Quadruped Robot/Robot/LB_FK</P>
+    <P Name="chart">171</P>
+  </instance>
+  <instance id="194">
+    <P Name="machine">18</P>
+    <P Name="name">Quadruped Robot/Robot/RF_FK</P>
+    <P Name="chart">183</P>
+  </instance>
+  <instance id="206">
+    <P Name="machine">18</P>
+    <P Name="name">Quadruped Robot/Robot/RB_FK</P>
+    <P Name="chart">195</P>
+  </instance>
+  <instance id="221">
+    <P Name="machine">18</P>
+    <P Name="name">Quadruped Robot/IMU_Simulator</P>
+    <P Name="chart">207</P>
+  </instance>
+</Stateflow>

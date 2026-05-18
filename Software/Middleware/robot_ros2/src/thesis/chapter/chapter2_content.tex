@@ -190,7 +190,7 @@ trong đó $\mathbf{p}_{CoM}$ là hình chiếu CoM lên mặt đất, $\overlin
 
 Khi robot di chuyển ở tốc độ trung bình đến cao, phân tích ổn định tĩnh không còn đủ vì các hiệu ứng quán tính trở nên đáng kể. Ổn định động sử dụng khái niệm \textbf{Zero Moment Point} (ZMP) --- điểm trên mặt đất mà tổng mô-men do trọng lực và lực quán tính bằng không \cite{vukobratovic2004}.
 
-Xét mô hình đơn giản hóa của robot bốn chân như Hình \ref{fig:zmp_stability}, trong đó toàn bộ khối lượng robot được tập trung tại trọng tâm CoM có tọa độ $(x, y, z)$ ở độ cao $z_0$ so với mặt đất. Các điểm tiếp xúc giữa chân và mặt đất (các chấm xanh) tạo thành đa giác đỡ (đường nét đứt xanh lá). Điểm ZMP $(p_{x_k}, p_{y_k})$ nằm trên mặt phẳng đất, là điểm mà tại đó tổng mô-men của tất cả các lực tác dụng (bao gồm trọng lực và lực quán tính) bằng không.
+Xét mô hình đơn giản hóa của robot bốn chân, trong đó toàn bộ khối lượng robot được tập trung tại trọng tâm CoM có tọa độ $(x, y, z)$ ở độ cao $z_0$ so với mặt đất. Điểm ZMP $(p_{x_k}, p_{y_k})$ nằm trên mặt phẳng đất, là điểm mà tại đó tổng mô-men của tất cả các lực tác dụng (bao gồm trọng lực và lực quán tính) bằng không.
 
 Tọa độ ZMP được xác định bởi:
 
@@ -209,70 +209,63 @@ trong đó $(x, y, z)$ là tọa độ CoM, $(\ddot{x}, \ddot{y}, \ddot{z})$ là
 
 trong đó $m_i$, $\mathbf{r}_i = (x_i, y_i)^T$, $z_i$ lần lượt là khối lượng, vị trí ngang và độ cao của khâu thứ $i$. Robot ổn định động khi ZMP nằm bên trong đa giác đỡ.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{kinematics/zmp_3d_model.png}
-    \caption{Mô hình 3D minh họa quan hệ giữa trọng tâm CoM $(x,y,z)$ và điểm ZMP $(p_{x_k}, p_{y_k})$ trên mặt phẳng đỡ của robot bốn chân}
-    \label{fig:zmp_stability}
-\end{figure}
+
 
 
 Trong nghiên cứu này, robot hoạt động ở tốc độ thấp nên phân tích ổn định tĩnh là đủ cho mục đích thiết kế. Bộ điều khiển PID cân bằng IMU đóng vai trò bổ sung, giảm thiểu sai lệch hướng của thân robot khi di chuyển, đưa CoM về gần đường nối hai bàn chân đang chạm đất.
 
 \section{Lý thuyết bộ điều khiển PID}
 
+Bộ điều khiển PID (Proportional--Integral--Derivative) là một trong những thuật toán điều khiển phản hồi được sử dụng rộng rãi và hiệu quả nhất trong kỹ thuật tự động hóa \cite{astrom2006}. Cấu trúc sơ đồ khối lý thuyết của bộ điều khiển PID được thể hiện trong Hình~\ref{fig:pid_theory_diagram}. Bộ điều khiển liên tục tính toán giá trị sai lệch $e(t) = r(t) - y(t)$ giữa giá trị đặt (setpoint) $r(t)$ và giá trị đo được (process variable) $y(t)$, sau đó áp dụng tín hiệu hiệu chỉnh dựa trên ba thành phần tỷ lệ, tích phân và vi phân.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{architecture/Proportional-Integral-Derivative.png}
+    \caption{Cấu trúc sơ đồ khối của bộ điều khiển PID}
+    \label{fig:pid_theory_diagram}
+\end{figure}
+
 \subsection{Luật điều khiển PID chuẩn}
 
-Bộ điều khiển PID (Proportional--Integral--Derivative) là một trong những thuật toán điều khiển phản hồi được sử dụng rộng rãi nhất trong kỹ thuật tự động hóa \cite{astrom2006}. Bộ điều khiển liên tục tính toán sai lệch $e(t) = r(t) - y(t)$ giữa giá trị đặt $r(t)$ và giá trị đo được $y(t)$, sau đó áp dụng tín hiệu hiệu chỉnh dựa trên ba thành phần:
+Tín hiệu điều khiển tổng hợp $u(t)$ trong miền thời gian liên tục được biểu diễn bằng phương trình:
 
 \begin{equation}
     u(t) = K_P \cdot e(t) + K_I \int_{0}^{t} e(\tau)\,d\tau + K_D \frac{de(t)}{dt}
     \label{eq:pid_continuous}
 \end{equation}
 
-trong đó $K_P$ là hệ số khuếch đại tỷ lệ, $K_I$ là hệ số tích phân, và $K_D$ là hệ số vi phân. Mỗi thành phần đóng một vai trò riêng biệt trong việc định hình đáp ứng hệ thống:
+trong đó $K_P$, $K_I$, và $K_D$ lần lượt là hệ số khuếch đại tỷ lệ, hệ số tích phân và hệ số vi phân. Mỗi thành phần đóng một vai trò riêng biệt trong việc định hình đáp ứng của hệ thống:
 
 \begin{itemize}
-    \item \textbf{Thành phần tỷ lệ (P):} Tạo ra tín hiệu hiệu chỉnh tỷ lệ thuận với sai lệch hiện tại. Hệ số $K_P$ càng lớn, hệ thống phản ứng càng nhanh nhưng đồng thời có xu hướng dao động và vọt lố (overshoot) nhiều hơn. Thành phần P đơn thuần không thể triệt tiêu hoàn toàn sai lệch ở trạng thái xác lập.
+    \item \textbf{Thành phần tỷ lệ (Proportional - P):} Tạo ra tín hiệu hiệu chỉnh tỷ lệ thuận với sai lệch hiện tại. Hệ số $K_P$ càng lớn, hệ thống phản ứng càng nhanh nhưng đồng thời có xu hướng dao động và độ vọt lố (overshoot) cao. Thành phần P đơn thuần không thể triệt tiêu hoàn toàn sai lệch ở trạng thái xác lập.
 
-    \item \textbf{Thành phần tích phân (I):} Tích lũy sai lệch theo thời gian để triệt tiêu sai số ở trạng thái xác lập (steady-state error). Tuy nhiên, thành phần này có thể gây ra hiện tượng \textit{integral windup} --- khi sai lệch tồn tại trong thời gian dài, giá trị tích phân tích lũy quá lớn khiến hệ thống vọt lố nghiêm trọng và phục hồi chậm.
+    \item \textbf{Thành phần tích phân (Integral - I):} Tích lũy sai lệch theo thời gian để triệt tiêu hoàn toàn sai số ở trạng thái xác lập (steady-state error). Tuy nhiên, khi sai lệch tồn tại trong thời gian dài do hệ thống bị bão hòa cơ cấu chấp hành, giá trị tích phân tích lũy quá lớn sẽ gây ra hiện tượng bão hòa tích phân (\textit{integral windup}), khiến hệ thống bị vọt lố nghiêm trọng và phục hồi chậm.
 
-    \item \textbf{Thành phần vi phân (D):} Dự đoán xu hướng thay đổi của sai lệch dựa trên đạo hàm. Thành phần này hoạt động như một ``phanh'' hệ thống, giảm vọt lố và cải thiện thời gian ổn định. Nhược điểm chính là nhạy cảm với nhiễu tần số cao trong tín hiệu đo.
+    \item \textbf{Thành phần vi phân (Derivative - D):} Dự đoán xu hướng thay đổi của sai lệch dựa trên đạo hàm. Thành phần này hoạt động như một ``phanh'' hãm, giúp giảm vọt lố và cải thiện thời gian xác lập. Nhược điểm chính của khâu D là rất nhạy cảm với nhiễu tần số cao trong tín hiệu đo đạc từ cảm biến.
 \end{itemize}
 
 \subsection{Dạng rời rạc và triển khai số}
 
-Trong hệ thống nhúng với chu kỳ lấy mẫu $\Delta t$, bộ PID được triển khai dưới dạng rời rạc:
+Trong các hệ thống vi điều khiển nhúng với chu kỳ lấy mẫu $\Delta t$, bộ điều khiển PID không thể tính toán các phép vi phân và tích phân liên tục. Do đó, phương trình \ref{eq:pid_continuous} được chuyển đổi thành dạng rời rạc (discrete-time):
 
 \begin{equation}
     u_k = K_P \cdot e_k + K_I \sum_{j=0}^{k} e_j \cdot \Delta t + K_D \frac{e_k - e_{k-1}}{\Delta t}
     \label{eq:pid_discrete}
 \end{equation}
 
-trong đó chỉ số $k$ biểu thị bước thời gian hiện tại. Phương trình trên là dạng triển khai cơ bản nhất. Trong thực tế, nhiều cải tiến quan trọng được áp dụng để nâng cao chất lượng điều khiển.
+trong đó chỉ số $k$ biểu thị bước thời gian hiện tại. Phương trình trên là dạng triển khai cơ bản nhất. Tuy nhiên, để đảm bảo hệ thống thực tế hoạt động ổn định và tin cậy, các kỹ thuật cải tiến thường được áp dụng thêm.
 
 \subsection{Các cải tiến PID trong hệ thống thực}
 
-\textbf{Chống tích lũy (Anti-windup).}
-Khi đầu ra điều khiển bị bão hòa (vượt giới hạn cơ cấu chấp hành), thành phần tích phân vẫn tiếp tục tích lũy, gây ra hiện tượng windup. Hai phương pháp phổ biến để giải quyết:
-
+\textbf{Chống bão hòa tích phân (Anti-windup).}
+Khi đầu ra điều khiển bị bão hòa (vượt quá giới hạn vật lý của cơ cấu chấp hành), thành phần tích phân vẫn tiếp tục tích lũy sai số, gây ra hiện tượng windup. Để giải quyết vấn đề này, hai phương pháp phổ biến được sử dụng:
 \begin{itemize}
-    \item \textit{Clamping:} Dừng tích lũy khi đầu ra bão hòa, tức $\mathcal{I}_{k} = \max(-\mathcal{I}_{max}, \min(\mathcal{I}_{max}, \mathcal{I}_{k}))$.
-    \item \textit{Back-calculation:} Trừ ngược phần vượt giới hạn vào bộ tích phân: $\mathcal{I}_{k} \leftarrow \mathcal{I}_{k} - K_{bc}(u_{raw} - u_{sat})$, trong đó $K_{bc}$ là hệ số back-calculation.
+    \item \textit{Clamping:} Khống chế trực tiếp giá trị tích phân không cho vượt qua một ngưỡng cố định, tức là $\mathcal{I}_{k} = \max(-\mathcal{I}_{max}, \min(\mathcal{I}_{max}, \mathcal{I}_{k}))$.
+    \item \textit{Back-calculation:} Trừ ngược phần vượt giới hạn vào bộ tích phân khi đầu ra bão hòa: $\mathcal{I}_{k} \leftarrow \mathcal{I}_{k} - K_{bc}(u_{raw} - u_{sat})$, trong đó $K_{bc}$ là hệ số tính toán ngược.
 \end{itemize}
 
-\textbf{Lịch trình hệ số khuếch đại (Gain Scheduling).}
-Thay vì sử dụng các hệ số PID cố định, phương pháp gain scheduling điều chỉnh động các hệ số theo điều kiện vận hành hiện tại. Ví dụ, khi sai lệch nhỏ (gần điểm đặt), hệ số $K_P$ có thể được giảm xuống để tránh hiệu chỉnh quá mạnh gây dao động:
-
-\begin{equation}
-    g_s = \text{clamp}\left(\frac{|e|}{e_{thresh}},\; g_{min},\; 1{,}0\right)
-\end{equation}
-
-trong đó $g_s$ là hệ số tỷ lệ nằm trong khoảng $[g_{min}, 1]$, và $e_{thresh}$ là ngưỡng sai lệch tham chiếu.
-
 \textbf{Vùng chết (Deadband/Deadzone).}
-Vùng chết triệt tiêu các sai lệch nhỏ không đáng kể, tránh tạo ra hoạt động cơ cấu chấp hành không cần thiết do nhiễu cảm biến:
-
+Trong thực tế, cảm biến luôn tồn tại nhiễu nhỏ ngay cả khi hệ thống đã ở vị trí cân bằng. Vùng chết triệt tiêu các sai lệch không đáng kể này để tránh động cơ phải hoạt động liên tục (chatter) gây mài mòn cơ khí:
 \begin{equation}
     e_{dz} = \begin{cases}
         e - d & \text{nếu } e > d \\
@@ -280,17 +273,14 @@ Vùng chết triệt tiêu các sai lệch nhỏ không đáng kể, tránh tạ
         e + d & \text{nếu } e < -d
     \end{cases}
 \end{equation}
-
-trong đó $d$ là bán kính vùng chết. Kỹ thuật này đặc biệt quan trọng trong các hệ thống servo nơi dao động nhỏ có thể gây mài mòn cơ khí.
+trong đó $d$ là bán kính của vùng chết.
 
 \textbf{Rò rỉ tích phân (Integral Leakage/Decay).}
-Để ngăn bộ tích phân giữ lại sai số cũ quá lâu, hệ số rò rỉ $\lambda \in (0, 1)$ được áp dụng:
-
+Để ngăn bộ tích phân giữ lại các sai số cũ quá lâu (làm hệ thống chậm chạp khi thay đổi điểm đặt), hệ số rò rỉ $\lambda \in (0, 1)$ được áp dụng vào khâu tích phân:
 \begin{equation}
-    \mathcal{I}_k = \lambda \cdot \mathcal{I}_{k-1} + e_k \cdot \Delta t, \quad \lambda \approx 0{,}999
+    \mathcal{I}_k = \lambda \cdot \mathcal{I}_{k-1} + e_k \cdot \Delta t, \quad \text{với } \lambda \approx 0{,}999
 \end{equation}
-
-Phương pháp này đặc biệt hữu ích trong các hệ thống có đặc tính thay đổi theo thời gian, nơi giá trị tích phân cũ không còn phản ánh đúng trạng thái hệ thống.
+Kỹ thuật này rất hữu ích cho các hệ thống có đặc tính thường xuyên thay đổi theo thời gian, giúp khâu tích phân luôn ``làm mới'' và phản ứng chính xác hơn với trạng thái hiện tại.
 
 \section{Cảm biến quán tính IMU và biểu diễn hướng}
 

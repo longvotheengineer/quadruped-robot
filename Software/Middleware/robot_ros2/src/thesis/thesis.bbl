@@ -88,13 +88,13 @@ S.~O.~H. Madgwick, A.~J. Harrison, and R.~Vaidyanathan, ``Estimation of imu and
   marg orientation using a gradient descent algorithm,'' in {\em 2011 IEEE
   International Conference on Rehabilitation Robotics}, pp.~1--7, IEEE, 2011.
 
+\bibitem{jetson_nano}
+{NVIDIA Corporation}, {\em NVIDIA Jetson Nano Developer Kit User Guide}, 2019.
+
 \bibitem{bno055}
 {Bosch Sensortec}, {\em BNO055 Intelligent 9-axis absolute orientation sensor
   Datasheet}, 2014.
 \newblock Rev. 1.4.
-
-\bibitem{jetson_nano}
-{NVIDIA Corporation}, {\em NVIDIA Jetson Nano Developer Kit User Guide}, 2019.
 
 \bibitem{waveshare_st3215}
 {Waveshare Electronics}, {\em ST3215 Serial Bus Servo User Manual}, 2023.

@@ -16,10 +16,9 @@ Nhóm xây dựng một mô hình toán học và cơ khí của robot bốn ch�
     \label{fig20}
 \end{figure}
 
-Theo quy ước chuẩn của hệ điều hành ROS (Robot Operating System), các trục tọa độ trong Hình \ref{fig20} được biểu diễn bằng màu sắc: Trục $X$ (Đỏ) chỉ hướng tiến về phía trước, Trục $Y$ (Xanh lá) chỉ hướng sang trái, và Trục $Z$ (Xanh dương) chỉ hướng lên trên.
+Theo quy ước chuẩn của hệ điều hành ROS (Robot Operating System), các trục tọa độ trong Hình \ref{fig20} được biểu diễn bằng màu sắc: Trục $X$ (Đỏ) chỉ hướng tiến về phía trước, Trục $Y$ (Xanh lá) chỉ hướng sang trái, và Trục $Z$ (Xanh dương) chỉ hướng lên trên. Các hệ tọa độ cấu thành nên mô hình động học MD-H của chân được gắn cụ thể trên hình, bao gồm: Hệ tọa độ thân $\{B\}$, cụm khớp hông (Roll và Pitch) đại diện bởi $\{0\}, \{1\}, \{2\}$, khớp gối $\{3\}$ và mũi bàn chân $\{4\}$.
 
-
-Dựa theo hướng tiến về phía trước, chân trước bên trái (LF), chân trước bên phải (RF), chân sau bên trái (LB) và chân sau bên phải (RB) lần lượt được đánh số là 1, 2, 3 và 4. Hệ tọa độ thân $\{O_B\}$ được thiết lập tại tâm hình học của thân, và hệ tọa độ gốc của chân $\{O_{i,0}\}$ được thiết lập tại khớp nối giữa khớp hông và thân, trong đó $i = 1,2,3,4$.
+Dựa theo hướng tiến về phía trước, chân trước bên trái (LF), chân trước bên phải (RF), chân sau bên trái (LB) và chân sau bên phải (RB) lần lượt được đánh số là 1, 2, 3 và 4. Hệ tọa độ thân $\{B\}$ (hoặc $\{O_B\}$) được thiết lập tại tâm hình học của thân, và hệ tọa độ gốc của chân $\{0\}$ (hoặc $\{O_{i,0}\}$) được thiết lập tại khớp nối giữa khớp hông và thân, trong đó $i = 1,2,3,4$.
 
 Trong phương pháp biến đổi tọa độ Modified Denavit-Hartenberg (MD-H) \cite{craig2005}, chuỗi động học được mô tả một cách toán học thông qua các phép biến đổi tọa độ chính xác. Mỗi khâu liên kết được xác định bởi bốn tham số như trong Hình~\ref{fig21}, theo định nghĩa chuẩn của MD-H:
 
@@ -220,45 +219,58 @@ L_2\sin\theta_2 + L_3\sin(\theta_2+\theta_3)
 \end{bmatrix}
 \label{eq:2}
 \end{equation}
-Các ma trận trên biểu diễn phương trình động học thuận của chân trước bên phải và trái.
+
+\begin{equation}
+P_{LB}=
+\begin{bmatrix}
+P_x \\
+P_y \\
+P_z
+\end{bmatrix}
+=
+\begin{bmatrix}
+L_1\sin\theta_1 + L_2\cos\theta_1\cos\theta_2 + L_3\cos\theta_1\cos(\theta_2+\theta_3) \\
+- L_1\cos\theta_1 + L_2\sin\theta_1\cos\theta_2 + L_3\sin\theta_1\cos(\theta_2+\theta_3) \\
+L_2\sin\theta_2 + L_3\sin(\theta_2+\theta_3)
+\end{bmatrix}
+\label{eq:3}
+\end{equation}
+
+\begin{equation}
+P_{RB}=
+\begin{bmatrix}
+P_x \\
+P_y \\
+P_z
+\end{bmatrix}
+=
+\begin{bmatrix}
+- L_1\sin\theta_1 + L_2\cos\theta_1\cos\theta_2 + L_3\cos\theta_1\cos(\theta_2+\theta_3) \\
+L_1\cos\theta_1 + L_2\sin\theta_1\cos\theta_2 + L_3\sin\theta_1\cos(\theta_2+\theta_3) \\
+L_2\sin\theta_2 + L_3\sin(\theta_2+\theta_3)
+\end{bmatrix}
+\label{eq:4}
+\end{equation}
+
+Các ma trận trên biểu diễn vị trí mũi bàn chân của cả 4 chân trong hệ tọa độ cục bộ của từng khớp hông. Do tính chất đối xứng, phương trình động học của chân sau bên trái giống với chân trước bên trái, và chân sau bên phải giống với chân trước bên phải.
 
 \section{Động học nghịch }
 
 Bài toán động học nghịch (Inverse Kinematics -- IK) là bài toán xác định các giá trị góc khớp $(\theta_1, \theta_2, \theta_3)$ khi biết tọa độ đầu bàn chân $(x, y, z)$ trong hệ tọa độ thân robot. Đây là bài toán ngược của động học thuận, và thường có nhiều nghiệm (do tính phi tuyến của các phương trình lượng giác) hoặc không có nghiệm (khi điểm đích nằm ngoài không gian làm việc).
 
-\subsection{Phương pháp giải tích}
+Trong nghiên cứu này, phương pháp giải tích (analytical method) được sử dụng để giải bài toán IK. Phương pháp này tận dụng cấu trúc chuỗi hở của chân robot để giải trực tiếp hệ phương trình lượng giác, từ đó thu được kết quả nhanh chóng và chính xác dạng đóng. Các bước tính toán chi tiết sẽ được trình bày cụ thể dưới đây.
 
-Trong nghiên cứu này, phương pháp giải tích (analytical method) được sử dụng để giải bài toán IK. Phương pháp này phân rã hệ phương trình lượng giác phi tuyến của cơ cấu chân 3-DOF serial thành các bước giải tuần tự, tận dụng cấu trúc chuỗi hở (serial chain) để thu được nghiệm dạng đóng:
-
-\begin{enumerate}
-    \item \textbf{Bước 1 -- Giải $\theta_1$ (khớp hip/coxa):} Từ phép chiếu tọa độ đầu chân lên mặt phẳng vuông góc với trục hip, sử dụng hàm $\text{atan2}$ để xác định góc dang chân $\theta_1$. Do cấu trúc đối xứng gương giữa chân trái và chân phải, dấu của $L_1$ trong công thức $\text{atan2}$ được đảo ngược.
-
-    \item \textbf{Bước 2 -- Tính các biến trung gian $p_1, p_2$:} Sau khi biết $\theta_1$, tọa độ đầu chân được chuyển đổi về mặt phẳng chứa khớp femur và tibia, tạo thành bài toán 2D trong mặt phẳng sagittal.
-
-    \item \textbf{Bước 3 -- Giải $\theta_3$ (khớp gối):} Sử dụng định lý hàm số cosine cho tam giác tạo bởi hai khâu ($L_2$, $L_3$) và khoảng cách từ khớp hip đến đầu chân:
-    \begin{equation}
-        \cos\theta_3 = \frac{p_1^2 + p_2^2 - L_2^2 - L_3^2}{2 L_2 L_3}
-    \end{equation}
-    Dấu của $\sin\theta_3$ quyết định cấu hình gối (gập vào trong hay ra ngoài), được chọn phù hợp với thiết kế full-knee.
-
-    \item \textbf{Bước 4 -- Giải $\theta_2$ (khớp đùi):} Khi đã biết $\theta_3$, góc $\theta_2$ được xác định bằng hiệu của hai hàm $\text{atan2}$, tương ứng với góc hướng tổng thể và góc lệch do khâu cẳng chân.
-\end{enumerate}
-
-\subsection{Xử lý đối xứng giữa các chân}
-
-Một đặc điểm quan trọng trong triển khai IK cho robot bốn chân là sự đối xứng gương giữa chân trái và chân phải. Các hệ phương trình IK cho bốn chân không hoàn toàn giống nhau do:
+Khi thiết kế phương trình động học nghịch cho robot bốn chân, một điểm đặc biệt cần lưu ý là các chân trái và chân phải được lắp ráp đối xứng nhau như hình ảnh qua gương. Do tính chất này, ta không thể áp dụng chung một công thức toán học y hệt nhau cho cả 4 chân. Cụ thể, có ba yếu tố vật lý tạo ra sự khác biệt:
 
 \begin{itemize}
-    \item Offset vị trí gốc chân so với tâm thân robot khác nhau ($\pm L/2, \pm W/2$).
-    \item Chiều quay của khớp hip roll ngược nhau giữa chân trái ($-L_1$) và chân phải ($+L_1$).
-    \item Dấu của $\sin\theta_3$ ngược nhau giữa chân trái ($-$) và chân phải ($+$) để duy trì cấu hình gối đối xứng.
+    \item \textbf{Vị trí gắn chân trên thân:} Mỗi chân được gắn ở một góc khác nhau. Khoảng cách từ tâm robot đến các gốc chân có sự thay đổi về dấu, tương ứng với một nửa chiều dài ($\pm L/2$) và một nửa chiều rộng ($\pm W/2$).
+    \item \textbf{Khớp hông (Coxa):} Do lắp đặt đối xứng, với cùng một góc quay, chân trái và chân phải sẽ vung về hai hướng ngược nhau. Để công thức toán học tính đúng hướng, tham số chiều dài khâu hông $L_1$ sẽ mang dấu âm ($-L_1$) đối với các chân bên trái và mang dấu dương ($+L_1$) đối với các chân bên phải.
+    \item \textbf{Cấu hình gập gối (Tibia):} Để duy trì hình dáng gập gối đồng nhất cho cả hai bên (để gối không bị bẻ ngược), toán hạng $\sin\theta_3$ bắt buộc phải nhận hai dấu trái ngược nhau giữa chân trái ($-$) và chân phải ($+$).
 \end{itemize}
 
-Trong phân hệ giải động học nghịch, bốn trường hợp được xử lý bằng cấu trúc điều kiện rẽ nhánh, mỗi trường hợp áp dụng phép biến đổi tọa độ và hệ số dấu riêng biệt.
+Thay vì phải xây dựng 4 hệ phương trình động học hoàn toàn độc lập, giải pháp tối ưu là thiết kế một bộ công thức tổng quát duy nhất. Sau đó, tùy thuộc vào việc đang tính toán cho chân nào, thuật toán chỉ việc tra bảng để đưa các hệ số dấu tương ứng vào công thức nhằm tìm ra góc khớp chính xác.
 
-\subsection{Biến đổi tọa độ từ hệ thân sang hệ chân}
-
-Trong triển khai thực tế, hàm IK nhận tọa độ đầu bàn chân $(x_B, y_B, z_B)$ trong hệ tọa độ thân robot $\{O_B\}$. Trước khi giải, tọa độ này được biến đổi sang hệ tọa độ cục bộ của chân $(x', y', z')$ bằng cách trừ offset vị trí gốc chân và hoán đổi trục cho phù hợp với quy ước MD-H. Cụ thể, với mỗi chân:
+Cụ thể trong triển khai thực tế, hàm IK nhận tọa độ đầu bàn chân $(x_B, y_B, z_B)$ trong hệ tọa độ thân robot $\{O_B\}$. Dựa vào tính chất đối xứng trên, tọa độ này sẽ được biến đổi sang hệ tọa độ cục bộ của chân $(x', y', z')$ bằng cách cộng trừ các offset vị trí gốc chân tương ứng và hoán đổi trục cho phù hợp với quy ước MD-H. Phương trình biến đổi cho mỗi chân được viết như sau:
 
 \begin{equation}
 x' = z_B, \qquad
@@ -284,9 +296,7 @@ Right-Behind & $-1$ & $+1$ & $+L_1$ & $+1$ \\ \hline
 \end{tabular}
 \end{table}
 
-\subsection{Giải hệ phương trình IK}
-
-Sau khi biến đổi tọa độ, bài toán IK được giải thống nhất cho cả bốn chân thông qua bốn bước sau. Các hệ số dấu tham chiếu Bảng~\ref{tab:ik_signs}.
+\textbf{Quá trình giải hệ phương trình:} Sau khi biến đổi tọa độ, bài toán IK được giải thống nhất cho cả bốn chân thông qua bốn bước sau. Các hệ số dấu tham chiếu Bảng~\ref{tab:ik_signs}.
 
 \textbf{Bước 1 -- Giải $\theta_1$:} Từ phép chiếu tọa độ $(x', y')$ lên mặt phẳng vuông góc với trục hip:
 \begin{equation}
@@ -611,273 +621,104 @@ Cơ chế tắt an toàn là yêu cầu thiết yếu trong hệ thống robot b
 
 Tốc độ thực hiện của các pha này cần được thiết kế đủ chậm để tránh tạo ra lực quán tính gây hư hại cơ khí, nhưng đồng thời phải đủ nhanh để đảm bảo robot dừng kịp thời trước các sự cố bất ngờ.
 
-\subsection{Mô hình động lực học}
 
-Khi robot bốn chân hoạt động, các lực và mô-men từ các khâu lân cận và/hoặc từ mặt đất sẽ tác dụng lên từng khâu $i$, như được minh họa trong Hình \ref{fig27}. Sử dụng phương pháp Newton--Euler, đối với một khâu tổng quát $i$ của robot bốn chân, các phương trình động lực học cho chuyển động của tâm khối lượng và cho chuyển động quay của vật rắn có thể được viết như sau :
-
-\begin{equation}
-\begin{cases}
-\sum_i F_i = m_i a_i \\
-f_{ij} = -f_{ji} \\
-\sum_i T_i = I_i \ddot{\theta_i}
-\end{cases}
-\end{equation}
-
-Phương trình trên có thể được viết lại trong không gian khớp như sau:
-
-\begin{equation}
-M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) = F_S - J^T(q)F_C
-\end{equation}
-
-Trong đó:
-
-\begin{itemize}
-\item $M(q)$ là ma trận quán tính tổng quát .
-\item $C(q,\dot{q})\dot{q}$ là vector lực Coriolis và lực ly tâm.
-\item $G(q)$ là vector trọng lực.
-\item $F_S$ là vector lực của các servo tại các khớp.
-\item $J^T(q)$ là ma trận Jacobian chuyển vị của các chân dưới.
-\end{itemize}
-
-Ở đây, $F_C$ là vector lực phản lực tiếp xúc với mặt đất. Khi tính toán động lực học, các lực này có thể được tính bằng mô hình lực ma sát Coulomb.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{kinematics/force_analysis_link.png }
-    \caption{Phân tích lực tác dụng lên một khâu tổng quát $i$ (lưu ý: lực tiếp xúc với mặt đất chỉ tồn tại khi khâu $i$ là một trong các khâu chân dưới).}
-    \label{fig27}
-\end{figure}
-
-\textbf{Đơn giản hóa cho bài toán lựa chọn động cơ.} Trong bài toán thiết kế và lựa chọn động cơ cho robot bốn chân, mục tiêu chính là xác định mô-men lớn nhất có thể xuất hiện tại các khớp của chân robot. Đối với các hệ robot chân, mô-men cực đại thường xảy ra khi chân robot phải đỡ trọng lượng của thân robot trong các pha đứng hoặc chuyển tiếp giữa các bước đi.
-
-Do đó, trong giai đoạn thiết kế sơ bộ và lựa chọn động cơ (Chương~3), nhóm giải quyết bài toán mô hình tĩnh học nhằm xác định mô-men do trọng lực và lực phản lực từ mặt đất tác dụng lên các khâu của chân robot. Khi robot được giả thiết ở trạng thái tĩnh hoặc chuyển động rất chậm, vận tốc và gia tốc khớp có thể được xem xấp xỉ bằng không:
-
-\[
-\dot{q} = 0, \qquad \ddot{q} = 0
-\]
-
-Khi đó các thành phần quán tính và Coriolis trong phương trình động lực học tổng quát có thể được bỏ qua. Phương trình được rút gọn thành dạng cân bằng tĩnh:
-
-\[
-F_S = G(q) + J^T(q)F_C
-\]
-
-Trong đó $F_S$ là mô-men do các động cơ tại khớp tạo ra, $G(q)$ là mô-men do trọng lực và $J^T(q)F_C$ là mô-men do lực phản lực từ mặt đất gây ra. Phương trình cân bằng tĩnh này là cơ sở cho các tính toán mô-men tại khớp gối, khớp vai và khớp hông đã được trình bày chi tiết trong Mục~3.2.
-
-\textbf{Điều khiển mô-men ở cấp thấp.} Tại từng khớp động cơ, hệ thống sử dụng bộ điều khiển phản hồi vị trí (ví dụ: bộ điều khiển PD) để chuyển đổi sai lệch vị trí góc thành mô-men điều khiển:
-
-\begin{equation}
-\tau_i = K_p (\theta_{target,i} - \theta_{actual,i}) - K_d \cdot \omega_{actual,i}
-\end{equation}
-
-trong đó $\theta_{target,i}$ là góc khớp mong muốn thu được từ bài toán động học nghịch (IK), $\theta_{actual,i}$ và $\omega_{actual,i}$ là vị trí và vận tốc góc thực tế của khớp. Giá trị mô-men đầu ra thường bị giới hạn theo khả năng cung cấp lực tối đa của động cơ servo nhằm đảm bảo tính an toàn trong cả môi trường mô phỏng lẫn hệ thống thực tế.
 
 \section{Thiết kế bộ điều khiển}
 
-\subsection{Kiến trúc điều khiển tổng thể}
-Hệ thống điều khiển tổng thể của robot hoạt động với tần số vòng lặp 333~Hz ($\Delta T = 3$~ms), được thiết kế theo cấu trúc phân cấp chặt chẽ. Kiến trúc này tiếp nhận các lệnh cấp cao (trạng thái hoạt động, chế độ di chuyển, tham số bước đi) thông qua một máy trạng thái (Command Manager) và điều phối luồng dữ liệu xuống hai thành phần xử lý cốt lõi: Bộ quy hoạch chuyển động (Locomotion Planner) và Bộ điều khiển cân bằng (Balance Controller), như được minh họa trong Hình \ref{fig28}.
+Để robot có thể duy trì thăng bằng và phản hồi chính xác với các nhiễu loạn ngoại lai (ví dụ: bề mặt địa hình gồ ghề), một hệ thống điều khiển vòng kín tự động dựa trên thuật toán PID được thiết kế. Cấu trúc tổng thể của hệ thống tự cân bằng này được trình bày chi tiết trong Hình~\ref{fig:applied_pid_simulink}.
 
-Đặc điểm nổi bật của kiến trúc này là sự xuất hiện của công tắc chuyển mạch điều chỉnh cân bằng (Balance Output Switch), cho phép rẽ nhánh luồng dữ liệu bù trừ tư thế dựa trên chế độ hoạt động của robot:
+Hệ thống hoạt động dựa trên cơ chế phản hồi trạng thái động học như sau:
 \begin{itemize}
-    \item \textbf{Chế độ tĩnh (HOME) -- Bù trong không gian khớp (Joint Space):} 
-    Khi robot đứng yên tại chỗ, khối Locomotion Planner đóng vai trò duy trì tọa độ đứng danh định. Trong khi đó, dữ liệu Roll và Pitch từ cảm biến IMU liên tục được đưa qua bộ điều khiển PID để tính toán lượng bù góc khớp (Joint Space Offset). Lượng bù này ($\Delta\theta_3$) được cộng trực tiếp vào góc khớp gối ở khâu cuối cùng (sau khối Động học nghịch IK), ngay trước khi gửi lệnh xuống động cơ. Cấu trúc này đảm bảo phản ứng cực kỳ nhanh nhạy để giữ thăng bằng chống lại nhiễu loạn ngoại lực hoặc bề mặt nền nghiêng.
-    
-    \item \textbf{Chế độ động (GAIT) -- Bù trong không gian làm việc (Task Space):} 
-    Khi robot thực hiện dáng đi (ví dụ: Trot), máy trạng thái kích hoạt bộ lập lịch pha (Gait Phase Scheduler) để tạo quỹ đạo bàn chân 3D dạng chữ D. Đồng thời, bộ điều khiển cân bằng chuyển sang cấu hình PID. Lượng hiệu chỉnh ($\Delta\mathbf{p}$) lúc này được định tuyến để can thiệp vào không gian làm việc (Task Space). Tọa độ bàn chân được cộng bù trực tiếp trong bộ Gait Attitude Compensator, sau đó mới đi qua khối Động học nghịch (IK). Phương pháp này giúp duy trì sải bước chuẩn xác và không làm biến dạng biên độ bước đi của robot.
+    \item \textbf{Khâu đo lường và tạo sai số:} Cảm biến IMU (BNO055) liên tục đo lường góc nghiêng thực tế của thân robot (True Roll/Pitch). Các giá trị này được so sánh với góc tham chiếu lý thuyết (thường đặt $\phi_{ref}=0, \theta_{ref}=0$) thông qua các bộ cộng để tạo ra tín hiệu sai số $e_\phi$ và $e_\theta$.
+    \item \textbf{Bộ điều khiển PID:} Sai số được đưa vào bộ điều khiển PID (tích hợp khâu chống vọt lố Anti-windup và lọc thông thấp LPF). Đầu ra của khối này là các tín hiệu bù cân bằng (Compensation Signals).
+    \item \textbf{Chuyển mạch chế độ (Mode Switch):} Tùy thuộc vào trạng thái hiện tại của robot, hệ thống sẽ rẽ nhánh luồng tín hiệu bù:
+    \begin{itemize}
+        \item \textit{Chế độ di chuyển (GAIT Mode):} Tín hiệu bù được gửi tới khối Quy hoạch quỹ đạo và Động học nghịch (Trajectory Planning \& Inverse Kinematics) để tính toán bù trừ trực tiếp vào tọa độ không gian làm việc của bàn chân.
+        \item \textit{Chế độ đứng yên (HOME Mode):} Tín hiệu bù được gửi tới khối Bù góc khớp trực tiếp (Direct Joint Angle Compensator) để tinh chỉnh không gian khớp.
+    \end{itemize}
+    \item \textbf{Thực thi:} Các góc khớp mục tiêu ($\theta_i$) được truyền xuống cơ cấu chấp hành (Bus Servo ST3215) để tác động lực lên đối tượng vật lý (Quadruped Robot Plant). Từ đó tạo ra các chuyển động triệt tiêu nhiễu loạn và giúp thân robot lấy lại tư thế ngang bằng.
 \end{itemize}
 
-Sau khi đi qua các luồng xử lý tương ứng, góc khớp mục tiêu cuối cùng (Unified Final Joint Angles) được hợp nhất và truyền tải qua giao tiếp UART song song (Bus A \& B) đến các bộ truyền động servo ST3215 tại bốn cụm chân, đảm bảo khả năng thực thi đồng bộ thời gian thực.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{img_matlab/fig-PID.png}
+    \caption{Sơ đồ khối bộ điều khiển tự cân bằng của robot bốn chân.}
+    \label{fig:applied_pid_simulink}
+\end{figure}
+
+
+
+\subsection{Kiến trúc điều khiển chi tiết}
+
+Hệ thống điều khiển tổng thể của robot hoạt động với tần số vòng lặp 333~Hz ($\Delta T = 3$~ms), được thiết kế theo cấu trúc phân cấp chặt chẽ (Hình~\ref{fig:overall_architecture_locomotion}). Hệ thống tiếp nhận các lệnh cấp cao từ người dùng (User Commands) thông qua một máy trạng thái trung tâm (Command Manager) và điều phối luồng dữ liệu xuống các thành phần xử lý cốt lõi, bao gồm Bộ quy hoạch chuyển động (Locomotion Planner) và Bộ điều khiển cân bằng (Balance Controller).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{architecture/locomotion_balance_controller.png}
-    \caption{Tổng quan kiến trúc điều khiển của hệ thống (Locomotion Planner \& Balance Controller)}
-    \label{fig28}
+    \caption{Tổng quan kiến trúc điều khiển hệ thống robot bốn chân tích hợp bộ chuyển mạch chế độ tĩnh/động.}
+    \label{fig:overall_architecture_locomotion}
 \end{figure}
 
+Đặc điểm nổi bật của kiến trúc này là khả năng phân chia luồng xử lý độc lập cho trạng thái di chuyển (Gait Mode) và trạng thái đứng yên (Home Mode), kết hợp với cơ chế phản hồi thăng bằng linh hoạt:
+\begin{itemize}
+    \item \textbf{Bộ quy hoạch chuyển động (Locomotion Planner):} Là module chịu trách nhiệm tạo hình quỹ đạo chân khi robot di chuyển. Module này bao gồm Bộ lập lịch pha (Gait Phase Scheduler) để đồng bộ thời gian các chân, kết hợp với Bộ tạo quỹ đạo (Trajectory Generator) để sinh ra tọa độ bước chân dạng đa thức Quintic và D-shape. 
+    \item \textbf{Khối bù tư thế không gian làm việc (Gait Attitude Compensator):} Nằm trong cụm Planner, khối này nhận tọa độ nguyên bản và cộng bù trực tiếp với tín hiệu chỉnh sửa $\Delta p$ từ bộ thăng bằng, sinh ra tọa độ chân hiệu chỉnh $p_{adj}$ trước khi đưa vào khâu giải động học nghịch (IK).
+    \item \textbf{Bộ điều khiển cân bằng (Balance Controller):} Hoạt động độc lập, sử dụng dữ liệu góc Roll/Pitch từ IMU làm phản hồi cho bộ PID để liên tục tính toán lượng bù chống lại ngoại lực gây lật thân.
+\end{itemize}
+
+Sự linh hoạt của hệ thống nằm ở công tắc chuyển mạch điều chỉnh cân bằng (\textbf{Balance Output Switch}) và bộ chọn góc khớp cuối cùng (\textbf{Mode-based Final Angle Selector}). Tùy thuộc vào chế độ hoạt động hiện tại, tín hiệu bù cân bằng sẽ được định tuyến theo hai phương thức hoàn toàn khác biệt:
+
+\begin{itemize}
+    \item \textbf{Chế độ tĩnh (HOME) -- Bù trong không gian khớp (Joint Space):} 
+    Khi robot đứng im, quỹ đạo làm việc bị khóa. Tín hiệu bù từ PID được chuyển mạch thành độ dịch góc khớp ($\Delta\theta_3$). Độ dịch này được bộ Final Angle Selector cộng trực tiếp vào góc khớp gối danh định $\theta_{k\_home}$ để gửi ngay xuống phần cứng (UART Serial Driver). Việc bỏ qua hoàn toàn cụm tính toán IK giúp phản ứng cân bằng đạt độ trễ tối thiểu, khử nhiễu ngoại lực tức thời.
+    
+    \item \textbf{Chế độ động (GAIT) -- Bù trong không gian làm việc (Task Space):} 
+    Khi robot đang bước đi, việc bảo toàn quỹ đạo chân 3D là yếu tố bắt buộc. Tín hiệu bù từ PID lúc này được chuyển đổi thành độ dời tọa độ ($\Delta p$) và đưa ngược vào bộ Gait Attitude Compensator. Bằng cách bù vào đầu vào của khối IK thay vì cộng trực tiếp vào góc khớp, robot có thể vừa giữ thăng bằng thân vừa bảo toàn chính xác hình dáng biên độ bước đi, tránh tình trạng trượt chân (slippage) tại các điểm đặt.
+\end{itemize}
+
 \subsection{Cơ chế áp dụng tín hiệu điều chỉnh tư thế}
-Việc điều chỉnh tư thế được thực hiện theo thời gian thực thông qua quá trình đo đạc góc nghiêng từ cảm biến IMU so với hệ tọa độ chuẩn. Đầu ra của các bộ điều khiển PID là các tín hiệu bù hiệu chỉnh $u_{roll}$ và $u_{pitch}$. Sự khác biệt cốt lõi giữa hai chế độ hoạt động nằm ở \textit{không gian} mà tín hiệu hiệu chỉnh được ánh xạ vào hệ thống cơ khí:
+Việc điều chỉnh tư thế được thực hiện theo thời gian thực thông qua quá trình đo đạc góc nghiêng từ cảm biến IMU. Đầu ra của các bộ điều khiển PID là các tín hiệu bù hiệu chỉnh $u_{roll}$ và $u_{pitch}$. Sự khác biệt cốt lõi giữa hai chế độ hoạt động nằm ở \textit{không gian} mà tín hiệu hiệu chỉnh được ánh xạ.
 
-\textbf{1. Áp dụng hiệu chỉnh trong không gian khớp (Joint Space) ở chế độ HOME:} \\
-Khi robot ở trạng thái tĩnh, mục tiêu tối thượng là khả năng phản hồi tức thời. Tín hiệu $u_{roll}, u_{pitch}$ từ bộ PID được xử lý qua chuỗi ba bước: triệt vùng chết, khuếch đại, và bão hòa trước khi cộng trực tiếp làm offset cho góc khớp gối ($\theta_3$). Cần lưu ý rằng, do bản chất của cấu trúc động học chuỗi hở (serial kinematics), việc chỉ thay đổi góc khớp gối $\theta_3$ sẽ khiến bàn chân vung theo một cung tròn. Điều này có nghĩa là vị trí bàn chân bị thay đổi \textbf{cả theo trục $Z$ (chiều cao) và trục $X$ (tiến/lùi)}. Việc dịch chuyển nhẹ theo trục $X$ tạo ra các lực phản lực ngang giúp robot giữ thăng bằng vững hơn khi bị tác động mạnh từ bên ngoài.
-
-Đầu tiên, vùng chết (deadzone) $d_{home}$ được áp dụng nhằm loại bỏ các dao động nhỏ:
-\begin{equation}
-u'_{roll} = \mathrm{dz}(u_{roll},\, d_{home}), \quad u'_{pitch} = \mathrm{dz}(u_{pitch},\, d_{home})
-\end{equation}
-
-Sau đó, tín hiệu sau vùng chết được khuếch đại bởi hệ số $K_{home}$ và phân bổ thành offset cho từng chân, với giới hạn bão hòa $|\Delta\theta_3| \leq \theta_{sat}$:
+\subsubsection{Áp dụng hiệu chỉnh trong không gian khớp ở chế độ tĩnh}
+Khi robot ở trạng thái tĩnh (chế độ HOME), tín hiệu $u_{roll}, u_{pitch}$ từ bộ điều khiển PID được phân bổ thành giá trị độ lệch (offset) cho từng chân, với giới hạn bão hòa $|\Delta\theta_3| \leq \theta_{sat}$:
 \begin{equation}
 \begin{cases} 
-\Delta\theta_{3,LF} = \mathrm{sat}\big(- (K_{home} u'_{roll} - K_{home} u'_{pitch}),\; \theta_{sat}\big) \\
-\Delta\theta_{3,LB} = \mathrm{sat}\big(- (K_{home} u'_{roll} + K_{home} u'_{pitch}),\; \theta_{sat}\big) \\
-\Delta\theta_{3,RF} = \mathrm{sat}\big(- (K_{home} u'_{roll} + K_{home} u'_{pitch}),\; \theta_{sat}\big) \\
-\Delta\theta_{3,RB} = \mathrm{sat}\big(- (K_{home} u'_{roll} - K_{home} u'_{pitch}),\; \theta_{sat}\big) 
-\end{cases} \tag{5}
+\Delta\theta_{3,LF} = \mathrm{sat}\big(- (K_{home} u_{roll} - K_{home} u_{pitch}),\; \theta_{sat}\big) \\
+\Delta\theta_{3,LB} = \mathrm{sat}\big(- (K_{home} u_{roll} + K_{home} u_{pitch}),\; \theta_{sat}\big) \\
+\Delta\theta_{3,RF} = \mathrm{sat}\big(- (K_{home} u_{roll} + K_{home} u_{pitch}),\; \theta_{sat}\big) \\
+\Delta\theta_{3,RB} = \mathrm{sat}\big(- (K_{home} u_{roll} - K_{home} u_{pitch}),\; \theta_{sat}\big) 
+\end{cases}
 \end{equation}
+Lượng bù này được cộng trực tiếp làm giá trị hiệu chỉnh cho góc khớp gối ($\theta_3$). Do cấu trúc động học chuỗi hở, việc thay đổi trực tiếp góc khớp gối sẽ làm thay đổi vị trí bàn chân tương ứng. Động thái này tạo ra các phản lực từ mặt đất, giúp thân robot lấy lại trạng thái cân bằng tức thời mà không yêu cầu hệ thống phải tính toán qua khối động học nghịch (IK), qua đó giảm thiểu tối đa độ trễ điều khiển.
 
-Cuối cùng, bộ lọc thông thấp bậc nhất với hệ số $\alpha_{home}$ được áp dụng để làm mượt tín hiệu offset, tránh các bước nhảy đột ngột trên servo:
+\subsubsection{Áp dụng hiệu chỉnh trong không gian làm việc ở chế độ động}
+Khi robot đang trong chu trình di chuyển (chế độ GAIT), biên dạng quỹ đạo bước chân bắt buộc phải được bảo toàn nghiêm ngặt để tránh hiện tượng trượt (slippage) và mất ổn định chu kỳ. Do đó, ma trận xoay nghịch đảo $R = R_y(u_{pitch}) R_x(u_{roll})$ được tính toán dựa trên lượng bù từ bộ điều khiển PID. Ma trận này sau đó được nhân với vectơ vị trí chân nguyên bản $\mathbf{p}_{raw}$ sinh ra từ bộ tạo quỹ đạo. Một cơ chế chọn lọc được áp dụng nhằm chỉ cập nhật \textbf{duy nhất tọa độ cao độ trục Z} của bàn chân, trong khi cố định hoàn toàn các giá trị tham chiếu trên trục X và Y:
 \begin{equation}
-\Delta\theta_{3,i}^{(k)} = \alpha_{home} \cdot \Delta\theta_{3,i}^{(k-1)} + (1 - \alpha_{home}) \cdot \Delta\theta_{3,i}
+\mathbf{p}_{adj} = R \cdot \mathbf{p}_{raw}, \quad \text{với} \quad x_{adj} = x_{raw}, \quad y_{adj} = y_{raw}
 \end{equation}
 
-Cơ chế này loại bỏ hoàn toàn độ trễ của việc tính toán động học nghịch (IK), giúp hệ thống phản ứng cực nhanh.
-
-\textbf{2. Áp dụng hiệu chỉnh trong không gian làm việc (Task Space) ở chế độ GAIT:} \\
-Khi robot di chuyển, quỹ đạo bước chân (stride) phải được bảo toàn nghiêm ngặt để tránh vấp ngã. Ma trận xoay nghịch đảo $R = R_y(u_{pitch}) R_x(u_{roll})$ được áp dụng lên vectơ vị trí chân $\mathbf{p}_{raw}$ sinh ra từ bộ tạo quỹ đạo để tạo ra vị trí bù $\mathbf{p}_{adj}$. Mặc dù phép nhân ma trận $R \cdot \mathbf{p}_{raw}$ tạo ra sự thay đổi trên cả ba trục $X, Y, Z$, nhưng \textit{hệ thống đã chủ động loại bỏ sự can thiệp trên trục $X$ và $Y$}, ép chúng giữ nguyên giá trị của quỹ đạo ban đầu, và \textbf{chỉ áp dụng lượng bù cho duy nhất tọa độ dọc $Z$} của bàn chân:
-\begin{equation}
-\mathbf{p}_{adj} = R \cdot \mathbf{p}_{raw}, \quad \text{với} \quad x_{adj} = x_{raw}, \quad y_{adj} = y_{raw} \tag{6}
-\end{equation}
-
-Việc "cắt bỏ" sự thay đổi trên trục $X, Y$ là cực kỳ quan trọng, giúp chiều dài bước đi (stride length) không bị biến dạng bởi bộ điều khiển cân bằng. Sau đó, tọa độ Đề-các mới $[x_{adj}, y_{adj}, z_{adj}]$ được đưa qua bộ động học nghịch (IK) để tính góc quay mới cho cả 3 khớp. Bằng phương pháp này, robot có thể vừa chống lại độ nghiêng thân mình, vừa không làm hỏng tính chu kỳ của dáng đi (được minh họa trực quan trong Hình \ref{fig29}).
+Nguyên lý giữ nguyên sự biến thiên trên mặt phẳng XY đóng vai trò then chốt trong việc bảo toàn chiều dài sải bước (stride length) của robot. Tọa độ Đề-các hiệu chỉnh $[x_{adj}, y_{adj}, z_{adj}]$ sau đó mới được cấp vào bộ giải động học nghịch (IK) để suy ra góc quay mục tiêu cho các khớp. Quá trình biến đổi không gian này được minh họa trực quan trong Hình \ref{fig29}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{kinematics/attitude_adjustment.png}
-    \caption{Minh họa quá trình điều chỉnh tư thế thân robot: từ $\mathbf{p}_{raw}$ (trước bù) sang $\mathbf{p}_{adj}$ (sau bù), chỉ thay đổi $z$, giữ nguyên $x, y$}
+    \caption{Minh họa quá trình điều chỉnh tư thế thân robot: từ $\mathbf{p}_{raw}$ (trước bù) sang $\mathbf{p}_{adj}$ (sau bù), chỉ thay đổi trục $Z$, giữ nguyên trục $X$ và $Y$.}
     \label{fig29}
 \end{figure}
 
-\subsection{Bộ điều khiển cân bằng IMU -- Chế độ tĩnh (HOME)}
+\subsection{Thuật toán điều khiển PID và các khâu bảo vệ}
+Trong cả hai chế độ động và tĩnh, thuật toán cốt lõi đảm nhiệm triệt tiêu sai lệch tư thế là bộ điều khiển PID kinh điển, được phân tách tính toán độc lập cho trục Roll và trục Pitch. Đầu vào của khối là sai số $e(t) = 0 - \theta_{meas}(t)$, trong đó $\theta_{meas}$ là giá trị góc nghiêng đo được từ IMU sau khi đã đi qua bộ lọc trung bình trượt hàm mũ (EMA) nhằm khử nhiễu cơ học tần số cao.
 
-Trong chế độ tĩnh (HOME), toàn bộ bốn chân duy trì tiếp xúc mặt đất. Tín hiệu quaternion từ cảm biến IMU BNO055 \cite{bno055} được chuyển đổi sang góc Euler roll ($\phi$) và pitch ($\theta$) \cite{madgwick2011}, sau đó xử lý qua một chuỗi xử lý (pipeline) năm giai đoạn như Hình~\ref{fig_pid_arch}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{architecture/pid_architecture.pdf}
-    \caption{Kiến trúc bộ điều khiển PID cho ổn định tư thế}
-    \label{fig_pid_arch}
-\end{figure}
-
-\textbf{Giai đoạn 1: Lọc EMA (Exponential Moving Average).}
-Tín hiệu quán tính thô được làm mượt bằng bộ lọc trung bình trượt hàm mũ bậc nhất nhằm triệt tiêu nhiễu tần số cao:
+Luật điều khiển PID được triển khai dưới dạng phương trình sai phân rời rạc như sau:
 \begin{equation}
-    \hat{m}_k = \alpha_{raw} \hat{m}_{k-1} + (1 - \alpha_{raw}) m_k
+    u_{PID}(k) = K_P e(k) + K_I \sum_{i=0}^{k} e(i) \Delta T + K_D \frac{e(k) - e(k-1)}{\Delta T}
 \end{equation}
 
-\textbf{Giai đoạn 2: Triệt nhiễu vùng chết (Deadband Suppression).}
-Một vùng chết khả cấu hình $\pm d$ loại bỏ các dao động nhỏ không đáng kể, tránh tạo ra hoạt động servo không cần thiết:
-\begin{equation}
-    e_{dz} =
-    \begin{cases}
-      e - d & \text{nếu } e > d \\
-      0 & \text{nếu } |e| \leq d \\
-      e + d & \text{nếu } e < -d
-    \end{cases}
-\end{equation}
+Nhằm đáp ứng yêu cầu an toàn tuyệt đối cho phần cứng robot khi vận hành thực tế, tín hiệu đầu ra của bộ PID buộc phải đi qua các lớp bảo vệ thiết yếu trước khi được phát lệnh tới cơ cấu chấp hành:
+\begin{itemize}
+    \item \textbf{Khâu triệt vùng chết (Deadband):} Chủ động bỏ qua các vi sai quá nhỏ dao động quanh vị trí cân bằng ($0$ rad). Kỹ thuật này triệt tiêu hiện tượng chattering (động cơ rung lắc liên tục), qua đó giảm hao mòn cơ khí và tỏa nhiệt không cần thiết.
+    \item \textbf{Bão hòa tín hiệu (Saturation) và Lọc thông thấp (LPF):} Lệnh điều khiển $u_{PID}$ được giới hạn biên độ trong khoảng an toàn $[-u_{max}, u_{max}]$ để ngăn chặn các xung bù vượt quá khả năng chịu tải của cơ hệ. Sau đó, tín hiệu được làm mượt qua bộ lọc thông thấp (Low-Pass Filter) để các khớp chuyển động êm ái, hạn chế tối đa các lực giật (jerk) cục bộ.
+    \item \textbf{Chống tích lũy (Anti-windup):} Khi cơ cấu chấp hành hoặc tín hiệu đầu ra chạm ngưỡng bão hòa vật lý, cơ chế anti-windup sẽ tự động tạm dừng hoặc suy giảm thành phần tích phân $I$. Điều này chặn đứng sự tích lũy sai số ảo dư thừa, giúp hệ thống phục hồi nhanh chóng và không bị vọt lố (overshoot) khi các nhiễu loạn ngoại lực kết thúc.
+\end{itemize}
 
-\textbf{Giai đoạn 3: PID có lịch trình hệ số khuếch đại (Gain-Scheduled PID) với chống tích lũy (Antiwindup).}
-Bộ điều khiển PID đầy đủ \cite{astrom2006} với ba cải tiến xử lý sai lệch sau vùng chết:
-\begin{equation}
-    u_{PID} = K_P \cdot g_s \cdot e + K_I \cdot g_s \cdot \mathcal{I} + K_D \cdot \dot{e}_{lpf}
-\end{equation}
-trong đó hệ số lịch trình khuếch đại $g_s$ tỷ lệ thuận với biên độ sai lệch, ngăn chặn hiệu chỉnh quá mạnh gần gốc:
-\begin{equation}
-    g_s = \text{clamp}\!\left(
-    \frac{|e|}{e_{thresh}},\, g_{min},\, 1{,}0
-    \right)
-\end{equation}
-
-Bộ tích phân có cơ chế rò rỉ hàm mũ ($\lambda$) để ngăn tích lũy ở trạng thái xác lập, kết hợp giới hạn bão hòa đối xứng ($|\mathcal{I}| \leq \mathcal{I}_{max}$). Ngoài ra, cơ chế chống tích lũy kiểu back-calculation giảm bộ tích phân khi đầu ra PID vượt giới hạn:
-\begin{equation}
-    \mathcal{I}_{k} = \mathcal{I}_{k} -
-    \frac{u_{raw} - u_{sat}}{2 K_I}
-    \quad \text{nếu} \quad |u_{raw}| > u_{max}
-\end{equation}
-
-\textbf{Giai đoạn 4: Bão hòa đầu ra.}
-Tín hiệu PID tổng hợp được giới hạn trong phạm vi an toàn $|u| \leq u_{max}$ nhằm bảo vệ giới hạn cơ cấu chấp hành.
-
-\textbf{Giai đoạn 5: Lọc thông thấp đầu ra.}
-Bộ lọc thông thấp bậc nhất làm mượt tín hiệu hiệu chỉnh, loại bỏ các bất liên tục dạng bậc thang:
-\begin{equation}
-    H_{k} = \alpha_c H_{k-1} + (1 - \alpha_c)\, u_{sat}
-\end{equation}
-
-\subsection{Bộ điều khiển cân bằng -- Chế độ động (GAIT)}
-
-Khi robot đang thực hiện dáng đi, bộ điều khiển chuyển sang chế độ PID với ba cơ chế bổ sung:
-
-\textbf{Đường cơ sở trung bình trượt (Moving Average Baseline).}
-Các phép đo IMU được tích lũy vào bộ đệm trải dài một chu kỳ dáng đi đầy đủ. Giá trị trung bình cung cấp ước lượng làm mượt của góc nghiêng thực, lọc bỏ các dao động tuần hoàn vốn có trong vận động có chân.
-
-\textbf{Hệ số khuếch đại tỷ lệ động (Dynamic Proportional Gain).}
-Hệ số tỷ lệ được điều chỉnh động theo biên độ nghiêng tức thời, cung cấp khả năng hiệu chỉnh mạnh hơn khi nhiễu loạn lớn:
-\begin{equation}
-    K_{P,eff} = K_P \left(1 + \min\!\left(1{,}0, \;
-    \frac{\max(|\phi|, |\theta|)}{K_{prop}}
-    \right)\right)
-\end{equation}
-
-\textbf{Reset tích phân tại giao điểm không (Zero Crossing Integral Reset).}
-Bộ tích phân được đặt lại về không ngay khi tín hiệu sai lệch đổi dấu, ngăn ngừa quá điều chỉnh dao động trong quá trình phục hồi chuyển tiếp.
-
-\textbf{Bù xoay pha chống (Stance Phase Rotational Compensation).}
-Tín hiệu hiệu chỉnh được áp dụng dưới dạng ma trận xoay trong hệ tọa độ thân $R = R_y(\theta) R_x(\phi)$:
-\begin{equation}
-    R = \begin{bmatrix}
-    c_\theta & s_\phi s_\theta & c_\phi s_\theta \\
-    0 & c_\phi & -s_\phi \\
-    -s_\theta & s_\phi c_\theta & c_\phi c_\theta
-    \end{bmatrix}
-\end{equation}
-
-Ma trận này chỉ được áp dụng cho các chân thỏa mãn điều kiện pha chống chân $|Z_{foot} - Z_{stance}| \leq Z_{thresh}$, trong đó $Z_{stance} = -170$ mm và $Z_{thresh} = 5$ mm. Chỉ thành phần dọc ($z$) của vị trí bàn chân được sửa đổi; tọa độ ngang được giữ nguyên nhằm duy trì hình học sải bước:
-\begin{equation}
-    \mathbf{p}_{adj} = R \cdot \mathbf{p}_{raw}, \quad
-    x_{adj} = x_{raw}, \quad y_{adj} = y_{raw}
-\end{equation}
-
-Cách tiếp cận nhận biết pha này cho phép chân ở pha vung chân (swing phase) duy trì quỹ đạo không bị can thiệp, đảm bảo khoảng trống sải bước, trong khi chân ở pha chống chân (stance phase) nhận bù xoay để ổn định tư thế thân robot.
-
-\subsection{Tổng hợp pipeline điều khiển}
-
-Toàn bộ pipeline điều khiển cân bằng trong cả hai chế độ HOME và GAIT có thể được tóm tắt qua năm giai đoạn tuần tự, được thực hiện riêng biệt cho trục roll ($\phi$) và pitch ($\theta$):
-
-\begin{table}[H]
-\centering
-\caption{Tổng hợp pipeline điều khiển PID 5 giai đoạn}
-\label{tab:pid_pipeline}
-\renewcommand{\arraystretch}{1.4}
-\begin{tabular}{|c|p{0.18\linewidth}|p{0.55\linewidth}|}
-\hline
-\textbf{Giai đoạn} & \textbf{Tên} & \textbf{Phép toán} \\ \hline
-1 & Tiền xử lý & $\hat{y}_k = \alpha_{raw} \hat{y}_{k-1} + (1-\alpha_{raw}) y_k$ \\ \hline
-2 & Tính sai lệch & $e_k = r - \hat{y}_k$, áp dụng vùng chết $|e| \leq d \Rightarrow e=0$ \\ \hline
-3 & Tính PID & $u = K_P g_s e + K_I g_s \mathcal{I} + K_D \dot{e}_{lpf}$ \\ \hline
-4 & Bão hòa & $u_{sat} = \text{clamp}(u, -u_{max}, u_{max})$ \\ \hline
-5 & Lọc đầu ra & $H_k = \alpha_c H_{k-1} + (1-\alpha_c) u_{sat}$ \\ \hline
-\end{tabular}
-\end{table}
-
-Trong chế độ HOME, tín hiệu $H_k$ sau bước 5 được chuyển trực tiếp thành offset góc khớp gối ($\theta_3$) cho từng chân qua công thức tuyến tính ở Mục~4.5.2, với hệ số khuếch đại $K_{home} = 7{,}0$.
-
-Trong chế độ GAIT, pipeline sử dụng bộ tham số khác (Bảng tham số GAIT), bổ sung đường cơ sở trung bình trượt và hệ số khuếch đại động. Tín hiệu $H_k$ đầu ra được chuyển đổi thành các góc roll/pitch của ma trận xoay $R$, sau đó chỉ áp dụng thành phần $z$ vào vị trí bàn chân pha chống.
-
-\subsection{So sánh hai chế độ điều khiển}
-
-Bảng~\ref{tab:home_vs_gait} tổng hợp sự khác biệt cốt lõi giữa hai chế độ điều khiển, giúp nhìn nhận rõ chiến lược thiết kế cho từng tình huống vận hành.
-
-\begin{table}[H]
-\centering
-\caption{So sánh chế độ HOME và GAIT}
-\label{tab:home_vs_gait}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|p{0.28\linewidth}|p{0.30\linewidth}|p{0.30\linewidth}|}
-\hline
-\textbf{Tiêu chí} & \textbf{HOME (tĩnh)} & \textbf{GAIT (động)} \\ \hline
-Không gian áp dụng & Không gian khớp & Không gian làm việc \\ \hline
-Biến hiệu chỉnh & $\theta_3$ (góc gối) & $z$ (tọa độ đứng) \\ \hline
-Hệ số $K_P$ & 2,0 (gain-scheduled) & 3,0 (động, $K_{P,eff}$ tới 6,0) \\ \hline
-Hệ số $K_I$ & 0,30 & 0,005 \\ \hline
-Hệ số $K_D$ & 0,15 & 1,2 \\ \hline
-$K_{prop}$ (động) & $e_{thresh} = 0{,}08$ rad & $K_{prop} = 10{,}0$ \\ \hline
-Bão hòa $u_{max}$ & 1,5 rad (PID) / 0,5 rad (offset) & 0,30 rad \\ \hline
-Lọc đầu ra $\alpha_c$ & 0,15 (nhẹ) & 0,97 (mạnh) \\ \hline
-Phạm vi áp dụng & Tất cả 4 chân & Chỉ chân pha chống \\ \hline
-Cần IK? & Không & Có (sau bù $z$) \\ \hline
-Thời gian phản hồi & Nhanh ($<$ 50 ms) & Trung bình ($\sim$ 200 ms) \\ \hline
-\end{tabular}
-\end{table}
-
-Sự phân tách hai chế độ điều khiển là đặc điểm thiết kế quan trọng nhất của hệ thống. Chế độ HOME tối ưu cho phản hồi nhanh khi đứng yên bằng cách tránh tính toán IK, trong khi chế độ GAIT bảo toàn tính toàn vẹn của quỹ đạo sải bước bằng cách chỉ can thiệp vào thành phần đứng ($z$) của vị trí bàn chân.
+Việc phân bổ linh hoạt chiến lược bù theo không gian làm việc tương ứng với trạng thái động học, kết hợp cùng các cơ chế bảo vệ tín hiệu nhiều lớp, là cơ sở khoa học then chốt giúp hệ thống điều khiển vận hành ổn định và bám sát lý thuyết động lực học.

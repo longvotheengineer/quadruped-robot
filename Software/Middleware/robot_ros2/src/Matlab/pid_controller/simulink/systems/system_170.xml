@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<System>
+  <P Name="Location">[-1, -8, 1921, 1081]</P>
+  <Block BlockType="Inport" Name="roll_corr" SID="171">
+    <P Name="Position">[150, 298, 180, 312]</P>
+    <P Name="ZOrder">336</P>
+  </Block>
+  <Block BlockType="Inport" Name="t" SID="172">
+    <P Name="Position">[150, 403, 180, 417]</P>
+    <P Name="ZOrder">337</P>
+    <P Name="Port">2</P>
+  </Block>
+  <Block BlockType="Inport" Name="pitch_corr" SID="173">
+    <P Name="Position">[150, 523, 180, 537]</P>
+    <P Name="ZOrder">338</P>
+    <P Name="Port">3</P>
+  </Block>
+  <Block BlockType="Constant" Name="Constant" SID="68">
+    <P Name="Position">[345, 65, 375, 95]</P>
+    <P Name="ZOrder">320</P>
+  </Block>
+  <Block BlockType="Constant" Name="Constant1" SID="69">
+    <P Name="Position">[345, 250, 375, 280]</P>
+    <P Name="ZOrder">321</P>
+    <P Name="Value">2</P>
+  </Block>
+  <Block BlockType="Constant" Name="Constant2" SID="70">
+    <P Name="Position">[345, 435, 375, 465]</P>
+    <P Name="ZOrder">322</P>
+    <P Name="Value">3</P>
+  </Block>
+  <Block BlockType="Constant" Name="Constant3" SID="71">
+    <P Name="Position">[345, 620, 375, 650]</P>
+    <P Name="ZOrder">323</P>
+    <P Name="Value">4</P>
+  </Block>
+  <Block BlockType="SubSystem" Name="LB_Leg" SID="31">
+    <PortCounts in="4" out="4"/>
+    <P Name="Position">[445, 208, 560, 362]</P>
+    <P Name="ZOrder">316</P>
+    <P Name="ContentPreviewEnabled">on</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">th1</P>
+      </Port>
+      <Port Type="out" Index="2">
+        <P Name="PropagatedSignals">th2</P>
+      </Port>
+      <Port Type="out" Index="3">
+        <P Name="PropagatedSignals">th3</P>
+      </Port>
+      <Port Type="out" Index="4">
+        <P Name="PropagatedSignals">z</P>
+      </Port>
+    </PortProperties>
+    <System Ref="system_31"/>
+  </Block>
+  <Block BlockType="SubSystem" Name="LF_Leg" SID="21">
+    <PortCounts in="4" out="4"/>
+    <P Name="Position">[445, 23, 560, 177]</P>
+    <P Name="ZOrder">315</P>
+    <P Name="ContentPreviewEnabled">on</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">th1</P>
+      </Port>
+      <Port Type="out" Index="2">
+        <P Name="PropagatedSignals">th2</P>
+      </Port>
+      <Port Type="out" Index="3">
+        <P Name="PropagatedSignals">th3</P>
+      </Port>
+      <Port Type="out" Index="4">
+        <P Name="PropagatedSignals">z</P>
+      </Port>
+    </PortProperties>
+    <System Ref="system_21"/>
+  </Block>
+  <Block BlockType="Mux" Name="Mux" SID="186">
+    <PortCounts in="12" out="1"/>
+    <P Name="Position">[955, 14, 960, 506]</P>
+    <P Name="ZOrder">351</P>
+    <P Name="Inputs">12</P>
+    <P Name="DisplayOption">bar</P>
+  </Block>
+  <Block BlockType="Mux" Name="Mux1" SID="190">
+    <PortCounts in="4" out="1"/>
+    <P Name="Position">[955, 561, 960, 734]</P>
+    <P Name="ZOrder">353</P>
+    <P Name="DisplayOption">bar</P>
+  </Block>
+  <Block BlockType="SubSystem" Name="RB_Leg" SID="55">
+    <PortCounts in="4" out="4"/>
+    <P Name="Position">[445, 578, 560, 732]</P>
+    <P Name="ZOrder">318</P>
+    <P Name="ContentPreviewEnabled">on</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">th1</P>
+      </Port>
+      <Port Type="out" Index="2">
+        <P Name="PropagatedSignals">th2</P>
+      </Port>
+      <Port Type="out" Index="3">
+        <P Name="PropagatedSignals">th3</P>
+      </Port>
+      <Port Type="out" Index="4">
+        <P Name="PropagatedSignals">z</P>
+      </Port>
+    </PortProperties>
+    <System Ref="system_55"/>
+  </Block>
+  <Block BlockType="SubSystem" Name="RF_Leg" SID="43">
+    <PortCounts in="4" out="4"/>
+    <P Name="Position">[445, 393, 560, 547]</P>
+    <P Name="ZOrder">317</P>
+    <P Name="ContentPreviewEnabled">on</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">th1</P>
+      </Port>
+      <Port Type="out" Index="2">
+        <P Name="PropagatedSignals">th2</P>
+      </Port>
+      <Port Type="out" Index="3">
+        <P Name="PropagatedSignals">th3</P>
+      </Port>
+      <Port Type="out" Index="4">
+        <P Name="PropagatedSignals">z</P>
+      </Port>
+    </PortProperties>
+    <System Ref="system_43"/>
+  </Block>
+  <Block BlockType="Outport" Name="theta" SID="187">
+    <P Name="Position">[1000, 253, 1030, 267]</P>
+    <P Name="ZOrder">352</P>
+  </Block>
+  <Block BlockType="Outport" Name="z_foot_ref" SID="191">
+    <P Name="Position">[1000, 643, 1030, 657]</P>
+    <P Name="ZOrder">354</P>
+    <P Name="Port">2</P>
+  </Block>
+  <Line>
+    <P Name="ZOrder">368</P>
+    <P Name="Src">173#out:1</P>
+    <P Name="Points">[54, 0]</P>
+    <Branch>
+      <P Name="ZOrder">216</P>
+      <P Name="Points">[0, -185]</P>
+      <Branch>
+        <P Name="ZOrder">214</P>
+        <P Name="Points">[0, -185]</P>
+        <P Name="Dst">21#in:4</P>
+      </Branch>
+      <Branch>
+        <P Name="ZOrder">215</P>
+        <P Name="Dst">31#in:4</P>
+      </Branch>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">218</P>
+      <P Name="Points">[0, 185]</P>
+      <P Name="Dst">55#in:4</P>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">217</P>
+      <P Name="Dst">43#in:4</P>
+    </Branch>
+  </Line>
+  <Line>
+    <P Name="ZOrder">367</P>
+    <P Name="Src">172#out:1</P>
+    <P Name="Points">[98, 0]</P>
+    <Branch>
+      <P Name="ZOrder">106</P>
+      <P Name="Points">[0, -185]</P>
+      <Branch>
+        <P Name="ZOrder">104</P>
+        <P Name="Points">[0, -185]</P>
+        <P Name="Dst">21#in:1</P>
+      </Branch>
+      <Branch>
+        <P Name="ZOrder">105</P>
+        <P Name="Dst">31#in:1</P>
+      </Branch>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">108</P>
+      <P Name="Points">[0, 185]</P>
+      <P Name="Dst">55#in:1</P>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">107</P>
+      <P Name="Dst">43#in:1</P>
+    </Branch>
+  </Line>
+  <Line>
+    <P Name="ZOrder">400</P>
+    <P Name="Src">21#out:4</P>
+    <P Name="Points">[27, 0; 0, 420]</P>
+    <P Name="Dst">190#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">110</P>
+    <P Name="Src">68#out:1</P>
+    <P Name="Dst">21#in:2</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">113</P>
+    <P Name="Src">71#out:1</P>
+    <P Name="Dst">55#in:2</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">366</P>
+    <P Name="Src">171#out:1</P>
+    <P Name="Points">[140, 0]</P>
+    <Branch>
+      <P Name="ZOrder">204</P>
+      <P Name="Points">[0, -185]</P>
+      <P Name="Dst">21#in:3</P>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">207</P>
+      <P Name="Points">[0, 185]</P>
+      <Branch>
+        <P Name="ZOrder">209</P>
+        <P Name="Points">[0, 185]</P>
+        <P Name="Dst">55#in:3</P>
+      </Branch>
+      <Branch>
+        <P Name="ZOrder">208</P>
+        <P Name="Dst">43#in:3</P>
+      </Branch>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">206</P>
+      <P Name="Dst">31#in:3</P>
+    </Branch>
+  </Line>
+  <Line>
+    <P Name="ZOrder">402</P>
+    <P Name="Src">43#out:4</P>
+    <P Name="Points">[121, 0; 0, 140]</P>
+    <P Name="Dst">190#in:3</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">401</P>
+    <P Name="Src">31#out:4</P>
+    <P Name="Points">[58, 0; 0, 280]</P>
+    <P Name="Dst">190#in:2</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">112</P>
+    <P Name="Src">70#out:1</P>
+    <P Name="Dst">43#in:2</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">111</P>
+    <P Name="Src">69#out:1</P>
+    <P Name="Dst">31#in:2</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">403</P>
+    <P Name="Src">55#out:4</P>
+    <P Name="Dst">190#in:4</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">384</P>
+    <P Name="Src">21#out:2</P>
+    <P Name="Dst">186#in:2</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">383</P>
+    <P Name="Src">21#out:1</P>
+    <P Name="Dst">186#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">391</P>
+    <P Name="Src">43#out:3</P>
+    <P Name="Points">[231, 0; 0, -130]</P>
+    <P Name="Dst">186#in:9</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">390</P>
+    <P Name="Src">43#out:2</P>
+    <P Name="Points">[214, 0; 0, -130]</P>
+    <P Name="Dst">186#in:8</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">385</P>
+    <P Name="Src">21#out:3</P>
+    <P Name="Dst">186#in:3</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">393</P>
+    <P Name="Src">55#out:2</P>
+    <P Name="Points">[261, 0; 0, -195]</P>
+    <P Name="Dst">186#in:11</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">389</P>
+    <P Name="Src">43#out:1</P>
+    <P Name="Points">[201, 0; 0, -130]</P>
+    <P Name="Dst">186#in:7</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">388</P>
+    <P Name="Src">31#out:3</P>
+    <P Name="Points">[191, 0; 0, -65]</P>
+    <P Name="Dst">186#in:6</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">386</P>
+    <P Name="Src">31#out:1</P>
+    <P Name="Points">[172, 0; 0, -65]</P>
+    <P Name="Dst">186#in:4</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">387</P>
+    <P Name="Src">31#out:2</P>
+    <P Name="Points">[182, 0; 0, -65]</P>
+    <P Name="Dst">186#in:5</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">392</P>
+    <P Name="Src">55#out:1</P>
+    <P Name="Points">[247, 0; 0, -195]</P>
+    <P Name="Dst">186#in:10</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">394</P>
+    <P Name="Src">55#out:3</P>
+    <P Name="Points">[274, 0; 0, -195]</P>
+    <P Name="Dst">186#in:12</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">397</P>
+    <P Name="Src">186#out:1</P>
+    <P Name="Dst">187#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">399</P>
+    <P Name="Src">190#out:1</P>
+    <P Name="Dst">191#in:1</P>
+  </Line>
+</System>
