@@ -3,5 +3,5 @@
 \beamer@sectionintoc {2}{Lý thuyết động học và quy hoạch dáng đi}{8}{0}{2}
 \beamer@sectionintoc {3}{Thiết kế và thực hiện phần cứng}{13}{0}{3}
 \beamer@sectionintoc {4}{Thiết kế và thực hiện phần mềm}{17}{0}{4}
-\beamer@sectionintoc {5}{Kết quả và thảo luận}{21}{0}{5}
-\beamer@sectionintoc {6}{Kết luận và hướng phát triển}{32}{0}{6}
+\beamer@sectionintoc {5}{Kết quả và thảo luận}{23}{0}{5}
+\beamer@sectionintoc {6}{Kết luận và hướng phát triển}{33}{0}{6}

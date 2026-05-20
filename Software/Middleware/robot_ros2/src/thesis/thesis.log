@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.28)  18 MAY 2026 21:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  20 MAY 2026 07:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -45,7 +45,7 @@ Package: inputenc 2021/02/14 v1.3d Input encoding file
 Package: babel 2022/01/26 3.70 The Babel package
 \babel@savecnt=\count194
 \U@D=\dimen140
-\l@unhyphenated=\language30
+\l@unhyphenated=\language87
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
@@ -2119,12 +2119,12 @@ Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: A4A5FABFF8C78E9DF46841C2DE0F9E28;27389.
  ) 
 Here is how much of TeX's memory you used:
- 27513 strings out of 479662
- 520151 string characters out of 5883895
- 772562 words of memory out of 5000000
- 44480 multiletter control sequences out of 15000+600000
+ 27513 strings out of 478287
+ 520151 string characters out of 5849290
+ 775958 words of memory out of 5000000
+ 44575 multiletter control sequences out of 15000+600000
  514444 words of font info for 88 fonts, out of 8000000 for 9000
- 309 hyphenation exceptions out of 8191
+ 1141 hyphenation exceptions out of 8191
  99i,18n,103p,1317b,542s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-t5.enc}{/usr/share/texmf/fonts/e
 nc/dvips/tex-gyre/q-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/a

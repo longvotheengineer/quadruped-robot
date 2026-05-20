@@ -57,13 +57,12 @@
     \coordinate (BOT_botright) at (60.5, -22);
     \begin{scope}[on background layer]
         \node [draw, dashed, line width=4pt, rounded corners=25pt, inner sep=0pt, fill=blue!5, fit=(BOT_topleft) (BOT_botright)] (pid_box) {};
-        \node [below=20pt, font=\fontsize{35}{40}\selectfont\bfseries] at (30.25, 3) {Adaptive Attitude PID Controller};
+        \node [below=20pt, font=\fontsize{35}{40}\selectfont\bfseries] at (30.25, 3) {PID Controller};
     \end{scope}
 
     \node [bot_block] (deadzone) at (6, -12) {Deadzone\\ $\pm 0.03 \text{ rad}$};
     
-    \node [bot_block] (adaptive) at (20.0, -7) {Adaptive\\ Gain Scale};
-    \node [bot_block] (integ) at (20.0, -12) {$\displaystyle\int dt$\\ \textit{Sat $\pm 0.3$}};
+    \node [bot_block] (integ) at (20.0, -12) {$\displaystyle\int dt$};
     \node [bot_block] (deriv) at (20.0, -18.5) {$\displaystyle\frac{d}{dt}$};
 
     \node [bot_gain] (p) at (29.5, -2) {$K_p$};
@@ -83,21 +82,15 @@
     \draw [line] (ema.east) -- node [above, font=\LARGE] {$r, p$} (ma.west);
 
     % Signal Pre-Cond to PID 
-    \draw [line width=4.0pt] (ma.east) -- (32, 8) -- (32, 3.75) -- node [above, font=\Large, pos=0.8] {Avg Baseline} (-2, 3.75) -- (-2, -18.5) coordinate (deriv_split);
-    \draw [line] (-2, -12) -- (deadzone.west);
-
-    % Deriv branch
-    \draw [line] (deriv_split) -- node [above, font=\SuperHuge] {Avg} (deriv.west);
+    \draw [line] (ma.east) -- (32, 8) -- (32, 3.75) -- node [above, font=\Large, pos=0.8] {Avg Baseline} (-2, 3.75) |- (deadzone.west);
 
     % Error output 
     \draw [line width=4.0pt] (deadzone.east) -- (11.1, -12) coordinate (err_out) -- (11.9, -12) coordinate (err_out_scale);
     
     \draw [line] (err_out_scale) -- (integ.west);
     \draw [line] (err_out) |- (p.west); 
+    \draw [line] (err_out) |- (deriv.west);
     
-    \draw [line, dashed] (err_out_scale) |- (adaptive.west); 
-    \draw [line, dashed] (adaptive.east) -| node [pos=0.15, above, font=\SuperHuge] {Scale} (p.south); 
-
     % Integration / Deriv to Gains
     \draw [line] (integ.east) -- (i.west);
     \draw [line] (deriv.east) -- (d.west);
