@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.9)  20 MAY 2026 09:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.28)  21 MAY 2026 11:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -490,20 +490,7 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-))
-(/usr/share/texlive/texmf-dist/tex/latex/sansmathaccent/sansmathaccent.sty
-Package: sansmathaccent 2020/01/31
-
-(/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrlfile.sty
-Package: scrlfile 2021/11/13 v3.35 KOMA-Script package (file load hooks)
-
-(/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrlfile-hook.sty
-Package: scrlfile-hook 2021/11/13 v3.35 KOMA-Script package (using LaTeX hooks)
-
-
-(/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrlogo.sty
-Package: scrlogo 2021/11/13 v3.35 KOMA-Script package (logo)
-)))))
+)))
 (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetranslator.sty
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator.sty
 Package: translator 2021-05-31 v1.12d Easy translation of strings in LaTeX
@@ -682,7 +669,7 @@ Package: inputenc 2021/02/14 v1.3d Input encoding file
 Package: babel 2022/01/26 3.70 The Babel package
 \babel@savecnt=\count329
 \U@D=\dimen284
-\l@unhyphenated=\language87
+\l@unhyphenated=\language30
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read3
@@ -1314,21 +1301,6 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  T1/cmss/m/it --> T1/cmss/b/it on input line 80.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  T1/cmtt/m/n --> T1/cmtt/b/n on input line 80.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 80.
-LaTeX Font Info:    Encoding `T1' has changed to `OT1' for symbol font
-(Font)              `pureletters' in the math version `normal' on input line 80
-.
-LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  T1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 80
-.
-LaTeX Font Info:    Encoding `T1' has changed to `OT1' for symbol font
-(Font)              `pureletters' in the math version `bold' on input line 80.
-LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 80
-.
-LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
-ut line 80.
 
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
 -English.dict
@@ -1382,13 +1354,6 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 158
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
-ut line 158.
-
-(/usr/share/texlive/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
-File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
-thkerncmss.
 )
 
 LaTeX Font Warning: Font shape `T5/cmss/m/it' in size <9> not available
@@ -1462,81 +1427,89 @@ Overfull \vbox (0.50378pt too high) detected at line 190
 
 ]
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <5> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 249.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 251.
 
 
 
 LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
-(Font)              using `T1/cmss/m/n' instead on input line 249.
+(Font)              using `T1/cmss/m/n' instead on input line 251.
+
+
+LaTeX Font Warning: Font shape `T1/cmss/b/it' undefined
+(Font)              using `T1/cmss/b/n' instead on input line 251.
 
 <images//kinematics/model_reference_frame.png, id=144, 898.35625pt x 727.71875p
 t>
 File: images//kinematics/model_reference_frame.png Graphic file (type png)
 <use images//kinematics/model_reference_frame.png>
 Package pdftex.def Info: images//kinematics/model_reference_frame.png  used on 
-input line 249.
+input line 251.
 (pdftex.def)             Requested size: 90.67706pt x 73.45348pt.
 <images//kinematics/dh_coordinate_system.png, id=145, 188.20313pt x 188.20313pt
 >
 File: images//kinematics/dh_coordinate_system.png Graphic file (type png)
 <use images//kinematics/dh_coordinate_system.png>
 Package pdftex.def Info: images//kinematics/dh_coordinate_system.png  used on i
-nput line 249.
+nput line 251.
 (pdftex.def)             Requested size: 73.45921pt x 73.45921pt.
+
+LaTeX Font Warning: Font shape `T5/cmss/m/it' in size <5> not available
+(Font)              Font shape `T5/cmss/m/sl' tried instead on input line 251.
+
 [9
 
  <./images//kinematics/model_reference_frame.png> <./images//kinematics/dh_coor
 dinate_system.png>]
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <10> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 308.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 310.
 
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <7> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 308.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 310.
 
 
-Overfull \vbox (21.04224pt too high) detected at line 308
+Overfull \vbox (21.36151pt too high) detected at line 310
  []
 
 [10
 
 ]
-<images//gait_planner/gait_generator.png, id=210, 770.88pt x 358.33875pt>
+<images//gait_planner/gait_generator.png, id=211, 770.88pt x 358.33875pt>
 File: images//gait_planner/gait_generator.png Graphic file (type png)
 <use images//gait_planner/gait_generator.png>
 Package pdftex.def Info: images//gait_planner/gait_generator.png  used on input
- line 338.
+ line 340.
 (pdftex.def)             Requested size: 158.01965pt x 73.45445pt.
-<images//gait_planner/cubic_vs_quintic.pdf, id=211, 571.146pt x 710.10982pt>
+<images//gait_planner/cubic_vs_quintic.pdf, id=212, 571.146pt x 710.10982pt>
 File: images//gait_planner/cubic_vs_quintic.pdf Graphic file (type pdf)
 <use images//gait_planner/cubic_vs_quintic.pdf>
 Package pdftex.def Info: images//gait_planner/cubic_vs_quintic.pdf  used on inp
-ut line 338.
+ut line 340.
 (pdftex.def)             Requested size: 147.70139pt x 183.63817pt.
 
-Overfull \vbox (1.36938pt too high) detected at line 338
+Overfull \vbox (1.36938pt too high) detected at line 340
  []
 
 [11
 
  <./images//gait_planner/gait_generator.png> <./images//gait_planner/cubic_vs_q
 uintic.pdf>]
-<images//gait_planner/trot_gait_table.png, id=275, 313.17pt x 100.375pt>
+<images//gait_planner/trot_gait_table.png, id=276, 313.17pt x 100.375pt>
 File: images//gait_planner/trot_gait_table.png Graphic file (type png)
 <use images//gait_planner/trot_gait_table.png>
 Package pdftex.def Info: images//gait_planner/trot_gait_table.png  used on inpu
-t line 373.
+t line 375.
 (pdftex.def)             Requested size: 168.07231pt x 53.86932pt.
-<images//gait_planner/pace_gait_table.png, id=276, 313.17pt x 113.92563pt>
+<images//gait_planner/pace_gait_table.png, id=277, 313.17pt x 113.92563pt>
 File: images//gait_planner/pace_gait_table.png Graphic file (type png)
 <use images//gait_planner/pace_gait_table.png>
 Package pdftex.def Info: images//gait_planner/pace_gait_table.png  used on inpu
-t line 373.
+t line 375.
 (pdftex.def)             Requested size: 148.07872pt x 53.86838pt.
-<images//gait_planner/walk_gait_table.png, id=277, 313.17pt x 113.92563pt>
+<images//gait_planner/walk_gait_table.png, id=278, 313.17pt x 113.92563pt>
 File: images//gait_planner/walk_gait_table.png Graphic file (type png)
 <use images//gait_planner/walk_gait_table.png>
 Package pdftex.def Info: images//gait_planner/walk_gait_table.png  used on inpu
-t line 373.
+t line 375.
 (pdftex.def)             Requested size: 148.07872pt x 53.86838pt.
  [12
 
@@ -1545,54 +1518,54 @@ _table.png> <./images//gait_planner/walk_gait_table.png>]
 (./slide.toc) [13
 
 ]
-<images//hardware/hip_joint_assembly.jpg, id=301, 1325.95375pt x 803.0pt>
+<images//hardware/hip_joint_assembly.jpg, id=302, 1325.95375pt x 803.0pt>
 File: images//hardware/hip_joint_assembly.jpg Graphic file (type jpg)
 <use images//hardware/hip_joint_assembly.jpg>
 Package pdftex.def Info: images//hardware/hip_joint_assembly.jpg  used on input
- line 421.
+ line 423.
 (pdftex.def)             Requested size: 100.27176pt x 60.72476pt.
-<images//hardware/single_leg_assembly.jpg, id=302, 1027.84pt x 735.74875pt>
+<images//hardware/single_leg_assembly.jpg, id=303, 1027.84pt x 735.74875pt>
 File: images//hardware/single_leg_assembly.jpg Graphic file (type jpg)
 <use images//hardware/single_leg_assembly.jpg>
 Package pdftex.def Info: images//hardware/single_leg_assembly.jpg  used on inpu
-t line 421.
+t line 423.
 (pdftex.def)             Requested size: 95.38737pt x 68.28021pt.
-<images//hardware/preview_design.png, id=303, 617.80812pt x 316.68312pt>
+<images//hardware/preview_design.png, id=304, 617.80812pt x 316.68312pt>
 File: images//hardware/preview_design.png Graphic file (type png)
 <use images//hardware/preview_design.png>
 Package pdftex.def Info: images//hardware/preview_design.png  used on input lin
-e 421.
+e 423.
 (pdftex.def)             Requested size: 144.31764pt x 73.97733pt.
-<images//real_robot/quadrupedrobot.jpeg, id=304, 1027.84pt x 770.88pt>
+<images//real_robot/quadrupedrobot.jpeg, id=305, 1027.84pt x 770.88pt>
 File: images//real_robot/quadrupedrobot.jpeg Graphic file (type jpg)
 <use images//real_robot/quadrupedrobot.jpeg>
 Package pdftex.def Info: images//real_robot/quadrupedrobot.jpeg  used on input 
-line 421.
+line 423.
 (pdftex.def)             Requested size: 98.63387pt x 73.97733pt.
  [14
 
  <./images//hardware/hip_joint_assembly.jpg> <./images//hardware/single_leg_ass
 embly.jpg> <./images//hardware/preview_design.png> <./images//real_robot/quadru
 pedrobot.jpeg>]
-<images//hardware/servo_torque_analysis.png, id=312, 376.40625pt x 338.76563pt>
+<images//hardware/servo_torque_analysis.png, id=313, 376.40625pt x 338.76563pt>
 
 File: images//hardware/servo_torque_analysis.png Graphic file (type png)
 <use images//hardware/servo_torque_analysis.png>
 Package pdftex.def Info: images//hardware/servo_torque_analysis.png  used on in
-put line 454.
+put line 456.
 (pdftex.def)             Requested size: 152.33978pt x 137.10628pt.
 
-Overfull \vbox (1.28804pt too high) detected at line 454
+Overfull \vbox (1.28635pt too high) detected at line 456
  []
 
 [15
 
  <./images//hardware/servo_torque_analysis.png>]
-<images//hardware/system_wiring_diagram.jpg, id=320, 2346.7675pt x 1798.72pt>
+<images//hardware/system_wiring_diagram.jpg, id=321, 2346.7675pt x 1798.72pt>
 File: images//hardware/system_wiring_diagram.jpg Graphic file (type jpg)
 <use images//hardware/system_wiring_diagram.jpg>
 Package pdftex.def Info: images//hardware/system_wiring_diagram.jpg  used on in
-put line 473.
+put line 475.
 (pdftex.def)             Requested size: 223.58978pt x 171.3742pt.
  [16
 
@@ -1600,58 +1573,58 @@ put line 473.
 
 ]
 LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 4
-91.
+93.
 
 (/usr/share/texlive/texmf-dist/tex/latex/vntex/t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-<images//architecture/simplified_ros2_graph.png, id=338, 1156.32pt x 624.3325pt
+<images//architecture/simplified_ros2_graph.png, id=339, 1156.32pt x 624.3325pt
 >
 File: images//architecture/simplified_ros2_graph.png Graphic file (type png)
 <use images//architecture/simplified_ros2_graph.png>
 Package pdftex.def Info: images//architecture/simplified_ros2_graph.png  used o
-n input line 491.
+n input line 493.
 (pdftex.def)             Requested size: 294.76065pt x 159.15028pt.
  [18
 
  <./images//architecture/simplified_ros2_graph.png>]
-<images//misc/boat_on_waves.png, id=347, 246.6816pt x 246.6816pt>
+<images//misc/boat_on_waves.png, id=348, 246.6816pt x 246.6816pt>
 File: images//misc/boat_on_waves.png Graphic file (type png)
 <use images//misc/boat_on_waves.png>
-Package pdftex.def Info: images//misc/boat_on_waves.png  used on input line 530
+Package pdftex.def Info: images//misc/boat_on_waves.png  used on input line 532
 .
 (pdftex.def)             Requested size: 44.06952pt x 44.06952pt.
-<images//misc/bamboo_bridge.png, id=348, 246.6816pt x 246.6816pt>
+<images//misc/bamboo_bridge.png, id=349, 246.6816pt x 246.6816pt>
 File: images//misc/bamboo_bridge.png Graphic file (type png)
 <use images//misc/bamboo_bridge.png>
-Package pdftex.def Info: images//misc/bamboo_bridge.png  used on input line 530
+Package pdftex.def Info: images//misc/bamboo_bridge.png  used on input line 532
 .
 (pdftex.def)             Requested size: 44.06952pt x 44.06952pt.
-<images//misc/truck_bed.png, id=349, 246.6816pt x 246.6816pt>
+<images//misc/truck_bed.png, id=350, 246.6816pt x 246.6816pt>
 File: images//misc/truck_bed.png Graphic file (type png)
 <use images//misc/truck_bed.png>
-Package pdftex.def Info: images//misc/truck_bed.png  used on input line 530.
+Package pdftex.def Info: images//misc/truck_bed.png  used on input line 532.
 (pdftex.def)             Requested size: 44.06952pt x 44.06952pt.
  [19
 
  <./images//misc/boat_on_waves.png> <./images//misc/bamboo_bridge.png> <./image
 s//misc/truck_bed.png>]
-<images//architecture/pid_architecture.pdf, id=370, 1802.29636pt x 1182.50082pt
+<images//architecture/pid_architecture.pdf, id=371, 1802.29636pt x 1182.50082pt
 >
 File: images//architecture/pid_architecture.pdf Graphic file (type pdf)
 <use images//architecture/pid_architecture.pdf>
 Package pdftex.def Info: images//architecture/pid_architecture.pdf  used on inp
-ut line 549.
+ut line 553.
 (pdftex.def)             Requested size: 261.14752pt x 171.34094pt.
  [20
 
  <./images//architecture/pid_architecture.pdf>]
-<images//img_matlab/fig1-PID-controller.png, id=427, 824.07875pt x 270.00874pt>
+<images//img_matlab/fig1-PID-controller.png, id=428, 824.07875pt x 270.00874pt>
 
 File: images//img_matlab/fig1-PID-controller.png Graphic file (type png)
 <use images//img_matlab/fig1-PID-controller.png>
 Package pdftex.def Info: images//img_matlab/fig1-PID-controller.png  used on in
-put line 557.
+put line 561.
 (pdftex.def)             Requested size: 391.71811pt x 128.34612pt.
  [21
 
@@ -1660,60 +1633,67 @@ put line 557.
 ] (./slide.toc) [23
 
 ]
-<images//gait_planner/gait_3d.png, id=452, 267.399pt x 291.2481pt>
+<images//gait_planner/gait_3d.png, id=453, 267.399pt x 291.2481pt>
 File: images//gait_planner/gait_3d.png Graphic file (type png)
 <use images//gait_planner/gait_3d.png>
 Package pdftex.def Info: images//gait_planner/gait_3d.png  used on input line 6
-02.
+06.
 (pdftex.def)             Requested size: 157.36826pt x 171.40381pt.
  [24
 
  <./images//gait_planner/gait_3d.png>]
-<images//results/offline_traj_pos.png, id=460, 681.2652pt x 408.0846pt>
+<images//results/offline_traj_pos.png, id=461, 681.2652pt x 408.0846pt>
 File: images//results/offline_traj_pos.png Graphic file (type png)
 <use images//results/offline_traj_pos.png>
 Package pdftex.def Info: images//results/offline_traj_pos.png  used on input li
-ne 620.
+ne 624.
 (pdftex.def)             Requested size: 261.14963pt x 156.4312pt.
 
 [25
 
  <./images//results/offline_traj_pos.png>]
-<images//results/offline_traj_vel_acc.png, id=469, 675.0018pt x 415.7934pt>
+<images//results/offline_traj_vel_acc.png, id=470, 675.0018pt x 415.7934pt>
 File: images//results/offline_traj_vel_acc.png Graphic file (type png)
 <use images//results/offline_traj_vel_acc.png>
 Package pdftex.def Info: images//results/offline_traj_vel_acc.png  used on inpu
-t line 638.
+t line 642.
 (pdftex.def)             Requested size: 261.1485pt x 160.86449pt.
  [26
 
  <./images//results/offline_traj_vel_acc.png>]
-<images//results/offline_traj_angle.png, id=477, 658.3797pt x 408.0846pt>
+<images//results/offline_traj_angle.png, id=478, 658.3797pt x 408.0846pt>
 File: images//results/offline_traj_angle.png Graphic file (type png)
 <use images//results/offline_traj_angle.png>
 Package pdftex.def Info: images//results/offline_traj_angle.png  used on input 
-line 656.
+line 660.
 (pdftex.def)             Requested size: 261.14713pt x 161.86725pt.
  [27
 
  <./images//results/offline_traj_angle.png>]
-<images//img_matlab/figb.jpg, id=497, 1905.1175pt x 866.23625pt>
-File: images//img_matlab/figb.jpg Graphic file (type jpg)
-<use images//img_matlab/figb.jpg>
-Package pdftex.def Info: images//img_matlab/figb.jpg  used on input line 685.
-(pdftex.def)             Requested size: 217.61588pt x 98.94757pt.
-<images//img_matlab/figa.jpg, id=498, 1905.1175pt x 866.23625pt>
-File: images//img_matlab/figa.jpg Graphic file (type jpg)
-<use images//img_matlab/figa.jpg>
-Package pdftex.def Info: images//img_matlab/figa.jpg  used on input line 685.
-(pdftex.def)             Requested size: 217.61588pt x 98.94757pt.
+<../Images/PID_turning/PID_turning/PID turning nhiễu step.png, id=498, 1428.8
+3812pt x 649.67719pt>
+File: ../Images/PID_turning/PID_turning/PID turning nhiễu step.png Graphic fi
+le (type png)
+<use ../Images/PID_turning/PID_turning/PID turning nhiễu step.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/PID turning nhiễu 
+step.png  used on input line 689.
+(pdftex.def)             Requested size: 217.60861pt x 98.94427pt.
+<../Images/PID_turning/PID_turning/PID turning nhiễu sin.png, id=499, 1428.83
+812pt x 649.67719pt>
+File: ../Images/PID_turning/PID_turning/PID turning nhiễu sin.png Graphic fil
+e (type png)
+<use ../Images/PID_turning/PID_turning/PID turning nhiễu sin.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/PID turning nhiễu 
+sin.png  used on input line 689.
+(pdftex.def)             Requested size: 217.60861pt x 98.94427pt.
  [28
 
- <./images//img_matlab/figb.jpg> <./images//img_matlab/figa.jpg>]
-<images//results/thumb_sim1.jpg, id=507, 481.8pt x 361.35pt>
+ <../Images/PID_turning/PID_turning/PID turning nhiễu step.png (PNG copy)> <.
+./Images/PID_turning/PID_turning/PID turning nhiễu sin.png (PNG copy)>]
+<images//results/thumb_sim1.jpg, id=508, 481.8pt x 361.35pt>
 File: images//results/thumb_sim1.jpg Graphic file (type jpg)
 <use images//results/thumb_sim1.jpg>
-Package pdftex.def Info: images//results/thumb_sim1.jpg  used on input line 717
+Package pdftex.def Info: images//results/thumb_sim1.jpg  used on input line 721
 .
 (pdftex.def)             Requested size: 117.51761pt x 88.13728pt.
 
@@ -1724,19 +1704,19 @@ Package pdftex.def Info: images//results/thumb_sim1.jpg  used on input line 717
 
 <Copying the QR code for "https://youtu.be/0NuiG7YC26I" in version 3-Q as previ
 ously calculated.>
-<images//results/pid_error_home.png, id=509, 700.2963pt x 408.0846pt>
+<images//results/pid_error_home.png, id=510, 700.2963pt x 408.0846pt>
 File: images//results/pid_error_home.png Graphic file (type png)
 <use images//results/pid_error_home.png>
 Package pdftex.def Info: images//results/pid_error_home.png  used on input line
- 717.
+ 721.
 (pdftex.def)             Requested size: 239.39055pt x 139.50037pt.
 [29
 
  <./images//results/thumb_sim1.jpg> <./images//results/pid_error_home.png>]
-<images//results/thumb_sim2.jpg, id=518, 481.8pt x 361.35pt>
+<images//results/thumb_sim2.jpg, id=519, 481.8pt x 361.35pt>
 File: images//results/thumb_sim2.jpg Graphic file (type jpg)
 <use images//results/thumb_sim2.jpg>
-Package pdftex.def Info: images//results/thumb_sim2.jpg  used on input line 749
+Package pdftex.def Info: images//results/thumb_sim2.jpg  used on input line 753
 .
 (pdftex.def)             Requested size: 117.51761pt x 88.13728pt.
 
@@ -1747,20 +1727,20 @@ Package pdftex.def Info: images//results/thumb_sim2.jpg  used on input line 749
 
 <Copying the QR code for "https://youtu.be/rUqqIG3Zi0I" in version 3-Q as previ
 ously calculated.>
-<images//results/pid_error_gait.png, id=520, 700.2963pt x 408.0846pt>
+<images//results/pid_error_gait.png, id=521, 700.2963pt x 408.0846pt>
 File: images//results/pid_error_gait.png Graphic file (type png)
 <use images//results/pid_error_gait.png>
 Package pdftex.def Info: images//results/pid_error_gait.png  used on input line
- 749.
+ 753.
 (pdftex.def)             Requested size: 239.39055pt x 139.50037pt.
 [30
 
  <./images//results/thumb_sim2.jpg> <./images//results/pid_error_gait.png>]
-<images//real_robot/thumb_video1.jpg, id=529, 481.8pt x 361.35pt>
+<images//real_robot/thumb_video1.jpg, id=530, 481.8pt x 361.35pt>
 File: images//real_robot/thumb_video1.jpg Graphic file (type jpg)
 <use images//real_robot/thumb_video1.jpg>
 Package pdftex.def Info: images//real_robot/thumb_video1.jpg  used on input lin
-e 788.
+e 792.
 (pdftex.def)             Requested size: 114.26694pt x 85.70021pt.
 
 
@@ -1770,11 +1750,11 @@ e 788.
 
 <Copying the QR code for "https://youtu.be/wTO9ARTnGNQ" in version 3-Q as previ
 ously calculated.>
-<images//real_robot/thumb_video2.jpg, id=532, 481.8pt x 361.35pt>
+<images//real_robot/thumb_video2.jpg, id=533, 481.8pt x 361.35pt>
 File: images//real_robot/thumb_video2.jpg Graphic file (type jpg)
 <use images//real_robot/thumb_video2.jpg>
 Package pdftex.def Info: images//real_robot/thumb_video2.jpg  used on input lin
-e 788.
+e 792.
 (pdftex.def)             Requested size: 114.26694pt x 85.70021pt.
 
 
@@ -1795,29 +1775,17 @@ ously calculated.>
 ] [35
 
 ]
-File: images//misc/hcmut_logo_transparent.png Graphic file (type png)
-<use images//misc/hcmut_logo_transparent.png>
-Package pdftex.def Info: images//misc/hcmut_logo_transparent.png  used on input
- line 863.
-(pdftex.def)             Requested size: 169.41914pt x 171.39728pt.
- [36
-
-]
 
 LaTeX Font Warning: Font shape `T5/cmss/m/it' in size <6> not available
 (Font)              Font shape `T5/cmss/m/sl' tried instead on input line 897.
 
+[36
 
-LaTeX Font Warning: Font shape `T5/cmss/m/it' in size <5> not available
-(Font)              Font shape `T5/cmss/m/sl' tried instead on input line 897.
-
-[37
+] [37
 
 ] [38
 
 ] [39
-
-] [40
 
 ]
 File: images//hardware/servo_torque_analysis.png Graphic file (type png)
@@ -1826,27 +1794,29 @@ Package pdftex.def Info: images//hardware/servo_torque_analysis.png  used on in
 put line 984.
 (pdftex.def)             Requested size: 156.68616pt x 141.01932pt.
 
-Overfull \vbox (22.9375pt too high) detected at line 984
+Overfull \vbox (22.93411pt too high) detected at line 984
  []
 
-[41
+[40
 
-] [42
+] [41
 
 ]
-<images//hardware/free_body_diagram.png, id=663, 752.8125pt x 451.6875pt>
+<images//hardware/free_body_diagram.png, id=682, 752.8125pt x 451.6875pt>
 File: images//hardware/free_body_diagram.png Graphic file (type png)
 <use images//hardware/free_body_diagram.png>
 Package pdftex.def Info: images//hardware/free_body_diagram.png  used on input 
 line 1031.
 (pdftex.def)             Requested size: 152.33978pt x 91.40417pt.
- [43
+ [42
 
  <./images//hardware/free_body_diagram.png>]
 Overfull \vbox (1.33762pt too high) detected at line 1071
  []
 
-[44
+[43
+
+] [44
 
 ] [45
 
@@ -1858,10 +1828,8 @@ Overfull \vbox (1.33762pt too high) detected at line 1071
 
 ] [49
 
-] [50
-
 ]
-<images//results/trot_pid_pitch_controller_meas_avg_zoom.png, id=952, 650.43pt 
+<images//results/trot_pid_pitch_controller_meas_avg_zoom.png, id=971, 650.43pt 
 x 361.35pt>
 File: images//results/trot_pid_pitch_controller_meas_avg_zoom.png Graphic file 
 (type png)
@@ -1869,7 +1837,7 @@ File: images//results/trot_pid_pitch_controller_meas_avg_zoom.png Graphic file
 Package pdftex.def Info: images//results/trot_pid_pitch_controller_meas_avg_zoo
 m.png  used on input line 1245.
 (pdftex.def)             Requested size: 187.15385pt x 103.97278pt.
-<images//results/trot_pid_roll_controller_meas_avg_zoom.png, id=953, 650.43pt x
+<images//results/trot_pid_roll_controller_meas_avg_zoom.png, id=972, 650.43pt x
  361.35pt>
 File: images//results/trot_pid_roll_controller_meas_avg_zoom.png Graphic file (
 type png)
@@ -1881,20 +1849,20 @@ Package pdftex.def Info: images//results/trot_pid_roll_controller_meas_avg_zoom
 Overfull \vbox (4.2678pt too high) detected at line 1245
  []
 
-[51
+[50
 
  <./images//results/trot_pid_pitch_controller_meas_avg_zoom.png> <./images//res
 ults/trot_pid_roll_controller_meas_avg_zoom.png>]
-<images//results/trot_pid_pitch_controller_p_i_d_zoom.png, id=986, 650.43pt x 3
-61.35pt>
+<images//results/trot_pid_pitch_controller_p_i_d_zoom.png, id=1005, 650.43pt x 
+361.35pt>
 File: images//results/trot_pid_pitch_controller_p_i_d_zoom.png Graphic file (ty
 pe png)
 <use images//results/trot_pid_pitch_controller_p_i_d_zoom.png>
 Package pdftex.def Info: images//results/trot_pid_pitch_controller_p_i_d_zoom.p
 ng  used on input line 1273.
 (pdftex.def)             Requested size: 187.15385pt x 103.97278pt.
-<images//results/trot_pid_roll_controller_p_i_d_zoom.png, id=987, 650.43pt x 36
-1.35pt>
+<images//results/trot_pid_roll_controller_p_i_d_zoom.png, id=1006, 650.43pt x 3
+61.35pt>
 File: images//results/trot_pid_roll_controller_p_i_d_zoom.png Graphic file (typ
 e png)
 <use images//results/trot_pid_roll_controller_p_i_d_zoom.png>
@@ -1905,13 +1873,13 @@ g  used on input line 1273.
 Overfull \vbox (4.2678pt too high) detected at line 1273
  []
 
-[52
+[51
 
  <./images//results/trot_pid_pitch_controller_p_i_d_zoom.png> <./images//result
-s/trot_pid_roll_controller_p_i_d_zoom.png>] [53
+s/trot_pid_roll_controller_p_i_d_zoom.png>] [52
 
 ]
-<images//results/trot_pid_pitch_controller_sat_lpf_ff_zoom.png, id=1062, 650.43
+<images//results/trot_pid_pitch_controller_sat_lpf_ff_zoom.png, id=1081, 650.43
 pt x 361.35pt>
 File: images//results/trot_pid_pitch_controller_sat_lpf_ff_zoom.png Graphic fil
 e (type png)
@@ -1919,7 +1887,7 @@ e (type png)
 Package pdftex.def Info: images//results/trot_pid_pitch_controller_sat_lpf_ff_z
 oom.png  used on input line 1319.
 (pdftex.def)             Requested size: 187.15385pt x 103.97278pt.
-<images//results/trot_pid_roll_controller_sat_lpf_ff_zoom.png, id=1063, 650.43p
+<images//results/trot_pid_roll_controller_sat_lpf_ff_zoom.png, id=1082, 650.43p
 t x 361.35pt>
 File: images//results/trot_pid_roll_controller_sat_lpf_ff_zoom.png Graphic file
  (type png)
@@ -1931,10 +1899,10 @@ om.png  used on input line 1319.
 Overfull \vbox (4.2678pt too high) detected at line 1319
  []
 
-[54
+[53
 
  <./images//results/trot_pid_pitch_controller_sat_lpf_ff_zoom.png> <./images//r
-esults/trot_pid_roll_controller_sat_lpf_ff_zoom.png>] [55
+esults/trot_pid_roll_controller_sat_lpf_ff_zoom.png>] [54
 
 ]
 
@@ -1942,9 +1910,9 @@ LaTeX Font Warning: Font shape `T5/cmss/m/it' in size <10> not available
 (Font)              Font shape `T5/cmss/m/sl' tried instead on input line 1379.
 
 
-[56
+[55
 
-] [57
+] [56
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 1432--1432
@@ -1966,7 +1934,7 @@ Underfull \hbox (badness 1558) in paragraph at lines 1432--1432
 []\T5/cmss/bx/n/9 Kh� n�ng ph�n
  []
 
-[58
+[57
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 1456--1456
@@ -1978,80 +1946,154 @@ Underfull \hbox (badness 6125) in paragraph at lines 1456--1456
 []\T5/cmss/bx/n/7 ^^^� ph�n gi�i
  []
 
-[59
+[58
 
 ]
-<images//img_matlab/fig4-mo-hinh-hoa-robot.png, id=1190, 541.02126pt x 383.9343
+<images//img_matlab/fig4-mo-hinh-hoa-robot.png, id=1210, 541.02126pt x 383.9343
 7pt>
 File: images//img_matlab/fig4-mo-hinh-hoa-robot.png Graphic file (type png)
 <use images//img_matlab/fig4-mo-hinh-hoa-robot.png>
 Package pdftex.def Info: images//img_matlab/fig4-mo-hinh-hoa-robot.png  used on
  input line 1475.
 (pdftex.def)             Requested size: 217.6182pt x 154.4322pt.
-<images//img_matlab/fig3-quadruped-robot.png, id=1191, 703.62875pt x 331.2375pt
+<images//img_matlab/fig3-quadruped-robot.png, id=1211, 703.62875pt x 331.2375pt
 >
 File: images//img_matlab/fig3-quadruped-robot.png Graphic file (type png)
 <use images//img_matlab/fig3-quadruped-robot.png>
 Package pdftex.def Info: images//img_matlab/fig3-quadruped-robot.png  used on i
 nput line 1475.
 (pdftex.def)             Requested size: 217.61804pt x 102.445pt.
- [60
+ [59
 
  <./images//img_matlab/fig4-mo-hinh-hoa-robot.png> <./images//img_matlab/fig3-q
 uadruped-robot.png>]
-<images//img_matlab/fig2-execution.png, id=1200, 501.37312pt x 373.89688pt>
+<images//img_matlab/fig2-execution.png, id=1220, 501.37312pt x 373.89688pt>
 File: images//img_matlab/fig2-execution.png Graphic file (type png)
 <use images//img_matlab/fig2-execution.png>
 Package pdftex.def Info: images//img_matlab/fig2-execution.png  used on input l
 ine 1494.
 (pdftex.def)             Requested size: 213.41354pt x 159.15224pt.
-<images//img_matlab/fig5-PID.png, id=1201, 465.74pt x 362.85562pt>
+<images//img_matlab/fig5-PID.png, id=1221, 465.74pt x 362.85562pt>
 File: images//img_matlab/fig5-PID.png Graphic file (type png)
 <use images//img_matlab/fig5-PID.png>
 Package pdftex.def Info: images//img_matlab/fig5-PID.png  used on input line 14
 94.
 (pdftex.def)             Requested size: 204.27953pt x 159.15312pt.
- [61
+ [60
 
  <./images//img_matlab/fig2-execution.png> <./images//img_matlab/fig5-PID.png>]
-<images//img_matlab/fig-step.png, id=1211, 1428.83812pt x 649.67719pt>
-File: images//img_matlab/fig-step.png Graphic file (type png)
-<use images//img_matlab/fig-step.png>
-Package pdftex.def Info: images//img_matlab/fig-step.png  used on input line 15
-13.
-(pdftex.def)             Requested size: 217.60861pt x 98.94427pt.
-<images//img_matlab/fig-sin.png, id=1212, 1428.83812pt x 649.67719pt>
-File: images//img_matlab/fig-sin.png Graphic file (type png)
-<use images//img_matlab/fig-sin.png>
-Package pdftex.def Info: images//img_matlab/fig-sin.png  used on input line 151
-3.
-(pdftex.def)             Requested size: 217.60861pt x 98.94427pt.
+<../Images/PID_turning/PID_turning/roll turning Kp=4.png, id=1230, 1428.83812pt
+ x 649.67719pt>
+File: ../Images/PID_turning/PID_turning/roll turning Kp=4.png Graphic file (typ
+e png)
+<use ../Images/PID_turning/PID_turning/roll turning Kp=4.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/roll turning Kp=4.pn
+g  used on input line 1527.
+(pdftex.def)             Requested size: 143.63295pt x 65.30856pt.
+<../Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3.png, id=1231, 1428.
+83812pt x 649.67719pt>
+File: ../Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3.png Graphic fi
+le (type png)
+<use ../Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/roll turning Kp=4 Kd
+=1.3.png  used on input line 1527.
+(pdftex.def)             Requested size: 143.63295pt x 65.30856pt.
+<../Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3 Ki=1.2.png, id=1232
+, 1428.83812pt x 649.67719pt>
+File: ../Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3 Ki=1.2.png Gra
+phic file (type png)
+<use ../Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3 Ki=1.2.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/roll turning Kp=4 Kd
+=1.3 Ki=1.2.png  used on input line 1527.
+(pdftex.def)             Requested size: 143.63295pt x 65.30856pt.
+ [61
+
+ <../Images/PID_turning/PID_turning/roll turning Kp=4.png (PNG copy)> <../Image
+s/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3.png (PNG copy)> <../Images/P
+ID_turning/PID_turning/roll turning Kp=4 Kd=1.3 Ki=1.2.png (PNG copy)>]
+<../Images/PID_turning/PID_turning/pitch turning Kp=5.png, id=1240, 1428.83812p
+t x 649.67719pt>
+File: ../Images/PID_turning/PID_turning/pitch turning Kp=5.png Graphic file (ty
+pe png)
+<use ../Images/PID_turning/PID_turning/pitch turning Kp=5.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/pitch turning Kp=5.p
+ng  used on input line 1560.
+(pdftex.def)             Requested size: 143.63295pt x 65.30856pt.
+<../Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3.png, id=1241, 1428
+.83812pt x 649.67719pt>
+File: ../Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3.png Graphic f
+ile (type png)
+<use ../Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/pitch turning Kp=5 K
+d=1.3.png  used on input line 1560.
+(pdftex.def)             Requested size: 143.63295pt x 65.30856pt.
+<../Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png, id=124
+2, 1428.83812pt x 649.67719pt>
+File: ../Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png Gr
+aphic file (type png)
+<use ../Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/pitch turning Kp=5 K
+d=1.3 Ki=1.6.png  used on input line 1560.
+(pdftex.def)             Requested size: 143.63295pt x 65.30856pt.
  [62
 
- <./images//img_matlab/fig-step.png (PNG copy)> <./images//img_matlab/fig-sin.p
-ng (PNG copy)>]
-<images//img_matlab/fig7.png, id=1219, 1428.83812pt x 649.67719pt>
-File: images//img_matlab/fig7.png Graphic file (type png)
-<use images//img_matlab/fig7.png>
-Package pdftex.def Info: images//img_matlab/fig7.png  used on input line 1521.
-(pdftex.def)             Requested size: 391.72166pt x 178.11159pt.
+ <../Images/PID_turning/PID_turning/pitch turning Kp=5.png (PNG copy)> <../Imag
+es/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3.png (PNG copy)> <../Images
+/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png (PNG copy)>]
+<../Images/PID_turning/PID_turning/PID bù trực tiếp Kp=1 step.png, id=1249
+, 1428.83812pt x 649.67719pt>
+File: ../Images/PID_turning/PID_turning/PID bù trực tiếp Kp=1 step.png Gra
+phic file (type png)
+<use ../Images/PID_turning/PID_turning/PID bù trực tiếp Kp=1 step.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/PID bù trực tiế
+p Kp=1 step.png  used on input line 1585.
+(pdftex.def)             Requested size: 217.60861pt x 98.94427pt.
+<../Images/PID_turning/PID_turning/PID bù trực tiếp Kp=1 sin.png, id=1250,
+ 1428.83812pt x 649.67719pt>
+File: ../Images/PID_turning/PID_turning/PID bù trực tiếp Kp=1 sin.png Grap
+hic file (type png)
+<use ../Images/PID_turning/PID_turning/PID bù trực tiếp Kp=1 sin.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/PID bù trực tiế
+p Kp=1 sin.png  used on input line 1585.
+(pdftex.def)             Requested size: 217.60861pt x 98.94427pt.
  [63
 
- <./images//img_matlab/fig7.png (PNG copy)>]
-<images//img_matlab/fig8.png, id=1226, 1428.83812pt x 706.89093pt>
-File: images//img_matlab/fig8.png Graphic file (type png)
-<use images//img_matlab/fig8.png>
-Package pdftex.def Info: images//img_matlab/fig8.png  used on input line 1540.
-(pdftex.def)             Requested size: 217.60861pt x 107.65779pt.
-<images//img_matlab/fig9.png, id=1227, 1428.83812pt x 706.89093pt>
-File: images//img_matlab/fig9.png Graphic file (type png)
-<use images//img_matlab/fig9.png>
-Package pdftex.def Info: images//img_matlab/fig9.png  used on input line 1540.
-(pdftex.def)             Requested size: 217.60861pt x 107.65779pt.
+ <../Images/PID_turning/PID_turning/PID bù trực tiếp Kp=1 step.png (PNG co
+py)> <../Images/PID_turning/PID_turning/PID bù trực tiếp Kp=1 sin.png (PNG
+ copy)>]
+<../Images/PID_turning/PID_turning/zout.png, id=1257, 1428.83812pt x 649.67719p
+t>
+File: ../Images/PID_turning/PID_turning/zout.png Graphic file (type png)
+<use ../Images/PID_turning/PID_turning/zout.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/zout.png  used on in
+put line 1600.
+(pdftex.def)             Requested size: 269.23642pt x 122.41887pt.
  [64
 
- <./images//img_matlab/fig8.png (PNG copy)> <./images//img_matlab/fig9.png (PNG
- copy)>]
+ <../Images/PID_turning/PID_turning/zout.png (PNG copy)>]
+<../Images/PID_turning/PID_turning/xử lí pitch trước khi đưa vào PID.p
+ng, id=1264, 1428.83812pt x 649.67719pt>
+File: ../Images/PID_turning/PID_turning/xử lí pitch trước khi đưa vào 
+PID.png Graphic file (type png)
+<use ../Images/PID_turning/PID_turning/xử lí pitch trước khi đưa vào P
+ID.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/xử lí pitch trư�
+��c khi đưa vào PID.png  used on input line 1625.
+(pdftex.def)             Requested size: 217.60861pt x 98.94427pt.
+<../Images/PID_turning/PID_turning/xử lí roll trước khi đưa vào PID.pn
+g, id=1265, 1428.83812pt x 649.67719pt>
+File: ../Images/PID_turning/PID_turning/xử lí roll trước khi đưa vào P
+ID.png Graphic file (type png)
+<use ../Images/PID_turning/PID_turning/xử lí roll trước khi đưa vào PI
+D.png>
+Package pdftex.def Info: ../Images/PID_turning/PID_turning/xử lí roll trư�
+�c khi đưa vào PID.png  used on input line 1625.
+(pdftex.def)             Requested size: 217.60861pt x 98.94427pt.
+ [65
+
+ <../Images/PID_turning/PID_turning/xử lí pitch trước khi đưa vào PID.
+png (PNG copy)> <../Images/PID_turning/PID_turning/xử lí roll trước khi �
+�ưa vào PID.png (PNG copy)>]
 \tf@nav=\write6
 \openout6 = `slide.nav'.
 
@@ -2081,66 +2123,70 @@ Package rerunfilecheck Info: File `slide.out' has not changed.
 (rerunfilecheck)             Checksum: 00CCBCDC84EB4FC9D2235612E7454B76;1429.
  ) 
 Here is how much of TeX's memory you used:
- 31791 strings out of 478287
- 638255 string characters out of 5849290
- 964857 words of memory out of 5000000
- 49139 multiletter control sequences out of 15000+600000
- 525995 words of font info for 134 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 128i,18n,122p,976b,1157s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy5.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy7.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib5.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmss9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmssi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ssi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/symbols/msam7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm07
-00.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfso0800.pfb></usr/share/t
-exmf/fonts/type1/public/cm-super/sfso1000.pfb></usr/share/texmf/fonts/type1/pub
-lic/cm-super/sfss0500.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfss060
-0.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfss0700.pfb></usr/share/te
-xmf/fonts/type1/public/cm-super/sfss0800.pfb></usr/share/texmf/fonts/type1/publ
-ic/cm-super/sfss0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfss1000
-.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfss1200.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/vntex/vnr/vnss10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/vntex/vnr/vnss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/vn
-tex/vnr/vnss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/vntex/vnr/vnss9.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/vntex/vnr/vnssbx10.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/vntex/vnr/vnssi10.pfb></usr/share/texlive/texmf
--dist/fonts/type1/vntex/vnr/vnssi8.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/vntex/vnr/vnssi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/vntex/vnr/vn
-tt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/vntex/vnr/vntt9.pfb>
-Output written on slide.pdf (64 pages, 20891539 bytes).
+ 31605 strings out of 479662
+ 636190 string characters out of 5883895
+ 958710 words of memory out of 5000000
+ 48866 multiletter control sequences out of 15000+600000
+ 524759 words of font info for 128 fonts, out of 8000000 for 9000
+ 309 hyphenation exceptions out of 8191
+ 99i,18n,104p,976b,1157s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/an/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsi1440.600pk>
+ </home/an/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss1200.600pk> <
+/home/an/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsi1200.600pk> </h
+ome/an/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss0800.600pk> </hom
+e/an/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss0600.600pk> </home/
+an/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss0900.600pk> </home/an
+/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsi0900.600pk> </home/an/.
+texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0700.600pk> </home/an/.te
+xlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsi1000.600pk> </home/an/.texl
+ive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss1000.600pk> </home/an/.texliv
+e2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsi0600.600pk> </home/an/.texlive2
+021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsi0800.600pk> </home/an/.texlive202
+1/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss0700.600pk> </home/an/.texlive2021/
+texmf-var/fonts/pk/ljfour/jknappen/ec/ecsi0700.600pk> </home/an/.texlive2021/te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecss0500.600pk> </home/an/.texlive2021/texm
+f-var/fonts/pk/ljfour/jknappen/ec/ecsi0500.600pk></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cmextra/cmbsy5.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cmextra/cmbsy7.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cmextra/cmex7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib5.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmss9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssb
+x10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/symbols/msam7.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/vntex/vnr/vnss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/vntex/vnr/vnss
+12.pfb></usr/share/texlive/texmf-dist/fonts/type1/vntex/vnr/vnss8.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/vntex/vnr/vnss9.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/vntex/vnr/vnssbx10.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/vntex/vnr/vnssi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/vntex/vnr
+/vnssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/vntex/vnr/vnssi9.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/vntex/vnr/vntt10.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/vntex/vnr/vntt9.pfb>
+Output written on slide.pdf (65 pages, 20936819 bytes).
 PDF statistics:
- 1473 PDF objects out of 1728 (max. 8388607)
- 904 compressed objects within 10 object streams
- 137 named destinations out of 1000 (max. 500000)
- 1891 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1710 PDF objects out of 1728 (max. 8388607)
+ 943 compressed objects within 10 object streams
+ 139 named destinations out of 1000 (max. 500000)
+ 1993 words of extra memory for PDF output out of 10000 (max. 10000000)
 

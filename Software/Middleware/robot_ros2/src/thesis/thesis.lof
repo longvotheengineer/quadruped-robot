@@ -55,24 +55,26 @@
 \contentsline {figure}{\numberline {5-3}{\ignorespaces Cấu trúc mô hình hóa động học robot (dựa trên phương trình Động học thuận)\relax }}{72}{figure.caption.67}%
 \contentsline {figure}{\numberline {5-4}{\ignorespaces Chi tiết cấu trúc chuỗi tiền xử lý tín hiệu và khối điều khiển PID rời rạc\relax }}{73}{figure.caption.68}%
 \contentsline {figure}{\numberline {5-5}{\ignorespaces Cấu trúc khối thực thi giải tích động học nghịch (Inverse Kinematics) cho 4 chân\relax }}{74}{figure.caption.69}%
-\contentsline {figure}{\numberline {5-6}{\ignorespaces Đồ thị đáp ứng hệ thống với tín hiệu nhiễu bước (step) ($K_p=6, K_i=2, K_d=1$)\relax }}{74}{figure.caption.70}%
-\contentsline {figure}{\numberline {5-7}{\ignorespaces Đồ thị đáp ứng hệ thống với tín hiệu nhiễu hình sin ($K_p=6, K_i=2, K_d=1$)\relax }}{75}{figure.caption.71}%
-\contentsline {figure}{\numberline {5-8}{\ignorespaces Đồ thị đáp ứng hệ thống với tín hiệu nhiễu bước (step) ($K_p=1, K_i=0, K_d=0$)\relax }}{75}{figure.caption.72}%
-\contentsline {figure}{\numberline {5-9}{\ignorespaces Đồ thị đáp ứng hệ thống với tín hiệu nhiễu hình sin ($K_p=1, K_i=0, K_d=0$)\relax }}{76}{figure.caption.73}%
-\contentsline {figure}{\numberline {5-10}{\ignorespaces Đồ thị tín hiệu vị trí cao độ bàn chân trục Z (\texttt {z\_out}) của 4 chân robot\relax }}{77}{figure.caption.74}%
-\contentsline {figure}{\numberline {5-11}{\ignorespaces Đồ thị các tín hiệu xử lý nội bộ của bộ điều khiển PID góc Roll\relax }}{78}{figure.caption.75}%
-\contentsline {figure}{\numberline {5-12}{\ignorespaces Đồ thị các tín hiệu xử lý nội bộ của bộ điều khiển PID góc Pitch\relax }}{78}{figure.caption.76}%
-\contentsline {figure}{\numberline {5-13}{\ignorespaces Chuỗi chuyển động quá trình khởi tạo tư thế đứng của robot trên mô phỏng Gazebo.\relax }}{80}{figure.caption.78}%
-\contentsline {figure}{\numberline {5-14}{\ignorespaces Chuỗi chuyển động của robot trên hệ thống mô phỏng trong dáng đi Trot.\relax }}{81}{figure.caption.79}%
-\contentsline {figure}{\numberline {5-15}{\ignorespaces Quỹ đạo Cartesian $(x, y, z)$ của chân trước bên trái trong một chu kỳ dáng đi\relax }}{83}{figure.caption.82}%
-\contentsline {figure}{\numberline {5-16}{\ignorespaces Biên dạng vận tốc và gia tốc của chân trước bên trái\relax }}{83}{figure.caption.83}%
-\contentsline {figure}{\numberline {5-17}{\ignorespaces Góc khớp $(\theta _1, \theta _2, \theta _3)$ giải qua IK cho các chân bên trái (LF và LB)\relax }}{84}{figure.caption.84}%
-\contentsline {figure}{\numberline {5-18}{\ignorespaces Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng\relax }}{85}{figure.caption.85}%
-\contentsline {figure}{\numberline {5-19}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME\relax }}{86}{figure.caption.86}%
-\contentsline {figure}{\numberline {5-20}{\ignorespaces Phân tích tín hiệu đo lường và đầu ra chế độ HOME\relax }}{86}{figure.caption.87}%
-\contentsline {figure}{\numberline {5-21}{\ignorespaces Phân rã thành phần động học PID chế độ HOME\relax }}{87}{figure.caption.88}%
-\contentsline {figure}{\numberline {5-22}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)\relax }}{87}{figure.caption.89}%
-\contentsline {figure}{\numberline {5-23}{\ignorespaces Phân tích xử lý tín hiệu đầu vào chế độ GAIT (phóng to)\relax }}{88}{figure.caption.90}%
-\contentsline {figure}{\numberline {5-24}{\ignorespaces Phân rã thành phần động học PID chế độ GAIT (phóng to)\relax }}{88}{figure.caption.91}%
-\contentsline {figure}{\numberline {5-25}{\ignorespaces Phân tích bão hòa và lọc đầu ra chế độ GAIT (phóng to)\relax }}{89}{figure.caption.92}%
+\contentsline {figure}{\numberline {5-6}{\ignorespaces Quá trình hiệu chỉnh các khâu P, D, I cho trục Roll\relax }}{75}{figure.caption.70}%
+\contentsline {figure}{\numberline {5-7}{\ignorespaces Quá trình hiệu chỉnh các khâu P, D, I cho trục Pitch\relax }}{75}{figure.caption.71}%
+\contentsline {figure}{\numberline {5-8}{\ignorespaces Đồ thị đáp ứng hệ thống với tín hiệu nhiễu bước (step) trên cả 2 trục\relax }}{76}{figure.caption.72}%
+\contentsline {figure}{\numberline {5-9}{\ignorespaces Đồ thị đáp ứng hệ thống với tín hiệu nhiễu hình sin trên cả 2 trục\relax }}{76}{figure.caption.73}%
+\contentsline {figure}{\numberline {5-10}{\ignorespaces Đồ thị đáp ứng hệ thống với tín hiệu nhiễu bước (step) ($K_p=1, K_i=0, K_d=0$)\relax }}{77}{figure.caption.74}%
+\contentsline {figure}{\numberline {5-11}{\ignorespaces Đồ thị đáp ứng hệ thống với tín hiệu nhiễu hình sin ($K_p=1, K_i=0, K_d=0$)\relax }}{78}{figure.caption.75}%
+\contentsline {figure}{\numberline {5-12}{\ignorespaces Đồ thị tín hiệu vị trí cao độ bàn chân trục Z (\texttt {z\_out}) của 4 chân robot\relax }}{79}{figure.caption.76}%
+\contentsline {figure}{\numberline {5-13}{\ignorespaces Đồ thị các tín hiệu xử lý nội bộ của bộ điều khiển PID góc Roll\relax }}{79}{figure.caption.77}%
+\contentsline {figure}{\numberline {5-14}{\ignorespaces Đồ thị các tín hiệu xử lý nội bộ của bộ điều khiển PID góc Pitch\relax }}{80}{figure.caption.78}%
+\contentsline {figure}{\numberline {5-15}{\ignorespaces Chuỗi chuyển động quá trình khởi tạo tư thế đứng của robot trên mô phỏng Gazebo.\relax }}{82}{figure.caption.80}%
+\contentsline {figure}{\numberline {5-16}{\ignorespaces Chuỗi chuyển động của robot trên hệ thống mô phỏng trong dáng đi Trot.\relax }}{82}{figure.caption.81}%
+\contentsline {figure}{\numberline {5-17}{\ignorespaces Quỹ đạo Cartesian $(x, y, z)$ của chân trước bên trái trong một chu kỳ dáng đi\relax }}{84}{figure.caption.84}%
+\contentsline {figure}{\numberline {5-18}{\ignorespaces Biên dạng vận tốc và gia tốc của chân trước bên trái\relax }}{85}{figure.caption.85}%
+\contentsline {figure}{\numberline {5-19}{\ignorespaces Góc khớp $(\theta _1, \theta _2, \theta _3)$ giải qua IK cho các chân bên trái (LF và LB)\relax }}{85}{figure.caption.86}%
+\contentsline {figure}{\numberline {5-20}{\ignorespaces Quỹ đạo 3D bàn chân chân trước bên trái trên hệ thống mô phỏng\relax }}{86}{figure.caption.87}%
+\contentsline {figure}{\numberline {5-21}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ tĩnh HOME\relax }}{87}{figure.caption.88}%
+\contentsline {figure}{\numberline {5-22}{\ignorespaces Phân tích tín hiệu đo lường và đầu ra chế độ HOME\relax }}{87}{figure.caption.89}%
+\contentsline {figure}{\numberline {5-23}{\ignorespaces Phân rã thành phần động học PID chế độ HOME\relax }}{88}{figure.caption.90}%
+\contentsline {figure}{\numberline {5-24}{\ignorespaces Đáp ứng sai lệch bộ điều khiển trong chế độ động GAIT (dáng đi Trot)\relax }}{88}{figure.caption.91}%
+\contentsline {figure}{\numberline {5-25}{\ignorespaces Phân tích xử lý tín hiệu đầu vào chế độ GAIT (phóng to)\relax }}{89}{figure.caption.92}%
+\contentsline {figure}{\numberline {5-26}{\ignorespaces Phân rã thành phần động học PID chế độ GAIT (phóng to)\relax }}{89}{figure.caption.93}%
+\contentsline {figure}{\numberline {5-27}{\ignorespaces Phân tích bão hòa và lọc đầu ra chế độ GAIT (phóng to)\relax }}{90}{figure.caption.94}%
 \addvspace {10\p@ }

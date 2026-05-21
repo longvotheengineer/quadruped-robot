@@ -19,13 +19,13 @@
 \contentsline {table}{\numberline {4.1}{\ignorespaces Cấu trúc các ROS 2 packages trong hệ thống\relax }}{68}{table.caption.63}%
 \contentsline {table}{\numberline {4.2}{\ignorespaces Các topic ROS~2 chính trong hệ thống\relax }}{69}{table.caption.64}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Tham số hình học mô hình URDF\relax }}{79}{table.caption.77}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ tĩnh (HOME)\relax }}{81}{table.caption.80}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ động (GAIT)\relax }}{82}{table.caption.81}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Thông số hình học robot thực tế\relax }}{90}{table.caption.93}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces Công thức chuyển đổi IK → Servo cho từng chân\relax }}{91}{table.caption.94}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces Tọa độ bàn chân tư thế đứng chuẩn và bù trừ chiều cao\relax }}{91}{table.caption.95}%
-\contentsline {table}{\numberline {5.7}{\ignorespaces Tham số dáng đi Trot trên phần cứng thực\relax }}{92}{table.caption.96}%
-\contentsline {table}{\numberline {5.8}{\ignorespaces Quy trình tắt an toàn ba pha\relax }}{93}{table.caption.97}%
-\contentsline {table}{\numberline {5.9}{\ignorespaces So sánh tham số giữa mô phỏng và phần cứng thực\relax }}{94}{table.caption.98}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Tham số hình học mô hình URDF\relax }}{80}{table.caption.79}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ tĩnh (HOME)\relax }}{83}{table.caption.82}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ động (GAIT)\relax }}{83}{table.caption.83}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Thông số hình học robot thực tế\relax }}{91}{table.caption.95}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Công thức chuyển đổi IK → Servo cho từng chân\relax }}{92}{table.caption.96}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Tọa độ bàn chân tư thế đứng chuẩn và bù trừ chiều cao\relax }}{92}{table.caption.97}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Tham số dáng đi Trot trên phần cứng thực\relax }}{93}{table.caption.98}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Quy trình tắt an toàn ba pha\relax }}{94}{table.caption.99}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces So sánh tham số giữa mô phỏng và phần cứng thực\relax }}{95}{table.caption.100}%
 \addvspace {10\p@ }

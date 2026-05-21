@@ -246,6 +246,8 @@
           \end{figure}
       \end{column}
   \end{columns}
+  \vfill
+  {\tiny \textit{* Nguồn tham khảo: M. A. Sen, V. Bakircioglu, M. Kalyoncu (2017). "Inverse Kinematic Analysis Of A Quadruped Robot". IJSTR, 6(9).}}
 \end{frame}
 
 \begin{frame}{Động học nghịch (IK)}
@@ -546,6 +548,8 @@
           \end{figure}
       \end{column}
   \end{columns}
+  \vfill
+  {\tiny \textit{* Nguồn tham khảo: J. Li, L. Ye, Z. Jin, H. Liu, B. Liang (2022). "Posture Stabilization Control for a Quadruped Robot Walking on Swaying Platforms". IEEE CASE.}}
 \end{frame}
 
 \begin{frame}{Mô hình điều khiển PID trên MATLAB/Simulink}
@@ -660,9 +664,9 @@
   \begin{block}{Điều kiện và thông số mô phỏng}
       \small
       \begin{itemize}
-          \item \textbf{Bộ thông số điều khiển (Sau khi tuning):} $K_p = 6.0$, $K_i = 2.0$, $K_d = 1.0$.
+          \item \textbf{Bộ thông số (Sau khi tuning):} Roll ($K_p=4, K_i=1.2, K_d=1.3$) và Pitch ($K_p=5, K_i=1.6, K_d=1.3$).
           \item \textbf{Nhiễu bước (Step):} Biên độ $\Delta\theta = 0.15$ rad ($8.6^\circ$) tác động đột ngột tại $t=3$s.
-          \item \textbf{Nhiễu hình sin (Sine):} Biên độ $\pm 0.15$ rad (Pitch) và $\pm 0.10$ rad (Roll), biến thiên liên tục.
+          \item \textbf{Nhiễu hình sin (Sine):} Tín hiệu nhiễu biến thiên liên tục tác động đồng thời lên cả 2 trục.
       \end{itemize}
   \end{block}
   \vspace{-0.2cm}
@@ -670,14 +674,14 @@
       \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{img_matlab/figb.jpg}
+              \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/PID turning nhiễu step.png}
               \caption{Đáp ứng hệ thống với tín hiệu nhiễu hàm Step}
           \end{figure}
       \end{column}
       \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{img_matlab/figa.jpg}
+              \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/PID turning nhiễu sin.png}
               \caption{Đáp ứng hệ thống với tín hiệu nhiễu hàm Sine}
           \end{figure}
       \end{column}
@@ -820,46 +824,42 @@
 \section{Kết luận và hướng phát triển}
 % --------------------------------------------------
 
-\begin{frame}{Đóng góp và Kết quả đạt được}
-  \begin{enumerate}
-      \item Hoàn thiện hệ thống "Sim-to-Real": Từ mô hình SolidWorks $\rightarrow$ ROS 2 / Gazebo $\rightarrow$ Robot thực 12 DOF.
-      \item Triển khai quy hoạch quỹ đạo theo phương pháp nội suy đa thức bậc 5 mượt mà.
-      \item Phát triển bộ cân bằng định hướng PID 5 giai đoạn, chia 2 mô hình toán học tĩnh/động chuyên biệt nhằm chống trôi lật.
-  \end{enumerate}
-  \vspace{0.3cm}
-  \textbf{Hạn chế của phần cứng:}
-  \begin{itemize}
-      \item Hệ thống phụ thuộc vào nguồn tổ ong có dây, gây cản trở không gian di chuyển tự do.
-      \item Động cơ ST3215 đáp ứng các dáng đi cơ bản, tuy nhiên giới hạn mô-men xoắn chưa cho phép thực hiện các thao tác linh hoạt cao.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Đề xuất Hướng phát triển}
-  \begin{itemize}
-      \item \textbf{Vật liệu \& Năng lượng:} Sử dụng vật liệu Carbon và tích hợp Pin LiPo để robot hoạt động hoàn toàn độc lập (Tetherless).
-      \item \textbf{Điều khiển cấp cao:} Nâng cấp điều khiển lực bằng MPC (Model Predictive Control) kết hợp điều khiển trở kháng (Impedance Control).
-      \item \textbf{Học máy (AI):} Thay thế IK và cấu hình thủ công bằng Học Tăng Cường (Reinforcement Learning - RL) trên môi trường Isaac Gym.
-      \item \textbf{Điều hướng không gian:} Bổ sung Depth Camera hướng tới bài toán SLAM tự động tránh vật cản.
-  \end{itemize}
+\begin{frame}{Kết luận và Hướng phát triển}
+  \begin{columns}[T]
+      \begin{column}{0.5\textwidth}
+          \begin{block}{Kết quả đạt được}
+              \small
+              \begin{itemize}
+                  \item \textbf{Hệ thống Sim-to-Real:} Hoàn thiện quy trình thiết kế từ SolidWorks $\rightarrow$ ROS 2 / Gazebo $\rightarrow$ Robot 12 DOF thực tế.
+                  \item \textbf{Quỹ đạo (Gait):} Triển khai quỹ đạo chân mượt mà bằng phép nội suy đa thức bậc 5.
+                  \item \textbf{Thăng bằng (Balance):} Xây dựng thuật toán điều khiển thăng bằng PID, thiết kế bù nhiễu song song trên 2 không gian Tĩnh (Joint Space) và Động (Task Space).
+              \end{itemize}
+          \end{block}
+      \end{column}
+      \begin{column}{0.5\textwidth}
+          \begin{alertblock}{Đề xuất Hướng phát triển}
+              \small
+              \begin{itemize}
+                  \item \textbf{Phần cứng:} Nâng cấp vật liệu Carbon và tích hợp Pin LiPo để vận hành hoàn toàn độc lập (Tetherless).
+                  \item \textbf{Điều khiển cấp cao:} Ứng dụng MPC (Model Predictive Control) và Điều khiển trở kháng.
+                  \item \textbf{Học máy (AI):} Áp dụng Học tăng cường (Reinforcement Learning) trên Isaac Gym để tự học tư thế.
+                  \item \textbf{Thị giác máy:} Bổ sung Depth Camera hướng tới bài toán SLAM (Tự điều hướng và tránh vật cản).
+              \end{itemize}
+          \end{alertblock}
+      \end{column}
+  \end{columns}
 \end{frame}
 
 {
 \setbeamercolor{background canvas}{bg=hcmutblue}
 \begin{frame}[plain]
-    \begin{tikzpicture}[remember picture,overlay]
-        % Subtle massive watermark associated with project/organization
-        \node[anchor=south east, opacity=0.06] at ([xshift=0.5cm, yshift=0cm]current page.south east) {\includegraphics[height=0.7\textheight]{misc/hcmut_logo_transparent.png}};
-
-        % Main Thank you text (Centered, large)
-        \node[anchor=south, text=white, font=\Huge\bfseries, scale=1.3] at ([yshift=0.8cm]current page.center) {XIN CẢM ƠN};
-        \node[anchor=north, text=lightgray, font=\Large] at ([yshift=0.5cm]current page.center) {QUÝ THẦY CÔ TRONG HỘI ĐỒNG ĐÃ LẮNG NGHE};
-        
-        % Minimalist Red accent line separator
-        \draw[hcmutred, line width=2pt] ([xshift=-4cm, yshift=-1.0cm]current page.center) -- ([xshift=4cm, yshift=-1.0cm]current page.center);
-        
-        % Group details
-        \node[anchor=center, text=lightgray, font=\normalsize] at ([yshift=-3.3cm]current page.center) {ĐỒ ÁN TỐT NGHIỆP ĐẠI HỌC $\cdot$ ĐH BÁCH KHOA TP.HCM};
-    \end{tikzpicture}
+    \begin{center}
+        \vspace{2cm}
+        {\Huge\bfseries\textcolor{white}{XIN CẢM ƠN}}\\[0.5cm]
+        {\Large\textcolor{lightgray}{QUÝ THẦY CÔ TRONG HỘI ĐỒNG ĐÃ LẮNG NGHE}}\\[0.8cm]
+        \textcolor{hcmutred}{\rule{8cm}{2pt}}\\[2.5cm]
+        {\normalsize\textcolor{lightgray}{ĐỒ ÁN TỐT NGHIỆP ĐẠI HỌC $\cdot$ ĐH BÁCH KHOA TP.HCM}}
+    \end{center}
 \end{frame}
 }
 
@@ -1493,50 +1493,135 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Phụ lục G3: Đánh giá mô phỏng cơ sở (Chưa tinh chỉnh PID)}
+\begin{frame}{Phụ lục G3: Quá trình hiệu chỉnh PID trục Roll}
+  \begin{columns}
+      \begin{column}{0.33\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, keepaspectratio]{../Images/PID_turning/PID_turning/roll turning Kp=4.png}
+              \caption{Chỉ dùng khâu P}
+          \end{figure}
+      \end{column}
+      \begin{column}{0.33\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, keepaspectratio]{../Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3.png}
+              \caption{Dùng khâu PD}
+          \end{figure}
+      \end{column}
+      \begin{column}{0.33\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, keepaspectratio]{../Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3 Ki=1.2.png}
+              \caption{Dùng PID hoàn chỉnh}
+          \end{figure}
+      \end{column}
+  \end{columns}
+  \vspace{0.2cm}
+  \small
+  \begin{itemize}
+      \item \textbf{P ($K_p=4$):} Phản hồi nhanh nhưng dao động liên tục và có sai số tĩnh.
+      \item \textbf{PD ($K_d=1.3$):} Dập tắt dao động nhanh chóng, nhưng sai số tĩnh vẫn còn.
+      \item \textbf{PID ($K_i=1.2$):} Triệt tiêu hoàn toàn sai số xác lập, góc hội tụ chính xác về 0.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Phụ lục G4: Quá trình hiệu chỉnh PID trục Pitch}
+  \begin{columns}
+      \begin{column}{0.33\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, keepaspectratio]{../Images/PID_turning/PID_turning/pitch turning Kp=5.png}
+              \caption{Chỉ dùng khâu P}
+          \end{figure}
+      \end{column}
+      \begin{column}{0.33\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, keepaspectratio]{../Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3.png}
+              \caption{Dùng khâu PD}
+          \end{figure}
+      \end{column}
+      \begin{column}{0.33\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, keepaspectratio]{../Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png}
+              \caption{Dùng PID hoàn chỉnh}
+          \end{figure}
+      \end{column}
+  \end{columns}
+  \vspace{0.2cm}
+  \small
+  \begin{itemize}
+      \item Đòi hỏi thông số cao hơn ($K_p=5, K_i=1.6$) do khối lượng và mô-men quán tính dọc của robot lớn hơn.
+      \item Khâu D ($K_d=1.3$) vẫn đóng vai trò then chốt cắt giảm vọt lố và dao động.
+      \item Khâu I xóa bỏ hoàn toàn sai số dư, giữ ổn định tư thế tuyệt đối.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Phụ lục G5: Bù trực tiếp sai số}
   \begin{columns}
       \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.65\textheight, keepaspectratio]{img_matlab/fig-step.png}
+              \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/PID bù trực tiếp Kp=1 step.png}
               \caption{Đáp ứng hàm Step với Kp=1, Ki=0, Kd=0}
           \end{figure}
       \end{column}
       \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.65\textheight, keepaspectratio]{img_matlab/fig-sin.png}
+              \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/PID bù trực tiếp Kp=1 sin.png}
               \caption{Đáp ứng hàm Sine với Kp=1, Ki=0, Kd=0}
           \end{figure}
       \end{column}
   \end{columns}
+  \vspace{0.1cm}
+  \small
+  \begin{itemize}
+      \item \textbf{Nhiễu Step:} \textbf{Không có vọt lố} qua mốc 0, nhưng để lại \textbf{sai số tĩnh rất lớn} (0.05 - 0.07 rad) và dao động kéo dài do thiếu khâu I và D.
+      \item \textbf{Nhiễu Sine:} Hệ thống bám quỹ đạo rất kém, dẫn đến \textbf{sai số bám (Tracking error) lớn} và suy hao biên độ nghiêm trọng.
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{Phụ lục G4: Phân tích quỹ đạo góc khớp (Joint Trajectory)}
+\begin{frame}{Phụ lục G6: Phân tích quỹ đạo góc khớp (Joint Trajectory)}
+  \vspace{-0.2cm}
   \begin{figure}
       \centering
-      \includegraphics[width=0.9\linewidth, height=0.8\textheight, keepaspectratio]{img_matlab/fig7.png}
-      \caption{Dao động góc khớp của 4 chân khi robot di chuyển có bù thăng bằng}
+      \includegraphics[width=0.85\linewidth, height=0.5\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/zout.png}
+      \caption{Góc khớp của 4 chân khi robot chạy Trot và có bù thăng bằng PID}
   \end{figure}
+  \vspace{-0.2cm}
+  \small
+  \begin{itemize}
+      \item \textbf{Khớp nối động học (Kinematic Coupling):} Tín hiệu bù từ PID (Task Space) được hòa trộn mượt mà vào biên dạng quỹ đạo bước chân chữ D (Joint Space) thông qua bộ giải Động học ngược (IK).
+      \item \textbf{Độ mượt (Smoothness):} Quỹ đạo trơn tru, liên tục, không xuất hiện điểm kỳ dị (Singularity) hay sự biến thiên gia tốc đột ngột (Jerk), giúp bảo vệ an toàn cho cơ cấu servo.
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{Phụ lục G5: Chuỗi tiền xử lý tín hiệu thô (Signal Pre-Conditioning)}
+\begin{frame}{Phụ lục G7: Chuỗi tiền xử lý tín hiệu thô (Signal Pre-Conditioning)}
   \begin{columns}
       \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.8\textheight, keepaspectratio]{img_matlab/fig8.png}
+              \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/xử lí pitch trước khi đưa vào PID.png}
               \caption{Sự chuyển biến của tín hiệu Pitch qua các khâu lọc}
           \end{figure}
       \end{column}
       \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.8\textheight, keepaspectratio]{img_matlab/fig9.png}
+              \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/xử lí roll trước khi đưa vào PID.png}
               \caption{Sự chuyển biến của tín hiệu Roll qua các khâu lọc}
           \end{figure}
       \end{column}
   \end{columns}
+  \vspace{0.1cm}
+  \small
+  \begin{itemize}
+      \item \textbf{Lọc trung bình (Moving Average):} Triệt tiêu các gai nhiễu tần số cao sinh ra do va đập cơ học (Gait impact) khi chân chạm đất, tạo ra đường Baseline ổn định.
+      \item \textbf{Vùng chết (Deadzone):} Bỏ qua các vi dao động siêu nhỏ quanh vị trí cân bằng ($\pm 0.02$ rad) để tránh PID phải tính toán và ép động cơ phản ứng liên tục (chattering), qua đó tiết kiệm năng lượng và giảm hao mòn.
+  \end{itemize}
 \end{frame}
 
 \end{document}
