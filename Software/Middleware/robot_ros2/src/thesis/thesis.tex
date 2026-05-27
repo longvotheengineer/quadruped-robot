@@ -1,7 +1,8 @@
 % This is a copy version from https://github.com/thanhhungqb/thesis-template
 % Please do not modified this project, when you want to start writing, make a clone of it for your own (Please read README.md)
 
-\documentclass[13pt,a4paper,oneside]{extbook}
+\documentclass[12pt,a4paper,oneside]{extbook}
+\usepackage[fontsize=13pt]{fontsize}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -10,7 +11,7 @@
 \usepackage{setspace}
 \setstretch{1.3} % 1.3 line spacing
 \setlength{\parskip}{6pt} % Paragraph spacing
-\setlength{\parindent}{1.25cm} % Paragraph indentation
+\setlength{\parindent}{0.75cm} % Paragraph indentation (exactly 5 spaces for 13pt font)
 
 \AtBeginDocument{
   \renewcommand{\contentsname}{MỤC LỤC}
@@ -33,8 +34,11 @@
   {\normalfont\fontsize{13pt}{15.6pt}\bfseries}
   {\thesection}{1em}{}
 \titleformat{\subsection}
-  {\normalfont\fontsize{13pt}{15.6pt}\bfseries\itshape}
+  {\normalfont\fontsize{13pt}{15.6pt}\bfseries}
   {\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\fontsize{13pt}{15.6pt}\bfseries}
+  {\thesubsubsection}{1em}{}
 
 \renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
 
@@ -103,22 +107,26 @@
 \thispagestyle{empty}
 
 \noindent
+{\footnotesize
 \begin{minipage}[t]{0.45\textwidth}
+    \centering
     ĐẠI HỌC QUỐC GIA TP.HCM \\
     \textbf{TRƯỜNG ĐẠI HỌC BÁCH KHOA}
 \end{minipage}%
 \hfill
-\begin{minipage}[t]{0.50\textwidth}
-    \raggedleft
-    CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM \\
+\begin{minipage}[t]{0.55\textwidth}
+    \centering
+    \textbf{CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM} \\
     \textbf{Độc Lập -- Tự Do -- Hạnh Phúc}
 \end{minipage}
+}
 
 \vspace{0.3cm}
 
 % 5-column table
+{\footnotesize
 {\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.3}
+\renewcommand{\arraystretch}{1.1}
 \noindent
 \begin{tabular}{|p{0.035\textwidth}|p{0.17\textwidth}|p{0.30\textwidth}|p{0.12\textwidth}|p{0.19\textwidth}|}
 \hline
@@ -157,6 +165,8 @@
 \hline
 -- & \multicolumn{4}{l|}{Thiết kế hệ thống điều khiển PID tích hợp phản hồi cảm biến IMU.} \\
 \hline
+-- & \multicolumn{4}{l|}{Mô phỏng và tinh chỉnh bộ điều khiển trên MATLAB/Simulink.} \\
+\hline
 -- & \multicolumn{4}{l|}{Mô phỏng đánh giá trên ROS 2 và Gazebo.} \\
 \hline
 -- & \multicolumn{4}{l|}{Thi công mô hình thực tế và thử nghiệm cân bằng.} \\
@@ -181,8 +191,9 @@
 \hline
 \end{tabular}
 \renewcommand{\arraystretch}{1.0}}
+}
 
-\vspace{0.3cm}
+\vspace{0.1cm}
 \noindent
 \begin{minipage}[t]{0.45\textwidth}
     \centering
@@ -196,7 +207,7 @@
     \textit{(Ký và ghi rõ họ tên)}
 \end{minipage}
 
-\vspace{2.5cm}
+\clearpage
 
 \noindent\textbf{PHẦN DÀNH CHO KHOA} \\[0.1cm]
 Người duyệt (chấm sơ bộ): \dotfill \\
@@ -214,38 +225,47 @@ Nơi lưu trữ luận án: \dotfill
 
 \begin{acknowledgments}
 
-	Để có thể hoàn thành đồ án tốt nghiệp, chúng em đã nhận được rất nhiều sự giúp đỡ từ mọi người xung quanh, do đó chúng em xin được gửi lời cảm ơn chân thành đến tất cả những người đã hỗ trợ và giúp đỡ nhóm trong suốt thời gian vừa qua.
-    
-    Đầu tiên, chúng em xin gửi lời cảm ơn chân thành đến TS. Nguyễn Lê Dũng đã hết lòng chỉ dạy cho chúng em những kiến thức bổ ích cần tiếp thu, những kỹ năng cần học và cả những bài học trong cuộc sống. Cảm ơn thầy đã luôn lắng nghe và tận tình giải đáp những thắc mắc của chúng em, động viên chúng em trong những khoảng thời gian khó khăn và trắc trở, chúng em thực sự vô cùng trân trọng. Ngoài những lời chỉ bảo trong công việc, những lời khuyên với các vấn đề về cuộc sống từ thầy đã giúp chúng em trưởng thành và có những cách ứng xử tốt hơn. Nhờ đó, chúng em đã tích lũy được rất nhiều kinh nghiệm cũng như học được cách hiểu và giải quyết vấn đề một cách tốt nhất.
-    
-    Bên cạnh đó, chúng em xin gửi lời cảm ơn đến trường Đại học Bách khoa - ĐHQG-HCM nơi đã tạo cho chúng em môi trường học tập, nghiên cứu tốt; và toàn thể cán bộ giảng viên bộ môn Điều khiển và Tự Động Hóa trường Đại học Bách Khoa đã cung cấp và trang bị cho chúng em những kiến thức cơ bản làm nền tảng vững chắc để chúng em hoàn thành đồ án. Xin gửi lời cảm ơn đến bộ môn Điều khiển và Tự Động Hóa đã hỗ trợ chúng em phương tiện vật chất và tạo những điều kiện thuận lợi nhất.
+	Để có thể hoàn thành đồ án tốt nghiệp, chúng em đã nhận được rất nhiều sự giúp đỡ từ mọi người xung quanh. Do đó, chúng em xin gửi lời cảm ơn chân thành nhất đến tất cả những cá nhân và tập thể đã hỗ trợ nhóm.
 
-    Và hơn hết, chúng em xin gửi lời cảm ơn và tri ân sâu sắc đến gia đình vì đã luôn bên cạnh và động viên trong suốt thời gian vừa qua. Xin gửi lời cảm ơn đến các anh chị, bạn bè trong và ngoài nhóm đã đồng hành cùng chúng em trong suốt thời gian qua những người luôn luôn hỗ trợ chúng em hết mình, giúp đỡ, lắng nghe và chia sẻ khó khăn cùng nhau. 
-    
-   \vspace{1.5cm}
-    \begin{flushright}
-        \textit{Tp. Hồ Chí Minh, ngày \hspace{0.7cm} tháng 5 năm 2026} \\[0.2cm]
-        \textbf{Nhóm sinh viên} \\[0.2cm]
-        \textit{Trương Tuấn An \& Võ Quế Long}
-    \end{flushright}
+    Đầu tiên, chúng em xin gửi lời cảm ơn sâu sắc đến TS. Nguyễn Lê Dũng đã tận tình hướng dẫn, truyền đạt kiến thức và động viên chúng em vượt qua những khó khăn trong quá trình thực hiện đề tài. Nhờ sự chỉ bảo của thầy, chúng em không chỉ hoàn thiện đồ án mà còn học hỏi được nhiều kinh nghiệm quý báu.
 
-	
+    Chúng em cũng xin trân trọng cảm ơn trường Đại học Bách khoa - ĐHQG-HCM, đặc biệt là tập thể giảng viên bộ môn Điều khiển và Tự động hóa đã tạo điều kiện học tập, trang bị nền tảng kiến thức vững chắc và hỗ trợ cơ sở vật chất thuận lợi để chúng em hoàn thành nghiên cứu này.
+
+    Cuối cùng, chúng em xin gửi lời tri ân sâu sắc đến gia đình, các anh chị và bạn bè vì đã luôn đồng hành, chia sẻ và là chỗ dựa tinh thần vững chắc cho chúng em trong suốt thời gian qua.
+    
+   \vspace{0.2cm}
+    \hfill
+    \begin{minipage}{0.65\textwidth}
+        \centering
+        \textit{Tp. Hồ Chí Minh, ngày \hspace{0.5cm} tháng \hspace{0.5cm} năm \hspace{0.5cm}} \\[0.2cm]
+        \textbf{Sinh viên} \\[1.0cm]
+        \begin{minipage}[t]{0.48\textwidth}
+            \centering
+            Trương Tuấn An
+        \end{minipage}%
+        \hfill
+        \begin{minipage}[t]{0.48\textwidth}
+            \centering
+            Võ Quế Long
+        \end{minipage}
+    \end{minipage}
+
 \end{acknowledgments}
 	
 \begin{abstract}
 
-Đồ án này trình bày quá trình nghiên cứu, thiết kế, mô phỏng và chế tạo một hệ thống robot bốn chân 12 bậc tự do với khả năng di chuyển linh hoạt. Robot sử dụng cấu trúc chân nối tiếp 3 bậc tự do, truyền động bởi 12 động cơ servo ST3215 và điều khiển tập trung bằng máy tính nhúng NVIDIA Jetson Nano.
+Đồ án này trình bày quá trình nghiên cứu, thiết kế, mô phỏng và chế tạo một hệ thống robot bốn chân 12 bậc tự do. Hệ thống sử dụng cơ cấu chân nối tiếp 3 bậc tự do, truyền động bởi 12 động cơ servo ST3215 và được điều khiển tập trung bởi máy tính nhúng NVIDIA Jetson Nano.
 
-Về mặt lý thuyết, phương pháp Modified Denavit--Hartenberg (MD-H) được áp dụng để xây dựng mô hình động học thuận, làm cơ sở giải quyết bài toán động học nghịch bằng phương pháp hình học giải tích. Quỹ đạo bước chân được quy hoạch dựa trên nội suy đa thức bậc năm, đảm bảo tính liên tục của vận tốc và gia tốc, giúp cơ cấu di chuyển mượt mà và tránh sự thay đổi gia tốc đột ngột. Dáng đi chéo góc (Trot) được lựa chọn làm phương thức di chuyển chủ đạo nhờ sự cân bằng tối ưu giữa tốc độ và độ ổn định.
+Về mặt lý thuyết, phương pháp Modified Denavit--Hartenberg (MD-H) được sử dụng để xây dựng mô hình động học, làm cơ sở giải bài toán động học nghịch bằng hình học giải tích. Quỹ đạo bước chân được quy hoạch dựa trên nội suy đa thức bậc năm, đảm bảo tính liên tục của vận tốc và gia tốc. Dáng đi chéo góc (Trot) được lựa chọn làm phương thức di chuyển chủ đạo nhờ sự cân bằng tối ưu giữa tốc độ và độ ổn định.
 
-Hệ thống được mô phỏng trên nền tảng ROS~2 Humble kết hợp với môi trường Gazebo Classic để đánh giá đặc tính động học và phân tích lực, mô-men tác dụng lên các khớp chân. Kết quả mô phỏng cho thấy thông số động lực học đều nằm trong giới hạn an toàn của động cơ servo, qua đó khẳng định tính khả thi của khâu thiết kế cơ khí và cấu hình phần cứng.
+Điểm nhấn kỹ thuật của đồ án là việc phát triển kiến trúc điều khiển phân tầng theo phương pháp tiếp cận Sim-to-Real, tách biệt độc lập phân hệ tạo dáng đi (Gait Generator) và bộ điều khiển cân bằng (Balance Controller). Trước khi triển khai hệ thống toàn diện, thuật toán tính toán bù PID dựa trên phản hồi cảm biến quán tính (IMU) đã được mô hình hóa, tinh chỉnh (tuning) độc lập trên từng trục quay và kiểm chứng hiệu năng kỹ lưỡng trong môi trường MATLAB/Simulink.
 
-Điểm nhấn kỹ thuật của đồ án là việc phát triển kiến trúc điều khiển cân bằng tự động dựa trên tín hiệu tư thế từ cảm biến IMU. Trong môi trường mô phỏng, hệ thống đã tích hợp thành công bộ điều khiển PID với hai trạng thái vận hành chuyên biệt: ở trạng thái tĩnh, hệ thống áp dụng lượng bù trực tiếp vào không gian khớp để tối ưu thời gian đáp ứng; ở trạng thái di chuyển động, quá trình bù trừ được thực hiện thông qua ma trận xoay trong không gian làm việc kết hợp với việc nhận biết pha bước chân. Thuật toán này điều chỉnh độc lập độ cao của các chân đang chạm đất, giúp thân robot duy trì trạng thái song song với bề mặt di chuyển mà không làm sai lệch sải bước.
+Sau khi nghiệm thu thông số, hệ thống phần mềm được tích hợp hoàn chỉnh trên nền tảng ROS~2 Humble và đánh giá trong trình mô phỏng Gazebo Classic. Tại đây, robot thể hiện khả năng tự động duy trì cân bằng thông qua hai trạng thái vận hành chuyên biệt: bù trực tiếp vào không gian khớp (ở trạng thái tĩnh) và bù thông qua ma trận xoay trong không gian làm việc kết hợp với phân tích pha bước chân (ở trạng thái di chuyển động). Phương pháp này giúp thân robot luôn song song với bề mặt di chuyển mà không phá vỡ động học sải bước.
 
-Đối với mô hình thực tế, quá trình chế tạo và lập trình đã đáp ứng đúng thiết kế đề ra. Hiện tại, tính năng điều khiển cân bằng tự động qua phản hồi IMU mới hoàn thiện ở mức độ mô phỏng và chưa được tích hợp hoàn chỉnh lên robot thực tế. Trên thực tế, hệ thống chỉ sử dụng phương pháp động học nghịch để thực thi các dáng đi cơ bản (tiến, lùi, rẽ) mà không tích hợp khả năng bám quỹ đạo phức tạp. Thêm vào đó, do khối lượng tổng thể của robot thực tế vượt quá tính toán thiết kế ban đầu, mô-men xoắn của các động cơ servo tại hai chân trước không đáp ứng đủ yêu cầu tải trọng động. Điều này dẫn đến hiện tượng các bàn chân trước ma sát và rê nhẹ trên mặt đất trong pha nhấc chân thay vì đạt được độ cao bước định mức. Dù vậy, hệ thống vẫn duy trì được hình thái vận động tổng thể, đáp ứng các mục tiêu cốt lõi về cấu trúc cơ khí và nền tảng điều khiển của đề tài.
+Đối với mô hình thực tế, robot đã thực thi thành công quy trình khởi tạo tư thế đứng và các dáng đi cơ bản dựa trên giải tích động học nghịch tuần tự. Tuy nhiên, tính năng bám quỹ đạo động và cân bằng phản hồi IMU vẫn chỉ đang dừng lại ở mức độ kiểm chứng mô phỏng do những rào cản về độ trễ truyền thông phần cứng. Ngoài ra, việc khối lượng hệ thống thực tế chạm ngưỡng giới hạn thiết kế dẫn đến hiện tượng các động cơ trước bị quá tải cục bộ, gây ra tình trạng rê chân nhẹ trong pha nhấc chân. Dù tồn tại những hạn chế nhất định, hệ thống đã hoàn thành xuất sắc các mục tiêu cốt lõi về việc xây dựng thành công một nền tảng nghiên cứu và điều khiển robot bốn chân đồng bộ.
 
 \vspace{0.5cm}
-\noindent\textbf{Từ khóa:} Robot bốn chân, động học nghịch, quy hoạch quỹ đạo, dáng đi Trot, đa thức bậc năm, ROS~2, Gazebo, bộ điều khiển PID.
+\noindent\textbf{Từ khóa:} Robot bốn chân, động học nghịch, đa thức bậc năm, MATLAB/Simulink, bộ điều khiển PID, ROS~2, Gazebo.
 
 \end{abstract}
 

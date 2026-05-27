@@ -497,7 +497,7 @@ Hình~\ref{fig_pid_home} trình bày khả năng duy trì thăng bằng của h�
 
 \subsubsection{Phân tích tín hiệu nội bộ chuỗi xử lý PID (Chế độ HOME)}
 
-Dựa trên kiến trúc 5 giai đoạn đã đề xuất ở Chương 2, hiệu năng của từng khối xử lý tín hiệu trong bộ điều khiển Roll và Pitch được đánh giá chi tiết thông qua các tín hiệu nội bộ thu thập từ mô phỏng. 
+Dựa trên kiến trúc điều khiển đã đề xuất ở Chương 2, hiệu năng của từng khối xử lý tín hiệu trong bộ điều khiển Roll và Pitch được đánh giá chi tiết thông qua các tín hiệu nội bộ thu thập từ mô phỏng. 
 
 Hình \ref{fig:home_pid_roll_meas} và Hình \ref{fig:home_pid_pitch_meas} giải thích lý do tại sao tín hiệu thô không thể được đưa trực tiếp vào vòng lặp điều khiển. Cảm biến IMU gắn trên khung gầm robot vốn luôn bị ảnh hưởng bởi nhiễu rung động cơ học (mechanical vibration) từ các động cơ. Nếu không có bộ lọc trung bình trượt hàm mũ (EMA), khâu vi phân của PID sẽ khuếch đại các nhiễu tần số cao này thành những lệnh bù giật cục. Tại đầu ra, việc áp dụng khâu bão hòa (giới hạn ở $\pm 1{,}5$ rad) và bộ lọc thông thấp (LPF) giải quyết rủi ro mất an toàn: cơ cấu này ngăn chặn việc xuất ra các góc bù lớn đột biến có thể làm bật ngửa thân robot, đồng thời vuốt mượt tín hiệu bù (đường LPF trong đồ thị trơn hơn hẳn đường Sat) để các khớp gối phản hồi một cách uyển chuyển.
 

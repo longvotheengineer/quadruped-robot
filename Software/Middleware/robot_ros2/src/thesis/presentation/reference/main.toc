@@ -1,4 +1,0 @@
-\beamer@sectionintoc {1}{Bối cảnh \& Thách thức}{3}{0}{1}
-\beamer@sectionintoc {2}{Nhận diện Rủi ro}{4}{0}{2}
-\beamer@sectionintoc {3}{Chiến lược Ứng phó}{7}{0}{3}
-\beamer@sectionintoc {4}{Kết luận}{9}{0}{4}

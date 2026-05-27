@@ -14,7 +14,7 @@
 
     \item \textbf{Bộ điều khiển cân bằng PID nâng cao:} Bộ điều khiển PID đa giai đoạn đã được thiết kế, triển khai và đánh giá thành công với hai chế độ hoạt động riêng biệt:
     \begin{itemize}
-        \item Trong chế độ tĩnh (HOME), sai lệch định hướng hội tụ trong khoảng $1{,}5$ giây và ổn định trong vùng chết $\pm 0{,}02$ rad, nhờ các cơ chế lọc EMA, vùng chết, lịch trình khuếch đại, rò rỉ tích phân và chống tích lũy back-calculation.
+        \item Trong chế độ tĩnh (HOME), sai lệch định hướng hội tụ trong khoảng $1{,}5$ giây và ổn định trong vùng chết $\pm 0{,}02$ rad, nhờ các cơ chế lọc EMA, vùng chết, giới hạn bão hòa (saturation) và chống bão hòa khâu tích phân (anti-windup).
         \item Trong chế độ động (GAIT), bộ điều khiển PID nhận biết pha giới hạn sai lệch đỉnh trong ngưỡng $0{,}08$ rad, sử dụng đường cơ sở trung bình trượt, hệ số khuếch đại động và reset tích phân tại giao điểm không.
     \end{itemize}
 
@@ -30,7 +30,7 @@
 Đồ án đã đóng góp một quy trình thiết kế hoàn chỉnh --- từ mô hình toán học, thiết kế cơ khí, lựa chọn linh kiện, mô phỏng đến triển khai phần cứng --- cho robot bốn chân sử dụng các linh kiện có giá thành phù hợp. Cụ thể, các đóng góp kỹ thuật bao gồm:
 
 \begin{itemize}
-    \item Xây dựng bộ điều khiển PID nâng cao với 5 giai đoạn xử lý tín hiệu (EMA → deadband → gain-scheduled PID → saturation → LPF), kèm theo cơ chế chống tích lũy back-calculation và rò rỉ tích phân.
+    \item Xây dựng bộ điều khiển PID đa chế độ (HOME/GAIT), kết hợp chuỗi tiền xử lý tín hiệu (EMA, deadband) và hậu xử lý (saturation, LPF), kèm theo cơ chế chống bão hòa khâu tích phân (anti-windup).
     \item Thiết kế kiến trúc điều khiển hai chế độ (HOME/GAIT) với cơ chế áp dụng tín hiệu phân biệt: trực tiếp trong không gian khớp (HOME) và thông qua ma trận xoay nhận biết pha trong không gian làm việc (GAIT).
     \item Thiết kế cơ chế tắt an toàn ba pha đảm bảo robot được hạ xuống đất an toàn trong mọi tình huống.
     \item Toàn bộ mã nguồn, file CAD và tài liệu kỹ thuật có thể làm tài liệu tham khảo cho các nghiên cứu tiếp theo về điều khiển chuyển động robot đa chân tại Việt Nam.

@@ -51,8 +51,8 @@ Mục tiêu tổng quát của đề tài là thiết kế hệ thống điều 
 \subsubsection{Đối tượng nghiên cứu}
 
 \begin{itemize}
-    \item \textbf{Lý thuyết:} Mô hình toán học động học thuận và động học nghịch (IK) của robot bốn chân; các thuật toán quy hoạch quỹ đạo và dáng đi; bộ điều khiển PD cho hệ truyền động servo.
-    \item \textbf{Công nghệ:} Động cơ bus servo ST3215 với giao tiếp nối tiếp bán song công; máy tính nhúng NVIDIA Jetson Nano; cảm biến IMU BNO055; nền tảng mô phỏng ROS~2 Humble và Gazebo Classic.
+    \item \textbf{Lý thuyết:} Mô hình toán học động học thuận và động học nghịch (IK) của robot bốn chân; các thuật toán quy hoạch quỹ đạo và dáng đi; lý thuyết điều khiển PID kết hợp phản hồi IMU cho bài toán cân bằng tư thế.
+    \item \textbf{Công nghệ:} Động cơ bus servo ST3215 với giao tiếp nối tiếp bán song công; máy tính nhúng NVIDIA Jetson Nano; cảm biến IMU BNO055; phần mềm MATLAB/Simulink; nền tảng mô phỏng ROS~2 Humble và Gazebo Classic.
 \end{itemize}
 
 \subsubsection{Phạm vi nghiên cứu}
@@ -61,23 +61,34 @@ Mục tiêu tổng quát của đề tài là thiết kế hệ thống điều 
     \item Lập kế hoạch dáng đi trot (chạy kiệu) cho robot bốn chân trên mặt phẳng nằm ngang.
     \item Thiết kế và chế tạo mô hình robot bốn chân 12 bậc tự do với cấu trúc chân nối tiếp (serial), cấu hình full-elbow.
     \item Sử dụng phương pháp MD-H (Modified Denavit--Hartenberg) để xây dựng mô hình động học thuận và nghịch cho cơ cấu chân 3 bậc tự do.
+    \item Thiết lập mô hình toán học trên phần mềm MATLAB/Simulink để phân tích đáp ứng hệ thống và tinh chỉnh (tuning) bộ tham số điều khiển.
     \item Thiết kế bộ điều khiển PID nâng cao kết hợp phản hồi cảm biến IMU cho cân bằng tư thế.
-    \item Mô phỏng hệ thống trên ROS~2 Humble kết hợp Gazebo Classic, sử dụng bộ điều khiển PD effort-based.
+    \item Mô phỏng kiểm chứng quỹ đạo chuyển động và hệ thống điều khiển trên nền tảng ROS~2 Humble kết hợp Gazebo Classic.
     \item Thực nghiệm thực tế trên máy tính nhúng Jetson Nano, servo ST3215 và cảm biến BNO055.
 \end{itemize}
 
-Đồ án \textbf{không} bao gồm các nội dung sau: điều khiển nâng cao MPC/impedance control, thị giác máy tính, SLAM, điều hướng tự động, học tăng cường, và vận hành trên địa hình phức tạp.
+\subsubsection{Giới hạn đề tài}
+
+Dựa trên mục tiêu thiết kế và khuôn khổ nghiên cứu, đồ án được giới hạn trong các phạm vi học thuật sau:
+
+\begin{itemize}
+    \item \textbf{Mô hình toán học:} Nghiên cứu tập trung giải quyết bài toán và phát triển hệ thống điều khiển dựa hoàn toàn trên nền tảng \textit{Động học (Kinematics)}. Các yếu tố phức tạp thuộc phạm vi \textit{Động lực học (Dynamics)} như sự phân bố khối lượng, mô-men quán tính, hay lực tương tác phản lực từ mặt đất (Ground Reaction Forces) chưa được đưa vào mô hình toán học để tính toán tối ưu.
+    
+    \item \textbf{Cơ chế quy hoạch quỹ đạo:} Quá trình nội suy và quy hoạch quỹ đạo chuyển động cho từng cơ cấu chân được thực hiện một cách \textbf{độc lập}. Hệ thống sử dụng một biến pha thời gian tổng thể để đồng bộ chu kỳ bước, tuy nhiên chưa xem xét toàn diện tính liên kết và sự phối hợp động lực học liên chi trong quá trình vận hành thực tế.
+    
+    \item \textbf{Phạm vi chuyển động:} Không gian vận động của robot được giới hạn ở các \textbf{dáng đi thẳng cơ bản} (như Trot, Pace, Walk). Các bài toán phức tạp hơn về quy hoạch chuyển động như bám theo quỹ đạo cong, di chuyển đa hướng (omni-directional), hay khả năng tự thích nghi trên các bề mặt địa hình gồ ghề chưa được hỗ trợ trong phạm vi nghiên cứu này.
+\end{itemize}
 
 \subsection{Phương pháp nghiên cứu}
 
 Đồ án áp dụng phương pháp nghiên cứu kết hợp lý thuyết, mô phỏng và thực nghiệm theo quy trình phát triển sim-to-real (từ mô phỏng đến thực tế):
 
 \begin{itemize}
-    \item \textbf{Nghiên cứu cơ sở lý thuyết:} Phân tích các tài liệu về cơ học robot \cite{siciliano2009, craig2005, spong2020}, sử dụng phương pháp giải tích toán học và ma trận biến đổi MD-H để xây dựng mô hình động học. Nghiên cứu lý thuyết bộ điều khiển PID và các cải tiến nâng cao (anti-windup, gain scheduling, deadband).
+    \item \textbf{Nghiên cứu cơ sở lý thuyết:} Phân tích các tài liệu về cơ học robot \cite{siciliano2009, craig2005, spong2020}, sử dụng phương pháp giải tích toán học và ma trận biến đổi MD-H để xây dựng mô hình động học. Nghiên cứu lý thuyết bộ điều khiển PID và các cải tiến nâng cao (EMA, deadband, anti-windup, LPF).
 
-    \item \textbf{Thiết kế cơ khí:} Sử dụng SolidWorks để thiết kế 3D toàn bộ chi tiết robot, phân tích ứng suất FEA để kiểm chứng độ bền. Chế tạo bằng công nghệ in 3D FDM sử dụng vật liệu PLA.
+    \item \textbf{Thiết kế cơ khí:} Sử dụng phần mềm SolidWorks để thiết kế 3D toàn bộ chi tiết và kết cấu khung robot. Chế tạo bằng công nghệ in 3D FDM sử dụng vật liệu PLA.
 
-    \item \textbf{Mô phỏng:} Xây dựng mô hình URDF cho Gazebo, triển khai bộ điều khiển PD effort-based trên ROS~2 \cite{ros2docs, gazebo}. Kiểm chứng quỹ đạo, mô-men, ổn định và bộ PID cân bằng trên mô phỏng trước khi chuyển sang phần cứng.
+    \item \textbf{Mô phỏng toán học và vật lý:} Sử dụng MATLAB/Simulink để xây dựng sơ đồ khối và tinh chỉnh (tuning) tối ưu các tham số điều khiển PID. Sau đó, xây dựng mô hình URDF để mô phỏng vật lý trên Gazebo và môi trường ROS~2 \cite{ros2docs, gazebo}. Kiểm chứng tính đúng đắn của quỹ đạo, đánh giá giới hạn mô-men và thuật toán cân bằng tư thế trước khi chuyển sang phần cứng.
 
     \item \textbf{Lập trình hệ thống nhúng:} Phát triển phần mềm điều khiển bằng Python trên Jetson Nano, bao gồm giải thuật IK, gait generator, bộ điều khiển PID cân bằng IMU, và giao tiếp servo qua UART. Sử dụng kiến trúc hai node ROS~2 giao tiếp qua DDS.
 
@@ -90,7 +101,7 @@ Mục tiêu tổng quát của đề tài là thiết kế hệ thống điều 
 Đồ án đóng góp vào việc xây dựng và kiểm chứng một quy trình thiết kế hoàn chỉnh cho robot bốn chân --- từ mô hình động học, quy hoạch quỹ đạo, mô phỏng đến triển khai thực nghiệm. Cụ thể:
 
 \begin{itemize}
-    \item Xây dựng bộ điều khiển PID nâng cao với pipeline 5 giai đoạn, tích hợp nhiều cơ chế cải tiến (EMA, deadband, gain scheduling, anti-windup, integral leakage) cho bài toán cân bằng robot bốn chân.
+    \item Xây dựng bộ điều khiển PID nâng cao kết hợp phân tích pha bước chân, tích hợp các cơ chế cải tiến (EMA, deadband, anti-windup, LPF) cho bài toán cân bằng robot bốn chân.
     \item Thiết kế kiến trúc điều khiển hai chế độ HOME/GAIT với cơ chế áp dụng tín hiệu hiệu chỉnh phân biệt trong không gian khớp và không gian làm việc.
     \item Chứng minh quy trình sim-to-real với chi phí thấp, sử dụng servo bus nối tiếp thay vì động cơ BLDC đắt tiền.
 \end{itemize}
@@ -112,38 +123,46 @@ Robot bốn chân có tiềm năng ứng dụng trong nhiều lĩnh vực:
 
 Toàn bộ khối lượng công việc là sự nỗ lực và phối hợp chặt chẽ của cả nhóm trong suốt quá trình nghiên cứu, thiết kế và thi công. Tuy nhiên, để tối ưu hóa hiệu quả công việc và phát huy thế mạnh của từng thành viên, nhóm đã phân chia các hạng mục chịu trách nhiệm chính như Bảng \ref{tab:phan_cong}.
 
-\begin{table}[H]
-    \centering
+\renewcommand{\arraystretch}{1.5}
+\begin{longtable}{|p{0.05\textwidth}|p{0.25\textwidth}|p{0.6\textwidth}|}
     \caption{Bảng phân công nhiệm vụ thực hiện}
-    \label{tab:phan_cong}
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|p{0.05\textwidth}|p{0.25\textwidth}|p{0.6\textwidth}|}
-        \hline
-        \textbf{STT} & \textbf{Họ và tên sinh viên} & \textbf{Nhiệm vụ đảm nhiệm chính} \\ \hline
-        1 & Trương Tuấn An \newline (MSSV: 2210041) & 
-        \vspace{-0.4cm}
-        \begin{itemize}
-            \item Thiết kế mô hình cơ khí 3D trên phần mềm SolidWorks và lắp ráp hoàn thiện kết cấu khung robot 12 bậc tự do.
-            \item Tính toán mô-men xoắn động lực học, từ đó phân tích và lựa chọn cơ cấu chấp hành (cụm động cơ Bus Servo ST3215).
-            \item Tính toán công suất và dòng điện tiêu thụ tổng thể để thiết kế sơ đồ đi dây, phân nhánh cấp nguồn và lựa chọn hệ thống nguồn (nguồn xung tổ ong 12~V, mạch giảm áp XL4015).
-        \end{itemize} \vspace{-0.4cm} \\ \hline
-        
-        2 & Võ Quế Long \newline (MSSV: 2211910) & 
-        \vspace{-0.4cm}
-        \begin{itemize}
-            \item Phát triển phần mềm và xây dựng kiến trúc điều khiển phân tán trên nền tảng ROS~2 Humble.
-            \item Thiết lập mô hình URDF, xây dựng môi trường vật lý và đánh giá hệ thống trên trình mô phỏng Gazebo Classic.
-            \item Lập trình thực thi bộ điều khiển PD/PID nâng cao kết hợp module tạo dáng đi (Gait Generator) dựa trên phản hồi định hướng không gian từ cảm biến IMU.
-        \end{itemize} \vspace{-0.4cm} \\ \hline
-        \multicolumn{2}{|c|}{\textbf{Thực hiện chung}} & 
-        \vspace{-0.4cm}
-        \begin{itemize}
-            \item Nghiên cứu cơ sở lý thuyết: động học nghịch (IK) theo phương pháp Modified Denavit--Hartenberg (MD-H), quy hoạch quỹ đạo đa thức bậc 5, dáng đi Trot và thuật toán điều khiển PID.
-            \item Thực nghiệm sim-to-real: chuyển đổi thuật toán từ mô phỏng xuống phần cứng thực, tinh chỉnh (tuning) các hệ số điều khiển và đánh giá khả năng cân bằng tư thế.
-            \item Tổng hợp số liệu, phân tích biểu đồ và biên soạn tài liệu báo cáo luận văn hoàn chỉnh.
-        \end{itemize} \vspace{-0.4cm} \\ \hline
-    \end{tabular}
-\end{table}
+    \label{tab:phan_cong} \\
+    \hline
+    \textbf{STT} & \textbf{Họ và tên sinh viên} & \textbf{Nhiệm vụ đảm nhiệm chính} \\ \hline
+    \endfirsthead
+    
+    \caption[]{Bảng phân công nhiệm vụ thực hiện (tiếp theo)} \\
+    \hline
+    \textbf{STT} & \textbf{Họ và tên sinh viên} & \textbf{Nhiệm vụ đảm nhiệm chính} \\ \hline
+    \endhead
+    
+    \hline
+    \endfoot
+    
+    \hline
+    \endlastfoot
+
+    1 & Trương Tuấn An \newline (MSSV: 2210041) & 
+    \begin{itemize}
+        \item Thiết kế mô hình cơ khí 3D trên phần mềm SolidWorks và lắp ráp hoàn thiện kết cấu khung robot 12 bậc tự do.
+        \item Tính toán mô-men xoắn động lực học, từ đó phân tích và lựa chọn cơ cấu chấp hành (cụm động cơ Bus Servo ST3215).
+        \item Tính toán công suất và dòng điện tiêu thụ tổng thể để thiết kế sơ đồ đi dây, phân nhánh cấp nguồn và lựa chọn hệ thống nguồn (nguồn xung tổ ong 12~V, mạch giảm áp XL4015).
+    \end{itemize} \\ \hline
+    
+    2 & Võ Quế Long \newline (MSSV: 2211910) & 
+    \begin{itemize}
+        \item Phát triển phần mềm và xây dựng kiến trúc điều khiển phân tán trên nền tảng ROS~2 Humble.
+        \item Thiết lập mô hình URDF, xây dựng môi trường vật lý và đánh giá hệ thống trên trình mô phỏng Gazebo Classic.
+        \item Lập trình thực thi bộ điều khiển PD/PID nâng cao kết hợp module tạo dáng đi (Gait Generator) dựa trên phản hồi định hướng không gian từ cảm biến IMU.
+    \end{itemize} \\ \hline
+    3 & \textbf{Thực hiện chung} & 
+    \begin{itemize}
+        \item Nghiên cứu cơ sở lý thuyết: động học nghịch (IK) theo phương pháp Modified Denavit--Hartenberg (MD-H), quy hoạch quỹ đạo đa thức bậc 5, dáng đi Trot và thuật toán điều khiển PID.
+        \item Thiết lập mô hình toán học trên phần mềm MATLAB/Simulink nhằm mô phỏng, phân tích đáp ứng hệ thống và tinh chỉnh (tuning) tối ưu bộ tham số điều khiển PID.
+        \item Thực nghiệm sim-to-real: chuyển đổi thuật toán từ mô phỏng xuống phần cứng thực, tinh chỉnh (tuning) các hệ số điều khiển và đánh giá khả năng cân bằng tư thế.
+        \item Tổng hợp số liệu, phân tích biểu đồ và biên soạn tài liệu báo cáo luận văn hoàn chỉnh.
+    \end{itemize} \\
+\end{longtable}
 
 \textit{Ghi chú: Đánh giá mức độ hoàn thành nhiệm vụ chung của cả nhóm là 100\%, trong đó mức độ đóng góp của mỗi thành viên là tương đương nhau (50\% - 50\%).}
 
