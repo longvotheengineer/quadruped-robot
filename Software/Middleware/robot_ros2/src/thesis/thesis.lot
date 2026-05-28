@@ -1,31 +1,31 @@
 \babel@toc {vietnamese}{}\relax 
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {1.1}{\ignorespaces Bảng phân công nhiệm vụ thực hiện\relax }}{8}{table.1.1}%
+\contentsline {table}{\numberline {1.1}{\ignorespaces Bảng phân công nhiệm vụ thực hiện\relax }}{7}{table.1.1}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Tham số Modified Denavit-Hartenberg (MD-H)\relax }}{31}{table.caption.19}%
-\contentsline {table}{\numberline {2.2}{\ignorespaces Hệ số dấu biến đổi tọa độ và dấu IK cho bốn chân\relax }}{36}{table.caption.20}%
-\contentsline {table}{\numberline {2.3}{\ignorespaces Cấu hình pha dịch cho các dáng đi\relax }}{47}{table.caption.27}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Tham số Modified Denavit-Hartenberg (MD-H)\relax }}{28}{table.caption.19}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Hệ số dấu biến đổi tọa độ và dấu IK cho bốn chân\relax }}{32}{table.caption.20}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Cấu hình pha dịch cho các dáng đi\relax }}{43}{table.caption.27}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Thông số kỹ thuật của động cơ servo ST3215 và ST3215-HS.\relax }}{61}{table.caption.37}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Các thông số chính của robot bốn chân\relax }}{66}{table.caption.41}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces Thông số kỹ thuật\relax }}{72}{table.caption.46}%
-\contentsline {table}{\numberline {3.4}{\ignorespaces Thông số kỹ thuật mạch Bus Servo Adapter (A)\relax }}{74}{table.caption.48}%
-\contentsline {table}{\numberline {3.5}{\ignorespaces Thông số kỹ thuật module cảm biến GY-BNO055\relax }}{76}{table.caption.50}%
-\contentsline {table}{\numberline {3.6}{\ignorespaces Thông số kỹ thuật mạch giảm áp XL4015 5A 75W\relax }}{78}{table.caption.52}%
-\contentsline {table}{\numberline {3.7}{\ignorespaces Bảng so sánh các loại cơ cấu chấp hành áp dụng cho Robot bốn chân\relax }}{79}{table.caption.53}%
-\contentsline {table}{\numberline {3.8}{\ignorespaces So sánh các dòng Servo phổ biến trên thị trường\relax }}{81}{table.caption.54}%
-\contentsline {table}{\numberline {3.9}{\ignorespaces Ánh xạ ID servo theo driver và chân robot\relax }}{88}{table.caption.59}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Thông số kỹ thuật của động cơ servo ST3215 và ST3215-HS.\relax }}{56}{table.caption.37}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Các thông số chính của robot bốn chân\relax }}{61}{table.caption.41}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Thông số kỹ thuật\relax }}{66}{table.caption.45}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces Thông số kỹ thuật mạch Bus Servo Adapter (A)\relax }}{68}{table.caption.47}%
+\contentsline {table}{\numberline {3.5}{\ignorespaces Thông số kỹ thuật module cảm biến GY-BNO055\relax }}{71}{table.caption.49}%
+\contentsline {table}{\numberline {3.6}{\ignorespaces Thông số kỹ thuật mạch giảm áp XL4015 5A 75W\relax }}{73}{table.caption.51}%
+\contentsline {table}{\numberline {3.7}{\ignorespaces Bảng so sánh các loại cơ cấu chấp hành áp dụng cho Robot bốn chân\relax }}{74}{table.caption.52}%
+\contentsline {table}{\numberline {3.8}{\ignorespaces So sánh các dòng Servo phổ biến trên thị trường\relax }}{76}{table.caption.53}%
+\contentsline {table}{\numberline {3.9}{\ignorespaces Ánh xạ ID servo theo driver và chân robot\relax }}{80}{table.caption.55}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Cấu trúc các ROS 2 packages trong hệ thống\relax }}{93}{table.caption.62}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Các topic ROS~2 chính trong hệ thống\relax }}{95}{table.caption.63}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Cấu trúc các ROS 2 packages trong hệ thống\relax }}{85}{table.caption.58}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Các topic ROS~2 chính trong hệ thống\relax }}{87}{table.caption.59}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Tham số hình học mô hình URDF\relax }}{110}{table.caption.78}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ tĩnh (HOME)\relax }}{113}{table.caption.81}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ động (GAIT)\relax }}{114}{table.caption.82}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Thông số hình học robot thực tế\relax }}{123}{table.caption.94}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces Công thức chuyển đổi IK → Servo cho từng chân\relax }}{124}{table.caption.95}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces Tọa độ bàn chân tư thế đứng chuẩn và bù trừ chiều cao\relax }}{125}{table.caption.96}%
-\contentsline {table}{\numberline {5.7}{\ignorespaces Tham số dáng đi Trot trên phần cứng thực\relax }}{126}{table.caption.97}%
-\contentsline {table}{\numberline {5.8}{\ignorespaces Quy trình tắt an toàn ba pha\relax }}{127}{table.caption.98}%
-\contentsline {table}{\numberline {5.9}{\ignorespaces So sánh tham số giữa mô phỏng và phần cứng thực\relax }}{129}{table.caption.99}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Tham số hình học mô hình URDF\relax }}{102}{table.caption.74}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ tĩnh (HOME)\relax }}{105}{table.caption.77}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Tham số bộ điều khiển PID -- Chế độ động (GAIT)\relax }}{106}{table.caption.78}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Thông số hình học robot thực tế\relax }}{115}{table.caption.90}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Công thức chuyển đổi IK → Servo cho từng chân\relax }}{116}{table.caption.91}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Tọa độ bàn chân tư thế đứng chuẩn và bù trừ chiều cao\relax }}{117}{table.caption.92}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Tham số dáng đi Trot trên phần cứng thực\relax }}{117}{table.caption.93}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Quy trình tắt an toàn ba pha\relax }}{119}{table.caption.94}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces So sánh tham số giữa mô phỏng và phần cứng thực\relax }}{120}{table.caption.95}%
 \addvspace {10\p@ }

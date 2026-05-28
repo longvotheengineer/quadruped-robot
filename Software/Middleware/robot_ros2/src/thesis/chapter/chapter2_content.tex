@@ -1,5 +1,5 @@
 
-Trong quá trình nghiên cứu và thực hiện đề tài, nhóm tác giả đã tham khảo nhiều công trình nghiên cứu và bài báo khoa học trên thế giới \cite{siciliano2009, craig2005, gonzalez2018}. Tuy nhiên, tại Việt Nam, các tài liệu và báo cáo khoa học đi sâu vào việc hiện thực hóa toàn diện hệ thống điều khiển cho robot bốn chân vẫn còn khá hạn chế. Do đó, chương này sẽ tổng hợp các cơ sở lý thuyết nền tảng cốt lõi nhất làm tiền đề cho việc thiết kế và điều khiển hệ thống.
+Trong quá trình nghiên cứu và thực hiện đề tài, chúng em đã tham khảo nhiều công trình nghiên cứu và bài báo khoa học trên thế giới \cite{siciliano2009, craig2005, gonzalez2018}. Tuy nhiên, tại Việt Nam, các tài liệu và báo cáo khoa học đi sâu vào việc hiện thực hóa toàn diện hệ thống điều khiển cho robot bốn chân vẫn còn khá hạn chế. Do đó, chương này sẽ tổng hợp các cơ sở lý thuyết nền tảng cốt lõi nhất làm tiền đề cho việc thiết kế và điều khiển hệ thống.
 
 \section{Tổng quan về Robot bốn chân}
 Robot bốn chân là một hệ thống robot di động sử dụng cơ cấu bốn chân, được thiết kế dựa trên nguồn cảm hứng sinh học từ đặc điểm vận động của các loài côn trùng và động vật có vú. Khác với robot hai chân, robot bốn chân có trọng tâm thấp và diện tích đa giác chân đế rộng hơn. Nhờ đó, chúng có thể dễ dàng tự ổn định thân mình bằng cách linh hoạt điều chỉnh tư thế cơ thể cũng như thay đổi các dáng đi. Với đặc tính cơ động học ưu việt này, robot bốn chân sở hữu khả năng thích nghi tuyệt vời trên các địa hình gồ ghề và phức tạp.
@@ -16,7 +16,9 @@ Trong khuôn khổ của nghiên cứu này, đối tượng nghiên cứu và c
 \section{Phân loại cấu trúc chân robot}
 Cấu trúc cơ khí của chân robot có ảnh hưởng lớn đến khả năng điều khiển, hiệu suất chuyển động, độ chính xác cũng như khả năng mở rộng trong thiết kế. Dựa trên nguyên lý cơ học, cấu trúc chân robot có thể được chia thành ba loại chính: cấu trúc nối tiếp (Serial), cấu trúc song song (Parallel) và cấu trúc lai (Hybrid).
 
-\textbf{Cấu trúc nối tiếp (Serial):} Là cấu trúc phổ biến nhất, trong đó các khớp được liên kết tuần tự từ gốc (khung thân robot) đến điểm cuối (bàn chân). Mỗi khớp điều khiển một bậc tự do (DOF) và ảnh hưởng trực tiếp đến toàn bộ các khâu phía sau trong chuỗi động học. Hình \ref{fig8} minh họa một dạng cấu trúc chân nối tiếp với ba động cơ được gắn lần lượt tại khớp vai, khớp hông và khớp gối:
+\textbf{\textit{Cấu trúc nối tiếp (Serial)}} 
+
+Là cấu trúc phổ biến nhất, trong đó các khớp được liên kết tuần tự từ gốc (khung thân robot) đến điểm cuối (bàn chân). Mỗi khớp điều khiển một bậc tự do (DOF) và ảnh hưởng trực tiếp đến toàn bộ các khâu phía sau trong chuỗi động học. Hình \ref{fig8} minh họa một dạng cấu trúc chân nối tiếp với ba động cơ được gắn lần lượt tại khớp vai, khớp hông và khớp gối:
 
 \begin{figure}[H]
     \centering
@@ -25,7 +27,9 @@ Cấu trúc cơ khí của chân robot có ảnh hưởng lớn đến khả nă
     \label{fig8}
 \end{figure}
 
-\textbf{Cấu trúc song song (Parallel):} Trong cấu trúc này, nhiều nhánh cơ cấu hoạt động đồng thời để điều khiển một điểm cuối duy nhất, tạo nên hệ thống động học khép kín. Loại này thường có cấu hình tương tự như bệ Stewart (một dạng bệ lục giác có khung đồng bộ với các chân), mang lại độ cứng vững cao và độ chính xác chuyển động tốt hơn so với cấu trúc nối tiếp. Tuy nhiên, cấu trúc này có khối lượng cơ khí lớn và thuật toán tính toán động học thuận (FK), động học nghịch (IK) phức tạp hơn đáng kể. Hình \ref{fig9} trình bày một dạng cấu trúc chân song song phổ biến:
+\textbf{\textit{Cấu trúc song song (Parallel)}} 
+
+Trong cấu trúc này, nhiều nhánh cơ cấu hoạt động đồng thời để điều khiển một điểm cuối duy nhất, tạo nên hệ thống động học khép kín. Loại này thường có cấu hình tương tự như bệ Stewart (một dạng bệ lục giác có khung đồng bộ với các chân), mang lại độ cứng vững cao và độ chính xác chuyển động tốt hơn so với cấu trúc nối tiếp. Tuy nhiên, cấu trúc này có khối lượng cơ khí lớn và thuật toán tính toán động học thuận (FK), động học nghịch (IK) phức tạp hơn đáng kể. Hình \ref{fig9} trình bày một dạng cấu trúc chân song song phổ biến:
 
 \begin{figure}[H]
     \centering
@@ -34,7 +38,9 @@ Cấu trúc cơ khí của chân robot có ảnh hưởng lớn đến khả nă
     \label{fig9}
 \end{figure}
 
-\textbf{Cấu trúc lai (Serial-Parallel Hybrid):} Là sự kết hợp ưu điểm của cả hai cấu trúc trên, trong đó hệ thống sử dụng chuỗi động học nối tiếp để điều khiển chuyển động chính, đồng thời tích hợp cơ cấu song song để hỗ trợ truyền động (thường ứng dụng để dẫn động từ xa cho khớp gối). Do kết hợp cả hai cơ chế, phần chân robot thường nặng nề về mặt cơ khí và thuật toán điều khiển chuyển động cũng trở nên vô cùng phức tạp. Hình \ref{fig10} mô phỏng một trong những cấu trúc chân lai đơn giản nhất:
+\textbf{\textit{Cấu trúc lai (Serial-Parallel Hybrid)}} 
+
+Là sự kết hợp ưu điểm của cả hai cấu trúc trên, trong đó hệ thống sử dụng chuỗi động học nối tiếp để điều khiển chuyển động chính, đồng thời tích hợp cơ cấu song song để hỗ trợ truyền động (thường ứng dụng để dẫn động từ xa cho khớp gối). Do kết hợp cả hai cơ chế, phần chân robot thường nặng nề về mặt cơ khí và thuật toán điều khiển chuyển động cũng trở nên vô cùng phức tạp. Hình \ref{fig10} mô phỏng một trong những cấu trúc chân lai đơn giản nhất:
 
 \begin{figure}[H]
     \centering
@@ -102,54 +108,62 @@ Không gian làm việc có ý nghĩa quan trọng trong thiết kế: nó xác 
 
 
 \section{Các phương thức di chuyển}
-Robot bốn chân có rất nhiều phương thức di chuyển khác nhau tùy thuộc vào tốc độ và đặc điểm địa hình. Dưới đây là 5 dáng đi (\textit{gait}) phổ biến nhất được áp dụng trong kỹ thuật điều khiển robot:
+Robot bốn chân có rất nhiều phương thức di chuyển khác nhau tùy thuộc vào tốc độ và đặc điểm địa hình. Dưới đây là 5 dáng đi (\textit{gait}) phổ biến nhất được áp dụng trong kỹ thuật điều khiển robot.
 
-\begin{itemize}
-    \item \textbf{Dáng đi Trot (Chạy kiệu):} Đây là dáng đi phổ biến nhất và cũng là dáng đi trọng tâm được tác giả lựa chọn để thực hiện. Ở dáng đi này, hai chân chéo nhau (ví dụ: chân trước-trái và chân sau-phải) sẽ đồng thời nhấc lên và tiếp đất cùng lúc. \textit{Trot gait} giúp robot di chuyển nhanh và mượt mà, nhưng đòi hỏi bài toán điều khiển cân bằng động liên tục do đa giác chân đế thu hẹp lại thành một đường chéo.
-    
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.6\textwidth]{gait_planner/trot_gait_table.png}
-        \caption{Giản đồ pha chuyển động của dáng đi Trot}
-        \label{fig3}
-    \end{figure}
+\textbf{\textit{Dáng đi Trot (Chạy kiệu)}} 
 
-    \item \textbf{Dáng đi Walk (Đi bộ):} Là dáng đi chậm và ổn định nhất. Tại bất kỳ thời điểm nào, robot luôn có ít nhất 3 chân tiếp đất để tạo thành một chân đế vững chắc, trong khi 1 chân được nhấc lên bước tới. Các pha (\textit{phase}) của 4 chân thường lệch nhau một góc $90^\circ$ (tương ứng $0^\circ, 90^\circ, 180^\circ, 270^\circ$).
+Đây là dáng đi phổ biến nhất và cũng là dáng đi trọng tâm được tác giả lựa chọn để thực hiện. Ở dáng đi này, hai chân chéo nhau (ví dụ: chân trước-trái và chân sau-phải) sẽ đồng thời nhấc lên và tiếp đất cùng lúc. \textit{Trot gait} giúp robot di chuyển nhanh và mượt mà, nhưng đòi hỏi bài toán điều khiển cân bằng động liên tục do đa giác chân đế thu hẹp lại thành một đường chéo.
     
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.6\textwidth]{gait_planner/walk_gait_table.png}
-        \caption{Giản đồ pha chuyển động của dáng đi Walk}
-        \label{fig4}
-    \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gait_planner/trot_gait_table.png}
+    \caption{Giản đồ pha chuyển động của dáng đi Trot}
+    \label{fig3}
+\end{figure}
 
-    \item \textbf{Dáng đi Pace (Đi kiệu song song):} Hai chân cùng một bên (trái hoặc phải) được nhấc lên và tiến về phía trước cùng lúc. Đặc điểm của dáng đi này là trọng tâm khối lượng (CoM - \textit{Center of Mass}) của robot sẽ bị lắc lư ngang theo trục Y trong quá trình di chuyển, do đó hệ thống cần có cơ chế bù trừ thăng bằng tốt.
-    
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.6\textwidth]{gait_planner/pace_gait_table.png}
-        \caption{Giản đồ pha chuyển động của dáng đi Pace}
-        \label{fig5}
-    \end{figure}
+\textbf{\textit{Dáng đi Walk (Đi bộ)}} 
 
-    \item \textbf{Dáng đi Bound (Nhảy vọt):} Hai chân trước đồng thời nhấc lên vươn tới, ngay sau đó hai chân sau cũng nhấc lên tạo ra chuyển động nảy bật về phía trước, mô phỏng chuyển động của các loài thú săn mồi.
+Là dáng đi chậm và ổn định nhất. Tại bất kỳ thời điểm nào, robot luôn có ít nhất 3 chân tiếp đất để tạo thành một chân đế vững chắc, trong khi 1 chân được nhấc lên bước tới. Các pha (\textit{phase}) của 4 chân thường lệch nhau một góc $90^\circ$ (tương ứng $0^\circ, 90^\circ, 180^\circ, 270^\circ$).
     
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.6\textwidth]{gait_planner/bound_gait_table.png}
-        \caption{Giản đồ pha chuyển động của dáng đi Bound}
-        \label{fig6}
-    \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gait_planner/walk_gait_table.png}
+    \caption{Giản đồ pha chuyển động của dáng đi Walk}
+    \label{fig4}
+\end{figure}
 
-    \item \textbf{Dáng đi Gallop (Phi mã):} Đây là dáng đi có tốc độ cao nhất của robot bốn chân. Quá trình di chuyển sẽ xuất hiện các pha bay hoàn toàn trên không (\textit{flight phase}), tức là không có chân nào chạm đất. Dáng đi này đòi hỏi các cơ cấu chấp hành có mô-men xoắn và tốc độ cực kỳ cao.
+\textbf{\textit{Dáng đi Pace (Đi kiệu song song)}} 
+
+Hai chân cùng một bên (trái hoặc phải) được nhấc lên và tiến về phía trước cùng lúc. Đặc điểm của dáng đi này là trọng tâm khối lượng (CoM - \textit{Center of Mass}) của robot sẽ bị lắc lư ngang theo trục Y trong quá trình di chuyển, do đó hệ thống cần có cơ chế bù trừ thăng bằng tốt.
     
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.6\textwidth]{gait_planner/gallop_gait_table.png}
-        \caption{Giản đồ pha chuyển động của dáng đi Gallop}
-        \label{fig7}
-    \end{figure}
-\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gait_planner/pace_gait_table.png}
+    \caption{Giản đồ pha chuyển động của dáng đi Pace}
+    \label{fig5}
+\end{figure}
+
+\textbf{\textit{Dáng đi Bound (Nhảy vọt)}} 
+
+Hai chân trước đồng thời nhấc lên vươn tới, ngay sau đó hai chân sau cũng nhấc lên tạo ra chuyển động nảy bật về phía trước, mô phỏng chuyển động của các loài thú săn mồi.
+    
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gait_planner/bound_gait_table.png}
+    \caption{Giản đồ pha chuyển động của dáng đi Bound}
+    \label{fig6}
+\end{figure}
+
+\textbf{\textit{Dáng đi Gallop (Phi mã)}} 
+
+Đây là dáng đi có tốc độ cao nhất của robot bốn chân. Quá trình di chuyển sẽ xuất hiện các pha bay hoàn toàn trên không (\textit{flight phase}), tức là không có chân nào chạm đất. Dáng đi này đòi hỏi các cơ cấu chấp hành có mô-men xoắn và tốc độ cực kỳ cao.
+    
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gait_planner/gallop_gait_table.png}
+    \caption{Giản đồ pha chuyển động của dáng đi Gallop}
+    \label{fig7}
+\end{figure}
 
 \section{Lý thuyết ổn định cho robot có chân}
 
@@ -159,7 +173,9 @@ Phân tích ổn định là yêu cầu thiết yếu trong thiết kế và v�
 
 Robot có chân được xem là ổn định tĩnh tại một thời điểm nếu hình chiếu của trọng tâm (Center of Mass -- CoM) xuống mặt đất nằm bên trong đa giác đỡ (support polygon) --- đa giác lồi được tạo bởi các điểm tiếp xúc giữa các chân đang chạm đất và mặt đất.
 
-\textbf{Biên ổn định tĩnh} (Static Stability Margin -- SSM) được định nghĩa là khoảng cách nhỏ nhất từ hình chiếu CoM đến các cạnh của đa giác đỡ \cite{gonzalez2018}:
+\textbf{\textit{Biên ổn định tĩnh}} 
+
+(Static Stability Margin -- SSM) được định nghĩa là khoảng cách nhỏ nhất từ hình chiếu CoM đến các cạnh của đa giác đỡ \cite{gonzalez2018}:
 
 \begin{equation}
     \text{SSM} = \min_{i} \, d(\mathbf{p}_{CoM}, \overline{P_i P_{i+1}})
@@ -167,7 +183,9 @@ Robot có chân được xem là ổn định tĩnh tại một thời điểm n
 
 trong đó $\mathbf{p}_{CoM}$ là hình chiếu CoM lên mặt đất, $\overline{P_i P_{i+1}}$ là cạnh thứ $i$ của đa giác đỡ, và $d(\cdot, \cdot)$ là khoảng cách từ điểm đến đoạn thẳng. Nếu SSM $> 0$, robot ổn định tĩnh; nếu SSM $\leq 0$, robot sẽ đổ.
 
-\textbf{Ứng dụng cho dáng đi Trot.} Trong dáng đi trot, tại mỗi thời điểm có hai chân chéo nhau chạm đất. Đa giác đỡ suy biến thành một đoạn thẳng nối hai bàn chân. Về mặt lý thuyết, điều này có nghĩa là robot đang ở trạng thái biên của ổn định tĩnh (SSM $\approx 0$ khi CoM nằm đúng trên đoạn thẳng). Trong thực tế, diện tích tiếp xúc hữu hạn của bàn chân và quán tính của thân robot tạo ra một vùng ổn định hẹp nhưng đủ để duy trì chuyển động.
+\textbf{\textit{Ứng dụng cho dáng đi Trot}} 
+
+Trong dáng đi trot, tại mỗi thời điểm có hai chân chéo nhau chạm đất. Đa giác đỡ suy biến thành một đoạn thẳng nối hai bàn chân. Về mặt lý thuyết, điều này có nghĩa là robot đang ở trạng thái biên của ổn định tĩnh (SSM $\approx 0$ khi CoM nằm đúng trên đoạn thẳng). Trong thực tế, diện tích tiếp xúc hữu hạn của bàn chân và quán tính của thân robot tạo ra một vùng ổn định hẹp nhưng đủ để duy trì chuyển động.
 
 \begin{figure}[H]
     \centering
@@ -186,33 +204,7 @@ trong đó $\mathbf{p}_{CoM}$ là hình chiếu CoM lên mặt đất, $\overlin
     \label{fig:static_stability}
 \end{figure}
 
-\subsection{Ổn định động}
-
-Khi robot di chuyển ở tốc độ trung bình đến cao, phân tích ổn định tĩnh không còn đủ vì các hiệu ứng quán tính trở nên đáng kể. Ổn định động sử dụng khái niệm \textbf{Zero Moment Point} (ZMP) --- điểm trên mặt đất mà tổng mô-men do trọng lực và lực quán tính bằng không \cite{vukobratovic2004}.
-
-Xét mô hình đơn giản hóa của robot bốn chân, trong đó toàn bộ khối lượng robot được tập trung tại trọng tâm CoM có tọa độ $(x, y, z)$ ở độ cao $z_0$ so với mặt đất. Điểm ZMP $(p_{x_k}, p_{y_k})$ nằm trên mặt phẳng đất, là điểm mà tại đó tổng mô-men của tất cả các lực tác dụng (bao gồm trọng lực và lực quán tính) bằng không.
-
-Tọa độ ZMP được xác định bởi:
-
-\begin{equation}
-    p_{x_k} = x - \frac{\ddot{x}}{\ddot{z} + g} \cdot z_0, \quad
-    p_{y_k} = y - \frac{\ddot{y}}{\ddot{z} + g} \cdot z_0
-    \label{eq:zmp_simplified}
-\end{equation}
-
-trong đó $(x, y, z)$ là tọa độ CoM, $(\ddot{x}, \ddot{y}, \ddot{z})$ là gia tốc của CoM, $g$ là gia tốc trọng trường, và $z_0$ là chiều cao danh nghĩa của CoM. Đối với trường hợp tổng quát nhiều khâu, công thức mở rộng thành:
-
-\begin{equation}
-    \mathbf{p}_{ZMP} = \frac{\sum_i m_i (\ddot{z}_i + g) \mathbf{r}_i - \sum_i m_i \ddot{\mathbf{r}}_i z_i}{\sum_i m_i (\ddot{z}_i + g)}
-    \label{eq:zmp_general}
-\end{equation}
-
-trong đó $m_i$, $\mathbf{r}_i = (x_i, y_i)^T$, $z_i$ lần lượt là khối lượng, vị trí ngang và độ cao của khâu thứ $i$. Robot ổn định động khi ZMP nằm bên trong đa giác đỡ.
-
-
-
-
-Trong nghiên cứu này, robot hoạt động ở tốc độ thấp nên phân tích ổn định tĩnh là đủ cho mục đích thiết kế. Bộ điều khiển PID cân bằng IMU đóng vai trò bổ sung, giảm thiểu sai lệch hướng của thân robot khi di chuyển, đưa CoM về gần đường nối hai bàn chân đang chạm đất.
+Trong nghiên cứu này, robot hoạt động ở tốc độ thấp với dáng đi Trot nên phân tích ổn định tĩnh là đủ cho mục đích thiết kế. Bộ điều khiển PID cân bằng kết hợp phản hồi IMU đóng vai trò bổ sung, giảm thiểu sai lệch hướng của thân robot khi di chuyển, chủ động đưa trọng tâm về gần đường nối hai bàn chân đang chạm đất.
 
 \section{Lý thuyết bộ điều khiển PID}
 
@@ -234,15 +226,7 @@ Tín hiệu điều khiển tổng hợp $u(t)$ trong miền thời gian liên t
     \label{eq:pid_continuous}
 \end{equation}
 
-trong đó $K_P$, $K_I$, và $K_D$ lần lượt là hệ số khuếch đại tỷ lệ, hệ số tích phân và hệ số vi phân. Mỗi thành phần đóng một vai trò riêng biệt trong việc định hình đáp ứng của hệ thống:
-
-\begin{itemize}
-    \item \textbf{Thành phần tỷ lệ (Proportional - P):} Tạo ra tín hiệu hiệu chỉnh tỷ lệ thuận với sai lệch hiện tại. Hệ số $K_P$ càng lớn, hệ thống phản ứng càng nhanh nhưng đồng thời có xu hướng dao động và độ vọt lố (overshoot) cao. Thành phần P đơn thuần không thể triệt tiêu hoàn toàn sai lệch ở trạng thái xác lập.
-
-    \item \textbf{Thành phần tích phân (Integral - I):} Tích lũy sai lệch theo thời gian để triệt tiêu hoàn toàn sai số ở trạng thái xác lập (steady-state error). Tuy nhiên, khi sai lệch tồn tại trong thời gian dài do hệ thống bị bão hòa cơ cấu chấp hành, giá trị tích phân tích lũy quá lớn sẽ gây ra hiện tượng bão hòa tích phân (\textit{integral windup}), khiến hệ thống bị vọt lố nghiêm trọng và phục hồi chậm.
-
-    \item \textbf{Thành phần vi phân (Derivative - D):} Dự đoán xu hướng thay đổi của sai lệch dựa trên đạo hàm. Thành phần này hoạt động như một ``phanh'' hãm, giúp giảm vọt lố và cải thiện thời gian xác lập. Nhược điểm chính của khâu D là rất nhạy cảm với nhiễu tần số cao trong tín hiệu đo đạc từ cảm biến.
-\end{itemize}
+trong đó $K_P$, $K_I$, và $K_D$ lần lượt là hệ số khuếch đại tỷ lệ, hệ số tích phân và hệ số vi phân. Mỗi thành phần đóng một vai trò riêng biệt trong việc định hình đáp ứng của hệ thống. Trước hết, thành phần tỷ lệ (Proportional - P) tạo ra tín hiệu hiệu chỉnh tỷ lệ thuận với sai lệch hiện tại; hệ số $K_P$ càng lớn, hệ thống phản ứng càng nhanh nhưng đồng thời có xu hướng dao động và độ vọt lố (overshoot) cao. Thành phần P đơn thuần không thể triệt tiêu hoàn toàn sai lệch ở trạng thái xác lập. Tiếp theo, thành phần tích phân (Integral - I) tích lũy sai lệch theo thời gian để triệt tiêu hoàn toàn sai số ở trạng thái xác lập (steady-state error). Tuy nhiên, khi sai lệch tồn tại trong thời gian dài do hệ thống bị bão hòa cơ cấu chấp hành, giá trị tích phân tích lũy quá lớn sẽ gây ra hiện tượng bão hòa tích phân (\textit{integral windup}), khiến hệ thống bị vọt lố nghiêm trọng và phục hồi chậm. Cuối cùng, thành phần vi phân (Derivative - D) dự đoán xu hướng thay đổi của sai lệch dựa trên đạo hàm. Thành phần này hoạt động như một ``phanh'' hãm, giúp giảm vọt lố và cải thiện thời gian xác lập, mặc dù nhược điểm chính của khâu D là rất nhạy cảm với nhiễu tần số cao trong tín hiệu đo đạc từ cảm biến.
 
 \subsection{Dạng rời rạc và triển khai số}
 
@@ -257,15 +241,19 @@ trong đó chỉ số $k$ biểu thị bước thời gian hiện tại. Phươn
 
 \subsection{Các cải tiến PID trong hệ thống thực}
 
-\textbf{Chống bão hòa tích phân (Anti-windup).}
-Khi đầu ra điều khiển bị bão hòa (vượt quá giới hạn vật lý của cơ cấu chấp hành), thành phần tích phân vẫn tiếp tục tích lũy sai số, gây ra hiện tượng windup. Để giải quyết vấn đề này, hai phương pháp phổ biến được sử dụng:
-\begin{itemize}
-    \item \textit{Clamping:} Khống chế trực tiếp giá trị tích phân không cho vượt qua một ngưỡng cố định, tức là $\mathcal{I}_{k} = \max(-\mathcal{I}_{max}, \min(\mathcal{I}_{max}, \mathcal{I}_{k}))$.
-    \item \textit{Back-calculation:} Trừ ngược phần vượt giới hạn vào bộ tích phân khi đầu ra bão hòa: $\mathcal{I}_{k} \leftarrow \mathcal{I}_{k} - K_{bc}(u_{raw} - u_{sat})$, trong đó $K_{bc}$ là hệ số tính toán ngược.
-\end{itemize}
+Trong điều kiện vận hành thực tế, đặc biệt đối với robot bốn chân chịu ảnh hưởng lớn từ nhiễu động học và giới hạn phần cứng, bộ điều khiển PID cơ bản (phương trình \ref{eq:pid_discrete}) không thể đáp ứng tốt. Dựa trên mô hình MATLAB/Simulink và thực nghiệm, chuỗi điều khiển PID trong nghiên cứu này được tích hợp các cơ chế cải tiến sau:
 
-\textbf{Vùng chết (Deadband/Deadzone).}
-Trong thực tế, cảm biến luôn tồn tại nhiễu nhỏ ngay cả khi hệ thống đã ở vị trí cân bằng. Vùng chết triệt tiêu các sai lệch không đáng kể này để tránh động cơ phải hoạt động liên tục (chatter) gây mài mòn cơ khí:
+\textbf{\textit{Bộ lọc trung bình trượt (EMA - Exponential Moving Average)}}
+
+Trong quá trình di chuyển (chế độ GAIT), thân robot luôn dao động tuần hoàn. Nếu bộ điều khiển lấy mốc thăng bằng tuyệt đối (0 rad), nó sẽ liên tục sinh ra tín hiệu chống lại chính nhịp bước tự nhiên của robot. Việc áp dụng bộ lọc EMA tạo ra một đường cơ sở động (dynamic baseline):
+\begin{equation}
+    \text{Baseline}_k = \alpha_{ema} \cdot \text{Baseline}_{k-1} + (1 - \alpha_{ema}) \cdot y_k
+\end{equation}
+Sai lệch đưa vào PID sẽ là $e_k = \text{Baseline}_k - y_k$, giúp bộ điều khiển bỏ qua các dao động tự nhiên và chỉ phản ứng khi thân robot thực sự mất trọng tâm.
+
+\textbf{\textit{Vùng chết (Deadband)}}
+
+Cảm biến IMU luôn tồn tại nhiễu nhỏ ngay cả khi hệ thống ở vị trí cân bằng. Vùng chết triệt tiêu các sai lệch không đáng kể này để tránh động cơ phải bù trừ liên tục (chatter), giảm mài mòn cơ khí và tiết kiệm năng lượng:
 \begin{equation}
     e_{dz} = \begin{cases}
         e - d & \text{nếu } e > d \\
@@ -275,32 +263,35 @@ Trong thực tế, cảm biến luôn tồn tại nhiễu nhỏ ngay cả khi h�
 \end{equation}
 trong đó $d$ là bán kính của vùng chết.
 
-\textbf{Rò rỉ tích phân (Integral Leakage/Decay).}
-Để ngăn bộ tích phân giữ lại các sai số cũ quá lâu (làm hệ thống chậm chạp khi thay đổi điểm đặt), hệ số rò rỉ $\lambda \in (0, 1)$ được áp dụng vào khâu tích phân:
+\textbf{\textit{Chống bão hòa (Anti-windup) và Rò rỉ tích phân (Integral Leakage)}}
+
+Để ngăn khâu tích phân (I) giữ lại các sai số cũ quá lâu hoặc bị bão hòa khi đạt giới hạn cơ cấu chấp hành, hệ số rò rỉ $\lambda \in (0, 1)$ được áp dụng để làm giảm dần giá trị tích phân theo thời gian (hàm mũ):
 \begin{equation}
-    \mathcal{I}_k = \lambda \cdot \mathcal{I}_{k-1} + e_k \cdot \Delta t, \quad \text{với } \lambda \approx 0{,}999
+    \mathcal{I}_k = \lambda \cdot \mathcal{I}_{k-1} + e_k \cdot \Delta t
 \end{equation}
-Kỹ thuật này rất hữu ích cho các hệ thống có đặc tính thường xuyên thay đổi theo thời gian, giúp khâu tích phân luôn ``làm mới'' và phản ứng chính xác hơn với trạng thái hiện tại.
+Đồng thời, giá trị $\mathcal{I}_k$ được khống chế cứng (clamping) trong khoảng $[-\mathcal{I}_{max}, \mathcal{I}_{max}]$ nhằm đảm bảo an toàn.
+
+\textbf{\textit{Reset tích phân tại giao điểm không (Zero-Crossing Reset)}}
+
+Trong chế độ di chuyển tuần hoàn như dáng đi Trot, thân robot lắc qua lại liên tục qua trục cân bằng. Để tránh khâu tích phân gây ra quá điều chỉnh (overshoot) khi đổi chiều, hệ thống sẽ tự động xóa giá trị tích lũy ($\mathcal{I}_k = 0$) ngay khi sai số $e_k$ đổi dấu (vượt qua giao điểm không).
+
+\textbf{\textit{Bão hòa đầu ra và Lọc thông thấp (Saturation \& Output LPF)}}
+
+Tín hiệu hiệu chỉnh từ PID có thể chứa các gai nhiễu (chủ yếu từ khâu D). Trước khi xuất xuống hệ thống động học, tín hiệu được giới hạn biên độ chặt chẽ ($[-u_{max}, u_{max}]$) để không phá vỡ quỹ đạo sải bước nguyên vẹn. Sau đó, tín hiệu tiếp tục đi qua bộ lọc thông thấp (Low-Pass Filter) để làm mượt, đảm bảo động cơ vận hành êm ái, tránh hiện tượng trượt chân hoặc hụt bước.
 
 \section{Cảm biến quán tính IMU và biểu diễn hướng}
 
 \subsection{Nguyên lý hoạt động}
 
-Bộ đo lường quán tính (Inertial Measurement Unit -- IMU) là thiết bị kết hợp nhiều loại cảm biến để đo gia tốc, vận tốc góc và hướng của vật thể trong không gian ba chiều. Một IMU tiêu chuẩn 9 trục bao gồm \cite{madgwick2011}:
-
-\begin{itemize}
-    \item \textbf{Gia tốc kế (Accelerometer):} Đo gia tốc tuyến tính theo ba trục ($a_x, a_y, a_z$), bao gồm cả thành phần gia tốc trọng trường. Từ các phép đo này, góc nghiêng tĩnh (roll, pitch) có thể được suy ra thông qua hướng của vector trọng lực.
-
-    \item \textbf{Con quay hồi chuyển (Gyroscope):} Đo vận tốc góc ($\omega_x, \omega_y, \omega_z$) quanh ba trục. Tích phân vận tốc góc theo thời gian cho ra góc quay, tuy nhiên do sai số tích lũy (drift), phương pháp này không đáng tin cậy trong thời gian dài.
-
-    \item \textbf{Từ kế (Magnetometer):} Đo cường độ từ trường Trái Đất theo ba trục, cung cấp thông tin về hướng Bắc từ, cho phép xác định góc hướng (yaw).
-\end{itemize}
+Bộ đo lường quán tính (Inertial Measurement Unit -- IMU) là thiết bị kết hợp nhiều loại cảm biến để đo gia tốc, vận tốc góc và hướng của vật thể trong không gian ba chiều. Một IMU tiêu chuẩn 9 trục thường bao gồm ba thành phần chính \cite{madgwick2011}. Thứ nhất là gia tốc kế (Accelerometer) dùng để đo gia tốc tuyến tính theo ba trục ($a_x, a_y, a_z$), bao gồm cả thành phần gia tốc trọng trường; từ các phép đo này, góc nghiêng tĩnh (roll, pitch) có thể được suy ra thông qua hướng của vector trọng lực. Thứ hai là con quay hồi chuyển (Gyroscope) làm nhiệm vụ đo vận tốc góc ($\omega_x, \omega_y, \omega_z$) quanh ba trục; mặc dù việc tích phân vận tốc góc theo thời gian cho ra góc quay, do sai số tích lũy (drift), phương pháp này không đáng tin cậy trong thời gian dài. Cuối cùng là từ kế (Magnetometer) có chức năng đo cường độ từ trường Trái Đất theo ba trục, cung cấp thông tin về hướng Bắc từ, từ đó cho phép hệ thống xác định góc hướng (yaw).
 
 \subsection{Biểu diễn hướng: Quaternion và góc Euler}
 
 Hướng của một vật rắn trong không gian ba chiều có thể được biểu diễn bằng nhiều phương pháp, trong đó phổ biến nhất là góc Euler và quaternion.
 
-\textbf{Góc Euler} sử dụng ba góc quay liên tiếp quanh các trục cố định hoặc trục động để mô tả hướng. Trong hệ quy ước ZYX (yaw--pitch--roll), ma trận xoay tổng hợp là:
+\textbf{\textit{Góc Euler}} 
+
+Sử dụng ba góc quay liên tiếp quanh các trục cố định hoặc trục động để mô tả hướng. Trong hệ quy ước ZYX (yaw--pitch--roll), ma trận xoay tổng hợp là:
 
 \begin{equation}
     R = R_z(\psi) \cdot R_y(\theta) \cdot R_x(\phi)
@@ -308,7 +299,9 @@ Hướng của một vật rắn trong không gian ba chiều có thể được
 
 trong đó $\phi$ là góc lăn (roll), $\theta$ là góc nghiêng (pitch), và $\psi$ là góc hướng (yaw). Nhược điểm chính của biểu diễn Euler là hiện tượng khóa gimbal (gimbal lock), xảy ra khi $\theta = \pm 90^\circ$, khiến hai trục quay trùng nhau và mất một bậc tự do.
 
-\textbf{Quaternion} $\mathbf{q} = (w, x, y, z)$ với $|\mathbf{q}| = 1$ biểu diễn phép quay một góc $\alpha$ quanh trục đơn vị $\hat{n} = (n_x, n_y, n_z)$:
+\textbf{\textit{Quaternion}} 
+
+$\mathbf{q} = (w, x, y, z)$ với $|\mathbf{q}| = 1$ biểu diễn phép quay một góc $\alpha$ quanh trục đơn vị $\hat{n} = (n_x, n_y, n_z)$:
 
 \begin{equation}
     \mathbf{q} = \left(\cos\frac{\alpha}{2},\; n_x \sin\frac{\alpha}{2},\; n_y \sin\frac{\alpha}{2},\; n_z \sin\frac{\alpha}{2}\right)
@@ -324,61 +317,14 @@ Quaternion không bị hiện tượng khóa gimbal, tính toán nội suy mư�
 
 \subsection{Bộ lọc cảm biến}
 
-Dữ liệu thô từ IMU chứa nhiễu tần số cao và sai số trôi (drift), do đó cần được xử lý qua bộ lọc trước khi sử dụng. Các phương pháp phổ biến bao gồm:
-
-\begin{itemize}
-    \item \textbf{Bộ lọc bổ sung (Complementary Filter):} Kết hợp dữ liệu gia tốc kế (tin cậy ở tần số thấp) và con quay hồi chuyển (tin cậy ở tần số cao) thông qua hệ số trọng số $\alpha$:
-    \begin{equation}
-        \hat{\theta}_k = \alpha \cdot (\hat{\theta}_{k-1} + \omega_k \Delta t) + (1-\alpha) \cdot \theta_{acc,k}
-    \end{equation}
-
-    \item \textbf{Bộ lọc Kalman:} Phương pháp ước lượng tối ưu dựa trên mô hình trạng thái, kết hợp dự đoán (prediction) từ mô hình động học với cập nhật (update) từ phép đo. Bộ lọc Kalman mở rộng (EKF) được sử dụng cho các hệ phi tuyến.
-
-    \item \textbf{Bộ lọc Madgwick:} Thuật toán nhẹ về tính toán, sử dụng gradient descent để tối ưu hóa quaternion ước lượng, phù hợp với các hệ thống nhúng có tài nguyên hạn chế \cite{madgwick2011}.
-
-    \item \textbf{Sensor Fusion tích hợp (On-chip):} Một số IMU cao cấp như BNO055 tích hợp sẵn bộ xử lý sensor fusion, cung cấp trực tiếp quaternion hoặc góc Euler đã được lọc, giảm tải tính toán cho vi xử lý chính.
-\end{itemize}
+Dữ liệu thô từ IMU chứa nhiễu tần số cao và sai số trôi (drift), do đó cần được xử lý qua bộ lọc trước khi sử dụng. Có nhiều phương pháp phổ biến được ứng dụng trong thực tế. Khái niệm cơ bản nhất là bộ lọc bổ sung (Complementary Filter), kết hợp dữ liệu gia tốc kế (tin cậy ở tần số thấp) và con quay hồi chuyển (tin cậy ở tần số cao) thông qua hệ số trọng số $\alpha$:
+\begin{equation}
+    \hat{\theta}_k = \alpha \cdot (\hat{\theta}_{k-1} + \omega_k \Delta t) + (1-\alpha) \cdot \theta_{acc,k}
+\end{equation}
+Bên cạnh đó, bộ lọc Kalman là một phương pháp ước lượng tối ưu dựa trên mô hình trạng thái, kết hợp dự đoán (prediction) từ mô hình động học với cập nhật (update) từ phép đo. Trong đó, bộ lọc Kalman mở rộng (EKF) thường được sử dụng cho các hệ phi tuyến. Một giải pháp thay thế hiệu quả là bộ lọc Madgwick \cite{madgwick2011}, một thuật toán tính toán nhẹ sử dụng quy hoạch gradient (gradient descent) để tối ưu hóa quaternion ước lượng, rất phù hợp với các hệ thống nhúng có tài nguyên hạn chế. Hiện nay, giải pháp tối ưu hóa phần cứng là sử dụng Sensor Fusion tích hợp (On-chip); một số module IMU cao cấp như BNO055 được tích hợp sẵn bộ xử lý sensor fusion để tính toán và cung cấp trực tiếp quaternion hoặc góc Euler đã được lọc nhiễu, giúp giảm đáng kể khối lượng tính toán cho vi xử lý chính.
 
 \section{Tổng quan về nền tảng ROS~2 và Gazebo}
 
-\subsection{Hệ điều hành Robot ROS~2}
+ROS~2 (Robot Operating System 2) \cite{ros2docs} là nền tảng phần mềm mã nguồn mở cung cấp kiến trúc truyền thông phân tán thời gian thực dựa trên middleware DDS. Việc sử dụng ROS~2 cho phép chia nhỏ các tác vụ điều khiển robot thành các Node độc lập (ví dụ: Node tính toán động học, Node điều khiển cân bằng) giao tiếp lỏng ghép với nhau thông qua cơ chế Publish/Subscribe, qua đó tăng cường độ tin cậy và khả năng mở rộng của hệ thống.
 
-ROS~2 (Robot Operating System 2) \cite{ros2docs} là nền tảng phần mềm mã nguồn mở dành cho phát triển ứng dụng robotics. So với phiên bản tiền nhiệm ROS~1, ROS~2 được thiết kế lại từ đầu với nhiều cải tiến quan trọng:
-
-\begin{itemize}
-    \item \textbf{Middleware DDS (Data Distribution Service):} ROS~2 sử dụng DDS làm lớp truyền thông, cung cấp khả năng giao tiếp phân tán thời gian thực, đáng tin cậy, không cần máy chủ trung tâm (rosmaster). Điều này cho phép hệ thống tiếp tục hoạt động ngay cả khi một node bị lỗi.
-
-    \item \textbf{Hỗ trợ thời gian thực:} Kiến trúc ROS~2 được thiết kế tương thích với hệ điều hành thời gian thực (RTOS), cho phép triển khai các ứng dụng yêu cầu xác định thời gian (deterministic timing).
-
-    \item \textbf{Đa nền tảng:} Hỗ trợ Linux, Windows, macOS và nhiều kiến trúc phần cứng khác nhau (x86, ARM, RISC-V).
-\end{itemize}
-
-Các khái niệm cốt lõi trong ROS~2 bao gồm:
-
-\begin{itemize}
-    \item \textbf{Node:} Đơn vị thực thi cơ bản, mỗi node thực hiện một chức năng cụ thể (ví dụ: đọc cảm biến, tính toán điều khiển, giao tiếp phần cứng).
-
-    \item \textbf{Topic:} Kênh truyền thông theo mô hình publish/subscribe. Một node có thể xuất bản (publish) dữ liệu lên topic và nhiều node khác có thể đăng ký nhận (subscribe) dữ liệu từ topic đó. Phương pháp này cho phép giao tiếp phi đồng bộ, lỏng ghép (loosely coupled).
-
-    \item \textbf{Service:} Mô hình giao tiếp request/response đồng bộ, phù hợp cho các thao tác yêu cầu phản hồi ngay lập tức.
-
-    \item \textbf{Action:} Tương tự service nhưng hỗ trợ phản hồi tiến trình (feedback), phù hợp cho các tác vụ kéo dài.
-
-    \item \textbf{Launch file:} Tệp cấu hình cho phép khởi chạy nhiều node đồng thời với các tham số được định nghĩa trước.
-\end{itemize}
-
-\subsection{Trình mô phỏng Gazebo}
-
-Gazebo \cite{gazebo} là trình mô phỏng robotics 3D mã nguồn mở, cung cấp môi trường vật lý chính xác để kiểm thử thuật toán trước khi triển khai trên phần cứng thực. Các đặc điểm chính bao gồm:
-
-\begin{itemize}
-    \item \textbf{Động lực học vật lý:} Sử dụng engine vật lý ODE (Open Dynamics Engine) hoặc Bullet để mô phỏng trọng lực, va chạm, ma sát, quán tính, và các hiệu ứng tiếp xúc giữa robot và môi trường.
-
-    \item \textbf{Mô tả robot URDF/SDF:} Robot được mô tả bằng file URDF (Unified Robot Description Format) hoặc SDF (Simulation Description Format), định nghĩa cấu trúc link, joint, thuộc tính quán tính ($mass$, $inertia$), vật liệu va chạm, và hình dạng hiển thị.
-
-    \item \textbf{Plugin điều khiển:} Giao diện \texttt{gazebo\_ros2\_control} cho phép kết nối bộ điều khiển ROS~2 với mô hình robot trong Gazebo, hỗ trợ các kiểu giao diện lệnh: vị trí (position), vận tốc (velocity) và lực/mô-men (effort).
-
-    \item \textbf{Cảm biến ảo:} Gazebo cung cấp các plugin mô phỏng cảm biến như IMU, camera, LiDAR, encoder, cho phép kiểm thử toàn bộ luồng xử lý (pipeline) phần mềm mà không cần phần cứng thực.
-\end{itemize}
-
-Quy trình phát triển ``sim-to-real'' (từ mô phỏng đến thực tế) được áp dụng trong nghiên cứu này: thuật toán được phát triển và kiểm thử trên Gazebo trước, sau đó chuyển sang phần cứng thực với các điều chỉnh tối thiểu (chủ yếu liên quan đến ánh xạ góc IK sang góc servo và giao tiếp phần cứng).
+Song song với ROS~2, Gazebo \cite{gazebo} được sử dụng làm môi trường mô phỏng vật lý 3D. Nhờ khả năng tích hợp chặt chẽ với ROS~2 và hỗ trợ mô phỏng động lực học chính xác (trọng lực, ma sát, va chạm), đồ án áp dụng quy trình phát triển ``sim-to-real''. Thuật toán điều khiển và mô hình URDF của robot được kiểm thử toàn diện trên Gazebo để loại trừ các lỗi logic trước khi triển khai xuống máy tính nhúng và cơ cấu chấp hành thực tế, giúp tiết kiệm thời gian và đảm bảo an toàn phần cứng.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.28)  27 MAY 2026 15:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.4.28)  28 MAY 2026 22:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -370,6 +370,16 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 LaTeX Info: Redefining \[ on input line 2938.
 LaTeX Info: Redefining \] on input line 2939.
 )
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\enitkv@toks@=\toks26
+\labelindent=\skip54
+\enit@outerparindent=\dimen162
+\enit@toks=\toks27
+\enit@inbox=\box54
+\enit@count@id=\count278
+\enitdp@description=\count279
+)
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
@@ -398,76 +408,76 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
 (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen162
-\Gin@req@width=\dimen163
+\Gin@req@height=\dimen163
+\Gin@req@width=\dimen164
 )
 (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
 Package: subcaption 2020/10/07 v1.3j Sub-captions (AR)
-\c@subfigure=\count278
-\c@subtable=\count279
+\c@subfigure=\count280
+\c@subtable=\count281
 )
 (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen164
-\lightrulewidth=\dimen165
-\cmidrulewidth=\dimen166
-\belowrulesep=\dimen167
-\belowbottomsep=\dimen168
-\aboverulesep=\dimen169
-\abovetopsep=\dimen170
-\cmidrulesep=\dimen171
-\cmidrulekern=\dimen172
-\defaultaddspace=\dimen173
-\@cmidla=\count280
-\@cmidlb=\count281
-\@aboverulesep=\dimen174
-\@belowrulesep=\dimen175
-\@thisruleclass=\count282
-\@lastruleclass=\count283
-\@thisrulewidth=\dimen176
+\heavyrulewidth=\dimen165
+\lightrulewidth=\dimen166
+\cmidrulewidth=\dimen167
+\belowrulesep=\dimen168
+\belowbottomsep=\dimen169
+\aboverulesep=\dimen170
+\abovetopsep=\dimen171
+\cmidrulesep=\dimen172
+\cmidrulekern=\dimen173
+\defaultaddspace=\dimen174
+\@cmidla=\count282
+\@cmidlb=\count283
+\@aboverulesep=\dimen175
+\@belowrulesep=\dimen176
+\@thisruleclass=\count284
+\@lastruleclass=\count285
+\@thisrulewidth=\dimen177
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
 Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
-\col@sep=\dimen177
-\ar@mcellbox=\box54
-\extrarowheight=\dimen178
-\NC@list=\toks26
-\extratabsurround=\skip54
-\backup@length=\skip55
-\ar@cellbox=\box55
+\col@sep=\dimen178
+\ar@mcellbox=\box55
+\extrarowheight=\dimen179
+\NC@list=\toks28
+\extratabsurround=\skip55
+\backup@length=\skip56
+\ar@cellbox=\box56
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2021/01/28 v4.0.1 Extensive control of page headers and foote
 rs
-\f@nch@headwidth=\skip56
-\f@nch@O@elh=\skip57
-\f@nch@O@erh=\skip58
-\f@nch@O@olh=\skip59
-\f@nch@O@orh=\skip60
-\f@nch@O@elf=\skip61
-\f@nch@O@erf=\skip62
-\f@nch@O@olf=\skip63
-\f@nch@O@orf=\skip64
+\f@nch@headwidth=\skip57
+\f@nch@O@elh=\skip58
+\f@nch@O@erh=\skip59
+\f@nch@O@olh=\skip60
+\f@nch@O@orh=\skip61
+\f@nch@O@elf=\skip62
+\f@nch@O@erf=\skip63
+\f@nch@O@olf=\skip64
+\f@nch@O@orf=\skip65
 )
 (/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
-\multirow@colwidth=\skip65
-\multirow@cntb=\count284
-\multirow@dima=\skip66
-\bigstrutjot=\dimen179
+\multirow@colwidth=\skip66
+\multirow@cntb=\count286
+\multirow@dima=\skip67
+\bigstrutjot=\dimen180
 )
 (/usr/share/texlive/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
 Package: algorithm2e 2017/07/18 v5.2 algorithms environments
-\c@AlgoLine=\count285
+\c@AlgoLine=\count287
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\algocf@hangindent=\skip67
+\algocf@hangindent=\skip68
 
 (/usr/share/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count286
+\c@checkoddpage=\count288
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
@@ -476,41 +486,41 @@ Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 Package: relsize 2013/03/29 ver 4.1
 LaTeX Info: Redefining \larger on input line 150.
 )
-\skiptotal=\skip68
-\skiplinenumber=\skip69
-\skiprule=\skip70
-\skiphlne=\skip71
-\skiptext=\skip72
-\skiplength=\skip73
-\algomargin=\skip74
-\skipalgocfslide=\skip75
-\algowidth=\dimen180
-\inoutsize=\dimen181
-\inoutindent=\dimen182
-\interspacetitleruled=\dimen183
-\interspacealgoruled=\dimen184
-\interspacetitleboxruled=\dimen185
-\algocf@ruledwidth=\skip76
-\algocf@inoutbox=\box56
-\algocf@inputbox=\box57
-\AlCapSkip=\skip77
-\AlCapHSkip=\skip78
-\algoskipindent=\skip79
-\algocf@nlbox=\box58
-\algocf@hangingbox=\box59
-\algocf@untilbox=\box60
-\algocf@skipuntil=\skip80
-\algocf@capbox=\box61
-\algocf@lcaptionbox=\skip81
-\algoheightruledefault=\skip82
-\algoheightrule=\skip83
-\algotitleheightruledefault=\skip84
-\algotitleheightrule=\skip85
-\c@algocfline=\count287
-\c@algocfproc=\count288
-\c@algocf=\count289
-\algocf@algoframe=\box62
-\algocf@algobox=\box63
+\skiptotal=\skip69
+\skiplinenumber=\skip70
+\skiprule=\skip71
+\skiphlne=\skip72
+\skiptext=\skip73
+\skiplength=\skip74
+\algomargin=\skip75
+\skipalgocfslide=\skip76
+\algowidth=\dimen181
+\inoutsize=\dimen182
+\inoutindent=\dimen183
+\interspacetitleruled=\dimen184
+\interspacealgoruled=\dimen185
+\interspacetitleboxruled=\dimen186
+\algocf@ruledwidth=\skip77
+\algocf@inoutbox=\box57
+\algocf@inputbox=\box58
+\AlCapSkip=\skip78
+\AlCapHSkip=\skip79
+\algoskipindent=\skip80
+\algocf@nlbox=\box59
+\algocf@hangingbox=\box60
+\algocf@untilbox=\box61
+\algocf@skipuntil=\skip81
+\algocf@capbox=\box62
+\algocf@lcaptionbox=\skip82
+\algoheightruledefault=\skip83
+\algoheightrule=\skip84
+\algotitleheightruledefault=\skip85
+\algotitleheightrule=\skip86
+\c@algocfline=\count289
+\c@algocfproc=\count290
+\c@algocf=\count291
+\algocf@algoframe=\box63
+\algocf@algobox=\box64
 )
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
@@ -544,9 +554,9 @@ Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
 (/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
-\@linkdim=\dimen186
-\Hy@linkcounter=\count290
-\Hy@pagecounter=\count291
+\@linkdim=\dimen187
+\Hy@linkcounter=\count292
+\Hy@pagecounter=\count293
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
@@ -563,7 +573,7 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count292
+\Hy@SavedSpaceFactor=\count294
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
@@ -577,14 +587,14 @@ Package hyperref Info: Plain pages OFF on input line 4207.
 Package hyperref Info: Backreferencing OFF on input line 4212.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4445.
-\c@Hy@tempcnt=\count293
+\c@Hy@tempcnt=\count295
 
 (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4804.
-\XeTeXLinkMargin=\dimen187
+\XeTeXLinkMargin=\dimen188
 
 (/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -593,9 +603,9 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count294
-\Field@Width=\dimen188
-\Fld@charsize=\dimen189
+\Fld@menulength=\count296
+\Field@Width=\dimen189
+\Fld@charsize=\dimen190
 Package hyperref Info: Hyper figures OFF on input line 6076.
 Package hyperref Info: Link nesting OFF on input line 6081.
 Package hyperref Info: Hyper index ON on input line 6084.
@@ -610,9 +620,9 @@ LaTeX Info: Redefining \pageref on input line 6150.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count295
-\c@Item=\count296
-\c@Hfootnote=\count297
+\Hy@abspage=\count297
+\c@Item=\count298
+\c@Hfootnote=\count299
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
@@ -624,8 +634,8 @@ Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
 kage
 with kernel methods
 )
-\Fld@listcount=\count298
-\c@bookmark@seq@number=\count299
+\Fld@listcount=\count300
+\c@bookmark@seq@number=\count301
 
 (/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
@@ -636,21 +646,21 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 86.
 )
-\Hy@SectionHShift=\skip86
+\Hy@SectionHShift=\skip87
 )
 (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count300
-\float@exts=\toks27
-\float@box=\box64
-\@float@everytoks=\toks28
-\@floatcapt=\box65
+\c@float@type=\count302
+\float@exts=\toks29
+\float@box=\box65
+\@float@everytoks=\toks30
+\@floatcapt=\box66
 )
 (/usr/share/texlive/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
-\rotheadsize=\dimen190
-\c@nlinenum=\count301
-\TeXr@lab=\toks29
+\rotheadsize=\dimen191
+\c@nlinenum=\count303
+\TeXr@lab=\toks31
 )
 (./sty/bkthesis.sty
 
@@ -682,30 +692,30 @@ Package: geometry 2020/01/02 v5.9 Page Geometry
 (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count302
-\Gm@cntv=\count303
-\c@Gm@tempcnt=\count304
-\Gm@bindingoffset=\dimen191
-\Gm@wd@mp=\dimen192
-\Gm@odd@mp=\dimen193
-\Gm@even@mp=\dimen194
-\Gm@layoutwidth=\dimen195
-\Gm@layoutheight=\dimen196
-\Gm@layouthoffset=\dimen197
-\Gm@layoutvoffset=\dimen198
-\Gm@dimlist=\toks30
+\Gm@cnth=\count304
+\Gm@cntv=\count305
+\c@Gm@tempcnt=\count306
+\Gm@bindingoffset=\dimen192
+\Gm@wd@mp=\dimen193
+\Gm@odd@mp=\dimen194
+\Gm@even@mp=\dimen195
+\Gm@layoutwidth=\dimen196
+\Gm@layoutheight=\dimen197
+\Gm@layouthoffset=\dimen198
+\Gm@layoutvoffset=\dimen199
+\Gm@dimlist=\toks32
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks31
-\pgfutil@tempdima=\dimen199
-\pgfutil@tempdimb=\dimen256
+\pgfutil@everybye=\toks33
+\pgfutil@tempdima=\dimen256
+\pgfutil@tempdimb=\dimen257
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
 ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box66
+\pgfutil@abb=\box67
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
 Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
@@ -718,33 +728,33 @@ Package: pgf 2021/05/15 v3.1.9a (3.1.9a)
 Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks32
-\pgfkeys@temptoks=\toks33
+\pgfkeys@pathtoks=\toks34
+\pgfkeys@temptoks=\toks35
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
 ex
-\pgfkeys@tmptoks=\toks34
+\pgfkeys@tmptoks=\toks36
 ))
-\pgf@x=\dimen257
-\pgf@y=\dimen258
-\pgf@xa=\dimen259
-\pgf@ya=\dimen260
-\pgf@xb=\dimen261
-\pgf@yb=\dimen262
-\pgf@xc=\dimen263
-\pgf@yc=\dimen264
-\pgf@xd=\dimen265
-\pgf@yd=\dimen266
+\pgf@x=\dimen258
+\pgf@y=\dimen259
+\pgf@xa=\dimen260
+\pgf@ya=\dimen261
+\pgf@xb=\dimen262
+\pgf@yb=\dimen263
+\pgf@xc=\dimen264
+\pgf@yc=\dimen265
+\pgf@xd=\dimen266
+\pgf@yd=\dimen267
 \w@pgf@writea=\write3
 \r@pgf@reada=\read3
-\c@pgf@counta=\count305
-\c@pgf@countb=\count306
-\c@pgf@countc=\count307
-\c@pgf@countd=\count308
-\t@pgf@toka=\toks35
-\t@pgf@tokb=\toks36
-\t@pgf@tokc=\toks37
-\pgf@sys@id@count=\count309
+\c@pgf@counta=\count307
+\c@pgf@countb=\count308
+\c@pgf@countc=\count309
+\c@pgf@countd=\count310
+\t@pgf@toka=\toks37
+\t@pgf@tokb=\toks38
+\t@pgf@tokc=\toks39
+\pgf@sys@id@count=\count311
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2021/05/15 v3.1.9a (3.1.9a)
 )
@@ -760,8 +770,8 @@ File: pgfsys-common-pdf.def 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
 tex
 File: pgfsyssoftpath.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfsyssoftpath@smallbuffer@items=\count310
-\pgfsyssoftpath@bigbuffer@items=\count311
+\pgfsyssoftpath@smallbuffer@items=\count312
+\pgfsyssoftpath@bigbuffer@items=\count313
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
 tex
@@ -790,12 +800,12 @@ Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen267
-\pgfmath@count=\count312
-\pgfmath@box=\box67
-\pgfmath@toks=\toks38
-\pgfmath@stack@operand=\toks39
-\pgfmath@stack@operation=\toks40
+\pgfmath@dimen=\dimen268
+\pgfmath@count=\count314
+\pgfmath@box=\box68
+\pgfmath@toks=\toks40
+\pgfmath@stack@operand=\toks41
+\pgfmath@stack@operation=\toks42
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
@@ -815,58 +825,58 @@ tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
 thmetics.code.tex)))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count313
+\c@pgfmathroundto@lastzeros=\count315
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
 x
 File: pgfcorepoints.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@picminx=\dimen268
-\pgf@picmaxx=\dimen269
-\pgf@picminy=\dimen270
-\pgf@picmaxy=\dimen271
-\pgf@pathminx=\dimen272
-\pgf@pathmaxx=\dimen273
-\pgf@pathminy=\dimen274
-\pgf@pathmaxy=\dimen275
-\pgf@xx=\dimen276
-\pgf@xy=\dimen277
-\pgf@yx=\dimen278
-\pgf@yy=\dimen279
-\pgf@zx=\dimen280
-\pgf@zy=\dimen281
+\pgf@picminx=\dimen269
+\pgf@picmaxx=\dimen270
+\pgf@picminy=\dimen271
+\pgf@picmaxy=\dimen272
+\pgf@pathminx=\dimen273
+\pgf@pathmaxx=\dimen274
+\pgf@pathminy=\dimen275
+\pgf@pathmaxy=\dimen276
+\pgf@xx=\dimen277
+\pgf@xy=\dimen278
+\pgf@yx=\dimen279
+\pgf@yy=\dimen280
+\pgf@zx=\dimen281
+\pgf@zy=\dimen282
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
 code.tex
 File: pgfcorepathconstruct.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@path@lastx=\dimen282
-\pgf@path@lasty=\dimen283
+\pgf@path@lastx=\dimen283
+\pgf@path@lasty=\dimen284
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
 .tex
 File: pgfcorepathusage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@shorten@end@additional=\dimen284
-\pgf@shorten@start@additional=\dimen285
+\pgf@shorten@end@additional=\dimen285
+\pgf@shorten@start@additional=\dimen286
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
 x
 File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfpic=\box68
-\pgf@hbox=\box69
-\pgf@layerbox@main=\box70
-\pgf@picture@serial@count=\count314
+\pgfpic=\box69
+\pgf@hbox=\box70
+\pgf@layerbox@main=\box71
+\pgf@picture@serial@count=\count316
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
 ode.tex
 File: pgfcoregraphicstate.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgflinewidth=\dimen286
+\pgflinewidth=\dimen287
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
 s.code.tex
 File: pgfcoretransformations.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@pt@x=\dimen287
-\pgf@pt@y=\dimen288
-\pgf@pt@temp=\dimen289
+\pgf@pt@x=\dimen288
+\pgf@pt@y=\dimen289
+\pgf@pt@temp=\dimen290
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2021/05/15 v3.1.9a (3.1.9a)
@@ -882,13 +892,13 @@ File: pgfcorepathprocessing.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
 x
 File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfarrowsep=\dimen290
+\pgfarrowsep=\dimen291
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@max=\dimen291
-\pgf@sys@shading@range@num=\count315
-\pgf@shadingcount=\count316
+\pgf@max=\dimen292
+\pgf@sys@shading@range@num=\count317
+\pgf@shadingcount=\count318
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
@@ -896,7 +906,7 @@ File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
 tex
 File: pgfcoreexternal.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfexternal@startupbox=\box71
+\pgfexternal@startupbox=\box72
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
 x
@@ -915,15 +925,15 @@ File: pgfcorerdf.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfnodeparttextbox=\box72
+\pgfnodeparttextbox=\box73
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
 File: pgfmoduleplot.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
 .sty
 Package: pgfcomp-version-0-65 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@nodesepstart=\dimen292
-\pgf@nodesepend=\dimen293
+\pgf@nodesepstart=\dimen293
+\pgf@nodesepend=\dimen294
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
 .sty
@@ -937,10 +947,10 @@ Package: pgfcomp-version-1-18 2021/05/15 v3.1.9a (3.1.9a)
 Package: pgffor 2021/05/15 v3.1.9a (3.1.9a)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
-\pgffor@iter=\dimen294
-\pgffor@skip=\dimen295
-\pgffor@stack=\toks41
-\pgffor@toks=\toks42
+\pgffor@iter=\dimen295
+\pgffor@skip=\dimen296
+\pgffor@stack=\toks43
+\pgffor@toks=\toks44
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
 Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
@@ -948,33 +958,33 @@ Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
 .code.tex
 File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@plot@mark@count=\count317
-\pgfplotmarksize=\dimen296
+\pgf@plot@mark@count=\count319
+\pgfplotmarksize=\dimen297
 )
-\tikz@lastx=\dimen297
-\tikz@lasty=\dimen298
-\tikz@lastxsaved=\dimen299
-\tikz@lastysaved=\dimen300
-\tikz@lastmovetox=\dimen301
-\tikz@lastmovetoy=\dimen302
-\tikzleveldistance=\dimen303
-\tikzsiblingdistance=\dimen304
-\tikz@figbox=\box73
-\tikz@figbox@bg=\box74
-\tikz@tempbox=\box75
-\tikz@tempbox@bg=\box76
-\tikztreelevel=\count318
-\tikznumberofchildren=\count319
-\tikznumberofcurrentchild=\count320
-\tikz@fig@count=\count321
+\tikz@lastx=\dimen298
+\tikz@lasty=\dimen299
+\tikz@lastxsaved=\dimen300
+\tikz@lastysaved=\dimen301
+\tikz@lastmovetox=\dimen302
+\tikz@lastmovetoy=\dimen303
+\tikzleveldistance=\dimen304
+\tikzsiblingdistance=\dimen305
+\tikz@figbox=\box74
+\tikz@figbox@bg=\box75
+\tikz@tempbox=\box76
+\tikz@tempbox@bg=\box77
+\tikztreelevel=\count320
+\tikznumberofchildren=\count321
+\tikznumberofcurrentchild=\count322
+\tikz@fig@count=\count323
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfmatrixcurrentrow=\count322
-\pgfmatrixcurrentcolumn=\count323
-\pgf@matrix@numberofcolumns=\count324
+\pgfmatrixcurrentrow=\count324
+\pgfmatrixcurrentcolumn=\count325
+\pgf@matrix@numberofcolumns=\count326
 )
-\tikz@expandcount=\count325
+\tikz@expandcount=\count327
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarytopaths.code.tex
@@ -989,22 +999,22 @@ Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
-\LTleft=\skip87
-\LTright=\skip88
-\LTpre=\skip89
-\LTpost=\skip90
-\LTchunksize=\count326
-\LTcapwidth=\dimen305
-\LT@head=\box77
-\LT@firsthead=\box78
-\LT@foot=\box79
-\LT@lastfoot=\box80
-\LT@gbox=\box81
-\LT@cols=\count327
-\LT@rows=\count328
-\c@LT@tables=\count329
-\c@LT@chunks=\count330
-\LT@p@ftn=\toks43
+\LTleft=\skip88
+\LTright=\skip89
+\LTpre=\skip90
+\LTpost=\skip91
+\LTchunksize=\count328
+\LTcapwidth=\dimen306
+\LT@head=\box78
+\LT@firsthead=\box79
+\LT@foot=\box80
+\LT@lastfoot=\box81
+\LT@gbox=\box82
+\LT@cols=\count329
+\LT@rows=\count330
+\c@LT@tables=\count331
+\c@LT@chunks=\count332
+\LT@p@ftn=\toks45
 )
 (/usr/share/texlive/texmf-dist/tex/latex/comment/comment.sty
 \CommentStream=\write4
@@ -1012,32 +1022,32 @@ Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
 Excluding comment 'comment') (./thesis.aux (./chapter/appendix.aux))
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 89.
-LaTeX Font Info:    Trying to load font information for T5+cmr on input line 89
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 92.
+LaTeX Font Info:    Trying to load font information for T5+cmr on input line 92
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/vntex/t5cmr.fd
 File: t5cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
@@ -1050,17 +1060,17 @@ Package caption Info: End \AtBeginDocument code.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count331
-\scratchdimen=\dimen306
-\scratchbox=\box82
-\nofMPsegments=\count332
-\nofMParguments=\count333
-\everyMPshowfont=\toks44
-\MPscratchCnt=\count334
-\MPscratchDim=\dimen307
-\MPnumerator=\count335
-\makeMPintoPDFobject=\count336
-\everyMPtoPDFconversion=\toks45
+\scratchcounter=\count333
+\scratchdimen=\dimen307
+\scratchbox=\box83
+\nofMPsegments=\count334
+\nofMParguments=\count335
+\everyMPshowfont=\toks46
+\MPscratchCnt=\count336
+\MPscratchDim=\dimen308
+\MPnumerator=\count337
+\makeMPintoPDFobject=\count338
+\everyMPtoPDFconversion=\toks47
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -1070,7 +1080,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 89.
+Package hyperref Info: Link coloring OFF on input line 92.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -1081,11 +1091,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count337
+\c@section@level=\count339
 )
-LaTeX Info: Redefining \ref on input line 89.
-LaTeX Info: Redefining \pageref on input line 89.
-LaTeX Info: Redefining \nameref on input line 89.
+LaTeX Info: Redefining \ref on input line 92.
+LaTeX Info: Redefining \pageref on input line 92.
+LaTeX Info: Redefining \nameref on input line 92.
 
 (./thesis.out) (./thesis.out)
 \@outlinefile=\write5
@@ -1126,96 +1136,114 @@ LaTeX Info: Redefining \nameref on input line 89.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<Images//misc/logobk.png, id=488, 291.0072pt x 293.898pt>
+<Images//misc/logobk.png, id=472, 291.0072pt x 293.898pt>
 File: Images//misc/logobk.png Graphic file (type png)
 <use Images//misc/logobk.png>
-Package pdftex.def Info: Images//misc/logobk.png  used on input line 103.
+Package pdftex.def Info: Images//misc/logobk.png  used on input line 106.
 (pdftex.def)             Requested size: 101.85403pt x 102.86583pt.
-LaTeX Font Info:    Calculating math sizes for size <14> on input line 103.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 103
+LaTeX Font Info:    Calculating math sizes for size <14> on input line 106.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 106
 .
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 103
+LaTeX Font Info:    Trying to load font information for U+msb on input line 106
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Calculating math sizes for size <13> on input line 103.
+LaTeX Font Info:    Calculating math sizes for size <13> on input line 106.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 103.
+(Font)              size <6> substituted on input line 106.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <13> not available
-(Font)              size <12> substituted on input line 103.
+(Font)              size <12> substituted on input line 106.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <6.5> not available
-(Font)              size <6> substituted on input line 103.
+(Font)              size <6> substituted on input line 106.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <13> not available
-(Font)              size <12> substituted on input line 103.
+(Font)              size <12> substituted on input line 106.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 103.
+(Font)              size <6> substituted on input line 106.
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./Images//misc/logobk.png>
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 109--123
+Underfull \hbox (badness 10000) in paragraph at lines 114--128
 
  []
 
 LaTeX Font Info:    Calculating math sizes for size <10.83347> on input line 13
-1.
+6.
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <7.58339> not available
-(Font)              size <8> substituted on input line 131.
+(Font)              size <8> substituted on input line 136.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <5.41673> not available
-(Font)              size <5> substituted on input line 131.
+(Font)              size <5> substituted on input line 136.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <7.58339> not available
-(Font)              size <8> substituted on input line 131.
+(Font)              size <8> substituted on input line 136.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <5.41673> not available
-(Font)              size <5> substituted on input line 131.
+(Font)              size <5> substituted on input line 136.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <7.58339> not available
-(Font)              size <8> substituted on input line 131.
+(Font)              size <8> substituted on input line 136.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <5.41673> not available
-(Font)              size <5> substituted on input line 131.
+(Font)              size <5> substituted on input line 136.
 
-[2] [3
+[2] [1
 
-] [1
-
-
-
-] [2
 
 
 ]
-Overfull \hbox (10.0715pt too wide) in paragraph at lines 268--269
+Overfull \hbox (10.0715pt too wide) in paragraph at lines 271--272
 \T5/qtm/b/n/13 T¯ kh‚a: \T5/qtm/m/n/13 Robot bËn ch•n, ^^_Îng hÂc ngh‡ch, ^^_a 
 th˘c b™c n´m, MAT-LAB/Simulink,
  []
 
-[3] (./thesis.toc [4
+[2
 
+
+]
+Overfull \hbox (1.6595pt too wide) in paragraph at lines 287--288
+[]\T5/qtm/m/n/13 The sci-en-tific high-light is a multi-mode PID bal-ance con-t
+roller (static HOME
+ []
+
+
+Overfull \hbox (3.78706pt too wide) in paragraph at lines 287--288
+\T5/qtm/m/n/13 dead-band, anti-windup, and LPF). PID pa-ram-e-ters were rig-or-
+ously tuned in MAT-
+ []
+
+
+Overfull \hbox (4.6137pt too wide) in paragraph at lines 289--290
+[]\T5/qtm/m/n/13 Experimentally, the phys-i-cal pro-to-type suc-cess-fully ex-e
+-cuted hom-ing, a three-
+ []
+
+[3
+
+
+] (./thesis.toc [4
 
 ] [5] [6] [7])
 \tf@toc=\write6
@@ -1251,13 +1279,13 @@ LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <6.5> not available
 (Font)              size <6> substituted on input line 27.
 
 [12]
-Overfull \hbox (4.35811pt too wide) in paragraph at lines 54--54
+Overfull \hbox (4.35811pt too wide) in paragraph at lines 50--50
  [][] [][]\T5/qtm/m/n/13 Cßu trÛc khËi ^^_Ëi t˜Òng mÊ ph‰ng ph£n hÁi tr§ng th°i
  (Quadruped 
  []
 
 LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 6
-4.
+0.
 (/usr/share/texlive/texmf-dist/tex/latex/vntex/t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 ) [13])
@@ -1281,1091 +1309,1048 @@ l.15
                    \relax 
 l.30 V
       ·ªÅ ph∆∞∆°ng ph√°p quy ho·∫°ch d√°ng ƒëi, Marhefka v√† Orin \cite{marh...
-[2]pdfTeX warning (ext4): destination with the same identifier (name{page.3}) h
-as been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.47 \end{itemize}
-                   [3] [4] [5] [6]
-Overfull \hbox (3.74548pt too wide) in paragraph at lines 131--131
-[]|\T5/qtm/b/n/13 STT| 
+[2] [3] [4] [5]
+Overfull \hbox (4.594pt too wide) in alignment at lines 75--80
+ [] [] [] 
  []
 
 
-Overfull \hbox (3.74548pt too wide) in paragraph at lines 136--136
-[]|\T5/qtm/b/n/13 STT| 
+Overfull \hbox (4.594pt too wide) in alignment at lines 80--85
+ [] [] [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 161--162
-\T5/qtm/m/n/13 MAT-LAB/Simulink nh¨m mÊ ph‰ng,
+Overfull \hbox (4.594pt too wide) in alignment at lines 85--88
+ [] [] [] 
  []
 
-[7] [8] [9]) (./chapter/ch2_lythuyet.tex [10]
+
+Overfull \hbox (4.594pt too wide) in alignment at lines 88--91
+ [] [] [] 
+ []
+
+
+Overfull \hbox (4.594pt too wide) in alignment at lines 91--101
+ [] [] [] 
+ []
+
+[6] [7]) (./chapter/ch2_lythuyet.tex [8]
 Ch\uhorn \ohorn ng 2.
 (./chapter/chapter2_content.tex
-<Images//hardware/robot_overview.png, id=1002, 2409.0pt x 1606.0pt>
+<Images//hardware/robot_overview.png, id=957, 2409.0pt x 1606.0pt>
 File: Images//hardware/robot_overview.png Graphic file (type png)
 <use Images//hardware/robot_overview.png>
 Package pdftex.def Info: Images//hardware/robot_overview.png  used on input lin
 e 11.
 (pdftex.def)             Requested size: 288.79422pt x 192.51564pt.
- [11
+ [9
 
 ]
-<Images//hardware/serial_leg_both_sides.png, id=1008, 175.65625pt x 149.55875pt
->
+<Images//hardware/serial_leg_both_sides.png, id=964, 175.65625pt x 149.55875pt>
+
 File: Images//hardware/serial_leg_both_sides.png Graphic file (type png)
 <use Images//hardware/serial_leg_both_sides.png>
 Package pdftex.def Info: Images//hardware/serial_leg_both_sides.png  used on in
-put line 23.
+put line 25.
 (pdftex.def)             Requested size: 247.54149pt x 210.78201pt.
- [12 <./Images//hardware/robot_overview.png>]
-<Images//hardware/mechanical_model.png, id=1015, 314.17375pt x 203.76125pt>
+ [10 <./Images//hardware/robot_overview.png>]
+<Images//hardware/mechanical_model.png, id=971, 314.17375pt x 203.76125pt>
 File: Images//hardware/mechanical_model.png Graphic file (type png)
 <use Images//hardware/mechanical_model.png>
 Package pdftex.def Info: Images//hardware/mechanical_model.png  used on input l
-ine 32.
+ine 36.
 (pdftex.def)             Requested size: 247.54149pt x 160.54366pt.
- [13 <./Images//hardware/serial_leg_both_sides.png> <./Images//hardware/mechani
+ [11 <./Images//hardware/serial_leg_both_sides.png> <./Images//hardware/mechani
 cal_model.png>]
-<Images//hardware/mechanical_model_branch.png, id=1023, 291.0875pt x 175.65625p
-t>
+<Images//hardware/mechanical_model_branch.png, id=979, 291.0875pt x 175.65625pt
+>
 File: Images//hardware/mechanical_model_branch.png Graphic file (type png)
 <use Images//hardware/mechanical_model_branch.png>
 Package pdftex.def Info: Images//hardware/mechanical_model_branch.png  used on 
-input line 41.
+input line 47.
 (pdftex.def)             Requested size: 247.54149pt x 149.38087pt.
- [14 <./Images//hardware/mechanical_model_branch.png>]
-<Images//hardware/structure_topology_front.png, id=1031, 421.575pt x 135.50626p
-t>
+ [12 <./Images//hardware/mechanical_model_branch.png>]
+<Images//hardware/structure_topology_front.png, id=986, 421.575pt x 135.50626pt
+>
 File: Images//hardware/structure_topology_front.png Graphic file (type png)
 <use Images//hardware/structure_topology_front.png>
 Package pdftex.def Info: Images//hardware/structure_topology_front.png  used on
- input line 62.
+ input line 68.
 (pdftex.def)             Requested size: 247.54149pt x 79.56754pt.
-<Images//kinematics/single_leg_3dof.png, id=1032, 175.65625pt x 250.9375pt>
+<Images//kinematics/single_leg_3dof.png, id=987, 175.65625pt x 250.9375pt>
 File: Images//kinematics/single_leg_3dof.png Graphic file (type png)
 <use Images//kinematics/single_leg_3dof.png>
 Package pdftex.def Info: Images//kinematics/single_leg_3dof.png  used on input 
-line 72.
+line 78.
 (pdftex.def)             Requested size: 247.54149pt x 353.66109pt.
-
-[15 <./Images//hardware/structure_topology_front.png>] [16 <./Images//kinematic
-s/single_leg_3dof.png>] [17]
-<Images//gait_planner/trot_gait_table.png, id=1051, 313.17pt x 100.375pt>
+ [13 <./Images//hardware/structure_topology_front.png>] [14 <./Images//kinemati
+cs/single_leg_3dof.png>] [15]
+<Images//gait_planner/trot_gait_table.png, id=1008, 313.17pt x 100.375pt>
 File: Images//gait_planner/trot_gait_table.png Graphic file (type png)
 <use Images//gait_planner/trot_gait_table.png>
 Package pdftex.def Info: Images//gait_planner/trot_gait_table.png  used on inpu
-t line 112.
+t line 119.
 (pdftex.def)             Requested size: 247.54149pt x 79.34285pt.
-<Images//gait_planner/walk_gait_table.png, id=1052, 313.17pt x 113.92563pt>
+<Images//gait_planner/walk_gait_table.png, id=1009, 313.17pt x 113.92563pt>
 File: Images//gait_planner/walk_gait_table.png Graphic file (type png)
 <use Images//gait_planner/walk_gait_table.png>
 Package pdftex.def Info: Images//gait_planner/walk_gait_table.png  used on inpu
-t line 121.
+t line 130.
 (pdftex.def)             Requested size: 247.54149pt x 90.05414pt.
-<Images//gait_planner/pace_gait_table.png, id=1053, 313.17pt x 113.92563pt>
+<Images//gait_planner/pace_gait_table.png, id=1010, 313.17pt x 113.92563pt>
 File: Images//gait_planner/pace_gait_table.png Graphic file (type png)
 <use Images//gait_planner/pace_gait_table.png>
 Package pdftex.def Info: Images//gait_planner/pace_gait_table.png  used on inpu
-t line 130.
+t line 141.
 (pdftex.def)             Requested size: 247.54149pt x 90.05414pt.
- [18 <./Images//gait_planner/trot_gait_table.png> <./Images//gait_planner/walk_
+ [16 <./Images//gait_planner/trot_gait_table.png> <./Images//gait_planner/walk_
 gait_table.png> <./Images//gait_planner/pace_gait_table.png>]
-<Images//gait_planner/bound_gait_table.png, id=1062, 313.17pt x 113.92563pt>
+<Images//gait_planner/bound_gait_table.png, id=1019, 313.17pt x 113.92563pt>
 File: Images//gait_planner/bound_gait_table.png Graphic file (type png)
 <use Images//gait_planner/bound_gait_table.png>
 Package pdftex.def Info: Images//gait_planner/bound_gait_table.png  used on inp
-ut line 139.
+ut line 152.
 (pdftex.def)             Requested size: 247.54149pt x 90.05414pt.
-<Images//gait_planner/gallop_gait_table.png, id=1063, 313.17pt x 113.92563pt>
+<Images//gait_planner/gallop_gait_table.png, id=1020, 313.17pt x 113.92563pt>
 File: Images//gait_planner/gallop_gait_table.png Graphic file (type png)
 <use Images//gait_planner/gallop_gait_table.png>
 Package pdftex.def Info: Images//gait_planner/gallop_gait_table.png  used on in
-put line 148.
+put line 163.
 (pdftex.def)             Requested size: 247.54149pt x 90.05414pt.
-
-Overfull \hbox (1.29552pt too wide) in paragraph at lines 162--163
-[]\T5/qtm/b/n/13 Bi∂n Ín ^^_‡nh tænh \T5/qtm/m/n/13 (Static Sta-bil-ity Mar-gin
- -- SSM) ^^_˜Òc ^^_‡nh nghæa l† kho£ng
- []
-
-[19 <./Images//gait_planner/bound_gait_table.png> <./Images//gait_planner/gallo
-p_gait_table.png>]
-<Images//kinematics/static_stability_a.png, id=1071, 494.84875pt x 436.63126pt>
+ [17 <./Images//gait_planner/bound_gait_table.png> <./Images//gait_planner/gall
+op_gait_table.png>]
+<Images//kinematics/static_stability_a.png, id=1028, 494.84875pt x 436.63126pt>
 
 File: Images//kinematics/static_stability_a.png Graphic file (type png)
 <use Images//kinematics/static_stability_a.png>
 Package pdftex.def Info: Images//kinematics/static_stability_a.png  used on inp
-ut line 176.
+ut line 194.
 (pdftex.def)             Requested size: 198.02942pt x 174.72935pt.
-<Images//kinematics/static_stability_b.png, id=1072, 709.65125pt x 623.32875pt>
+<Images//kinematics/static_stability_b.png, id=1029, 709.65125pt x 623.32875pt>
 
 File: Images//kinematics/static_stability_b.png Graphic file (type png)
 <use Images//kinematics/static_stability_b.png>
 Package pdftex.def Info: Images//kinematics/static_stability_b.png  used on inp
-ut line 182.
+ut line 200.
 (pdftex.def)             Requested size: 198.02942pt x 173.94116pt.
- [20 <./Images//kinematics/static_stability_a.png> <./Images//kinematics/static
-_stability_b.png>]
-<Images//architecture/Proportional-Integral-Derivative.png, id=1085, 853.1875pt
+ [18]
+<Images//architecture/Proportional-Integral-Derivative.png, id=1037, 853.1875pt
  x 396.48125pt>
 File: Images//architecture/Proportional-Integral-Derivative.png Graphic file (t
 ype png)
 <use Images//architecture/Proportional-Integral-Derivative.png>
 Package pdftex.def Info: Images//architecture/Proportional-Integral-Derivative.
-png  used on input line 223.
+png  used on input line 215.
 (pdftex.def)             Requested size: 330.05322pt x 153.3808pt.
- [21] [22 <./Images//architecture/Proportional-Integral-Derivative.png>] [23] [
-24] [25] [26] [27])
-<Images//kinematics/model_reference_frame.png, id=1139, 898.35625pt x 727.71875
+ [19 <./Images//kinematics/static_stability_a.png> <./Images//kinematics/static
+_stability_b.png>] [20 <./Images//architecture/Proportional-Integral-Derivative
+.png>] [21]
+Overfull \hbox (1.43767pt too wide) in paragraph at lines 271--273
+\T5/qtm/m/n/13 ^^^Áng thÌi, gi° tr‡ $\OMS/cmsy/m/n/12 I[]$ \T5/qtm/m/n/13 ^^_˜Ò
+c khËng ch∏ c˘ng (clamp-ing) trong kho£ng $\OT1/cmr/m/n/12 [\OMS/cmsy/m/n/12 ^^
+@I[]\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 I[]\OT1/cmr/m/n/12 ]$
+ []
+
+[22] [23] [24])
+<Images//kinematics/model_reference_frame.png, id=1088, 898.35625pt x 727.71875
 pt>
 File: Images//kinematics/model_reference_frame.png Graphic file (type png)
 <use Images//kinematics/model_reference_frame.png>
 Package pdftex.def Info: Images//kinematics/model_reference_frame.png  used on 
 input line 14.
 (pdftex.def)             Requested size: 288.79422pt x 233.94075pt.
- [28] [29 <./Images//kinematics/model_reference_frame.png>]
-<Images//kinematics/dh_coordinate_system.png, id=1152, 188.20313pt x 188.20313p
+ [25] [26 <./Images//kinematics/model_reference_frame.png>]
+<Images//kinematics/dh_coordinate_system.png, id=1101, 188.20313pt x 188.20313p
 t>
 File: Images//kinematics/dh_coordinate_system.png Graphic file (type png)
 <use Images//kinematics/dh_coordinate_system.png>
 Package pdftex.def Info: Images//kinematics/dh_coordinate_system.png  used on i
-nput line 34.
+nput line 27.
 (pdftex.def)             Requested size: 247.54149pt x 247.55873pt.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <13> not available
-(Font)              size <12> substituted on input line 48.
+(Font)              size <12> substituted on input line 41.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <6.5> not available
-(Font)              size <6> substituted on input line 48.
+(Font)              size <6> substituted on input line 41.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <13> not available
-(Font)              size <12> substituted on input line 48.
+(Font)              size <12> substituted on input line 41.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 48.
+(Font)              size <6> substituted on input line 41.
 
-LaTeX Font Info:    Calculating math sizes for size <11.86258> on input line 57
+LaTeX Font Info:    Calculating math sizes for size <11.86258> on input line 50
 .
-[30 <./Images//kinematics/dh_coordinate_system.png>] [31] [32] [33] [34]
-[35] [36] [37]
-<Images//gait_planner/trot_gait_timing.png, id=1222, 432.61626pt x 105.89563pt>
+[27 <./Images//kinematics/dh_coordinate_system.png>] [28] [29] [30] [31]
+[32] [33]
+<Images//gait_planner/trot_gait_timing.png, id=1169, 432.61626pt x 105.89563pt>
 
 File: Images//gait_planner/trot_gait_timing.png Graphic file (type png)
 <use Images//gait_planner/trot_gait_timing.png>
 Package pdftex.def Info: Images//gait_planner/trot_gait_timing.png  used on inp
-ut line 364.
+ut line 357.
 (pdftex.def)             Requested size: 247.54149pt x 60.5938pt.
- [38 <./Images//gait_planner/trot_gait_timing.png>]
-<Images//gait_planner/single_leg_trajectory.png, id=1230, 440.847pt x 242.8272p
+ [34 <./Images//gait_planner/trot_gait_timing.png>]
+<Images//gait_planner/single_leg_trajectory.png, id=1176, 440.847pt x 242.8272p
 t>
 File: Images//gait_planner/single_leg_trajectory.png Graphic file (type png)
 <use Images//gait_planner/single_leg_trajectory.png>
 Package pdftex.def Info: Images//gait_planner/single_leg_trajectory.png  used o
-n input line 399.
+n input line 392.
 (pdftex.def)             Requested size: 247.54149pt x 136.34912pt.
- [39 <./Images//gait_planner/single_leg_trajectory.png>]
-<Images//gait_planner/cubic_pva.pdf, id=1237, 558.79045pt x 710.10982pt>
+ [35 <./Images//gait_planner/single_leg_trajectory.png>]
+<Images//gait_planner/cubic_pva.pdf, id=1182, 558.79045pt x 710.10982pt>
 File: Images//gait_planner/cubic_pva.pdf Graphic file (type pdf)
 <use Images//gait_planner/cubic_pva.pdf>
 Package pdftex.def Info: Images//gait_planner/cubic_pva.pdf  used on input line
- 433.
+ 426.
 (pdftex.def)             Requested size: 330.05322pt x 419.4271pt.
- [40] [41 <./Images//gait_planner/cubic_pva.pdf>]
-<Images//gait_planner/quintic_pva.pdf, id=1301, 571.58766pt x 710.10982pt>
+ [36] [37 <./Images//gait_planner/cubic_pva.pdf>]
+<Images//gait_planner/quintic_pva.pdf, id=1246, 571.58766pt x 710.10982pt>
 File: Images//gait_planner/quintic_pva.pdf Graphic file (type pdf)
 <use Images//gait_planner/quintic_pva.pdf>
 Package pdftex.def Info: Images//gait_planner/quintic_pva.pdf  used on input li
-ne 461.
+ne 454.
 (pdftex.def)             Requested size: 330.05322pt x 410.05447pt.
- [42 <./Images//gait_planner/quintic_pva.pdf>]
-<Images//gait_planner/cubic_vs_quintic.pdf, id=1363, 571.146pt x 710.10982pt>
+ [38 <./Images//gait_planner/quintic_pva.pdf>]
+<Images//gait_planner/cubic_vs_quintic.pdf, id=1309, 571.146pt x 710.10982pt>
 File: Images//gait_planner/cubic_vs_quintic.pdf Graphic file (type pdf)
 <use Images//gait_planner/cubic_vs_quintic.pdf>
 Package pdftex.def Info: Images//gait_planner/cubic_vs_quintic.pdf  used on inp
-ut line 493.
+ut line 486.
 (pdftex.def)             Requested size: 330.05322pt x 410.3687pt.
- [43] [44 <./Images//gait_planner/cubic_vs_quintic.pdf>] [45]
-<Images//gait_planner/gait_generator.png, id=1439, 770.88pt x 358.33875pt>
+ [39] [40 <./Images//gait_planner/cubic_vs_quintic.pdf>] [41]
+<Images//gait_planner/gait_generator.png, id=1385, 770.88pt x 358.33875pt>
 File: Images//gait_planner/gait_generator.png Graphic file (type png)
 <use Images//gait_planner/gait_generator.png>
 Package pdftex.def Info: Images//gait_planner/gait_generator.png  used on input
- line 542.
+ line 535.
 (pdftex.def)             Requested size: 330.05322pt x 153.42105pt.
- [46 <./Images//gait_planner/gait_generator.png>] [47] [48]
-<Images//img_matlab/fig-PID.png, id=1471, 2824.5525pt x 1541.76pt>
+ [42 <./Images//gait_planner/gait_generator.png>] [43] [44]
+<Images//img_matlab/fig-PID.png, id=1413, 2824.5525pt x 1541.76pt>
 File: Images//img_matlab/fig-PID.png Graphic file (type png)
 <use Images//img_matlab/fig-PID.png>
-Package pdftex.def Info: Images//img_matlab/fig-PID.png  used on input line 644
+Package pdftex.def Info: Images//img_matlab/fig-PID.png  used on input line 619
 .
 (pdftex.def)             Requested size: 412.56497pt x 225.18448pt.
- [49]
-<Images//architecture/locomotion_balance_controller.png, id=1477, 2826.56pt x 1
+<Images//architecture/locomotion_balance_controller.png, id=1415, 2826.56pt x 1
 541.76pt>
 File: Images//architecture/locomotion_balance_controller.png Graphic file (type
  png)
 <use Images//architecture/locomotion_balance_controller.png>
 Package pdftex.def Info: Images//architecture/locomotion_balance_controller.png
-  used on input line 657.
+  used on input line 632.
 (pdftex.def)             Requested size: 412.56497pt x 225.0198pt.
- [50 <./Images//img_matlab/fig-PID.png>] [51 <./Images//architecture/locomotion
-_balance_controller.png>] [52]
-<Images//kinematics/attitude_adjustment.png, id=1495, 1218.5525pt x 328.22626pt
+ [45 <./Images//img_matlab/fig-PID.png>] [46 <./Images//architecture/locomotion
+_balance_controller.png>] [47]
+<Images//kinematics/attitude_adjustment.png, id=1433, 1218.5525pt x 328.22626pt
 >
 File: Images//kinematics/attitude_adjustment.png Graphic file (type png)
 <use Images//kinematics/attitude_adjustment.png>
 Package pdftex.def Info: Images//kinematics/attitude_adjustment.png  used on in
-put line 704.
+put line 666.
 (pdftex.def)             Requested size: 371.30595pt x 100.01118pt.
- [53] [54 <./Images//kinematics/attitude_adjustment.png>]) (./chapter/ch3_thiet
-kecung.tex [55]
+ [48 <./Images//kinematics/attitude_adjustment.png>]) (./chapter/ch3_thietkecun
+g.tex [49] [50]
 Ch\uhorn \ohorn ng 3.
-<Images//hardware/body_part_c.png, id=1514, 466.74374pt x 221.82875pt>
+<Images//hardware/body_part_c.png, id=1451, 466.74374pt x 221.82875pt>
 File: Images//hardware/body_part_c.png Graphic file (type png)
 <use Images//hardware/body_part_c.png>
 Package pdftex.def Info: Images//hardware/body_part_c.png  used on input line 2
 9.
 (pdftex.def)             Requested size: 247.54149pt x 117.6499pt.
-[56
+[51
 
 ]
-<Images//hardware/body_part_b.png, id=1520, 550.055pt x 295.1025pt>
+<Images//hardware/body_part_b.png, id=1457, 550.055pt x 295.1025pt>
 File: Images//hardware/body_part_b.png Graphic file (type png)
 <use Images//hardware/body_part_b.png>
 Package pdftex.def Info: Images//hardware/body_part_b.png  used on input line 3
 6.
 (pdftex.def)             Requested size: 247.54149pt x 132.8039pt.
-<Images//hardware/body_part_a.png, id=1521, 328.22626pt x 215.80624pt>
+<Images//hardware/body_part_a.png, id=1458, 328.22626pt x 215.80624pt>
 File: Images//hardware/body_part_a.png Graphic file (type png)
 <use Images//hardware/body_part_a.png>
 Package pdftex.def Info: Images//hardware/body_part_a.png  used on input line 4
 3.
 (pdftex.def)             Requested size: 247.54149pt x 162.75983pt.
- [57 <./Images//hardware/body_part_c.png> <./Images//hardware/body_part_b.png> 
+ [52 <./Images//hardware/body_part_c.png> <./Images//hardware/body_part_b.png> 
 <./Images//hardware/body_part_a.png>]
-<Images//hardware/hip_joint_assembly.jpg, id=1530, 1325.95375pt x 803.0pt>
+<Images//hardware/hip_joint_assembly.jpg, id=1467, 1325.95375pt x 803.0pt>
 File: Images//hardware/hip_joint_assembly.jpg Graphic file (type jpg)
 <use Images//hardware/hip_joint_assembly.jpg>
 Package pdftex.def Info: Images//hardware/hip_joint_assembly.jpg  used on input
  line 59.
 (pdftex.def)             Requested size: 247.54149pt x 149.91273pt.
-<Images//hardware/single_leg_assembly.jpg, id=1532, 1027.84pt x 735.74875pt>
+<Images//hardware/single_leg_assembly.jpg, id=1469, 1027.84pt x 735.74875pt>
 File: Images//hardware/single_leg_assembly.jpg Graphic file (type jpg)
 <use Images//hardware/single_leg_assembly.jpg>
 Package pdftex.def Info: Images//hardware/single_leg_assembly.jpg  used on inpu
 t line 76.
 (pdftex.def)             Requested size: 247.54149pt x 177.18954pt.
- [58 <./Images//hardware/hip_joint_assembly.jpg>] [59 <./Images//hardware/singl
+ [53 <./Images//hardware/hip_joint_assembly.jpg>] [54 <./Images//hardware/singl
 e_leg_assembly.jpg>]
-<Images//hardware/servo_st3215.jpg, id=1545, 1160.335pt x 1122.1925pt>
+<Images//hardware/servo_st3215.jpg, id=1482, 1160.335pt x 1122.1925pt>
 File: Images//hardware/servo_st3215.jpg Graphic file (type jpg)
 <use Images//hardware/servo_st3215.jpg>
 Package pdftex.def Info: Images//hardware/servo_st3215.jpg  used on input line 
 117.
 (pdftex.def)             Requested size: 247.54149pt x 239.40025pt.
- [60] [61 <./Images//hardware/servo_st3215.jpg>]
-<Images//hardware/servo_torque_analysis.png, id=1558, 376.40625pt x 338.76563pt
+ [55] [56 <./Images//hardware/servo_st3215.jpg>]
+<Images//hardware/servo_torque_analysis.png, id=1495, 376.40625pt x 338.76563pt
 >
 File: Images//hardware/servo_torque_analysis.png Graphic file (type png)
 <use Images//hardware/servo_torque_analysis.png>
 Package pdftex.def Info: Images//hardware/servo_torque_analysis.png  used on in
 put line 168.
 (pdftex.def)             Requested size: 247.54149pt x 222.79512pt.
- [62] [63 <./Images//hardware/servo_torque_analysis.png>]
-<Images//hardware/free_body_diagram.png, id=1578, 752.8125pt x 451.6875pt>
+ [57] [58 <./Images//hardware/servo_torque_analysis.png>]
+<Images//hardware/free_body_diagram.png, id=1514, 752.8125pt x 451.6875pt>
 File: Images//hardware/free_body_diagram.png Graphic file (type png)
 <use Images//hardware/free_body_diagram.png>
 Package pdftex.def Info: Images//hardware/free_body_diagram.png  used on input 
-line 209.
+line 205.
 (pdftex.def)             Requested size: 247.54149pt x 148.52663pt.
- [64 <./Images//hardware/free_body_diagram.png>] [65]
-<Images//hardware/preview_design.png, id=1594, 617.80812pt x 316.68312pt>
+ [59 <./Images//hardware/free_body_diagram.png>] [60]
+<Images//hardware/preview_design.png, id=1530, 617.80812pt x 316.68312pt>
 File: Images//hardware/preview_design.png Graphic file (type png)
 <use Images//hardware/preview_design.png>
 Package pdftex.def Info: Images//hardware/preview_design.png  used on input lin
-e 245.
+e 237.
 (pdftex.def)             Requested size: 247.54149pt x 126.88844pt.
 
-Overfull \hbox (11.17719pt too wide) in paragraph at lines 254--261
+Overfull \hbox (11.17719pt too wide) in paragraph at lines 246--253
  [][] 
  []
 
-<Images//architecture/system_overview.jpeg, id=1596, 1027.84pt x 603.25375pt>
+<Images//architecture/system_overview.jpeg, id=1532, 1027.84pt x 603.25375pt>
 File: Images//architecture/system_overview.jpeg Graphic file (type jpg)
 <use Images//architecture/system_overview.jpeg>
 Package pdftex.def Info: Images//architecture/system_overview.jpeg  used on inp
-ut line 269.
+ut line 261.
 (pdftex.def)             Requested size: 412.56497pt x 242.14407pt.
-[66 <./Images//hardware/preview_design.png>]
-<Images//real_robot/quadrupedrobot.jpeg, id=1603, 1027.84pt x 770.88pt>
+[61 <./Images//hardware/preview_design.png>]
+<Images//real_robot/quadrupedrobot.jpeg, id=1539, 1027.84pt x 770.88pt>
 File: Images//real_robot/quadrupedrobot.jpeg Graphic file (type jpg)
 <use Images//real_robot/quadrupedrobot.jpeg>
 Package pdftex.def Info: Images//real_robot/quadrupedrobot.jpeg  used on input 
-line 278.
+line 270.
 (pdftex.def)             Requested size: 350.68274pt x 263.01321pt.
- [67 <./Images//architecture/system_overview.jpeg>]
-<Images//hardware/jetson_b01_specs.png, id=1609, 1565.85pt x 1241.63875pt>
+ [62 <./Images//architecture/system_overview.jpeg>]
+<Images//hardware/jetson_b01_specs.png, id=1545, 1565.85pt x 1241.63875pt>
 File: Images//hardware/jetson_b01_specs.png Graphic file (type png)
 <use Images//hardware/jetson_b01_specs.png>
 Package pdftex.def Info: Images//hardware/jetson_b01_specs.png  used on input l
-ine 291.
+ine 281.
 (pdftex.def)             Requested size: 330.05322pt x 261.69913pt.
- [68 <./Images//real_robot/quadrupedrobot.jpeg>] [69 <./Images//hardware/jetson
-_b01_specs.png>]
-<Images//hardware/power_supply_12v.png, id=1621, 752.8125pt x 752.8125pt>
-File: Images//hardware/power_supply_12v.png Graphic file (type png)
-<use Images//hardware/power_supply_12v.png>
-Package pdftex.def Info: Images//hardware/power_supply_12v.png  used on input l
-ine 308.
-(pdftex.def)             Requested size: 247.54149pt x 247.54439pt.
- [70] [71 <./Images//hardware/power_supply_12v.png>] [72]
-<Images//hardware/bus_servo_adapter.jpg, id=1635, 963.6pt x 712.6625pt>
+ [63 <./Images//real_robot/quadrupedrobot.jpeg>] [64 <./Images//hardware/jetson
+_b01_specs.png>] [65] [66]
+<Images//hardware/bus_servo_adapter.jpg, id=1566, 963.6pt x 712.6625pt>
 File: Images//hardware/bus_servo_adapter.jpg Graphic file (type jpg)
 <use Images//hardware/bus_servo_adapter.jpg>
 Package pdftex.def Info: Images//hardware/bus_servo_adapter.jpg  used on input 
-line 369.
+line 345.
 (pdftex.def)             Requested size: 247.54149pt x 183.06952pt.
- [73]
-<Images//hardware/imu_bno055.png, id=1641, 1003.75pt x 1003.75pt>
+ [67 <./Images//hardware/bus_servo_adapter.jpg>]
+<Images//hardware/imu_bno055.png, id=1572, 1003.75pt x 1003.75pt>
 File: Images//hardware/imu_bno055.png Graphic file (type png)
 <use Images//hardware/imu_bno055.png>
-Package pdftex.def Info: Images//hardware/imu_bno055.png  used on input line 39
-6.
+Package pdftex.def Info: Images//hardware/imu_bno055.png  used on input line 37
+2.
 (pdftex.def)             Requested size: 226.91199pt x 226.90613pt.
- [74 <./Images//hardware/bus_servo_adapter.jpg>]
-Overfull \hbox (7.653pt too wide) in paragraph at lines 401--402
+ [68]
+Overfull \hbox (7.653pt too wide) in paragraph at lines 377--378
 []\T5/qtm/m/n/13 Module GY-BNO055 s h˙u kΩch th˜Óc c¸c k˝ nh‰ gÂn (20,9 mm $\O
 MS/cmsy/m/n/12 ^^B$ \T5/qtm/m/n/13 11,9 mm),
  []
 
 
-Overfull \hbox (112.80591pt too wide) in paragraph at lines 411--431
- [][] 
+Underfull \hbox (badness 2409) in paragraph at lines 397--397
+[]|\T5/qtm/m/n/13 Con quay hÁi chuy∫n
  []
 
-[75 <./Images//hardware/imu_bno055.png>] [76]
-<Images//hardware/buck_converter.jpg, id=1657, 1003.75pt x 1003.75pt>
+
+Underfull \hbox (badness 1178) in paragraph at lines 403--404
+[]|\T5/qtm/m/n/13 8 (VIN, GND, SCL/Rx, SDA/Tx, ADD,
+ []
+
+[69 <./Images//hardware/imu_bno055.png>] [70] [71]
+<Images//hardware/buck_converter.jpg, id=1592, 1003.75pt x 1003.75pt>
 File: Images//hardware/buck_converter.jpg Graphic file (type jpg)
 <use Images//hardware/buck_converter.jpg>
 Package pdftex.def Info: Images//hardware/buck_converter.jpg  used on input lin
-e 440.
+e 414.
 (pdftex.def)             Requested size: 247.54149pt x 247.53674pt.
- [77 <./Images//hardware/buck_converter.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+ [72 <./Images//hardware/buck_converter.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 \T5/qtm/b/n/13 PWM truy∑n
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 []|\T5/qtm/b/n/13 ^^^Îng cÏ
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 \T5/qtm/b/n/13 BLDC (TΩch
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 []|\T5/qtm/m/n/13 Xung PWM
  []
 
 
-Underfull \hbox (badness 2809) in paragraph at lines 490--490
+Underfull \hbox (badness 2809) in paragraph at lines 464--464
 []|\T5/qtm/m/n/13 CAN / RS485
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 []|\T5/qtm/m/n/13 UART b°n song
  []
 
 
-Underfull \hbox (badness 1910) in paragraph at lines 490--490
+Underfull \hbox (badness 1910) in paragraph at lines 464--464
 []|\T5/qtm/b/n/13 Hª thËng d•y
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 []|\T5/qtm/m/n/13 Rßt ph˘c t§p
  []
 
 
-Underfull \hbox (badness 5622) in paragraph at lines 490--490
+Underfull \hbox (badness 5622) in paragraph at lines 464--464
 \T5/qtm/m/n/13 (MÈi mo-tor 1
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 \T5/qtm/m/n/13 d•y tΩn hiªu
  []
 
 
-Underfull \hbox (badness 5022) in paragraph at lines 490--490
+Underfull \hbox (badness 5022) in paragraph at lines 464--464
 []|\T5/qtm/m/n/13 TËi gi£n (NËi
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 \T5/qtm/m/n/13 ti∏p chuÈi -
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 []|\T5/qtm/b/n/13 Kh£ n´ng
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 \T5/qtm/b/n/13 ph£n hÁi
  []
 
 
-Underfull \hbox (badness 1810) in paragraph at lines 490--490
+Underfull \hbox (badness 1810) in paragraph at lines 464--464
 []|\T5/qtm/m/n/13 V‡ trΩ, tËc ^^_Î,
  []
 
 
-Underfull \hbox (badness 1062) in paragraph at lines 490--490
+Underfull \hbox (badness 1062) in paragraph at lines 464--464
 \T5/qtm/m/n/13 thßp ^^_∏n trung
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 []|\T5/qtm/m/n/13 N∞ng, cÁng
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 []|\T5/qtm/m/n/13 Thßp (Do
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 490--490
+Underfull \hbox (badness 10000) in paragraph at lines 464--464
 \T5/qtm/m/n/13 hÁi v† thi∏u
  []
 
 
-Underfull \hbox (badness 3713) in paragraph at lines 490--490
+Underfull \hbox (badness 3713) in paragraph at lines 464--464
 \T5/qtm/m/n/13 cÊng sußt, chi
  []
 
-[78] [79]
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+[73] [74]
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/b/n/13 JX PDI-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/b/n/13 Hiwonder
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/b/n/13 Waveshare
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 \T5/qtm/b/n/13 ST3215 (^^^˜Òc
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/b/n/13 Dynamixel
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 \T5/qtm/b/n/13 XL430-W250-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 Xung PWM
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 TTL UART
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 TTL UART
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 TTL UART
  []
 
 
-Underfull \hbox (badness 5077) in paragraph at lines 515--515
+Underfull \hbox (badness 5077) in paragraph at lines 489--489
 []|\T5/qtm/b/n/13 L¸c xo≠n
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 32.3 kg.cm
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 17 kg.cm
  []
 
 
-Underfull \hbox (badness 3068) in paragraph at lines 515--515
+Underfull \hbox (badness 3068) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 30 kg.cm / 20
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|$\OMS/cmsy/m/n/12 ^^X$\T5/qtm/m/n/13 15.3 kg.cm
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 \T5/qtm/m/n/13 (1.5 N.m
  []
 
 
-Underfull \hbox (badness 1436) in paragraph at lines 515--515
+Underfull \hbox (badness 1436) in paragraph at lines 489--489
 []|\T5/qtm/b/n/13 C£m bi∏n
  []
 
 
-Underfull \hbox (badness 7099) in paragraph at lines 515--515
+Underfull \hbox (badness 7099) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 T¯ tΩnh (Mag-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 \T5/qtm/m/n/13 netic En-coder
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/b/n/13 ^^^Î ph•n
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/b/n/13 TËc ^^_Î
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 50 Hz -
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 \T5/qtm/m/n/13 330 Hz
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 L∂n ^^_∏n
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/b/n/13 BÎ ^^_i∑u
  []
 
 
-Underfull \hbox (badness 4726) in paragraph at lines 515--515
+Underfull \hbox (badness 4726) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 Cao cßp (PID
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 Trung bºnh
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 \T5/qtm/m/n/13 ($\OMS/cmsy/m/n/12 ^^X$\T5/qtm/m/n/13 500.000
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 Thßp
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 \T5/qtm/m/n/13 ($\OMS/cmsy/m/n/12 ^^X$\T5/qtm/m/n/13 300.000
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 Trung bºnh
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 \T5/qtm/m/n/13 ($\OMS/cmsy/m/n/12 ^^X$\T5/qtm/m/n/13 500.000
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 []|\T5/qtm/m/n/13 Rßt cao
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--515
+Underfull \hbox (badness 10000) in paragraph at lines 489--489
 \T5/qtm/m/n/13 ($\OMS/cmsy/m/n/12 ^^X$\T5/qtm/m/n/13 1.500.000
  []
 
-[80] [81] [82]
-Overfull \hbox (1.78769pt too wide) in paragraph at lines 528--529
-[]\T5/qtm/m/it/13 KhÓp gËi (Knee): \T5/qtm/m/n/13 Y∂u c¶u v∑ l¸c t§i khÓp gËi t
-hßp hÏn ^^_°ng k∫ (kho£ng
- []
-
-<Images//hardware/system_wiring_diagram.jpg, id=1688, 2346.7675pt x 1798.72pt>
+[75] [76]
+<Images//hardware/system_wiring_diagram.jpg, id=1618, 2346.7675pt x 1798.72pt>
 File: Images//hardware/system_wiring_diagram.jpg Graphic file (type jpg)
 <use Images//hardware/system_wiring_diagram.jpg>
 Package pdftex.def Info: Images//hardware/system_wiring_diagram.jpg  used on in
-put line 538.
+put line 502.
 (pdftex.def)             Requested size: 412.56497pt x 316.20792pt.
-[83] [84 <./Images//hardware/system_wiring_diagram.jpg>] [85]
-<Images//control_sys/communication_protocols.png, id=1701, 294.09875pt x 192.72
-pt>
-File: Images//control_sys/communication_protocols.png Graphic file (type png)
-<use Images//control_sys/communication_protocols.png>
-Package pdftex.def Info: Images//control_sys/communication_protocols.png  used 
-on input line 574.
-(pdftex.def)             Requested size: 247.54149pt x 162.21303pt.
-<Images//control_sys/i2c_data_frame.png, id=1702, 1248.665pt x 1144.275pt>
-File: Images//control_sys/i2c_data_frame.png Graphic file (type png)
-<use Images//control_sys/i2c_data_frame.png>
-Package pdftex.def Info: Images//control_sys/i2c_data_frame.png  used on input 
-line 584.
-(pdftex.def)             Requested size: 247.54149pt x 226.84302pt.
- [86 <./Images//control_sys/communication_protocols.png>]
-<Images//control_sys/wired_uart.png, id=1709, 1927.2pt x 1084.05pt>
-File: Images//control_sys/wired_uart.png Graphic file (type png)
-<use Images//control_sys/wired_uart.png>
-Package pdftex.def Info: Images//control_sys/wired_uart.png  used on input line
- 590.
-(pdftex.def)             Requested size: 247.54149pt x 139.22769pt.
- [87 <./Images//control_sys/i2c_data_frame.png> <./Images//control_sys/wired_ua
-rt.png (PNG copy)>] [88])
-(./chapter/ch4_thietkemem.tex [89]
+ [77] [78 <./Images//hardware/system_wiring_diagram.jpg>] [79]
+[80]) (./chapter/ch4_thietkemem.tex [81]
 Ch\uhorn \ohorn ng 4.
-
-Overfull \hbox (39.4269pt too wide) in paragraph at lines 22--23
-\T5/cmtt/m/n/13 Node\T5/qtm/m/n/13 . Hai node n†y giao ti∏p nÎi bÎ vÓi nhau qua
- c°c topic \T5/cmtt/m/n/13 /posture/correction
- []
-
-[90
-
-]
-<Images//architecture/simulation_rqt_graph.png, id=1732, 2826.56pt x 1541.76pt>
+<Images//architecture/simulation_rqt_graph.png, id=1644, 2826.56pt x 1541.76pt>
 
 File: Images//architecture/simulation_rqt_graph.png Graphic file (type png)
 <use Images//architecture/simulation_rqt_graph.png>
 Package pdftex.def Info: Images//architecture/simulation_rqt_graph.png  used on
- input line 28.
+ input line 18.
 (pdftex.def)             Requested size: 391.93546pt x 213.77469pt.
- [91 <./Images//architecture/simulation_rqt_graph.png>]
-<Images//architecture/hardware_rqt_graph.png, id=1739, 2826.56pt x 1541.76pt>
+[82
+
+]
+<Images//architecture/hardware_rqt_graph.png, id=1650, 2826.56pt x 1541.76pt>
 File: Images//architecture/hardware_rqt_graph.png Graphic file (type png)
 <use Images//architecture/hardware_rqt_graph.png>
 Package pdftex.def Info: Images//architecture/hardware_rqt_graph.png  used on i
-nput line 44.
+nput line 29.
 (pdftex.def)             Requested size: 391.93546pt x 213.77469pt.
-
-Overfull \hbox (1.47867pt too wide) in paragraph at lines 51--52
+ [83 <./Images//architecture/simulation_rqt_graph.png>]
+Overfull \hbox (1.11467pt too wide) in paragraph at lines 36--37
 []\T5/qtm/m/n/13 Hª thËng qu£n l˛ hai tr§ng th°i v™n h†nh rÌi r§c thÊng qua cÍn
-g logic boolean: 
- []
-
-[92 <./Images//architecture/hardware_rqt_graph.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 70--70
-[]|\T5/qtm/b/n/13 NgÊn
+g logic boolean.
  []
 
 
-Overfull \hbox (17.24173pt too wide) in paragraph at lines 72--72
-[]|\T5/cmtt/m/n/13 balance_controller| 
+Underfull \hbox (badness 1320) in paragraph at lines 52--52
+[]|\T5/qtm/m/n/13 Driver giao ti∏p vÓi bus servo
  []
 
 
-Underfull \hbox (badness 2368) in paragraph at lines 74--74
-[]|\T5/qtm/m/n/13 MÊ hºnh URDF, cßu hºnh Gazebo,
+Underfull \hbox (badness 10000) in paragraph at lines 53--53
+[]|\T5/qtm/m/n/13 MÊ hºnh URDF, cßu hºnh
  []
 
-[93]
-Overfull \hbox (0.32306pt too wide) in paragraph at lines 86--87
-\T5/qtm/m/n/13 topic \T5/cmtt/m/n/13 /posture/home_correction \T5/qtm/m/n/13 v†
- \T5/cmtt/m/n/13 /posture/gait_correction\T5/qtm/m/n/13 , °p
- []
-
-
-Overfull \hbox (102.3154pt too wide) in paragraph at lines 93--94
-[]\T5/qtm/b/n/13 Ch∏ ^^_Î mÊ ph‰ng: \T5/qtm/m/n/13 Xußt b£n lªnh mÊ-men (ef-for
-t) l∂n topic \T5/cmtt/m/n/13 /effort_controller/commands
- []
-
-
-Overfull \hbox (6.45468pt too wide) in paragraph at lines 93--94
-\T5/qtm/m/n/13 ^^_∫ ^^_i∑u khi∫n robot trong Gazebo thÊng qua plu-gin \T5/cmtt/
-m/n/13 gazebo_ros2_control\T5/qtm/m/n/13 . 
- []
-
-
-Underfull \hbox (badness 2065) in paragraph at lines 108--108
+[84 <./Images//architecture/hardware_rqt_graph.png>] [85]
+Underfull \hbox (badness 10000) in paragraph at lines 79--79
 []|\T5/qtm/b/n/13 Ki∫u d˙
  []
 
 
-Overfull \hbox (28.48682pt too wide) in paragraph at lines 113--113
+Underfull \hbox (badness 10000) in paragraph at lines 80--80
+[]|\T5/qtm/m/n/13 D˙ liªu quater-nion t¯
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--82
+[]|\T5/qtm/m/n/13 Chuy∫n ch∏ ^^_Î
+ []
+
+
+Overfull \hbox (16.11037pt too wide) in paragraph at lines 84--84
 []|\T5/cmtt/m/n/13 /posture/home_correction| 
  []
 
 
-Overfull \hbox (28.48682pt too wide) in paragraph at lines 114--114
+Underfull \hbox (badness 2293) in paragraph at lines 84--84
+[]|\T5/qtm/m/n/13 TΩn hiªu bÚ PID ch∏ ^^_Î
+ []
+
+
+Overfull \hbox (16.11037pt too wide) in paragraph at lines 85--85
 []|\T5/cmtt/m/n/13 /posture/gait_correction| 
  []
 
 
-Overfull \hbox (1.73505pt too wide) in paragraph at lines 115--115
-[]|\T5/cmtt/m/n/13 /posture/measurement| 
+Underfull \hbox (badness 2293) in paragraph at lines 85--85
+[]|\T5/qtm/m/n/13 TΩn hiªu bÚ PID ch∏ ^^_Î
  []
 
-[94] [95] [96]) (./chapter/ch5_ketqua.tex [97]
+[86] [87] [88]) (./chapter/ch5_ketqua.tex [89]
 Ch\uhorn \ohorn ng 5.
-<Images//img_matlab/fig1-PID-controller.png, id=1779, 824.07875pt x 270.00874pt
+<Images//img_matlab/fig1-PID-controller.png, id=1688, 824.07875pt x 270.00874pt
 >
 File: Images//img_matlab/fig1-PID-controller.png Graphic file (type png)
 <use Images//img_matlab/fig1-PID-controller.png>
 Package pdftex.def Info: Images//img_matlab/fig1-PID-controller.png  used on in
 put line 19.
 (pdftex.def)             Requested size: 412.56497pt x 135.17706pt.
-[98
+[90
 
 ]
-<Images//img_matlab/fig3-quadruped-robot.png, id=1786, 703.62875pt x 331.2375pt
+<Images//img_matlab/fig3-quadruped-robot.png, id=1694, 703.62875pt x 331.2375pt
 >
 File: Images//img_matlab/fig3-quadruped-robot.png Graphic file (type png)
 <use Images//img_matlab/fig3-quadruped-robot.png>
 Package pdftex.def Info: Images//img_matlab/fig3-quadruped-robot.png  used on i
 nput line 29.
 (pdftex.def)             Requested size: 330.05322pt x 155.37332pt.
-<Images//img_matlab/fig4-mo-hinh-hoa-robot.png, id=1788, 541.02126pt x 383.9343
+<Images//img_matlab/fig4-mo-hinh-hoa-robot.png, id=1696, 541.02126pt x 383.9343
 7pt>
 File: Images//img_matlab/fig4-mo-hinh-hoa-robot.png Graphic file (type png)
 <use Images//img_matlab/fig4-mo-hinh-hoa-robot.png>
 Package pdftex.def Info: Images//img_matlab/fig4-mo-hinh-hoa-robot.png  used on
  input line 38.
 (pdftex.def)             Requested size: 412.56497pt x 292.7832pt.
- [99 <./Images//img_matlab/fig1-PID-controller.png> <./Images//img_matlab/fig3-
+ [91 <./Images//img_matlab/fig1-PID-controller.png> <./Images//img_matlab/fig3-
 quadruped-robot.png>]
-<Images//img_matlab/fig5-PID.png, id=1797, 465.74pt x 362.85562pt>
+<Images//img_matlab/fig5-PID.png, id=1704, 465.74pt x 362.85562pt>
 File: Images//img_matlab/fig5-PID.png Graphic file (type png)
 <use Images//img_matlab/fig5-PID.png>
 Package pdftex.def Info: Images//img_matlab/fig5-PID.png  used on input line 48
 .
 (pdftex.def)             Requested size: 330.05322pt x 257.15314pt.
- [100 <./Images//img_matlab/fig4-mo-hinh-hoa-robot.png>]
-<Images//img_matlab/fig2-execution.png, id=1804, 501.37312pt x 373.89688pt>
+ [92 <./Images//img_matlab/fig4-mo-hinh-hoa-robot.png>]
+<Images//img_matlab/fig2-execution.png, id=1711, 501.37312pt x 373.89688pt>
 File: Images//img_matlab/fig2-execution.png Graphic file (type png)
 <use Images//img_matlab/fig2-execution.png>
 Package pdftex.def Info: Images//img_matlab/fig2-execution.png  used on input l
 ine 58.
 (pdftex.def)             Requested size: 330.05322pt x 246.14513pt.
- [101 <./Images//img_matlab/fig5-PID.png>] [102 <./Images//img_matlab/fig2-exec
-ution.png>]
-<Images/PID_turning/PID_turning/roll turning Kp=4.png, id=1819, 1428.83812pt x 
+ [93 <./Images//img_matlab/fig5-PID.png>] [94 <./Images//img_matlab/fig2-execut
+ion.png>]
+<Images/PID_turning/PID_turning/roll turning Kp=4.png, id=1726, 1428.83812pt x 
 649.67719pt>
 File: Images/PID_turning/PID_turning/roll turning Kp=4.png Graphic file (type p
 ng)
 <use Images/PID_turning/PID_turning/roll turning Kp=4.png>
 Package pdftex.def Info: Images/PID_turning/PID_turning/roll turning Kp=4.png  
-used on input line 77.
+used on input line 78.
 (pdftex.def)             Requested size: 198.02942pt x 90.04216pt.
-<Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3.png, id=1820, 1428.838
+<Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3.png, id=1727, 1428.838
 12pt x 649.67719pt>
 File: Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3.png Graphic file 
 (type png)
 <use Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3.png>
 Package pdftex.def Info: Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.
-3.png  used on input line 84.
+3.png  used on input line 85.
 (pdftex.def)             Requested size: 198.02942pt x 90.04216pt.
-<Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3 Ki=1.2.png, id=1821, 1
+<Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3 Ki=1.2.png, id=1728, 1
 428.83812pt x 649.67719pt>
 File: Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3 Ki=1.2.png Graphi
 c file (type png)
 <use Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3 Ki=1.2.png>
 Package pdftex.def Info: Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.
-3 Ki=1.2.png  used on input line 92.
+3 Ki=1.2.png  used on input line 93.
 (pdftex.def)             Requested size: 247.54149pt x 112.54527pt.
-<Images/PID_turning/PID_turning/pitch turning Kp=5.png, id=1825, 1428.83812pt x
+<Images/PID_turning/PID_turning/pitch turning Kp=5.png, id=1732, 1428.83812pt x
  649.67719pt>
 File: Images/PID_turning/PID_turning/pitch turning Kp=5.png Graphic file (type 
 png)
 <use Images/PID_turning/PID_turning/pitch turning Kp=5.png>
 Package pdftex.def Info: Images/PID_turning/PID_turning/pitch turning Kp=5.png 
- used on input line 108.
+ used on input line 110.
 (pdftex.def)             Requested size: 198.02942pt x 90.04216pt.
-<Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3.png, id=1826, 1428.83
+<Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3.png, id=1733, 1428.83
 812pt x 649.67719pt>
 File: Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3.png Graphic file
  (type png)
 <use Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3.png>
 Package pdftex.def Info: Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1
-.3.png  used on input line 115.
+.3.png  used on input line 117.
 (pdftex.def)             Requested size: 198.02942pt x 90.04216pt.
-<Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png, id=1827, 
+<Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png, id=1734, 
 1428.83812pt x 649.67719pt>
 File: Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png Graph
 ic file (type png)
 <use Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png>
 Package pdftex.def Info: Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1
-.3 Ki=1.6.png  used on input line 123.
+.3 Ki=1.6.png  used on input line 125.
 (pdftex.def)             Requested size: 247.54149pt x 112.54527pt.
- [103 <./Images/PID_turning/PID_turning/roll turning Kp=4.png (PNG copy)> <./Im
-ages/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3.png (PNG copy)> <./Images
-/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3 Ki=1.2.png (PNG copy)>]
-<Images/PID_turning/PID_turning/PID turning nhi·ªÖu step.png, id=1835, 1428.838
+ [95 <./Images/PID_turning/PID_turning/roll turning Kp=4.png (PNG copy)> <./Ima
+ges/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3.png (PNG copy)> <./Images/
+PID_turning/PID_turning/roll turning Kp=4 Kd=1.3 Ki=1.2.png (PNG copy)>]
+<Images/PID_turning/PID_turning/PID turning nhi·ªÖu step.png, id=1742, 1428.838
 12pt x 649.67719pt>
 File: Images/PID_turning/PID_turning/PID turning nhi·ªÖu step.png Graphic file 
 (type png)
 <use Images/PID_turning/PID_turning/PID turning nhi·ªÖu step.png>
 Package pdftex.def Info: Images/PID_turning/PID_turning/PID turning nhi·ªÖu ste
-p.png  used on input line 136.
+p.png  used on input line 138.
 (pdftex.def)             Requested size: 330.05322pt x 150.06697pt.
- [104 <./Images/PID_turning/PID_turning/pitch turning Kp=5.png (PNG copy)> <./I
-mages/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3.png (PNG copy)> <./Imag
-es/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png (PNG copy)> <./
-Images/PID_turning/PID_turning/PID turning nhi·ªÖu step.png (PNG copy)>]
-<Images/PID_turning/PID_turning/PID turning nhi·ªÖu sin.png, id=1843, 1428.8381
+ [96 <./Images/PID_turning/PID_turning/pitch turning Kp=5.png (PNG copy)> <./Im
+ages/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3.png (PNG copy)> <./Image
+s/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png (PNG copy)> <./I
+mages/PID_turning/PID_turning/PID turning nhi·ªÖu step.png (PNG copy)>]
+<Images/PID_turning/PID_turning/PID turning nhi·ªÖu sin.png, id=1748, 1428.8381
 2pt x 649.67719pt>
 File: Images/PID_turning/PID_turning/PID turning nhi·ªÖu sin.png Graphic file (
 type png)
 <use Images/PID_turning/PID_turning/PID turning nhi·ªÖu sin.png>
 Package pdftex.def Info: Images/PID_turning/PID_turning/PID turning nhi·ªÖu sin
-.png  used on input line 150.
+.png  used on input line 147.
 (pdftex.def)             Requested size: 330.05322pt x 150.06697pt.
-<Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp Kp=1 step.png, id=1844, 1
+
+[97 <./Images/PID_turning/PID_turning/PID turning nhi·ªÖu sin.png (PNG copy)>]
+<Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp Kp=1 step.png, id=1753, 1
 428.83812pt x 649.67719pt>
 File: Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp Kp=1 step.png Graphi
 c file (type png)
 <use Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp Kp=1 step.png>
 Package pdftex.def Info: Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp K
-p=1 step.png  used on input line 160.
+p=1 step.png  used on input line 161.
 (pdftex.def)             Requested size: 330.05322pt x 150.06697pt.
-[105 <./Images/PID_turning/PID_turning/PID turning nhi·ªÖu sin.png (PNG copy)>]
-<Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp Kp=1 sin.png, id=1851, 14
+<Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp Kp=1 sin.png, id=1755, 14
 28.83812pt x 649.67719pt>
 File: Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp Kp=1 sin.png Graphic
  file (type png)
 <use Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp Kp=1 sin.png>
 Package pdftex.def Info: Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp K
-p=1 sin.png  used on input line 174.
+p=1 sin.png  used on input line 170.
 (pdftex.def)             Requested size: 330.05322pt x 150.06697pt.
-[106 <./Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp Kp=1 step.png (PNG
- copy)>] [107 <./Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp Kp=1 sin.
-png (PNG copy)>]
-<Images/PID_turning/PID_turning/zout.png, id=1864, 1428.83812pt x 649.67719pt>
+
+[98 <./Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp Kp=1 step.png (PNG 
+copy)>] [99 <./Images/PID_turning/PID_turning/PID b√π tr·ª±c ti·∫øp Kp=1 sin.pn
+g (PNG copy)>]
+<Images/PID_turning/PID_turning/zout.png, id=1769, 1428.83812pt x 649.67719pt>
 File: Images/PID_turning/PID_turning/zout.png Graphic file (type png)
 <use Images/PID_turning/PID_turning/zout.png>
 Package pdftex.def Info: Images/PID_turning/PID_turning/zout.png  used on input
- line 193.
+ line 185.
 (pdftex.def)             Requested size: 330.05322pt x 150.06697pt.
-
-
-LaTeX Font Warning: Font shape `T5/cmtt/b/n' undefined
-(Font)              using `T5/cmtt/m/n' instead on input line 200.
-
-[108 <./Images/PID_turning/PID_turning/zout.png (PNG copy)>]
 <Images/PID_turning/PID_turning/x·ª≠ l√≠ roll tr∆∞·ªõc khi ƒë∆∞a v√†o PID.png, 
-id=1872, 1428.83812pt x 649.67719pt>
+id=1772, 1428.83812pt x 649.67719pt>
 File: Images/PID_turning/PID_turning/x·ª≠ l√≠ roll tr∆∞·ªõc khi ƒë∆∞a v√†o PID.
 png Graphic file (type png)
 <use Images/PID_turning/PID_turning/x·ª≠ l√≠ roll tr∆∞·ªõc khi ƒë∆∞a v√†o PID.p
 ng>
 Package pdftex.def Info: Images/PID_turning/PID_turning/x·ª≠ l√≠ roll tr∆∞·ªõc 
-khi ƒë∆∞a v√†o PID.png  used on input line 209.
+khi ƒë∆∞a v√†o PID.png  used on input line 195.
 (pdftex.def)             Requested size: 330.05322pt x 150.06697pt.
+ [100 <./Images/PID_turning/PID_turning/zout.png (PNG copy)>]
 <Images/PID_turning/PID_turning/x·ª≠ l√≠ pitch tr∆∞·ªõc khi ƒë∆∞a v√†o PID.png,
- id=1873, 1428.83812pt x 649.67719pt>
+ id=1778, 1428.83812pt x 649.67719pt>
 File: Images/PID_turning/PID_turning/x·ª≠ l√≠ pitch tr∆∞·ªõc khi ƒë∆∞a v√†o PID
 .png Graphic file (type png)
 <use Images/PID_turning/PID_turning/x·ª≠ l√≠ pitch tr∆∞·ªõc khi ƒë∆∞a v√†o PID.
 png>
 Package pdftex.def Info: Images/PID_turning/PID_turning/x·ª≠ l√≠ pitch tr∆∞·ªõc
- khi ƒë∆∞a v√†o PID.png  used on input line 216.
+ khi ƒë∆∞a v√†o PID.png  used on input line 202.
 (pdftex.def)             Requested size: 330.05322pt x 150.06697pt.
- [109 <./Images/PID_turning/PID_turning/x·ª≠ l√≠ roll tr∆∞·ªõc khi ƒë∆∞a v√†o P
-ID.png (PNG copy)> <./Images/PID_turning/PID_turning/x·ª≠ l√≠ pitch tr∆∞·ªõc kh
-i ƒë∆∞a v√†o PID.png (PNG copy)>]
-Overfull \hbox (5.15654pt too wide) in paragraph at lines 227--228
+
+Overfull \hbox (5.15654pt too wide) in paragraph at lines 213--214
 []\T5/qtm/m/n/13 C°c tham sË hºnh hÂc chΩnh cıa mÊ hºnh URDF ^^_˜Òc trºnh b†y t
 rong B£ng []5.1[]. 
  []
 
-
-Overfull \hbox (37.35457pt too wide) in paragraph at lines 253--254
+[101 <./Images/PID_turning/PID_turning/x·ª≠ l√≠ roll tr∆∞·ªõc khi ƒë∆∞a v√†o PI
+D.png (PNG copy)> <./Images/PID_turning/PID_turning/x·ª≠ l√≠ pitch tr∆∞·ªõc khi
+ ƒë∆∞a v√†o PID.png (PNG copy)>]
+Overfull \hbox (37.35457pt too wide) in paragraph at lines 239--240
 []\T5/qtm/m/n/13 Giao diªn ^^_i∑u khi∫n gi˙a ROS 2 v† Gazebo s˚ dˆng plu-gin \T
-5/cmtt/b/n/13 gazebo_ros2_control
+5/cmtt/m/n/13 gazebo_ros2_control
  []
 
-[110]
-<Images//real_robot/gait/frames_cropped/1.jpg, id=1885, 1017.8025pt x 566.115pt
+[102]
+<Images//real_robot/gait/frames_cropped/1.jpg, id=1791, 1017.8025pt x 566.115pt
 >
 File: Images//real_robot/gait/frames_cropped/1.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/1.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/1.jpg  used on 
-input line 284.
+input line 262.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/2.jpg, id=1886, 1017.8025pt x 566.115pt
+<Images//real_robot/gait/frames_cropped/2.jpg, id=1792, 1017.8025pt x 566.115pt
 >
 File: Images//real_robot/gait/frames_cropped/2.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/2.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/2.jpg  used on 
-input line 289.
+input line 267.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/3.jpg, id=1887, 1017.8025pt x 566.115pt
+<Images//real_robot/gait/frames_cropped/3.jpg, id=1793, 1017.8025pt x 566.115pt
 >
 File: Images//real_robot/gait/frames_cropped/3.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/3.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/3.jpg  used on 
-input line 294.
+input line 272.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/4.jpg, id=1888, 1017.8025pt x 566.115pt
+<Images//real_robot/gait/frames_cropped/4.jpg, id=1794, 1017.8025pt x 566.115pt
 >
 File: Images//real_robot/gait/frames_cropped/4.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/4.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/4.jpg  used on 
-input line 299.
+input line 277.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/5.jpg, id=1889, 1017.8025pt x 566.115pt
+<Images//real_robot/gait/frames_cropped/5.jpg, id=1795, 1017.8025pt x 566.115pt
 >
 File: Images//real_robot/gait/frames_cropped/5.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/5.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/5.jpg  used on 
-input line 304.
+input line 282.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/6.jpg, id=1890, 1017.8025pt x 566.115pt
+<Images//real_robot/gait/frames_cropped/6.jpg, id=1796, 1017.8025pt x 566.115pt
 >
 File: Images//real_robot/gait/frames_cropped/6.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/6.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/6.jpg  used on 
-input line 310.
+input line 288.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/7.jpg, id=1891, 1017.8025pt x 566.115pt
+<Images//real_robot/gait/frames_cropped/7.jpg, id=1797, 1017.8025pt x 566.115pt
 >
 File: Images//real_robot/gait/frames_cropped/7.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/7.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/7.jpg  used on 
-input line 315.
+input line 293.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/8.jpg, id=1892, 1017.8025pt x 566.115pt
+<Images//real_robot/gait/frames_cropped/8.jpg, id=1798, 1017.8025pt x 566.115pt
 >
 File: Images//real_robot/gait/frames_cropped/8.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/8.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/8.jpg  used on 
-input line 320.
+input line 298.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/9.jpg, id=1893, 1017.8025pt x 566.115pt
+<Images//real_robot/gait/frames_cropped/9.jpg, id=1799, 1017.8025pt x 566.115pt
 >
 File: Images//real_robot/gait/frames_cropped/9.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/9.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/9.jpg  used on 
-input line 325.
+input line 303.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/10.jpg, id=1894, 1017.8025pt x 566.115p
+<Images//real_robot/gait/frames_cropped/10.jpg, id=1800, 1017.8025pt x 566.115p
 t>
 File: Images//real_robot/gait/frames_cropped/10.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/10.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/10.jpg  used on
- input line 330.
+ input line 308.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
- [111]
-<Images//real_robot/gait/frames_cropped/20.jpg, id=1901, 1017.8025pt x 566.115p
+ [103]
+<Images//real_robot/gait/frames_cropped/20.jpg, id=1806, 1017.8025pt x 566.115p
 t>
 File: Images//real_robot/gait/frames_cropped/20.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/20.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/20.jpg  used on
- input line 343.
+ input line 321.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/30.jpg, id=1902, 1017.8025pt x 566.115p
+<Images//real_robot/gait/frames_cropped/30.jpg, id=1807, 1017.8025pt x 566.115p
 t>
 File: Images//real_robot/gait/frames_cropped/30.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/30.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/30.jpg  used on
- input line 348.
+ input line 326.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/40.jpg, id=1903, 1017.8025pt x 566.115p
+<Images//real_robot/gait/frames_cropped/40.jpg, id=1808, 1017.8025pt x 566.115p
 t>
 File: Images//real_robot/gait/frames_cropped/40.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/40.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/40.jpg  used on
- input line 353.
+ input line 331.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/50.jpg, id=1904, 1017.8025pt x 566.115p
+<Images//real_robot/gait/frames_cropped/50.jpg, id=1809, 1017.8025pt x 566.115p
 t>
 File: Images//real_robot/gait/frames_cropped/50.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/50.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/50.jpg  used on
- input line 358.
+ input line 336.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/60.jpg, id=1905, 1017.8025pt x 566.115p
+<Images//real_robot/gait/frames_cropped/60.jpg, id=1810, 1017.8025pt x 566.115p
 t>
 File: Images//real_robot/gait/frames_cropped/60.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/60.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/60.jpg  used on
- input line 363.
+ input line 341.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/70.jpg, id=1906, 1017.8025pt x 566.115p
+<Images//real_robot/gait/frames_cropped/70.jpg, id=1811, 1017.8025pt x 566.115p
 t>
 File: Images//real_robot/gait/frames_cropped/70.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/70.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/70.jpg  used on
- input line 369.
+ input line 347.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/80.jpg, id=1907, 1017.8025pt x 566.115p
+<Images//real_robot/gait/frames_cropped/80.jpg, id=1812, 1017.8025pt x 566.115p
 t>
 File: Images//real_robot/gait/frames_cropped/80.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/80.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/80.jpg  used on
- input line 374.
+ input line 352.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/90.jpg, id=1908, 1017.8025pt x 566.115p
+<Images//real_robot/gait/frames_cropped/90.jpg, id=1813, 1017.8025pt x 566.115p
 t>
 File: Images//real_robot/gait/frames_cropped/90.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/90.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/90.jpg  used on
- input line 379.
+ input line 357.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/100.jpg, id=1909, 1017.8025pt x 566.115
+<Images//real_robot/gait/frames_cropped/100.jpg, id=1814, 1017.8025pt x 566.115
 pt>
 File: Images//real_robot/gait/frames_cropped/100.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/100.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/100.jpg  used o
-n input line 384.
+n input line 362.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
-<Images//real_robot/gait/frames_cropped/110.jpg, id=1910, 1017.8025pt x 566.115
+<Images//real_robot/gait/frames_cropped/110.jpg, id=1815, 1017.8025pt x 566.115
 pt>
 File: Images//real_robot/gait/frames_cropped/110.jpg Graphic file (type jpg)
 <use Images//real_robot/gait/frames_cropped/110.jpg>
 Package pdftex.def Info: Images//real_robot/gait/frames_cropped/110.jpg  used o
-n input line 389.
+n input line 367.
 (pdftex.def)             Requested size: 78.38835pt x 43.59703pt.
- [112 <./Images//real_robot/gait/frames_cropped/1.jpg> <./Images//real_robot/ga
+ [104 <./Images//real_robot/gait/frames_cropped/1.jpg> <./Images//real_robot/ga
 it/frames_cropped/2.jpg> <./Images//real_robot/gait/frames_cropped/3.jpg> <./Im
 ages//real_robot/gait/frames_cropped/4.jpg> <./Images//real_robot/gait/frames_c
 ropped/5.jpg> <./Images//real_robot/gait/frames_cropped/6.jpg> <./Images//real_
@@ -2377,171 +2362,180 @@ ropped/40.jpg> <./Images//real_robot/gait/frames_cropped/50.jpg> <./Images//rea
 l_robot/gait/frames_cropped/60.jpg> <./Images//real_robot/gait/frames_cropped/7
 0.jpg> <./Images//real_robot/gait/frames_cropped/80.jpg> <./Images//real_robot/
 gait/frames_cropped/90.jpg> <./Images//real_robot/gait/frames_cropped/100.jpg> 
-<./Images//real_robot/gait/frames_cropped/110.jpg>] [113]
-<Images//results/offline_traj_pos.png, id=1922, 681.2652pt x 408.0846pt>
+<./Images//real_robot/gait/frames_cropped/110.jpg>] [105]
+<Images//results/offline_traj_pos.png, id=1828, 681.2652pt x 408.0846pt>
 File: Images//results/offline_traj_pos.png Graphic file (type png)
 <use Images//results/offline_traj_pos.png>
 Package pdftex.def Info: Images//results/offline_traj_pos.png  used on input li
-ne 453.
+ne 431.
 (pdftex.def)             Requested size: 330.05322pt x 197.70284pt.
- [114]
-<Images//results/offline_traj_vel_acc.png, id=1929, 675.0018pt x 415.7934pt>
+ [106]
+<Images//results/offline_traj_vel_acc.png, id=1834, 675.0018pt x 415.7934pt>
 File: Images//results/offline_traj_vel_acc.png Graphic file (type png)
 <use Images//results/offline_traj_vel_acc.png>
 Package pdftex.def Info: Images//results/offline_traj_vel_acc.png  used on inpu
-t line 462.
+t line 440.
 (pdftex.def)             Requested size: 330.05322pt x 203.30276pt.
 
-[115 <./Images//results/offline_traj_pos.png> <./Images//results/offline_traj_v
+[107 <./Images//results/offline_traj_pos.png> <./Images//results/offline_traj_v
 el_acc.png>]
-<Images//results/offline_traj_angle.png, id=1937, 658.3797pt x 408.0846pt>
+<Images//results/offline_traj_angle.png, id=1842, 658.3797pt x 408.0846pt>
 File: Images//results/offline_traj_angle.png Graphic file (type png)
 <use Images//results/offline_traj_angle.png>
 Package pdftex.def Info: Images//results/offline_traj_angle.png  used on input 
-line 471.
+line 449.
 (pdftex.def)             Requested size: 330.05322pt x 204.5773pt.
-<Images//gait_planner/gait_3d.png, id=1939, 267.399pt x 291.2481pt>
+<Images//gait_planner/gait_3d.png, id=1844, 267.399pt x 291.2481pt>
 File: Images//gait_planner/gait_3d.png Graphic file (type png)
 <use Images//gait_planner/gait_3d.png>
 Package pdftex.def Info: Images//gait_planner/gait_3d.png  used on input line 4
-82.
+60.
 (pdftex.def)             Requested size: 247.54149pt x 269.6269pt.
- [116 <./Images//results/offline_traj_angle.png>]
-<Images//results/pid_error_home.png, id=1947, 700.2963pt x 408.0846pt>
+ [108 <./Images//results/offline_traj_angle.png>]
+<Images//results/pid_error_home.png, id=1851, 700.2963pt x 408.0846pt>
 File: Images//results/pid_error_home.png Graphic file (type png)
 <use Images//results/pid_error_home.png>
 Package pdftex.def Info: Images//results/pid_error_home.png  used on input line
- 493.
+ 471.
 (pdftex.def)             Requested size: 350.68274pt x 204.35313pt.
- [117 <./Images//gait_planner/gait_3d.png>]
-<Images//results/home_pid_roll_controller_meas_sat_lpf.png, id=1955, 1445.4pt x
+ [109 <./Images//gait_planner/gait_3d.png>]
+<Images//results/home_pid_roll_controller_meas_sat_lpf.png, id=1859, 1445.4pt x
  903.375pt>
 File: Images//results/home_pid_roll_controller_meas_sat_lpf.png Graphic file (t
 ype png)
 <use Images//results/home_pid_roll_controller_meas_sat_lpf.png>
 Package pdftex.def Info: Images//results/home_pid_roll_controller_meas_sat_lpf.
-png  used on input line 508.
+png  used on input line 486.
 (pdftex.def)             Requested size: 198.02942pt x 123.75612pt.
-<Images//results/home_pid_pitch_controller_meas_sat_lpf.png, id=1956, 1445.4pt 
+<Images//results/home_pid_pitch_controller_meas_sat_lpf.png, id=1860, 1445.4pt 
 x 903.375pt>
 File: Images//results/home_pid_pitch_controller_meas_sat_lpf.png Graphic file (
 type png)
 <use Images//results/home_pid_pitch_controller_meas_sat_lpf.png>
 Package pdftex.def Info: Images//results/home_pid_pitch_controller_meas_sat_lpf
-.png  used on input line 515.
+.png  used on input line 493.
 (pdftex.def)             Requested size: 198.02942pt x 123.75612pt.
- [118 <./Images//results/pid_error_home.png>]
-<Images//results/home_pid_roll_controller_p_i_d.png, id=1965, 1445.4pt x 903.37
+ [110 <./Images//results/pid_error_home.png>]
+<Images//results/home_pid_roll_controller_p_i_d.png, id=1868, 1445.4pt x 903.37
 5pt>
 File: Images//results/home_pid_roll_controller_p_i_d.png Graphic file (type png
 )
 <use Images//results/home_pid_roll_controller_p_i_d.png>
 Package pdftex.def Info: Images//results/home_pid_roll_controller_p_i_d.png  us
-ed on input line 528.
+ed on input line 506.
 (pdftex.def)             Requested size: 198.02942pt x 123.75612pt.
-<Images//results/home_pid_pitch_controller_p_i_d.png, id=1966, 1445.4pt x 903.3
+<Images//results/home_pid_pitch_controller_p_i_d.png, id=1869, 1445.4pt x 903.3
 75pt>
 File: Images//results/home_pid_pitch_controller_p_i_d.png Graphic file (type pn
 g)
 <use Images//results/home_pid_pitch_controller_p_i_d.png>
 Package pdftex.def Info: Images//results/home_pid_pitch_controller_p_i_d.png  u
-sed on input line 535.
+sed on input line 513.
 (pdftex.def)             Requested size: 198.02942pt x 123.75612pt.
- [119 <./Images//results/home_pid_roll_controller_meas_sat_lpf.png (PNG copy)> 
+ [111 <./Images//results/home_pid_roll_controller_meas_sat_lpf.png (PNG copy)> 
 <./Images//results/home_pid_pitch_controller_meas_sat_lpf.png (PNG copy)> <./Im
 ages//results/home_pid_roll_controller_p_i_d.png (PNG copy)> <./Images//results
 /home_pid_pitch_controller_p_i_d.png (PNG copy)>]
-<Images//results/pid_error_gait.png, id=1972, 700.2963pt x 408.0846pt>
+<Images//results/pid_error_gait.png, id=1876, 700.2963pt x 408.0846pt>
 File: Images//results/pid_error_gait.png Graphic file (type png)
 <use Images//results/pid_error_gait.png>
 Package pdftex.def Info: Images//results/pid_error_gait.png  used on input line
- 548.
+ 526.
 (pdftex.def)             Requested size: 350.68274pt x 204.35313pt.
-<Images//results/trot_pid_roll_controller_meas_avg_zoom.png, id=1974, 1445.4pt 
+<Images//results/trot_pid_roll_controller_meas_avg_zoom.png, id=1878, 1445.4pt 
 x 903.375pt>
 File: Images//results/trot_pid_roll_controller_meas_avg_zoom.png Graphic file (
 type png)
 <use Images//results/trot_pid_roll_controller_meas_avg_zoom.png>
 Package pdftex.def Info: Images//results/trot_pid_roll_controller_meas_avg_zoom
-.png  used on input line 563.
+.png  used on input line 541.
 (pdftex.def)             Requested size: 198.02942pt x 123.75612pt.
-<Images//results/trot_pid_pitch_controller_meas_avg_zoom.png, id=1975, 1445.4pt
+<Images//results/trot_pid_pitch_controller_meas_avg_zoom.png, id=1879, 1445.4pt
  x 903.375pt>
 File: Images//results/trot_pid_pitch_controller_meas_avg_zoom.png Graphic file 
 (type png)
 <use Images//results/trot_pid_pitch_controller_meas_avg_zoom.png>
 Package pdftex.def Info: Images//results/trot_pid_pitch_controller_meas_avg_zoo
-m.png  used on input line 569.
+m.png  used on input line 547.
 (pdftex.def)             Requested size: 198.02942pt x 123.75612pt.
- [120 <./Images//results/pid_error_gait.png>]
-<Images//results/trot_pid_roll_controller_p_i_d_zoom.png, id=1983, 1445.4pt x 9
+ [112 <./Images//results/pid_error_gait.png>]
+<Images//results/trot_pid_roll_controller_p_i_d_zoom.png, id=1886, 1445.4pt x 9
 03.375pt>
 File: Images//results/trot_pid_roll_controller_p_i_d_zoom.png Graphic file (typ
 e png)
 <use Images//results/trot_pid_roll_controller_p_i_d_zoom.png>
 Package pdftex.def Info: Images//results/trot_pid_roll_controller_p_i_d_zoom.pn
-g  used on input line 582.
+g  used on input line 560.
 (pdftex.def)             Requested size: 198.02942pt x 123.75612pt.
-<Images//results/trot_pid_pitch_controller_p_i_d_zoom.png, id=1984, 1445.4pt x 
+<Images//results/trot_pid_pitch_controller_p_i_d_zoom.png, id=1887, 1445.4pt x 
 903.375pt>
 File: Images//results/trot_pid_pitch_controller_p_i_d_zoom.png Graphic file (ty
 pe png)
 <use Images//results/trot_pid_pitch_controller_p_i_d_zoom.png>
 Package pdftex.def Info: Images//results/trot_pid_pitch_controller_p_i_d_zoom.p
-ng  used on input line 588.
+ng  used on input line 566.
 (pdftex.def)             Requested size: 198.02942pt x 123.75612pt.
- [121 <./Images//results/trot_pid_roll_controller_meas_avg_zoom.png (PNG copy)>
+ [113 <./Images//results/trot_pid_roll_controller_meas_avg_zoom.png (PNG copy)>
  <./Images//results/trot_pid_pitch_controller_meas_avg_zoom.png (PNG copy)> <./
 Images//results/trot_pid_roll_controller_p_i_d_zoom.png (PNG copy)> <./Images//
 results/trot_pid_pitch_controller_p_i_d_zoom.png (PNG copy)>]
-<Images//results/trot_pid_roll_controller_sat_lpf_ff_zoom.png, id=1990, 1445.4p
+<Images//results/trot_pid_roll_controller_sat_lpf_ff_zoom.png, id=1893, 1445.4p
 t x 903.375pt>
 File: Images//results/trot_pid_roll_controller_sat_lpf_ff_zoom.png Graphic file
  (type png)
 <use Images//results/trot_pid_roll_controller_sat_lpf_ff_zoom.png>
 Package pdftex.def Info: Images//results/trot_pid_roll_controller_sat_lpf_ff_zo
-om.png  used on input line 601.
+om.png  used on input line 579.
 (pdftex.def)             Requested size: 198.02942pt x 123.75612pt.
-<Images//results/trot_pid_pitch_controller_sat_lpf_ff_zoom.png, id=1991, 1445.4
+<Images//results/trot_pid_pitch_controller_sat_lpf_ff_zoom.png, id=1894, 1445.4
 pt x 903.375pt>
 File: Images//results/trot_pid_pitch_controller_sat_lpf_ff_zoom.png Graphic fil
 e (type png)
 <use Images//results/trot_pid_pitch_controller_sat_lpf_ff_zoom.png>
 Package pdftex.def Info: Images//results/trot_pid_pitch_controller_sat_lpf_ff_z
-oom.png  used on input line 607.
+oom.png  used on input line 585.
 (pdftex.def)             Requested size: 198.02942pt x 123.75612pt.
- [122 <./Images//results/trot_pid_roll_controller_sat_lpf_ff_zoom.png (PNG copy
+ [114 <./Images//results/trot_pid_roll_controller_sat_lpf_ff_zoom.png (PNG copy
 )> <./Images//results/trot_pid_pitch_controller_sat_lpf_ff_zoom.png (PNG copy)>
 ]
-Overfull \hbox (4.71959pt too wide) in paragraph at lines 664--665
-[]\T5/qtm/m/n/13 MÈi se-rial driver nh™n lªnh g‚c servo (^^_Ïn v‡ ^^_Î) t¯ topi
-c \T5/cmtt/b/n/13 /servo_commands_
+Overfull \hbox (17.58275pt too wide) in paragraph at lines 627--628
+\T5/qtm/m/n/13 servo ID $\OT1/cmr/m/n/12 [4\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 5
+\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 6\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1\OML/cm
+m/m/it/12 ; \OT1/cmr/m/n/12 2\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 3]$\T5/qtm/m/n/
+13 . Node cuËi cÚng l† Leg Con-troller (\T5/cmtt/m/n/13 node_leg_controller\T5/
+qtm/m/n/13 ),
  []
 
-[123] [124] [125] [126]
-Underfull \hbox (badness 10000) in paragraph at lines 777--777
+
+Overfull \hbox (4.71959pt too wide) in paragraph at lines 629--630
+[]\T5/qtm/m/n/13 MÈi se-rial driver nh™n lªnh g‚c servo (^^_Ïn v‡ ^^_Î) t¯ topi
+c \T5/cmtt/m/n/13 /servo_commands_
+ []
+
+[115] [116] [117]
+Underfull \hbox (badness 10000) in paragraph at lines 736--736
 []|\T5/qtm/m/n/13 Joint 1
  []
 
-
-Underfull \hbox (badness 1033) in paragraph at lines 777--777
-[]|\T5/qtm/m/n/13 Xo± hÊng \TS1/qtm/m/n/13 ^^Y \T5/qtm/m/n/13 ch•n xo± ra ngo†i
-,
- []
-
-[127]
-Overfull \hbox (47.15407pt too wide) in paragraph at lines 809--821
+[118] [119]
+Overfull \hbox (4.60028pt too wide) in paragraph at lines 758--770
  [][] 
  []
 
-[128] [129] [130]) (./chapter/ch6_ketluan.tex [131]
+[120] [121]) (./chapter/ch6_ketluan.tex [122]
 Ch\uhorn \ohorn ng 6.
-[132
+[123
 
-] [133] [134] [135]) (./thesis.bbl [136]
+]
+Overfull \hbox (32.18466pt too wide) in paragraph at lines 26--27
+[]\T5/qtm/m/n/13 Th˘ nhßt, nghi∂n c˘u ^^_¢ x•y d¸ng mÎt bÎ ^^_i∑u khi∫n PID ^^_
+a ch∏ ^^_Î (HOME/GAIT),
+ []
+
+[124] [125]) (./thesis.bbl [126]
 Underfull \hbox (badness 10000) in paragraph at lines 32--34
 []\T5/qtm/m/n/13 Unitree Robotics, ``Uni-tree go1 quadruped robot.'' []$\T5/cmt
-t/b/n/13 https : / / www .
+t/m/n/13 https : / / www .
  []
 
 
@@ -2550,38 +2544,35 @@ Underfull \hbox (badness 1005) in paragraph at lines 36--40
 ot,'' in
  []
 
-[137
+[127
 
-]) [138]
+]) [128]
 \openout2 = `chapter/appendix.aux'.
 
- (./chapter/appendix.tex [139
+ (./chapter/appendix.tex [129
 
 
-] [140] [141] [142
+] [130] [131] [132
 
-] [143] [144]
-[145
+] [133] [134]
+[135
 
-]) [146] (./thesis.aux (./chapter/appendix.aux))
+]) [136] (./thesis.aux (./chapter/appendix.aux))
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 77E8A0F86F5272E9DAA8CD7316772BA5;27389.
+(rerunfilecheck)             Checksum: E839DB926EB6AF60DA018D461CEC6F3D;26594.
  ) 
 Here is how much of TeX's memory you used:
- 28036 strings out of 479662
- 531870 string characters out of 5883895
- 786073 words of memory out of 5000000
- 44924 multiletter control sequences out of 15000+600000
- 522279 words of font info for 113 fonts, out of 8000000 for 9000
+ 28264 strings out of 479662
+ 535464 string characters out of 5883895
+ 795332 words of memory out of 5000000
+ 45211 multiletter control sequences out of 15000+600000
+ 524306 words of font info for 114 fonts, out of 8000000 for 9000
  309 hyphenation exceptions out of 8191
- 99i,18n,117p,1317b,653s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 99i,18n,117p,2669b,653s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-t5.enc}{/usr/share/texmf/fonts/e
 nc/dvips/tex-gyre/q-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cmextra/cmbsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
@@ -2602,10 +2593,10 @@ fonts/cm/cmsy9.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmb.pfb></usr
 1/public/tex-gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/vntex/vnr/vnitt10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/vntex/vnr/vntt12.pfb>
-Output written on thesis.pdf (163 pages, 27494749 bytes).
+Output written on thesis.pdf (152 pages, 26197980 bytes).
 PDF statistics:
- 2378 PDF objects out of 2487 (max. 8388607)
- 1873 compressed objects within 19 object streams
- 553 named destinations out of 1000 (max. 500000)
- 1483 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2244 PDF objects out of 2487 (max. 8388607)
+ 1758 compressed objects within 18 object streams
+ 495 named destinations out of 1000 (max. 500000)
+ 1431 words of extra memory for PDF output out of 10000 (max. 10000000)
 
