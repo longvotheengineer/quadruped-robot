@@ -1,0 +1,233 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{tgtermes}
+\usepackage[left=2.5cm, right=2.0cm, top=2.0cm, bottom=1.5cm]{geometry}
+\usepackage{tabularx}
+\usepackage{setspace}
+\usepackage{enumitem}
+
+\setstretch{1.0}
+
+\begin{document}
+\pagestyle{empty}
+
+% ==========================================
+% PAGE 1: CÁN BỘ HƯỚNG DẪN
+% ==========================================
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+    \centering
+    {\small TRƯỜNG ĐẠI HỌC BÁCH KHOA TP. HCM} \\
+    \textbf{KHOA ĐIỆN -- ĐIỆN TỬ} \\
+    \textbf{BỘ MÔN: ĐIỀU KHIỂN TỰ ĐỘNG} \\
+    \vspace{0.1cm}
+    \rule{3.5cm}{0.5pt}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \centering
+    {\small CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM} \\
+    {\small Độc lập -- Tự do -- Hạnh phúc} \\
+    \vspace{0.1cm}
+    \rule{4cm}{0.5pt} \\
+    \vspace{0.2cm}
+    \textit{\small TP. HCM, ngày \dots tháng \dots năm \dots}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\large \textbf{NHẬN XÉT ĐỒ ÁN TỐT NGHIỆP}} \\[0.1cm]
+    {\large \textbf{CỦA CÁN BỘ HƯỚNG DẪN}}
+\end{center}
+
+\vspace{0.2cm}
+
+\noindent \underline{\textbf{Tên Đồ án:}}
+
+\vspace{0.2cm}
+
+\begin{center}
+    {\large \textbf{THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG HỆ THỐNG TẠO DÁNG \\
+    ĐI THÍCH NGHI VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN \\
+    SỬ DỤNG PHẢN HỒI IMU}}
+    
+    \vspace{0.1cm}
+    {\small DESIGN, SIMULATION, AND IMPLEMENTATION OF AN ADAPTIVE GAIT \\
+    GENERATION AND POSTURAL STABILIZATION FRAMEWORK FOR QUADRUPED \\
+    ROBOTS USING IMU FEEDBACK}
+\end{center}
+
+\vspace{0.3cm}
+
+\noindent
+\begin{minipage}[t]{0.55\textwidth}
+    \underline{\textbf{Nhóm Sinh viên thực hiện:}} \\[0.1cm]
+    {\small Trương Tuấn An (MSSV: 2210041)}\\
+    {\small Võ Quế Long (MSSV: 2211910)}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.4\textwidth}
+    \underline{\textbf{Cán bộ hướng dẫn:}} \\[0.1cm]
+    {\small TS. Nguyễn Lê Dũng}
+\end{minipage}
+
+\vspace{0.4cm}
+
+\noindent \underline{\textbf{Đánh giá Luận văn}}
+\begin{enumerate}[label=\arabic*., leftmargin=0.6cm]
+    \item \small Về cuốn báo cáo: \\
+    \vspace{-0.2cm}
+    \begin{tabular}{p{0.5\textwidth} p{0.4\textwidth}}
+        Số trang \dotfill~115 & Số chương \dotfill~6 \\
+        Số bảng số liệu \dotfill~26 & Số hình vẽ \dotfill~60 \\
+        Số tài liệu tham khảo \dotfill~21 & Sản phẩm \dotfill~Mô hình robot bốn chân
+    \end{tabular}
+    
+    \vspace{0.2cm}
+    Một số nhận xét về hình thức cuốn báo cáo: Báo cáo được trình bày rõ ràng, logic, đúng quy cách của trường Đại học Bách Khoa. Hình ảnh minh họa phong phú, chất lượng tốt. Các công thức toán học được trình bày chính xác và có đánh số rõ ràng. Bố cục các chương mạch lạc, có sự liên kết chặt chẽ giữa lý thuyết và thực nghiệm.
+    
+    \vspace{0.2cm}
+    \item Về nội dung luận văn: Luận văn trình bày đầy đủ quy trình thiết kế, mô phỏng và thi công hệ thống robot bốn chân 12 bậc tự do. Nhóm sinh viên đã xây dựng thành công mô hình động học nghịch, thuật toán tạo dáng đi Trot, và bộ điều khiển ổn định tư thế sử dụng phản hồi IMU. Hệ thống phần mềm được triển khai trên nền tảng ROS~2 với kiến trúc đa node, đảm bảo tính mô-đun và khả năng mở rộng. Phần phân tích cơ khí (mô-men xoắn, hệ số an toàn) và thiết kế mạch điện được trình bày có cơ sở khoa học. Kết quả thực nghiệm trên mô hình Gazebo và robot thực tế cho thấy hệ thống hoạt động ổn định, đáp ứng được mục tiêu đề ra.
+    
+    \vspace{0.2cm}
+    \item Về tính ứng dụng: Đề tài có tính ứng dụng cao trong lĩnh vực robot di động, có thể mở rộng cho các ứng dụng cứu hộ, giám sát địa hình phức tạp, hoặc nghiên cứu giáo dục về điều khiển robot đa chân. Kiến trúc phần mềm ROS~2 cho phép tích hợp dễ dàng các thuật toán điều khiển nâng cao như MPC hoặc Reinforcement Learning trong tương lai.
+    
+    \vspace{0.2cm}
+    \item Về thái độ làm việc của sinh viên: Nhóm sinh viên làm việc nghiêm túc, chủ động và có tinh thần trách nhiệm cao. Nhóm đã tự nghiên cứu và giải quyết nhiều vấn đề kỹ thuật phức tạp liên quan đến phần cứng (thiết kế 3D, gia công, đi dây), phần mềm (lập trình C++/Python trên ROS~2) và truyền thông (giao thức UART/I2C). Thường xuyên báo cáo tiến độ và phản hồi tích cực các góp ý của giảng viên hướng dẫn.
+\end{enumerate}
+
+\vspace{0.2cm}
+
+\noindent \underline{\textbf{Đánh giá chung:}} Luận văn đạt yêu cầu của một đồ án tốt nghiệp cấp Đại học. Nhóm sinh viên đã hoàn thành tốt các mục tiêu đề ra: thiết kế và thi công thành công mô hình robot bốn chân, triển khai thuật toán tạo dáng đi và ổn định tư thế trên phần cứng thực. Đề nghị Hội đồng cho phép nhóm sinh viên bảo vệ đồ án tốt nghiệp.
+
+\vspace{0.3cm}
+
+\noindent \underline{\textbf{Điểm từng sinh viên:}} \\[0.1cm]
+\small TRƯƠNG TUẤN AN: \dots\dots\dots/10 \hfill VÕ QUẾ LONG: \dots\dots\dots/10 \hspace{2cm}
+
+\vspace{0.3cm}
+
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \textbf{Cán bộ hướng dẫn} \\
+    \vspace{0.1cm}
+    (Ký tên và ghi rõ họ tên)
+\end{minipage}
+
+\newpage
+
+% ==========================================
+% PAGE 2: CÁN BỘ PHẢN BIỆN
+% ==========================================
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+    \centering
+    {\small TRƯỜNG ĐẠI HỌC BÁCH KHOA TP. HCM} \\
+    \textbf{KHOA ĐIỆN -- ĐIỆN TỬ} \\
+    \textbf{BỘ MÔN: ĐIỀU KHIỂN TỰ ĐỘNG} \\
+    \vspace{0.1cm}
+    \rule{3.5cm}{0.5pt}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \centering
+    {\small CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM} \\
+    {\small Độc lập -- Tự do -- Hạnh phúc} \\
+    \vspace{0.1cm}
+    \rule{4cm}{0.5pt} \\
+    \vspace{0.2cm}
+    \textit{\small TP. HCM, ngày \dots tháng \dots năm \dots}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\large \textbf{NHẬN XÉT ĐỒ ÁN TỐT NGHIỆP}} \\[0.1cm]
+    {\large \textbf{CỦA CÁN BỘ PHẢN BIỆN}}
+\end{center}
+
+\vspace{0.2cm}
+
+\noindent \underline{\textbf{Tên Đồ án:}}
+
+\vspace{0.2cm}
+
+\begin{center}
+    {\large \textbf{THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG HỆ THỐNG TẠO DÁNG \\
+    ĐI THÍCH NGHI VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN \\
+    SỬ DỤNG PHẢN HỒI IMU}}
+    
+    \vspace{0.1cm}
+    {\small DESIGN, SIMULATION, AND IMPLEMENTATION OF AN ADAPTIVE GAIT \\
+    GENERATION AND POSTURAL STABILIZATION FRAMEWORK FOR QUADRUPED \\
+    ROBOTS USING IMU FEEDBACK}
+\end{center}
+
+\vspace{0.3cm}
+
+\noindent
+\begin{minipage}[t]{0.55\textwidth}
+    \underline{\textbf{Nhóm Sinh viên thực hiện:}} \\[0.1cm]
+    {\small Trương Tuấn An (MSSV: 2210041)}\\
+    {\small Võ Quế Long (MSSV: 2211910)}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.4\textwidth}
+    \underline{\textbf{Cán bộ phản biện:}} \\[0.1cm]
+    {\small TS. Nguyễn Hoàng Giáp}
+\end{minipage}
+
+\vspace{0.4cm}
+
+\noindent \underline{\textbf{Đánh giá Luận văn}}
+\begin{enumerate}[label=\arabic*., leftmargin=0.6cm]
+    \item \small Về cuốn báo cáo: \\
+    \vspace{-0.2cm}
+    \begin{tabular}{p{0.5\textwidth} p{0.4\textwidth}}
+        Số trang \dotfill & Số chương \dotfill \\
+        Số bảng số liệu \dotfill & Số hình vẽ \dotfill \\
+        Số tài liệu tham khảo \dotfill & Sản phẩm \dotfill
+    \end{tabular}
+    
+    \vspace{0.2cm}
+    Một số nhận xét về hình thức cuốn báo cáo: \dotfill \\
+    \dotfill
+    
+    \vspace{0.2cm}
+    \item Về nội dung luận văn: \dotfill \\
+    \dotfill
+    
+    \vspace{0.2cm}
+    \item Về tính ứng dụng: \dotfill \\
+    \dotfill
+    
+    \vspace{0.2cm}
+    \item Về thái độ làm việc của sinh viên: \dotfill \\
+    \dotfill
+\end{enumerate}
+
+\vspace{0.2cm}
+
+\noindent \underline{\textbf{Đánh giá chung:}} \dotfill \\
+\dotfill
+
+\vspace{0.3cm}
+
+\noindent \underline{\textbf{Điểm từng sinh viên:}} \\[0.1cm]
+\small TRƯƠNG TUẤN AN: \dots\dots\dots/10 \hfill VÕ QUẾ LONG: \dots\dots\dots/10 \hspace{2cm}
+
+\vspace{0.3cm}
+
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+    \centering
+    \textbf{Người nhận xét} \\
+    \vspace{0.1cm}
+    (Ký tên và ghi rõ họ tên)
+\end{minipage}
+
+\end{document}

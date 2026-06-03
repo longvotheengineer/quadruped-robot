@@ -1,0 +1,129 @@
+% this package is designed by: thanhhungqb@gmail.com
+% more infor mation and update: https://github.com/HungTVo/thesis-template
+%
+% this package also use code from: 
+%	http://tex.stackexchange.com/questions/51483/how-to-write-abstract-and-acknowledgement-in-book-format
+% thank for Fredrik M. Kirkemo to gave a useful code
+
+\ProvidesPackage{bkthesis}
+
+\RequirePackage{graphicx}
+\RequirePackage{vietnam}
+\RequirePackage{geometry}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{indentfirst}
+
+% \usepackage{geometry}
+\def\thesislayout{	% A4: 210 × 297
+	\geometry{
+		a4paper,
+		left=40mm,
+		right=25mm,
+		top=40mm,
+		bottom=25mm,
+	}
+}
+
+\newcommand{\@sdeptname}{KHOA ĐIỆN - ĐIỆN TỬ}
+\newcommand{\csdeptname}[1]{\renewcommand{\@sdeptname}{#1}}
+
+\newcommand{\@tname}{TÊN ĐỀ TÀI LUẬN VĂN TỐT NGHIỆP}
+\newcommand{\ctname}[1]{\renewcommand{\@tname}{#1}}
+
+\newcommand{\@stuname}{SVTH 1: Nguyễn Văn An (5...)\\SVTH 2: Phạm Bình Minh (...)}
+\newcommand{\cstuname}[1]{\renewcommand{\@stuname}{#1}}
+
+%\newcommand{\@sCouncil}{Khoa học máy tính 1}
+%\newcommand{\csCouncil}[1]{\renewcommand{\@sCouncil}{#1}}
+
+\newcommand{\@sReviewer}{TS. A}
+\newcommand{\csReviewer}[1]{\renewcommand{\@sReviewer}{#1}}
+	
+\newcommand{\@sSupervise}{TS. Nguyễn Văn A}
+\newcommand{\csSupervise}[1]{\renewcommand{\@sSupervise}{#1}}
+
+\newcommand{\@ttime}{\today}
+\newcommand{\cttime}[1]{\renewcommand{\@ttime}{#1}}
+
+\newcommand{\@rname}{LUẬN VĂN TỐT NGHIỆP ĐẠI HỌC} % report name, luận văn, thực tập...
+\newcommand{\crname}[1]{\renewcommand{\@rname}{#1}}
+
+
+\def\coverpage{
+
+\pagestyle{empty}
+
+% Vẽ khung bìa
+\begin{tikzpicture}[remember picture, overlay]
+  \draw[line width=1.5pt] ($(current page.north west) + (3cm,-2cm)$) rectangle ($(current page.south east) + (-2cm,2cm)$);
+  \draw[line width=0.5pt] ($(current page.north west) + (3.1cm,-2.1cm)$) rectangle ($(current page.south east) + (-2.1cm,2.1cm)$);
+\end{tikzpicture}
+
+\begin{center}
+    {\fontsize{14pt}{1}\selectfont \textbf{ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH}} \\[0.1cm]
+    {\fontsize{14pt}{1}\selectfont \textbf{TRƯỜNG ĐẠI HỌC BÁCH KHOA}} \\[0.1cm]
+    {\fontsize{14pt}{1}\selectfont \textbf{\@sdeptname}} \\[0.2cm]
+    {\fontsize{14pt}{1}\selectfont ---------------o0o---------------} \\[1.0cm]
+
+    \includegraphics[scale=0.35]{misc/logobk.png}\\[1.0cm]
+
+    {\fontsize{14pt}{1}\selectfont \textbf{\@rname}} \\[1.5cm]
+
+    {\fontsize{18pt}{1.5}\selectfont \textbf{\@tname}} \\[1.5cm]
+
+    \hfill
+    \begin{minipage}{0.73\textwidth}
+        {\fontsize{14pt}{1.5}\selectfont
+        \begin{tabular}{ll@{\hspace{1em}}ll}
+            \textbf{SVTH:} & \@stuname \\[0.3cm]
+            \textbf{GVHD:} & \multicolumn{3}{l}{\textbf{\@sSupervise}}
+        \end{tabular}}
+    \end{minipage}
+
+    \vfill
+    {\fontsize{14pt}{1}\selectfont \textbf{TP. HỒ CHÍ MINH, \@ttime}}
+\end{center}
+\newpage
+}
+\def\makeprintversion{}
+
+%% Remember to load babel before loading this package or define the command \abstractname!
+\makeatletter
+\newenvironment{abstract}{
+  \clearpage
+  \thispagestyle{empty}
+  \@beginparpenalty\@lowpenalty
+  \begin{center}
+	\bfseries \fontsize{14pt}{1}\selectfont TÓM TẮT LUẬN VĂN
+	\@endparpenalty\@M
+  \end{center}}
+ {\par\clearpage}
+\makeatother
+
+\makeatletter
+\newenvironment{acknowledgments}{
+	\clearpage
+	\thispagestyle{empty}
+	\begin{center}
+	  {\bfseries \fontsize{14pt}{1}\selectfont LỜI CẢM ƠN \vspace{-.5em}\vspace{\z@}}
+	\end{center}
+	\quotation
+  }{\endquotation\clearpage}
+\makeatother
+
+% Declaration
+\makeatletter
+\newenvironment{declaration}{
+	\clearpage
+    \thispagestyle{empty}
+	\begin{center}
+	  {\bfseries \fontsize{14pt}{1}\selectfont Lời cam đoan\vspace{-.5em}\vspace{\z@}}
+	\end{center}
+	\quotation
+  }{\endquotation\clearpage}
+\makeatother	  
+
+% \renewcommand\lstlistingname{Algorithm}
+% \renewcommand\lstlistlistingname{Algorithms}

@@ -1,0 +1,724 @@
+% !TeX root = ../thesis.tex
+\chapter{LÝ THUYẾT}
+
+\input{chapter/chapter2_content}
+
+Mục tiêu của bài toán động học thuận của robot là xác định biểu diễn vị trí của cơ cấu chấp hành cuối. Trong nghiên cứu này, phương pháp biến đổi tọa độ Modified Denavit--Hartenberg (MD-H) \cite{denavit1955, craig2005} được áp dụng để giải quyết bài toán này.
+\section{Mô hình động học}
+\subsection{Thiết lập hệ tọa độ MD-H}
+
+Nhóm xây dựng một mô hình toán học và cơ khí của robot bốn chân phân bố trong không gian Descartes. Cấu trúc vật lý của robot bao gồm kích thước bệ đỡ với chiều dài $L=209$ mm, chiều rộng $W=191$ mm, và chiều dài các khâu chân lần lượt là $L_1=26$ mm (Coxa/Hip), $L_2=106$ mm (Femur/Thigh), và $L_3=125$ mm (Tibia/Calf).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{kinematics/model_reference_frame.png}
+    \caption{Mô hình mô phỏng với các hệ tọa độ tham chiếu được gắn tại từng khớp của robot.}
+    \label{fig20}
+\end{figure}
+
+Theo quy ước chuẩn của hệ điều hành ROS (Robot Operating System), các trục tọa độ trong Hình \ref{fig20} được biểu diễn bằng màu sắc: Trục $X$ (Đỏ) chỉ hướng tiến về phía trước, Trục $Y$ (Xanh lá) chỉ hướng sang trái, và Trục $Z$ (Xanh dương) chỉ hướng lên trên. Các hệ tọa độ cấu thành nên mô hình động học MD-H của chân được gắn cụ thể trên hình, bao gồm: Hệ tọa độ thân $\{B\}$, cụm khớp hông (Roll và Pitch) đại diện bởi $\{0\}, \{1\}, \{2\}$, khớp gối $\{3\}$ và mũi bàn chân $\{4\}$.
+
+Dựa theo hướng tiến về phía trước, chân trước bên trái (LF), chân trước bên phải (RF), chân sau bên trái (LB) và chân sau bên phải (RB) lần lượt được đánh số là 1, 2, 3 và 4. Hệ tọa độ thân $\{B\}$ (hoặc $\{O_B\}$) được thiết lập tại tâm hình học của thân, và hệ tọa độ gốc của chân $\{0\}$ (hoặc $\{O_{i,0}\}$) được thiết lập tại khớp nối giữa khớp hông và thân, trong đó $i = 1,2,3,4$.
+
+Trong phương pháp biến đổi tọa độ Modified Denavit-Hartenberg (MD-H) \cite{craig2005}, chuỗi động học được mô tả một cách toán học thông qua các phép biến đổi tọa độ chính xác. Mỗi khâu liên kết được xác định bởi bốn tham số như trong Hình~\ref{fig21}, theo định nghĩa chuẩn của MD-H:
+
+\begin{itemize}
+    \item $a_{i-1}$: khoảng cách từ trục $Z_{i-1}$ đến trục $Z_i$ đo dọc theo trục $X_{i-1}$;
+    \item $\alpha_{i-1}$: góc quay từ trục $Z_{i-1}$ đến trục $Z_i$ đo quanh trục $X_{i-1}$;
+    \item $d_i$: khoảng cách từ trục $X_{i-1}$ đến trục $X_i$ đo dọc theo trục $Z_i$;
+    \item $\theta_i$: góc quay từ trục $X_{i-1}$ đến trục $X_i$ đo quanh trục $Z_i$.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{kinematics/dh_coordinate_system.png }
+    \caption{Mô hình một chân của robot bốn chân được xây dựng bằng phương pháp MD-H.}
+    \label{fig21}
+\end{figure}
+
+Các tham số MD-H của từng khâu liên kết cho một chân robot được thiết lập và trình bày chi tiết trong Bảng \ref{tab:3}, phản ánh chính xác sự khác biệt về cấu trúc động học giữa các chân bên trái và bên phải (tham số $d_2$ mang dấu đối nhau do hệ quả của phép đối xứng gương).
+
+\begin{table}[H]
+\centering
+\caption{Tham số Modified Denavit-Hartenberg (MD-H)}
+\label{tab:3}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{l c c c c c}
+\toprule
+\textbf{Link ($i$)} & $\boldsymbol{\alpha_{i-1}}$ & $\boldsymbol{a_{i-1}}$ & \multicolumn{2}{c}{$\boldsymbol{d_i}$} & $\boldsymbol{\theta_i}$ \\
+\cmidrule(lr){4-5}
+& & & \textbf{Left Limbs} & \textbf{Right Limbs} & \\
+\midrule
+1 (Coxa)  & $0^\circ$ & $0$   & $0$    & $0$   & $\theta_1^*$ \\
+2 (Femur) & $90^\circ$& $0$   & $L_1$  & $-L_1$& $\theta_2^*$ \\
+3 (Tibia) & $0^\circ$ & $L_2$ & $0$    & $0$   & $\theta_3^*$ \\
+4 (Foot)  & $0^\circ$ & $L_3$ & $0$    & $0$   & $0$ \\
+\bottomrule
+\multicolumn{6}{l}{\small $^*$ Variable articulation angle} \\
+\end{tabular}
+\end{table}
+
+\subsection{Giải động học thuận}
+
+Khi giải các phương trình động học thuận bằng phương pháp MD-H, chúng thường được 
+phân rã thành các bài toán con. Phép biến đổi từ hệ tọa độ khâu $\{i-1\}$ sang hệ 
+tọa độ $\{i\}$ tạo ra một ma trận biến đổi tọa độ chỉ liên quan đến bốn tham số 
+liên kết $^{i-1}_{i}T$. Dựa trên định nghĩa của từng tham số liên kết ở trên, ta có:
+
+\begin{equation}
+^{i-1}_{i}T = Trans_x\{a_{i-1}\} \, Rot_x\{\alpha_{i-1}\} \, Trans_z\{d_i\} \, Rot_z\{\theta_i\}
+\end{equation}
+\begin{equation}
+{}^{i-1}_{i}T=
+\begin{bmatrix}
+\cos\theta_i & -\sin\theta_i & 0 & a_{i-1} \\
+\sin\theta_i\cos\alpha_{i-1} & \cos\theta_i\cos\alpha_{i-1} & -\sin\alpha_{i-1} & -d_i\sin\alpha_{i-1} \\
+\sin\theta_i\sin\alpha_{i-1} & \cos\theta_i\sin\alpha_{i-1} & \cos\alpha_{i-1} & d_i\cos\alpha_{i-1} \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+Áp dụng cho cấu trúc của một chân robot, các ma trận biến đổi thành phần được xác định như sau:
+
+\begin{equation}
+{}^{0}_{1}T=
+\begin{bmatrix}
+\cos\theta_1 & -\sin\theta_1 & 0 & 0 \\
+\sin\theta_1 & \cos\theta_1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+{}^{1}_{2}T=
+\begin{bmatrix}
+\cos\theta_2 & -\sin\theta_2 & 0 & 0 \\
+0 & 0 & -1 & -L_1 \\
+\sin\theta_2 & \cos\theta_2 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+{}^{2}_{3}T=
+\begin{bmatrix}
+\cos\theta_3 & -\sin\theta_3 & 0 & L_2 \\
+\sin\theta_3 & \cos\theta_3 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+{}^{3}_{4}T=
+\begin{bmatrix}
+1 & 0 & 0 & L_3 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+Theo Hình \ref{fig20}, ma trận biến đổi từ hệ tọa độ $\{O_{i,0}\}$ đến hệ tọa độ thân $\{O_B\}$ được viết như sau:
+
+\begin{equation}
+^{B}_{0}T=
+\begin{bmatrix}
+0 & 0 & 1 & \frac{L}{2} \\
+0 & -1 & 0 & \frac{W}{2} \\
+1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+
+Do đó, ma trận biến đổi của hệ tọa độ đầu chân so với hệ tọa độ thân $\{O_B\}$ được xác định như sau:
+
+\begin{equation}
+^{B}_{4}T = {}^{B}_{0}T \, {}^{0}_{4}T
+\end{equation}
+
+\begin{equation}
+{}^{B}_{4}T =
+\begin{bmatrix}
+S_{23} & c_{23} & 0 & \frac{L}{2} + L_2 S_2 + L_3 S_{23} \\
+- S_1 c_{23} & S_1 S_{23} & c_1 & \frac{W}{2} + L_1 c_1 - L_2 S_1 c_2 - L_3 S_1 c_{23} \\
+c_1 c_{23} & - c_1 S_{23} & S_1 & L_1 S_1 + L_2 c_1 c_2 + L_3 c_1 c_{23} \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+{}^{B}_{4}T=
+\begin{bmatrix}
+R & P \\
+0 & 1
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+{}^{B}_{4}T=
+\begin{bmatrix}
+ &  &  & P_x \\
+ & R &  & P_y \\
+ &  &  & P_z \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+R=
+\begin{bmatrix}
+S_{23} & c_{23} & 0 \\
+- S_1 c_{23} & S_1 S_{23} & c_1 \\
+c_1 c_{23} & - c_1 S_{23} & S_1
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+P =
+\begin{bmatrix}
+P_x^B \\
+P_y^B \\
+P_z^B
+\end{bmatrix}
+=
+\begin{bmatrix}
+\dfrac{L}{2}+L_2 s_2 + L_3 s_{23} \\
+\dfrac{W}{2}+L_1 c_1 - L_2 s_1 c_2 - L_3 s_1 c_{23} \\
+L_1 s_1 + L_2 c_1 c_2 + L_3 c_1 c_{23}
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+P_{LF}=
+\begin{bmatrix}
+P_x \\
+P_y \\
+P_z
+\end{bmatrix}
+=
+\begin{bmatrix}
+L_1\sin\theta_1 + L_2\cos\theta_1\cos\theta_2 + L_3\cos\theta_1\cos(\theta_2+\theta_3) \\
+- L_1\cos\theta_1 + L_2\sin\theta_1\cos\theta_2 + L_3\sin\theta_1\cos(\theta_2+\theta_3) \\
+L_2\sin\theta_2 + L_3\sin(\theta_2+\theta_3)
+\end{bmatrix}
+\label{eq:1}
+\end{equation}
+
+\begin{equation}
+P_{RF}=
+\begin{bmatrix}
+P_x \\
+P_y \\
+P_z
+\end{bmatrix}
+=
+\begin{bmatrix}
+- L_1\sin\theta_1 + L_2\cos\theta_1\cos\theta_2 + L_3\cos\theta_1\cos(\theta_2+\theta_3) \\
+L_1\cos\theta_1 + L_2\sin\theta_1\cos\theta_2 + L_3\sin\theta_1\cos(\theta_2+\theta_3) \\
+L_2\sin\theta_2 + L_3\sin(\theta_2+\theta_3)
+\end{bmatrix}
+\label{eq:2}
+\end{equation}
+
+\begin{equation}
+P_{LB}=
+\begin{bmatrix}
+P_x \\
+P_y \\
+P_z
+\end{bmatrix}
+=
+\begin{bmatrix}
+L_1\sin\theta_1 + L_2\cos\theta_1\cos\theta_2 + L_3\cos\theta_1\cos(\theta_2+\theta_3) \\
+- L_1\cos\theta_1 + L_2\sin\theta_1\cos\theta_2 + L_3\sin\theta_1\cos(\theta_2+\theta_3) \\
+L_2\sin\theta_2 + L_3\sin(\theta_2+\theta_3)
+\end{bmatrix}
+\label{eq:3}
+\end{equation}
+
+\begin{equation}
+P_{RB}=
+\begin{bmatrix}
+P_x \\
+P_y \\
+P_z
+\end{bmatrix}
+=
+\begin{bmatrix}
+- L_1\sin\theta_1 + L_2\cos\theta_1\cos\theta_2 + L_3\cos\theta_1\cos(\theta_2+\theta_3) \\
+L_1\cos\theta_1 + L_2\sin\theta_1\cos\theta_2 + L_3\sin\theta_1\cos(\theta_2+\theta_3) \\
+L_2\sin\theta_2 + L_3\sin(\theta_2+\theta_3)
+\end{bmatrix}
+\label{eq:4}
+\end{equation}
+
+Các ma trận trên biểu diễn vị trí mũi bàn chân của cả 4 chân trong hệ tọa độ cục bộ của từng khớp hông. Do tính chất đối xứng, phương trình động học của chân sau bên trái giống với chân trước bên trái, và chân sau bên phải giống với chân trước bên phải.
+
+\section{Động học nghịch }
+
+Bài toán động học nghịch (Inverse Kinematics -- IK) là bài toán xác định các giá trị góc khớp $(\theta_1, \theta_2, \theta_3)$ khi biết tọa độ đầu bàn chân $(x, y, z)$ trong hệ tọa độ thân robot. Đây là bài toán ngược của động học thuận, và thường có nhiều nghiệm (do tính phi tuyến của các phương trình lượng giác) hoặc không có nghiệm (khi điểm đích nằm ngoài không gian làm việc).
+
+Trong nghiên cứu này, phương pháp giải tích (analytical method) được sử dụng để giải bài toán IK. Phương pháp này tận dụng cấu trúc chuỗi hở của chân robot để giải trực tiếp hệ phương trình lượng giác, từ đó thu được kết quả nhanh chóng và chính xác dạng đóng. Các bước tính toán chi tiết sẽ được trình bày cụ thể dưới đây.
+
+Khi thiết kế phương trình động học nghịch cho robot bốn chân, một điểm đặc biệt cần lưu ý là các chân trái và chân phải được lắp ráp đối xứng nhau như hình ảnh qua gương. Do tính chất này, ta không thể áp dụng chung một công thức toán học y hệt nhau cho cả 4 chân. Cụ thể, có ba yếu tố vật lý tạo ra sự khác biệt:
+
+\begin{itemize}
+    \item \textbf{Vị trí gắn chân trên thân:} Mỗi chân được gắn ở một góc khác nhau. Khoảng cách từ tâm robot đến các gốc chân có sự thay đổi về dấu, tương ứng với một nửa chiều dài ($\pm L/2$) và một nửa chiều rộng ($\pm W/2$).
+    \item \textbf{Khớp hông (Coxa):} Do lắp đặt đối xứng, với cùng một góc quay, chân trái và chân phải sẽ vung về hai hướng ngược nhau. Để công thức toán học tính đúng hướng, tham số chiều dài khâu hông $L_1$ sẽ mang dấu âm ($-L_1$) đối với các chân bên trái và mang dấu dương ($+L_1$) đối với các chân bên phải.
+    \item \textbf{Cấu hình gập gối (Tibia):} Để duy trì hình dáng gập gối đồng nhất cho cả hai bên (để gối không bị bẻ ngược), toán hạng $\sin\theta_3$ bắt buộc phải nhận hai dấu trái ngược nhau giữa chân trái ($-$) và chân phải ($+$).
+\end{itemize}
+
+Thay vì phải xây dựng 4 hệ phương trình động học hoàn toàn độc lập, giải pháp tối ưu là thiết kế một bộ công thức tổng quát duy nhất. Sau đó, tùy thuộc vào việc đang tính toán cho chân nào, thuật toán chỉ việc tra bảng để đưa các hệ số dấu tương ứng vào công thức nhằm tìm ra góc khớp chính xác.
+
+Cụ thể trong triển khai thực tế, hàm IK nhận tọa độ đầu bàn chân $(x_B, y_B, z_B)$ trong hệ tọa độ thân robot $\{O_B\}$. Dựa vào tính chất đối xứng trên, tọa độ này sẽ được biến đổi sang hệ tọa độ cục bộ của chân $(x', y', z')$ bằng cách cộng trừ các offset vị trí gốc chân tương ứng và hoán đổi trục cho phù hợp với quy ước MD-H. Phương trình biến đổi cho mỗi chân được viết như sau:
+
+\begin{equation}
+x' = z_B, \qquad
+y' = \sigma_W \cdot \frac{W}{2} - y_B, \qquad
+z' = \sigma_L \cdot \frac{L}{2} + x_B
+\label{eq:body_to_leg}
+\end{equation}
+
+trong đó $\sigma_W$ và $\sigma_L$ là các hệ số dấu phụ thuộc vào vị trí chân, được trình bày trong Bảng~\ref{tab:ik_signs}.
+
+\begin{table}[h]
+\centering
+\caption{Hệ số dấu biến đổi tọa độ và dấu IK cho bốn chân}
+\label{tab:ik_signs}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Chân} & $\sigma_W$ & $\sigma_L$ & Dấu $L_1$ trong $\theta_1$ & Dấu $\sin\theta_3$ \\ \hline
+Left-Front  & $+1$ & $-1$ & $-L_1$ & $-1$ \\ \hline
+Left-Behind & $+1$ & $+1$ & $-L_1$ & $-1$ \\ \hline
+Right-Front & $-1$ & $-1$ & $+L_1$ & $+1$ \\ \hline
+Right-Behind & $-1$ & $+1$ & $+L_1$ & $+1$ \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Quá trình giải hệ phương trình:} Sau khi biến đổi tọa độ, bài toán IK được giải thống nhất cho cả bốn chân thông qua bốn bước sau. Các hệ số dấu tham chiếu Bảng~\ref{tab:ik_signs}.
+
+\textbf{Bước 1 -- Giải $\theta_1$:} Từ phép chiếu tọa độ $(x', y')$ lên mặt phẳng vuông góc với trục hip:
+\begin{equation}
+\theta_1 =
+\mathrm{atan2}(-x',\, y')
++
+\mathrm{atan2}
+\left(
+-\sqrt{x'^2 + y'^2 - L_1^2},\; \pm L_1
+\right)
+\label{eq:ik_theta1}
+\end{equation}
+trong đó dấu $\pm L_1$ là $-L_1$ cho chân trái và $+L_1$ cho chân phải.
+
+\textbf{Bước 2 -- Tính biến trung gian:}
+\begin{equation}
+\begin{aligned}
+p_1 &= x' \cos\theta_1 + y' \sin\theta_1 \\
+p_2 &= \sigma_{p2} \cdot z'
+\end{aligned}
+\label{eq:ik_p1p2}
+\end{equation}
+trong đó $\sigma_{p2} = +1$ cho chân trái và $\sigma_{p2} = -1$ cho chân phải.
+
+\textbf{Bước 3 -- Giải $\theta_3$:} Áp dụng định lý hàm số cosine:
+\begin{equation}
+\cos\theta_3 =
+\frac{p_1^2 + p_2^2 - L_2^2 - L_3^2}{2 L_2 L_3}
+\end{equation}
+
+\begin{equation}
+\sin\theta_3 =
+\sigma_{s3} \sqrt{1 - \cos^2\theta_3}
+\end{equation}
+
+\begin{equation}
+\theta_3 = \mathrm{atan2}(\sin\theta_3,\, \cos\theta_3)
+\end{equation}
+trong đó $\sigma_{s3} = -1$ cho chân trái và $\sigma_{s3} = +1$ cho chân phải, nhằm duy trì cấu hình gối đối xứng.
+
+\textbf{Bước 4 -- Giải $\theta_2$:}
+\begin{equation}
+\theta_2 =
+\mathrm{atan2}(p_2,\, p_1)
+-
+\mathrm{atan2}(L_3 \sin\theta_3,\, L_2 + L_3 \cos\theta_3)
+\label{eq:ik_theta2}
+\end{equation}
+
+\section{Quy hoạch dáng đi và phân tích chuyển động }
+
+Quy hoạch dáng đi đóng vai trò then chốt đối với sự di chuyển ổn định của robot bốn chân. Trong tự nhiên, các loài động vật có vú bốn chân lựa chọn các dáng đi khác nhau tùy thuộc vào vận tốc di chuyển mong muốn và độ gồ ghề của bề mặt địa hình nhằm giảm thiểu năng lượng tiêu thụ mà vẫn đạt được mục tiêu di chuyển. Trên cơ sở đó, các mẫu dáng đi phổ biến của động vật đã được trích xuất để làm nền tảng cho việc quy hoạch dáng đi trên robot bốn chân.
+
+\subsection{Lựa chọn dáng đi Trot}
+Dựa trên các phân tích lý thuyết về các phương thức di chuyển đã trình bày ở Chương 2, tác giả lựa chọn dáng đi \textbf{trot} làm trọng tâm nghiên cứu \cite{marhefka1999}. Đây là kiểu dáng đi ``hai nhịp'' điển hình, trong đó hai chân chéo nhau có đặc tính chuyển động giống hệt nhau, với chân trước bên trái (LF) và chân sau bên phải (RB) hoạt động đồng nhất, còn chân trước bên phải (RF) và chân sau bên trái (LB) hoạt động đồng nhất, như được thể hiện trong Hình~\ref{fig22}.
+
+Về mặt lý thuyết, hệ số chu kỳ nhiệm vụ (duty cycle coefficient) trong dáng đi này không chịu bất kỳ hạn chế nào, và thỏa mãn điều kiện:
+\begin{equation}
+    0 < \beta < 1
+\end{equation}
+Do đó, robot có dải tốc độ rộng và có thể lựa chọn các tốc độ khác nhau cho các địa hình khác nhau. Ngoài ra, các thực nghiệm về lượng oxy tiêu thụ của ngựa ở các dáng đi khác nhau (walk, trot và gallop) cho thấy dáng đi \textbf{trot} có mức tiêu thụ năng lượng tương đối thấp trong một dải tốc độ khá lớn. Điều này chứng minh rằng dáng đi này có hiệu suất năng lượng cao về mặt lý thuyết.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gait_planner/trot_gait_timing.png}
+    \caption{Sơ đồ thời gian của dáng đi trot với $\beta = 0.5$, trong đó $\beta = \frac{T_{st}}{T}$ và $T_{st}$ là thời gian của pha chống đỡ.}
+    \label{fig22}
+\end{figure}
+
+Tùy thuộc vào giá trị của hệ số chu kỳ làm việc, dáng đi trot chéo 
+có thể được chia thành ba loại.
+
+Khi $\beta < 0.5$, robot xuất hiện một pha bay ngắn, tức là thời điểm 
+mà cả bốn chân đều ở pha vung. Khi đó tốc độ di chuyển của robot tăng 
+đáng kể, tuy nhiên sự xuất hiện của pha bay này cũng làm tăng đáng kể độ khó trong 
+việc điều khiển.
+
+Khi $\beta > 0.5$, robot có bốn giai đoạn chống đỡ khi chân vung chuyển 
+đổi trạng thái. Điều này giúp tăng độ ổn định nhưng đồng thời làm giảm tốc độ di 
+chuyển của robot.
+
+Khi $\beta = 0.5$, hai cặp chân chéo luân phiên chuyển đổi liên tục giữa pha vung 
+và pha chống đỡ. Trạng thái này nằm giữa hai trường hợp trên và đảm bảo sự cân 
+bằng giữa tốc độ di chuyển và độ ổn định của robot, do đó đây là dáng đi được 
+sử dụng phổ biến nhất.
+
+\section{Quy hoạch quỹ đạo cho robot bốn chân}
+
+Chuyển động của chân robot về cơ bản được mô tả thông qua quỹ đạo chuyển động của robot. 
+Trong đó, quỹ đạo là sự biến thiên theo thời gian của vị trí, vận tốc và gia tốc 
+của từng bậc tự do của robot.
+
+Khi quá trình mô phỏng được thực hiện mà không có một phương pháp quy hoạch quỹ đạo phù hợp, 
+chuyển động của robot thường trở nên ngẫu nhiên và không đều, đồng thời robot sẽ khó duy trì 
+được sự cân bằng. Nguyên nhân của hiện tượng này là do sự thay đổi đột ngột của vận tốc trong 
+không gian Descartes.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gait_planner/single_leg_trajectory.png }
+    \caption{Phân tích quỹ đạo của một chân}
+    \label{fig23}
+\end{figure}
+
+Việc quy hoạch quỹ đạo là cần thiết cho quá trình phân tích chuyển động dựa trên 
+động học. Do đó, quỹ đạo được tạo ra với sự hỗ trợ của các điểm trung gian nhằm 
+duy trì dạng chuyển động mượt mà. Vì robot bốn chân có 3 bậc tự do nên chuyển 
+động của robot có sự thay đổi trên cả ba trục trong không gian Descartes.
+
+\subsection{Nội suy đa thức bậc ba}
+
+Trong quá trình xây dựng quỹ đạo chuyển động, phương pháp nội suy đa thức thường được sử dụng để tạo ra đường cong chuyển 
+động liên tục giữa các điểm. Một trong những phương pháp phổ biến là nội suy 
+đa thức bậc ba. Dạng tổng quát của đa thức bậc ba được 
+biểu diễn như sau:
+
+\[
+f(t) = a_3 t^3 + a_2 t^2 + a_1 t + a_0
+\]
+
+Trong đó $a_0, a_1, a_2, a_3$ là các hệ số được xác định dựa trên bốn điều kiện biên 
+gồm vị trí và vận tốc tại các điểm đầu và cuối của quỹ đạo:
+
+\begin{align}
+x(0) &= x_0, \quad x(T) = x_f \\
+\dot{x}(0) &= 0, \quad \dot{x}(T) = 0
+\end{align}
+
+Phương pháp này giúp tạo ra quỹ đạo liên tục và đảm bảo tính liên tục của vị trí và vận tốc 
+trong quá trình chuyển động.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gait_planner/cubic_pva.pdf}
+    \caption{Các đường cong quỹ đạo bậc ba}
+    \label{fig25}
+\end{figure}
+
+\subsection{Nội suy đa thức bậc năm}
+
+Tuy nhiên, để cải thiện độ mượt của quỹ đạo và đảm bảo thêm điều kiện liên 
+tục của gia tốc, phương pháp nội suy đa thức bậc năm được sử dụng. Dạng tổng quát:
+
+\[
+f(t) = a_5 t^5 + a_4 t^4 + a_3 t^3 + a_2 t^2 + a_1 t + a_0
+\]
+
+Các hệ số được xác định dựa trên sáu điều kiện biên gồm 
+vị trí, vận tốc và gia tốc tại điểm đầu và điểm cuối:
+
+\begin{align}
+x(0) &= x_0, \quad x(T) = x_f \\
+\dot{x}(0) &= 0, \quad \dot{x}(T) = 0 \\
+\ddot{x}(0) &= 0, \quad \ddot{x}(T) = 0
+\end{align}
+
+Việc sử dụng đa thức bậc năm cho phép đảm bảo tính liên tục bậc hai ($C^2$) của vị trí, vận tốc và gia tốc, 
+từ đó giúp chuyển động của robot trở nên ổn định và mượt mà hơn.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gait_planner/quintic_pva.pdf}
+    \caption{Biên dạng vị trí, vận tốc và gia tốc của hàm bước mượt bậc năm}
+    \label{fig26}
+\end{figure}
+
+Khi giải hệ sáu phương trình với sáu ẩn, nghiệm dạng đóng thu được dưới dạng tham số chuẩn hóa. Đặt $\tau = t/T \in [0,\,1]$, hàm bước mượt bậc năm (quintic smooth-step) được xác định là:
+
+\begin{equation}
+s(\tau) = 10\tau^3 - 15\tau^4 + 6\tau^5
+\label{eq:quintic_step}
+\end{equation}
+
+Hàm $s(\tau)$ thỏa mãn tất cả sáu điều kiện biên:
+
+\begin{equation}
+s(0) = 0,\; s(1) = 1,\quad \dot{s}(0) = \dot{s}(1) = 0,\quad \ddot{s}(0) = \ddot{s}(1) = 0
+\end{equation}
+
+Nhờ đó, quỹ đạo giữa hai điểm bất kỳ có thể được viết gọn:
+
+\begin{equation}
+\mathbf{p}(\tau) = \mathbf{p}_0 + s(\tau) \cdot (\mathbf{p}_f - \mathbf{p}_0)
+\end{equation}
+
+trong đó $\mathbf{p}_0$ và $\mathbf{p}_f$ lần lượt là vị trí đầu và vị trí cuối.
+
+\subsection{So sánh nội suy bậc ba và bậc năm}
+
+Để làm rõ lý do lựa chọn phương pháp đa thức bậc năm thay vì bậc ba, ta xét biểu đồ so sánh biên dạng vị trí, vận tốc và gia tốc của cả hai phương pháp trên cùng một khoảng thời gian chuẩn hóa $\tau \in [0,\,1]$ (Hình~\ref{fig:cubic_vs_quintic}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gait_planner/cubic_vs_quintic.pdf}
+    \caption{So sánh biên dạng động học giữa nội suy bậc 3 và bậc 5.}
+    \label{fig:cubic_vs_quintic}
+\end{figure}
+
+Từ Hình~\ref{fig:cubic_vs_quintic}, có thể thấy rõ sự khác biệt ở biên dạng gia tốc:
+\begin{itemize}
+    \item \textbf{Đa thức bậc 3:} Gia tốc tại các thời điểm chuyển pha ($\tau=0$ và $\tau=1$) có giá trị khác không ($\pm 6$). Sự thay đổi đột ngột gia tốc từ 0 lên giá trị này gây ra lực giật (jerk), dẫn đến rung lắc cơ khí và lực va đập tại các khớp của robot.
+    \item \textbf{Đa thức bậc 5:} Gia tốc tại $\tau=0$ và $\tau=1$ hoàn toàn bằng không, tạo sự chuyển tiếp mượt mà về mặt động lực học. Quỹ đạo đạt độ trơn bậc hai ($C^2$), phù hợp với yêu cầu chuyển động ổn định của robot bốn chân trong thực tế.
+\end{itemize}
+
+Do đó, tác giả sử dụng hoàn toàn nội suy đa thức bậc năm cho việc tạo quỹ đạo bước chân nhằm tăng cường sự ổn định và kéo dài tuổi thọ của hệ thống truyền động.
+
+\subsection{Triển khai quỹ đạo chân dạng chữ D}
+
+Trong hệ thống thực tế, quỹ đạo của mỗi chân robot được chia thành hai pha: pha vung chân (swing phase) và pha chống chân (stance phase), tạo thành đường đi dạng chữ D trong không gian Descartes.
+
+\textbf{Pha vung (Swing Phase).} Trong pha vung, chân di chuyển từ vị trí bắt đầu $\mathbf{p}_A$ (phía sau) đến vị trí kết thúc $\mathbf{p}_D$ (phía trước) trong $N_{sw}$ bước. Tọa độ ngang ($x$, $y$) được nội suy bằng hàm bước mượt bậc năm:
+
+\begin{align}
+\tau &= \frac{i}{N_{sw} - 1}, \quad i = 0, 1, \ldots, N_{sw}-1 \\
+s &= 10\tau^3 - 15\tau^4 + 6\tau^5 \\
+x_i &= x_A + s \cdot (x_D - x_A) \\
+y_i &= y_A + s \cdot (y_D - y_A)
+\end{align}
+
+Đối với tọa độ theo phương $z$, thay vì sử dụng đa thức bậc năm thuần túy, quỹ đạo nâng chân được thiết kế theo đường cong parabol trên biến $s$:
+
+\begin{equation}
+z_i = z_{stance} + \Delta h \cdot 4\,s\,(1 - s)
+\label{eq:z_parabolic}
+\end{equation}
+
+trong đó $z_{stance}$ là chiều cao pha chống chân và $\Delta h$ là độ cao nâng chân. Biểu thức $4\,s\,(1-s)$ tạo ra đường cong hình chuông đối xứng đạt cực đại $\Delta h$ tại $s = 0.5$ (giữa pha vung chân), đồng thời trả về $z_{stance}$ tại $s = 0$ và $s = 1$ (đầu và cuối pha vung chân). Nhờ kế thừa tính liên tục $C^2$ từ hàm $s(\tau)$, quỹ đạo $z$ cũng mượt mà tại các điểm chuyển pha.
+
+\textbf{Pha chống chân (Stance Phase).} Trong pha chống chân, chân duy trì tiếp xúc mặt đất tại $z_{stance}$ và di chuyển ngược từ $\mathbf{p}_D$ về $\mathbf{p}_A$ trong $N_{st}$ bước, cũng sử dụng hàm bước mượt bậc năm:
+
+\begin{align}
+\tau &= \frac{i}{N_{st} - 1}, \quad i = 0, 1, \ldots, N_{st}-1 \\
+s &= 10\tau^3 - 15\tau^4 + 6\tau^5 \\
+x_i &= x_D + s \cdot (x_A - x_D) \\
+y_i &= y_D + s \cdot (y_A - y_D) \\
+z_i &= z_{stance}
+\end{align}
+
+Tổng số điểm quỹ đạo cho một chu kỳ dáng đi đầy đủ là $N_{total} = N_{sw} + N_{st}$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gait_planner/gait_generator.png}
+    \caption{Quỹ đạo chân 3D dạng chữ D (Pha vung Parabol và Pha chống đỡ đường thẳng)}
+    \label{fig:gait_trajectory_3d}
+\end{figure}
+
+\subsection{Tham số quỹ đạo trong hệ thống thực tế}
+
+Vị trí bắt đầu và kết thúc cho mỗi chân được tính theo:
+
+\begin{align}
+x_A &= x_{center} - \frac{L_{stride}}{2}, \quad x_D = x_{center} + \frac{L_{stride}}{2} \\
+z_A &= z_D = z_{stance}
+\end{align}
+
+Hệ số chu kỳ nhiệm vụ (duty cycle) tổng quát được xác định là:
+
+\begin{equation}
+\beta = \frac{N_{st}}{N_{st} + N_{sw}}
+\end{equation}
+
+Dáng đi Trot yêu cầu giá trị $\beta > 0.5$, đảm bảo robot luôn có ít nhất hai chân tiếp xúc mặt đất tại mọi thời điểm để duy trì ổn định tĩnh trong suốt chu kỳ.
+
+\subsection{Lập lịch pha dáng đi}
+
+Dáng đi (gait) của robot bốn chân được xác định bởi mối quan hệ pha giữa các chân. Mỗi chân thực hiện cùng một quỹ đạo tuần hoàn, nhưng với độ lệch pha khác nhau. Pha dịch $\phi_i \in [0, 1)$ xác định vị trí tương đối của chân $i$ trong chu kỳ dáng đi tổng thể.
+
+Trong triển khai thực tế, mỗi chân duy trì một chỉ số bước (waypoint index) $k_i$ trong mảng quỹ đạo tổng $N_{total} = N_{sw} + N_{st}$ điểm. Pha dịch được áp dụng bằng cách khởi tạo chỉ số bắt đầu của mỗi chân:
+
+\begin{equation}
+    k_{i,0} = \lfloor \phi_i \cdot N_{total} \rfloor
+\end{equation}
+
+Bảng~\ref{tab:gait_phases} trình bày các cấu hình pha dịch cho ba dáng đi phổ biến nhất.
+
+\begin{table}[H]
+\centering
+\caption{Cấu hình pha dịch cho các dáng đi}
+\label{tab:gait_phases}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Dáng đi} & $\phi_{LF}$ & $\phi_{RF}$ & $\phi_{LB}$ & $\phi_{RB}$ & \textbf{Đặc điểm} \\ \hline
+Trot & 0 & 0,5 & 0,5 & 0 & Hai chân chéo đồng pha \\ \hline
+Walk & 0 & 0,5 & 0,75 & 0,25 & Tuần tự từng chân \\ \hline
+Pace & 0 & 0,5 & 0 & 0,5 & Hai chân cùng bên đồng pha \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Dáng đi Trot} ($\phi = [0, 0.5, 0.5, 0]$) là cấu hình dáng đi phổ biến nhất. Hai chân chéo (LF--RB và RF--LB) hoạt động đồng pha, tạo ra hai nhóm chân xen kẽ. Tại mọi thời điểm, ít nhất hai chân thuộc cùng nhóm đang ở pha chống chân, duy trì ổn định tĩnh.
+
+\textbf{Phân tích thời gian một chu kỳ.} Tổng thời gian của một chu kỳ dáng đi đầy đủ phụ thuộc vào số lượng khung hình (frame) của các pha và chu kỳ bộ định thời (timer period) $\Delta T$:
+
+\begin{equation}
+    T_{cycle} = (N_{sw} + N_{st}) \times \Delta T
+\end{equation}
+
+Tần số bước chân được tính theo chu kỳ:
+
+\begin{equation}
+    f_{step} = \frac{1}{T_{cycle}}
+\end{equation}
+
+Từ đó, tốc độ di chuyển tiến về phía trước theo lý thuyết là tích của chiều dài bước và tần số bước:
+
+\begin{equation}
+    v_{forward} = L_{stride} \times f_{step}
+\end{equation}
+
+Tốc độ này có thể được điều chỉnh trực tiếp thông qua việc thay đổi sải bước $L_{stride}$ hoặc thay đổi thời gian pha chống chân $N_{st}$.
+
+\subsection{Quy trình tắt an toàn ba pha}
+
+Cơ chế tắt an toàn là yêu cầu thiết yếu trong hệ thống robot bốn chân để tránh hư hại cơ khí khi động cơ ngừng cấp lực đột ngột. Về mặt lý thuyết, việc đưa robot về trạng thái nghỉ nên được thực hiện thông qua một quy trình tuần tự hạ thấp trọng tâm:
+
+\begin{enumerate}
+    \item \textbf{Pha 1 -- Gập gối:} Tất cả 4 khớp gối ($\theta_3$) từ từ co lại làm hạ thấp trọng tâm thân robot xuống sát mặt đất.
+    \item \textbf{Pha 2 -- Thu vai:} Các khớp đùi ($\theta_2$) được thu về vị trí gốc để gấp gọn chân dọc theo thân robot.
+    \item \textbf{Pha 3 -- Xòe hông:} Các khớp hông ($\theta_1$) xòe ra giúp thân robot nằm hẳn trên mặt đất, phân tán đều trọng lượng.
+\end{enumerate}
+
+Tốc độ thực hiện của các pha này cần được thiết kế đủ chậm để tránh tạo ra lực quán tính gây hư hại cơ khí, nhưng đồng thời phải đủ nhanh để đảm bảo robot dừng kịp thời trước các sự cố bất ngờ.
+
+
+
+\section{Thiết kế bộ điều khiển}
+
+Để robot có thể duy trì thăng bằng và phản hồi chính xác với các nhiễu loạn ngoại lai (ví dụ: bề mặt địa hình gồ ghề), một hệ thống điều khiển vòng kín tự động dựa trên thuật toán PID được thiết kế. Cấu trúc tổng thể của hệ thống tự cân bằng này được trình bày chi tiết trong Hình~\ref{fig:applied_pid_simulink}.
+
+Hệ thống hoạt động dựa trên cơ chế phản hồi trạng thái động học như sau:
+\begin{itemize}
+    \item \textbf{Khâu đo lường và tạo sai số:} Cảm biến IMU (BNO055) liên tục đo lường góc nghiêng thực tế của thân robot (True Roll/Pitch). Các giá trị này được so sánh với góc tham chiếu lý thuyết (thường đặt $\phi_{ref}=0, \theta_{ref}=0$) thông qua các bộ cộng để tạo ra tín hiệu sai số $e_\phi$ và $e_\theta$.
+    \item \textbf{Bộ điều khiển PID:} Sai số được đưa vào bộ điều khiển PID (tích hợp khâu chống vọt lố Anti-windup và lọc thông thấp LPF). Đầu ra của khối này là các tín hiệu bù cân bằng (Compensation Signals).
+    \item \textbf{Chuyển mạch chế độ (Mode Switch):} Tùy thuộc vào trạng thái hiện tại của robot, hệ thống sẽ rẽ nhánh luồng tín hiệu bù:
+    \begin{itemize}
+        \item \textit{Chế độ di chuyển (GAIT Mode):} Tín hiệu bù được gửi tới khối Quy hoạch quỹ đạo và Động học nghịch (Trajectory Planning \& Inverse Kinematics) để tính toán bù trừ trực tiếp vào tọa độ không gian làm việc của bàn chân.
+        \item \textit{Chế độ đứng yên (HOME Mode):} Tín hiệu bù được gửi tới khối Bù góc khớp trực tiếp (Direct Joint Angle Compensator) để tinh chỉnh không gian khớp.
+    \end{itemize}
+    \item \textbf{Thực thi:} Các góc khớp mục tiêu ($\theta_i$) được truyền xuống cơ cấu chấp hành (Bus Servo ST3215) để tác động lực lên đối tượng vật lý (Quadruped Robot Plant). Từ đó tạo ra các chuyển động triệt tiêu nhiễu loạn và giúp thân robot lấy lại tư thế ngang bằng.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{img_matlab/fig-PID.png}
+    \caption{Sơ đồ khối bộ điều khiển tự cân bằng của robot bốn chân.}
+    \label{fig:applied_pid_simulink}
+\end{figure}
+
+
+
+\subsection{Kiến trúc điều khiển chi tiết}
+
+Hệ thống điều khiển tổng thể của robot hoạt động với tần số vòng lặp 333~Hz ($\Delta T = 3$~ms), được thiết kế theo cấu trúc phân cấp chặt chẽ (Hình~\ref{fig:overall_architecture_locomotion}). Hệ thống tiếp nhận các lệnh cấp cao từ người dùng (User Commands) thông qua một máy trạng thái trung tâm (Command Manager) và điều phối luồng dữ liệu xuống các thành phần xử lý cốt lõi, bao gồm Bộ quy hoạch chuyển động (Locomotion Planner) và Bộ điều khiển cân bằng (Balance Controller).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{architecture/locomotion_balance_controller.png}
+    \caption{Tổng quan kiến trúc điều khiển hệ thống robot bốn chân tích hợp bộ chuyển mạch chế độ tĩnh/động.}
+    \label{fig:overall_architecture_locomotion}
+\end{figure}
+
+Đặc điểm nổi bật của kiến trúc này là khả năng phân chia luồng xử lý độc lập cho trạng thái di chuyển (Gait Mode) và trạng thái đứng yên (Home Mode), kết hợp với cơ chế phản hồi thăng bằng linh hoạt:
+\begin{itemize}
+    \item \textbf{Bộ quy hoạch chuyển động (Locomotion Planner):} Là module chịu trách nhiệm tạo hình quỹ đạo chân khi robot di chuyển. Module này bao gồm Bộ lập lịch pha (Gait Phase Scheduler) để đồng bộ thời gian các chân, kết hợp với Bộ tạo quỹ đạo (Trajectory Generator) để sinh ra tọa độ bước chân dạng đa thức Quintic và D-shape. 
+    \item \textbf{Khối bù tư thế không gian làm việc (Gait Attitude Compensator):} Nằm trong cụm Planner, khối này nhận tọa độ nguyên bản và cộng bù trực tiếp với tín hiệu chỉnh sửa $\Delta p$ từ bộ thăng bằng, sinh ra tọa độ chân hiệu chỉnh $p_{adj}$ trước khi đưa vào khâu giải động học nghịch (IK).
+    \item \textbf{Bộ điều khiển cân bằng (Balance Controller):} Hoạt động độc lập, sử dụng dữ liệu góc Roll/Pitch từ IMU làm phản hồi cho bộ PID để liên tục tính toán lượng bù chống lại ngoại lực gây lật thân.
+\end{itemize}
+
+Sự linh hoạt của hệ thống nằm ở công tắc chuyển mạch điều chỉnh cân bằng (\textbf{Balance Output Switch}) và bộ chọn góc khớp cuối cùng (\textbf{Mode-based Final Angle Selector}). Tùy thuộc vào chế độ hoạt động hiện tại, tín hiệu bù cân bằng sẽ được định tuyến theo hai phương thức hoàn toàn khác biệt:
+
+\begin{itemize}
+    \item \textbf{Chế độ tĩnh (HOME) -- Bù trong không gian khớp (Joint Space):} 
+    Khi robot đứng im, quỹ đạo làm việc bị khóa. Tín hiệu bù từ PID được chuyển mạch thành độ dịch góc khớp ($\Delta\theta_3$). Độ dịch này được bộ Final Angle Selector cộng trực tiếp vào góc khớp gối danh định $\theta_{k\_home}$ để gửi ngay xuống phần cứng (UART Serial Driver). Việc bỏ qua hoàn toàn cụm tính toán IK giúp phản ứng cân bằng đạt độ trễ tối thiểu, khử nhiễu ngoại lực tức thời.
+    
+    \item \textbf{Chế độ động (GAIT) -- Bù trong không gian làm việc (Task Space):} 
+    Khi robot đang bước đi, việc bảo toàn quỹ đạo chân 3D là yếu tố bắt buộc. Tín hiệu bù từ PID lúc này được chuyển đổi thành độ dời tọa độ ($\Delta p$) và đưa ngược vào bộ Gait Attitude Compensator. Bằng cách bù vào đầu vào của khối IK thay vì cộng trực tiếp vào góc khớp, robot có thể vừa giữ thăng bằng thân vừa bảo toàn chính xác hình dáng biên độ bước đi, tránh tình trạng trượt chân (slippage) tại các điểm đặt.
+\end{itemize}
+
+\subsection{Cơ chế áp dụng tín hiệu điều chỉnh tư thế}
+Việc điều chỉnh tư thế được thực hiện theo thời gian thực thông qua quá trình đo đạc góc nghiêng từ cảm biến IMU. Đầu ra của các bộ điều khiển PID là các tín hiệu bù hiệu chỉnh $u_{roll}$ và $u_{pitch}$. Sự khác biệt cốt lõi giữa hai chế độ hoạt động nằm ở \textit{không gian} mà tín hiệu hiệu chỉnh được ánh xạ.
+
+\subsubsection{Áp dụng hiệu chỉnh trong không gian khớp ở chế độ tĩnh}
+Khi robot ở trạng thái tĩnh (chế độ HOME), tín hiệu $u_{roll}, u_{pitch}$ từ bộ điều khiển PID được phân bổ thành giá trị độ lệch (offset) cho từng chân, với giới hạn bão hòa $|\Delta\theta_3| \leq \theta_{sat}$:
+\begin{equation}
+\begin{cases} 
+\Delta\theta_{3,LF} = \mathrm{sat}\big(- (K_{home} u_{roll} - K_{home} u_{pitch}),\; \theta_{sat}\big) \\
+\Delta\theta_{3,LB} = \mathrm{sat}\big(- (K_{home} u_{roll} + K_{home} u_{pitch}),\; \theta_{sat}\big) \\
+\Delta\theta_{3,RF} = \mathrm{sat}\big(- (K_{home} u_{roll} + K_{home} u_{pitch}),\; \theta_{sat}\big) \\
+\Delta\theta_{3,RB} = \mathrm{sat}\big(- (K_{home} u_{roll} - K_{home} u_{pitch}),\; \theta_{sat}\big) 
+\end{cases}
+\end{equation}
+Lượng bù này được cộng trực tiếp làm giá trị hiệu chỉnh cho góc khớp gối ($\theta_3$). Do cấu trúc động học chuỗi hở, việc thay đổi trực tiếp góc khớp gối sẽ làm thay đổi vị trí bàn chân tương ứng. Động thái này tạo ra các phản lực từ mặt đất, giúp thân robot lấy lại trạng thái cân bằng tức thời mà không yêu cầu hệ thống phải tính toán qua khối động học nghịch (IK), qua đó giảm thiểu tối đa độ trễ điều khiển.
+
+\subsubsection{Áp dụng hiệu chỉnh trong không gian làm việc ở chế độ động}
+Khi robot đang trong chu trình di chuyển (chế độ GAIT), biên dạng quỹ đạo bước chân bắt buộc phải được bảo toàn nghiêm ngặt để tránh hiện tượng trượt (slippage) và mất ổn định chu kỳ. Do đó, ma trận xoay nghịch đảo $R = R_y(u_{pitch}) R_x(u_{roll})$ được tính toán dựa trên lượng bù từ bộ điều khiển PID. Ma trận này sau đó được nhân với vectơ vị trí chân nguyên bản $\mathbf{p}_{raw}$ sinh ra từ bộ tạo quỹ đạo. Một cơ chế chọn lọc được áp dụng nhằm chỉ cập nhật \textbf{duy nhất tọa độ cao độ trục Z} của bàn chân, trong khi cố định hoàn toàn các giá trị tham chiếu trên trục X và Y:
+\begin{equation}
+\mathbf{p}_{adj} = R \cdot \mathbf{p}_{raw}, \quad \text{với} \quad x_{adj} = x_{raw}, \quad y_{adj} = y_{raw}
+\end{equation}
+
+Nguyên lý giữ nguyên sự biến thiên trên mặt phẳng XY đóng vai trò then chốt trong việc bảo toàn chiều dài sải bước (stride length) của robot. Tọa độ Đề-các hiệu chỉnh $[x_{adj}, y_{adj}, z_{adj}]$ sau đó mới được cấp vào bộ giải động học nghịch (IK) để suy ra góc quay mục tiêu cho các khớp. Quá trình biến đổi không gian này được minh họa trực quan trong Hình \ref{fig29}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{kinematics/attitude_adjustment.png}
+    \caption{Minh họa quá trình điều chỉnh tư thế thân robot: từ $\mathbf{p}_{raw}$ (trước bù) sang $\mathbf{p}_{adj}$ (sau bù), chỉ thay đổi trục $Z$, giữ nguyên trục $X$ và $Y$.}
+    \label{fig29}
+\end{figure}
+
+\subsection{Thuật toán điều khiển PID và các khâu bảo vệ}
+Trong cả hai chế độ động và tĩnh, thuật toán cốt lõi đảm nhiệm triệt tiêu sai lệch tư thế là bộ điều khiển PID kinh điển, được phân tách tính toán độc lập cho trục Roll và trục Pitch. Đầu vào của khối là sai số $e(t) = 0 - \theta_{meas}(t)$, trong đó $\theta_{meas}$ là giá trị góc nghiêng đo được từ IMU sau khi đã đi qua bộ lọc trung bình trượt hàm mũ (EMA) nhằm khử nhiễu cơ học tần số cao.
+
+Luật điều khiển PID được triển khai dưới dạng phương trình sai phân rời rạc như sau:
+\begin{equation}
+    u_{PID}(k) = K_P e(k) + K_I \sum_{i=0}^{k} e(i) \Delta T + K_D \frac{e(k) - e(k-1)}{\Delta T}
+\end{equation}
+
+Nhằm đáp ứng yêu cầu an toàn tuyệt đối cho phần cứng robot khi vận hành thực tế, tín hiệu đầu ra của bộ PID buộc phải đi qua các lớp bảo vệ thiết yếu trước khi được phát lệnh tới cơ cấu chấp hành:
+\begin{itemize}
+    \item \textbf{Khâu triệt vùng chết (Deadband):} Chủ động bỏ qua các vi sai quá nhỏ dao động quanh vị trí cân bằng ($0$ rad). Kỹ thuật này triệt tiêu hiện tượng chattering (động cơ rung lắc liên tục), qua đó giảm hao mòn cơ khí và tỏa nhiệt không cần thiết.
+    \item \textbf{Bão hòa tín hiệu (Saturation) và Lọc thông thấp (LPF):} Lệnh điều khiển $u_{PID}$ được giới hạn biên độ trong khoảng an toàn $[-u_{max}, u_{max}]$ để ngăn chặn các xung bù vượt quá khả năng chịu tải của cơ hệ. Sau đó, tín hiệu được làm mượt qua bộ lọc thông thấp (Low-Pass Filter) để các khớp chuyển động êm ái, hạn chế tối đa các lực giật (jerk) cục bộ.
+    \item \textbf{Chống tích lũy (Anti-windup):} Khi cơ cấu chấp hành hoặc tín hiệu đầu ra chạm ngưỡng bão hòa vật lý, cơ chế anti-windup sẽ tự động tạm dừng hoặc suy giảm thành phần tích phân $I$. Điều này chặn đứng sự tích lũy sai số ảo dư thừa, giúp hệ thống phục hồi nhanh chóng và không bị vọt lố (overshoot) khi các nhiễu loạn ngoại lực kết thúc.
+\end{itemize}
+
+Việc phân bổ linh hoạt chiến lược bù theo không gian làm việc tương ứng với trạng thái động học, kết hợp cùng các cơ chế bảo vệ tín hiệu nhiều lớp, là cơ sở khoa học then chốt giúp hệ thống điều khiển vận hành ổn định và bám sát lý thuyết động lực học.
