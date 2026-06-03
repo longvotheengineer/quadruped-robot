@@ -1,0 +1,120 @@
+% !TeX root = ../thesis.tex
+\chapter{GIỚI THIỆU}
+
+\section{Tổng quan}
+
+Robot, một thuật ngữ từng đại diện cho trí tưởng tượng và ước mơ, đã thu hút sự quan tâm của các nhà khoa học trong nhiều thế kỷ. Ngày nay có nhiều loại robot khác nhau, bao gồm robot di động và robot cố định, chẳng hạn như robot tay máy (manipulator), robot bánh xe, robot có chân, v.v. Ý tưởng về robot có chân bắt nguồn từ tự nhiên; robot hình người là sự mô phỏng loài người; robot hai chân (biped), bốn chân (quadruped), sáu chân (hexapod) và tám chân (octopod) được lấy cảm hứng từ các loài côn trùng và động vật có vú \cite{raibert1986}.
+
+Robot bánh xe có khả năng cơ động và di chuyển nhanh trên bề mặt bằng phẳng, tuy nhiên chưa thực sự hiệu quả trên địa hình gồ ghề, không bằng phẳng. Rung động phát sinh khi di chuyển trên bề mặt phức tạp cũng làm giảm tuổi thọ và độ ổn định của robot \cite{gonzalez2018}. Ngược lại, robot bốn chân có khả năng thích nghi tốt trên nhiều loại bề mặt khác nhau nhờ cơ chế bước đi linh hoạt, cho phép lựa chọn điểm đặt chân tối ưu. Đây là ưu thế vượt trội so với robot bánh xe trong các ứng dụng thực địa.
+
+So sánh cụ thể hơn, robot bánh xe phụ thuộc vào tính liên tục của bề mặt tiếp xúc --- bất kỳ khe hở, bậc thang hay bề mặt lồi lõm nào đều có thể gây mất ổn định hoặc ngừng di chuyển. Robot xích (tracked robot) cải thiện phần nào nhưng vẫn bị giới hạn bởi tỷ lệ khoảng cách vượt chướng ngại vật so với kích thước thân. Trong khi đó, robot bốn chân có thể lựa chọn rời rạc các điểm đặt chân, vượt qua các chướng ngại vật có chiều cao tương đương chiều dài chân, và điều chỉnh tư thế thân linh hoạt thông qua cơ chế điều khiển thăng bằng.
+
+Trong những năm gần đây, lĩnh vực robot bốn chân đã chứng kiến những bước tiến vượt bậc với các sản phẩm tiêu biểu như Boston Dynamics Spot, MIT Cheetah \cite{hyun2014, bledt2018}, ETH ANYmal \cite{hutter2016} và Unitree Go1 \cite{unitree2021}. Các robot thương mại này sử dụng động cơ BLDC công suất lớn (>100W/khớp), bộ xử lý chuyên dụng và hệ thống cảm biến phức tạp (LiDAR, camera stereo), với giá thành từ hàng chục đến hàng trăm nghìn USD.
+
+Tại Việt Nam, các nghiên cứu chuyên sâu về hệ thống điều khiển chuyển động cho robot bốn chân vẫn còn tương đối hạn chế. Phần lớn các đồ án tốt nghiệp và luận văn trong nước tập trung vào thiết kế cơ khí hoặc mô phỏng lý thuyết, chưa hoàn thiện quy trình triển khai toàn diện từ mô phỏng đến phần cứng thực. Điều này tạo ra khoảng trống nghiên cứu đáng kể, đặc biệt trong việc xây dựng hệ thống điều khiển thăng bằng sử dụng cảm biến quán tính và kiến trúc phần mềm phân tán trên nền tảng ROS~2.
+
+Xuất phát từ nhu cầu thực tiễn về ứng dụng robot bốn chân trong các hoạt động tìm kiếm cứu nạn, thám hiểm địa hình phức tạp và giám sát môi trường nguy hiểm, nghiên cứu này tập trung vào việc thiết kế hệ thống điều khiển chuyển động cho một mô hình robot bốn chân cỡ nhỏ. Đề tài đặt mục tiêu xây dựng quy trình phát triển hoàn chỉnh (end-to-end pipeline) từ mô hình toán học, mô phỏng, đến triển khai trên phần cứng thực, sử dụng các linh kiện có giá thành phù hợp với điều kiện nghiên cứu tại Việt Nam.
+
+\section{Tình hình nghiên cứu trong và ngoài nước}
+
+Nhiều nhóm nghiên cứu trên thế giới đã đạt được những kết quả đáng chú ý trong lĩnh vực robot bốn chân. Raibert \cite{raibert1986} là người tiên phong với các nghiên cứu nền tảng về robot có chân và cân bằng động, đặt cơ sở lý thuyết cho các thế hệ robot sau này.
+
+Nhóm nghiên cứu tại MIT đã phát triển robot MIT Cheetah với khả năng chạy tốc độ cao sử dụng điều khiển trở kháng (impedance control) \cite{hyun2014}. Phiên bản MIT Cheetah 3 \cite{bledt2018} cải tiến thêm khả năng di chuyển trên địa hình phức tạp mà không cần cảm biến thị giác.
+
+Tại ETH Zürich, nhóm của Hutter đã phát triển robot ANYmal \cite{hutter2016} --- một nền tảng nghiên cứu robot bốn chân có tính module hóa cao, sử dụng trong các ứng dụng giám sát công nghiệp và tìm kiếm cứu nạn.
+
+Gehring \textit{et al.} \cite{gehring2013} đã trình bày phương pháp điều khiển dáng đi động cho robot bốn chân StarlETH, sử dụng bộ điều khiển phân tầng kết hợp quy hoạch quỹ đạo và điều khiển lực.
+
+Sandeep \textit{et al.} \cite{sandeep2021} trình bày quy trình thiết kế và chế tạo một robot bốn chân cỡ nhỏ sử dụng động cơ servo, tương tự với phạm vi của nghiên cứu này.
+
+Về phương pháp quy hoạch dáng đi, Marhefka và Orin \cite{marhefka1999} đã nghiên cứu tối ưu hóa năng lượng trong quá trình di chuyển của robot có chân, chứng minh hiệu quả năng lượng của dáng đi trot so với các dáng đi khác.
+
+Nhìn chung, các công trình trên đều sử dụng các phương pháp động học MD-H \cite{denavit1955} và quy hoạch quỹ đạo đa thức tương tự như cách tiếp cận trong nghiên cứu này. Điểm khác biệt chính nằm ở quy mô hệ thống: các nghiên cứu trên thường sử dụng động cơ BLDC công suất lớn và vi xử lý chuyên dụng, trong khi công trình này tập trung vào mô hình cỡ nhỏ sử dụng servo bus nối tiếp và máy tính nhúng Jetson Nano.
+
+
+
+\section{Nhiệm vụ luận văn}
+
+\subsection{Mục tiêu nghiên cứu}
+
+Để đạt được mục tiêu tổng quát, chúng em đề ra bốn mục tiêu cụ thể. Thứ nhất, về mô hình động học, tiến hành thiết lập mô hình động học thuận và động học nghịch cho cơ cấu chân robot 3 bậc tự do bằng phương pháp Modified Denavit--Hartenberg (MD-H) \cite{denavit1955}. Thứ hai, về thuật toán điều khiển, xây dựng thuật toán quy hoạch dáng đi (gait planning) và quy hoạch quỹ đạo bàn chân (trajectory planning) sử dụng nội suy đa thức bậc năm. Thứ ba, về hệ thống giao tiếp, thiết kế kiến trúc phần cứng với giao tiếp I2C (cảm biến IMU) và UART (động cơ servo) trên nền tảng máy tính nhúng Jetson Nano. Cuối cùng, về mô phỏng và thực nghiệm, xác minh tính đúng đắn của thuật toán thông qua mô phỏng trên ROS~2 và Gazebo trước khi triển khai trên mô hình phần cứng thực tế.
+
+\subsection{Đối tượng và phạm vi nghiên cứu}
+
+Về mặt lý thuyết, đối tượng nghiên cứu của đồ án bao gồm mô hình toán học động học thuận và động học nghịch (IK) của robot bốn chân, các thuật toán quy hoạch quỹ đạo và dáng đi, cùng với lý thuyết điều khiển PID kết hợp phản hồi IMU cho bài toán cân bằng tư thế. Về mặt công nghệ, nghiên cứu tập trung khai thác và làm chủ động cơ bus servo ST3215 giao tiếp nối tiếp bán song công, máy tính nhúng NVIDIA Jetson Nano, cảm biến IMU BNO055, kết hợp cùng các công cụ phần mềm như MATLAB/Simulink và nền tảng mô phỏng ROS~2 Humble tích hợp Gazebo Classic.
+
+\subsubsection*{Phạm vi nghiên cứu}
+
+Nghiên cứu tập trung vào việc thiết kế và chế tạo mô hình robot bốn chân 12 bậc tự do với cấu trúc chân nối tiếp (serial) cấu hình full-elbow. Về mặt động học, đồ án sử dụng phương pháp MD-H (Modified Denavit--Hartenberg) để xây dựng mô hình thuận và nghịch cho cơ cấu chân 3 bậc tự do, từ đó lập kế hoạch dáng đi trot (chạy kiệu) trên mặt phẳng nằm ngang. Trong khâu điều khiển, hệ thống thiết lập mô hình toán học trên phần mềm MATLAB/Simulink để phân tích đáp ứng và tinh chỉnh bộ tham số, đồng thời thiết kế bộ điều khiển PID nâng cao kết hợp phản hồi cảm biến IMU cho cân bằng tư thế. Các thuật toán này sau đó được mô phỏng kiểm chứng trên nền tảng ROS~2 Humble kết hợp Gazebo Classic trước khi tiến hành thực nghiệm thực tế trên máy tính nhúng Jetson Nano, servo ST3215 và cảm biến BNO055.
+
+\subsubsection*{Giới hạn đề tài}
+
+Dựa trên mục tiêu thiết kế và khuôn khổ nghiên cứu, đồ án được giới hạn trong một số phạm vi học thuật nhất định. Trước tiên, về mô hình toán học, nghiên cứu tập trung giải quyết bài toán và phát triển hệ thống điều khiển hoàn toàn trên nền tảng động học (Kinematics). Các yếu tố phức tạp thuộc phạm vi động lực học (Dynamics) như sự phân bố khối lượng, mô-men quán tính, hay lực phản lực từ mặt đất (Ground Reaction Forces) chưa được đưa vào mô hình toán học để tối ưu. Tiếp theo, đối với cơ chế quy hoạch quỹ đạo, quá trình nội suy và quy hoạch quỹ đạo chuyển động cho từng cơ cấu chân được thực hiện độc lập; mặc dù sử dụng biến pha thời gian tổng thể để đồng bộ chu kỳ bước, hệ thống chưa xem xét toàn diện tính liên kết và sự phối hợp động lực học liên chi. Cuối cùng, về không gian vận động, robot chỉ giới hạn ở các dáng đi thẳng cơ bản (Trot, Pace, Walk), chưa hỗ trợ các bài toán phức tạp như di chuyển đa hướng (omni-directional), bám quỹ đạo cong hay tự thích nghi trên địa hình gồ ghề.
+
+\subsection{Phương pháp nghiên cứu}
+
+Đồ án áp dụng phương pháp nghiên cứu kết hợp chặt chẽ giữa lý thuyết, mô phỏng và thực nghiệm theo quy trình phát triển sim-to-real. Giai đoạn đầu, nhóm nghiên cứu phân tích cơ sở lý thuyết về cơ học robot \cite{siciliano2009, craig2005, spong2020}, sử dụng ma trận biến đổi MD-H để xây dựng mô hình động học, đồng thời nghiên cứu lý thuyết bộ điều khiển PID nâng cao. Sau đó, phần cứng được thiết kế 3D trên SolidWorks và chế tạo bằng công nghệ in 3D FDM với vật liệu PLA. Chuyển sang giai đoạn mô phỏng toán học và vật lý, phần mềm MATLAB/Simulink được dùng để tinh chỉnh tham số PID trước khi mô phỏng toàn diện quỹ đạo và động lực học trên Gazebo thông qua mô hình URDF \cite{ros2docs, gazebo}. Tiếp theo, hệ thống phần mềm nhúng được lập trình bằng Python trên Jetson Nano, triển khai cấu trúc hai node ROS~2 qua DDS để thực thi bộ giải thuật IK, gait generator và PID cân bằng. Ở bước cuối cùng, toàn bộ thuật toán được thực nghiệm và đánh giá trên mô hình vật lý nhằm so sánh hiệu năng, phân tích các yếu tố phi lý tưởng như ma sát, trượt và độ trễ truyền thông.
+
+\subsection{Ý nghĩa khoa học và thực tiễn}
+
+\subsubsection*{Ý nghĩa khoa học}
+Đồ án đóng góp vào việc xây dựng và kiểm chứng một quy trình thiết kế hoàn chỉnh cho robot bốn chân --- từ mô hình động học, quy hoạch quỹ đạo, mô phỏng đến triển khai thực nghiệm. Cụ thể, nghiên cứu đã xây dựng thành công bộ điều khiển PID nâng cao kết hợp phân tích pha bước chân và các cơ chế cải tiến (EMA, deadband, anti-windup, LPF) chuyên biệt cho bài toán thăng bằng. Bên cạnh đó, hệ thống cũng thiết lập được kiến trúc điều khiển hai chế độ HOME/GAIT với khả năng áp dụng tín hiệu hiệu chỉnh linh hoạt giữa không gian khớp và không gian làm việc. Cuối cùng, đồ án chứng minh tính khả thi của quy trình sim-to-real với chi phí thấp bằng cách ứng dụng hệ thống servo bus nối tiếp thay thế cho các động cơ BLDC đắt tiền. Kết quả nghiên cứu có thể làm nền tảng cho các hướng phát triển tiếp theo về robot đa chân tại Việt Nam.
+
+Kết quả nghiên cứu có thể làm nền tảng cho các nghiên cứu tiếp theo về điều khiển chuyển động robot đa chân tại Việt Nam.
+
+\subsubsection*{Ý nghĩa thực tiễn}
+Robot bốn chân sở hữu tiềm năng ứng dụng mạnh mẽ trong nhiều lĩnh vực đa dạng. Ưu thế vượt địa hình giúp hệ thống này đặc biệt phù hợp cho các nhiệm vụ tìm kiếm và cứu hộ tại các khu vực thiên tai, động đất, hoặc đảm nhận trọng trách giám sát, tuần tra trong môi trường nguy hiểm như hầm mỏ, nhà máy hóa chất, khu vực phóng xạ. Trong môi trường quân sự, robot có thể hỗ trợ thu hồi bom mìn nhằm giảm thiểu rủi ro cho con người. Ngoài ra, khả năng tiếp cận các bề mặt không bằng phẳng biến robot bốn chân thành công cụ đắc lực trong việc thám hiểm địa hình phức tạp (rừng rậm, hang động) cũng như hỗ trợ lĩnh vực nông nghiệp công nghệ cao qua các hoạt động giám sát cánh đồng và thu hoạch. Về phương diện học thuật, hệ thống cung cấp một nền tảng thực hành toàn diện, phục vụ công tác giáo dục và nghiên cứu cho sinh viên các ngành cơ điện tử, tự động hóa và robotics.
+
+\subsection{Phân công nhiệm vụ}
+
+Toàn bộ khối lượng công việc là sự nỗ lực và phối hợp chặt chẽ của cả nhóm trong suốt quá trình nghiên cứu, thiết kế và thi công. Tuy nhiên, để tối ưu hóa hiệu quả công việc và phát huy thế mạnh của từng thành viên, nhóm đã phân chia các hạng mục chịu trách nhiệm chính như Bảng \ref{tab:phan_cong}.
+
+\begingroup
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{longtable}{|p{0.06\textwidth}|p{0.24\textwidth}|p{0.62\textwidth}|}
+    \caption{Bảng phân công nhiệm vụ thực hiện}
+    \label{tab:phan_cong} \\
+    \hline
+    \textbf{STT} & \textbf{Họ và tên sinh viên} & \textbf{Nhiệm vụ đảm nhiệm chính} \\ \hline
+    \endfirsthead
+    
+    \caption[]{Bảng phân công nhiệm vụ thực hiện (tiếp theo)} \\
+    \hline
+    \textbf{STT} & \textbf{Họ và tên sinh viên} & \textbf{Nhiệm vụ đảm nhiệm chính} \\ \hline
+    \endhead
+    
+    \hline
+    \endfoot
+    
+    \hline
+    \endlastfoot
+
+    1 & Trương Tuấn An \newline (MSSV: 2210041) & 
+    Chịu trách nhiệm thiết kế mô hình cơ khí 3D trên phần mềm SolidWorks và lắp ráp hoàn thiện kết cấu khung robot 12 bậc tự do. Tính toán mô-men xoắn để lựa chọn cơ cấu chấp hành (cụm động cơ Bus Servo ST3215). Tính toán công suất và dòng điện tiêu thụ tổng thể để thiết kế sơ đồ đi dây, phân nhánh cấp nguồn và lựa chọn hệ thống nguồn (nguồn xung tổ ong 12~V, mạch giảm áp XL4015). \\ \hline
+    
+    2 & Võ Quế Long \newline (MSSV: 2211910) & 
+    Chịu trách nhiệm phát triển phần mềm và xây dựng kiến trúc điều khiển phân tán trên nền tảng ROS~2 Humble. Thiết lập mô hình URDF, xây dựng môi trường vật lý và đánh giá hệ thống trên trình mô phỏng Gazebo Classic. Lập trình thực thi bộ điều khiển PD/PID nâng cao kết hợp module tạo dáng đi (Gait Generator) dựa trên phản hồi định hướng không gian từ cảm biến IMU. \\ \hline
+    
+    3 & \textbf{Thực hiện chung} & 
+    Cùng phối hợp nghiên cứu cơ sở lý thuyết về động học nghịch (IK), quy hoạch quỹ đạo đa thức bậc 5, dáng đi Trot và thuật toán điều khiển PID. Thiết lập mô hình toán học trên MATLAB/Simulink nhằm mô phỏng, phân tích đáp ứng hệ thống và tinh chỉnh thông số PID. Thực hiện quy trình sim-to-real chuyển đổi thuật toán xuống phần cứng thực, tinh chỉnh hệ số điều khiển và đánh giá khả năng cân bằng. Cuối cùng, cùng nhau tổng hợp số liệu, phân tích biểu đồ và biên soạn tài liệu báo cáo luận văn hoàn chỉnh. \\
+\end{longtable}
+\endgroup
+
+\textit{Ghi chú: Đánh giá mức độ hoàn thành nhiệm vụ chung của cả nhóm là 100\%, trong đó mức độ đóng góp của mỗi thành viên là tương đương nhau (50\% - 50\%).}
+
+\subsection{Bố cục luận văn}
+
+Đồ án được tổ chức thành 6 chương chính:
+
+Chương 1 giới thiệu tổng quan, tình hình nghiên cứu trong và ngoài nước, mục tiêu, đối tượng, phạm vi, phương pháp nghiên cứu cũng như ý nghĩa khoa học và thực tiễn của đề tài. 
+
+Chương 2 cung cấp nền tảng cơ sở lý thuyết về hình học, cân bằng, mô hình động học thuận/nghịch, quy hoạch quỹ đạo và dáng đi cùng phương pháp thiết kế bộ điều khiển. 
+
+Chương 3 đi sâu vào thiết kế và thực hiện phần cứng, bao gồm phân tích kết cấu, lựa chọn cơ cấu chấp hành, xây dựng kiến trúc và thiết lập giao thức truyền thông. 
+
+Chương 4 trình bày quá trình thiết kế và thực hiện phần mềm thông qua kiến trúc ROS~2, quy trình khởi tạo tư thế đứng (homing) và tinh chỉnh thông số servo (calibrate). 
+
+Chương 5 tập trung vào việc phân tích và đánh giá kết quả thực hiện, bắt đầu từ mô phỏng quỹ đạo, động học và thuật toán cân bằng trên Gazebo, đến thực nghiệm phần cứng và quy trình sim-to-real. 
+
+Chương 6 tổng kết toàn bộ các kết quả đạt được, chỉ ra những điểm còn hạn chế và đề xuất các hướng phát triển trong tương lai.

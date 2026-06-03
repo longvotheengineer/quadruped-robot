@@ -1,0 +1,350 @@
+\documentclass[10pt, aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, scopes}
+
+% --- Custom Colors HCMUT ---
+\definecolor{hcmutblue}{HTML}{003A70}
+\definecolor{hcmutred}{HTML}{A8192E}
+\definecolor{lightgray}{HTML}{F4F4F4}
+\definecolor{darktext}{HTML}{2D3436}
+\definecolor{heatred}{HTML}{FF474C}
+\definecolor{heatyellow}{HTML}{FFD166}
+\definecolor{heatgreen}{HTML}{06D6A0}
+\definecolor{softblue}{HTML}{EBF3FA}
+
+% --- Theme Settings ---
+\mode<presentation> {
+    \usetheme{Madrid}
+    
+    % Color theme overrides
+    \setbeamercolor{palette primary}{bg=hcmutblue,fg=white}
+    \setbeamercolor{palette secondary}{bg=hcmutblue!80!black,fg=white}
+    \setbeamercolor{palette tertiary}{bg=hcmutred,fg=white}
+    \setbeamercolor{palette quaternary}{bg=black,fg=white}
+    \setbeamercolor{structure}{fg=hcmutblue}
+    \setbeamercolor{section in toc}{fg=darktext}
+    \setbeamercolor{frametitle}{bg=hcmutblue,fg=white}
+    \setbeamercolor{title}{bg=hcmutblue,fg=white}
+    \setbeamercolor{block title}{bg=hcmutblue,fg=white}
+    \setbeamercolor{block body}{bg=lightgray,fg=darktext}
+    
+    % Minimal settings
+    \setbeamertemplate{navigation symbols}{}
+    \setbeamertemplate{items}[circle]
+    \setbeamerfont{frametitle}{size=\Large, series=\bfseries}
+}
+
+\title{Case Study: Luxor Technologies}
+\author{Nhóm 14}
+\institute{Đại học Bách Khoa TP.HCM}
+\date{2026}
+
+\begin{document}
+
+% --- 1. Title Page ---
+\begin{frame}[plain]
+    \begin{tikzpicture}[remember picture,overlay]
+        % Top banner background (Navy Blue)
+        \fill[hcmutblue] (current page.north west) rectangle ([yshift=-4.5cm]current page.north east);
+        % Crimson Red accent line
+        \fill[hcmutred] ([yshift=-4.5cm]current page.north west) rectangle ([yshift=-4.65cm]current page.north east);
+        
+        % Logo placement (Top Right)
+        \node[anchor=north east, inner sep=0.7cm] at (current page.north east) {\includegraphics[width=2.5cm]{images/hcmut_logo_transparent.png}};
+        
+        % Main Title
+        \node[anchor=west, text=white, font=\Huge\bfseries, text width=12cm] at ([xshift=1cm, yshift=-2cm]current page.north west) {PHÂN TÍCH VẤN ĐỀ\\ \textcolor{hcmutred}{LUXOR TECHNOLOGIES}};
+        % Subtitle
+        \node[anchor=west, text=lightgray, font=\Large] at ([xshift=1cm, yshift=-3.5cm]current page.north west) {Quản lý Rủi ro trong Đổi mới Công nghệ};
+        
+        % Group Info & Details
+        \node[anchor=north west, text=hcmutblue, font=\Large\bfseries] at ([xshift=1cm, yshift=-5.5cm]current page.north west) {THỰC HIỆN: NHÓM 14};
+        \node[anchor=north west, text=darktext, font=\normalsize] at ([xshift=1cm, yshift=-6.4cm]current page.north west) {\textbf{Môn học:} Quản lý Dự án cho Kỹ sư};
+        \node[anchor=north west, text=darktext, font=\normalsize] at ([xshift=1cm, yshift=-7.1cm]current page.north west) {\textbf{Cơ quan:} ĐHQG TP.HCM - Trường ĐH Bách Khoa};
+        
+        % Aesthetic watermark
+        \fill[hcmutred!80] (current page.south east) -- ([yshift=1.5cm]current page.south east) -- ([xshift=-1.5cm]current page.south east) -- cycle;
+    \end{tikzpicture}
+\end{frame}
+
+% --- 2. Outline ---
+\begin{frame}{Nội dung Phân tích}
+    \tableofcontents
+\end{frame}
+
+% ======================================
+\section{Bối cảnh \& Thách thức}
+% ======================================
+
+\begin{frame}{Bối cảnh \& Xung đột Chiến lược}
+    \begin{columns}[T]
+        \column{.48\textwidth}
+        {\large\textcolor{hcmutblue}{\textbf{\rule{0.2cm}{0.4cm} Kỷ Nguyên Vàng (1992-1996)}}}
+        \begin{itemize}
+            \item \textbf{Vị thế:} "Ngôi sao" ngành truyền thông không dây, mang lại lợi nhuận biên khổng lồ.
+            \item \textbf{Mô hình:} \textit{Tích hợp dọc (Vertical Integration)} - tự chủ sản xuất từ linh kiện đến thành phẩm để kiểm soát chất lượng tuyệt đối.
+            \item \textbf{Tâm lý:} Ỷ lại vào vinh quang cũ, ngủ quên trên chiến thắng.
+        \end{itemize}
+        
+        \column{.48\textwidth}
+        {\large\textcolor{hcmutred}{\textbf{\rule{0.2cm}{0.4cm} Khủng hoảng Bất ngờ (1996)}}}
+        \begin{itemize}
+            \item \textbf{Đối thủ:} Nắm giữ bằng sáng chế công nghệ dải sóng đột phá mới hơn.
+            \item \textbf{Nguy cơ:} Đánh mất vị thế Leader xuống làm Follower trong vòng $\le 2$ năm.
+            \item \textbf{Ràng buộc:} \textbf{Thời gian} từ "yếu tố xa xỉ" trở thành "nút thắt sống còn".
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+% ======================================
+\section{Nhận diện Rủi ro}
+% ======================================
+
+\begin{frame}{Nhận diện Rủi ro: Mô hình Hệ quả (Consequential Risks)}
+    Trước khi đi sâu vào chi tiết, cần xác định rõ chuỗi Nhân - Quả cơ bản dẫn đến sự sụp đổ của dự án:
+    
+    \vspace{0.8cm}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+            box/.style={draw=none, fill=hcmutblue, rounded corners=5pt, text width=5cm, align=center, inner sep=15pt, text=white},
+            arrow/.style={line width=2pt, hcmutred, -{Stealth[scale=1.5]}}
+        ]
+            % Nodes
+            \node[box] (root) at (0,0) {
+                {\Large\textbf{Nguyên nhân gốc}}\\[0.2cm]
+                \textbf{Rủi ro kỹ thuật}\\
+                Không sở hữu bằng sáng chế mới,\\mô hình tích hợp dọc lỗi thời.
+            };
+            
+            \node[box, fill=hcmutblue!80!black] (effect) at (8,0) {
+                {\Large\textbf{Hệ quả}}\\[0.2cm]
+                \textbf{Rủi ro thị trường}\\
+                Mất uy tín, sụt giảm thị phần,\\từ vị thế Leader thành Follower.
+            };
+            
+            % Arrows
+            \draw[arrow] (root.east) -- (effect.west);
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Biểu đồ Ishikawa (Sơ đồ Xương Cá)}
+    Phân rã tĩnh các tác nhân vi mô cấu thành cuộc khủng hoảng của Luxor:
+    
+    \vspace{0.4cm}
+    \begin{figure}[H]
+        \centering
+        \resizebox{0.95\textwidth}{!}{
+            \begin{tikzpicture}[
+                bone/.style={thick, hcmutblue, -{Stealth[scale=1.2]}},
+                mainbone/.style={line width=2.5pt, hcmutred, -{Stealth[scale=2.0]}},
+                label/.style={font=\bfseries, text=white, fill=hcmutblue, rounded corners, inner sep=4pt},
+                textnode/.style={font=\small, align=center, text=darktext}
+            ]
+                % Main spine
+                \draw[mainbone] (0,0) -- (12,0);
+                
+                % Effect Head
+                \node[fill=hcmutred, text=white, font=\Large\bfseries, align=center, inner sep=6pt, rounded corners=3pt] at (14,0) {Sụp đổ Vị thế\\Dẫn đầu (Leader)};
+                
+                % Top branches
+                \draw[bone] (3,3) -- (5,0);
+                \node[label] at (3,3.4) {Công nghệ};
+                \node[textnode, anchor=east] at (3.8, 1.2) {Mô hình Tích hợp\\dọc lỗi thời};
+                \node[textnode, anchor=east] at (2.8, 2.3) {Không sở hữu\\Bằng sáng chế mới};
+
+                \draw[bone] (8,3) -- (10,0);
+                \node[label] at (8,3.4) {Đối thủ Cạnh tranh};
+                \node[textnode, anchor=east] at (8.8, 1.2) {Rút ngắn chu kỳ\\ra mắt sản phẩm};
+                \node[textnode, anchor=east] at (7.8, 2.3) {Tung Sản phẩm\\sóng ngắn};
+                
+                % Bottom branches
+                \draw[bone] (3,-3) -- (5,0);
+                \node[label] at (3,-3.4) {Nguồn lực Nhân sự};
+                \node[textnode, anchor=east] at (3.8, -1.2) {Thiếu chuyên gia\\nghiên cứu R\&D};
+                \node[textnode, anchor=east] at (2.8, -2.3) {Chi phí tuyển dụng\\quá đắt đỏ};
+
+                \draw[bone] (8,-3) -- (10,0);
+                \node[label] at (8,-3.4) {Quản trị \& Chiến lược};
+                \node[textnode, anchor=east] at (8.8, -1.2) {Mâu thuẫn Kỹ thuật\\\& Marketing};
+                \node[textnode, anchor=east] at (7.8, -2.3) {Nguy cơ rò rỉ khi\\Thuê ngoài Joint-Venture};
+            \end{tikzpicture}
+        }
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Đánh giá Định lượng Rủi ro (Heat-map Matrix)}
+    Phép đo điểm chuẩn $Severity = Likelihood \times Impact \times Detection$. Dự án ưu tiên xử lý các nút thắt nằm ở \textbf{Vùng Đỏ (Trọng yếu)}:
+    \vspace{0.3cm}
+    
+    \begin{columns}[c]
+        \column{0.5\textwidth}
+        \renewcommand{\arraystretch}{1.5}
+        \resizebox{\linewidth}{!}{
+            \begin{tabular}{|c|c|c|c|c|c|}
+            \hline
+            \rowcolor{hcmutblue} \multicolumn{6}{|c|}{\textcolor{white}{\textbf{Ma trận Phân tích (Likelihood $\times$ Impact)}}} \\
+            \hline
+            \textbf{5} & \cellcolor{heatyellow} & \cellcolor{heatyellow} \textbf{(2)} & \cellcolor{heatred} & \cellcolor{heatred} & \cellcolor{heatred} \textbf{(5),(6)} \\
+            \hline
+            \textbf{4} & \cellcolor{heatgreen} & \cellcolor{heatyellow} & \cellcolor{heatyellow} \textbf{(8)} & \cellcolor{heatred} \textbf{(3)} & \cellcolor{heatred} \\
+            \hline
+            \textbf{3} & \cellcolor{heatgreen} & \cellcolor{heatgreen} & \cellcolor{heatyellow} & \cellcolor{heatyellow} & \cellcolor{heatred} \textbf{(4),(9)} \\
+            \hline
+            \textbf{2} & \cellcolor{heatgreen} & \cellcolor{heatgreen} & \cellcolor{heatgreen} & \cellcolor{heatyellow} \textbf{(1)} & \cellcolor{heatyellow} \textbf{(7)} \\
+            \hline
+            \textbf{1} & \cellcolor{heatgreen} & \cellcolor{heatgreen} & \cellcolor{heatgreen} & \cellcolor{heatgreen} & \cellcolor{heatyellow} \\
+            \hline
+            Khả năng & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\
+            \hline
+            \end{tabular}
+        }
+        
+        \column{0.5\textwidth}
+        \textbf{Phân tích Tiêu điểm:}
+        \begin{itemize}
+            \item \textbf{\textcolor{heatred}{Vùng Đỏ (Cực đoan):}} Phương án (5),(6) Outsourcing toàn phần $\rightarrow$ Nguy cơ "Dâng hiến" thông tin độc quyền nội bộ (Max Severity 100).
+            \item \textbf{\textcolor{heatred}{Vùng Nguy hiểm:}} Các chiến lược (3), (4) Liên doanh không chặt chẽ dẫn đến thoái vốn $\rightarrow$ Cạnh tranh sinh tồn.
+            \item \textbf{\textcolor{heatyellow}{Vùng Vàng (Cảnh báo):}} Khả năng chậm trễ R\&D nội bộ do thiếu nhân tài.
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+% ======================================
+\section{Chiến lược Ứng phó}
+% ======================================
+
+\begin{frame}{Phân tích Chiến lược Ứng phó}
+    \begin{columns}[T]
+        \column{.48\textwidth}
+        {\large\textcolor{hcmutblue}{\textbf{\rule{0.2cm}{0.4cm} 1. Phân loại Phản ứng}}}
+        
+        \vspace{0.2cm}
+        \begin{block}{Nhóm Chuyển dịch (Transferring)}
+            Đẩy giao rủi ro cho đối tác:
+            \begin{itemize}
+                \item Thuê ngoài (Outsource).
+                \item Mua/License công nghệ.
+                \item Liên doanh/Sáp nhập.
+            \end{itemize}
+        \end{block}
+        
+        \begin{block}{Nhóm Giảm thiểu (Mitigating)}
+            Hấp thụ và tự giải quyết rủi ro:
+            \begin{itemize}
+                \item Tuyển dụng chuyên gia R\&D.
+                \item Đào tạo lại nhân sự nội bộ.
+                \item Tài trợ nghiên cứu trực tuyến.
+            \end{itemize}
+        \end{block}
+        
+        \column{.48\textwidth}
+        {\large\textcolor{hcmutred}{\textbf{\rule{0.2cm}{0.4cm} 2. Đánh giá Ưu \& Nhược điểm}}}
+        
+        \vspace{0.2cm}
+        \begin{tikzpicture}
+            % Tự chủ box
+            \node[fill=softblue, text=darktext, inner sep=6pt, rounded corners=3pt, text width=0.95\linewidth] (box1) {
+                \textbf{\textcolor{hcmutblue}{Tự chủ (Hệ Giảm thiểu)}}\\
+                Giữ bí mật công nghệ tuyệt đối nhưng tốn kém vĩ mô và đi lùi so với tốc độ thị trường.
+            };
+            % Hợp tác box
+            \node[fill=darktext, text=white, inner sep=6pt, rounded corners=3pt, text width=0.95\linewidth, below=0.3cm of box1] (box2) {
+                \textbf{Hợp tác (Hệ Chuyển dịch)}\\
+                Giải cứu tốc độ (ra mắt sản phẩm kịp 1998) nhưng đánh mất bản sắc Tích hợp dọc và phụ thuộc ngoại lai.
+            };
+        \end{tikzpicture}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Kiến nghị: Chiến lược Lai (Hybrid Roadmap)}
+    Không một chiến thuật đơn lẻ nào thỏa mãn cả hàm [Thời gian] lẫn [Công nghệ]. Nhóm kiến nghị áp dụng \textbf{Chuỗi Liên Kết Lai (Hybrid-Phase)}:
+
+    \vspace{0.5cm}
+    \begin{figure}[H]
+        \centering
+        \resizebox{0.9\textwidth}{!}{
+            \begin{tikzpicture}[
+                box/.style={draw=none, rounded corners=3pt, text width=4cm, align=center, inner sep=10pt, text=white, font=\bfseries},
+                arrow/.style={thick, hcmutblue, -{Stealth[scale=1.5]}}
+            ]
+                % Nodes
+                \node[box, fill=hcmutred!80] (ngay) at (0,0) {NGẮN HẠN\\(Trước 1998)\\[0.2cm]\normalsize \textit{Bảo vệ Thị phần}\\[0.1cm]\small Outsource Module phụ.\\Mua bản quyền Khẩn.};
+                
+                \node[box, fill=hcmutblue!70] (trung) at (6,0) {TRUNG HẠN\\(1998 - 2000)\\[0.2cm]\normalsize \textit{Chuyển giao Tri thức}\\[0.1cm]\small Thiết lập Joint-Venture.\\Vừa làm vừa đào tạo.};
+                
+                \node[box, fill=hcmutblue] (dai) at (12,0) {DÀI HẠN\\(Sau 2000)\\[0.2cm]\normalsize \textit{Tái thiết Định dạng}\\[0.1cm]\small Tự chủ lõi R\&D.\\Tài trợ viện nghiên cứu.};
+                
+                % Arrows
+                \draw[arrow] (ngay.east) -- (trung.west);
+                \draw[arrow] (trung.east) -- (dai.west);
+            \end{tikzpicture}
+        }
+    \end{figure}
+\end{frame}
+
+% ======================================
+\section{Kết luận}
+% ======================================
+
+\begin{frame}{Bài học Kinh nghiệm (Lessons Learned)}
+    \begin{columns}[c]
+        \column{0.5\textwidth}
+        \textbf{Vị thế của Người Quản lý (Project Manager)} \\
+        PM không thể nghiêng về cái TÔI kỹ thuật, mà phải là "Bức tường dịch thuật" đứng giữa xung đột \textit{Công nghệ} và \textit{Khả năng sống còn Thương mại}.
+        
+        \vspace{0.3cm}
+        \textbf{Triết lý Đánh đổi (Trade-Off)} \\
+        Không tồn tại chiếc cốc chúa thỏa mãn:  "Nhanh nhất - Rẻ nhất - Tốt nhất". Quản trị rủi ro thực chất là nghệ thuật lựa chọn các \textbf{Sự hy sinh có tính toán} để giữ lại Sinh mệnh của Tổ chức.
+        
+        \column{0.5\textwidth}
+        \begin{figure}[H]
+            \centering
+            \begin{tikzpicture}[scale=0.8]
+                \coordinate (A) at (0,4);
+                \coordinate (B) at (-2.5,0);
+                \coordinate (C) at (2.5,0);
+                
+                \draw[thick, hcmutblue] (A) -- (B) -- (C) -- cycle;
+                
+                \node[anchor=south, font=\bfseries] at (A) {Thời gian (Tiến độ)};
+                \node[anchor=north, font=\bfseries] at (B) {Phạm vi (Bảo mật)};
+                \node[anchor=north, font=\bfseries] at (C) {Chi phí (Ngân sách)};
+                
+                \node[align=center, text=hcmutred, font=\bfseries\Large] at (0, 1.5) {TRADE\\OFF};
+            \end{tikzpicture}
+        \end{figure}
+    \end{columns}
+\end{frame}
+
+% --- Last Page ---
+\begin{frame}[plain]
+    \begin{tikzpicture}[remember picture,overlay]
+        % Corporate Minimalist Background (Navy Blue)
+        \fill[hcmutblue] (current page.south west) rectangle (current page.north east);
+        
+        % Subtle massive watermark associated with project/organization
+        \node[anchor=south east, opacity=0.06] at ([xshift=0.5cm, yshift=0cm]current page.south east) {\includegraphics[height=0.7\textheight]{images/hcmut_logo_transparent.png}};
+
+        % Main Thank you text (Centered, large)
+        \node[anchor=south, text=white, font=\Huge\bfseries, scale=1.3] at ([yshift=0.8cm]current page.center) {THANK YOU};
+        \node[anchor=north, text=lightgray, font=\Large] at ([yshift=0.5cm]current page.center) {FOR YOUR ATTENTION};
+        
+        % Minimalist Red accent line separator
+        \draw[hcmutred, line width=2pt] ([xshift=-4cm, yshift=-1.0cm]current page.center) -- ([xshift=4cm, yshift=-1.0cm]current page.center);
+        
+        % Group details
+        \node[anchor=center, text=white, font=\Large\bfseries] at ([yshift=-2.5cm]current page.center) {GROUP 14};
+        \node[anchor=center, text=lightgray, font=\normalsize] at ([yshift=-3.3cm]current page.center) {PROJECT MANAGEMENT FOR ENGINEERS $\cdot$ HCMUT};
+    \end{tikzpicture}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,190 @@
+\section{Kinematics and Gait Planning}
+
+\subsection{Inverse Kinematics}
+
+To mandate the endpoint position $(x, y, z)$ of each limb relative
+to the geometric origin of the base frame, a nonlinear inverse
+kinematics (IK) model \cite{craig2005introduction} derives the required articular angles
+$(\theta_1, \theta_2, \theta_3)$ for the hip, thigh, and calf
+joints. The physical topology structuring the Cartesian workspace
+includes a platform length of $L=250$ mm, a platform width of
+$W=193$ mm, and individual linkage spans $l_1=45$ mm, $l_2=107$ mm,
+and $l_3=116$ mm.
+
+The mathematical solution avoids geometric singularities by
+enforcing strictly restricted bounding limits calculated dynamically
+during system initialization. Fig.~\ref{fig:kinematic_model}
+shows the physical quadruped robot prototype alongside its simulation model, 
+which illustrates the reference frame assignments at each joint
+origin, with RGB axes denoting the local coordinate systems
+used for forward and inverse kinematic resolution. The kinematic 
+chain is mathematically formalized using the Modified 
+Denavit-Hartenberg (MD-H) convention \cite{craig2005introduction}, 
+meaningfully derived from the exact coordinate transformations in the 
+software base. The precise parameter set defining the physical mechanism is 
+presented in Table~\ref{tab:mdh_parameters}, capturing the structural 
+distinctions between the left and right limbs.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Modified Denavit-Hartenberg (MD-H) Parameters}
+    \vspace{0.1cm}
+    \def\arraystretch{1.4}
+    \begin{tabular}{l c c c c c}
+        \toprule
+        \textbf{Link ($i$)} & $\boldsymbol{\alpha_{i-1}}$ & $\boldsymbol{a_{i-1}}$ & \multicolumn{2}{c}{$\boldsymbol{d_i}$} & $\boldsymbol{\theta_i}$ \\
+        \cmidrule(lr){4-5}
+        & & & \textbf{Left Limbs} & \textbf{Right Limbs} & \\
+        \midrule
+        1 (Coxa)  & $0^\circ$ & $0$   & $0$    & $0$   & $\theta_1^*$ \\
+        2 (Femur) & $90^\circ$& $0$   & $-l_1$ & $l_1$ & $\theta_2^*$ \\
+        3 (Tibia) & $0^\circ$ & $l_2$ & $0$    & $0$   & $\theta_3^*$ \\
+        4 (Foot)  & $0^\circ$ & $l_3$ & $0$    & $0$   & $0$ \\
+        \bottomrule
+        \multicolumn{6}{l}{\small{* Variable articulation angle}} \\
+    \end{tabular}
+    \label{tab:mdh_parameters}
+\end{table}
+
+The inverse kinematics of the physical model establish the relationship 
+between the local target coordinate $(x,y,z)$ and the articular joint space. 
+Due to mirrored coordinate reflections, the mechanical system equations 
+decouple and the corresponding joint angles can be solved as follow:
+
+\begin{equation}
+\begin{cases}
+    \theta_1 = k \Big[ \operatorname{atan2}(-x, y) + \operatorname{atan2}(-\gamma, k \, l_1) \Big] \\
+    \theta_2 = \operatorname{atan2}(p_2, p_1) - \operatorname{atan2}(l_3 s_3, l_2 + l_3 c_3) \\
+    \theta_3 = \operatorname{atan2}(s_3, c_3)
+\end{cases}
+\end{equation}
+where $k \in \{-1, 1\}$ is the structural symmetry coefficient ($k = -1$ for Left Limbs, $k = 1$ for Right Limbs), and the geometric intermediates are derived symmetrically as:
+\begin{align*}
+    \gamma &= \sqrt{x^2 + y^2 - l_1^2} \\
+    p_1 &= x \cos\theta_1 + y \sin\theta_1 \\
+    p_2 &= -k \, z \\
+    c_3 &= \frac{p_1^2 + p_2^2 - l_2^2 - l_3^2}{2l_2l_3} \\
+    s_3 &= k\sqrt{1-c_3^2}
+\end{align*}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/quadrupedrobot.png}
+        \caption{Physical prototype}
+        \label{fig:prototype}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/model_referenceframe.png}
+        \caption{Simulation model}
+        \label{fig:kinematic_model_sub}
+    \end{subfigure}
+    \caption{Quadruped robot physical prototype and simulation model with reference frames}
+    \label{fig:kinematic_model}
+\end{figure}
+
+\subsection{Quintic Trajectory Formulation}
+
+Minimizing ground impact velocity is mathematically imperative;
+violent mechanical shocks corrupt inertial sensor baselines and
+induce structural fatigue \cite{kajita2003biped}. Therefore, foot
+trajectories are shaped using the normalized quintic interpolation
+function:
+\begin{equation}
+    s(\tau) = 10\tau^3 - 15\tau^4 + 6\tau^5
+    \label{eq:quintic_s}
+\end{equation}
+
+\noindent where $\tau = t / T \in [0, 1]$ and $s \in [0, 1]$.
+This function enforces the critical boundary conditions:
+\begin{align}
+    s(0) &= 0, \quad s(1) = 1 \nonumber\\
+    \dot{s}(0) &= \dot{s}(1) = 0 \\
+    \ddot{s}(0) &= \ddot{s}(1) = 0 \nonumber
+\end{align}
+
+The resulting velocity and acceleration profiles are obtained by
+differentiation:
+\begin{equation}
+    \dot{s}(\tau) = \frac{1}{T}(30\tau^2 - 60\tau^3 + 30\tau^4)
+\end{equation}
+\begin{equation}
+    \ddot{s}(\tau) = \frac{1}{T^2}(60\tau - 180\tau^2 + 120\tau^3)
+\end{equation}
+
+Fig.~\ref{fig:trajectory_combined}a visualizes the position,
+velocity, and acceleration profiles, confirming the enforced
+zero derivative boundary conditions.
+
+For the swing phase of duration $T_{swing}=70$ frames, the foot
+transitions from liftoff coordinate $\mathbf{A}$ to touchdown
+coordinate $\mathbf{D}$ along a D shaped parabolic arc with
+configurable lift height $h_{lift}=40$ mm:
+\begin{align}
+    \mathbf{p}_{swing}(\tau) &= \mathbf{A}
+    + s(\tau)(\mathbf{D} - \mathbf{A}) \\
+    z(\tau) &= z_{ground}
+    + 4 h_{lift} \cdot s(\tau)(1 - s(\tau))
+\end{align}
+
+The resulting D shaped foot path is illustrated in
+Fig.~\ref{fig:gait_3d}, showing the swing arc and ground
+retrace phases with annotated liftoff and touchdown boundaries.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{figures/gait_trajectory_3d.png}
+    \caption{3D foot trajectory for the left front limb}
+    \label{fig:gait_3d}
+\end{figure}
+
+During the stance phase of duration $T_{stance}=200$ frames, the
+foot retraces along the ground plane using the same quintic
+interpolation to ensure smooth velocity profiles in the reverse
+direction. The stride length is set at $L_{stride}=45$ mm, centered
+about each leg's neutral $x_{center}$ position.
+
+Overlapping gaits involving multiple limbs are generated by applying
+phase shift offsets $\phi_i$ to the trajectory index for each limb.
+For a standard trot, diagonal pairs share identical phase offsets
+$\phi=[0.0, 0.0, 0.5, 0.5]$, producing the characteristic
+diagonal synchronization with two beats.
+
+Fig.~\ref{fig:trajectory_combined}b presents the resolved joint angles
+$\theta_1$, $\theta_2$, $\theta_3$ for the left front limb over
+one complete gait cycle, with swing and stance phases explicitly shaded.
+
+\begin{figure}[htbp]
+    \centering
+    \captionsetup{singlelinecheck=false, justification=centering, margin={1cm, 0cm}}
+    \captionsetup[sub]{singlelinecheck=false, justification=centering, margin={1cm, 0cm}}
+    \begin{subfigure}[b]{\columnwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/offline_traj_pos_left.png}
+        \caption{Cartesian trajectories}
+        \label{fig:traj_pos}
+    \end{subfigure}
+    
+    \vspace{0.15cm}
+    \begin{subfigure}[b]{\columnwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/offline_traj_vel_acc_left.png}
+        \caption{Velocities and accelerations}
+        \label{fig:traj_vel_acc}
+    \end{subfigure}
+
+    \vspace{0.15cm}
+    \begin{subfigure}[b]{\columnwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/offline_traj_angle_left.png}
+        \caption{Resolved joint angles}
+        \label{fig:joint_angles}
+    \end{subfigure}
+    
+    \vspace{0.2cm}
+    \caption{Left front limb gait trajectory mapping}
+    \label{fig:trajectory_combined}
+\end{figure}

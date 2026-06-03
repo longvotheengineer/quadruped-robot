@@ -1,0 +1,32 @@
+\section{System Architecture}
+
+\subsection{Node Topology}
+
+The framework operates as a distributed processing architecture implemented natively in ROS~2, horizontally partitioned across two functionally isolated computational nodes. The primary \textit{Gait Generator} node manages all rhythmic trajectory computation, inverse kinematics resolution, and actuator command dispatch over the serial bus. Concurrently, an asynchronous \textit{Balance Controller} node exclusively handles high-frequency inertial measurement acquisition, multistage signal conditioning, and PID correction computation.
+
+Inter-process communication between the two nodes leverages the ROS~2 Data Distribution Service (DDS) via a strictly decoupled publish-subscribe structure. The balance node streams lightweight corrective vector messages across dedicated asynchronous topics. This architectural segregation guarantees that trajectory generation processing bottlenecks cannot preempt or block critical sensory compensations, enabling deterministic, fault-tolerant operation even under severe CPU load.
+
+\subsection{State Representation}
+
+Global governance overlying the control architecture is dictated
+by boolean gating, handling two discrete operating states:
+
+\begin{itemize}
+    \item \textbf{HOME:} A static configuration lacking cyclic
+    translation vectors. The controller computes uniform
+    adjustments in joint space rigidly mapped to a resting stance.
+    Base angular deviations translate proportionally into
+    antagonistic torque compensations aimed at continuous postural
+    rectification. A configurable startup delay of $T_{delay}$
+    seconds prevents premature correction during system
+    initialization transients.
+
+    \item \textbf{GAIT:} The dynamic state active during commanded
+    planar translations. The platform executes cyclic polynomial
+    trajectories using configurable phase shift arrays to generate
+    trot ($\phi = [0, 0, 0.5, 0.5]$), walk ($\phi = [0, 0.25,
+    0.5, 0.75]$), and other gaits involving multiple limbs.
+    Spatial corrections derived from inertial feedback are applied
+    exclusively to limbs in stance phase, while swing legs maintain
+    zero compensation to ensure uninhibited stride clearance.
+\end{itemize}

@@ -1,0 +1,67 @@
+% !TeX root = ../thesis.tex
+\chapter{KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}
+
+\section{Kết luận}
+
+Đồ án đã hoàn thành việc thiết kế, mô phỏng và chế tạo một hệ thống robot bốn chân 12 bậc tự do với bảy kết quả chính:
+
+Thứ nhất, về mô hình động học, nhóm đã xây dựng thành công mô hình động học thuận và nghịch cho cơ cấu chân robot 3 bậc tự do sử dụng phương pháp Modified Denavit--Hartenberg (MD-H) \cite{denavit1955}; các phương trình IK đã được giải cho cả bốn chân với nghiệm dạng giải tích, cho phép tính toán nhanh trong vòng lặp điều khiển thời gian thực và được kiểm chứng trực tiếp qua mô phỏng cũng như trên phần cứng thực. 
+
+Thứ hai, đối với quy hoạch quỹ đạo, phương pháp nội suy đa thức bậc năm đã chứng minh tính ưu việt so với sóng sin khi tạo ra quỹ đạo bàn chân đạt tính liên tục bậc hai ($C^2$), với vận tốc và gia tốc bằng không tại các điểm chuyển pha vung - chống chân, giúp giảm thiểu lực va đập và rung lắc tại các khớp; biên dạng nâng chân sử dụng đường cong parabol trên biến nội suy $s(\tau) = 10\tau^3 - 15\tau^4 + 6\tau^5$, tạo ra quỹ đạo hình chữ D mượt mà. 
+
+Thứ ba, hệ thống đã được mô phỏng thành công trên nền tảng ROS~2 Humble kết hợp Gazebo Classic; bộ điều khiển PD với $K_p = 13{,}0$ Nm/rad và $K_d = 0{,}3$ Nm$\cdot$s/rad tạo ra mô-men xoắn nằm trong giới hạn cho phép tại cả ba khớp, đảm bảo dáng đi Trot duy trì ổn định tĩnh trong suốt chu kỳ và xác nhận tính khả thi của thiết kế. 
+
+Thứ tư, bộ điều khiển cân bằng PID đa giai đoạn đã được thiết kế và triển khai thành công; trong chế độ tĩnh (HOME), sai lệch định hướng hội tụ trong khoảng $1{,}5$ giây và ổn định trong vùng chết $\pm 0{,}02$ rad nhờ các cơ chế lọc EMA, giới hạn bão hòa và chống bão hòa khâu tích phân, trong khi ở chế độ động (GAIT), bộ điều khiển nhận biết pha giới hạn sai lệch đỉnh trong ngưỡng $0{,}08$ rad nhờ sử dụng đường cơ sở trung bình trượt và reset tích phân. 
+
+Thứ năm, kiến trúc phần mềm với hai node ROS~2 tách biệt giao tiếp qua middleware DDS đảm bảo vận hành xác định và chịu lỗi; việc tách rời xử lý quỹ đạo khỏi phản hồi cảm biến cho phép tinh chỉnh độc lập, đồng thời hệ thống chẩn đoán thời gian thực giúp giám sát hiệu quả. 
+
+Thứ sáu, hệ thống phần cứng bao gồm máy tính nhúng Jetson Nano, 12 động cơ bus servo ST3215, cảm biến IMU BNO055 và nguồn tổ ong đã được tích hợp thành công, thực hiện quy trình khởi tạo tư thế đứng, dáng đi Trot và cơ chế tắt an toàn ba pha với kiến trúc hai serial driver giải quyết bài toán phân tải truyền thông. 
+
+Cuối cùng, đồ án đã chứng minh tính khả thi của quy trình phát triển từ mô phỏng đến thực tế, khi các thuật toán kiểm thử trên Gazebo được chuyển sang phần cứng thực chỉ với những điều chỉnh tối thiểu.
+
+\subsection{Đóng góp của đề tài}
+
+Đồ án đã đóng góp một quy trình thiết kế hoàn chỉnh --- từ mô hình toán học, thiết kế cơ khí, lựa chọn linh kiện, mô phỏng đến triển khai phần cứng --- cho robot bốn chân sử dụng các linh kiện có giá thành phù hợp thông qua bốn khía cạnh kỹ thuật cụ thể:
+
+Thứ nhất, nghiên cứu đã xây dựng một bộ điều khiển PID đa chế độ (HOME/GAIT), kết hợp chuỗi tiền xử lý tín hiệu (EMA, deadband) và hậu xử lý (saturation, LPF), kèm theo cơ chế chống bão hòa khâu tích phân (anti-windup). 
+
+Thứ hai, đồ án đã thiết kế kiến trúc điều khiển với cơ chế áp dụng tín hiệu phân biệt, tác động trực tiếp trong không gian khớp đối với chế độ HOME và thông qua ma trận xoay nhận biết pha trong không gian làm việc đối với chế độ GAIT. 
+
+Thứ ba, hệ thống được trang bị cơ chế tắt an toàn ba pha chuyên dụng để đảm bảo robot hạ xuống đất an toàn trong mọi tình huống. 
+
+Cuối cùng, toàn bộ mã nguồn, thiết kế CAD và tài liệu kỹ thuật của dự án đã được hệ thống hóa, tạo thành bộ tài liệu tham khảo có giá trị cho các nghiên cứu tiếp theo về điều khiển chuyển động robot đa chân tại Việt Nam.
+
+\subsection{Hạn chế}
+
+Trong quá trình thực hiện, đề tài vẫn còn tồn tại một số hạn chế nhất định cần được khắc phục:
+
+Một là, robot hiện chỉ mới được thử nghiệm di chuyển trên mặt phẳng nằm ngang, chưa kiểm chứng khả năng vượt các địa hình phức tạp như dốc, bậc thang hay bề mặt mềm. 
+
+Hai là, hệ thống đang sử dụng nguồn điện xung tổ ong cố định, điều này vô tình giới hạn phạm vi di chuyển tự do của robot do bị phụ thuộc vào dây cáp cấp nguồn. 
+
+Ba là, về mặt điều khiển, bộ điều khiển cân bằng IMU trong chế độ GAIT chưa được tích hợp hoàn toàn trên phần cứng thực do những rào cản về giới hạn băng thông UART khi hệ thống cần đọc cảm biến và điều khiển servo đồng thời. 
+
+Bốn là, thời gian chạy thử nghiệm trên mô hình thực tế vẫn còn khiêm tốn, dẫn đến việc chưa có đầy đủ cơ sở để đánh giá độ bền cơ học và tính tin cậy của toàn hệ thống khi vận hành trong khoảng thời gian dài. 
+
+Năm là, do giới hạn về mặt thời gian và phạm vi nghiên cứu của một đồ án tốt nghiệp, đề tài vẫn chưa triển khai được các phương pháp điều khiển hiện đại và tiên tiến hơn như điều khiển dự báo mô hình (MPC), điều khiển trở kháng hay học tăng cường.
+
+\section{Hướng phát triển}
+
+Dựa trên các kết quả đạt được và những hạn chế hiện tại, một số hướng phát triển tiếp theo đã được đề xuất nhằm hoàn thiện hệ thống robot:
+
+\textbf{\textit{Nâng cấp thuật toán điều khiển}} 
+
+Ưu tiên hàng đầu là triển khai các phương pháp như điều khiển dự báo mô hình (MPC) hoặc điều khiển trở kháng để tối ưu hóa quỹ đạo trong không gian trượt, qua đó cải thiện khả năng thích nghi với địa hình gồ ghề. Ngoài ra, cần thiết lập thêm các biên dạng di chuyển đa dạng như walk, pace và bound để robot chủ động thay đổi tùy theo tốc độ và môi trường, đặc biệt là dáng đi walk để tối ưu sự ổn định trên mặt phẳng nghiêng.
+
+\textbf{\textit{Tích hợp thị giác máy tính và tự hành}} 
+
+Việc bổ sung camera stereo hoặc RGB-D kết hợp thuật toán nhận diện địa hình trên nền tảng Jetson Nano sẽ cho phép robot tự đánh giá bề mặt và lập kế hoạch đường đi an toàn. Trong dài hạn, hệ thống cần được trang bị tính năng SLAM để tự động xây dựng bản đồ và điều hướng trong không gian kín.
+
+\textbf{\textit{Nâng cấp phần cứng và cơ khí}} 
+
+Về mặt năng lượng, việc chuyển đổi sang sử dụng pin LiPo dung lượng lớn tích hợp mạch quản lý BMS là điều kiện bắt buộc để robot có thể vận hành độc lập không giới hạn không gian. Khía cạnh cơ khí cũng cần được tối ưu hóa bằng cách sử dụng vật liệu tiên tiến như composite hoặc in 3D kim loại nhằm giảm trọng lượng, kết hợp đệm cao su để tăng ma sát bàn chân.
+
+\textbf{\textit{Mở rộng nghiên cứu học máy và Sim-to-Real}} 
+
+Ứng dụng phương pháp học tăng cường (Reinforcement Learning) qua môi trường Isaac Gym để robot tự tối ưu hóa dáng đi. Quá trình đồng bộ hóa mô hình sim-to-real cần được làm chặt chẽ hơn thông qua việc tinh chỉnh URDF dựa trên tham số đo đạc thực tế, cùng với việc phát triển một mô hình động lực học chi tiết cho nguyên mẫu nhằm dự đoán chính xác phản lực tương tác với môi trường, làm cơ sở để xây dựng các lớp thuật toán điều hướng tự hành thông minh và tránh vật cản.
+

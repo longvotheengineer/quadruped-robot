@@ -1,0 +1,161 @@
+\section{IMU Based Postural Stabilization}
+
+Inertial corrections are computed asynchronously within the
+strictly isolated Balance Controller. Raw quaternion orientation
+data is converted to Euler roll ($\phi$) and pitch ($\theta$)
+angles \cite{madgwick2011estimation} and processed through a
+multistage transformation pipeline.
+
+\subsection{Static Home Posture Correction}
+
+During the static home phase, all four limbs maintain sustained
+ground contact. The correction pipeline proceeds in five
+sequential stages:
+
+\textbf{Stage 1: EMA Prefiltering.}
+Raw inertial measurements are smoothed via an exponential moving
+average of the first order to suppress
+sensor noise at high frequencies:
+\begin{align}
+    \hat{m}_k &= \alpha_{raw} \hat{m}_{k-1}
+    + (1 - \alpha_{raw}) m_k \nonumber\\
+    \alpha_{raw} &= 0.4
+\end{align}
+\textbf{Stage 2: Deadband Suppression.}
+A configurable deadband of $\pm 0.02$ rad eliminates trivial
+oscillations that would otherwise generate unnecessary servo
+activity:
+\begin{equation}
+    e_{dz} =
+    \begin{cases}
+      e - d & e > d \\
+      0 & |e| \leq d \\
+      e + d & e < -d
+    \end{cases}
+    , \quad d = 0.02
+\end{equation}
+
+% Fig.~\ref{fig:deadband} illustrates the deadband transfer
+% function, showing the suppression zone around the origin.
+% 
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.75\columnwidth]{figures/deadband_function.png}
+%     \caption{Deadband suppression transfer function. Errors
+%     within $\pm 0.02$ rad (red shaded region) are mapped to
+%     zero, eliminating trivial oscillations. The dashed line
+%     represents the unity response without deadband.}
+%     \label{fig:deadband}
+% \end{figure}
+\textbf{Stage 3: Gain Scheduled PID with Antiwindup.}
+A full PID controller \cite{astrom2006advanced} with
+three novel enhancements processes the deadband filtered error:
+\begin{align}
+    u_{PID} &= K_P \cdot g_s \cdot e \nonumber\\
+    &+ K_I \cdot g_s \cdot \mathcal{I}
+    + K_D \cdot \dot{e}_{lpf}
+\end{align}
+\noindent where the gain schedule factor $g_s \in [0.5, 1.0]$
+scales proportionally to the error magnitude, preventing
+corrections that are overly aggressive near zero:
+\begin{equation}
+    g_s = \text{clamp}\!\left(
+    \frac{|e|}{e_{thresh}},\, 0.5,\, 1.0
+    \right)
+\end{equation}
+\noindent where $e_{thresh} = 0.08$ rad.
+% Fig.~\ref{fig:gain_schedule} visualizes this piecewise linear
+% relationship.
+% 
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.75\columnwidth]{figures/gain_schedule.png}
+%     \caption{Proportional gain scheduling factor $g_s$ as a
+%     function of error magnitude. Below $|e|=0.04$ rad, $g_s$
+%     is clamped at 0.5; above $e_{thresh}=0.08$ rad, it
+%     saturates at 1.0.}
+%     \label{fig:gain_schedule}
+% \end{figure}
+
+The integral accumulator features exponential leakage decay
+($\lambda = 0.9995$) to prevent windup at steady state, bounded
+by symmetric saturation limits ($|\mathcal{I}| \leq 1.5$).
+Additionally, back calculation antiwindup reduces the
+accumulator when the PID output exceeds saturation bounds:
+\begin{equation}
+    \mathcal{I}_{k} = \mathcal{I}_{k} -
+    \frac{u_{raw} - u_{sat}}{2 K_I}
+    \quad \text{if} \quad |u_{raw}| > u_{max}
+\end{equation}
+The derivative term is presmoothed with a dedicated LPF
+($\alpha_d = 0.7$) and includes a derivative ramp threshold
+($e_{ramp} = 0.005$) that zeroes the derivative when the error
+is negligibly small, preventing derivative kick.
+
+\textbf{Stage 4: Output Saturation.}
+The composite PID output is clamped to
+$|u| \leq 1.5$ rad to protect actuator limits.
+
+\textbf{Stage 5: Output Lowpass Filtering.}
+A final lowpass filter of the first order smooths the corrective
+output to eliminate residual step discontinuities:
+\begin{align}
+    H_{k} &= \alpha_c H_{k-1}
+    + (1 - \alpha_c)\, u_{sat} \nonumber\\
+    \alpha_c &= 0.15
+\end{align}
+
+\subsection{Phase Aware Dynamic Gait Correction}
+
+\begin{figure*}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/balance_pid_diagram.pdf}
+    \caption{Adaptive Attitude Adjustment PID Control Architecture}
+    \label{fig:pid_diagram}
+\end{figure*}
+
+
+While the robot is actively ambulating, the correction pipeline
+switches to an adaptive PID controller specific to the gait cycle
+that incorporates three additional mechanisms:
+
+\textbf{Moving Average Baseline.}
+IMU measurements are accumulated into a buffer spanning one full
+gait cycle. The running mean provides a smoothed estimate of the
+true tilt over the cycle, filtering out periodic oscillations
+inherent to legged locomotion.
+
+\textbf{Adaptive Proportional Gain.}
+The proportional gain scales dynamically with the instantaneous
+tilt magnitude to provide stronger correction authority during
+large disturbances:
+\begin{equation}
+    K_{P,eff} = K_P \left(1 + \min\!\left(1.0, \;
+    \frac{\max(|\phi|, |\theta|)}{K_{prop}}
+    \right)\right)
+\end{equation}
+\textbf{Zero Crossing Integral Reset.}
+The integral accumulator is immediately reset to zero whenever
+the error signal crosses zero, preventing oscillatory overshoot
+during transient recovery.
+
+\textbf{Stance Phase Rotational Compensation.}
+The corrective output is applied as a rotation matrix in the
+body frame $R = R_y(\theta) R_x(\phi)$:
+\begin{equation}
+    R = \begin{bmatrix}
+    c_\theta & s_\phi s_\theta & c_\phi s_\theta \\
+    0 & c_\phi & -s_\phi \\
+    -s_\theta & s_\phi c_\theta & c_\phi c_\theta
+    \end{bmatrix}
+\end{equation}
+This matrix is applied exclusively to limbs satisfying the
+stance condition $|Z_{foot} - Z_{stance}| \leq Z_{thresh}$,
+where $Z_{stance} = -170$ mm and $Z_{thresh} = 5$ mm. Only
+the vertical component of the transformed foot position is
+modified; horizontal coordinates are preserved to maintain
+stride geometry:
+\begin{align}
+    \mathbf{p}_{adj} &= R \cdot \mathbf{p}_{raw} \\
+    x_{adj} &= x_{raw}, \quad y_{adj} = y_{raw} \nonumber
+\end{align}

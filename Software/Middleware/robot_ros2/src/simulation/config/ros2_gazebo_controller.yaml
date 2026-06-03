@@ -1,0 +1,25 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 1000
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    leg_controller:
+      type: effort_controllers/JointGroupEffortController
+
+leg_controller:
+  ros__parameters:
+    joints:
+      - joint_lf_1
+      - joint_lf_2
+      - joint_lf_3
+      - joint_lb_1
+      - joint_lb_2
+      - joint_lb_3
+      - joint_rf_1  
+      - joint_rf_2
+      - joint_rf_3
+      - joint_rb_1
+      - joint_rb_2
+      - joint_rb_3

@@ -1,0 +1,78 @@
+digraph G {
+  graph [rankdir=LR, splines=true, nodesep=0.5, ranksep=1.0];
+  node [shape=ellipse, fontname="Arial", fontsize=12, color="blue", penwidth=2, style="filled", fillcolor="white"];
+  edge [fontname="Arial", fontsize=10, color="black", arrowsize=0.8];
+
+  // ROS Nodes
+  serial_driver_a [label="/serial_driver_a"];
+  serial_driver_b [label="/serial_driver_b"];
+  node_leg_controller [label="/node_leg_controller"];
+  nodeBalanceController [label="/nodeBalanceController"];
+  imu_sensor_node [label="/imu_sensor_node"];
+  teleop_command_node [label="/teleop_command_node"];
+
+  // ROS Topics
+  node [shape=box, color="red", style="filled", fillcolor="white"];
+  topic_servo_commands_a [label="/servo_commands_a"];
+  topic_servo_single_command_a [label="/servo_single_command_a"];
+  topic_feedback_enable_a [label="/feedback_enable_a"];
+  topic_joint_states_real_a [label="/joint_states_real_a"];
+
+  topic_servo_commands_b [label="/servo_commands_b"];
+  topic_servo_single_command_b [label="/servo_single_command_b"];
+  topic_feedback_enable_b [label="/feedback_enable_b"];
+  topic_joint_states_real_b [label="/joint_states_real_b"];
+
+  topic_gait_control [label="/gait_control"];
+  topic_posture_home [label="/posture/home_correction"];
+  topic_posture_gait [label="/posture/gait_correction"];
+  topic_posture_measurement [label="/posture/measurement"];
+  topic_imu_data_raw [label="/imu/data_raw"];
+  topic_balance_enable [label="/balance/enable"];
+  topic_balance_mode [label="/balance/mode"];
+  topic_balance_gait_frame [label="/balance/gait_frame"];
+
+  // Connections (Publishers to Topics)
+  teleop_command_node -> topic_gait_control;
+  teleop_command_node -> topic_balance_enable;
+  teleop_command_node -> topic_balance_mode;
+  teleop_command_node -> topic_balance_gait_frame;
+
+  imu_sensor_node -> topic_imu_data_raw;
+
+  nodeBalanceController -> topic_posture_home;
+  nodeBalanceController -> topic_posture_gait;
+  nodeBalanceController -> topic_posture_measurement;
+
+  node_leg_controller -> topic_servo_commands_a;
+  node_leg_controller -> topic_feedback_enable_a;
+  node_leg_controller -> topic_servo_commands_b;
+  node_leg_controller -> topic_feedback_enable_b;
+  node_leg_controller -> topic_balance_gait_frame;
+
+  serial_driver_a -> topic_joint_states_real_a;
+  serial_driver_b -> topic_joint_states_real_b;
+
+  teleop_command_node -> topic_servo_single_command_a;
+  teleop_command_node -> topic_servo_single_command_b;
+
+  // Connections (Topics to Subscribers)
+  topic_gait_control -> node_leg_controller;
+  topic_posture_home -> node_leg_controller;
+  topic_posture_gait -> node_leg_controller;
+  topic_joint_states_real_a -> node_leg_controller;
+  topic_joint_states_real_b -> node_leg_controller;
+
+  topic_imu_data_raw -> nodeBalanceController;
+  topic_balance_enable -> nodeBalanceController;
+  topic_balance_mode -> nodeBalanceController;
+  topic_balance_gait_frame -> nodeBalanceController;
+
+  topic_servo_commands_a -> serial_driver_a;
+  topic_servo_single_command_a -> serial_driver_a;
+  topic_feedback_enable_a -> serial_driver_a;
+
+  topic_servo_commands_b -> serial_driver_b;
+  topic_servo_single_command_b -> serial_driver_b;
+  topic_feedback_enable_b -> serial_driver_b;
+}

@@ -1,0 +1,113 @@
+% !TeX root = ../thesis.tex
+\chapter{THIẾT KẾ VÀ THỰC HIỆN PHẦN MỀM}
+
+\section{Kiến trúc phần mềm ROS 2}
+
+\subsection{Tổng quan kiến trúc node}
+
+Cụ thể, hệ thống bao gồm hai thành phần chính. Thành phần thứ nhất là Gait Generator Node (Node Điều khiển dáng đi), chịu trách nhiệm quản lý toàn bộ quá trình tính toán quỹ đạo tuần hoàn, giải bài toán động học nghịch và đóng gói dữ liệu điều khiển; node này được tổ chức thành các phân hệ chức năng bao gồm phân hệ tạo dáng đi để quản lý trạng thái, phân hệ động học nghịch (IK solver), phân hệ nội suy quỹ đạo sử dụng đa thức bậc 5 và phân hệ xuất dữ liệu điều khiển ROS~2. Thành phần thứ hai là Balance Controller Node (Node Cân bằng tư thế), làm nhiệm vụ xử lý bất đồng bộ việc thu thập dữ liệu quán tính tần số cao, xử lý tín hiệu đa giai đoạn và tính toán bù PID; node này hoạt động như một tiến trình độc lập để đảm bảo chu kỳ điều khiển không bao giờ bị gián đoạn.
+
+\subsection{Kiến trúc phân tầng và phương pháp thiết kế Sim-to-Real}
+
+Điểm nổi bật trong kiến trúc phần mềm ROS~2 của hệ thống là khả năng chuyển đổi liền mạch giữa môi trường mô phỏng (Gazebo) và phần cứng thực tế (Hardware) mà không yêu cầu chỉnh sửa thuật toán điều khiển cốt lõi (tư tưởng Sim-to-Real). Để đạt được điều này, hệ thống được thiết kế theo cấu trúc phân tầng (layered architecture), tách biệt rõ ràng các khối xử lý thuật toán khỏi các giao diện điều khiển thiết bị vật lý.
+
+Trong môi trường mô phỏng (Hình~\ref{fig:ros2_arch_sim}), kiến trúc phần mềm được chia thành hai phân vùng chính. Phân vùng đầu tiên là Tầng điều khiển phần mềm (ROS 2 Software Control) chứa hai node thuật toán cốt lõi là \texttt{Balance Controller Node} và \texttt{Gait Generator Node}; hai node này giao tiếp nội bộ với nhau qua topic \texttt{/posture/correction} để chia sẻ tín hiệu bù thăng bằng. Phân vùng thứ hai là Tầng mô phỏng (Gazebo Simulation Environment) hoạt động như một robot ảo, trong đó \texttt{imu\_plugin} đóng vai trò xuất bản dữ liệu quaternion thay cho cảm biến thật, còn \texttt{controller\_manager} làm nhiệm vụ quản lý mô-men và góc khớp ảo dựa trên lệnh \texttt{/effort\_controller} từ bộ tạo dáng đi.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{architecture/simulation_rqt_graph.png}
+    \caption{Sơ đồ kiến trúc khối ROS~2 của hệ thống trong môi trường mô phỏng (Gazebo)}
+    \label{fig:ros2_arch_sim}
+\end{figure}
+
+Ngược lại, khi chuyển sang vận hành trên robot thực tế (Hình~\ref{fig:ros2_arch_hw}), hệ thống thay thế toàn bộ Tầng mô phỏng bằng hai tầng vật lý chuyên dụng, trong khi vẫn giữ nguyên nguyên bản Tầng thuật toán cốt lõi. Kiến trúc thực tế lúc này bao gồm ba tầng rõ rệt. Tầng 1 (ROS 2 Core Algorithms) chứa các node giải quyết bài toán động học, nội suy quỹ đạo và điều khiển PID, trong đó toàn bộ mã nguồn từ môi trường mô phỏng được tái sử dụng 100\%. Tầng 2 (Hardware Interface Drivers) đóng vai trò cầu nối, bao gồm \texttt{imu\_sensor\_node} để chuyển đổi luồng I2C thành message ROS~2 tiêu chuẩn, cùng với \texttt{serial\_driver\_a} và \texttt{serial\_driver\_b} làm nhiệm vụ dịch các mảng góc khớp mục tiêu thành gói tin bus servo thông qua thư viện SCServo SDK. Cuối cùng, Tầng 3 (Physical Hardware) bao gồm các linh kiện điện tử vật lý thực thụ như cảm biến BNO055 IMU và chuỗi 12 động cơ ST3215 Servo giao tiếp theo chuẩn UART/RS485.
+
+Sự phân tách ba tầng này giúp hệ thống đạt độ tin cậy vận hành rất cao, đồng thời cho phép việc bảo trì hay nâng cấp cảm biến, động cơ trong tương lai chỉ gói gọn ở việc thay đổi driver ở Tầng 2 mà không ảnh hưởng tới chất lượng thuật toán.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{architecture/hardware_rqt_graph.png}
+    \caption{Sơ đồ kiến trúc ROS~2 phân tầng của hệ thống trên phần cứng thực tế}
+    \label{fig:ros2_arch_hw}
+\end{figure}
+
+\subsection{Các trạng thái vận hành}
+
+Hệ thống quản lý hai trạng thái vận hành rời rạc thông qua cổng logic boolean. Trạng thái thứ nhất là HOME, đại diện cho cấu hình tĩnh không có vector tịnh tiến tuần hoàn; tại đây, bộ điều khiển tính toán các điều chỉnh đồng nhất trong không gian khớp để duy trì tư thế nghỉ cơ bản. Sai lệch tư thế đọc từ IMU được phân tích qua bộ điều khiển PID và chuyển đổi thành tín hiệu bù góc tác động trực tiếp vào các khớp động cơ nhằm giữ thăng bằng liên tục, đồng thời một khoảng trễ khởi động $T_{delay}$ giây được thiết lập để ngăn hệ thống kích hoạt lệnh bù sai số trong giai đoạn robot đang nội suy đứng lên. Trạng thái thứ hai là GAIT, tức là trạng thái động được kích hoạt khi có lệnh tịnh tiến trên mặt phẳng. Lúc này, robot thực hiện quỹ đạo đa thức tuần hoàn sử dụng các mảng dịch pha khả cấu hình nhằm tạo ra dáng đi trot (với LF, RB pha 0 và LB, RF pha 0,5), walk (với LF pha 0, RB pha 0,25, RF pha 0,5, LB pha 0,75) cùng nhiều dáng đi khác. Trong trạng thái này, các hiệu chỉnh không gian từ phản hồi quán tính chỉ được áp dụng cho những chân đang ở pha chống mặt đất, trong khi các chân ở pha bay duy trì mức bù bằng không nhằm đảm bảo khoảng trống sải bước an toàn.
+
+\subsection{Cấu trúc các ROS 2 packages}
+
+Toàn bộ hệ thống phần mềm được tổ chức thành 5 packages ROS~2 chính:
+
+\begin{table}[H]
+\centering
+\caption{Cấu trúc các ROS 2 packages trong hệ thống}
+\label{tab:ros2_packages}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{0.30\linewidth}|p{0.15\linewidth}|p{0.42\linewidth}|}
+\hline
+\textbf{Package} & \textbf{Ngôn ngữ} & \textbf{Chức năng} \\ \hline
+\texttt{leg\_controller} & Python & Tạo dáng đi, IK solver, quy hoạch quỹ đạo, giao tiếp servo \\ \hline
+\texttt{balance\_controller} & Python & Thu thập IMU, xử lý tín hiệu, PID cân bằng, chẩn đoán \\ \hline
+\texttt{serial\_driver} & C++ & Driver giao tiếp với bus servo ST3215 (thư viện SCServo) \\ \hline
+\texttt{simulation} & Python & Mô hình URDF, cấu hình Gazebo, RViz, launch mô phỏng \\ \hline
+\texttt{launch\_main} & CMake & Launch files cho hệ thống thực \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Chi tiết các module phần mềm}
+
+\textbf{\textit{Phân hệ điều khiển trung tâm (Gait Generator)}} 
+
+Là phân hệ cốt lõi của hệ thống, quản lý máy trạng thái (state machine) điều khiển toàn bộ vòng đời vận hành của robot thông qua bốn chức năng chính. Chức năng đầu tiên là quản lý trạng thái; robot chuyển đổi tuần tự giữa các trạng thái INIT (khởi tạo), ZERO (khởi tạo tư thế đứng), các chế độ chuyển động như TROT/WALK/PUSHUP/SWAY, và cuối cùng là ROBOTOFF (tắt an toàn), trong đó mỗi trạng thái có chu trình cập nhật độc lập để xử lý logic trong một khung thời gian điều khiển. Chức năng thứ hai là tạo quỹ đạo; phân hệ gọi thuật toán nội suy để tạo quỹ đạo hình chữ D cho mỗi chân, sau đó giải phương trình động học nghịch (IK) nhằm chuyển đổi từ tọa độ Đề-các sang không gian góc khớp. Chức năng thứ ba là áp dụng hiệu chỉnh IMU; hệ thống nhận tín hiệu bù từ Balance Controller qua hai topic \texttt{/posture/}\allowbreak\texttt{home\_correction} và \texttt{/posture/}\allowbreak\texttt{gait\_correction}, từ đó áp dụng bù vào góc khớp đối với chế độ HOME hoặc tọa độ bàn chân đối với chế độ GAIT. Chức năng cuối cùng là xuất lệnh servo, theo đó góc điều khiển được gửi đến phân hệ giao tiếp phần cứng để chuyển đổi từ góc khớp phân tích sang góc vật lý thực tế của servo trước khi truyền đi qua giao thức UART.
+
+\textbf{\textit{Phân hệ giao tiếp phần cứng (Serial Publish)}} 
+
+Đảm nhận việc chuyển đổi linh hoạt giữa hai chế độ vận hành thông qua cấu hình môi trường. Đối với chế độ mô phỏng, hệ thống xuất bản lệnh mô-men (effort) trực tiếp lên topic \texttt{/effort\_controller/commands} để điều khiển robot ảo trong Gazebo thông qua plugin \texttt{gazebo\_ros2\_control}. Trong khi đó, đối với chế độ phần cứng thực tế, phân hệ tiến hành chuyển đổi góc tính toán từ động học nghịch sang độ phân giải đặc thù của servo bằng các hàm ánh xạ riêng biệt cho từng chân (nhằm xử lý triệt để vấn đề ngược chiều quay do lắp ráp đối xứng), sau đó đóng gói dữ liệu chuẩn xác và xuất bản lên các topic giao tiếp serial.
+
+\subsection{Bảng giao tiếp topic ROS~2}
+
+Bảng~\ref{tab:ros2_topics} liệt kê các topic chính trong hệ thống, phân loại theo chức năng.
+
+\begin{table}[H]
+\centering
+\caption{Các topic ROS~2 chính trong hệ thống}
+\label{tab:ros2_topics}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{0.35\linewidth}|p{0.15\linewidth}|p{0.35\linewidth}|}
+\hline
+\textbf{Topic} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\ \hline
+\texttt{/imu/data} & Imu & Dữ liệu quaternion từ BNO055 \\ \hline
+\texttt{/balance/enable} & Bool & Bật/tắt bộ PID cân bằng \\ \hline
+\texttt{/balance/mode} & String & Chuyển chế độ HOME/GAIT \\ \hline
+\texttt{/balance/gait\_frame} & Int32 & Chỉ số frame dáng đi hiện tại \\ \hline
+\texttt{/posture/home\_correction} & Vector3 & Tín hiệu bù PID chế độ HOME \\ \hline
+\texttt{/posture/gait\_correction} & Vector3 & Tín hiệu bù PID chế độ GAIT \\ \hline
+\texttt{/posture/measurement} & Vector3 & Góc roll/pitch đã lọc \\ \hline
+\texttt{/servo\_commands\_a} & Float64[] & Lệnh góc cho Driver A (6 servo) \\ \hline
+\texttt{/servo\_commands\_b} & Float64[] & Lệnh góc cho Driver B (6 servo) \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Cơ chế chẩn đoán thời gian thực}
+
+Hệ thống tích hợp cơ chế chẩn đoán (diagnostics) cho phép giám sát trực tiếp các biến nội bộ của bộ điều khiển PID trong thời gian thực thông qua công cụ PlotJuggler. Mỗi giai đoạn trong pipeline PID (từ đo lường, tính sai lệch, xử lý P/I/D, cho đến bão hòa và lọc tín hiệu) đều được gán một topic chẩn đoán riêng biệt. Cơ chế này cung cấp khả năng quan sát trực tiếp từng thành phần tỷ lệ (P), tích phân (I), vi phân (D) cũng như tổng tín hiệu PID. Thông qua đó, người vận hành có thể nhanh chóng phát hiện các hiện tượng bất thường như windup hay bão hòa đầu ra, đồng thời so sánh trực tiếp tín hiệu đo (measurement) với điểm đặt (setpoint) để đánh giá mức độ bám quỹ đạo, và cuối cùng là ghi lại toàn bộ dữ liệu dưới định dạng file CSV nhằm phục vụ cho các phân tích offline chuyên sâu.
+
+Tổng cộng, hệ thống xuất bản 22 topic chẩn đoán cho chế độ HOME (9 tín hiệu $\times$ 2 trục + 4 tín hiệu áp dụng) và 18 topic cho chế độ GAIT (9 tín hiệu $\times$ 2 trục), cung cấp khả năng quan sát toàn diện luồng xử lý điều khiển.
+
+\section{Quy trình Homing và Calibrate}
+
+\subsection{Calibrate servo}
+
+Quy trình hiệu chuẩn (calibrate) được thực hiện tuần tự để xác định sai số cơ khí. Đầu tiên, người vận hành đặt tất cả chân robot ở tư thế tham chiếu chuẩn, với các chân duỗi thẳng và vuông góc hoàn toàn với thân robot. Kế tiếp, hệ thống tiến hành đọc vị trí phản hồi (feedback) của từng servo thông qua thư viện giao tiếp SCServo SDK. Dựa trên dữ liệu thu thập được, hệ thống sẽ tính toán và ghi nhận giá trị bù ($\Delta_{calib}$), đại diện cho mức sai lệch giữa vị trí thực tế và vị trí lý thuyết tại góc $0^\circ$. Cuối cùng, toàn bộ các thông số bù này được lưu trữ vào tập tin cấu hình của hệ thống, cho phép phần mềm tự động áp dụng để hiệu chỉnh sai số trong tất cả các lần khởi chạy vận hành tiếp theo.
+
+\subsection{Quy trình Homing}
+
+Quy trình khởi tạo tư thế đứng (homing) được thực hiện tự động mỗi khi robot khởi động thông qua bốn bước xử lý. Bước đầu tiên là đọc vị trí hiện tại; hệ thống lấy giá trị góc phản hồi thực tế từ tất cả 12 servo ($\theta_{current,i}$) để thiết lập làm vị trí xuất phát. Bước thứ hai là tính toán tư thế đích; bằng việc áp dụng bài toán động học nghịch (IK) đối với chiều cao danh nghĩa của thân robot, bộ điều khiển sẽ xác định bộ góc đích $\theta_{target,i}$ tương ứng cho toàn bộ bốn chân. Trong bước thứ ba, hệ thống tiến hành nội suy tuyến tính; quá trình đứng lên của robot được chia nhỏ thành $N_{homing}$ bước (frame), và tại mỗi bước $k$, góc lệnh truyền tới cơ cấu chấp hành sẽ được tính toán tuần tự theo phương trình sau:
+\begin{equation}
+    \theta_i(k) = \theta_{current,i} + \frac{k}{N_{homing}} (\theta_{target,i} - \theta_{current,i}), \quad k = 0, 1, \ldots, N_{homing}
+\end{equation}
+Cuối cùng, trong khâu gửi lệnh, tại mỗi khung thời gian nội suy, bộ 12 góc mục tiêu sẽ được đóng gói và xuất trực tiếp xuống tầng giao tiếp phần cứng thông qua đường truyền UART.
+
+Phương pháp nội suy tuyến tính đảm bảo chuyển động đứng lên mượt mà từ bất kỳ tư thế ban đầu nào, tránh hiện tượng giật cục cơ khí. Tổng thời gian và tốc độ khởi động được kiểm soát chặt chẽ thông qua số lượng frame $N_{homing}$ và chu kỳ vòng lặp ROS 2, nhằm ngăn ngừa rủi ro quá dòng động cơ và sụt áp hệ thống do tải trọng thay đổi đột ngột.
+

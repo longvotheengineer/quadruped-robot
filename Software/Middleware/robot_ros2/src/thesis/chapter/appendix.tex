@@ -1,0 +1,187 @@
+\chapter*{PHỤ LỤC A: MÃ GIẢ CÁC THUẬT TOÁN CỐT LÕI}
+\addcontentsline{toc}{chapter}{PHỤ LỤC A}
+
+Mã nguồn đầy đủ của đồ án được triển khai trên nền tảng ROS 2 Humble. Để làm rõ hơn các thuật toán đã trình bày trong báo cáo mà không phụ thuộc vào một ngôn ngữ lập trình cụ thể, phần phụ lục này cung cấp mã giả (pseudocode) của hai thành phần cốt lõi: Thuật toán quy hoạch quỹ đạo và Cơ chế điều khiển cân bằng.
+
+\section*{1. Thuật toán quy hoạch quỹ đạo (Quintic Planning)}
+
+Mã giả dưới đây thực thi phương trình nội suy đa thức bậc 5 nhằm tạo ra quỹ đạo mượt mà cho bàn chân robot trong pha vung chân (swing phase) và pha chống chân (stance phase).
+
+\begin{algorithm}[H]
+\caption{Quintic Polynomial Trajectory Planning}
+\SetAlgoLined
+\KwIn{Start position $\mathbf{p}_{start}$, End position $\mathbf{p}_{end}$, Swing frames $N_{sw}$, Stance frames $N_{st}$, Step height $h$}
+\KwOut{Foot trajectory path $\mathbf{P}_{path}$}
+$\mathbf{P}_{path} \leftarrow \emptyset$\;
+\tcp{1. Compute Swing Phase Trajectory}
+\For{$i \leftarrow 0$ \KwTo $N_{sw}-1$}{
+    $\tau \leftarrow i / (N_{sw}-1)$\;
+    $s \leftarrow 10\tau^3 - 15\tau^4 + 6\tau^5$\;
+    $x \leftarrow p_{start,x} + (p_{end,x} - p_{start,x}) \cdot s$\;
+    $y \leftarrow p_{start,y} + (p_{end,y} - p_{start,y}) \cdot s$\;
+    \eIf{$\tau \leq 0.5$}{
+        $\tau_z \leftarrow 2\tau$\;
+        $z \leftarrow p_{start,z} + h \cdot (10\tau_z^3 - 15\tau_z^4 + 6\tau_z^5)$\;
+    }{
+        $\tau_z \leftarrow 2(\tau - 0.5)$\;
+        $z \leftarrow p_{start,z} + h \cdot \big(1 - (10\tau_z^3 - 15\tau_z^4 + 6\tau_z^5)\big)$\;
+    }
+    $\mathbf{P}_{path}$.append($[x, y, z]$)\;
+}
+\tcp{2. Compute Stance Phase Trajectory}
+\For{$i \leftarrow 0$ \KwTo $N_{st}-1$}{
+    $\tau \leftarrow i / (N_{st}-1)$\;
+    $x \leftarrow p_{end,x} + (p_{start,x} - p_{end,x}) \cdot \tau$\;
+    $y \leftarrow p_{end,y} + (p_{start,y} - p_{end,y}) \cdot \tau$\;
+    $z \leftarrow p_{start,z}$\;
+    $\mathbf{P}_{path}$.append($[x, y, z]$)\;
+}
+\Return $\mathbf{P}_{path}$\;
+\end{algorithm}
+
+\vspace{0.5cm}
+
+\section*{2. Bộ điều khiển cân bằng nhận biết pha}
+
+Mã giả dưới đây minh họa khối logic phân tách chế độ hoạt động của bộ điều khiển cân bằng, xử lý tín hiệu phản hồi từ cảm biến IMU và áp dụng các bù trừ PID thông qua ma trận xoay.
+
+\begin{algorithm}[H]
+\caption{Phase-Aware PID Balance Controller}
+\SetAlgoLined
+\KwIn{Measured orientation $\theta_{roll}, \theta_{pitch}$, Current $Mode$, Enable flag $Ena$}
+\KwOut{Correction signal $\mathbf{u}_{correction}$}
+\If{not $Ena$}{
+    \Return $0$\;
+}
+\If{mode transitioned}{
+    $Mode \leftarrow Mode_{new}$\;
+    Reset PID controller states\;
+}
+\uIf{$Mode =$ \textbf{HOME}}{
+    $\Delta\theta_{roll} \leftarrow \text{PID}_{home\_roll}(0, \theta_{roll})$\;
+    $\Delta\theta_{pitch} \leftarrow \text{PID}_{home\_pitch}(0, \theta_{pitch})$\;
+    \Return $[\Delta\theta_{roll}, \Delta\theta_{pitch}]$ \tcp*{Direct joint angle correction}
+}
+\uElseIf{$Mode =$ \textbf{GAIT}}{
+    $u_{roll} \leftarrow \text{PID}_{gait\_roll}(0, \theta_{roll})$\;
+    $u_{pitch} \leftarrow \text{PID}_{gait\_pitch}(0, \theta_{pitch})$\;
+    $R_{corr} \leftarrow \text{RotationMatrixY}(u_{pitch}) \times \text{RotationMatrixX}(u_{roll})$\;
+    \Return $R_{corr}$ \tcp*{Workspace rotation matrix correction}
+}
+\end{algorithm}
+
+\vspace{1cm}
+
+\chapter*{PHỤ LỤC B: CHỨNG MINH TOÁN HỌC QUỸ ĐẠO ĐA THỨC BẬC NĂM (QUINTIC POLYNOMIAL)}
+\addcontentsline{toc}{chapter}{PHỤ LỤC B}
+
+Trong Chương 2, đa thức bậc năm (Quintic Polynomial) được sử dụng để nội suy quỹ đạo chuẩn hóa của bàn chân robot: $s(\tau) = 10\tau^3 - 15\tau^4 + 6\tau^5$, với thời gian chuẩn hóa $\tau \in [0, 1]$. Phụ lục này trình bày chi tiết quá trình chứng minh toán học và giải hệ phương trình ma trận để tìm ra các hệ số trên, đảm bảo quỹ đạo đạt độ mượt $C^2$ (liên tục về vị trí, vận tốc và gia tốc).
+
+\section*{B.1. Điều kiện biên của bài toán}
+
+Giả sử phương trình vị trí tổng quát của quỹ đạo nội suy là một đa thức bậc năm theo biến thời gian chuẩn hóa $\tau$:
+\begin{equation}
+P(\tau) = a_0 + a_1\tau + a_2\tau^2 + a_3\tau^3 + a_4\tau^4 + a_5\tau^5
+\end{equation}
+
+Đạo hàm bậc một (vận tốc) và bậc hai (gia tốc) lần lượt là:
+\begin{align}
+V(\tau) = P'(\tau) &= a_1 + 2a_2\tau + 3a_3\tau^2 + 4a_4\tau^3 + 5a_5\tau^4 \\
+A(\tau) = P''(\tau) &= 2a_2 + 6a_3\tau + 12a_4\tau^2 + 20a_5\tau^3
+\end{align}
+
+Để quỹ đạo bắt đầu và kết thúc với trạng thái đứng yên (vận tốc và gia tốc bằng $0$) và dịch chuyển từ $0$ đến $1$, ta có 6 điều kiện biên (Boundary Conditions):
+\begin{itemize}
+    \item Tại $\tau = 0$ (bắt đầu): Vị trí $P(0) = 0$, Vận tốc $V(0) = 0$, Gia tốc $A(0) = 0$.
+    \item Tại $\tau = 1$ (kết thúc): Vị trí $P(1) = 1$, Vận tốc $V(1) = 0$, Gia tốc $A(1) = 0$.
+\end{itemize}
+
+\section*{B.2. Thiết lập và giải hệ phương trình ma trận}
+
+Thay các điều kiện biên tại $\tau = 0$ vào phương trình, ta dễ dàng tính được:
+\begin{align}
+P(0) = a_0 = 0 \\
+V(0) = a_1 = 0 \\
+A(0) = 2a_2 = 0 \implies a_2 = 0
+\end{align}
+
+Với $a_0 = a_1 = a_2 = 0$, phương trình gốc rút gọn lại thành các bậc cao: $P(\tau) = a_3\tau^3 + a_4\tau^4 + a_5\tau^5$.
+Tiếp tục thay các điều kiện biên tại $\tau = 1$ vào hệ, ta được 3 phương trình tuyến tính cho 3 hệ số còn lại:
+\begin{align}
+P(1) &= a_3 + a_4 + a_5 = 1 \label{eq:p1}\\
+V(1) &= 3a_3 + 4a_4 + 5a_5 = 0 \label{eq:v1}\\
+A(1) &= 6a_3 + 12a_4 + 20a_5 = 0 \label{eq:a1}
+\end{align}
+
+Hệ phương trình này có thể được biểu diễn dưới dạng ma trận nghịch đảo tuyến tính:
+\begin{equation}
+\begin{bmatrix}
+1 & 1 & 1 \\
+3 & 4 & 5 \\
+6 & 12 & 20
+\end{bmatrix}
+\begin{bmatrix}
+a_3 \\
+a_4 \\
+a_5
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 \\
+0 \\
+0
+\end{bmatrix}
+\end{equation}
+
+Sử dụng phương pháp khử Gauss hoặc định thức Cramer để tìm nghiệm:
+\begin{itemize}
+    \item Lấy $\eqref{eq:v1} - 3 \times \eqref{eq:p1}$: $a_4 + 2a_5 = -3 \implies a_4 = -3 - 2a_5$
+    \item Thay $a_4$ vào $\eqref{eq:a1}$: $6(1 - a_4 - a_5) + 12a_4 + 20a_5 = 0 \implies 6 + 6a_4 + 14a_5 = 0$
+    \item Giải ra được: $6 + 6(-3 - 2a_5) + 14a_5 = 0 \implies 2a_5 = 12 \implies a_5 = 6$
+    \item Suy ra: $a_4 = -3 - 2(6) = -15$ và $a_3 = 1 - (-15) - 6 = 10$.
+\end{itemize}
+
+Kết luận, nghiệm của hệ phương trình ma trận là $[a_3, a_4, a_5] = [10, -15, 6]$. Thế ngược lại vào đa thức tổng quát, ta thu được phương trình quỹ đạo mượt hoàn chỉnh mà hệ thống đang sử dụng:
+\begin{equation}
+s(\tau) = 10\tau^3 - 15\tau^4 + 6\tau^5
+\end{equation}
+
+\vspace{1cm}
+
+\chapter*{PHỤ LỤC C: MÔ HÌNH TOÁN HỌC HỆ ĐIỀU KHIỂN CÂN BẰNG RỜI RẠC (DISCRETE-TIME CONTROL)}
+\addcontentsline{toc}{chapter}{PHỤ LỤC C}
+
+Trong môi trường điện toán số học (máy tính nhúng Jetson Nano chạy ROS 2 với tần số loop cố định), các thuật toán điều khiển bắt buộc phải được thiết kế dưới dạng rời rạc (Discrete-Time) thay vì dạng liên tục (Continuous-Time). Phụ lục này giải thích nền tảng toán học của chuỗi xử lý tín hiệu trong bộ điều khiển cân bằng.
+
+\section*{C.1. Bộ lọc trung bình trượt hàm mũ (EMA Filter)}
+
+Tín hiệu thô từ cảm biến IMU bị nhiễu do rung động cơ khí. Bộ lọc EMA (Exponential Moving Average) hoạt động như một bộ lọc thông thấp (Low-Pass Filter) rời rạc IIR (Infinite Impulse Response) bậc 1. Phương trình sai phân (Difference Equation) trên miền thời gian $k$ của bộ lọc là:
+\begin{equation}
+\theta_{filtered}[k] = \alpha \cdot \theta_{raw}[k] + (1 - \alpha) \cdot \theta_{filtered}[k-1]
+\end{equation}
+Trong đó $\alpha \in [0, 1]$ là hệ số làm mượt. Chuyển đổi sang miền $Z$ (Z-Transform), hàm truyền (Transfer Function) của bộ lọc được xác định bởi:
+\begin{equation}
+H(z) = \frac{\Theta_{filtered}(z)}{\Theta_{raw}(z)} = \frac{\alpha}{1 - (1-\alpha)z^{-1}}
+\end{equation}
+
+\section*{C.2. Bộ điều khiển PID rời rạc với Rò rỉ tích phân (Integral Leakage)}
+
+Gọi $\Delta t$ là chu kỳ lấy mẫu của hệ thống điều khiển ($333\,$Hz $\implies \Delta t \approx 0.003\,$s), phương trình PID tiêu chuẩn được rời rạc hóa bằng phương pháp xấp xỉ Euler ngược (Backward Euler):
+\begin{align}
+e[k] &= \theta_{ref}[k] - \theta_{filtered}[k] \\
+P_{term}[k] &= K_p \cdot e[k] \\
+D_{term}[k] &= K_d \cdot \frac{e[k] - e[k-1]}{\Delta t}
+\end{align}
+
+Để giải quyết hiện tượng tích lũy sai số dư thừa khi robot đứng quá lâu ở mặt phẳng nghiêng, khâu tích phân (Integral) được bổ sung cơ chế rò rỉ (Leakage) với hệ số $\gamma < 1$ (thường chọn $\gamma = 0.99$):
+\begin{equation}
+I_{term}[k] = \gamma \cdot I_{term}[k-1] + K_i \cdot e[k] \cdot \Delta t
+\end{equation}
+
+\section*{C.3. Cơ chế chống bão hòa (Anti-Windup Back-Calculation)}
+
+Khi ngõ ra tổng $u[k] = P_{term}[k] + I_{term}[k] + D_{term}[k]$ vượt quá giới hạn bão hòa của cơ cấu chấp hành $[U_{min}, U_{max}]$, khâu tích phân sẽ liên tục cộng dồn gây ra hiện tượng Windup. Thuật toán Anti-windup dạng Back-calculation hiệu chỉnh trực tiếp giá trị $I_{term}[k]$ ở vòng lặp hiện tại:
+\begin{equation}
+I_{term\_adj}[k] = I_{term}[k] + K_{aw} \cdot \left( u_{sat}[k] - u[k] \right)
+\end{equation}
+Trong đó $u_{sat}[k]$ là tín hiệu ngõ ra sau khi đã bị cắt ngọn (clamped) bởi hàm bão hòa, và $K_{aw}$ là hệ số khuếch đại chống bão hòa (Anti-windup Gain). Phương pháp này giúp rút ngắn đáng kể thời gian quá độ của khâu tích phân khi hệ thống thoái khỏi trạng thái bão hòa, từ đó chống lật robot hiệu quả.

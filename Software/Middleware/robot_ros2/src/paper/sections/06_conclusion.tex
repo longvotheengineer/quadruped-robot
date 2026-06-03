@@ -1,0 +1,10 @@
+\section{Conclusion and Future Work}
+
+This paper presented a robust posture stabilization and motion generation framework for a custom quadruped robot. By decoupling the rhythmic trajectory planning from the reactive balance control logic into a dual-node architecture, the proposed system achieves fault-tolerant responsiveness and deterministic stability. The implementation of normalized quintic foot trajectories ensures smooth kinematic transitions and minimizes structural impact. Furthermore, integrating a multistage IMU processing pipeline—featuring dynamic deadband suppression and phase-aware adaptive PID regulation—reliably counters arbitrary external disturbances during both static standing and dynamic locomotion. The quantitative diagnostic validation confirmed that the framework efficiently handles spatial orientation corrections continuously in a real-time ROS~2 environment, successfully bounding positional drift without relying on monolithic or computationally expensive stochastic optimizers.
+
+Future work will focus on the following core areas:
+\begin{enumerate}
+    \item Advancing state estimation by dynamically fusing localized joint encoder readings with IMU kinematics to track global deformations and deviations.
+    \item Expanding the trajectory generation module to support variable walking speeds and continuous adaptive stride length modulation for uneven terrain.
+    \item Replacing the current deterministic gain scheduling strategy with optimal control methods, such as Model Predictive Control (MPC), to anticipate and compensate for larger rotational disturbances proactively.
+\end{enumerate}

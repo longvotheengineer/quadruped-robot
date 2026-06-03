@@ -1,0 +1,42 @@
+// ROS 2 Architecture
+digraph {
+	rankdir=TB size="12,8"
+	nodesep=1.5 ranksep=1.5
+	node [fontname=Helvetica fontsize=18 margin=0.2]
+	edge [fontname=Helvetica fontsize=16 penwidth=2.0]
+	A [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR><TD BGCOLOR="#E6F2FF"><B>/teleop_command_node</B></TD></TR>
+  <TR><TD BGCOLOR="#FFFFFF"><FONT POINT-SIZE="10">User Interface</FONT></TD></TR>
+</TABLE>> shape=none]
+	B [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR><TD BGCOLOR="#E6FFE6"><B>/node_leg_controller</B></TD></TR>
+  <TR><TD BGCOLOR="#FFFFFF"><FONT POINT-SIZE="10">Gait Generator &amp; IK</FONT></TD></TR>
+</TABLE>> shape=none]
+	C [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR><TD BGCOLOR="#E6FFE6"><B>/nodeBalanceController</B></TD></TR>
+  <TR><TD BGCOLOR="#FFFFFF"><FONT POINT-SIZE="10">Attitude PID Controller</FONT></TD></TR>
+</TABLE>> shape=none]
+	D [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR><TD BGCOLOR="#FFE6E6"><B>/imu_plugin</B></TD></TR>
+  <TR><TD BGCOLOR="#FFFFFF"><FONT POINT-SIZE="10">Gazebo Sensor</FONT></TD></TR>
+</TABLE>> shape=none]
+	E [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR><TD BGCOLOR="#FFE6E6"><B>/controller_manager</B></TD></TR>
+  <TR><TD BGCOLOR="#FFFFFF"><FONT POINT-SIZE="10">Gazebo Effort Interfaces</FONT></TD></TR>
+</TABLE>> shape=none]
+	{
+		rank=same
+		A
+		D
+	}
+	{
+		rank=same
+		B
+		C
+	}
+	A -> B [label=" /gait_control"]
+	A -> C [label=" /balance_mode"]
+	D -> C [label=" /imu/data"]
+	C -> B [label=" /posture/gait_correction"]
+	B -> E [label=" /leg_controller/commands"]
+}

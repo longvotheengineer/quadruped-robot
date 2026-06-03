@@ -21,7 +21,7 @@ sfprj/
 
 # MATLAB Profiler and memory files
 *.mat
-# NOTE: If you need to commit specific small .mat configuration files, 
+# NOTE: If you need to commit specific small .mat configuration files,
 # you can force add them with: git add -f filename.mat
 
 # ==========================
@@ -32,23 +32,28 @@ sfprj/
 *.ttt.tmp
 
 # ==========================
-# ROS & ROS 2
+# ROS 2 & colcon
 # ==========================
-# Build and Install directories
+# Build, install and log directories
 build/
 devel/
 install/
 log/
 iso/
 
-# Catkin / Colcon custom files
+# Catkin / Colcon workspace markers
 .catkin_workspace
 .colcon_ignore
 COLCON_IGNORE
 
-# Bag files (Large recordings - usually shouldn't be on Git)
+# Bag files (Large recordings — usually shouldn't be on Git)
 *.bag
 *.mcap
+
+# ROS 2 workspace specific paths
+Software/Middleware/robot_ros2/build/
+Software/Middleware/robot_ros2/install/
+Software/Middleware/robot_ros2/log/
 
 # ==========================
 # Python
@@ -62,6 +67,11 @@ __pycache__/
 venv/
 env/
 .env
+
+# Distribution / packaging
+*.egg-info/
+*.egg
+dist/
 
 # ==========================
 # C / C++
@@ -84,8 +94,6 @@ env/
 *.lo
 
 # Shared objects (dynamic libraries)
-# NOTE: If your CoppeliaSim Remote API requires specific DLLs/SOs 
-# in the repo, un-comment the lines below or force add them.
 *.so
 *.so.*
 *.dylib
@@ -96,6 +104,36 @@ env/
 *.app
 
 # ==========================
+# LaTeX Build Artifacts
+# ==========================
+*.aux
+*.log
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.blg
+*.bbl
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ilg
+*.ind
+*.glg
+*.glo
+*.gls
+*.ist
+
+# ==========================
+# Gazebo
+# ==========================
+*.world.backup
+.gazebo/
+
+# ==========================
 # Editor / IDE Directories
 # ==========================
 # VS Code
@@ -103,12 +141,7 @@ env/
 *.code-workspace
 
 # ==========================
-# ROS2
-# ==========================
-Software/Middleware/robot_ros2/build/
-Software/Middleware/robot_ros2/install/
-Software/Middleware/robot_ros2/log/
-
 # OS Generated Files
+# ==========================
 .DS_Store
 Thumbs.db
