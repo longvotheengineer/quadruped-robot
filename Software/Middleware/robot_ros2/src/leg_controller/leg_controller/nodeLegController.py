@@ -54,6 +54,17 @@ class LegController(Node):
             self._gait.startCommand()
             self._state = "READY"
         elif self._state == "READY":
+            still_running = self._gait.tick()
+            if not still_running:
+                if self._command.cmd == "ZERO":
+                    # Homing complete — keep holding at home position
+                    self._state = "HOLDING"
+                    self.get_logger().info('Homing complete. Holding home position.')
+                else:
+                    self._state = "IDLE"
+                    self.get_logger().info('Gait complete. Waiting for commands.')
+        elif self._state == "HOLDING":
+            # Keep calling tick() to hold at homing target with balance correction
             self._gait.tick()
 
     def _commandCb(self, msg):

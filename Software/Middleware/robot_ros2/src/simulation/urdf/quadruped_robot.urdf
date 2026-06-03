@@ -1,5 +1,5 @@
 <robot
-  name="quadrupedRobot2">
+  name="quadruped_robot">
 
   <link name="base_footprint"/>
 
@@ -27,7 +27,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/base_link.STL" />
+          filename="package://simulation/meshes/base_link.STL" />
       </geometry>
       <material
         name="">
@@ -41,7 +41,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/base_link.STL" />
+          filename="package://simulation/meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -64,7 +64,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/lf_link1.STL" />
+          filename="package://simulation/meshes/lf_link1.STL" />
       </geometry>
       <material
         name="">
@@ -78,7 +78,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/lf_link1.STL" />
+          filename="package://simulation/meshes/lf_link1.STL" />
       </geometry>
     </collision>
   </link>
@@ -121,7 +121,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/lf_link2.STL" />
+          filename="package://simulation/meshes/lf_link2.STL" />
       </geometry>
       <material
         name="">
@@ -135,7 +135,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/lf_link2.STL" />
+          filename="package://simulation/meshes/lf_link2.STL" />
       </geometry>
     </collision>
   </link>
@@ -178,7 +178,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/lf_link3.STL" />
+          filename="package://simulation/meshes/lf_link3.STL" />
       </geometry>
       <material
         name="">
@@ -192,7 +192,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/lf_link3.STL" />
+          filename="package://simulation/meshes/lf_link3.STL" />
       </geometry>
     </collision>
   </link>
@@ -235,7 +235,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/lb_link1.STL" />
+          filename="package://simulation/meshes/lb_link1.STL" />
       </geometry>
       <material
         name="">
@@ -249,7 +249,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/lb_link1.STL" />
+          filename="package://simulation/meshes/lb_link1.STL" />
       </geometry>
     </collision>
   </link>
@@ -292,7 +292,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/lb_link2.STL" />
+          filename="package://simulation/meshes/lb_link2.STL" />
       </geometry>
       <material
         name="">
@@ -306,7 +306,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/lb_link2.STL" />
+          filename="package://simulation/meshes/lb_link2.STL" />
       </geometry>
     </collision>
   </link>
@@ -349,7 +349,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/lb_link3.STL" />
+          filename="package://simulation/meshes/lb_link3.STL" />
       </geometry>
       <material
         name="">
@@ -363,7 +363,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/lb_link3.STL" />
+          filename="package://simulation/meshes/lb_link3.STL" />
       </geometry>
     </collision>
   </link>
@@ -406,7 +406,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/rf_link1.STL" />
+          filename="package://simulation/meshes/rf_link1.STL" />
       </geometry>
       <material
         name="">
@@ -420,7 +420,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/rf_link1.STL" />
+          filename="package://simulation/meshes/rf_link1.STL" />
       </geometry>
     </collision>
   </link>
@@ -463,7 +463,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/rf_link2.STL" />
+          filename="package://simulation/meshes/rf_link2.STL" />
       </geometry>
       <material
         name="">
@@ -477,7 +477,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/rf_link2.STL" />
+          filename="package://simulation/meshes/rf_link2.STL" />
       </geometry>
     </collision>
   </link>
@@ -520,7 +520,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/rf_link3.STL" />
+          filename="package://simulation/meshes/rf_link3.STL" />
       </geometry>
       <material
         name="">
@@ -534,7 +534,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/rf_link3.STL" />
+          filename="package://simulation/meshes/rf_link3.STL" />
       </geometry>
     </collision>
   </link>
@@ -577,7 +577,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/rb_link1.STL" />
+          filename="package://simulation/meshes/rb_link1.STL" />
       </geometry>
       <material
         name="">
@@ -591,7 +591,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/rb_link1.STL" />
+          filename="package://simulation/meshes/rb_link1.STL" />
       </geometry>
     </collision>
   </link>
@@ -634,7 +634,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/rb_link2.STL" />
+          filename="package://simulation/meshes/rb_link2.STL" />
       </geometry>
       <material
         name="">
@@ -648,7 +648,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/rb_link2.STL" />
+          filename="package://simulation/meshes/rb_link2.STL" />
       </geometry>
     </collision>
   </link>
@@ -691,7 +691,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/rb_link3.STL" />
+          filename="package://simulation/meshes/rb_link3.STL" />
       </geometry>
       <material
         name="">
@@ -705,7 +705,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://simulation/urdf_new/quadrupedRobot2/meshes/rb_link3.STL" />
+          filename="package://simulation/meshes/rb_link3.STL" />
       </geometry>
     </collision>
   </link>

@@ -25,7 +25,6 @@ setup(
     entry_points={
         'console_scripts': [
             'nodeBalanceController = balance_controller.nodeBalanceController:main',
-            'nodeDiagRecorder = balance_controller.nodeDiagRecorder:main',
         ],
     },
 )
