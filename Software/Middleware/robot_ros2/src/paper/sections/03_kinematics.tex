@@ -14,7 +14,8 @@ and $l_3=116$ mm.
 The mathematical solution avoids geometric singularities by
 enforcing strictly restricted bounding limits calculated dynamically
 during system initialization. Fig.~\ref{fig:kinematic_model}
-illustrates the reference frame assignments at each joint
+shows the physical quadruped robot prototype alongside its simulation model, 
+which illustrates the reference frame assignments at each joint
 origin, with RGB axes denoting the local coordinate systems
 used for forward and inverse kinematic resolution. The kinematic 
 chain is mathematically formalized using the Modified 
@@ -68,8 +69,20 @@ where $k \in \{-1, 1\}$ is the structural symmetry coefficient ($k = -1$ for Lef
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.6\columnwidth]{figures/model_referenceframe.png}
-    \caption{Simulation model with reference frames at each joint}
+    \begin{subfigure}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/quadrupedrobot.png}
+        \caption{Physical prototype}
+        \label{fig:prototype}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/model_referenceframe.png}
+        \caption{Simulation model}
+        \label{fig:kinematic_model_sub}
+    \end{subfigure}
+    \caption{Quadruped robot physical prototype and simulation model with reference frames}
     \label{fig:kinematic_model}
 \end{figure}
 
