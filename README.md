@@ -15,6 +15,10 @@
 
 A 12-DOF quadruped robot simulation and control framework. This project provides two independent simulation environments:
 
+<p align="center">
+  <img src="Software/Middleware/robot_ros2/src/thesis/images/real_robot/quadrupedrobot.jpeg" alt="Real Quadruped Robot" width="80%" />
+</p>
+
 | Simulation | Engine | Control | Platform |
 | :--- | :--- | :--- | :--- |
 | **Part I** | CoppeliaSim (V-REP) | MATLAB via Legacy Remote API | Windows / Linux |
@@ -508,13 +512,14 @@ Software/Middleware/robot_ros2/
 ├── src/
 │   ├── launch_main/                    # Top-level launch package
 │   │   ├── launch/
-│   │   │   └── launch_main.py          # Main launch file (starts all nodes)
+│   │   │   ├── launch_sim.py           # Launch simulation environment
+│   │   │   └── launch_real.py          # Launch real-hardware environment
 │   │   ├── CMakeLists.txt
 │   │   └── package.xml
 │   │
 │   ├── simulation/                     # Simulation description package
 │   │   ├── urdf/
-│   │   │   └── quadrupedRobot.urdf     # Robot URDF model (12 joints, ros2_control)
+│   │   │   └── quadruped_robot.urdf    # Robot URDF model (12 joints, ros2_control)
 │   │   ├── launch/
 │   │   │   └── launch_simulation.py    # Simulation launch (Gazebo, RViz, controllers)
 │   │   ├── config/
@@ -523,22 +528,44 @@ Software/Middleware/robot_ros2/
 │   │   │   └── custom_physics.world    # Gazebo world with tuned friction and physics
 │   │   ├── rviz/
 │   │   │   └── config.rviz             # RViz visualization configuration
+│   │   ├── meshes/                     # 3D mesh files for visualization
+│   │   ├── sim_imu_controller/         # Simulated IMU controller
 │   │   ├── setup.py
 │   │   └── package.xml
 │   │
 │   ├── leg_controller/                 # Gait control package
 │   │   ├── leg_controller/
 │   │   │   ├── nodeLegController.py    # Main ROS 2 node (entry point)
+│   │   │   ├── nodeWebGui.py           # Web GUI for real-time control
+│   │   │   ├── gaitController.py       # Gait pattern execution
 │   │   │   ├── gaitGenerator.py        # Gait pattern generator
+│   │   │   ├── gaitTrajectory.py       # Trajectory planning module
+│   │   │   ├── gaitConfig.py           # Gait parameters and configuration
+│   │   │   ├── gaitBalance.py          # IMU-based balance compensation
 │   │   │   ├── kinematics.py           # Inverse kinematics solver
 │   │   │   ├── quinticPlanning.py      # Quintic polynomial trajectory planning
-│   │   │   ├── controllerSim.py        # Gazebo joint state subscriber and publisher
-│   │   │   └── serialPublish.py        # Joint command publisher interface
+│   │   │   ├── actuator.py             # Hardware actuator interface
+│   │   │   └── controllerSim.py        # Gazebo joint state subscriber and publisher
 │   │   ├── setup.py
 │   │   └── package.xml
 │   │
-│   └── serial_driver/                  # Serial communication driver (for hardware)
-│       └── ...
+│   ├── balance_controller/             # PID balance controller
+│   │   └── balance_controller/
+│   │       └── nodeBalanceController.py
+│   │
+│   ├── serial_driver/                  # Hardware serial comm (C++)
+│   │   ├── src/
+│   │   │   ├── serial_driver.cpp       # Main serial communication driver
+│   │   │   ├── servo_calibrator.cpp    # Standalone calibrator utility
+│   │   │   └── calibrate_limits.cpp    # Joint limits configuration
+│   │   ├── calibration/                # Scripts for initial hardware setup
+│   │   │   ├── test_servo_phase0.cpp
+│   │   │   ├── calibrate_servo.cpp
+│   │   │   └── change_servo_id.cpp
+│   │   └── SCServo_Linux/              # SCS/STS servo SDK
+│   │
+│   ├── paper/                          # IEEE-style research paper (LaTeX)
+│   └── thesis/                         # Capstone thesis document (LaTeX)
 │
 ├── build/                              # colcon build output (auto-generated)
 ├── install/                            # colcon install output (auto-generated)
@@ -578,62 +605,41 @@ source install/setup.bash
 > echo "source ~/catkin_ws/src/quadruped-robot/Software/Middleware/robot_ros2/install/setup.bash" >> ~/.bashrc
 > ```
 
-## II.9 Running the Simulation
+## II.9 Running the System
 
-### Option A — Full Launch (Recommended)
+You can run the full system either in the Gazebo simulation environment or on the real physical hardware. Both launch configurations automatically start the backend controllers and the interactive **Web GUI**.
 
-This starts all nodes at once: Gazebo, RViz, robot model, controllers, and the gait controller node.
+### Launching the Simulation
 
-**Terminal 1:**
+Starts Gazebo, RViz, the simulated robot model, and the controller nodes.
+
 ```bash
 source /opt/ros/humble/setup.bash
 source install/setup.bash
-ros2 launch launch_main launch_main.py
+ros2 launch launch_main launch_sim.py
 ```
 
-### Option B — Step-by-Step Launch
+### Launching Real Hardware
 
-If you need more control or want to debug individual components:
+Starts the serial drivers for the physical servos and the controller nodes without opening the physics simulator.
 
-**Terminal 1 — Launch Gazebo and Controllers:**
 ```bash
 source /opt/ros/humble/setup.bash
 source install/setup.bash
-ros2 launch simulation launch_simulation.py
+ros2 launch launch_main launch_real.py
 ```
 
-Wait until you see the Gazebo window with the robot model spawned. Then verify the controllers:
+### Using the Web GUI (Recommended)
 
-```bash
-ros2 control list_controllers
-```
+Whenever you launch the system (either simulation or real), a local web server is hosted automatically.
 
-Expected output:
-```
-joint_state_broadcaster [joint_state_broadcaster/JointStateBroadcaster] active
-leg_controller          [effort_controllers/JointGroupEffortController] active
-```
+1. Open your web browser.
+2. Navigate to [http://localhost:8080](http://localhost:8080).
+3. Use the visual interface to trigger locomotion gaits, adjust speed, and command body postures in real-time.
 
-**Terminal 2 — Launch the Gait Controller Node:**
-```bash
-source /opt/ros/humble/setup.bash
-source install/setup.bash
-ros2 run leg_controller node_leg_controller
-```
+## II.10 Command Line Interface (Optional)
 
-You should see:
-```
-[INFO] [node_leg_controller]: The main Node has started.
-```
-
-Once the node receives encoder data from Gazebo, it will output:
-```
-[INFO] [node_leg_controller]: Init pose reached. Waiting for commands.
-```
-
-## II.10 Publishing Gait Commands
-
-Once the system is running and the node reports `Waiting for commands`, you can send gait commands via the `/gait_control` topic.
+Alternatively, you can send gait commands directly via the `/gait_control` topic from the terminal.
 
 The command format is:
 
@@ -707,12 +713,23 @@ To inspect the effort (torque) commands being sent to the virtual motors:
 ros2 topic echo /leg_controller/commands
 ```
 
-## II.11 Expected Behavior
+## II.11 Expected Behavior & Controller Performance
 
 1. **Gazebo Window:** The quadruped robot appears in the custom world. The body is dark grey, hip links are red, upper legs are green, and lower legs are blue.
 2. **RViz Window:** The same robot model is visualized with TF frames displayed.
 3. **Initial State:** After the `node_leg_controller` starts, the robot holds its initial standing pose.
 4. **After Gait Command:** The robot begins executing the requested gait pattern. Legs move in coordinated pairs (trot gait), with trajectory following quintic polynomial profiles.
+
+### Controller Performance (PID Tuning Results)
+
+The balance and joint controllers have been tuned for optimal trajectory tracking and error minimization during various phases of operation. The following graphs demonstrate the PID error characteristics:
+
+<p align="center">
+  <img src="Software/Middleware/robot_ros2/src/thesis/images/results/pid_error_home.png" alt="PID Error at Home Position" width="48%" />
+  <img src="Software/Middleware/robot_ros2/src/thesis/images/results/pid_error_gait.png" alt="PID Error during Gait Execution" width="48%" />
+</p>
+
+*Left: Joint tracking error while maintaining the home position. Right: Joint tracking error during dynamic gait execution.*
 
 ## II.12 Common Errors and Solutions
 
