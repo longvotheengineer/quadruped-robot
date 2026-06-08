@@ -90,9 +90,12 @@
         \node[anchor=north east, inner sep=0.7cm] at (current page.north east) {\includegraphics[width=2.5cm]{misc/hcmut_logo_transparent.png}};
         
         % Main Title
-        \node[anchor=west, text=white, font=\Large\bfseries, text width=12cm] at ([xshift=1cm, yshift=-2cm]current page.north west) {THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG\\ \textcolor{hcmutred}{HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI}};
-        % Subtitle
-        \node[anchor=west, text=lightgray, font=\normalsize, text width=12cm] at ([xshift=1cm, yshift=-3.3cm]current page.north west) {VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN\\SỬ DỤNG PHẢN HỒI IMU};
+        \node[anchor=west, text=white, font=\large\bfseries, text width=11.5cm] at ([xshift=1cm, yshift=-2.25cm]current page.north west) {
+            THIẾT KẾ, MÔ PHỎNG VÀ THI CÔNG\\[0.1cm]
+            HỆ THỐNG TẠO DÁNG ĐI THÍCH NGHI\\[0.1cm]
+            VÀ ỔN ĐỊNH TƯ THẾ CHO ROBOT BỐN CHÂN\\[0.1cm]
+            SỬ DỤNG PHẢN HỒI IMU
+        };
         
         % Group Info & Details
         \node[anchor=north west, text=hcmutblue, font=\Large\bfseries] at ([xshift=1cm, yshift=-5.2cm]current page.north west) {NHÓM THỰC HIỆN:};
@@ -101,7 +104,7 @@
         \node[anchor=north west, text=darktext, font=\normalsize] at ([xshift=1cm, yshift=-7.2cm]current page.north west) {\textbf{GVPB:} TS. Nguyễn Hoàng Giáp};
         
         % Date
-        \node[anchor=south west, text=darktext, font=\small] at ([xshift=1cm, yshift=0.5cm]current page.south west) {TP. Hồ Chí Minh, \today};
+        \node[anchor=south west, text=darktext, font=\small] at ([xshift=1cm, yshift=0.5cm]current page.south west) {TP. Hồ Chí Minh, 9 tháng 6 năm 2026};
         
         % Aesthetic watermark
         \fill[hcmutred!80] (current page.south east) -- ([yshift=1.5cm]current page.south east) -- ([xshift=-1.5cm]current page.south east) -- cycle;
@@ -251,42 +254,22 @@
 \end{frame}
 
 \begin{frame}{Động học nghịch (IK)}
-  \begin{columns}[t]
-      \begin{column}{0.45\textwidth}
+  \begin{columns}[T]
+      \begin{column}{0.4\textwidth}
           \begin{block}{Biến đổi Tọa độ \& Xử lý đối xứng}
               \vspace{-0.2cm}
-              {\scriptsize
+              {\small
               \begin{equation*}
                   x' = z_B, \quad y' = \sigma_W \frac{W}{2} - y_B, \quad z' = \sigma_L \frac{L}{2} + x_B
               \end{equation*}
               }
           \end{block}
-          {\footnotesize
-          Tọa độ mục tiêu $(x_B, y_B, z_B)$ từ hệ thân robot được tịnh tiến và hoán đổi trục để chuyển sang không gian cục bộ của từng chân. Bảng hệ số được thiết lập nhằm bù đắp sự khác biệt về vị trí gốc tọa độ và chiều quay của các khớp hông.
+          \vspace{0.2cm}
+          {\small
+          Trong đó, các hệ số $\sigma_W, \sigma_L \in \{-1, 1\}$ được xác định dựa trên vị trí lắp đặt của từng chân (Trái/Phải, Trước/Sau) nhằm đồng nhất hệ trục tọa độ cho cả 4 chân về chung một bài toán.
           }
-          \vspace{0.1cm}
-          \begin{table}[htbp]
-              \centering
-              \resizebox{\linewidth}{!}{
-              \def\arraystretch{1.3}
-              \begin{tabular}{|l|c|c|c|c|}
-                  \hline
-                  \textbf{Chân} & $\boldsymbol{\sigma_W}$ & $\boldsymbol{\sigma_L}$ & \textbf{Dấu $\boldsymbol{L_1}$ trong $\boldsymbol{\theta_1}$} & \textbf{Dấu $\boldsymbol{\sin\theta_3}$} \\
-                  \hline
-                  Left-Front  & $+1$ & $-1$ & $-L_1$ & $-1$ \\
-                  \hline
-                  Left-Behind & $+1$ & $+1$ & $-L_1$ & $-1$ \\
-                  \hline
-                  Right-Front & $-1$ & $-1$ & $+L_1$ & $+1$ \\
-                  \hline
-                  Right-Behind & $-1$ & $+1$ & $+L_1$ & $+1$ \\
-                  \hline
-              \end{tabular}
-              }
-              \caption{Bảng hệ số biến đổi tọa độ và dấu IK}
-          \end{table}
       \end{column}
-      \begin{column}{0.55\textwidth}
+      \begin{column}{0.58\textwidth}
           \begin{block}{Nghiệm theo phương pháp đại số}
               \vspace{-0.2cm}
               {\scriptsize
@@ -296,15 +279,13 @@
                   \theta_2 &= \mathrm{atan2}(p_2,\, p_1) - \mathrm{atan2}(L_3 \sin\theta_3,\, L_2 + L_3 \cos\theta_3)
               \end{align*}
               }
-              {\scriptsize
-              Các biến trung gian: $p_1 = x'\cos\theta_1 + y'\sin\theta_1$ và $p_2 = z'$ (trái) hoặc $p_2 = -z'$ (phải). \\
-              \textit{Lưu ý: Các dấu $\pm$ trong phương trình $\theta_1, \theta_3$ được lấy trực tiếp từ Bảng 2.}
+              \vspace{0.1cm}
+              {\footnotesize
+              Các biến trung gian: $p_1 = x'\cos\theta_1 + y'\sin\theta_1$ và $p_2 = \pm z'$. \\
+              \textit{Lưu ý: Các dấu $\pm$ trong phương trình được xác định linh hoạt theo tính đối xứng của từng chân.}
               }
+              \vspace{0.1cm}
           \end{block}
-          \vspace{0.05cm}
-          {\footnotesize
-          Vị trí không gian của các chân được ràng buộc chặt chẽ thông qua hệ tọa độ thân $\{B\}$. Hệ phương trình đại số ánh xạ trực tiếp tọa độ mục tiêu từ hệ thân sang hệ tọa độ góc khớp, đảm bảo sự phối hợp đồng bộ và bảo toàn cấu hình động học tổng thể của robot.
-          }
       \end{column}
   \end{columns}
 \end{frame}
@@ -423,56 +404,39 @@
 \end{frame}
 \begin{frame}{Lựa chọn cơ cấu chấp hành}
   \begin{columns}[T]
-      \begin{column}{0.65\textwidth}
-          \textbf{Tải trọng thiết kế:} Mô hình tính toán dựa trên lực tĩnh. Các gia tốc động lực học được bù trừ bằng hệ số an toàn $\eta=1.6$: $F_N = \frac{Mg}{2} \approx 12.26\,\text{N}$.
+      \begin{column}{0.55\textwidth}
+          \textbf{Tải trọng thiết kế ($\eta = 1.6$):} \\
+          $F_N = \frac{Mg}{2} \approx 12.26\,\text{N}$
           
-          \vspace{0.15cm}
-          \textbf{Đánh giá mô-men xoắn (Torque) cực đại:}
+          \vspace{0.3cm}
+          \textbf{Mô-men xoắn cực đại:}
           \begin{itemize}
-              \item \textbf{Khớp gối (Knee):} Thông qua cơ cấu thanh kéo $CB-CD-DE$:
-              \begin{equation*}
-                  T_{\text{knee}} = \eta F_N L_3 \sin(\alpha) \frac{L_{DE}}{L_{CB}} \approx \mathbf{17.0\,\text{kg}\cdot\text{cm}}
-              \end{equation*}
-              $\Rightarrow$ Thỏa mãn định mức an toàn của động cơ ST3215-HS ($20\,\text{kg}\cdot\text{cm}$).
+              \item \textbf{Khớp gối (Knee):} \\
+              $T_{\text{knee}} = \eta F_N L_3 \sin(\alpha) \frac{L_{DE}}{L_{CB}} \approx 17.0\,\text{kg}\cdot\text{cm}$
               
-              \vspace{0.15cm}
-              \item \textbf{Khớp vai (Hip Roll):} Tại góc dang chân cực đại $\theta_1 = 30^\circ$: \\
-              $T_{\text{roll}} \approx \mathbf{20.9\,\text{kg}\cdot\text{cm}} < 30\,\text{kg}\cdot\text{cm}$ (Định mức ST3215).
+              \vspace{0.2cm}
+              \item \textbf{Khớp vai (Hip Roll):} \\
+              $T_{\text{roll}} \approx 20.9\,\text{kg}\cdot\text{cm}$
               
-              \vspace{0.15cm}
-              \item \textbf{Khớp hông (Hip Pitch):} Tại góc vươn chân leo dốc $\alpha = 45^\circ$: \\
-              $T_{\text{pitch}} \approx \mathbf{23.2\,\text{kg}\cdot\text{cm}} < 30\,\text{kg}\cdot\text{cm}$ (Định mức ST3215).
+              \vspace{0.2cm}
+              \item \textbf{Khớp hông (Hip Pitch):} \\
+              $T_{\text{pitch}} \approx 23.2\,\text{kg}\cdot\text{cm}$
           \end{itemize}
+          \vspace{0.3cm}
+          \textbf{Kết luận:} Thỏa mãn định mức an toàn của động cơ ST3215 ($30\,\text{kg}\cdot\text{cm}$).
       \end{column}
-      \begin{column}{0.35\textwidth}
+      \begin{column}{0.45\textwidth}
           \begin{figure}
               \centering
-              \vspace{0.1cm}
-              \includegraphics[width=\linewidth, keepaspectratio]{hardware/servo_torque_analysis.png}
+              \vspace{-0.2cm}
+              \includegraphics[width=0.95\linewidth, height=6cm, keepaspectratio]{hardware/servo_torque_analysis.png}
               \caption{Sơ đồ phân tích lực tại khớp gối}
           \end{figure}
       \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Thiết kế mạch nhúng và cảm biến}
-  \begin{columns}
-      \begin{column}{0.4\textwidth}
-          \begin{itemize}
-              \item \textbf{Máy tính nhúng:} NVIDIA Jetson Nano.
-              \item \textbf{Cảm biến:} BNO055 IMU (I2C).
-              \item \textbf{Giao tiếp servo:} Chia 2 nhánh Serial bằng mạch Bus Servo Adapter để giảm tải UART.
-          \end{itemize}
-      \end{column}
-      \begin{column}{0.6\textwidth}
-          \begin{figure}
-              \centering
-              \includegraphics[width=\linewidth, height=0.7\textheight, keepaspectratio]{hardware/system_wiring_diagram.jpg}
-              \caption{Sơ đồ hệ thống dây điện tổng thể}
-          \end{figure}
-      \end{column}
-  \end{columns}
-\end{frame}
+
 
 
 % --------------------------------------------------
@@ -674,14 +638,14 @@
       \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/PID turning nhiễu step.png}
+              \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{images/pid_tuning/PID turning nhiễu step.png}
               \caption{Đáp ứng hệ thống với tín hiệu nhiễu hàm Step}
           \end{figure}
       \end{column}
       \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/PID turning nhiễu sin.png}
+              \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{images/pid_tuning/PID turning nhiễu sin.png}
               \caption{Đáp ứng hệ thống với tín hiệu nhiễu hàm Sine}
           \end{figure}
       \end{column}
@@ -826,7 +790,7 @@
 
 \begin{frame}{Kết luận và Hướng phát triển}
   \begin{columns}[T]
-      \begin{column}{0.5\textwidth}
+      \begin{column}{0.48\textwidth}
           \begin{block}{Kết quả đạt được}
               \small
               \begin{itemize}
@@ -836,7 +800,7 @@
               \end{itemize}
           \end{block}
       \end{column}
-      \begin{column}{0.5\textwidth}
+      \begin{column}{0.48\textwidth}
           \begin{alertblock}{Đề xuất Hướng phát triển}
               \small
               \begin{itemize}
@@ -933,6 +897,25 @@
                   \item \textbf{Giải pháp thay thế:} Do giới hạn kinh phí không có cảm biến lực, đề tài sử dụng trực tiếp góc nghiêng từ IMU (Roll, Pitch) để ước lượng trạng thái mất cân bằng và phản xạ bù trừ tức thời.
               \end{itemize}
           \end{block}
+      \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Phụ lục A4: Thiết kế mạch nhúng và cảm biến}
+  \begin{columns}
+      \begin{column}{0.4\textwidth}
+          \begin{itemize}
+              \item \textbf{Máy tính nhúng:} NVIDIA Jetson Nano.
+              \item \textbf{Cảm biến:} BNO055 IMU (I2C).
+              \item \textbf{Giao tiếp servo:} Chia 2 nhánh Serial bằng mạch Bus Servo Adapter để giảm tải UART.
+          \end{itemize}
+      \end{column}
+      \begin{column}{0.6\textwidth}
+          \begin{figure}
+              \centering
+              \includegraphics[width=\linewidth, height=0.7\textheight, keepaspectratio]{hardware/system_wiring_diagram.jpg}
+              \caption{Sơ đồ hệ thống dây điện tổng thể}
+          \end{figure}
       \end{column}
   \end{columns}
 \end{frame}
@@ -1498,21 +1481,21 @@
       \begin{column}{0.33\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, keepaspectratio]{../Images/PID_turning/PID_turning/roll turning Kp=4.png}
+              \includegraphics[width=\linewidth, keepaspectratio]{images/pid_tuning/roll turning Kp=4.png}
               \caption{Chỉ dùng khâu P}
           \end{figure}
       \end{column}
       \begin{column}{0.33\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, keepaspectratio]{../Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3.png}
+              \includegraphics[width=\linewidth, keepaspectratio]{images/pid_tuning/roll turning Kp=4 Kd=1.3.png}
               \caption{Dùng khâu PD}
           \end{figure}
       \end{column}
       \begin{column}{0.33\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, keepaspectratio]{../Images/PID_turning/PID_turning/roll turning Kp=4 Kd=1.3 Ki=1.2.png}
+              \includegraphics[width=\linewidth, keepaspectratio]{images/pid_tuning/roll turning Kp=4 Kd=1.3 Ki=1.2.png}
               \caption{Dùng PID hoàn chỉnh}
           \end{figure}
       \end{column}
@@ -1531,21 +1514,21 @@
       \begin{column}{0.33\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, keepaspectratio]{../Images/PID_turning/PID_turning/pitch turning Kp=5.png}
+              \includegraphics[width=\linewidth, keepaspectratio]{images/pid_tuning/pitch turning Kp=5.png}
               \caption{Chỉ dùng khâu P}
           \end{figure}
       \end{column}
       \begin{column}{0.33\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, keepaspectratio]{../Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3.png}
+              \includegraphics[width=\linewidth, keepaspectratio]{images/pid_tuning/pitch turning Kp=5 Kd=1.3.png}
               \caption{Dùng khâu PD}
           \end{figure}
       \end{column}
       \begin{column}{0.33\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, keepaspectratio]{../Images/PID_turning/PID_turning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png}
+              \includegraphics[width=\linewidth, keepaspectratio]{images/pid_tuning/pitch turning Kp=5 Kd=1.3 Ki=1.6.png}
               \caption{Dùng PID hoàn chỉnh}
           \end{figure}
       \end{column}
@@ -1564,14 +1547,14 @@
       \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/PID bù trực tiếp Kp=1 step.png}
+              \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{images/pid_tuning/PID bù trực tiếp Kp=1 step.png}
               \caption{Đáp ứng hàm Step với Kp=1, Ki=0, Kd=0}
           \end{figure}
       \end{column}
       \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/PID bù trực tiếp Kp=1 sin.png}
+              \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{images/pid_tuning/PID bù trực tiếp Kp=1 sin.png}
               \caption{Đáp ứng hàm Sine với Kp=1, Ki=0, Kd=0}
           \end{figure}
       \end{column}
@@ -1588,7 +1571,7 @@
   \vspace{-0.2cm}
   \begin{figure}
       \centering
-      \includegraphics[width=0.85\linewidth, height=0.5\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/zout.png}
+      \includegraphics[width=0.85\linewidth, height=0.5\textheight, keepaspectratio]{images/pid_tuning/zout.png}
       \caption{Góc khớp của 4 chân khi robot chạy Trot và có bù thăng bằng PID}
   \end{figure}
   \vspace{-0.2cm}
@@ -1604,14 +1587,14 @@
       \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/xử lí pitch trước khi đưa vào PID.png}
+              \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{images/pid_tuning/xử lí pitch trước khi đưa vào PID.png}
               \caption{Sự chuyển biến của tín hiệu Pitch qua các khâu lọc}
           \end{figure}
       \end{column}
       \begin{column}{0.5\textwidth}
           \begin{figure}
               \centering
-              \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{../Images/PID_turning/PID_turning/xử lí roll trước khi đưa vào PID.png}
+              \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{images/pid_tuning/xử lí roll trước khi đưa vào PID.png}
               \caption{Sự chuyển biến của tín hiệu Roll qua các khâu lọc}
           \end{figure}
       \end{column}
