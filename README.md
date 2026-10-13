@@ -2,7 +2,6 @@
 
 > **Author:** LvDaengineer  
 > **Project:** [quadruped-robot](https://github.com/users/longvotheengineer/projects/3/views/4)  
-> **License:** MIT
 
 ---
 
